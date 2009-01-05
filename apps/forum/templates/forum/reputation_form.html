@@ -1,0 +1,51 @@
+{% extends 'forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div class="blockform">
+	<h2><span>{% trans "Please, fill the form" %}</span></h2>
+	<div class="box">
+		<div class="inbox">
+			<form action="{% url reputation form.to_user %}" method="post">	
+			<table cellspacing="0">
+				{{ form.topic }}
+				{{ form.sign }}
+				<tbody><tr>
+					<td class="tc4" width="30%">{% trans "Your name:" %}</td>
+					<td class="tc4" width="70%">{{ form.from_user }}</td>
+				</tr>
+				<tr>
+					<td class="tc4" width="30%">{% trans "To whom we change a reputation:" %}</td>
+					<td class="tc4" width="70%">{{ form.to_user }}</td>
+
+				</tr>
+				<tr>
+					<td class="tc4" width="30%">{% trans "The reason of change of reputation:" %}</td>
+					<td class="tc4" width="70%">{{ form.reason }}</td>
+				</tr>				
+				<tr>
+					<td class="tc4" width="30%">{% trans "Method:" %}</td>
+					<td class="tc4" width="70%">
+						{% ifequal request.GET.action "plus" %}
+						{% trans "Add of a reputation" %}
+						{% else %}
+						{% trans "Reduction of a reputation" %}
+						{% endifequal %}
+					</td>
+
+				</tr>
+			</tbody></table>
+			<table cellspacing="0">
+				<tbody><tr>
+					<td class="tc4" style="text-align: center;"><input name="submit" value="{% trans "Submit" %}" type="submit">  <a href="javascript:history.go(-1)">{% trans "Go back" %}</a></td>
+				</tr>
+			</tbody></table>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block controls %}
+{% endblock %}

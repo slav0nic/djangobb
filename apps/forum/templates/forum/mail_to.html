@@ -1,0 +1,32 @@
+{% extends 'forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div class="blockform">
+	<h2><span>{% trans "Send e-mail to" %} {{ user }}</span></h2>
+	<div class="box">
+		<form id="email" method="post">
+			<div class="inform">
+				<fieldset>
+					<legend>{% trans "Write and submit your e-mail message" %}</legend>
+
+					<div class="infldset txtarea">
+						<label><strong>{{ form.subject.label }}</strong><br />
+						{{ form.subject }}<br /></label>
+						<label><strong>{{ form.body.label }}</strong><br />
+						{{ form.body }}<br /></label>
+
+						<p>{% trans "Please note that by using this form, your e-mail address will be disclosed to the recipient." %}</p>
+					</div>
+				</fieldset>
+			</div>
+			<p><input type="submit" name="submit" value="{% trans "Submit" %}" tabindex="3" accesskey="s" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block controls %}
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div id="profile" class="block2col">
+	{% include 'forum/profile/profile_menu.html' %}
+	<div class="blockform">
+		<h2><span>{{ profile.username }} - {% trans "Essentials" %}</span></h2>
+		{{ form.errors }}
+		<div class="box">
+			<form id="profile1" method="post">
+
+				<div class="inform">
+					<fieldset>
+						<legend>{% trans "Enter your username and password" %}</legend>
+						<div class="infldset">
+							<label><strong>{{ form.username.label }}</strong><br>
+							{% if request.user.is_superuser %}
+								{{ form.username }}
+							{% else %}
+								{{ form.fields.username.initial }}
+							{% endif %}
+							<br></label>
+							<p><a href="{% url auth_password_change %}">{% trans "Change password" %}</a></p>
+					</div>
+
+					</fieldset>
+				</div>
+				<div class="inform">
+					<fieldset>
+						<legend>{% trans "Enter a valid e-mail address" %}</legend>
+						<div class="infldset">
+							<label><strong>{{ form.email.label }}</strong><br>
+							{{ form.email }}<br></label>
+							<p><a href="{% url misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
+
+						</div>
+					</fieldset>
+				</div>
+				<div class="inform">
+					<fieldset>
+						<legend>{% trans "Set your localisation options" %}</legend>
+						<div class="infldset">
+
+							<label>
+								{% trans "Timezone: For the forum to display times correctly you must select your local timezone." %}<br>
+							<br>
+							{{ form.time_zone }}
+							</label>
+							<label>
+								{% trans "Language: You can choose which language you wish to use to view the forum" %}
+							<br>
+							{{ form.language }}
+							<br></label>
+						</div>
+					</fieldset>
+				</div>
+				<div class="inform">
+
+					<fieldset>
+						<legend>{% trans "User activity" %}</legend>
+						<div class="infldset">
+							<p>{% trans "Registered:" %} {{ profile.date_joined|date:"Y-m-d" }}</p>
+							<p>{% trans "Last post:" %} {{ profile.forum_profile.last_post }}</p>
+							<label>{% trans "Posts:" %} {{ form.fields.post_count.initial }} - 
+							<a href="{% url search %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></p>
+							</label>
+						</div>
+					</fieldset>
+				</div>
+				<p><input name="update" value="{% trans "Submit" %}" type="submit">{% trans "When you update your profile, you will be redirected back to this page." %}</p>
+			</form>
+		</div>
+
+	</div>
+	<div class="clearer"></div>
+</div>
+{% endblock %}
+
+{% block controls %}
+{% endblock %}

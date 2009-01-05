@@ -1,0 +1,17 @@
+{% extends 'forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div class="block2col">
+	{% include 'forum/pm/menu_pm.html' %}
+	
+	{% block sub_content %}
+	{% endblock %}
+	
+<div class="clearer"></div>
+</div>
+{% endblock %}
+
+{% block controls %}
+{% endblock %}

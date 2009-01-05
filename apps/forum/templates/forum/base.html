@@ -1,0 +1,61 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <title>DjangoBB demo</title>
+    <meta name="description" content="DjangoBB demo" />
+    <meta name="keywords" content="DjangoBB" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    {% if request.user.is_authenticated and request.user.forum_profile.theme %}
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/{{ request.user.forum_profile.theme }}/style.css" />
+	{% else %}
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/phpBB/style.css" />
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/skins/markitup/style.css" />
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/sets/bbcode/style.css" />
+	
+    <link rel="alternate" type="application/atom+xml" href="{% url forum_feed "posts" %}" title="{% trans "Latest posts on forum" %}" />
+    <link rel="alternate" type="application/atom+xml" href="{% url forum_feed "topics" %}" title="{% trans "Latest topics on forum" %}" />
+	
+    <!--<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />-->
+	
+    <script type="text/javascript" src="{{ MEDIA_URL }}forum/js/jquery.pack.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/board.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/markitup/jquery.markitup.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/markitup/sets/bbcode/set.js"></script>
+	
+	<script type="text/javascript" >
+	   $(document).ready(function() {
+	        $(".bbcode").markItUp(mySettings);
+	    });
+	</script>
+
+	
+    <!-- Highlightjs goodies -->
+    <script type="text/javascript" src="{{ MEDIA_URL }}forum/js/highlight.js"></script>
+    <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
+    </script>
+    <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}forum/css/hljs_styles/phpbb_blue.css" />
+
+    {% block extra_meta %}{% endblock %}
+</head>
+<body>
+    {% include 'forum/head.html' %}
+
+    {% block content %}{% endblock %}
+
+	<div id="brdfooter" class="block">
+		<h2><span>{% trans "Board footer" %}</span></h2>
+		<div class="box">
+			<div class="inbox">
+				{% block controls %}
+				{% endblock %}
+				<p class="conr">Powered by <a href="http://www.djangobb.org/">DjangoBB</a></p>
+				<div class="clearer"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

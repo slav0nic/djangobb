@@ -1,0 +1,4 @@
+{% load i18n %}{% blocktrans %}"Email change on {{ domain }}{% endblocktrans %}
+{% blocktrans %}You have requested the change of email on {{ domain }}{% endblocktrans %}.
+{% blocktrans %}After visiting the {{ url }}, the new email will be set for your accont{% endblocktrans %}.
+{% blocktrans %}New email: {{ email }}{% endblocktrans %}

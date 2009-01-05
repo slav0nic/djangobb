@@ -1,0 +1,37 @@
+{% extends 'forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div class="linkst">
+	<div class="inbox">
+		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link post.topic.forum %}</li><li>&raquo; {{ post.topic }}</li></ul>
+		<div class="clearer"></div>
+	</div>
+</div>
+
+<div class="blockform">
+	<h2>{% trans "Edit post" %}</h2>
+
+	<div class="box">
+		<form method="post">
+			<div class="inform">
+				<fieldset>
+					<legend>{% trans "Edit the post and submit changes" %}</legend>
+					<div class="infldset txtarea">
+						{% ifequal post.id post.topic.head.id %}
+						<label>{% trans "Subject" %}<br />
+						{{ form.name }}<br /></label>
+						{% endifequal %}
+						<label>{% trans "Message" %}<br />
+						{{ form.body }}
+						<br /></label>
+					</div>
+				</fieldset>
+			</div>
+
+			<p><input type="submit" value="{% trans "Save" %}" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
+		</form>
+	</div>
+</div>
+{% endblock %}

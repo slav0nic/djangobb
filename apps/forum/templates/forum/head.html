@@ -1,0 +1,67 @@
+{% load forum_extras %}
+{% load i18n %}
+
+<div id="punwrap">
+<div id="punindex" class="pun">
+
+<div id="brdheader" class="block">
+	<div class="box">
+
+		<div id="brdtitle" class="inbox">
+			<h1><span><a href="{% url index %}">{{ "FORUM_HEADER"|forum_setting }}</a></span></h1>
+			<p><span>{{ "FORUM_TAGLINE"|forum_setting|safe }}</span></p>
+		</div>
+		<div id="brdmenu" class="inbox">
+			<ul>
+				<li id="navindex"><a href="{% url index %}">{% trans "Index" %}</a></li>
+				<li id="navuserlist"><a href="{% url forum_users %}">{% trans "User list" %}</a></li>
+				<li id="navsearch"><a href="{% url search %}">{% trans "Search" %}</a></li>
+				{% if user.is_superuser %}
+				<li id="navadmin"><a href="/admin">{% trans "Administration" %}</a></li>
+				{% endif %}
+				{% if user.is_authenticated %}
+				<li id="navprofile"><a href="{% url forum_profile request.user %}">{% trans "Profile" %}</a></li>
+				<li id="navpm"><a href="{% url forum_pm_inbox %}">{% trans "PM" %}</a></li> 
+				<li id="navlogout"><a href="{% url auth_logout %}">{% trans "Log out" %}</a></li>
+				{% else %}
+    	        <li><a href="{% url auth_login %}">{% trans "Log in" %}</a></li>
+	            <li><a href="{% url registration_register %}">{% trans "Sign up" %}</a></li>
+        	    {% endif %}
+			</ul>
+		</div>
+		<div id="brdwelcome" class="inbox">
+			<ul class="conl">
+				{% if user.is_authenticated %}
+				<li>{% trans "Logged in as" %} <strong>{{ user.username }}</strong></li>
+				<li>{% trans "Last visit:" %} {% forum_time user.last_login %}</li>
+				{% if request.user|pm_unreads %}
+				<ul><li class="pmlink"><strong><a href="{% url forum_pm_inbox %}">{% blocktrans with request.user|pm_unreads as new_msg %} There are new messages ({{ new_msg }}){% endblocktrans %}</a></strong></li></ul>
+				{% endif %}
+				{% else %}
+				<li>{% trans "You are not logged in." %}</li>
+				{% endif %}
+				{% if user.is_superuser and reports %}
+				<li class="reportlink"><strong><a href="/admin">{% trans "There are new reports" %} ({% new_reports %})</a></strong></li>
+				{% endif %}
+			</ul>
+			{% if user.is_authenticated %}
+			<ul class="conr">
+				<li><a href="{% url search %}?action=show_new">{% trans "Show new posts since last visit" %}</a></li>
+				<li><a href="{% url misc %}?action=markread">{% trans "Mark all topics as read" %}</a></li>
+			</ul>
+			{% endif %}
+			<div class="clearer"></div>
+		</div>
+	</div>
+</div>
+
+{% if "FORUM_NOTICE"|forum_setting %}
+<div id="announce" class="block">
+	<h2><span>{% trans "Notice" %}</span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div>{{ "FORUM_NOTICE"|forum_setting }}</div>
+		</div>
+	</div>
+</div>
+{% endif %}

@@ -1,0 +1,78 @@
+{% extends 'forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div id="searchform" class="blockform">
+	<h2><span>{% trans "Search" %}</span></h2>
+	<div class="box">
+		<form id="search" method="get">
+			<input type="hidden" name="action" value="search" />
+			<div class="inform">
+				<fieldset>
+					<legend>{% trans "Enter your search criteria" %}</legend>
+					<div class="infldset">
+						<label class="conl">{{ form.keywords.label }}<br />{{ form.keywords }}<br /></label>
+						<label class="conl">{{ form.author.label }}<br />{{ form.author }}<br /></label>
+
+						<p class="clearb">{% trans "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for." %}</p>
+					</div>
+				</fieldset>
+			</div>
+			<div class="inform">
+				<fieldset>
+					<legend>{% trans "Select where to search" %}</legend>
+					<div class="infldset">
+
+						<label class="conl">{{ form.forum.label }}
+						<br />
+						<select id="forum" name="forum">
+							<option value="0">{% trans "All forums" %}</option>
+							{% for category in categories %}
+							<optgroup label="{{ category }}">
+								{% for forum in category.forums.all %}
+								<option value="{{ forum.id }}">{{ forum }}</option>
+								{% endfor %}
+							</optgroup>
+							{% endfor %}
+						</select>
+						<br /></label>
+						<label class="conl">{{ form.search_in.label }}					
+						<br />
+						{{ form.search_in }}
+						<br /></label>
+						<p class="clearb">{% trans "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both." %}</p>
+					</div>
+				</fieldset>
+			</div>
+			<div class="inform">
+				<fieldset>
+
+					<legend>{% trans "Select how to view search results" %}</legend>
+					<div class="infldset">
+						<label class="conl">{{ form.sort_by.label }}						
+						<br />
+						{{ form.sort_by }}
+						<br /></label>
+						<label class="conl">{{ form.sort_dir.label }}
+						<br />
+						{{ form.sort_dir }}
+
+						<br /></label>
+						<label class="conl">{{ form.show_as.label }}
+						<br />
+						{{ form.show_as }}
+						<br /></label>
+						<p class="clearb">{% trans "You can choose how you wish to sort and show your results." %}</p>
+
+					</div>
+				</fieldset>
+			</div>
+			<p><input type="submit" name="search" value="{% trans "Submit" %}" accesskey="s" /></p>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block controls %}
+{% endblock %}

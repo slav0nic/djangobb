@@ -1,0 +1,43 @@
+{% extends 'forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div id="profile" class="block2col">
+	{% include 'forum/profile/profile_menu.html' %}
+	<div class="blockform">
+		<h2><span>{{ profile.username }} - {% trans "Administration" %}</span></h2>
+		<div class="box">
+			<form id="profile7" method="post">
+				<div class="inform">
+
+					<fieldset>
+						<legend>{% trans "Delete (administrators only) or ban user" %}</legend>
+						<div class="infldset">
+							<input name="delete_user" value="{% trans "Delete user" %}" type="submit">&nbsp;&nbsp;<input name="ban" value="{% trans "Ban user" %}" type="submit">
+						</div>
+					</fieldset>
+				</div>
+
+				<div class="inform">
+					<fieldset>
+						<legend>{% trans "Set moderator access" %}</legend>
+						<div class="infldset">
+							<p>{% trans "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums." %}</p>
+							<div class="conl">
+								{{ form.forums }}
+							</div>
+							<br class="clearb"><input name="update_forums" value="{% trans "Update forums" %}" type="submit">
+						</div>
+					</fieldset>
+
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="clearer"></div>
+</div>
+{% endblock %}
+
+{% block controls %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div id="profile" class="block2col">
+	{% include 'forum/profile/profile_menu.html' %}
+	<div class="blockform">
+		<h2><span>{{ profile.username }} - {% trans "Messaging" %}</span></h2>
+		<div class="box">
+			<form id="profile3" method="post">
+				<div class="inform">
+
+					<fieldset>
+						<legend>{% trans "Personal" %}</legend>
+						<div class="infldset">
+							<label>{{ form.jabber.label }}<br>{{ form.jabber }}<br></label>
+							<label>{{ form.icq.label }}<br>{{ form.icq }}<br></label>
+							<label>{{ form.msn.label }}<br>{{ form.msn }}<br></label>
+
+							<label>{{ form.aim.label }}<br>{{ form.aim }}<br></label>
+							<label>{{ form.yahoo.label }}<br>{{ form.yahoo }}<br></label>
+						</div>
+					</fieldset>
+				</div>
+				<p><input name="update" value="{% trans "Submit" %}" type="submit">{% trans "When you update your profile, you will be redirected back to this page." %}</p>
+			</form>
+
+		</div>
+	</div>
+	<div class="clearer"></div>
+</div>
+{% endblock %}
+
+{% block controls %}
+{% endblock %}

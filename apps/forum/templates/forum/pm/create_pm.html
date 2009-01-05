@@ -1,0 +1,32 @@
+{% extends 'forum/pm/base_pm.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block sub_content %}
+
+
+<div class="blockform">
+	<h2><span>{% trans "Send a message" %}</span></h2>
+	<div class="box">
+	<form method="post" id="post">
+		<div class="inform">
+		<fieldset>
+			<legend>{% trans "Write your message and submit" %}</legend>
+
+			<div class="infldset txtarea">
+				<label ><strong>{{ form.recipient.label }}</strong><br />{{ form.recipient }}<br /></label>
+				<label><strong>{{ form.subject.label }}</strong><br />{{ form.subject }}<br /></label>
+				<label><strong>{{ form.body.label }}</strong><br />
+
+				{{ form.body }}<br /></label>
+			</div>
+		</fieldset>
+			</div>
+			<p><input type="submit" name="submit" value="{% trans "Send" %}" tabindex="6" accesskey="s" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
+
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
