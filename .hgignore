@@ -1,0 +1,11 @@
+syntax: glob
+local_settings.py
+*.pyc
+*.pyo
+.pydevproject
+.project
+debug_toolbar
+*.db
+*.json
+*.log
+*~
