@@ -89,7 +89,6 @@ INSTALLED_APPS = (
     'apps.account',
     'apps.captcha',
     'apps.forum',
-    'django_evolution',
 )
 
 FORCE_SCRIPT_NAME = ''
@@ -157,3 +156,8 @@ FORUM_EMOTION_LOL = '<img src="%sforum/img/smilies/lol.png">' % MEDIA_URL
 FORUM_EMOTION_MAD = '<img src="%sforum/img/smilies/mad.png">' % MEDIA_URL
 FORUM_EMOTION_ROLL = '<img src="%sforum/img/smilies/roll.png">' % MEDIA_URL
 FORUM_EMOTION_COOL = '<img src="%sforum/img/smilies/cool.png">' % MEDIA_URL
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
