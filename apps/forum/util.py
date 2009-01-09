@@ -157,7 +157,6 @@ def urlize(data):
         def handle_data(self, data):
             if not self.is_link:
                 data = django_urlize(data)
-                print data
             self.urlized_html.append(data)
     
         def handle_startendtag(self, tag, attrs):
@@ -170,7 +169,6 @@ def urlize(data):
         def __html_attrs(self, attrs):
             _attrs = ''
             if attrs:
-                print attrs
                 _attrs = ' %s' % (' '.join([('%s="%s"' % (k,v)) for k,v in attrs]))
             return _attrs
     

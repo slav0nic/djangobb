@@ -353,7 +353,6 @@ def user(request, username):
                          }, RequestContext(request))
             elif 'essentials' in request.GET['section']:
                 form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, user=user)
-                print form.is_valid()
                 if request.POST and form.is_valid():
                     form.save()
                 return render_to_response('forum/profile/profile_essentials.html', 

@@ -233,7 +233,6 @@ class UserSearchForm(forms.Form):
                 if sort_dir=='ASC':
                     #qs = qs.filter(username__contains=username).order_by('posts')
                     qs.query.group_by = ['username']
-                    print qs
                     return qs
                 elif sort_dir=='DESC':
                     #qs = qs.filter(username__contains=username).order_by('-posts')
@@ -409,6 +408,7 @@ class CreatePMForm(forms.ModelForm):
             raise forms.ValidationError(_('User with login %s does not exist') % name)
         else:
             return user
+
     def save(self):
         pm = PrivateMessage(src_user=self.user, dst_user=self.cleaned_data['recipient'])
         pm = forms.save_instance(self, pm)
