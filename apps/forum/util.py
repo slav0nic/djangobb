@@ -1,7 +1,7 @@
 from datetime import datetime
 import os.path
 import random
-from BeautifulSoup import BeautifulSoup
+from HTMLParser import HTMLParser
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -142,17 +142,45 @@ def urlize(data):
     Do not urlize content of A and CODE tags.
     """
     
-    soup = BeautifulSoup(data)
-    for chunk in soup.findAll(text=True):
-        islink = False
-        ptr = chunk.parent
-        while ptr.parent:
-            if ptr.name == 'a' or ptr.name == 'code':
-                islink = True
-                break
-            ptr = ptr.parent
+    class URLizeHTMLParser(HTMLParser):
+    
+        def __init__(self):
+            HTMLParser.__init__(self)
+            self.is_link = False
+            self.urlized_html = []
             
-        if not islink:
-            chunk = chunk.replaceWith(django_urlize(unicode(chunk)))
+        def handle_starttag(self, tag, attrs):
+            self.urlized_html.append('<%s%s>' % (tag, self.__html_attrs(attrs)))
+            if tag in ('a', 'code'):
+                self.is_link = True
+    
+        def handle_data(self, data):
+            if not self.is_link:
+                data = django_urlize(data)
+                print data
+            self.urlized_html.append(data)
+    
+        def handle_startendtag(self, tag, attrs):
+            self.urlized_html.append('<%s%s/>' % (tag, self.__html_attrs(attrs))) 
+    
+        def handle_endtag(self, tag):
+            self.is_link = False
+            self.urlized_html.append('</%s>' % (tag))
+    
+        def __html_attrs(self, attrs):
+            _attrs = ''
+            if attrs:
+                print attrs
+                _attrs = ' %s' % (' '.join([('%s="%s"' % (k,v)) for k,v in attrs]))
+            return _attrs
+    
+        def feed(self, data):
+            HTMLParser.feed(self, data)
+            self.urlized_html = ''.join(self.urlized_html)
+        
+    parser = URLizeHTMLParser()
+    parser.feed(data)
+    urlized_html = parser.urlized_html
+    parser.close()
+    return urlized_html
 
-    return unicode(soup)
