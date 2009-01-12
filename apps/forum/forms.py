@@ -208,10 +208,10 @@ class EditPostForm(forms.ModelForm):
 
 
 class UserSearchForm(forms.Form):
-    username = forms.CharField(required=False)
+    username = forms.CharField(required=False, label=_('Username'))
     #show_group = forms.ChoiceField(choices=SHOW_GROUP_CHOICES)
-    sort_by = forms.ChoiceField(choices=SORT_USER_BY_CHOICES)
-    sort_dir = forms.ChoiceField(choices=SORT_DIR_CHOICES)
+    sort_by = forms.ChoiceField(choices=SORT_USER_BY_CHOICES, label=_('Sort by'))
+    sort_dir = forms.ChoiceField(choices=SORT_DIR_CHOICES, label=_('Sort order'))
 
     def filter(self, qs):
         if self.is_valid():
@@ -237,7 +237,6 @@ class UserSearchForm(forms.Form):
                 elif sort_dir=='DESC':
                     #qs = qs.filter(username__contains=username).order_by('-posts')
                     qs.query.group_by = ['username']
-                    print qs
                     return qs
         else:
             return qs

@@ -10,4 +10,5 @@ debug_toolbar
 *.log
 *~
 *.kpf
+*.autosave
 static/forum/avatars
