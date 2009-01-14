@@ -123,7 +123,7 @@ class Topic(models.Model):
     views = models.IntegerField(_('Views count'), blank=True, default=0)
     sticky = models.BooleanField(_('Sticky'), blank=True, default=False)
     closed = models.BooleanField(_('Closed'), blank=True, default=False)
-    subscribers = models.ManyToManyField(User, related_name='subscriptions', verbose_name=_('Subscribers'))
+    subscribers = models.ManyToManyField(User, related_name='subscriptions', verbose_name=_('Subscribers'), blank=True)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
 
     class Meta:
@@ -227,8 +227,12 @@ class Post(models.Model):
         self_id = self.id
         head_post_id = self.topic.posts.order_by('created')[0].id
         super(Post, self).delete(*args, **kwargs)
-        self.topic.forum.post_count -= 1
+        
         self.topic.post_count -= 1
+        self.topic.save()
+        self.topic.forum.post_count -= 1
+        self.topic.forum.save()
+        
         if self_id == head_post_id:
             self.topic.delete()
 
