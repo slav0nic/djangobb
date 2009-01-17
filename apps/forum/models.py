@@ -15,6 +15,7 @@ from apps.forum.markups import mypostmarkup
 from apps.forum.fields import AutoOneToOneField, ExtendedImageField
 from apps.forum.subscription import notify_subscribers
 from apps.forum.util import urlize, smiles
+from apps.forum import settings as forum_settings
 
 LANGUAGE_CHOICES = (
     ('en', 'English'),
@@ -173,7 +174,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, related_name='posts', verbose_name=_('User'))
     created = models.DateTimeField(_('Created'), blank=True)
     updated = models.DateTimeField(_('Updated'), blank=True, null=True)
-    markup = models.CharField(_('Markup'), max_length=15, default=settings.FORUM_DEFAULT_MARKUP, choices=MARKUP_CHOICES)
+    markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
     body_text = models.TextField(_('Text version'))
@@ -263,15 +264,15 @@ class Profile(models.Model):
     aim = models.CharField(_('AIM'), max_length=80, blank=True, default='')
     yahoo = models.CharField(_('Yahoo'), max_length=80, blank=True, default='')
     location = models.CharField(_('Location'), max_length=30, blank=True, default='')
-    signature = models.TextField(_('Signature'), blank=True, default='', max_length=settings.FORUM_SIGNATURE_MAX_LENGTH)
-    time_zone = models.FloatField(_('Time zone'), choices=TZ_CHOICES, default=float(settings.FORUM_DEFAULT_TIME_ZONE))
+    signature = models.TextField(_('Signature'), blank=True, default='', max_length=forum_settings.SIGNATURE_MAX_LENGTH)
+    time_zone = models.FloatField(_('Time zone'), choices=TZ_CHOICES, default=float(forum_settings.DEFAULT_TIME_ZONE))
     language = models.CharField(_('Language'), max_length=3, blank=True, default='en', choices=LANGUAGE_CHOICES)
-    avatar = ExtendedImageField(_('Avatar'), blank=True, default='', upload_to=settings.FORUM_AVATARS_UPLOAD_TO, width=settings.FORUM_AVATAR_WIDTH, height=settings.FORUM_AVATAR_HEIGHT)
+    avatar = ExtendedImageField(_('Avatar'), blank=True, default='', upload_to=forum_settings.AVATARS_UPLOAD_TO, width=forum_settings.AVATAR_WIDTH, height=forum_settings.AVATAR_HEIGHT)
     theme = models.CharField(_('Theme'), choices=THEME_CHOICES, max_length=80, default='')
     show_avatar = models.BooleanField(_('Show avatar'), blank=True, default=True)
     show_signatures = models.BooleanField(_('Show signatures'), blank=True, default=True)
     privacy_permission = models.IntegerField(_('Privacy permission'), choices=PRIVACY_CHOICES, default=1)
-    markup = models.CharField(_('Default markup'), max_length=15, default=settings.FORUM_DEFAULT_MARKUP, choices=MARKUP_CHOICES)
+    markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
 
     class Meta:
         verbose_name = _('Profile')
@@ -341,7 +342,7 @@ class PrivateMessage(models.Model):
     src_user = models.ForeignKey(User, verbose_name=_('Author'), related_name='src_users')
     read = models.BooleanField(_('Read'), blank=True, default=False)
     created = models.DateTimeField(_('Created'), blank=True)
-    markup = models.CharField(_('Markup'), max_length=15, default=settings.FORUM_DEFAULT_MARKUP, choices=MARKUP_CHOICES)
+    markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     subject = models.CharField(_('Subject'), max_length=255)
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
