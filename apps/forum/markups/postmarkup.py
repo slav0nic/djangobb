@@ -11,8 +11,6 @@ import re
 from urllib import quote, unquote, quote_plus
 from urlparse import urlparse, urlunparse
 
-from django.conf import settings
-
 pygments_available = True
 try:
     from pygments import highlight
@@ -676,23 +674,6 @@ class PostMarkup(object):
                                         u'>':u'&gt;',
                                         u'&':u'&amp;',
                                         u'\n':u'<br/>',
-                                        u':)':settings.FORUM_EMOTION_SMILE,
-                                        u'=)':settings.FORUM_EMOTION_SMILE,
-                                        u':|':settings.FORUM_EMOTION_NEUTRAL,
-                                        u'=|':settings.FORUM_EMOTION_NEUTRAL,
-                                        u':(':settings.FORUM_EMOTION_SAD,
-                                        u'=(':settings.FORUM_EMOTION_SAD,
-                                        u':D':settings.FORUM_EMOTION_BIG_SMILE,
-                                        u'=D':settings.FORUM_EMOTION_BIG_SMILE,
-                                        u':o':settings.FORUM_EMOTION_YIKES,
-                                        u':O':settings.FORUM_EMOTION_YIKES,
-                                        u';)':settings.FORUM_EMOTION_WINK,
-                                        u':/':settings.FORUM_EMOTION_HMM,
-                                        u':P':settings.FORUM_EMOTION_TONGUE,
-                                        u':lol:':settings.FORUM_EMOTION_LOL,
-                                        u':mad:':settings.FORUM_EMOTION_MAD,
-                                        u':rolleyes:':settings.FORUM_EMOTION_ROLL,
-                                        u':cool:':settings.FORUM_EMOTION_COOL,
                                         })
 
     standard_replace_no_break = MultiReplace({  u'<':u'&lt;',

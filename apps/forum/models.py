@@ -14,7 +14,7 @@ from markdown import Markdown
 from apps.forum.markups import mypostmarkup 
 from apps.forum.fields import AutoOneToOneField, ExtendedImageField
 from apps.forum.subscription import notify_subscribers
-from apps.forum.util import urlize
+from apps.forum.util import urlize, smiles
 
 LANGUAGE_CHOICES = (
     ('en', 'English'),
@@ -204,6 +204,7 @@ class Post(models.Model):
             raise Exception('Invalid markup property: %s' % self.markup)
         self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
+        self.body_html = smiles(self.body_html)
 
         new = self.id is None
 
@@ -373,6 +374,7 @@ class PrivateMessage(models.Model):
             raise Exception('Invalid markup property: %s' % self.markup)
         self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
+        self.body_html = smiles(self.body_html)
         
         new = self.id is None
         super(PrivateMessage, self).save(*args, **kwargs)
