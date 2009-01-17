@@ -8,8 +8,8 @@
 	<div class="box">
 
 		<div id="brdtitle" class="inbox">
-			<h1><span><a href="{% url index %}">{{ "FORUM_HEADER"|forum_setting }}</a></span></h1>
-			<p><span>{{ "FORUM_TAGLINE"|forum_setting|safe }}</span></p>
+			<h1><span><a href="{% url index %}">{{ "HEADER"|forum_setting }}</a></span></h1>
+			<p><span>{{ "TAGLINE"|forum_setting|safe }}</span></p>
 		</div>
 		<div id="brdmenu" class="inbox">
 			<ul>
@@ -55,7 +55,7 @@
 	</div>
 </div>
 
-{% if "FORUM_NOTICE"|forum_setting %}
+{% if "NOTICE"|forum_setting %}
 <div id="announce" class="block">
 	<h2><span>{% trans "Notice" %}</span></h2>
 	<div class="box">

@@ -14,6 +14,7 @@ from django.utils import dateformat
 
 from apps.forum.models import Forum, Topic, Post, Read, PrivateMessage, Report
 from apps.forum.unread import cache_unreads
+from apps.forum import settings as forum_settings
 
 register = template.Library()
 
@@ -117,7 +118,7 @@ def has_unreads(topic, user):
     """
 
     now = datetime.now()
-    delta = timedelta(seconds=settings.FORUM_READ_TIMEOUT)
+    delta = timedelta(seconds=forum_settings.READ_TIMEOUT)
 
     if not user.is_authenticated():
         return False
@@ -144,7 +145,7 @@ def has_unreads(topic, user):
 
 @register.filter
 def forum_setting(name):
-    return mark_safe(getattr(settings, name, 'NOT DEFINED'))
+    return mark_safe(getattr(forum_settings, name, 'NOT DEFINED'))
 
 
 @register.filter

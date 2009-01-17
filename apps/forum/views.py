@@ -17,6 +17,7 @@ from apps.forum.models import Category, Forum, Topic, Post, Profile, Read, Reput
 from apps.forum.forms import AddPostForm, EditPostForm, UserSearchForm, PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
 from apps.forum.markups import mypostmarkup
 from apps.forum.templatetags import forum_extras
+from apps.forum import settings as forum_settings
 
 @render_to('forum/index.html')
 def index(request):
@@ -50,7 +51,7 @@ def index(request):
             }
 
 @render_to('forum/moderate.html')
-@paged('topics', settings.FORUM_FORUM_PAGE_SIZE)
+@paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def moderate(request, forum_id):
     forum = Forum.objects.get(pk=forum_id)
     topics = forum.topics.filter(sticky=False).select_related()
@@ -196,7 +197,7 @@ def misc(request):
                          }, RequestContext(request))
 
 @render_to('forum/forum.html')
-@paged('topics', settings.FORUM_FORUM_PAGE_SIZE)
+@paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def show_forum(request, forum_id):
     forum = Forum.objects.get(pk=forum_id)
     topics = forum.topics.filter(sticky=False).select_related()
@@ -215,7 +216,7 @@ def show_forum(request, forum_id):
 
     
 @render_to('forum/topic.html')
-@paged('posts', settings.FORUM_TOPIC_PAGE_SIZE)
+@paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def show_topic(request, topic_id):
     topic = Topic.objects.select_related().get(pk=topic_id)
     topic.views += 1
@@ -369,8 +370,8 @@ def user(request, username):
                     return HttpResponseRedirect(reverse('forum_profile', args=[user.username]))
                 return render_to_response('forum/upload_avatar.html', 
                         {'form': form,
-                         'avatar_width': settings.FORUM_AVATAR_WIDTH,
-                         'avatar_height': settings.FORUM_AVATAR_HEIGHT,
+                         'avatar_width': forum_settings.FORUM_AVATAR_WIDTH,
+                         'avatar_height': forum_settings.FORUM_AVATAR_HEIGHT,
                          }, RequestContext(request))
             elif 'delete_avatar' in request.GET['action']:
                 profile = get_object_or_404(Profile, user=request.user)
@@ -448,7 +449,7 @@ def reputation(request, username):
 def show_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     count = post.topic.posts.filter(created__lt=post.created).count() + 1
-    page = math.ceil(count / float(settings.FORUM_TOPIC_PAGE_SIZE))
+    page = math.ceil(count / float(forum_settings.TOPIC_PAGE_SIZE))
     url = '%s?page=%d#post-%d' % (reverse('topic', args=[post.topic.id]), page, post.id)
     return HttpResponseRedirect(url)
    
@@ -472,7 +473,7 @@ def edit_post(request, post_id):
 
 @login_required
 @render_to('forum/delete_posts.html')
-@paged('posts', settings.FORUM_TOPIC_PAGE_SIZE)
+@paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def delete_posts(request, topic_id):
     from apps.forum.templatetags.forum_extras import forum_moderated_by
 
@@ -618,7 +619,7 @@ def open_topic(request, topic_id):
 
 
 @render_to('forum/users.html')
-@paged('users', settings.FORUM_USERS_PAGE_SIZE)
+@paged('users', forum_settings.USERS_PAGE_SIZE)
 def users(request):
     users = User.objects.order_by('username')
     form = UserSearchForm(request.GET)

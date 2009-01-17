@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from apps.forum import settings as forum_settings
+
 def notify_subscribers(post):
     from apps.forum.models import Post
 
@@ -37,4 +39,4 @@ def text_version(post):
     return data
 
 def absolute_url(uri):
-    return 'http://%s%s' % (settings.FORUM_HOST, uri)
+    return 'http://%s%s' % (forum_settings.FORUM_HOST, uri)
