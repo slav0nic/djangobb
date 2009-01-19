@@ -269,6 +269,7 @@ class Profile(models.Model):
     show_signatures = models.BooleanField(_('Show signatures'), blank=True, default=True)
     privacy_permission = models.IntegerField(_('Privacy permission'), choices=PRIVACY_CHOICES, default=1)
     markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
+    post_count = models.IntegerField(_('Post count'), blank=True, default=0)
 
     class Meta:
         verbose_name = _('Profile')
@@ -333,7 +334,6 @@ class Report(models.Model):
         return u'%s %s' % (self.reported_by ,self.zapped)
 
 class PrivateMessage(models.Model):
-
     dst_user = models.ForeignKey(User, verbose_name=_('Recipient'), related_name='dst_users')
     src_user = models.ForeignKey(User, verbose_name=_('Author'), related_name='src_users')
     read = models.BooleanField(_('Read'), blank=True, default=False)

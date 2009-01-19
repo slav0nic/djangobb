@@ -63,7 +63,7 @@
 						<div class="infldset">
 							<p>{% trans "Registered:" %} {{ profile.date_joined|date:"Y-m-d" }}</p>
 							<p>{% trans "Last post:" %} {{ profile.forum_profile.last_post }}</p>
-							<label>{% trans "Posts:" %} {{ form.fields.post_count.initial }} - 
+							<label>{% trans "Posts:" %} {{ profile.forum_profile.post_count }} - 
 							<a href="{% url search %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></p>
 							</label>
 						</div>

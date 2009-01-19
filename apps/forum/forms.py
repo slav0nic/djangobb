@@ -75,6 +75,9 @@ class AddPostForm(forms.ModelForm):
                     markup='bbcode',
                     body=self.cleaned_data['body'])
         post.save()
+        profile = get_object_or_404(Profile, user=self.user)
+        profile.post_count += 1
+        profile.save()
         return post
     
 class EssentialsProfileForm(forms.ModelForm):

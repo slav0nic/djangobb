@@ -125,7 +125,7 @@
 					<div class="infldset">
 						<dl>
 							<dt>{% trans "Posts:" %} </dt>
-							<dd>{{ profile.posts.all.count }} - <a href="{% url search %}?action=show_user&user_id={{ profile.id }}">Показать все сообщения</a></dd>
+							<dd>{{ profile.forum_profile.post_count }} - <a href="{% url search %}?action=show_user&user_id={{ profile.id }}">Показать все сообщения</a></dd>
 							<dt>{% trans "Last post:" %} </dt>
 							{% if profile.forum_profile.last_post %}
 							<dd>{{ profile.forum_profile.last_post }}</dd>
