@@ -197,25 +197,25 @@ def forum_unreads(qs, user):
 
 @register.filter
 def forum_stars(user):
-    if user.posts.count() >= settings.FORUM_STAR_5: 
+    if user.posts.count() >= forum_settings.FORUM_STAR_5: 
         return mark_safe('<img src="%sforum/img/stars/Star_5.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_4_HALF: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_4_HALF: 
         return mark_safe('<img src="%sforum/img/stars/Star_4_Half.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_4: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_4: 
         return mark_safe('<img src="%sforum/img/stars/Star_4.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_3_HALF: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_3_HALF: 
         return mark_safe('<img src="%sforum/img/stars/Star_3_Half.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_3: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_3: 
         return mark_safe('<img src="%sforum/img/stars/Star_3.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_2_HALF: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_2_HALF: 
         return mark_safe('<img src="%sforum/img/stars/Star_2_Half.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_2: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_2: 
         return mark_safe('<img src="%sforum/img/stars/Star_2.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_1_HALF: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_1_HALF: 
         return mark_safe('<img src="%sforum/img/stars/Star_1_Half.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_1: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_1: 
         return mark_safe('<img src="%sforum/img/stars/Star_1.gif" alt="" >' % (settings.MEDIA_URL))
-    elif user.posts.count() >= settings.FORUM_STAR_0_HALF: 
+    elif user.posts.count() >= forum_settings.FORUM_STAR_0_HALF: 
         return mark_safe('<img src="%sforum/img/stars/Star_0_Half.gif" alt="" >' % (settings.MEDIA_URL))
     else:
         return mark_safe('<img src="%sforum/img/stars/Star_0.gif" alt="" >' % (settings.MEDIA_URL))
