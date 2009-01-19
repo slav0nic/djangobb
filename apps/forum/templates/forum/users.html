@@ -57,7 +57,7 @@
 				<tr>
 					<td class="tcl">{{ profile|profile_link }}</td>
 					<td class="tc2">{{ profile.forum_profile.status }}</td>
-					<td class="tc3">{{ profile.posts.count }}</td>
+					<td class="tc3">{{ profile.forum_profile.post_count }}</td>
 					<td class="tcr">{{ profile.date_joined|date:"d-m-Y" }}</td>
 				</tr>
 				{% endfor %}

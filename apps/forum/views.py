@@ -579,12 +579,19 @@ def delete_post(request, post_id):
         return HttpResponseRedirect(post.get_absolute_url())
 
     topic = post.topic
-    forum = post.topic.forum
     topic.post_count -= 1
+    topic.save()
+    forum = post.topic.forum
     forum.post_count -= 1
     forum.save()
-    topic.save()
+    
+    profile = get_object_or_404(Profile, user=post.user)
+    profile.post_count -= 1
+    profile.save()
+    
     post.delete()
+    
+    
 
     try:
         Topic.objects.get(pk=topic.id)

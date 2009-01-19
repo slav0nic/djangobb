@@ -89,6 +89,7 @@ INSTALLED_APPS = (
     'apps.account',
     'apps.captcha',
     'apps.forum',
+    'django_evolution',
 )
 
 FORCE_SCRIPT_NAME = ''

@@ -44,7 +44,7 @@
 					<dd>{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
 					{% endif %}
 					<dd>{% trans "Registered:" %} {{ post.user.date_joined|date:"Y-m-d" }}</dd>
-					<dd>{% trans "Posts:" %} {{ post.user.posts.count }}</dd>
+					<dd>{% trans "Posts:" %} {{ post.user.forum_profile.post_count }}</dd>
 					{% if moderator %}
                     <dd>{% trans "IP:" %} {{ post.user_ip }}</dd>
                     {% endif %}
