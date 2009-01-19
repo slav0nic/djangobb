@@ -12,7 +12,7 @@ from django.utils.translation import force_unicode
 from django.utils.simplejson import JSONEncoder
 from django import forms
 from django.template.defaultfilters import urlize as django_urlize
-from django.conf import settings
+from apps.forum import settings as forum_settings
 
 
 def render_to(template_path):
@@ -185,22 +185,23 @@ def urlize(data):
     return urlized_html
 
 def smiles(data):
-    data = re.compile(r':\)').sub(settings.FORUM_EMOTION_SMILE, data)
-    data = re.compile(r'=\)').sub(settings.FORUM_EMOTION_SMILE, data)
-    data = re.compile(r':\|').sub(settings.FORUM_EMOTION_NEUTRAL, data)
-    data = re.compile(r'=\|').sub(settings.FORUM_EMOTION_NEUTRAL, data)
-    data = re.compile(r':\(').sub(settings.FORUM_EMOTION_SAD, data)
-    data = re.compile(r'=\(').sub(settings.FORUM_EMOTION_SAD, data)
-    data = re.compile(r':D').sub(settings.FORUM_EMOTION_BIG_SMILE, data)
-    data = re.compile(r'=D').sub(settings.FORUM_EMOTION_BIG_SMILE, data)
-    data = re.compile(r':o').sub(settings.FORUM_EMOTION_YIKES, data)
-    data = re.compile(r':O').sub(settings.FORUM_EMOTION_YIKES, data)
-    data = re.compile(r';\)').sub(settings.FORUM_EMOTION_WINK, data)
-    data = re.compile(r'(?<!http):/').sub(settings.FORUM_EMOTION_HMM, data)
-    data = re.compile(r':P').sub(settings.FORUM_EMOTION_TONGUE, data)
-    data = re.compile(r':lol:').sub(settings.FORUM_EMOTION_LOL, data)
-    data = re.compile(r':mad:').sub(settings.FORUM_EMOTION_MAD, data)
-    data = re.compile(r':rolleyes:').sub(settings.FORUM_EMOTION_ROLL, data)
-    data = re.compile(r':cool:').sub(settings.FORUM_EMOTION_COOL, data)
+    # TODO: code refactoring; ignore smiles in tag [code]
+    data = re.compile(r':\)').sub(forum_settings.EMOTION_SMILE, data)
+    data = re.compile(r'=\)').sub(forum_settings.EMOTION_SMILE, data)
+    data = re.compile(r':\|').sub(forum_settings.EMOTION_NEUTRAL, data)
+    data = re.compile(r'=\|').sub(forum_settings.EMOTION_NEUTRAL, data)
+    data = re.compile(r':\(').sub(forum_settings.EMOTION_SAD, data)
+    data = re.compile(r'=\(').sub(forum_settings.EMOTION_SAD, data)
+    data = re.compile(r':D').sub(forum_settings.EMOTION_BIG_SMILE, data)
+    data = re.compile(r'=D').sub(forum_settings.EMOTION_BIG_SMILE, data)
+    data = re.compile(r':o').sub(forum_settings.EMOTION_YIKES, data)
+    data = re.compile(r':O').sub(forum_settings.EMOTION_YIKES, data)
+    data = re.compile(r';\)').sub(forum_settings.EMOTION_WINK, data)
+    data = re.compile(r'(?<!http):/').sub(forum_settings.EMOTION_HMM, data)
+    data = re.compile(r':P').sub(forum_settings.EMOTION_TONGUE, data)
+    data = re.compile(r':lol:').sub(forum_settings.EMOTION_LOL, data)
+    data = re.compile(r':mad:').sub(forum_settings.EMOTION_MAD, data)
+    data = re.compile(r':rolleyes:').sub(forum_settings.EMOTION_ROLL, data)
+    data = re.compile(r':cool:').sub(forum_settings.EMOTION_COOL, data)
     return data
 
