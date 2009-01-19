@@ -13,7 +13,6 @@ from markdown import Markdown
 
 from apps.forum.markups import mypostmarkup 
 from apps.forum.fields import AutoOneToOneField, ExtendedImageField
-from apps.forum.subscription import notify_subscribers
 from apps.forum.util import urlize, smiles
 from apps.forum import settings as forum_settings
 
@@ -219,9 +218,6 @@ class Post(models.Model):
 
         super(Post, self).save(*args, **kwargs)
 
-        if new:
-            notify_subscribers(self)
-
     def get_absolute_url(self):
         return reverse('post', args=[self.id])
 
@@ -353,7 +349,7 @@ class PrivateMessage(models.Model):
         verbose_name = _('Private message')
         verbose_name_plural = _('Private messages')
         
-    # TODO: summary and part of the save methid is the same as in the Post model
+    # TODO: summary and part of the save method is the same as in the Post model
     # move to common functions
     def summary(self):
         LIMIT = 50
@@ -379,6 +375,6 @@ class PrivateMessage(models.Model):
         
         new = self.id is None
         super(PrivateMessage, self).save(*args, **kwargs)
-        # TODO: make email notifications
-        #if new:
-            #notify_subscribers(self)
+    
+    def get_absolute_url(self):
+        return  reverse('forum_show_pm', args=[self.id])

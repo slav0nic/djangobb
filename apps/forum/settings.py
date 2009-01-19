@@ -1,7 +1,7 @@
 from django.conf import settings
 
 def get(key, default):
-    return getattr(settings, 'FORUM_%s' % key, default)
+    return getattr(settings, key, default)
 
 ADMIN_EMAIL = get('ADMIN_EMAIL', 'alafin@python.su')
 TOPIC_PAGE_SIZE = get('TOPIC_PAGE_SIZE', 10)
@@ -20,6 +20,7 @@ DEFAULT_MARKUP = get('DEFAULT_MARKUP', 'bbcode')
 NOTICE = get('NOTICE', '')
 HOST = get('HOST', 'localhost:8000')
 USER_ONLINE_TIMEOUT = get('USER_ONLINE_TIMEOUT', 30)
+EMAIL_DEBUG = get('FORUM_EMAIL_DEBUG', False)
 
 FORUM_STAR_0 = get('FORUM_STAR_0', 0)
 FORUM_STAR_0_HALF = get('FORUM_STAR_0_HALF', 10)

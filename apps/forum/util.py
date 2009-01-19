@@ -12,8 +12,8 @@ from django.utils.translation import force_unicode
 from django.utils.simplejson import JSONEncoder
 from django import forms
 from django.template.defaultfilters import urlize as django_urlize
-from apps.forum import settings as forum_settings
 
+from apps.forum import settings as forum_settings
 
 def render_to(template_path):
     """
@@ -38,6 +38,8 @@ def render_to(template_path):
 
     return decorator
 
+def absolute_url(path):
+    return 'http://%s%s' % (forum_settings.HOST, path)
 
 def paged(paged_list_name, per_page):#, per_page_var='per_page'):
     """
