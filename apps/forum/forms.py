@@ -234,13 +234,9 @@ class UserSearchForm(forms.Form):
                     return qs.filter(username__contains=username).order_by('-date_joined')
             elif sort_by=='num_posts':
                 if sort_dir=='ASC':
-                    #qs = qs.filter(username__contains=username).order_by('posts')
-                    qs.query.group_by = ['username']
-                    return qs
+                    return qs.filter(username__contains=username).order_by('forum_profile__post_count')
                 elif sort_dir=='DESC':
-                    #qs = qs.filter(username__contains=username).order_by('-posts')
-                    qs.query.group_by = ['username']
-                    return qs
+                    return qs.filter(username__contains=username).order_by('-forum_profile__post_count')
         else:
             return qs
         
