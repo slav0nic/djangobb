@@ -2,8 +2,7 @@ import math
 import re
 import datetime
 
-from django.shortcuts import get_object_or_404, render_to_response
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -48,7 +47,7 @@ def index(request):
             'online_count': len(users_online),
             'guest_count': guest_count,
             'last_user': User.objects.order_by('-date_joined')[0],
-            }
+           }
 
 @render_to('forum/moderate.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
@@ -63,12 +62,12 @@ def moderate(request, forum_id):
                 if topic_match:
                     topic_id = topic_match.group(1)
                     reverse('move_topic', args=[topic_id])
-                        
+
             return HttpResponseRedirect(reverse('index'))
         elif 'delete_topics' in request.POST:
             for topic in request.POST:
                 topic_match = re.match('topic_id\[(\d+)\]', reputation)
-                    
+
                 if topic_match:
                     topic_id = topic_match.group(1)
                     topic = get_object_or_404(Topic, pk=topic_id)
@@ -78,22 +77,22 @@ def moderate(request, forum_id):
         elif 'open_topics' in request.POST:
             for topic in request.POST:
                 topic_match = re.match('topic_id\[(\d+)\]', topic)
-                    
+
                 if topic_match:
                     topic_id = topic_match.group(1)
                     open_topic(request, topic_id)
-                        
+
             return HttpResponseRedirect(reverse('index'))
         elif 'close_topics' in request.POST:
             for topic in request.POST:
                 topic_match = re.match('topic_id\[(\d+)\]', topic)
-                    
+
                 if topic_match:
                     topic_id = topic_match.group(1)
                     close_topic(request, topic_id)
                         
             return HttpResponseRedirect(reverse('index'))
-    
+
         return {'forum': forum,
                 'topics': topics,
                 'sticky_topics': forum.topics.filter(sticky=True),
@@ -103,62 +102,46 @@ def moderate(request, forum_id):
     else:
         raise Http404
 
+@render_to('forum/search_topics.html')
 def search(request):
     if 'action' in request.GET:
-        if 'show_24h' in request.GET['action']:
+        action = request.GET['action']
+        if action == 'show_24h':
             date =  datetime.datetime.today() - datetime.timedelta(1)
             topics = Topic.objects.filter(created__gte=date).order_by('created')
-            return render_to_response('forum/search_topics.html', 
-                                     {'topics': topics,
-                                     }, RequestContext(request))
-        elif 'show_new' in request.GET['action']:
+        elif action == 'show_new':
             topics = Topic.objects.all().order_by('created')
             topics = [topic for topic in topics if forum_extras.has_unreads(topic, request.user)]
-            return render_to_response('forum/search_topics.html', 
-                                     {'topics': topics,
-                                     }, RequestContext(request))
-        elif 'show_unanswered' in request.GET['action']:
+        elif action == 'show_unanswered':
             topics = Topic.objects.filter(post_count=1)
-            return render_to_response('forum/search_topics.html', 
-                                     {'topics': topics,
-                                     }, RequestContext(request))
-        elif 'show_subscriptions' in request.GET['action']:
+        elif action == 'show_subscriptions':
             topics = Topic.objects.filter(subscribers=request.user)
-            return render_to_response('forum/search_topics.html', 
-                                     {'topics': topics,
-                                     }, RequestContext(request))
-        elif 'show_user' in request.GET['action']:
+        elif action == 'show_user':
             user_id = request.GET['user_id']
             posts = Post.objects.filter(user__id=user_id)
             topics = [post.topic for post in posts]
-            return render_to_response('forum/search_topics.html', 
-                                     {'topics': topics,
-                                     }, RequestContext(request))
-        elif 'search' in request.GET['action']:
+        elif action == 'search':
             posts = Post.objects.all()
             form = PostSearchForm(request.GET)
             posts = form.filter(posts)
             topics = [post.topic for post in posts]
-            if 'topics' in request.GET['show_as']:
-                return render_to_response('forum/search_topics.html', 
-                                    {'topics': topics,
-                                     }, RequestContext(request))
+            if action == 'topics':
+                return {'topics': topics}
             elif 'posts' in request.GET['show_as']:
-                return render_to_response('forum/search_posts.html', 
-                                    {'posts': posts,
-                                     }, RequestContext(request))
-    else:  
+                return {'posts': posts}, 'forum/search_posts.html'
+        return {'topics': topics}
+    else:
         form = PostSearchForm()
+        return {'categories': Category.objects.all(),
+                'form': form,
+                }, 'forum/search_form.html'
 
-        return render_to_response('forum/search_form.html', 
-                                {'categories': Category.objects.all(),
-                                'form': form,
-                                }, RequestContext(request))
-        
 @login_required
+@render_to('forum/report.html')
 def misc(request):
     if 'action' in request.GET:
-        if 'markread' in request.GET['action']:
+        action = request.GET['action']
+        if action =='markread':
             for category in Category.objects.all():
                 for topic in category.topics:
                     read, new = Read.objects.get_or_create(user=request.user, topic=topic)
@@ -167,17 +150,15 @@ def misc(request):
                         read.save()
             return HttpResponseRedirect(reverse('index'))
         
-        elif 'report' in request.GET['action']:
-            if request.GET['post_id']:
+        elif action == 'report':
+            if request.GET.get('post_id', ''):
                 post_id = request.GET['post_id']
                 post = get_object_or_404(Post, id=post_id)
                 form = build_form(ReportForm, request, reported_by=request.user, post=post_id)
-                if request.POST and form.is_valid():
+                if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(post.get_absolute_url())
-                return render_to_response('forum/report.html', 
-                            {'form':form,
-                             }, RequestContext(request))
+                return {'form':form}
         
     elif 'submit' in request.POST and 'mail_to' in request.GET:
         form = MailToForm(request.POST)
@@ -191,10 +172,9 @@ def misc(request):
     elif 'mail_to' in request.GET:
         user = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
-        return render_to_response('forum/mail_to.html', 
-                        {'form':form,
-                         'user': user,
-                         }, RequestContext(request))
+        return {'form':form,
+                'user': user,
+               }, 'forum/mail_to.html'
 
 @render_to('forum/forum.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
@@ -292,7 +272,7 @@ def add_post(request, forum_id, topic_id):
             'forum': forum,
             }
 
-
+@render_to('forum/user.html')
 def user(request, username):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
@@ -307,73 +287,68 @@ def user(request, username):
             #             #'form': form,
             #             'reports': reports,
             #             }, RequestContext(request))
-            if 'privacy' in request.GET['section']:
+            section = request.GET['section']
+            if section == 'privacy':
                 form = build_form(PrivacyProfileForm, request, instance=user.forum_profile)
-                if request.POST and form.is_valid():
+                if request.method == 'POST' and form.is_valid():
                     form.save()
-                return render_to_response('forum/profile/profile_privacy.html', 
-                        {'active_menu':'privacy',
-                         'profile': user,
-                         'form': form,
-                         }, RequestContext(request))
-            elif 'display' in request.GET['section']:
+                return {'active_menu':'privacy',
+                        'profile': user,
+                        'form': form,
+                       }, 'forum/profile/profile_privacy.html'
+            elif section == 'display':
                 form = build_form(DisplayProfileForm, request, instance=user.forum_profile)
-                if request.POST and form.is_valid():
+                if request.method == 'POST' and form.is_valid():
                     form.save()
-                return render_to_response('forum/profile/profile_display.html', 
-                        {'active_menu':'display',
-                         'profile': user,
-                         'form': form,
-                         }, RequestContext(request))
-            elif 'personality' in request.GET['section']:
+                return {'active_menu':'display',
+                        'profile': user,
+                        'form': form,
+                       }, 'forum/profile/profile_display.html'
+            elif section == 'personality':
                 form = build_form(PersonalityProfileForm, request, instance=user.forum_profile)
-                if request.POST and form.is_valid():
+                if request.method == 'POST' and form.is_valid():
                     form.save()
-                return render_to_response('forum/profile/profile_personality.html', 
-                        {'active_menu':'personality',
-                         'profile': user,
-                         'form': form,
-                         }, RequestContext(request))
-            elif 'messaging' in request.GET['section']:
+                return {'active_menu':'personality',
+                        'profile': user,
+                        'form': form,
+                        }, 'forum/profile/profile_personality.html'
+            elif section == 'messaging':
                 form = build_form(MessagingProfileForm, request, instance=user.forum_profile)
-                if request.POST and form.is_valid():
+                if request.method == 'POST' and form.is_valid():
                     form.save()
-                return render_to_response('forum/profile/profile_messaging.html', 
-                        {'active_menu':'messaging',
-                         'profile': user,
-                         'form': form,
-                         }, RequestContext(request))
-            elif 'personal' in request.GET['section']:
+                return {'active_menu':'messaging',
+                        'profile': user,
+                        'form': form,
+                       }, 'forum/profile/profile_messaging.html'
+            elif section == 'personal':
                 form = build_form(PersonalProfileForm, request, instance=user.forum_profile, user=user)
-                if request.POST and form.is_valid():
+                if request.method == 'POST' and form.is_valid():
                     form.save()
-                return render_to_response('forum/profile/profile_personal.html', 
-                        {'active_menu':'personal',
-                         'profile': user,
-                         'form': form,
-                         }, RequestContext(request))
-            elif 'essentials' in request.GET['section']:
+                return {'active_menu':'personal',
+                        'profile': user,
+                        'form': form,
+                       }, 'forum/profile/profile_personal.html'
+            elif section == 'essentials':
                 form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, user=user)
-                if request.POST and form.is_valid():
+                if request.method == 'POST' and form.is_valid():
                     form.save()
-                return render_to_response('forum/profile/profile_essentials.html', 
-                        {'active_menu':'essentials',
-                         'profile': user,
-                         'form': form,
-                         }, RequestContext(request))
+                return {'active_menu':'essentials',
+                        'profile': user,
+                        'form': form,
+                        }, 'forum/profile/profile_essentials.html'
                 
         elif 'action' in request.GET:
-            if 'upload_avatar' in request.GET['action']:
+            action = request.GET['action']
+            if action == 'upload_avatar':
                 form = build_form(UploadAvatarForm, request, instance=user.forum_profile)
-                if request.POST and form.is_valid():
+                if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(reverse('forum_profile', args=[user.username]))
-                return render_to_response('forum/upload_avatar.html', 
-                        {'form': form,
-                         'avatar_width': forum_settings.FORUM_AVATAR_WIDTH,
-                         'avatar_height': forum_settings.FORUM_AVATAR_HEIGHT,
-                         }, RequestContext(request))
-            elif 'delete_avatar' in request.GET['action']:
+                return {'form': form,
+                        'avatar_width': forum_settings.FORUM_AVATAR_WIDTH,
+                        'avatar_height': forum_settings.FORUM_AVATAR_HEIGHT,
+                       }, 'forum/upload_avatar.html'
+            elif action == 'delete_avatar':
                 profile = get_object_or_404(Profile, user=request.user)
                 profile.avatar = None
                 profile.save()
@@ -381,23 +356,21 @@ def user(request, username):
          
         else:
             form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, user=user)
-            if request.POST and form.is_valid():
+            if request.method == 'POST' and form.is_valid():
                 form.save()
-            return render_to_response('forum/profile/profile_essentials.html', 
-                    {'active_menu':'essentials',
-                     'profile': user,
-                     'form': form,
-                     }, RequestContext(request))
+            return {'active_menu':'essentials',
+                    'profile': user,
+                    'form': form,
+                   }, 'forum/profile/profile_essentials.html'
             
     else:
         topic_count = Topic.objects.filter(user=user).count()
-        return render_to_response('forum/user.html', 
-                        {'profile': user,
-                         'topic_count': topic_count,
-                         'reports': reports,
-                         }, RequestContext(request))
+        return {'profile': user,
+                'topic_count': topic_count,
+                'reports': reports,
+               }
     
-
+@render_to('forum/reputation.html')
 def reputation(request, username):
     user = get_object_or_404(User, username=username)
     form = build_form(ReputationForm, request, from_user=request.user, to_user=user)
@@ -412,13 +385,11 @@ def reputation(request, username):
             elif request.GET['action'] == 'minus':
                 form.fields['sign'].initial = -1
             
-            return render_to_response('forum/reputation_form.html', 
-                    {'form': form,
-                     }, RequestContext(request))
+            return {'form': form}, 'forum/reputation_form.html'
         else:
             raise Http404
-        
-    elif request.POST:
+
+    elif request.method == 'POST':
         if 'del_reputation' in request.POST:
             for reputation in request.POST:
                 reputation_match = re.match('reputation_id\[(\d+)\]', reputation)
@@ -436,15 +407,13 @@ def reputation(request, username):
             return HttpResponseRedirect(topic.get_absolute_url())
         else:
             raise Http404
-        
+
     else:
         reputations = Reputation.objects.filter(to_user=user).order_by('-time').select_related()
         
-        return render_to_response('forum/reputation.html', 
-                {'reputations': reputations,
+        return {'reputations': reputations,
                 'profile': user.forum_profile,
-                }, RequestContext(request))
-
+               }
 
 def show_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -452,7 +421,7 @@ def show_post(request, post_id):
     page = math.ceil(count / float(forum_settings.TOPIC_PAGE_SIZE))
     url = '%s?page=%d#post-%d' % (reverse('topic', args=[post.topic.id]), page, post.id)
     return HttpResponseRedirect(url)
-   
+
 @login_required
 @render_to('forum/edit_post.html')
 def edit_post(request, post_id):
@@ -480,7 +449,7 @@ def delete_posts(request, topic_id):
     topic = Topic.objects.select_related().get(pk=topic_id)
     topic.views += 1
     topic.save()
-    
+
     if forum_moderated_by(topic, request.user):
         deleted = False
         for post in request.POST:
@@ -686,7 +655,6 @@ def show_pm(request, pm_id):
             'post_user': post_user,
             }
 
-
 @login_required
 def delete_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
@@ -695,7 +663,6 @@ def delete_subscription(request, topic_id):
         return HttpResponseRedirect(reverse('topic', args=[topic.id]))
     else:
         return HttpResponseRedirect(reverse('edit_profile'))
-
 
 @login_required
 def add_subscription(request, topic_id):
