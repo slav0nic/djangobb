@@ -26,7 +26,7 @@ def index(request):
     for user in User.objects.all():
         if cache.get(str(user.id)):
             users_online.append(user)
-    guest_count = len(cache._cache) - users_online.__len__()
+    guest_count = len(cache._cache) - len(users_online)
 
     cats = {}
     forums = {}
@@ -45,7 +45,7 @@ def index(request):
             'topics': Topic.objects.count(),
             'users': User.objects.count(),
             'users_online': users_online,
-            'online_count': users_online.__len__(),
+            'online_count': len(users_online),
             'guest_count': guest_count,
             'last_user': User.objects.order_by('-date_joined')[0],
             }
@@ -149,7 +149,7 @@ def search(request):
                                      }, RequestContext(request))
     else:  
         form = PostSearchForm()
-        category = Category.objects.all()[0]
+
         return render_to_response('forum/search_form.html', 
                                 {'categories': Category.objects.all(),
                                 'form': form,
@@ -707,4 +707,3 @@ def post_preview(request):
     '''Preview for markitup'''
     html = '<link type="text/css" rel="stylesheet" href="%sforum/css/hljs_styles/phpbb_blue.css" /><p>' % settings.MEDIA_URL
     return HttpResponse(html+mypostmarkup.markup(request.POST.get('data', ''), auto_urls=False))
-
