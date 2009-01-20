@@ -169,7 +169,13 @@ def urlize(data):
         def handle_endtag(self, tag):
             self.is_link = False
             self.urlized_html.append('</%s>' % (tag))
-    
+
+        def handle_entityref(self, name):
+            self.urlized_html.append('&%s;' % name)
+
+        def handle_charref(self, name):
+            self.urlized_html.append('&%s;' % name)
+
         def __html_attrs(self, attrs):
             _attrs = ''
             if attrs:
