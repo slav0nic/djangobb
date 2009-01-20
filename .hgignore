@@ -12,3 +12,4 @@ debug_toolbar
 *.kpf
 *.autosave
 static/forum/avatars
+secret.txt
