@@ -60,13 +60,13 @@ def notify_topic_subscribers(post):
 
 
 def notify_pm_recipients(pm):
-    from apps.forum.models import PrivateMessage
-    
-    subject = (u'There are new messages')
-    to_email = pm.dst_user.email
-    text_content = PM_RECIPIENT_TEXT_TEMPLATE % {
-        'username': pm.src_user.username,
-        'message': pm.body_text,
-        'pm_url': absolute_url(pm.get_absolute_url()),
-     }
-    send_mail([to_email], subject, text_content)
+    if not pm.read:
+        from apps.forum.models import PrivateMessage 
+        subject = (u'There are new messages')
+        to_email = pm.dst_user.email
+        text_content = PM_RECIPIENT_TEXT_TEMPLATE % {
+            'username': pm.src_user.username,
+            'message': pm.body_text,
+            'pm_url': absolute_url(pm.get_absolute_url()),
+         }
+        send_mail([to_email], subject, text_content)

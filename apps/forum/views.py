@@ -648,8 +648,9 @@ def show_pm(request, pm_id):
     else:
         inbox = False
         post_user = msg.dst_user
-    msg.read = True
-    msg.save()
+    if not msg.read:
+        msg.read = True
+        msg.save()
     return {'msg': msg,
             'inbox': inbox,
             'post_user': post_user,
