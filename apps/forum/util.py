@@ -15,6 +15,9 @@ from django.template.defaultfilters import urlize as django_urlize
 
 from apps.forum import settings as forum_settings
 
+#compile smiles regexp
+_SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
+
 def render_to(template):
     """
     Decorator for Django views that sends returned dict to render_to_response function
@@ -152,77 +155,76 @@ def build_form(Form, _request, GET=False, *args, **kwargs):
         form = Form(*args, **kwargs)
     return form
 
-def urlize(data):
-    """
-    Urlize plain text links in the HTML contents.
-   
-    Do not urlize content of A and CODE tags.
-    """
-    
-    class URLizeHTMLParser(HTMLParser):
-    
-        def __init__(self):
+class ExcludeTagsHTMLParser(HTMLParser):
+        """
+        Class for html parsing with excluding specified tags.
+        """
+
+        def __init__(self, func, tags=('a', 'code')):
             HTMLParser.__init__(self)
-            self.is_link = False
-            self.urlized_html = []
-            
+            self.func = func
+            self.is_ignored = False
+            self.tags = tags
+            self.html = []
+
         def handle_starttag(self, tag, attrs):
-            self.urlized_html.append('<%s%s>' % (tag, self.__html_attrs(attrs)))
-            if tag in ('a', 'code'):
-                self.is_link = True
-    
+            self.html.append('<%s%s>' % (tag, self.__html_attrs(attrs)))
+            if tag in self.tags:
+                self.is_ignored = True
+
         def handle_data(self, data):
-            if not self.is_link:
-                data = django_urlize(data)
-            self.urlized_html.append(data)
-    
+            if not self.is_ignored:
+                data = self.func(data)
+            self.html.append(data)
+
         def handle_startendtag(self, tag, attrs):
-            self.urlized_html.append('<%s%s/>' % (tag, self.__html_attrs(attrs))) 
-    
+            self.html.append('<%s%s/>' % (tag, self.__html_attrs(attrs))) 
+
         def handle_endtag(self, tag):
-            self.is_link = False
-            self.urlized_html.append('</%s>' % (tag))
+            self.is_ignored = False
+            self.html.append('</%s>' % (tag))
 
         def handle_entityref(self, name):
-            self.urlized_html.append('&%s;' % name)
+            self.html.append('&%s;' % name)
 
         def handle_charref(self, name):
-            self.urlized_html.append('&%s;' % name)
+            self.html.append('&%s;' % name)
 
         def __html_attrs(self, attrs):
             _attrs = ''
             if attrs:
                 _attrs = ' %s' % (' '.join([('%s="%s"' % (k,v)) for k,v in attrs]))
             return _attrs
-    
+
         def feed(self, data):
             HTMLParser.feed(self, data)
-            self.urlized_html = ''.join(self.urlized_html)
-        
-    parser = URLizeHTMLParser()
+            self.html = ''.join(self.html)
+
+def urlize(data):
+    """
+    Urlize plain text links in the HTML contents.
+   
+    Do not urlize content of A and CODE tags.
+    """
+
+    parser = ExcludeTagsHTMLParser(django_urlize)
     parser.feed(data)
-    urlized_html = parser.urlized_html
+    urlized_html = parser.html
     parser.close()
     return urlized_html
 
-def smiles(data):
-    # TODO: code refactoring; ignore smiles in tag [code]
-    data = re.compile(r':\)').sub(forum_settings.EMOTION_SMILE, data)
-    data = re.compile(r'=\)').sub(forum_settings.EMOTION_SMILE, data)
-    data = re.compile(r':\|').sub(forum_settings.EMOTION_NEUTRAL, data)
-    data = re.compile(r'=\|').sub(forum_settings.EMOTION_NEUTRAL, data)
-    data = re.compile(r':\(').sub(forum_settings.EMOTION_SAD, data)
-    data = re.compile(r'=\(').sub(forum_settings.EMOTION_SAD, data)
-    data = re.compile(r':D').sub(forum_settings.EMOTION_BIG_SMILE, data)
-    data = re.compile(r'=D').sub(forum_settings.EMOTION_BIG_SMILE, data)
-    data = re.compile(r':o').sub(forum_settings.EMOTION_YIKES, data)
-    data = re.compile(r':O').sub(forum_settings.EMOTION_YIKES, data)
-    data = re.compile(r';\)').sub(forum_settings.EMOTION_WINK, data)
-    data = re.compile(r'(?<!http):/').sub(forum_settings.EMOTION_HMM, data)
-    data = re.compile(r':P').sub(forum_settings.EMOTION_TONGUE, data)
-    data = re.compile(r':lol:').sub(forum_settings.EMOTION_LOL, data)
-    data = re.compile(r':mad:').sub(forum_settings.EMOTION_MAD, data)
-    data = re.compile(r':rolleyes:').sub(forum_settings.EMOTION_ROLL, data)
-    data = re.compile(r':cool:').sub(forum_settings.EMOTION_COOL, data)
+def _smile_replacer(data):
+    for smile, path in _SMILES:
+        data = smile.sub(path, data)
     return data
 
+def smiles(data):
+    """
+    Replace text smiles.
+    """
+
+    parser = ExcludeTagsHTMLParser(_smile_replacer)
+    parser.feed(data)
+    smiled_html = parser.html
+    parser.close()
+    return smiled_html
