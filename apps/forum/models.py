@@ -127,7 +127,7 @@ class Topic(models.Model):
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
 
     class Meta:
-        ordering = ['-created']
+        ordering = ['-updated']
         verbose_name = _('Topic')
         verbose_name_plural = _('Topics')
 
@@ -205,18 +205,19 @@ class Post(models.Model):
         self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
         self.body_html = smiles(self.body_html)
-
         new = self.id is None
-
         if new:
+            #new post created
+            super(Post, self).save(*args, **kwargs)
             self.topic.updated = datetime.now()
-            self.topic.post_count += 1
+            self.topic.post_count = Post.objects.filter(topic=self.topic).count()
             self.topic.save()
             self.topic.forum.updated = self.topic.updated
-            self.topic.forum.post_count += 1
+            self.topic.forum.post_count = Post.objects.filter(topic__forum=self.topic.forum).count()
             self.topic.forum.save()
-
-        super(Post, self).save(*args, **kwargs)
+        else:
+            #edit post
+            super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('post', args=[self.id])
@@ -225,12 +226,11 @@ class Post(models.Model):
         self_id = self.id
         head_post_id = self.topic.posts.order_by('created')[0].id
         super(Post, self).delete(*args, **kwargs)
-        
-        self.topic.post_count -= 1
+        self.topic.post_count = Post.objects.filter(topic=self.topic).count()
         self.topic.save()
-        self.topic.forum.post_count -= 1
+        self.topic.forum.post_count = Post.objects.filter(topic__forum=self.topic.forum).count()
         self.topic.forum.save()
-        
+
         if self_id == head_post_id:
             self.topic.delete()
 
@@ -274,7 +274,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name = _('Profile')
         verbose_name_plural = _('Profiles')
-        
+
     def last_post(self):
         posts = Post.objects.filter(user=self.user).order_by('-created').select_related()
         if posts.count():
