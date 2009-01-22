@@ -197,7 +197,7 @@ def forum_unreads(qs, user):
 
 @register.filter
 def forum_stars(user):
-    posts = user.posts.count()
+    posts = user.forum_profile.post_count
     if posts >= forum_settings.FORUM_STAR_5: 
         return mark_safe('<img src="%sforum/img/stars/Star_5.gif" alt="" >' % (settings.MEDIA_URL))
     elif posts >= forum_settings.FORUM_STAR_4_HALF: 
