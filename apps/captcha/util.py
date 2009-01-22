@@ -44,7 +44,7 @@ def test_solution(captcha_id, solution):
     return qs.count() > 0
 
 
-def delete_solution(capthca_id):
+def delete_solution(captcha_id):
     Solution.objects.filter(hash=captcha_id).delete()
 
 def render(captcha_id, output):
