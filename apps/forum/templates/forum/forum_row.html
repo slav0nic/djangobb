@@ -1,4 +1,5 @@
 {% load forum_extras %}
+{% load i18n %}
 
 {% if forum.last_post.topic %}
 <tr {% if forum.last_post.topic|has_unreads:user %}class="inew"{% endif %}>
@@ -29,7 +30,7 @@
 		{% if forum.updated %}
 		{% if forum.last_post.topic %}
 		<a href="{{ forum.last_post.get_absolute_url }}">{% forum_time forum.last_post.created %}</a>
-		<span class="byuser">оставил {{ forum.last_post.user }}</span>
+		<span class="byuser">{% trans "by" %} {{ forum.last_post.user }}</span>
 		{% endif %}
 		{% endif %}
 	</td>
