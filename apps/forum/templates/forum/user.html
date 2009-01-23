@@ -17,8 +17,6 @@
 							<dd>{{ profile }}</dd>
 							<dt>{% trans "Title" %} </dt>
 							<dd>{{ profile.forum_profile.status }}</dd>
-
-
 							<dt>{% trans "Real name:" %} </dt>
 							{% if profile.first_name or profile.last_name %}
 							<dd>{{ profile.first_name }} {{ profile.last_name }}</dd>
@@ -125,7 +123,7 @@
 					<div class="infldset">
 						<dl>
 							<dt>{% trans "Posts:" %} </dt>
-							<dd>{{ profile.forum_profile.post_count }} - <a href="{% url search %}?action=show_user&user_id={{ profile.id }}">Показать все сообщения</a></dd>
+							<dd>{{ profile.forum_profile.post_count }} - <a href="{% url search %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></dd>
 							<dt>{% trans "Last post:" %} </dt>
 							{% if profile.forum_profile.last_post %}
 							<dd>{{ profile.forum_profile.last_post }}</dd>

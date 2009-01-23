@@ -53,7 +53,7 @@ def notify_topic_subscribers(post):
                         'username': post.user.username,
                         'message': post.body_text,
                         'post_url': absolute_url(post.get_absolute_url()),
-                        'unsubscribe_url': absolute_url(reverse('pybb_delete_subscription', args=[post.topic.id])),
+                        'unsubscribe_url': absolute_url(reverse('forum_delete_subscription', args=[post.topic.id])),
                     }
                 #html_content = html_version(post)
                 send_mail([to_email], subject, text_content)

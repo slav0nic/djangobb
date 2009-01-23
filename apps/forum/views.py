@@ -367,7 +367,6 @@ def user(request, username):
         topic_count = Topic.objects.filter(user=user).count()
         return {'profile': user,
                 'topic_count': topic_count,
-                'reports': reports,
                }
     
 @render_to('forum/reputation.html')
