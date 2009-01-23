@@ -68,7 +68,7 @@
 					</td>
 					<td class="tc2">{{ topic.reply_count }}</td>
 					<td class="tc3">{{ topic.views }}</td>
-					<td class="tcr"><a href="{{ topic.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">оставил {{ topic.last_post.user }}</span></td>
+					<td class="tcr"><a href="{{ topic.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user }}</span></td>
 					<td class="tcmod"><input type="checkbox" name="topic_id[{{ topic.id }}]" value="1" /></td>
 				</tr>
 			{% endfor %}
