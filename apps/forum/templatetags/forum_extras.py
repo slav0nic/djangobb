@@ -243,14 +243,14 @@ def new_reports():
 
 
 @register.simple_tag
-def gravator(email):
-    if forum_settings.GRAVATOR_SUPPORT:
+def gravatar(email):
+    if forum_settings.GRAVATAR_SUPPORT:
         size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
         url = "http://www.gravatar.com/avatar.php?"
         url += urllib.urlencode({
             'gravatar_id': md5(email.lower()).hexdigest(),
             'size': size,
-            'default': forum_settings.GRAVATOR_DEFAULT,
+            'default': forum_settings.GRAVATAR_DEFAULT,
         })
         return url
     else:
