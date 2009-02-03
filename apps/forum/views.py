@@ -545,22 +545,12 @@ def delete_post(request, post_id):
 
     if not allowed:
         return HttpResponseRedirect(post.get_absolute_url())
-
-    topic = post.topic
-    topic.post_count -= 1
-    topic.save()
-    forum = post.topic.forum
-    forum.post_count -= 1
-    forum.save()
-    
-    profile = get_object_or_404(Profile, user=post.user)
-    profile.post_count -= 1
-    profile.save()
     
     post.delete()
+    profile = get_object_or_404(Profile, user=post.user)
+    profile.post_count = Post.objects.filter(user=post.user).count()
+    profile.save()    
     
-    
-
     try:
         Topic.objects.get(pk=topic.id)
     except Topic.DoesNotExist:
