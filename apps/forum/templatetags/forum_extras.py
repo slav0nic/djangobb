@@ -1,5 +1,11 @@
 # -*- coding: utf-8
 from datetime import datetime, timedelta
+import urllib
+try:
+    from hashlib import md5
+except ImportError:
+    import md5
+    md5 = md5.new
 
 from django import template
 from django.core.urlresolvers import reverse
@@ -109,7 +115,6 @@ def link(object, anchor=u''):
     url = hasattr(object,'get_absolute_url') and object.get_absolute_url() or None   
     anchor = anchor or smart_unicode(object)
     return mark_safe('<a href="%s">%s</a>' % (url, escape(anchor)))
-
 
 @register.filter
 def has_unreads(topic, user):
@@ -221,14 +226,32 @@ def forum_stars(user):
     else:
         return mark_safe('<img src="%sforum/img/stars/Star_0.gif" alt="" >' % (settings.MEDIA_URL))
 
+
 @register.filter
 def online(user):
     return cache.get(str(user.id))
+
 
 @register.filter
 def pm_unreads(user):
     return PrivateMessage.objects.filter(dst_user=user, read=False).count()
 
+
 @register.simple_tag
 def new_reports():
     return Report.objects.filter(zapped=False).count()
+
+
+@register.simple_tag
+def gravator(email):
+    if forum_settings.GRAVATOR_SUPPORT:
+        size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
+        url = "http://www.gravatar.com/avatar.php?"
+        url += urllib.urlencode({
+            'gravatar_id': md5(email.lower()).hexdigest(),
+            'size': size,
+            'default': forum_settings.GRAVATOR_DEFAULT,
+        })
+        return url
+    else:
+        return ''

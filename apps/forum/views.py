@@ -21,7 +21,7 @@ from apps.forum import settings as forum_settings
 @render_to('forum/index.html')
 def index(request):
     users_online = []
-    
+    #TODO: refactoring
     for user in User.objects.all():
         if cache.get(str(user.id)):
             users_online.append(user)
@@ -345,8 +345,8 @@ def user(request, username):
                     form.save()
                     return HttpResponseRedirect(reverse('forum_profile', args=[user.username]))
                 return {'form': form,
-                        'avatar_width': forum_settings.FORUM_AVATAR_WIDTH,
-                        'avatar_height': forum_settings.FORUM_AVATAR_HEIGHT,
+                        'avatar_width': forum_settings.AVATAR_WIDTH,
+                        'avatar_height': forum_settings.AVATAR_HEIGHT,
                        }, 'forum/upload_avatar.html'
             elif action == 'delete_avatar':
                 profile = get_object_or_404(Profile, user=request.user)

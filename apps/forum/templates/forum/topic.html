@@ -38,7 +38,9 @@
 						{{ post.user|forum_stars }}
 					</dd>
 					{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
-					<dd class="postavatar"><img src="{{ post.user.forum_profile.avatar.url }}" /></dd>
+						<dd class="postavatar"><img src="{{ post.user.forum_profile.avatar.url }}" /></dd>
+					{% else %}
+						<dd class="postavatar"><img src="{% gravator post.user.email %}" /></dd>
 					{% endif %}
 					{% if post.user.forum_profile.location %}
 					<dd>{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
