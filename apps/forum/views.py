@@ -536,6 +536,7 @@ def delete_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     last_post = post.topic.posts.order_by('-created')[0]
     topic = post.topic
+    forum = post.topic.forum
 
     allowed = False
     if request.user.is_superuser or\
@@ -545,15 +546,16 @@ def delete_post(request, post_id):
 
     if not allowed:
         return HttpResponseRedirect(post.get_absolute_url())
-    
+
     post.delete()
     profile = get_object_or_404(Profile, user=post.user)
     profile.post_count = Post.objects.filter(user=post.user).count()
     profile.save()    
-    
+
     try:
         Topic.objects.get(pk=topic.id)
     except Topic.DoesNotExist:
+        #removed latest post in topic
         return HttpResponseRedirect(forum.get_absolute_url())
     else:
         return HttpResponseRedirect(topic.get_absolute_url())
