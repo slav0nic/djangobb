@@ -17,6 +17,7 @@ from apps.forum.forms import AddPostForm, EditPostForm, UserSearchForm, PostSear
 from apps.forum.markups import mypostmarkup
 from apps.forum.templatetags import forum_extras
 from apps.forum import settings as forum_settings
+from apps.forum.util import urlize, smiles
 
 @render_to('forum/index.html')
 def index(request):
@@ -662,7 +663,11 @@ def add_subscription(request, topic_id):
     topic.subscribers.add(request.user)
     return HttpResponseRedirect(reverse('topic', args=[topic.id]))
 
+#TODO: check markup
+@render_to('forum/post_preview.html')
 def post_preview(request):
     '''Preview for markitup'''
-    html = '<link type="text/css" rel="stylesheet" href="%sforum/css/hljs_styles/phpbb_blue.css" /><p>' % settings.MEDIA_URL
-    return HttpResponse(html+mypostmarkup.markup(request.POST.get('data', ''), auto_urls=False))
+    data = mypostmarkup.markup(request.POST.get('data', ''), auto_urls=False)
+    data = urlize(data)
+    data = smiles(data)
+    return {'data': data}
