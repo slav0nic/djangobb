@@ -31,14 +31,20 @@
 	    });
 	</script>
 
-
     <!-- Highlightjs goodies -->
     <script type="text/javascript" src="{{ MEDIA_URL }}forum/js/highlight.pack.js"></script>
     <script type="text/javascript">
       hljs.initHighlightingOnLoad();
     </script>
     <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}forum/css/hljs_styles/djangobb.css" />
-
+    {% if highlight_word %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/jquery.highlight-2.pack.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+	    $("div.postmsg").each(function() { $.highlight(this, "{{ highlight_word|upper }}"); });
+	});
+	</script>
+    {% endif %}
     {% block extra_meta %}{% endblock %}
 </head>
 <body>

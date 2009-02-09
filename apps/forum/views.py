@@ -227,6 +227,9 @@ def show_topic(request, topic_id):
         subscribed = True
     else:
         subscribed = False
+
+    highlight_word = request.GET.get('hw', '')
+
     return {'categories': Category.objects.all(),
             'topic': topic,
             'last_post': last_post,
@@ -234,6 +237,7 @@ def show_topic(request, topic_id):
             'moderator': moderator,
             'subscribed': subscribed,
             'paged_qs': posts,
+            'highlight_word': highlight_word,
             }
 
 

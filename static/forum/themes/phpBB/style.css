@@ -249,3 +249,5 @@ DIV.searchposts DIV.icon {MARGIN-LEFT: 0}
 margin creates space for the post status indicator */
 
 TD DIV.tclcon {MARGIN-LEFT: 2.3em}
+
+SPAN.highlight { background-color: yellow }
