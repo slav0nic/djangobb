@@ -9,6 +9,11 @@ urlpatterns = patterns('',
     # Captcha
     (r'^', include('apps.captcha.urls')),
     
+    # Lo-Fi version
+    url('^lofi/$', views.index, {'full':False}, name='lofi_index'),
+    url('^(?P<forum_id>\d+)/lofi/$', views.show_forum, {'full':False}, name='lofi_forum'),
+    url('^topic/(?P<topic_id>\d+)/lofi/$', views.show_topic, {'full':False}, name='lofi_topic'),
+    
     # Misc
     url('^$', views.index, name='index'),
     url('^(?P<forum_id>\d+)/$', views.show_forum, name='forum'),

@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db import connection
 from django.core.cache import cache
 
-from apps.forum.util import render_to, paged, build_form
+from apps.forum.util import render_to, paged, build_form, paginate
 from apps.forum.models import Category, Forum, Topic, Post, Profile, Read, Reputation, Report, PrivateMessage
 from apps.forum.forms import AddPostForm, EditPostForm, UserSearchForm, PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
 from apps.forum.markups import mypostmarkup
@@ -20,7 +20,7 @@ from apps.forum import settings as forum_settings
 from apps.forum.util import urlize, smiles
 
 @render_to('forum/index.html')
-def index(request):
+def index(request, full=True):
     users_online = []
     #TODO: refactoring
     for user in User.objects.all():
@@ -39,16 +39,27 @@ def index(request):
 
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
-
-    return {'cats': cats,
-            'posts': Post.objects.count(),
-            'topics': Topic.objects.count(),
-            'users': User.objects.count(),
-            'users_online': users_online,
-            'online_count': len(users_online),
-            'guest_count': guest_count,
-            'last_user': User.objects.order_by('-date_joined')[0],
-           }
+    if full:
+        return {'cats': cats,
+                'posts': Post.objects.count(),
+                'topics': Topic.objects.count(),
+                'users': User.objects.count(),
+                'users_online': users_online,
+                'online_count': len(users_online),
+                'guest_count': guest_count,
+                'last_user': User.objects.order_by('-date_joined')[0],
+               }
+    else:
+        return {'cats': cats,
+                'posts': Post.objects.count(),
+                'topics': Topic.objects.count(),
+                'users': User.objects.count(),
+                'users_online': users_online,
+                'online_count': len(users_online),
+                'guest_count': guest_count,
+                'last_user': User.objects.order_by('-date_joined')[0],
+               }, 'forum/lofi/index.html'
+        
 
 @render_to('forum/moderate.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
@@ -179,26 +190,36 @@ def misc(request):
 
 @render_to('forum/forum.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
-def show_forum(request, forum_id):
+def show_forum(request, forum_id, full=True):
     forum = Forum.objects.get(pk=forum_id)
-    topics = forum.topics.filter(sticky=False).select_related()
+    topics = forum.topics.order_by('-sticky').select_related()
     moderator = request.user.is_superuser or\
         request.user in forum.moderators.all()
+    if full:
+        return {'categories': Category.objects.all(),
+                'forum': forum,
+                'topics': topics,
+                'paged_qs': topics,
+                'posts': forum.posts.count(),
+                'topics': forum.topics.count(),
+                'moderator': moderator,
+                }
+    else:
+        pages, paginator, paged_list_name = paginate(topics, request, forum_settings.FORUM_PAGE_SIZE)
+        return {'categories': Category.objects.all(),
+                'forum': forum,
+                'posts': forum.posts.count(),
+                'moderator': moderator,
+                'pages': pages,
+                'paginator': paginator, 
+                'topics': paged_list_name,
+                }, 'forum/lofi/forum.html'
 
-    return {'categories': Category.objects.all(),
-            'forum': forum,
-            'topics': topics,
-            'sticky_topics': forum.topics.filter(sticky=True),
-            'paged_qs': topics,
-            'posts': forum.posts.count(),
-            'topics': forum.topics.count(),
-            'moderator': moderator,
-            }
 
     
 @render_to('forum/topic.html')
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
-def show_topic(request, topic_id):
+def show_topic(request, topic_id, full=True):
     topic = Topic.objects.select_related().get(pk=topic_id)
     topic.views += 1
     topic.save()
@@ -227,18 +248,28 @@ def show_topic(request, topic_id):
         subscribed = True
     else:
         subscribed = False
-
-    highlight_word = request.GET.get('hw', '')
-
-    return {'categories': Category.objects.all(),
-            'topic': topic,
-            'last_post': last_post,
-            'form': form,
-            'moderator': moderator,
-            'subscribed': subscribed,
-            'paged_qs': posts,
-            'highlight_word': highlight_word,
-            }
+    if full:
+        return {'categories': Category.objects.all(),
+                'topic': topic,
+                'last_post': last_post,
+                'form': form,
+                'moderator': moderator,
+                'subscribed': subscribed,
+                'paged_qs': posts,
+                }
+    else:
+        pages, paginator, paged_list_name = paginate(posts, request, forum_settings.TOPIC_PAGE_SIZE)
+        return {'categories': Category.objects.all(),
+                'topic': topic,
+                #'last_post': last_post,
+                #'form': form,
+                #'moderator': moderator,
+                #'subscribed': subscribed,
+                #'paged_qs': posts,
+                'pages': pages,
+                'paginator': paginator, 
+                'posts': paged_list_name,
+                }, 'forum/lofi/topic.html'
 
 
 @login_required
