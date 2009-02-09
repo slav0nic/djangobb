@@ -1,0 +1,4 @@
+{% load i18n %}
+{% for number in page_list %}
+	<a href="{{ get_params }}page={{ number }}">{{ number }}</a> 
+{% endfor %}

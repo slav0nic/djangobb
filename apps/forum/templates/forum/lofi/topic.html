@@ -1,0 +1,32 @@
+{% extends 'forum/lofi/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div id='largetext'>{% trans "Full Version:" %} {% link topic %}</div>
+<div class='ipbnav'>
+	<a href="{% url lofi_index %}">{% trans "Root" %}</a> &raquo; {% lofi_link topic.forum %} &raquo; {% lofi_link topic %}
+</div>
+
+<div class="ipbpagespan">
+	{% lofi_pagination %}
+</div>
+
+<div id='ipbcontent'>
+{% for post in posts %}
+		<div class='postwrapper'>
+			<div class='posttopbar'>
+			  <div class='postname'>{{ post.user }}</div>
+			  <div class='postdate'>{% forum_time post.created %}</div>
+		 	</div>
+			<div class='postcontent'>
+				{{ post.body_html|safe }}
+			</div>
+		</div>
+{% endfor %}
+</div>
+</div>
+<div class='smalltext'>This is a "lo-fi" version of our main content. To view the full version with more information, formatting and images, please <a href='{{ topic.get_absolute_url }}'>click here</a>.</div>
+</div>
+{% endblock %}
+

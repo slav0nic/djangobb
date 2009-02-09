@@ -1,11 +1,5 @@
 # -*- coding: utf-8
 from datetime import datetime, timedelta
-import urllib
-try:
-    from hashlib import md5
-except ImportError:
-    import md5
-    md5 = md5.new
 
 from django import template
 from django.core.urlresolvers import reverse
@@ -104,7 +98,24 @@ def pagination(context, adjacent_pages=1):
         'page_list': page_list,
         'per_page': context['per_page'],
         }
-
+    
+@register.inclusion_tag('forum/lofi/pagination.html',takes_context=True)
+def lofi_pagination(context):
+    page_list = range(1, context['pages'] + 1)
+    paginator = context['paginator']
+    
+    get_params = '&'.join(['%s=%s' % (x[0],','.join(x[1])) for x in
+        context['request'].GET.iteritems() if (not x[0] == 'page' and not x[0] == 'per_page')])
+    if get_params:
+        get_params = '?%s&' % get_params
+    else:
+        get_params = '?'
+        
+    return {
+            'get_params': get_params,
+            'page_list': page_list,
+            'paginator': paginator,
+            } 
 
 @register.simple_tag
 def link(object, anchor=u''):
@@ -115,6 +126,16 @@ def link(object, anchor=u''):
     url = hasattr(object,'get_absolute_url') and object.get_absolute_url() or None
     anchor = anchor or smart_unicode(object)
     return mark_safe('<a href="%s">%s</a>' % (url, escape(anchor)))
+
+@register.simple_tag
+def lofi_link(object, anchor=u''):
+    """
+    Return A tag with lofi_link to object.
+    """
+
+    url = hasattr(object,'get_absolute_url') and object.get_absolute_url() or None   
+    anchor = anchor or smart_unicode(object)
+    return mark_safe('<a href="%slofi">%s</a>' % (url, escape(anchor)))
 
 @register.filter
 def has_unreads(topic, user):
@@ -226,32 +247,14 @@ def forum_stars(user):
     else:
         return mark_safe('<img src="%sforum/img/stars/Star_0.gif" alt="" >' % (settings.MEDIA_URL))
 
-
 @register.filter
 def online(user):
     return cache.get(str(user.id))
-
 
 @register.filter
 def pm_unreads(user):
     return PrivateMessage.objects.filter(dst_user=user, read=False).count()
 
-
 @register.simple_tag
 def new_reports():
     return Report.objects.filter(zapped=False).count()
-
-
-@register.simple_tag
-def gravatar(email):
-    if forum_settings.GRAVATAR_SUPPORT:
-        size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
-        url = "http://www.gravatar.com/avatar.php?"
-        url += urllib.urlencode({
-            'gravatar_id': md5(email.lower()).hexdigest(),
-            'size': size,
-            'default': forum_settings.GRAVATAR_DEFAULT,
-        })
-        return url
-    else:
-        return ''

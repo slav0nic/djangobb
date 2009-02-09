@@ -12,6 +12,7 @@ from django.utils.translation import force_unicode
 from django.utils.simplejson import JSONEncoder
 from django import forms
 from django.template.defaultfilters import urlize as django_urlize
+from django.core.paginator import Paginator
 
 from apps.forum import settings as forum_settings
 
@@ -228,3 +229,26 @@ def smiles(data):
     smiled_html = parser.html
     parser.close()
     return smiled_html
+
+def paginate(items, request, per_page, total_count=None):
+    try:
+        page_number = int(request.GET.get('page', 1))
+    except ValueError:
+        page_number = 1
+        
+    paginator = Paginator(items, per_page)
+    pages = paginator.num_pages
+    paged_list_name = paginator.page(page_number).object_list
+       
+    return pages, paginator, paged_list_name 
+
+def set_language(request, language):
+    """
+    Change the language of session of authenticated user.
+    """
+
+    if language and check_for_language(language):
+        if hasattr(request, 'session'):
+            request.session['django_language'] = language
+        else:
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, language) 
