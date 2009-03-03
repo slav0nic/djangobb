@@ -16,11 +16,6 @@ from apps.forum.fields import AutoOneToOneField, ExtendedImageField
 from apps.forum.util import urlize, smiles
 from apps.forum import settings as forum_settings
 
-LANGUAGE_CHOICES = (
-    ('en', 'English'),
-    ('ru', 'Russian'),
-)
-
 TZ_CHOICES = [(float(x[0]), x[1]) for x in (
     (-12, '-12'), (-11, '-11'), (-10, '-10'), (-9.5, '-09.5'), (-9, '-09'),
     (-8.5, '-08.5'), (-8, '-08 PST'), (-7, '-07 MST'), (-6, '-06 CST'),
@@ -262,7 +257,7 @@ class Profile(models.Model):
     location = models.CharField(_('Location'), max_length=30, blank=True, default='')
     signature = models.TextField(_('Signature'), blank=True, default='', max_length=forum_settings.SIGNATURE_MAX_LENGTH)
     time_zone = models.FloatField(_('Time zone'), choices=TZ_CHOICES, default=float(forum_settings.DEFAULT_TIME_ZONE))
-    language = models.CharField(_('Language'), max_length=3, blank=True, default='en', choices=LANGUAGE_CHOICES)
+    language = models.CharField(_('Language'), max_length=3, blank=True, default='', choices=settings.LANGUAGES)
     avatar = ExtendedImageField(_('Avatar'), blank=True, default='', upload_to=forum_settings.AVATARS_UPLOAD_TO, width=forum_settings.AVATAR_WIDTH, height=forum_settings.AVATAR_HEIGHT)
     theme = models.CharField(_('Theme'), choices=THEME_CHOICES, max_length=80, default='')
     show_avatar = models.BooleanField(_('Show avatar'), blank=True, default=True)
