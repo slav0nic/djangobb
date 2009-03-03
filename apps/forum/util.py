@@ -8,13 +8,15 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.utils.functional import Promise
-from django.utils.translation import force_unicode
+from django.utils.translation import force_unicode, check_for_language
 from django.utils.simplejson import JSONEncoder
 from django import forms
 from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator
+from django.conf import settings
 
 from apps.forum import settings as forum_settings
+
 
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]

@@ -10,8 +10,9 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import connection
 from django.core.cache import cache
+from django.utils import translation
 
-from apps.forum.util import render_to, paged, build_form, paginate
+from apps.forum.util import render_to, paged, build_form, paginate, set_language
 from apps.forum.models import Category, Forum, Topic, Post, Profile, Read, Reputation, Report, PrivateMessage
 from apps.forum.forms import AddPostForm, EditPostForm, UserSearchForm, PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
 from apps.forum.markups import mypostmarkup
@@ -367,7 +368,9 @@ def user(request, username):
             elif section == 'essentials':
                 form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, user=user)
                 if request.method == 'POST' and form.is_valid():
-                    form.save()
+                    profile = form.save()
+                    set_language(request, profile.language)
+                    
                 return {'active_menu':'essentials',
                         'profile': user,
                         'form': form,
@@ -393,7 +396,8 @@ def user(request, username):
         else:
             form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, user=user)
             if request.method == 'POST' and form.is_valid():
-                form.save()
+                profile = form.save()
+                set_language(request, profile.language)
             return {'active_menu':'essentials',
                     'profile': user,
                     'form': form,

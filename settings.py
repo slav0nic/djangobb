@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 import os.path
+import sys
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+DEVELOPMENT = True
+
+if DEVELOPMENT:
+    sys.path.append(os.path.join(PROJECT_ROOT, 'apps'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -29,6 +34,11 @@ TIME_ZONE = 'Europe/Kiev'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Russian'),
+) 
 
 SITE_ID = 1
 
@@ -80,8 +90,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'apps.account.middleware.AuthKeyMiddleware',
-    'apps.forum.middleware.LastLoginMiddleware',
+    'account.middleware.AuthKeyMiddleware',
+    'forum.middleware.LastLoginMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -101,9 +111,10 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'apps.account',
-    'apps.captcha',
-    'apps.forum',
+    'account',
+    'captcha',
+    'forum',
+    'djapian',
 )
 
 FORCE_SCRIPT_NAME = ''

@@ -103,7 +103,7 @@ class EssentialsProfileForm(forms.ModelForm):
             profile.time_zone = self.cleaned_data['time_zone']
             profile.language = self.cleaned_data['language']
             user.save()
-        return profile.save()
+        return profile
    
 
 class PersonalProfileForm(forms.ModelForm):
@@ -181,7 +181,6 @@ class PrivacyProfileForm(forms.ModelForm):
 #                                                )
 #    
 #    def save(self):
-#        print self.forums
 #        return self.forums
 
 class UploadAvatarForm(forms.ModelForm):

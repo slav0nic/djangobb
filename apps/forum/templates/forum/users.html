@@ -3,6 +3,33 @@
 {% load i18n %}
 
 {% block content %}
+
+<div id="content" class="flex">
+        
+        <h1>Select user to change</h1>
+        
+<div id="content-main">
+
+
+<ul class="object-tools"><li><a href="add/" class="addlink">Add user</a></li></ul>
+
+
+<div class="module filtered" id="changelist">
+
+
+
+<div id="toolbar"><form id="changelist-search" action="" method="get">
+<div><!-- DIV needed for valid HTML -->
+<label for="searchbar"><img src="/media/admin/img/admin/icon_searchbox.png" alt="Search"></label>
+<input size="40" name="q" value="" id="searchbar" type="text">
+<input value="Go" type="submit">
+
+
+</div>
+</form></div>
+<script type="text/javascript">document.getElementById("searchbar").focus();</script>
+
+
 <div class="blockform">
 	<h2><span>{% trans "User search" %}</span></h2>
 	<div class="box">
