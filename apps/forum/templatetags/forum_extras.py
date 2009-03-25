@@ -1,5 +1,11 @@
 # -*- coding: utf-8
 from datetime import datetime, timedelta
+import urllib
+try:
+    from hashlib import md5
+except ImportError:
+    import md5
+    md5 = md5.new
 
 from django import template
 from django.core.urlresolvers import reverse
@@ -15,6 +21,7 @@ from django.utils import dateformat
 from apps.forum.models import Forum, Topic, Post, Read, PrivateMessage, Report
 from apps.forum.unread import cache_unreads
 from apps.forum import settings as forum_settings
+
 
 register = template.Library()
 
@@ -258,3 +265,17 @@ def pm_unreads(user):
 @register.simple_tag
 def new_reports():
     return Report.objects.filter(zapped=False).count()
+
+@register.simple_tag
+def gravatar(email):
+    if forum_settings.GRAVATAR_SUPPORT:
+        size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
+        url = "http://www.gravatar.com/avatar.php?"
+        url += urllib.urlencode({
+            'gravatar_id': md5(email.lower()).hexdigest(),
+            'size': size,
+            'default': forum_settings.GRAVATAR_DEFAULT,
+        })
+        return url
+    else:
+        return ''
