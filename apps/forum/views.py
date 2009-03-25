@@ -249,6 +249,8 @@ def show_topic(request, topic_id, full=True):
         subscribed = True
     else:
         subscribed = False
+
+    highlight_word = request.GET.get('hw', '')
     if full:
         return {'categories': Category.objects.all(),
                 'topic': topic,
@@ -257,6 +259,7 @@ def show_topic(request, topic_id, full=True):
                 'moderator': moderator,
                 'subscribed': subscribed,
                 'paged_qs': posts,
+                'highlight_word': highlight_word,
                 }
     else:
         pages, paginator, paged_list_name = paginate(posts, request, forum_settings.TOPIC_PAGE_SIZE)
