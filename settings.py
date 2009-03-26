@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'captcha',
     'forum',
     'djapian',
+    'django_evolution',
 )
 
 FORCE_SCRIPT_NAME = ''
@@ -137,7 +138,10 @@ LOGIN_URL = '/forum/login/'
 ACCOUNT_DOMAIN = '/forum/account/'
 ACCOUNT_AUTH_KEY_TIMEOUT = 60 * 60 * 24
 
+# Djapian settings
+DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
+
 try:
-    from local_settings import *
+   from local_settings import *
 except ImportError:
     pass
