@@ -9,7 +9,7 @@
 
 	</div>
 </div>
-
+{% if topics %}
 <div id="vf" class="blocktable">
 	<h2><span>{% trans "Search results" %}</span></h2>
 	<div class="box">
@@ -49,6 +49,18 @@
 		</div>
 	</div>
 </div>
+{% else %}
+<div id="msg" class="block">
+	<h2><span>{% trans "Info" %}</span></h2>
+	<div class="box">
+
+		<div class="inbox">
+		<p>{% trans "Your search returned no hits." %}</p>
+		<p><a href="javascript: history.go(-1)">{% trans "Go back" %}</a></p>
+		</div>
+	</div>
+</div>
+{% endif %}
 
 <div class="linksb">
 	<div class="inbox">

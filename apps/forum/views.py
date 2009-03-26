@@ -19,6 +19,7 @@ from apps.forum.markups import mypostmarkup
 from apps.forum.templatetags import forum_extras
 from apps.forum import settings as forum_settings
 from apps.forum.util import urlize, smiles
+from apps.forum.index import post_indexer
 
 @render_to('forum/index.html')
 def index(request, full=True):
@@ -117,6 +118,7 @@ def moderate(request, forum_id):
 
 @render_to('forum/search_topics.html')
 def search(request):
+    post_indexer.update()
     if 'action' in request.GET:
         action = request.GET['action']
         if action == 'show_24h':
@@ -133,13 +135,72 @@ def search(request):
             user_id = request.GET['user_id']
             posts = Post.objects.filter(user__id=user_id)
             topics = [post.topic for post in posts]
-        elif action == 'search':
-            posts = Post.objects.all()
-            form = PostSearchForm(request.GET)
-            posts = form.filter(posts)
-            topics = [post.topic for post in posts]
-            if action == 'topics':
-                return {'topics': topics}
+        elif action == 'search':          
+            keywords = request.GET.get('keywords')
+            author = request.GET.get('author')
+            forum = request.GET.get('forum')
+            search_in = request.GET.get('search_in')
+            sort_by = request.GET.get('sort_by')
+            sort_dir = request.GET.get('sort_dir')
+            
+            # TODO: Need refactoring 
+            if keywords and author:
+                if search_in == 'all':
+                    if forum == '0':
+                        query = 'user:%s AND (topic:%s OR body:%s)' % (author, keywords, keywords)
+                    else:
+                        query = 'user:%s AND forum:%s AND (topic:%s OR body:%s)' % (author, forum, keywords, keywords)
+                elif search_in == 'message':
+                    if forum == '0':
+                        query = 'user:%s AND body:%s' % (author, keywords)
+                    else:
+                        query = 'user:%s AND forum:%s AND body:%s' % (author, forum, keywords)
+                elif search_in == 'topic':
+                    if forum == '0':
+                        query = 'user:%s AND topic:%s' % (author, keywords)
+                    else:
+                        query = 'user:%s AND forum:%s AND topic:%s' % (author, forum, keywords)
+            elif keywords:
+                if search_in == 'all':
+                    if forum == '0':
+                        query = 'topic:%s OR body:%s' % (keywords, keywords)
+                    else:
+                        query = 'forum:%s AND (topic:%s OR body:%s)' % (forum, keywords, keywords)
+                elif search_in == 'message':
+                    if forum == '0':
+                        query = 'body:%s' % (keywords)
+                    else:
+                        query = 'forum:%s AND body:%s' % (forum, keywords)
+                elif search_in == 'topic':
+                    if forum == '0':
+                        query = 'topic:%s' % (keywords)
+                    else:
+                        query = 'forum:%s AND topic:%s' % (forum, keywords)
+            elif author:
+                if forum == '0':
+                    query = 'user:%s' % (author)
+                else:
+                    query = 'forum:%s AND user:%s' % (forum, author)
+
+            if sort_by == '0':
+                order = 'created'
+            elif sort_by == '1':
+                order = 'user'
+            elif sort_by == '2':
+                order = 'topic'
+            elif sort_by == '3':
+                order = 'forum'
+            
+            if sort_dir == 'DESC':
+                order = '-' + order
+            posts = post_indexer.search(query).order_by(order)
+            
+            if 'topics' in request.GET['show_as']:
+                topics = []
+                for post in posts:
+                    if post.instance.topic not in topics:
+                        topics.append(post.instance.topic)
+                return {'topics': topics}, 'forum/search_topics.html'
             elif 'posts' in request.GET['show_as']:
                 return {'posts': posts}, 'forum/search_posts.html'
         return {'topics': topics}
@@ -304,6 +365,7 @@ def add_post(request, forum_id, topic_id):
 
     if form.is_valid():
         post = form.save();
+        post_indexer.update()
         return HttpResponseRedirect(post.get_absolute_url())
 
     return {'form': form,
@@ -476,6 +538,7 @@ def edit_post(request, post_id):
     form = build_form(EditPostForm, request, topic=topic, instance=post)
     if form.is_valid():
         post = form.save()
+        post_indexer.update()
         return HttpResponseRedirect(post.get_absolute_url())
 
     return {'form': form,
@@ -591,6 +654,7 @@ def delete_post(request, post_id):
         return HttpResponseRedirect(post.get_absolute_url())
 
     post.delete()
+    post_indexer.update()
     profile = get_object_or_404(Profile, user=post.user)
     profile.post_count = Post.objects.filter(user=post.user).count()
     profile.save()    
