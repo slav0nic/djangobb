@@ -33,10 +33,10 @@
 			<tbody>
 			{% if topics %}
 			{% for topic in topics|forum_unreads:user %}
-				<tr {% if topic.sticky %} class="isticky"{% endif %} {% if topic|has_unreads:user %}class="inew"{% endif %} {% if topic.closed %}class="iclosed"{% endif %}>
+				<tr >
 					<td class="tcl">
 						<div class="intd">
-							<div class="icon"><div class="nosize"><!-- --></div></div>
+							<div {% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}><div class="nosize"><!-- --></div></div>
 							<div class="tclcon">
 								{% if topic|has_unreads:user %}
 								<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
