@@ -10,7 +10,7 @@
     {% if request.user.is_authenticated and request.user.forum_profile.theme %}
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/{{ request.user.forum_profile.theme }}/style.css" />
 	{% else %}
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/phpBB/style.css" />
+	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/default/style.css" />
 	{% endif %}
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/skins/markitup/style.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/sets/bbcode/style.css" />
