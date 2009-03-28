@@ -229,30 +229,30 @@ def forum_unreads(qs, user):
 
 
 @register.filter
-def forum_stars(user):
+def forum_authority(user):
     posts = user.forum_profile.post_count
-    if posts >= forum_settings.FORUM_STAR_5: 
-        return mark_safe('<img src="%sforum/img/stars/Star_5.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_4_HALF: 
-        return mark_safe('<img src="%sforum/img/stars/Star_4_Half.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_4: 
-        return mark_safe('<img src="%sforum/img/stars/Star_4.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_3_HALF: 
-        return mark_safe('<img src="%sforum/img/stars/Star_3_Half.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_3: 
-        return mark_safe('<img src="%sforum/img/stars/Star_3.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_2_HALF: 
-        return mark_safe('<img src="%sforum/img/stars/Star_2_Half.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_2: 
-        return mark_safe('<img src="%sforum/img/stars/Star_2.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_1_HALF: 
-        return mark_safe('<img src="%sforum/img/stars/Star_1_Half.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_1: 
-        return mark_safe('<img src="%sforum/img/stars/Star_1.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STAR_0_HALF: 
-        return mark_safe('<img src="%sforum/img/stars/Star_0_Half.gif" alt="" >' % (settings.MEDIA_URL))
+    if posts >= forum_settings.FORUM_STEP_10: 
+        return mark_safe('<img src="%sforum/img/authority/vote10.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_9: 
+        return mark_safe('<img src="%sforum/img/authority/vote9.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_8: 
+        return mark_safe('<img src="%sforum/img/authority/vote8.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_7: 
+        return mark_safe('<img src="%sforum/img/authority/vote7.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_6: 
+        return mark_safe('<img src="%sforum/img/authority/vote6.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_5: 
+        return mark_safe('<img src="%sforum/img/authority/vote5.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_4: 
+        return mark_safe('<img src="%sforum/img/authority/vote4.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_3: 
+        return mark_safe('<img src="%sforum/img/authority/vote3.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_2: 
+        return mark_safe('<img src="%sforum/img/authority/vote2.gif" alt="" >' % (settings.MEDIA_URL))
+    elif posts >= forum_settings.FORUM_STEP_1: 
+        return mark_safe('<img src="%sforum/img/authority/vote1.gif" alt="" >' % (settings.MEDIA_URL))
     else:
-        return mark_safe('<img src="%sforum/img/stars/Star_0.gif" alt="" >' % (settings.MEDIA_URL))
+        return mark_safe('<img src="%sforum/img/authority/vote0.gif" alt="" >' % (settings.MEDIA_URL))
 
 @register.filter
 def online(user):

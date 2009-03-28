@@ -35,7 +35,7 @@
 						{% endif %}
 					</dd>
 					<dd class="usertitle">
-						{{ post.user|forum_stars }}
+						{{ post.user|forum_authority }}
 					</dd>
 					{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
 						<dd class="postavatar"><img src="{{ post.user.forum_profile.avatar.url }}" /></dd>
