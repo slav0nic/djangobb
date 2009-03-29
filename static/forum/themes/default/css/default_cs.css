@@ -135,6 +135,10 @@ font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
 background:transparent url(../img/category.gif) no-repeat scroll left center;
 }
 
+.pun h2 span.conr {
+background-image:none;
+}
+
 /* board stats icon */
 #punindex #brdstats div.box div.inbox dl.conl,
 #punforum #brdstats div.box div.inbox dl.conl
