@@ -1,6 +1,6 @@
 import unittest
 
-from apps.forum.markups import mypostmarkup
+from forum.markups import mypostmarkup
 
 class PostmarkupTestCase(unittest.TestCase):
     def setUp(self):

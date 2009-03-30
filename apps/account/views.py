@@ -9,11 +9,11 @@ from django.contrib import auth
 from django.utils.translation import ugettext as _, string_concat
 from django.http import HttpResponseRedirect
 
-from apps.account.forms import RegistrationForm, RestorePasswordForm,\
+from account.forms import RegistrationForm, RestorePasswordForm,\
                           NewPasswordForm, LoginForm, NewEmailForm
-from apps.account.util import email_template, build_redirect_url, render_to
-from apps.account.auth_key import wrap_url
-from apps.account.settings import ACCOUNT_DOMAIN, ACCOUNT_AUTH_KEY_TIMEOUT
+from account.util import email_template, build_redirect_url, render_to
+from account.auth_key import wrap_url
+from account.settings import ACCOUNT_DOMAIN, ACCOUNT_AUTH_KEY_TIMEOUT
 
 def message(msg):
     """

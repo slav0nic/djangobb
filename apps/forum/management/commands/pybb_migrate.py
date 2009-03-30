@@ -3,7 +3,7 @@ import os
 
 from django.core.management.base import BaseCommand, CommandError
 
-from apps import forum
+import forum
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + ( 

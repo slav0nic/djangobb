@@ -1,4 +1,4 @@
-from apps.forum.models import Topic, Post, Read
+from forum.models import Topic, Post, Read
 
 def cache_unreads(qs, user):
     if not len(qs) or not user.is_authenticated():

@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.contrib.auth import login, authenticate
 
-from apps.account.auth_key import strftime, strptime,\
+from account.auth_key import strftime, strptime,\
     generate_key, wrap_url, validate_key
 
 class AccountTestCase(TestCase):

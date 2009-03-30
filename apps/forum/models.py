@@ -11,10 +11,10 @@ from django.utils.translation import ugettext_lazy as _
 #from django.contrib.markup.templatetags.markup import markdown
 from markdown import Markdown
 
-from apps.forum.markups import mypostmarkup 
-from apps.forum.fields import AutoOneToOneField, ExtendedImageField
-from apps.forum.util import urlize, smiles
-from apps.forum import settings as forum_settings
+from forum.markups import mypostmarkup 
+from forum.fields import AutoOneToOneField, ExtendedImageField
+from forum.util import urlize, smiles
+from forum import settings as forum_settings
 
 TZ_CHOICES = [(float(x[0]), x[1]) for x in (
     (-12, '-12'), (-11, '-11'), (-10, '-10'), (-9.5, '-09.5'), (-9, '-09'),
