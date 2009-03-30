@@ -3,7 +3,7 @@ The root of forum tests.
 """
 import unittest
 
-from apps.forum.tests.postmarkup import PostmarkupTestCase
+from forum.tests.postmarkup import PostmarkupTestCase
 
 def suite():
     cases = (PostmarkupTestCase,

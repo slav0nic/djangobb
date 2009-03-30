@@ -10,9 +10,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.conf import settings                               #PC
 
-from apps.account.util import email_template
-from apps.account.auth_key import validate_key, decode_key, decode_key
-from apps.account.settings import ACCOUNT_DOMAIN
+from account.util import email_template
+from account.auth_key import validate_key, decode_key, decode_key
+from account.settings import ACCOUNT_DOMAIN
 
 def login_user(request, user):
     user.backend = 'django.contrib.auth.backends.ModelBackend'

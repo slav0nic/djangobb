@@ -18,9 +18,9 @@ from django.utils.html import escape
 from django.utils.translation import ugettext as _
 from django.utils import dateformat
 
-from apps.forum.models import Forum, Topic, Post, Read, PrivateMessage, Report
-from apps.forum.unread import cache_unreads
-from apps.forum import settings as forum_settings
+from forum.models import Forum, Topic, Post, Read, PrivateMessage, Report
+from forum.unread import cache_unreads
+from forum import settings as forum_settings
 
 
 register = template.Library()

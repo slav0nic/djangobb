@@ -3,8 +3,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
-from apps.forum import settings as forum_settings
-from apps.forum.util import absolute_url
+from forum import settings as forum_settings
+from forum.util import absolute_url
 
 TOPIC_SUBSCRIPTION_TEXT_TEMPLATE = (u"""New reply from %(username)s to topic that you have subscribed on.
 ---
@@ -41,7 +41,7 @@ def send_mail(rec_list, subject, text, html=None):
 
 
 def notify_topic_subscribers(post):
-    from apps.forum.models import Post
+    from forum.models import Post
 
     topic = post.topic
     if post != topic.head:
@@ -61,7 +61,7 @@ def notify_topic_subscribers(post):
 
 def notify_pm_recipients(pm):
     if not pm.read:
-        from apps.forum.models import PrivateMessage 
+        from forum.models import PrivateMessage 
         subject = (u'There are new messages')
         to_email = pm.dst_user.email
         text_content = PM_RECIPIENT_TEXT_TEMPLATE % {

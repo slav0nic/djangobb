@@ -1,6 +1,6 @@
 import djapian
 
-from apps.forum.models import Post
+from forum.models import Post
         
 class PostIndexer(djapian.Indexer):
     fields=['body']

@@ -291,3 +291,9 @@ a.quotehint:hover .infobox {
 	font-size: 0.8em; 
 	padding: 0.5em; 
 }
+
+.pun input#id_captcha_1 {
+font-size:22px;
+margin-left:10px;
+width:88px;
+}

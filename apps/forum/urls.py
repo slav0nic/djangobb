@@ -1,13 +1,13 @@
 from django.conf.urls.defaults import *
 
-from apps.forum import views
+from forum import views
 
 urlpatterns = patterns('',
     # Account
-    (r'^', include('apps.account.urls')),
+    (r'^', include('account.urls')),
     
     # Captcha
-    (r'^', include('apps.captcha.urls')),
+    (r'^', include('captcha.urls')),
     
     # Lo-Fi version
     url('^lofi/$', views.index, {'full':False}, name='lofi_index'),

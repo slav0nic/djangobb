@@ -9,8 +9,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from apps.forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessage, Forum
-from apps.forum.markups import mypostmarkup
+from forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessage, Forum
+from forum.markups import mypostmarkup
 
 SORT_USER_BY_CHOICES = (
     ('username', _(u'Username')),

@@ -3,7 +3,7 @@ import django.contrib.auth.views
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
 
-from apps.account import views
+from account import views
 
 # Note that url names are the same as in django-registration application
 

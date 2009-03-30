@@ -9,13 +9,13 @@ from django.contrib.auth import authenticate, login
 from django.utils.translation import ugettext as _
 from django.template import loader
 
-from apps.forum.models import Profile
-from apps.forum.models import TZ_CHOICES, PRIVACY_CHOICES
+from forum.models import Profile
+from forum.models import TZ_CHOICES, PRIVACY_CHOICES
 
 ACCOUNT_CAPTCHA = getattr(settings, 'ACCOUNT_CAPTCHA', False)
 
 if ACCOUNT_CAPTCHA:
-    from apps.captcha.fields import CaptchaField
+    from captcha.fields import CaptchaField
 
 RE_USERNAME = getattr(settings, 'ACCOUNT_RE_USERNAME',
                       re.compile(r'[a-z0-9][_a-z0-9]*[a-z0-9]$', re.I))

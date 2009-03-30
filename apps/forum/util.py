@@ -15,7 +15,7 @@ from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator
 from django.conf import settings
 
-from apps.forum import settings as forum_settings
+from forum import settings as forum_settings
 
 
 #compile smiles regexp
