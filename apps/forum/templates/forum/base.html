@@ -48,20 +48,20 @@
     {% block extra_meta %}{% endblock %}
 </head>
 <body>
-    {% include 'forum/head.html' %}
+    {% include 'forum/header.html' %}
 
     {% block content %}{% endblock %}
 
 	<div id="brdfooter" class="block">
-		<h2><span>{% trans "Board footer" %}</span></h2>
-		<div class="box">
-			<div class="inbox">
-				{% block controls %}
-				{% endblock %}
-				<p class="conr">Powered by <a href="http://www.djangobb.org/">DjangoBB</a></p>
-				<div class="clearer"></div>
-			</div>
+	<h2><span>{% trans "Board footer" %}</span></h2>
+	<div class="box">
+		<div class="inbox">
+			{% block controls %}
+			{% endblock %}
+			<p class="conr">Powered by <a href="http://www.djangobb.org/">DjangoBB</a></p>
+			<div class="clearer"></div>
 		</div>
 	</div>
+</div>
 </body>
 </html>

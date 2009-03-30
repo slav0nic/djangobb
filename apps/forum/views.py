@@ -14,7 +14,7 @@ from django.utils import translation
 
 from apps.forum.util import render_to, paged, build_form, paginate, set_language
 from apps.forum.models import Category, Forum, Topic, Post, Profile, Read, Reputation, Report, PrivateMessage
-from apps.forum.forms import AddPostForm, EditPostForm, UserSearchForm, PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
+from apps.forum.forms import AddPostForm, EditPostForm, UserSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
 from apps.forum.markups import mypostmarkup
 from apps.forum.templatetags import forum_extras
 from apps.forum import settings as forum_settings

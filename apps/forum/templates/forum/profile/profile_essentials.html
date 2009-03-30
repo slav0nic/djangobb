@@ -33,7 +33,9 @@
 						<div class="infldset">
 							<label><strong>{{ form.email.label }}</strong><br>
 							{{ form.email }}<br></label>
+							{% if request.user.is_superuser %}
 							<p><a href="{% url misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
+							{% endif %}
 
 						</div>
 					</fieldset>
