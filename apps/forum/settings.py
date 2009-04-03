@@ -21,7 +21,7 @@ TAGLINE = get('TAGLINE', 'Django based forum engine')
 DEFAULT_MARKUP = get('DEFAULT_MARKUP', 'bbcode')
 NOTICE = get('NOTICE', '')
 HOST = get('HOST', 'localhost:8000')
-USER_ONLINE_TIMEOUT = get('USER_ONLINE_TIMEOUT', 30)
+USER_ONLINE_TIMEOUT = get('USER_ONLINE_TIMEOUT', 15)
 EMAIL_DEBUG = get('FORUM_EMAIL_DEBUG', False)
 
 # GRAVATAR Extension

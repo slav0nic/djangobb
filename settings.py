@@ -89,6 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'account.middleware.AuthKeyMiddleware',
     'forum.middleware.LastLoginMiddleware',
+    'forum.middleware.UsersOnline',
 )
 
 ROOT_URLCONF = 'urls'
