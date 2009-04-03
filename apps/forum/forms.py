@@ -238,8 +238,20 @@ class UserSearchForm(forms.Form):
                     return qs.filter(username__contains=username).order_by('-forum_profile__post_count')
         else:
             return qs
+
+
+class PostSearchForm(forms.Form):
+    keywords = forms.CharField(required=False, label=_('Keyword search'), 
+                               widget=forms.TextInput(attrs={'size':'40', 'maxlength':'100'}))
+    author = forms.CharField(required=False, label=_('Author search'),
+                             widget=forms.TextInput(attrs={'size':'25', 'maxlength':'25'}))
+    forum = forms.CharField(required=False, label=_('Forum'))
+    search_in = forms.ChoiceField(choices=SEARCH_IN_CHOICES, label=_('Search in'))
+    sort_by = forms.ChoiceField(choices=SORT_POST_BY_CHOICES, label=_('Sort by'))
+    sort_dir = forms.ChoiceField(choices=SORT_DIR_CHOICES, label=_('Sort order'))
+    show_as = forms.ChoiceField(choices=SHOW_AS_CHOICES, label=_('Show results as'))
         
-        
+
 class ReputationForm(forms.ModelForm):
     
     class Meta:
