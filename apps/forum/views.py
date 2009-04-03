@@ -28,7 +28,7 @@ from forum.index import post_indexer
 @render_to('forum/index.html')
 def index(request, full=True):
     users_cached = cache.get('users_online', {})
-    users_online = User.objects.filter(id__in = users_cached.keys()) and users_cached or []
+    users_online = users_cached and User.objects.filter(id__in = users_cached.keys()) or []
     guests_cached = cache.get('guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
