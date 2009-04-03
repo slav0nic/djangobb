@@ -17,7 +17,7 @@
 				<li id="navuserlist"><a href="{% url forum_users %}">{% trans "User list" %}</a></li>
 				<li id="navsearch"><a href="{% url search %}">{% trans "Search" %}</a></li>
 				{% if user.is_superuser %}
-				<li id="navadmin"><a href="{% url admincp "." %}">{% trans "Administration" %}</a></li>
+				<li id="navadmin"><a href="{% url admin_index %}">{% trans "Administration" %}</a></li>
 				{% endif %}
 				{% if user.is_authenticated %}
 				<li id="navprofile"><a href="{% url forum_profile request.user %}">{% trans "Profile" %}</a></li>
@@ -43,7 +43,7 @@
 				<li>{% trans "You are not logged in." %}</li>
 				{% endif %}
 				{% if user.is_superuser and reports %}
-				<li class="reportlink"><strong><a href="{% url admincp "." %}">{% trans "There are new reports" %} ({% new_reports %})</a></strong></li>
+				<li class="reportlink"><strong><a href="{% url admin_index %}">{% trans "There are new reports" %} ({% new_reports %})</a></strong></li>
 				{% endif %}
 			</ul>
 			{% if user.is_authenticated %}
