@@ -13,8 +13,12 @@ from django.core.cache import cache
 from django.utils import translation
 
 from forum.util import render_to, paged, build_form, paginate, set_language
-from forum.models import Category, Forum, Topic, Post, Profile, Read, Reputation, Report, PrivateMessage
-from forum.forms import AddPostForm, EditPostForm, UserSearchForm, PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
+from forum.models import Category, Forum, Topic, Post, Profile, Read,\
+    Reputation, Report, PrivateMessage
+from forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
+    PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
+    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
+    DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
 from forum.markups import mypostmarkup
 from forum.templatetags import forum_extras
 from forum import settings as forum_settings
@@ -23,13 +27,12 @@ from forum.index import post_indexer
 
 @render_to('forum/index.html')
 def index(request, full=True):
-    users_online = []
-    #TODO: refactoring
-    for user in User.objects.all():
-        if cache.get(str(user.id)):
-            users_online.append(user)
-    guest_count = len(cache._cache) - len(users_online)
-
+    users_cached = cache.get('users_online', {})
+    users_online = User.objects.filter(id__in = users_cached.keys()) and users_cached or []
+    guests_cached = cache.get('guests_online', {})
+    guest_count = len(guests_cached)
+    users_count = len(users_online)
+    #users_total_online = guest_count + users_count
     cats = {}
     forums = {}
 
@@ -47,7 +50,7 @@ def index(request, full=True):
                 'topics': Topic.objects.count(),
                 'users': User.objects.count(),
                 'users_online': users_online,
-                'online_count': len(users_online),
+                'online_count': users_count,
                 'guest_count': guest_count,
                 'last_user': User.objects.order_by('-date_joined')[0],
                }
@@ -57,7 +60,7 @@ def index(request, full=True):
                 'topics': Topic.objects.count(),
                 'users': User.objects.count(),
                 'users_online': users_online,
-                'online_count': len(users_online),
+                'online_count': users_count,
                 'guest_count': guest_count,
                 'last_user': User.objects.order_by('-date_joined')[0],
                }, 'forum/lofi/index.html'
