@@ -1,16 +1,15 @@
 # -*- coding: utf-8
-
 import re
 
 from django import forms
 from django.contrib.auth.models import User
-from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.utils.translation import ugettext as _
 from django.template import loader
 
 from forum.models import Profile
 from forum.models import TZ_CHOICES, PRIVACY_CHOICES
+from django.conf import settings
 
 ACCOUNT_CAPTCHA = getattr(settings, 'ACCOUNT_CAPTCHA', False)
 
@@ -149,7 +148,6 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
         self.base_fields['username'].help_text = ''
-        #self.base_fields['password'].widget = forms.PasswordInput()
         self.base_fields['password'].help_text = ''
         super(LoginForm, self).__init__(*args, **kwargs)
 

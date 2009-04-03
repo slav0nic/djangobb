@@ -21,7 +21,9 @@
 				{% endif %}
 				{% if user.is_authenticated %}
 				<li id="navprofile"><a href="{% url forum_profile request.user %}">{% trans "Profile" %}</a></li>
+				{% if "PM_SUPPORT"|forum_setting %}
 				<li id="navpm"><a href="{% url forum_pm_inbox %}">{% trans "PM" %}</a></li> 
+				{% endif %}
 				<li id="navlogout"><a href="{% url auth_logout %}">{% trans "Log out" %}</a></li>
 				{% else %}
     	        <li><a href="{% url auth_login %}">{% trans "Log in" %}</a></li>
@@ -60,7 +62,7 @@
 	<h2><span>{% trans "Notice" %}</span></h2>
 	<div class="box">
 		<div class="inbox">
-			<div>{{ "FORUM_NOTICE"|forum_setting }}</div>
+			<div>{{ "NOTICE"|forum_setting }}</div>
 		</div>
 	</div>
 </div>

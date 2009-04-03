@@ -128,6 +128,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
 
+# Djapian settings
+DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
+
 # Account settings
 ACCOUNT_ACTIVATION = False
 LOGIN_REDIRECT_URL = '/forum'
@@ -137,9 +140,6 @@ ACCOUNT_PASSWORD_MIN_LENGTH = 2
 LOGIN_URL = '/forum/login/'
 ACCOUNT_DOMAIN = '/forum/account/'
 ACCOUNT_AUTH_KEY_TIMEOUT = 60 * 60 * 24
-
-# Djapian settings
-DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
 
 try:
    from local_settings import *

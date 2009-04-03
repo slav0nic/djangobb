@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from forum import settings as forum_settings
 
 from forum import views
 
@@ -8,12 +9,7 @@ urlpatterns = patterns('',
     
     # Captcha
     (r'^', include('captcha.urls')),
-    
-    # Lo-Fi version
-    url('^lofi/$', views.index, {'full':False}, name='lofi_index'),
-    url('^(?P<forum_id>\d+)/lofi/$', views.show_forum, {'full':False}, name='lofi_forum'),
-    url('^topic/(?P<topic_id>\d+)/lofi/$', views.show_topic, {'full':False}, name='lofi_topic'),
-    
+      
     # Misc
     url('^$', views.index, name='index'),
     url('^(?P<forum_id>\d+)/$', views.show_forum, name='forum'),
@@ -24,7 +20,6 @@ urlpatterns = patterns('',
     # User
     url('^user/(?P<username>.*)/$', views.user, name='forum_profile'),
     url('^users/$', views.users, name='forum_users'),
-    url('^reputation/(?P<username>.*)/$', views.reputation, name='reputation'),
 
     # Topic
     url('^topic/(?P<topic_id>\d+)/$', views.show_topic, name='topic'),
@@ -49,10 +44,31 @@ urlpatterns = patterns('',
     # Subscription
     url('^subscription/topic/(?P<topic_id>\d+)/delete/$', views.delete_subscription, name='forum_delete_subscription'),
     url('^subscription/topic/(?P<topic_id>\d+)/add/$', views.add_subscription, name='forum_add_subscription'),
-    
-    # Private messages
-    url('^pm/new/$', views.create_pm, name='forum_create_pm'),
-    url('^pm/outbox/$', views.pm_outbox, name='forum_pm_outbox'),
-    url('^pm/inbox/$', views.pm_inbox, name='forum_pm_inbox'),
-    url('^pm/show/(?P<pm_id>\d+)/$', views.show_pm, name='forum_show_pm'),
 )
+
+
+### EXTENSIONS ###
+
+# LOFI Extension
+if (forum_settings.LOFI_SUPPORT):
+    urlpatterns += patterns('',
+        url('^lofi/$', views.index, {'full':False}, name='lofi_index'),
+        url('^(?P<forum_id>\d+)/lofi/$', views.show_forum, {'full':False}, name='lofi_forum'),
+        url('^topic/(?P<topic_id>\d+)/lofi/$', views.show_topic, {'full':False}, name='lofi_topic'),
+    )
+
+# PM Extension
+if (forum_settings.PM_SUPPORT):
+    urlpatterns += patterns('',
+        url('^pm/new/$', views.create_pm, name='forum_create_pm'),
+        url('^pm/outbox/$', views.pm_outbox, name='forum_pm_outbox'),
+        url('^pm/inbox/$', views.pm_inbox, name='forum_pm_inbox'),
+        url('^pm/show/(?P<pm_id>\d+)/$', views.show_pm, name='forum_show_pm'),
+   )
+
+# REPUTATION Extension
+if (forum_settings.REPUTATION_SUPPORT):
+    urlpatterns += patterns('',
+        url('^reputation/(?P<username>.*)/$', views.reputation, name='reputation'),
+    )
+    

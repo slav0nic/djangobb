@@ -178,7 +178,7 @@ def has_unreads(topic, user):
 
 @register.filter
 def forum_setting(name):
-    return mark_safe(getattr(forum_settings, name, 'NOT DEFINED'))
+    return getattr(forum_settings, name, 'NOT DEFINED')
 
 
 @register.filter
@@ -231,25 +231,25 @@ def forum_unreads(qs, user):
 @register.filter
 def forum_authority(user):
     posts = user.forum_profile.post_count
-    if posts >= forum_settings.FORUM_STEP_10: 
+    if posts >= forum_settings.AUTHORITY_STEP_10: 
         return mark_safe('<img src="%sforum/img/authority/vote10.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_9: 
+    elif posts >= forum_settings.AUTHORITY_STEP_9: 
         return mark_safe('<img src="%sforum/img/authority/vote9.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_8: 
+    elif posts >= forum_settings.AUTHORITY_STEP_8: 
         return mark_safe('<img src="%sforum/img/authority/vote8.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_7: 
+    elif posts >= forum_settings.AUTHORITY_STEP_7: 
         return mark_safe('<img src="%sforum/img/authority/vote7.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_6: 
+    elif posts >= forum_settings.AUTHORITY_STEP_6: 
         return mark_safe('<img src="%sforum/img/authority/vote6.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_5: 
+    elif posts >= forum_settings.AUTHORITY_STEP_5: 
         return mark_safe('<img src="%sforum/img/authority/vote5.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_4: 
+    elif posts >= forum_settings.AUTHORITY_STEP_4: 
         return mark_safe('<img src="%sforum/img/authority/vote4.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_3: 
+    elif posts >= forum_settings.AUTHORITY_STEP_3: 
         return mark_safe('<img src="%sforum/img/authority/vote3.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_2: 
+    elif posts >= forum_settings.AUTHORITY_STEP_2: 
         return mark_safe('<img src="%sforum/img/authority/vote2.gif" alt="" >' % (settings.MEDIA_URL))
-    elif posts >= forum_settings.FORUM_STEP_1: 
+    elif posts >= forum_settings.AUTHORITY_STEP_1: 
         return mark_safe('<img src="%sforum/img/authority/vote1.gif" alt="" >' % (settings.MEDIA_URL))
     else:
         return mark_safe('<img src="%sforum/img/authority/vote0.gif" alt="" >' % (settings.MEDIA_URL))
