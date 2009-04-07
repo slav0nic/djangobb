@@ -33,7 +33,7 @@ def index(request, full=True):
     guests_cached = cache.get('guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
-    #users_total_online = guest_count + users_count
+
     cats = {}
     forums = {}
     user_groups = request.user.groups.all()
@@ -122,15 +122,16 @@ def moderate(request, forum_id):
 
 @render_to('forum/search_topics.html')
 def search(request):
-    post_indexer.update()
+    # TODO: move to form
     if 'action' in request.GET:
         action = request.GET['action']
         if action == 'show_24h':
             date =  datetime.datetime.today() - datetime.timedelta(1)
             topics = Topic.objects.filter(created__gte=date).order_by('created')
         elif action == 'show_new':
+            #TODO: FIXME
             topics = Topic.objects.all().order_by('created')
-            topics = [topic for topic in topics if forum_extras.has_unreads(topic, request.user)]
+            topics = [topic for topic in topics if forum_extras.has_unreads(topic, request.user)] 
         elif action == 'show_unanswered':
             topics = Topic.objects.filter(post_count=1)
         elif action == 'show_subscriptions':
@@ -139,15 +140,14 @@ def search(request):
             user_id = request.GET['user_id']
             posts = Post.objects.filter(user__id=user_id)
             topics = [post.topic for post in posts]
-        elif action == 'search':          
+        elif action == 'search':
             keywords = request.GET.get('keywords')
             author = request.GET.get('author')
             forum = request.GET.get('forum')
             search_in = request.GET.get('search_in')
             sort_by = request.GET.get('sort_by')
             sort_dir = request.GET.get('sort_dir')
-            
-            # TODO: Need refactoring 
+
             if keywords and author:
                 if search_in == 'all':
                     if forum == '0':
@@ -373,7 +373,6 @@ def add_post(request, forum_id, topic_id):
 
     if form.is_valid():
         post = form.save();
-        post_indexer.update()
         return HttpResponseRedirect(post.get_absolute_url())
 
     return {'form': form,
@@ -546,7 +545,6 @@ def edit_post(request, post_id):
     form = build_form(EditPostForm, request, topic=topic, instance=post)
     if form.is_valid():
         post = form.save()
-        post_indexer.update()
         return HttpResponseRedirect(post.get_absolute_url())
 
     return {'form': form,
@@ -662,7 +660,6 @@ def delete_post(request, post_id):
         return HttpResponseRedirect(post.get_absolute_url())
 
     post.delete()
-    post_indexer.update()
     profile = get_object_or_404(Profile, user=post.user)
     profile.post_count = Post.objects.filter(user=post.user).count()
     profile.save()    
