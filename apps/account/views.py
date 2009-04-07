@@ -7,12 +7,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.utils.translation import ugettext as _, string_concat
 from django.http import HttpResponseRedirect
+from django.conf import settings
 
 from account.forms import RegistrationForm, RestorePasswordForm,\
                           NewPasswordForm, LoginForm, NewEmailForm
 from account.util import email_template, build_redirect_url, render_to
 from account.auth_key import wrap_url
-from django.conf import settings
 
 def message(msg):
     """

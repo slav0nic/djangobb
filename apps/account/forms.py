@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.utils.translation import ugettext as _
 from django.template import loader
+from django.conf import settings
 
 from forum.models import Profile
 from forum.models import TZ_CHOICES, PRIVACY_CHOICES
-from django.conf import settings
 
 ACCOUNT_CAPTCHA = getattr(settings, 'ACCOUNT_CAPTCHA', False)
 
