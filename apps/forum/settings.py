@@ -49,7 +49,7 @@ AUTHORITY_STEP_9 = get('AUTHORITY_STEP_9', 500)
 AUTHORITY_STEP_10 = get('AUTHORITY_STEP_10', 1000)
 
 # REPUTATION Extension
-REPUTATION_SUPPORT = get('REPUTATION_SUPPORT', False) 
+REPUTATION_SUPPORT = get('REPUTATION_SUPPORT', True) 
 
 # SMILE Extension
 EMOTION_SMILE = get('EMOTION_SMILE', '<img src="%sforum/img/smilies/smile.png">' % settings.MEDIA_URL)
