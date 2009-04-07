@@ -75,11 +75,12 @@ class Category(models.Model):
         return Post.objects.filter(topic__forum__category=self).select_related()
 
     def has_access(self, user):
-        user_groups = user.groups.all()
-        for group in self.groups.all():
-            if group in user_groups:
-                return True
-        return False
+        if self.groups.count() > 0:
+            try:
+                self.groups.get(user=user)
+            except Group.DoesNotExist:
+                return False
+        return True
 
 class Forum(models.Model):
     category = models.ForeignKey(Category, related_name='forums', verbose_name=_('Category'))
