@@ -3,7 +3,7 @@ import re
 import datetime
 
 from django.shortcuts import get_object_or_404
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db import connection
 from django.core.cache import cache
 from django.utils import translation
+from django.db.models import Q
 
 from forum.util import render_to, paged, build_form, paginate, set_language
 from forum.models import Category, Forum, Topic, Post, Profile, Read,\
@@ -35,8 +36,8 @@ def index(request, full=True):
     #users_total_online = guest_count + users_count
     cats = {}
     forums = {}
-
-    for forum in Forum.objects.all().select_related():
+    user_groups = request.user.groups.all()
+    for forum in Forum.objects.filter(Q(category__groups__in=user_groups) | Q(category__groups=None)).select_related():
         cat = cats.setdefault(forum.category.id,
             {'cat': forum.category, 'forums': []})
         cat['forums'].append(forum)
@@ -75,7 +76,7 @@ def moderate(request, forum_id):
         if 'move_topics' in request.POST:
             for topic in request.POST:
                 topic_match = re.match('topic_id\[(\d+)\]', topic)
-                
+
                 if topic_match:
                     topic_id = topic_match.group(1)
                     reverse('move_topic', args=[topic_id])
@@ -257,6 +258,8 @@ def misc(request):
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def show_forum(request, forum_id, full=True):
     forum = Forum.objects.get(pk=forum_id)
+    if not forum.category.has_access(request.user):
+        return HttpResponseForbidden()
     topics = forum.topics.order_by('-sticky').select_related()
     moderator = request.user.is_superuser or\
         request.user in forum.moderators.all()
@@ -286,6 +289,8 @@ def show_forum(request, forum_id, full=True):
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def show_topic(request, topic_id, full=True):
     topic = Topic.objects.select_related().get(pk=topic_id)
+    if not topic.forum.category.has_access(request.user):
+        return HttpResponseForbidden()
     topic.views += 1
     topic.save()
 
@@ -352,10 +357,10 @@ def add_post(request, forum_id, topic_id):
     elif topic_id:
         topic = get_object_or_404(Topic, pk=topic_id)
         posts = topic.posts.all().select_related()
-    
     if topic and topic.closed:
         return HttpResponseRedirect(topic.get_absolute_url())
-
+    if not topic.forum.category.has_access(request.user):
+        return HttpResponseForbidden()
     ip = request.META.get('REMOTE_ADDR', '')
     form = build_form(AddPostForm, request, topic=topic, forum=forum,
                       user=request.user, ip=ip,
