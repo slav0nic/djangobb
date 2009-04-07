@@ -26,7 +26,7 @@ sitemaps = {
 
 urlpatterns = patterns('',
     # Admin
-    url(r'^admin/(.*)', admin.site.root, name='admincp'),
+    (r'^admin/', include(admin.site.urls)),
     
     # Sitemap
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
