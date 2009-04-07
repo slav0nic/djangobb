@@ -19,9 +19,11 @@
 						<strong>{{ post_user.forum_profile.group }}</strong>
 						{% endif %}
 						</dd>
+						{% if "AUTHORITY_SUPPORT"|forum_setting %}
 						<dd class="usertitle">
-						{{ post_user|forum_stars }}
+						{{ post_user|forum_authority }}
 						</dd>
+						{% endif %}
 						{% if post_user.forum_profile.avatar %}
 						<dd class="postavatar"><img src="{{ post_user.forum_profile.avatar.url }}" /></dd>
 						{% endif %}
@@ -30,7 +32,9 @@
 						{% if moderator %}
 	                    <dd>{% trans "IP:" %} {{ post_user_ip }}</dd>
 	                    {% endif %}
+						{% if "REPUTATION_SUPPORT"|forum_setting %}
 						<dd><a href="{% url reputation post_user %}">{% trans "Reputation" %}</a> : <b>{{ post_user.forum_profile.reply_total }}</b></dd>
+						{% endif %}
 						<dd class="usercontacts"><a href="{% url forum_profile post_user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
 						{% ifequal post_user.forum_profile.privacy_permission 0 %}
 						<a href="mailto:{{ post_user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
