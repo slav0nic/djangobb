@@ -3,10 +3,7 @@ import os.path
 import sys
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-DEVELOPMENT = True
-
-if DEVELOPMENT:
-    sys.path.append(os.path.join(PROJECT_ROOT, 'apps'))
+sys.path.append(os.path.join(PROJECT_ROOT, 'apps'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -92,6 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'account.middleware.AuthKeyMiddleware',
     'forum.middleware.LastLoginMiddleware',
+    'forum.middleware.UsersOnline',
 )
 
 ROOT_URLCONF = 'urls'
@@ -115,7 +113,6 @@ INSTALLED_APPS = (
     'captcha',
     'forum',
     'djapian',
-    'django_evolution',
 )
 
 FORCE_SCRIPT_NAME = ''

@@ -5,6 +5,8 @@ local_settings.py
 .pydevproject
 .project
 debug_toolbar
+django
+djapian_db
 *.db
 *.json
 *.log
