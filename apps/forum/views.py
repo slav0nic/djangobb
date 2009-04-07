@@ -37,7 +37,9 @@ def index(request, full=True):
     cats = {}
     forums = {}
     user_groups = request.user.groups.all()
-    for forum in Forum.objects.filter(Q(category__groups__in=user_groups) | Q(category__groups=None)).select_related():
+    if request.user.is_anonymous():  # in django 1.1 EmptyQuerySet raise exception
+        user_groups = []
+    for forum in Forum.objects.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True)).select_related():
         cat = cats.setdefault(forum.category.id,
             {'cat': forum.category, 'forums': []})
         cat['forums'].append(forum)
