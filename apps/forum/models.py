@@ -49,6 +49,7 @@ THEME_CHOICES = [(theme, theme) for theme in os.listdir(path)
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
+    groups = models.ManyToManyField(Group,blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
     position = models.IntegerField(_('Position'), blank=True, default=0)
 
     class Meta:
@@ -73,6 +74,12 @@ class Category(models.Model):
     def posts(self):
         return Post.objects.filter(topic__forum__category=self).select_related()
 
+    def has_access(self, user):
+        user_groups = user.groups.all()
+        for group in self.groups.all():
+            if group in user_groups:
+                return True
+        return False
 
 class Forum(models.Model):
     category = models.ForeignKey(Category, related_name='forums', verbose_name=_('Category'))
@@ -80,7 +87,7 @@ class Forum(models.Model):
     position = models.IntegerField(_('Position'), blank=True, default=0)
     description = models.TextField(_('Description'), blank=True, default='')
     moderators = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('Moderators'))
-    updated = models.DateTimeField(_('Updated'), null=True)
+    updated = models.DateTimeField(_('Updated'), default=datetime.now)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
 
     class Meta:
