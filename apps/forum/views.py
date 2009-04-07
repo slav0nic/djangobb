@@ -359,7 +359,7 @@ def add_post(request, forum_id, topic_id):
         posts = topic.posts.all().select_related()
     if topic and topic.closed:
         return HttpResponseRedirect(topic.get_absolute_url())
-    if not topic.forum.category.has_access(request.user):
+    if not forum.category.has_access(request.user):
         return HttpResponseForbidden()
     ip = request.META.get('REMOTE_ADDR', '')
     form = build_form(AddPostForm, request, topic=topic, forum=forum,
