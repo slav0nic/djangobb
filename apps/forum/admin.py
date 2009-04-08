@@ -1,6 +1,9 @@
 # -*- coding: utf-8
 from django.contrib import admin
-from forum.models import Category, Forum, Topic, Post, Profile, Read, Reputation, Report
+
+from forum.models import Category, Forum, Topic, Post, Profile, Read,\
+    Reputation, Report, Ban
+
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'position', 'forum_count']
@@ -27,6 +30,10 @@ class ReputationAdmin(admin.ModelAdmin):
     
 class ReportAdmin(admin.ModelAdmin):
     list_display = ['reported_by', 'post', 'zapped', 'zapped_by', 'created', 'reason']
+    
+class BanAdmin(admin.ModelAdmin):
+    list_display = ['user', 'ban_start', 'ban_end', 'reason']
+
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Forum, ForumAdmin)
@@ -36,12 +43,4 @@ admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Read, ReadAdmin)
 admin.site.register(Reputation, ReputationAdmin)
 admin.site.register(Report, ReportAdmin)
-
-#admin.site.unregister(Category)
-#admin.site.unregister(Forum)
-#admin.site.unregister(Topic)
-#admin.site.unregister(Post)
-#admin.site.unregister(Profile)
-#admin.site.unregister(Read)
-#admin.site.unregister(Reputation)
-#admin.site.unregister(Report)
+admin.site.register(Ban, BanAdmin)
