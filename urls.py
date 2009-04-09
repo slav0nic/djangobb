@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 import django.views.static
 
-from apps.forum.feeds import LastPosts, LastTopics, LastPostsOnForum, LastPostsOnCategory, LastPostsOnTopic
+from forum.feeds import LastPosts, LastTopics, LastPostsOnForum, LastPostsOnCategory, LastPostsOnTopic
 from sitemap import SitemapCategory, SitemapForum, SitemapTopic
 
 

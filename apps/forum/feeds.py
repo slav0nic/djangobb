@@ -95,11 +95,6 @@ class LastPostsOnCategory(ForumFeed):
     def title(self, obj):
         return _('Latest posts on %s category' % obj.name)
 
-    def link(self, obj):
-        if not obj:
-            raise FeedDoesNotExist
-        return obj.get_absolute_url()
-
     def description(self, obj):
         return _('Latest posts on %s category' % obj.name)
 
