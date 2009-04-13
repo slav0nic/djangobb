@@ -356,13 +356,16 @@ def add_post(request, forum_id, topic_id):
 
     if forum_id:
         forum = get_object_or_404(Forum, pk=forum_id)
+        if not forum.category.has_access(request.user):
+            return HttpResponseForbidden()
     elif topic_id:
         topic = get_object_or_404(Topic, pk=topic_id)
         posts = topic.posts.all().select_related()
+        if not topic.forum.category.has_access(request.user):
+            return HttpResponseForbidden()
     if topic and topic.closed:
         return HttpResponseRedirect(topic.get_absolute_url())
-    if not forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+
     ip = request.META.get('REMOTE_ADDR', '')
     form = build_form(AddPostForm, request, topic=topic, forum=forum,
                       user=request.user, ip=ip,
