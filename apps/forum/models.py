@@ -1,6 +1,8 @@
 from datetime import datetime
 import os
 import os.path
+import sha
+
 
 from django.db import models
 from django.contrib.auth.models import User, Group
@@ -401,3 +403,37 @@ class Ban(models.Model):
     def __unicode__(self):
         return self.user
 
+
+class Attachment(models.Model):
+    post = models.ForeignKey(Post, verbose_name=_('Post'), related_name='attachments')
+    size = models.IntegerField(_('Size'))
+    content_type = models.CharField(_('Content type'), max_length=255)
+    path = models.CharField(_('Path'), max_length=255)
+    name = models.TextField(_('Name'))
+    hash = models.CharField(_('Hash'), max_length=40, blank=True, default='', db_index=True)
+
+    def save(self, *args, **kwargs):
+        super(Attachment, self).save(*args, **kwargs)
+        if not self.hash:
+            self.hash = sha.new(str(self.id) + settings.SECRET_KEY).hexdigest()
+        super(Attachment, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('forum_attachment', args=[self.hash])
+
+    def size_display(self):
+        size = self.size
+        if size < 1024:
+            return '%b' % size
+        elif size < 1024 * 1024:
+            return '%dKb' % int(size / 1024)
+        else:
+            return '%.2fMb' % (size / float(1024 * 1024))
+
+
+    def get_absolute_path(self):
+        return os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO,
+                            self.path)

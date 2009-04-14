@@ -15,7 +15,7 @@ from django.db.models import Q
 
 from forum.util import render_to, paged, build_form, paginate, set_language
 from forum.models import Category, Forum, Topic, Post, Profile, Read,\
-    Reputation, Report, PrivateMessage
+    Reputation, Report, PrivateMessage, Attachment
 from forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
     PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
@@ -25,6 +25,8 @@ from forum.templatetags import forum_extras
 from forum import settings as forum_settings
 from forum.util import urlize, smiles
 from forum.index import post_indexer
+from forum.orm import load_related
+
 
 @render_to('forum/index.html')
 def index(request, full=True):
@@ -334,6 +336,7 @@ def show_topic(request, topic_id, full=True):
                 }
     else:
         pages, paginator, paged_list_name = paginate(posts, request, forum_settings.TOPIC_PAGE_SIZE)
+        load_related(page.object_list, Attachment.objects.all(), 'post')
         return {'categories': Category.objects.all(),
                 'topic': topic,
                 #'last_post': last_post,
@@ -365,7 +368,7 @@ def add_post(request, forum_id, topic_id):
             return HttpResponseForbidden()
     if topic and topic.closed:
         return HttpResponseRedirect(topic.get_absolute_url())
-
+    
     ip = request.META.get('REMOTE_ADDR', '')
     form = build_form(AddPostForm, request, topic=topic, forum=forum,
                       user=request.user, ip=ip,
@@ -778,6 +781,12 @@ def add_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.add(request.user)
     return HttpResponseRedirect(reverse('topic', args=[topic.id]))
+
+@login_required
+def show_attachment(request, hash):
+    attachment = get_object_or_404(Attachment, hash=hash)
+    file_obj = file(attachment.get_absolute_path())
+    return HttpResponse(file_obj, content_type=attachment.content_type)
 
 #TODO: check markup
 @render_to('forum/post_preview.html')
