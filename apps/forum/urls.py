@@ -72,3 +72,10 @@ if (forum_settings.REPUTATION_SUPPORT):
         url('^reputation/(?P<username>.*)/$', views.reputation, name='reputation'),
     )
     
+# ATTACHMENT Extension
+if (forum_settings.ATTACHMENT_SUPPORT):
+    urlpatterns += patterns('',
+        url('^attachment/(?P<hash>\w+)/$', views.show_attachment, name='forum_attachment'),
+    )
+
+    

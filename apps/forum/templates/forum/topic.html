@@ -90,6 +90,12 @@
                     {% if post.updated %}
                     	<p class="postedit"><em>{% trans "Edited" %} {{ post.user }} ({% forum_time post.updated %})</em></p>
                     {% endif %}
+					{% if post.attachments.all %}
+					{% for attach in post.attachments.all %}
+						<p class="postedit"><em>{% trans "Attachments:" %} <div>{{ attach|attachment_link }}</div></em></p>
+					{% endfor %}
+					{% endif %}
+
 				</div>
 			</div>
 
@@ -143,7 +149,7 @@
 <div class="blockform">
 	<h2><span>{% trans "Quick post" %}</span></h2>
 	<div class="box">
-		<form id="post" action="{% url add_post topic.id %}" method="post">
+		<form id="post" action="{% url add_post topic.id %}" method="post" enctype="multipart/form-data">
 
 			<div class="inform">
 				<fieldset>
@@ -154,6 +160,18 @@
 
 				</fieldset>
 			</div>
+			{% if "ATTACHMENT_SUPPORT"|forum_setting %}
+			<div class="inform">
+				<fieldset>
+					<legend>������������� ���{% trans "Attachment" %}��</legend>
+					<div class="infldset">
+						<div class="rbox">
+							{{ form.attachment }}
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			{% endif %}
 			<p><input type="submit" value="{% trans "Submit" %}" /></p>
 		</form>
 	</div>

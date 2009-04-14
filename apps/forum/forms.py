@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import os.path
 from datetime import datetime
 
 from django import forms
@@ -9,8 +10,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessage, Forum
+from forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessage,\
+    Forum, Attachment
 from forum.markups import mypostmarkup
+from forum import settings as forum_settings
 
 SORT_USER_BY_CHOICES = (
     ('username', _(u'Username')),
@@ -42,8 +45,10 @@ SEARCH_IN_CHOICES = (
 )
 
 class AddPostForm(forms.ModelForm):
-    name = forms.CharField(label=_('Subject'), 
+    name = forms.CharField(label=_('Subject'),
                            widget=forms.TextInput(attrs={'size':'115'}))
+    attachment = forms.FileField(label=_('Attachment'), required=False,
+                           widget=forms.FileInput(attrs={'size':'115'}))
 
     class Meta:
         model = Post
@@ -55,12 +60,25 @@ class AddPostForm(forms.ModelForm):
         self.forum = kwargs.pop('forum', None)
         self.ip = kwargs.pop('ip', None)
         super(AddPostForm, self).__init__(*args, **kwargs)
+        
         if self.topic:
             self.fields['name'].widget = forms.HiddenInput()
             self.fields['name'].required = False
+            
         self.fields['body'].widget = forms.Textarea(attrs={'class':'bbcode', 'rows':'20', 'cols':'95'})
+        
+        if not forum_settings.ATTACHMENT_SUPPORT:
+            self.fields['attachment'].widget = forms.HiddenInput()
+            self.fields['attachment'].required = False
 
+    def clean_attachment(self):
+        if self.cleaned_data['attachment']:
+            memfile = self.cleaned_data['attachment']
+            if memfile.size > forum_settings.ATTACHMENT_SIZE_LIMIT:
+                raise forms.ValidationError(_('Attachment is too big'))
+            return self.cleaned_data['attachment']
 
+    
 
     def save(self):
         if self.forum:
@@ -75,10 +93,25 @@ class AddPostForm(forms.ModelForm):
                     markup='bbcode',
                     body=self.cleaned_data['body'])
         post.save()
+        if forum_settings.ATTACHMENT_SUPPORT:
+            self.save_attachment(post, self.cleaned_data['attachment'])
+
         profile = get_object_or_404(Profile, user=self.user)
         profile.post_count += 1
         profile.save()
         return post
+    
+    def save_attachment(self, post, memfile):
+        if memfile:
+            obj = Attachment(size=memfile.size, content_type=memfile.content_type,
+                             name=memfile.name, post=post)
+            dir = os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO)
+            fname = '%d.0' % post.id
+            path = os.path.join(dir, fname)
+            file(path, 'w').write(memfile.read())
+            obj.path = fname
+            obj.save()
+
     
 class EssentialsProfileForm(forms.ModelForm):
     username = forms.CharField(label=_('Username'))

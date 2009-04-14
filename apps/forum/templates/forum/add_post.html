@@ -17,7 +17,7 @@
 <div class="blockform">
 	<h2><span>{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}</span></h2>
 	<div class="box">
-		<form id="post" action="{% if forum %}{% url add_topic forum.id %}{% else %}{% url add_post topic.id %}{% endif %}" method="post">
+		<form id="post" action="{% if forum %}{% url add_topic forum.id %}{% else %}{% url add_post topic.id %}{% endif %}" method="post" enctype="multipart/form-data">
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Write your message and submit" %}</legend>
@@ -29,6 +29,18 @@
 					</div>
 				</fieldset>
 			</div>
+			{% if "ATTACHMENT_SUPPORT"|forum_setting %}
+			<div class="inform">
+				<fieldset>
+					<legend>������������� ���{% trans "Attachment" %}��</legend>
+					<div class="infldset">
+						<div class="rbox">
+							{{ form.attachment }}
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			{% endif %}
 
 			<p><input type="submit" value="{% trans "Submit" %}" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
 		</form>
@@ -55,7 +67,6 @@
 			</div>
 			<div class="clearer"></div>
 						<div class="postfootright"><ul><li class="postquote"><a onmouseover="copyQ('{{ post.user }}');" href="javascript:pasteQ();">{% trans "Quote" %}</a></li></ul></div>
-
 		</div>
 	</div>
 	{% endfor %}

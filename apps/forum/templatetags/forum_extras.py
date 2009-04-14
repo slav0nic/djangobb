@@ -262,6 +262,21 @@ def online(user):
 def pm_unreads(user):
     return PrivateMessage.objects.filter(dst_user=user, read=False).count()
 
+@register.filter
+def attachment_link(attach):
+    if attach.content_type in ['image/png', 'image/gif', 'image/jpeg']:
+        img = '<img src="%sforum/img/attachment/image.png" alt="attachment" >' % (settings.MEDIA_URL)
+    elif attach.content_type in ['application/x-tar', 'application/zip']:
+        img = '<img src="%sforum/img/attachment/compress.png" alt="attachment" >' % (settings.MEDIA_URL)
+    elif attach.content_type in ['text/plain']:
+        img = '<img src="%sforum/img/attachment/text.png" alt="attachment" >' % (settings.MEDIA_URL)
+    elif attach.content_type in ['application/msword']:
+        img = '<img src="%sforum/img/attachment/doc.png" alt="attachment" >' % (settings.MEDIA_URL)
+    else:
+        img = '<img src="%sforum/img/attachment/unknown.png" alt="attachment" >' % (settings.MEDIA_URL)
+    attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, attach.size_display())
+    return mark_safe(attachment)
+
 @register.simple_tag
 def new_reports():
     return Report.objects.filter(zapped=False).count()
