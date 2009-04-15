@@ -14,10 +14,13 @@
 			<legend>{% trans "Write your message and submit" %}</legend>
 
 			<div class="infldset txtarea">
+				{{ form.recipient.errors }}
 				<label ><strong>{{ form.recipient.label }}</strong><br />{{ form.recipient }}<br /></label>
+				{{ form.subject.errors }}
 				<label><strong>{{ form.subject.label }}</strong><br />{{ form.subject }}<br /></label>
+				{{ form.body.errors }}
 				<label><strong>{{ form.body.label }}</strong><br />
-
+				{{ form.body.errors }}
 				{{ form.body }}<br /></label>
 			</div>
 		</fieldset>

@@ -297,3 +297,16 @@ font-size:22px;
 margin-left:10px;
 width:88px;
 }
+
+.pun UL.errorlist {
+	MARGIN-BOTTOM: 12px;
+	PADDING: 9px 10px;
+	BORDER-STYLE: solid;
+	BORDER-WIDTH: 1px;
+	BACKGROUND-COLOR: #f5f5f5;
+	BORDER-COLOR: #FF0000;
+	color: #FF0000;
+}
+
+.pun UL.errorlist LI {
+}

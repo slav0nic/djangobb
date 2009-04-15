@@ -14,11 +14,15 @@
 					<fieldset>
 						<legend>{% trans "Personal" %}</legend>
 						<div class="infldset">
+							{{ form.jabber.errors }}
 							<label>{{ form.jabber.label }}<br>{{ form.jabber }}<br></label>
+							{{ form.icq.errors }}
 							<label>{{ form.icq.label }}<br>{{ form.icq }}<br></label>
+							{{ form.msn.errors }}
 							<label>{{ form.msn.label }}<br>{{ form.msn }}<br></label>
-
+							{{ form.aim.errors }}
 							<label>{{ form.aim.label }}<br>{{ form.aim }}<br></label>
+							{{ form.yahoo.errors }}
 							<label>{{ form.yahoo.label }}<br>{{ form.yahoo }}<br></label>
 						</div>
 					</fieldset>
