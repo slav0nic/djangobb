@@ -62,7 +62,6 @@ class ExtendedImageField(models.ImageField):
             import Image
         except ImportError:
             from PIL import Image
-
         image = Image.open(StringIO(rawdata))
         try:
             oldw, oldh = image.size
