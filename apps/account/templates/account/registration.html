@@ -17,7 +17,7 @@
 				<fieldset>
 					<legend>{% blocktrans %}Please enter a username from {{ username_min_length }} characters long {% endblocktrans %}</legend>
 					<div class="infldset">
-
+						{{ form.username.errors }}
 						<label><strong>{{ form.username.label }}</strong><br />{{ form.username }}<br /></label>
 					</div>
 				</fieldset>
@@ -27,6 +27,8 @@
 				<fieldset>
 					<legend>{% trans "Please enter and confirm your chosen password" %}</legend>
 					<div class="infldset">
+						{{ form.password.errors }}
+						{{ form.password_dup.errors }}						
 						<label class="conl"><strong>{{ form.password.label }}</strong><br />{{ form.password }}<br /></label>
 						<label class="conl"><strong>{{ form.password_dup.label }}</strong><br />{{ form.password_dup }}<br /></label>
 						<p class="clearb">{% blocktrans %}Passwords can be from {{ password_min_length }} characters long. Passwords are case sensitive.{% endblocktrans %}</p>
@@ -36,9 +38,10 @@
 			</div>
 			
 			<div class="inform">
-				<fieldset>
+				<fieldset>			
 					<legend>{% trans "Image Verification" %}</legend>
 					<div class="infldset">
+						{{ form.captcha.errors }}
 						{{ form.captcha }}
 						<p class="clearb">{% trans "Please enter 6 letters or digits that appear in the image opposite" %}</p>
 
@@ -50,8 +53,8 @@
 				<fieldset>
 					<legend>{% trans "Enter a valid e-mail address" %}</legend>
 					<div class="infldset">
+					{{ form.email.errors }}
 					<label><strong>{{ form.email.label }}</strong><br />
-
 						{{ form.email }}<br /></label>
 					</div>
 				</fieldset>
@@ -60,7 +63,7 @@
 				<fieldset>
 					<legend>{% trans "Set your localisation options" %}</legend>
 					<div class="infldset">
-
+						{{ form.time_zone.errors }}
 						<label>{% trans "Timezone: For the forum to display times correctly you must select your local timezone." %}
 							<br />
 						{{ form.time_zone }}
@@ -73,6 +76,7 @@
 				<fieldset>
 					<legend>{% trans "Set your privacy options" %}</legend>
 					<div class="infldset">
+						{{ form.privacy_permission.errors }}
 						<p>{% trans "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not." %}</p>
 						<div class="rbox">
 							{{ form.privacy_permission }}

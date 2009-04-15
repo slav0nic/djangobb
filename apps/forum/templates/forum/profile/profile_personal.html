@@ -14,11 +14,15 @@
 					<fieldset>
 						<legend>{% trans "Enter your personal details" %}</legend>
 						<div class="infldset">
+							{{ form.name.errors }}
 							<label>{{ form.name.label }}<br>{{ form.name }}<br></label>
 							{% if request.user.is_superuser %}
+								{{ form.status.errros }}
 								<label>{{ form.status.label }}&nbsp;&nbsp;(<em>{% trans "Leave blank to use forum default." %}</em>)<br>{{ form.status }}<br></label>
 							{% endif %}
+							{{ form.location.errors }}
 							<label>{{ form.location.label }}<br>{{ form.location }}<br></label>
+							{{ form.site.errors }}
 							<label>{{ form.site.label }}<br>{{ form.site }}<br></label>
 						</div>
 					</fieldset>

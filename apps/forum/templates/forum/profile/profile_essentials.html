@@ -7,7 +7,6 @@
 	{% include 'forum/profile/profile_menu.html' %}
 	<div class="blockform">
 		<h2><span>{{ profile.username }} - {% trans "Essentials" %}</span></h2>
-		{{ form.errors }}
 		<div class="box">
 			<form id="profile1" method="post">
 
@@ -15,6 +14,7 @@
 					<fieldset>
 						<legend>{% trans "Enter your username and password" %}</legend>
 						<div class="infldset">
+							{{ form.username.errors }}
 							<label><strong>{{ form.username.label }}</strong><br>
 							{% if request.user.is_superuser %}
 								{{ form.username }}
@@ -31,6 +31,7 @@
 					<fieldset>
 						<legend>{% trans "Enter a valid e-mail address" %}</legend>
 						<div class="infldset">
+							{{ form.email.errors }}
 							<label><strong>{{ form.email.label }}</strong><br>
 							{{ form.email }}<br></label>
 							{% if request.user.is_superuser %}
@@ -44,12 +45,13 @@
 					<fieldset>
 						<legend>{% trans "Set your localisation options" %}</legend>
 						<div class="infldset">
-
+							{{ form.time_zone.errors }}
 							<label>
 								{% trans "Timezone: For the forum to display times correctly you must select your local timezone." %}<br>
 							<br>
 							{{ form.time_zone }}
 							</label>
+							{{ form.language.errors }}
 							<label>
 								{% trans "Language: You can choose which language you wish to use to view the forum" %}
 							<br>

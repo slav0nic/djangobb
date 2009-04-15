@@ -14,7 +14,7 @@
 					<fieldset>
 						<legend>{% trans "Set your privacy options" %}</legend>
 						<div class="infldset">
-							<input name="form_sent" value="1" type="hidden">
+							{{ form.privacy_permission.errors }}
 							<p>{% trans "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not." %}</p>
 							<div class="rbox">
 								{{ form.privacy_permission }}

@@ -13,6 +13,7 @@
 					<fieldset>
 						<legend>{% trans "Select your preferred style" %}</legend>
 						<div class="infldset">
+							{{ form.theme.errors }}
 							<label>{% trans "If you like you can use a different visual style for this forum." %}<br>
 
 							{{ form.theme }}

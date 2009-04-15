@@ -9,8 +9,9 @@
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Enter your username and password below" %}</legend>
-
 						<div class="infldset">
+							{{ form.username.errors }}
+							{{ form.password.errors }}
 							<label class="conl"><strong>{{ form.username.label }}</strong><br />{{ form.username }}<br /></label>
 							<label class="conl"><strong>{{ form.password.label }}</strong><br />{{ form.password }}<br /></label>
 							<p class="clearb">{% trans "If you have not registered or have forgotten your password click on the appropriate link below." %}</p>

@@ -12,6 +12,7 @@
 					<legend>{% trans "Enter an avatar file to upload" %}</legend>
 
 					<div class="infldset">
+						{{ form.avatar.errors }}
 						<label><strong>{{ form.avatar.label }}</strong><br />
 						{{ form.avatar }}
 						<br /></label>
