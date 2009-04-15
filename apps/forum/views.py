@@ -25,8 +25,6 @@ from forum.templatetags import forum_extras
 from forum import settings as forum_settings
 from forum.util import urlize, smiles
 from forum.index import post_indexer
-from forum.orm import load_related
-
 
 @render_to('forum/index.html')
 def index(request, full=True):
@@ -394,16 +392,6 @@ def user(request, username):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
         if 'section' in request.GET:
-            #if 'admin' in request.GET['section'] and request.user.is_superuser:
-            #    form = build_form(AdminProfileForm, request, instance=user.forum_profile)
-            #    if request.POST and form.is_valid():
-            #        form.save()
-            #    return render_to_response('forum/profile/profile_admin.html', 
-            #            {'active_menu':'admin',
-            #             'profile': user,
-            #             #'form': form,
-            #             'reports': reports,
-            #             }, RequestContext(request))
             section = request.GET['section']
             if section == 'privacy':
                 form = build_form(PrivacyProfileForm, request, instance=user.forum_profile)
@@ -485,6 +473,8 @@ def user(request, username):
             
     else:
         topic_count = Topic.objects.filter(user=user).count()
+        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('auth_login') + '?next=%s' % request.path)
         return {'profile': user,
                 'topic_count': topic_count,
                }
@@ -708,7 +698,7 @@ def open_topic(request, topic_id):
 @render_to('forum/users.html')
 @paged('users', forum_settings.USERS_PAGE_SIZE)
 def users(request):
-    users = User.objects.order_by('username')
+    users = User.objects.filter(forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('username')
     form = UserSearchForm(request.GET)
     users = form.filter(users)
     return {'paged_qs': users,
