@@ -201,25 +201,13 @@ class PrivacyProfileForm(forms.ModelForm):
         self.fields['privacy_permission'].widget = forms.RadioSelect(  
                                                     choices=self.fields['privacy_permission'].choices
                                                     )
-        
-#class AdminProfileForm(forms.Form):
-#    forums = forms.CharField(label=_('Forums'))
-#    
-#    def __init__(self, *args, **kwargs):
-#        self.user = kwargs.pop('user', None)
-#        super(AdminProfileForm, self).__init__(*args, **kwargs)
-#        forums = [(forum, forum) for forum in Forum.objects.all()]
-#        self.fields['forums'].widget = forms.CheckboxSelectMultiple(  
-#                                                choices=forums
-#                                                )
-#    
-#    def save(self):
-#        return self.forums
+
 
 class UploadAvatarForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['avatar']
+
 
 class EditPostForm(forms.ModelForm):
     name = forms.CharField(required=False, label=_('Subject'),
