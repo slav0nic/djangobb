@@ -262,7 +262,7 @@ def show_forum(request, forum_id, full=True):
     forum = Forum.objects.get(pk=forum_id)
     if not forum.category.has_access(request.user):
         return HttpResponseForbidden()
-    topics = forum.topics.order_by('-sticky').select_related()
+    topics = forum.topics.order_by('-sticky', '-updated').select_related()
     moderator = request.user.is_superuser or\
         request.user in forum.moderators.all()
     if full:
