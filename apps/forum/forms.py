@@ -125,13 +125,15 @@ class EssentialsProfileForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(EssentialsProfileForm, self).__init__(*args, **kwargs)
         self.fields['username'].initial = self.user.username
+        if not self.user.is_superuser:
+            self.fields['username'].widget = forms.HiddenInput()
         self.fields['email'].initial = self.user.email
         
     def save(self):
         user = get_object_or_404(User, username=self.user)
         profile = get_object_or_404(Profile, user=self.user)
         if self.cleaned_data:
-            user.username = self.cleaned_data['username']
+            #user.username = self.cleaned_data['username']
             user.email = self.cleaned_data['email']
             profile.time_zone = self.cleaned_data['time_zone']
             profile.language = self.cleaned_data['language']

@@ -16,9 +16,8 @@
 						<div class="infldset">
 							{{ form.username.errors }}
 							<label><strong>{{ form.username.label }}</strong><br>
-							{% if request.user.is_superuser %}
-								{{ form.username }}
-							{% else %}
+							{{ form.username }}
+							{% if not request.user.is_superuser %}
 								{{ form.fields.username.initial }}
 							{% endif %}
 							<br></label>
