@@ -3,11 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
 <head>
     <title>Django Bulletin Board</title>
-    <meta name="description" content="DjangoBB demo" />
-    <meta name="keywords" content="DjangoBB" />
+    <meta name="description" content="DjangoBB description" />
+    <meta name="keywords" content="DjangoBB keywords" />
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    {% if request.user.is_authenticated and request.user.forum_profile.theme %}
+    {% if request.user.is_authenticated %}
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/{{ request.user.forum_profile.theme }}/style.css" />
 	{% else %}
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/default/style.css" />
