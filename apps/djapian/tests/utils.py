@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
 from django.test import TestCase
@@ -64,18 +63,33 @@ class BaseTestCase(TestCase):
 
 class BaseIndexerTest(object):
     def setUp(self):
-        p = Person.objects.create(name="Alex")
+        self.person = Person.objects.create(name="Alex")
 
         self.entries= [
             Entry.objects.create(
-                author=p,
+                author=self.person,
                 title="Test entry",
-                text="Not large text field"
+                text="Not large text field wich helps us to test Djapian"
             ),
             Entry.objects.create(
-                author=p,
+                author=self.person,
                 title="Another test entry",
-                is_active=False
+                text="Another not useful text message for tests",
+                asset_count=5,
+                created_on=datetime.now()-timedelta(hours=4)
+            ),
+            Entry.objects.create(
+                author=self.person,
+                title="Third entry for testing",
+                text="Third message text",
+                asset_count=7,
+                created_on=datetime.now()-timedelta(hours=2)
+            ),
+            Entry.objects.create(
+                author=self.person,
+                title="Innactive entry",
+                is_active=False,
+                text="Text wich will not be indexed"
             )
         ]
 

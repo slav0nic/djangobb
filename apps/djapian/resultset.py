@@ -15,19 +15,24 @@ class defaultdict(dict):
 
 class ResultSet(object):
     def __init__(self, indexer, query_str, offset=0, limit=utils.DEFAULT_MAX_RESULTS,
-                 order_by=None, prefetch=False, flags=None):
+                 order_by=None, prefetch=False, flags=None, stemming_lang=None,
+                 filter=None, exclude=None, prefetch_select_related=False):
         self._indexer = indexer
         self._query_str = query_str
         self._offset = offset
         self._limit = limit
         self._order_by = order_by
         self._prefetch = prefetch
+        self._prefetch_select_related = prefetch_select_related
+        self._filter = filter or {}
+        self._exclude = exclude or {}
 
         if flags is None:
             flags = xapian.QueryParser.FLAG_PHRASE\
                         | xapian.QueryParser.FLAG_BOOLEAN\
                         | xapian.QueryParser.FLAG_LOVEHATE
         self._flags = flags
+        self._stemming_lang = stemming_lang
 
         self._resultset_cache = None
         self._mset = None
@@ -40,8 +45,11 @@ class ResultSet(object):
                                 | xapian.QueryParser.FLAG_WILDCARD
         )
 
-    def prefetch(self):
-        return self._clone(prefetch=True)
+    def prefetch(self, select_related=False):
+        return self._clone(
+            prefetch=True,
+            prefetch_select_related=select_related
+        )
 
     def order_by(self, field):
         return self._clone(order_by=field)
@@ -49,15 +57,37 @@ class ResultSet(object):
     def flags(self, flags):
         return self._clone(flags=flags)
 
-    #def stemming(self, lang):
-    #    return self._clone(stemming_lang=lang)
+    def stemming(self, lang):
+        return self._clone(stemming_lang=lang)
 
     def count(self):
         return self._clone()._do_count()
 
     def get_corrected_query_string(self):
-        self._fetch_results()
+        self._get_mset()
         return self._query_parser.get_corrected_query_string()
+
+    def filter(self, **fields):
+        clone = self._clone()
+        clone._check_fields(fields.keys())
+        clone._filter.update(fields)
+
+        return clone
+
+    def exclude(self, **fields):
+        clone = self._clone()
+        clone._check_fields(fields.keys())
+        clone._exclude.update(fields)
+
+        return clone
+
+    # Private methods
+    def _check_fields(self, fields):
+        known_fields = set([f.prefix for f in self._indexer.tags])
+
+        for field in fields:
+            if field.split('__', 1)[0] not in known_fields:
+                raise ValueError("Unknown field '%s'" % field)
 
     def _clone(self, **kwargs):
         data = {
@@ -67,16 +97,18 @@ class ResultSet(object):
             "limit": self._limit,
             "order_by": self._order_by,
             "prefetch": self._prefetch,
-            "flags": self._flags
+            "prefetch_select_related": self._prefetch_select_related,
+            "flags": self._flags,
+            "stemming_lang": self._stemming_lang,
+            "filter": self._filter.copy(),
+            "exclude": self._exclude.copy(),
         }
-        keys = data.keys()
-
         data.update(kwargs)
 
         return ResultSet(**data)
 
     def _do_count(self):
-        self._fetch_results()
+        self._get_mset()
 
         return self._mset.size()
 
@@ -89,20 +121,32 @@ class ResultSet(object):
         for model, hits in model_map.iteritems():
             pks = [hit.pk for hit in hits]
 
-            instances = model._default_manager.in_bulk(pks)
+            instances = model._default_manager.all()
+
+            if self._prefetch_select_related:
+                instances = instances.select_related()
+
+            instances = instances.in_bulk(pks)
 
             for hit in hits:
                 hit.instance = instances[hit.pk]
 
-    def _fetch_results(self):
-        if self._resultset_cache is None:
+    def _get_mset(self):
+        if self._mset is None:
             self._mset, self._query, self._query_parser = self._indexer._do_search(
                 self._query_str,
                 self._offset,
                 self._limit,
                 self._order_by,
-                self._flags
+                self._flags,
+                self._stemming_lang,
+                self._filter,
+                self._exclude,
             )
+
+    def _fetch_results(self):
+        if self._resultset_cache is None:
+            self._get_mset()
             self._parse_results()
 
         return self._resultset_cache

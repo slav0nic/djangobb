@@ -11,7 +11,7 @@ class IndexerUpdateTest(BaseIndexerTest, BaseTestCase):
         self.assert_(os.path.exists(Entry.indexer._db._path))
 
     def test_document_count(self):
-        self.assertEqual(Entry.indexer.document_count(), 1)
+        self.assertEqual(Entry.indexer.document_count(), 3)
 
 class IndexCommandTest(BaseTestCase):
     def setUp(self):

@@ -7,19 +7,28 @@ class IndexerSearchTextTest(BaseIndexerTest, BaseTestCase):
         self.result = Entry.indexer.search("text")
 
     def test_result_count(self):
-        self.assertEqual(len(self.result), 1)
+        self.assertEqual(len(self.result), 3)
 
     def test_result_row(self):
         self.assertEqual(self.result[0].instance, self.entries[0])
 
     def test_result_list(self):
-        self.assertEqual([r.instance for r in self.result], self.entries[0:1])
+        self.assertEqual([r.instance for r in self.result], self.entries[0:3])
 
     def test_score(self):
         self.assert_(self.result[0].percent in (99, 100))
 
+    def test_prefetch(self):
+        result = self.result.prefetch()
+        
+        self.assertEqual(result[0].instance.author.name, 'Alex')
+
+        result = self.result.prefetch(select_related=True)
+        self.assert_(hasattr(result[0].instance, '_author_cache'))
+        self.assertEqual(result[0].instance.author.name, 'Alex')
+
 class AliasesTest(BaseTestCase):
-    num_entries = 10
+    num_entries = 5
 
     def setUp(self):
         p = Person.objects.create(name="Alex")
@@ -32,7 +41,7 @@ class AliasesTest(BaseTestCase):
         self.result = Entry.indexer.search("subject:number")
 
     def test_result(self):
-        self.assertEqual(len(self.result), 10)
+        self.assertEqual(len(self.result), self.num_entries)
 
 class CorrectedQueryStringTest(BaseIndexerTest, BaseTestCase):
     def test_correction(self):

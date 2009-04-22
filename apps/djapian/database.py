@@ -6,22 +6,6 @@ from django.conf import settings
 class Database(object):
     def __init__(self, path):
         self._path = path
-        self._indexes = {}
-
-    def add_index(self, model, indexer=None, attach_as="indexer"):
-        if indexer is None:
-            indexer = self.create_default_indexer(model)
-
-        indexer = indexer(self, model)
-
-        self._indexes[model] = indexer
-
-        if attach_as is not None:
-            if hasattr(model, attach_as):
-                raise ValueError("Attribute with name `%s` is already exsits" % attach_as)
-            else:
-                model.add_to_class(attach_as, indexer)
-        return indexer
 
     def open(self, write=False):
         """
@@ -39,13 +23,13 @@ class Database(object):
             try:
                 database = xapian.Database(self._path)
             except xapian.DatabaseOpeningError:
-                self._create_database()
+                self.create_database()
 
                 database = xapian.Database(self._path)
 
         return database
 
-    def _create_database(self):
+    def create_database(self):
         database = xapian.WritableDatabase(
             self._path,
             xapian.DB_CREATE_OR_OPEN,
@@ -53,13 +37,7 @@ class Database(object):
         del database
 
     def document_count(self):
-        pass
-
-    def create_default_indexer(self, model):
-        pass
-
-    def index_count(self):
-        return len(self._indexes)
+        return self.open().get_doccount()
 
     def clear(self):
         try:
@@ -69,3 +47,25 @@ class Database(object):
             os.rmdir(self._path)
         except OSError:
             pass
+
+class CompositeDatabase(Database):
+    def __init__(self, dbs):
+        self._dbs = dbs
+
+    def open(self, write=False):
+        if write:
+            raise ValueError("Composite database cannot be opened for writing")
+
+        base = self._dbs[0]
+        raw = base.open()
+
+        for db in self._dbs[1:]:
+            raw.add_database(db.open())
+
+        return raw
+
+    def create_database(self):
+        raise NonImplementedError
+
+    def clear(self):
+        raise NotImplementedError
