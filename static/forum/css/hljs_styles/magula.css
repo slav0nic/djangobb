@@ -1,26 +1,19 @@
 ﻿/*
-
-Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
-
+Description: Magula style for highligh.js
+Author: Ruslan Keba <rukeba@gmail.com>
+Website: http://rukeba.com/
+Version: 1.0
+Date: 2009-01-03
+Music: Aphex Twin / Xtal
 */
 
-pre code[class]:after {
-  content: 'highlight: ' attr(class);
-  display: block; text-align: right;
-  font-size: smaller;
-  color: #CCC; background: white;
-  border-top: solid 1px;
-  padding-top: 0.5em;
-}
-
-pre code {
-  display: block;
-  background: #F0F0F0;
+pre {
+  margin: .5em; padding: .5em;
+  background-color: #f4f4f4;
 }
 
 pre code,
 .ruby .subst,
-.xml .title,
 .lisp .title {
   color: black;
 }
@@ -42,9 +35,8 @@ pre code,
 .flow,
 .stream,
 .bash .variable,
-.apache .tag,
 .apache .cbracket {
-  color: #800;
+  color: #050;
 }
 
 .comment,
@@ -52,7 +44,7 @@ pre code,
 .template_comment,
 .diff .header,
 .chunk {
-  color: #888;
+  color: #777;
 }
 
 .number,
@@ -62,7 +54,7 @@ pre code,
 .smalltalk .symbol,
 .smalltalk .char,
 .change {
-  color: #080;
+  color: #800;
 }
 
 .label,
@@ -79,7 +71,7 @@ pre code,
 .envvar,
 .shebang,
 .apache .sqbracket {
-  color: #88F;
+  color: #00e;
 }
 
 .keyword,
@@ -94,8 +86,11 @@ pre code,
 .smalltalk .class,
 .winutils,
 .bash .variable,
-.apache .tag {
+.apache .tag,
+.xml .tag,
+.xml .title {
   font-weight: bold;
+  color: navy;
 }
 
 .html .css,
@@ -103,3 +98,10 @@ pre code,
 .html .vbscript {
   opacity: 0.5;
 }
+
+/* --- */
+.apache .tag {
+  font-weight: bold;
+  color: blue;
+}
+
