@@ -1,9 +1,11 @@
 import sys
 import cmd
+
 from django.core.management.base import BaseCommand
+from django.utils.text import smart_split
 
 from djapian import utils
-import djapian
+from djapian import IndexSpace
 
 def with_index(func):
     def _decorator(cmd, arg):
@@ -15,11 +17,18 @@ def with_index(func):
     _decorator.__doc__ = func.__doc__
     return _decorator
 
+def split_arg(func):
+    def _decorator(cmd, arg):
+        bits = list(smart_split(arg))
+
+        return func(cmd, bits)
+    _decorator.__doc__ = func.__doc__
+    return _decorator
+
 class Interpreter(cmd.Cmd):
     prompt = ">>> "
 
     def __init__(self, *args):
-        self._list = djapian.indexer_map.items()
         self._current_index = None
 
         if len(args):
@@ -31,11 +40,14 @@ class Interpreter(cmd.Cmd):
         """
         Lists all available indexes with their ids
         """
-        for i, pair in enumerate(self._list):
-            model, indexers = pair
-            print "%s: `%s` by:" % (i, utils.model_name(model))
-            for j, indexer in enumerate(indexers):
-                print "\t%s.%s: %s" % (i, j, indexer)
+        print "Installed spaces/models/indexers:"
+        for space_i, space in enumerate(IndexSpace.instances):
+            print "%s: `%s`" % (space_i, space)
+            for model_indexer_i, pair in enumerate(space.get_indexers().items()):
+                model, indexers = pair
+                print "  %s.%s: `%s`" % (space_i, model_indexer_i, utils.model_name(model))
+                for indexer_i, indexer in enumerate(indexers):
+                    print "    %s.%s.%s: `%s`" % (space_i, model_indexer_i, indexer_i, indexer)
 
     def do_exit(self, arg):
         """
@@ -47,9 +59,29 @@ class Interpreter(cmd.Cmd):
         """
         Changes current index
         """
-        model, indexer = map(int, index.split('.'))
-        self._current_index = self._list[model][1][indexer]
-        print "Using `%s by %s` index." % (utils.model_name(self._list[model][0]), self._list[model][1][indexer])
+        space, model, indexer = self._get_indexer(index)
+
+        self._current_index = indexer
+
+        print "Using `%s:%s:%s` index." % (space, utils.model_name(model), indexer)
+
+    def do_usecomposite(self, indexes):
+        """
+        Changes current index to composition of given indexers
+        """
+        from djapian.indexer import CompositeIndexer
+
+        indexers = []
+        for index in indexes.split(' '):
+            indexers.append(self._get_indexer(index.strip()))
+
+        self._current_index = CompositeIndexer(*[i[2] for i in indexers])
+
+        print "Using composition of:"
+        for indexer in indexers:
+            space, model, indexer = indexer
+            print "  `%s:%s:%s`" % (space, utils.model_name(model), indexer)
+        print "indexes."
 
     @with_index
     def do_query(self, query):
@@ -86,7 +118,7 @@ class Interpreter(cmd.Cmd):
         """
         db = self._current_index._db.open()
 
-        start, end = self._parse_slice(slice, db.get_lastdocid())
+        start, end = self._parse_slice(slice, default=(1, db.get_lastdocid()))
 
         for i in range(start, end + 1):
             doc = db.get_document(i)
@@ -116,20 +148,24 @@ class Interpreter(cmd.Cmd):
         db.delete_document(id)
         print "Document #%s deleted." % id
 
-    def _parse_slice(self, slice="", last=None):
+    def _get_indexer(self, index):
+        space, model, indexer = self._parse_slice(index, '.')
+
+        space = IndexSpace.instances[space]
+        model = space.get_indexers().keys()[model]
+        indexer = space.get_indexers()[model][indexer]
+
+        return space, model, indexer
+
+    def _parse_slice(self, slice="", delimeter=":", default=tuple()):
         if slice:
-            bits = slice.split(':')
-            if len(bits) == 2:
-                start, end = map(int, bits)
-            else:
-                start = end = int(bits[0])
+            bits = map(int, slice.split(delimeter))
+        elif default:
+            return default
         else:
-            start = 1
-            end = last
+            raise ValueError("Empty slice")
 
-        end = min(end, last)
-
-        return start, end
+        return bits
 
 class Command(BaseCommand):
     help = "Djapian shell that provides capabilities to monitoring indexes."

@@ -4,12 +4,13 @@ from django.utils.daemonize import become_daemon
 
 import os
 import sys
+import operator
 from datetime import datetime
 from optparse import make_option
 
 from djapian.models import Change
 from djapian import utils
-import djapian
+from djapian import IndexSpace
 
 @transaction.commit_manually
 def update_changes(verbose, timeout, once):
@@ -26,7 +27,11 @@ def update_changes(verbose, timeout, once):
             print 'There are %d objects to update' % objs_count
 
         for change in changes:
-            indexers = djapian.indexer_map[change.content_type.model_class()]
+            indexers = reduce(
+                operator.add,
+                [space.get_indexers_for_model(change.content_type.model_class())
+                    for space in IndexSpace.instances]
+            )
 
             for indexer in indexers:
                 if change.action == "delete":
@@ -53,9 +58,12 @@ def rebuild(verbose):
         if verbose:
             sys.stdout.write('.')
             sys.stdout.flush()
-    for model, indexers in djapian.indexer_map.iteritems():
-        for indexer in indexers:
-            indexer.update(after_index=after_index)
+
+    for space in IndexSpace.instances:
+        for model, indexers in space.get_indexers().iteritems():
+            for indexer in indexers:
+                indexer.clear()
+                indexer.update(after_index=after_index)
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
