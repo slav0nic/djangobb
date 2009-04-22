@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     
     # Apps
-    url(r'^forum/', include('apps.forum.urls')),
+    url(r'^forum/', include('forum.urls')),
     
     # Feeds
     url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
