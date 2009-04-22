@@ -310,3 +310,11 @@ width:88px;
 
 .pun UL.errorlist LI {
 }
+
+.pun img.rss {
+	float: right;
+}
+
+.pun img.breadcrumb_rss {
+	vertical-align: middle;
+}
