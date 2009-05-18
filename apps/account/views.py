@@ -91,7 +91,7 @@ def restore_password(request):
 @render_to('account/login.html')
 def login(request):
     if request.user.is_authenticated():
-        return message(_('You are already authenticated'))
+        return HttpResponseRedirect(reverse('index'))
 
     if 'POST' == request.method:
         form = LoginForm(request.POST, request=request)
