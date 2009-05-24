@@ -134,7 +134,7 @@ class Topic(models.Model):
     
     @property
     def head(self):
-        return self.posts.all().order_by('created').select_related()[0]
+        'None'#return self.posts.all().order_by('created').select_related()[0]
 
     @property
     def reply_count(self):
@@ -260,18 +260,13 @@ class Profile(models.Model):
             return posts[0].created
         else:
             return  None
-        
-    def reply_total(self):
-        total = 0
-        for reputation in Reputation.objects.filter(to_user=self.user).select_related():
-            total += reputation.sign
-        return total
-    
+
     def reply_count_minus(self):
-        return Reputation.objects.filter(to_user=self.user, sign=-1).select_related().count()
-    
+        return Reputation.objects.filter(to_user=self.user, sign=-1).count()
+
     def reply_count_plus(self):
-        return Reputation.objects.filter(to_user=self.user, sign=1).select_related().count()
+        return Reputation.objects.filter(to_user=self.user, sign=1).count()
+
 
 class Read(models.Model):
     """
@@ -284,7 +279,7 @@ class Read(models.Model):
     time = models.DateTimeField(_('Time'), blank=True)
 
     class Meta:
-        unique_together = ['user', 'topic']
+        unique_together = [('user', 'topic')]
         verbose_name = _('Read')
         verbose_name_plural = _('Reads')
 

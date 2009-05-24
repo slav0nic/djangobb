@@ -1,11 +1,12 @@
 {% load forum_extras %}
+{% load cache %}
 {% load i18n %}
 
 {% if forum.last_post.topic %}
 	<tr {% if forum.last_post.topic|has_unreads:user %}class="inew"{% endif %}>
 {% else %}
 	<tr>
-{% endif %} 
+{% endif %}
 	<td class="tcl">
 		<div class="intd">
 			<div class="icon">
@@ -16,9 +17,11 @@
 				{{ forum.description|safe }}
 				
 				<p>
-				{% if forum.moderators.count %}
-					{% include 'forum/moderators.html' %}
-				{% endif %}
+				{% cache 6000 moderators forum.id %}
+					{% if forum.moderators.count %}
+						{% include 'forum/moderators.html' %}
+					{% endif %}
+				{% endcache %}
 				</p>
 				
 			</div>
