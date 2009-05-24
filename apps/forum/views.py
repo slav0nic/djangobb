@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db import connection
 from django.core.cache import cache
 from django.utils import translation
-from django.db.models import Q
+from django.db.models import Q, Sum
 
 from forum.util import render_to, paged, build_form, paginate, set_language
 from forum.models import Category, Forum, Topic, Post, Profile, Read,\
@@ -39,7 +39,7 @@ def index(request, full=True):
     user_groups = request.user.groups.all()
     if request.user.is_anonymous():  # in django 1.1 EmptyQuerySet raise exception
         user_groups = []
-    for forum in Forum.objects.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True)).select_related('category'):
+    for forum in Forum.objects.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True)).select_related('last_post__topic','last_post__user', 'category'):
         cat = cats.setdefault(forum.category.id,
             {'cat': forum.category, 'forums': []})
         cat['forums'].append(forum)
@@ -257,6 +257,7 @@ def misc(request):
                 'user': user,
                }, 'forum/mail_to.html'
 
+
 @render_to('forum/forum.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def show_forum(request, forum_id, full=True):
@@ -271,15 +272,15 @@ def show_forum(request, forum_id, full=True):
                 'forum': forum,
                 'topics': topics,
                 'paged_qs': topics,
-                'posts': forum.posts.count(),
-                'topics': forum.topics.count(),
+                'posts': forum.post_count,
+                'topics': forum.topic_count,
                 'moderator': moderator,
                 }
     else:
         pages, paginator, paged_list_name = paginate(topics, request, forum_settings.FORUM_PAGE_SIZE)
         return {'categories': Category.objects.all(),
                 'forum': forum,
-                'posts': forum.posts.count(),
+                'posts': forum.post_count,
                 'moderator': moderator,
                 'pages': pages,
                 'paginator': paginator, 
@@ -287,7 +288,6 @@ def show_forum(request, forum_id, full=True):
                 }, 'forum/lofi/forum.html'
 
 
-    
 @render_to('forum/topic.html')
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def show_topic(request, topic_id, full=True):
@@ -297,18 +297,31 @@ def show_topic(request, topic_id, full=True):
     topic.views += 1
     topic.save()
 
-    last_post = topic.posts.order_by('-created')[0]
+    last_post = topic.last_post
 
     if request.user.is_authenticated():
         topic.update_read(request.user)
 
     posts = topic.posts.all().select_related()
 
-    profiles = Profile.objects.filter(user__pk__in=set(x.user.id for x in posts))
-    profiles = dict((x.user_id, x) for x in profiles)
-    
+    users= set(post.user.id for post in posts)
+    profiles = Profile.objects.filter(user__pk__in=users)
+    profiles = dict((profile.user_id, profile) for profile in profiles)
+
     for post in posts:
         post.user.forum_profile = profiles[post.user.id]
+
+    if forum_settings.REPUTATION_SUPPORT:
+        replies_list = Reputation.objects.filter(to_user__pk__in=users).values('to_user_id').annotate(sign=Sum('sign')) #values_list buggy?
+
+        if replies_list:
+            replies = {}
+            for r in replies_list:
+                replies[r['to_user_id']] = r['sign']
+
+            for post in posts:
+                post.user.forum_profile.reply_total = replies.get(post.user.id, 0)
+            print replies
 
     initial = {}
     if request.user.is_authenticated():

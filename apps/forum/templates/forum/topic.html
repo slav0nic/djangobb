@@ -10,7 +10,7 @@
 		<p class="postlink conr"><a href="{% url add_post topic.id %}">{% trans "Reply" %}</a></p>
 		{% endif %}
 				<ul><li><a href="{% url index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
-				<a href="{% url forum_feed "topic" %}{{ topic.id }}/"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+				<a href="{% url forum_feed "topic" %}{{ topic.id }}/"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 				</li></ul>
 
 		<div class="clearer"></div>
@@ -53,17 +53,17 @@
                     <dd>{% trans "IP:" %} {{ post.user_ip }}</dd>
                     {% endif %}
 					{% if "REPUTATION_SUPPORT"|forum_setting %}
-					{% ifnotequal request.user post.user %}
-					<dd><a href="{% url reputation post.user %}">{% trans "Reputation" %}</a> :  <a href="{% url reputation post.user %}?action=plus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" border="0"></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url reputation post.user %}?action=minus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" border="0"></a></dd>
-					{% endifnotequal %}
+						{% ifnotequal request.user post.user %}
+							<dd><a href="{% url reputation post.user %}">{% trans "Reputation" %}</a> :  <a href="{% url reputation post.user %}?action=plus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" border="0"></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url reputation post.user %}?action=minus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" border="0"></a></dd>
+						{% endifnotequal %}
 					{% endif %}
 					<dd class="usercontacts"><a href="{% url forum_profile post.user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
 					{% ifequal post.user.forum_profile.privacy_permission 0 %}
-					<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
-					{% else %}
-					{% ifequal post.user.forum_profile.privacy_permission 1 %}
-					<a href="{% url misc %}?mail_to={{ post.user }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
-					{% endifequal %}
+							<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
+						{% else %}
+							{% ifequal post.user.forum_profile.privacy_permission 1 %}
+								<a href="{% url misc %}?mail_to={{ post.user }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
+							{% endifequal %}
 					{% endifequal %}
 					{% if "PM_SUPPORT"|forum_setting %}
 					{% if user.is_authenticated %}

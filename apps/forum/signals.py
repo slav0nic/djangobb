@@ -10,12 +10,15 @@ def post_saved(instance, **kwargs):
     if created:
         updated_time = datetime.now()
         post.topic.updated = updated_time
+        post.topic.last_post = post
         post.topic.post_count = Post.objects.filter(topic=post.topic).count()
         post.topic.save(force_update=True)
+
         post.topic.forum.updated = updated_time
         post.topic.forum.post_count = Post.objects.filter(topic__forum=post.topic.forum).count()
         post.topic.forum.last_post = post
         post.topic.forum.save(force_update=True)
+
         notify_topic_subscribers(post)
 
 def post_deleted(instance, **kwargs):
