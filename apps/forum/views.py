@@ -39,7 +39,7 @@ def index(request, full=True):
     user_groups = request.user.groups.all()
     if request.user.is_anonymous():  # in django 1.1 EmptyQuerySet raise exception
         user_groups = []
-    for forum in Forum.objects.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True)).select_related():
+    for forum in Forum.objects.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True)).select_related('category'):
         cat = cats.setdefault(forum.category.id,
             {'cat': forum.category, 'forums': []})
         cat['forums'].append(forum)
@@ -47,6 +47,7 @@ def index(request, full=True):
 
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
+
     if full:
         return {'cats': cats,
                 'posts': Post.objects.count(),
