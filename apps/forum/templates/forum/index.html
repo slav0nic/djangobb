@@ -4,28 +4,28 @@
 
 {% block content %}
 <div id="idx1" class="blocktable">
-        {% for iter in cats %}
-        <h2>
-        	<a href="{% url forum_feed "category" %}{{ iter.cat.id }}/"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
-        	<span>{{ iter.cat }}</span>
+	{% for iter in cats %}
+	<h2>
+		<a href="{% url forum_feed "category" %}{{ iter.cat.id }}/"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
+		<span>{{ iter.cat }}</span>
 		</h2>
 		<div class="box">
 			<div class="inbox">
 				<table cellspacing="0">
-				<thead>
-					<tr>
-						<th class="tcl" scope="col">{% trans "Forum" %}</th>
-						<th class="tc2" scope="col">{% trans "Topics" %}</th>
-						<th class="tc3" scope="col">{% trans "Posts" %}</th>
-						<th class="tcr" scope="col">{% trans "Last post" %}</th>
-					</tr>
-				</thead>
-				<tbody>
-                    {% for forum in iter.forums %}
-                    	{% include 'forum/forum_row.html' %}
-                    {% endfor %}
-                </tbody>
-            	</table>			
+					<thead>
+						<tr>
+							<th class="tcl" scope="col">{% trans "Forum" %}</th>
+							<th class="tc2" scope="col">{% trans "Topics" %}</th>
+							<th class="tc3" scope="col">{% trans "Posts" %}</th>
+							<th class="tcr" scope="col">{% trans "Last post" %}</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for forum in iter.forums %}
+						{% include 'forum/forum_row.html' %}
+					{% endfor %}
+					</tbody>
+				</table>
 			</div>
 		</div>
         {% endfor %}

@@ -92,6 +92,8 @@ class Forum(models.Model):
     moderators = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('Moderators'))
     updated = models.DateTimeField(_('Updated'), default=datetime.now)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
+    topic_count = models.IntegerField(_('Topic count'), blank=True, default=0)
+    last_post = models.ForeignKey('Post', related_name='last_post', blank=True, null=True)
 
     class Meta:
         ordering = ['position']
@@ -101,23 +103,13 @@ class Forum(models.Model):
     def __unicode__(self):
         return self.name
 
-    def topic_count(self):
-        return self.topics.all().count()
-
     def get_absolute_url(self):
         return reverse('forum', args=[self.id])
-    
+
     @property
     def posts(self):
         return Post.objects.filter(topic__forum=self).select_related()
 
-    @property
-    def last_post(self):
-        posts = self.posts.order_by('-created').select_related()
-        try:
-            return posts[0]
-        except IndexError:
-            return None
 
 class Topic(models.Model):
     forum = models.ForeignKey(Forum, related_name='topics', verbose_name=_('Forum'))
@@ -130,6 +122,7 @@ class Topic(models.Model):
     closed = models.BooleanField(_('Closed'), blank=True, default=False)
     subscribers = models.ManyToManyField(User, related_name='subscriptions', verbose_name=_('Subscribers'), blank=True)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
+    last_post = models.ForeignKey('Post', related_name='last_topic_post', blank=True, null=True)
 
     class Meta:
         ordering = ['-updated']
@@ -144,9 +137,6 @@ class Topic(models.Model):
         return self.posts.all().order_by('created').select_related()[0]
 
     @property
-    def last_post(self):
-        return self.posts.all().order_by('-created').select_related()[0]
-    
     def reply_count(self):
         return self.post_count - 1
 
@@ -210,19 +200,7 @@ class Post(models.Model):
         self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
         self.body_html = smiles(self.body_html)
-        new = self.id is None
-        if new:
-            #new post created
-            super(Post, self).save(*args, **kwargs)
-            self.topic.updated = datetime.now()
-            self.topic.post_count = Post.objects.filter(topic=self.topic).count()
-            self.topic.save()
-            self.topic.forum.updated = self.topic.updated
-            self.topic.forum.post_count = Post.objects.filter(topic__forum=self.topic.forum).count()
-            self.topic.forum.save()
-        else:
-            #edit post
-            super(Post, self).save(*args, **kwargs)
+        super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('post', args=[self.id])
@@ -231,10 +209,6 @@ class Post(models.Model):
         self_id = self.id
         head_post_id = self.topic.posts.order_by('created')[0].id
         super(Post, self).delete(*args, **kwargs)
-        self.topic.post_count = Post.objects.filter(topic=self.topic).count()
-        self.topic.save()
-        self.topic.forum.post_count = Post.objects.filter(topic__forum=self.topic.forum).count()
-        self.topic.forum.save()
 
         if self_id == head_post_id:
             self.topic.delete()
