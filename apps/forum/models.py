@@ -199,7 +199,8 @@ class Post(models.Model):
             raise Exception('Invalid markup property: %s' % self.markup)
         self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
-        self.body_html = smiles(self.body_html)
+        if forum_settings.SMILES_SUPPORT:
+            self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -345,8 +346,8 @@ class PrivateMessage(models.Model):
             raise Exception('Invalid markup property: %s' % self.markup)
         self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
-        self.body_html = smiles(self.body_html)
-        
+        if forum_settings.SMILES_SUPPORT:
+            self.body_html = smiles(self.body_html)
         new = self.id is None
         super(PrivateMessage, self).save(*args, **kwargs)
     
