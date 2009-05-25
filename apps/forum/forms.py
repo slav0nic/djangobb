@@ -59,13 +59,13 @@ class AddPostForm(forms.ModelForm):
         self.forum = kwargs.pop('forum', None)
         self.ip = kwargs.pop('ip', None)
         super(AddPostForm, self).__init__(*args, **kwargs)
-        
+
         if self.topic:
             self.fields['name'].widget = forms.HiddenInput()
             self.fields['name'].required = False
-            
+
         self.fields['body'].widget = forms.Textarea(attrs={'class':'bbcode', 'rows':'20', 'cols':'95'})
-        
+
         if not forum_settings.ATTACHMENT_SUPPORT:
             self.fields['attachment'].widget = forms.HiddenInput()
             self.fields['attachment'].required = False

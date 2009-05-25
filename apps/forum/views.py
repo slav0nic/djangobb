@@ -790,7 +790,9 @@ def add_subscription(request, topic_id):
 def show_attachment(request, hash):
     attachment = get_object_or_404(Attachment, hash=hash)
     file_obj = file(attachment.get_absolute_path())
-    return HttpResponse(file_obj, content_type=attachment.content_type)
+    response = HttpResponse(file_obj, content_type=attachment.content_type)
+    response['Content-Disposition'] = 'attachment; filename=%s' % attachment.name
+    return response
 
 #TODO: check markup
 @render_to('forum/post_preview.html')

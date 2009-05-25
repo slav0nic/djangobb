@@ -264,6 +264,7 @@ def pm_unreads(user):
 
 @register.filter
 def attachment_link(attach):
+    from django.template.defaultfilters import filesizeformat
     if attach.content_type in ['image/png', 'image/gif', 'image/jpeg']:
         img = '<img src="%sforum/img/attachment/image.png" alt="attachment" >' % (settings.MEDIA_URL)
     elif attach.content_type in ['application/x-tar', 'application/zip']:
@@ -274,7 +275,7 @@ def attachment_link(attach):
         img = '<img src="%sforum/img/attachment/doc.png" alt="attachment" >' % (settings.MEDIA_URL)
     else:
         img = '<img src="%sforum/img/attachment/unknown.png" alt="attachment" >' % (settings.MEDIA_URL)
-    attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, attach.size_display())
+    attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     return mark_safe(attachment)
 
 @register.simple_tag

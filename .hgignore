@@ -14,5 +14,6 @@ djapian_db
 *.kpf
 *.autosave
 static/forum/avatars
+static/forum/attachments
 secret.txt
 django_evolution
