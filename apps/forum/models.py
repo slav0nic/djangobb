@@ -393,16 +393,6 @@ class Attachment(models.Model):
     def get_absolute_url(self):
         return reverse('forum_attachment', args=[self.hash])
 
-    def size_display(self):
-        size = self.size
-        if size < 1024:
-            return '%b' % size
-        elif size < 1024 * 1024:
-            return '%dKb' % int(size / 1024)
-        else:
-            return '%.2fMb' % (size / float(1024 * 1024))
-
-
     def get_absolute_path(self):
         return os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO,
                             self.path)
