@@ -348,7 +348,6 @@ def show_topic(request, topic_id, full=True):
                 }
     else:
         pages, paginator, paged_list_name = paginate(posts, request, forum_settings.TOPIC_PAGE_SIZE)
-        load_related(page.object_list, Attachment.objects.all(), 'post')
         return {'categories': Category.objects.all(),
                 'topic': topic,
                 #'last_post': last_post,
