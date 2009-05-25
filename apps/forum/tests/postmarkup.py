@@ -22,5 +22,5 @@ class PostmarkupTestCase(unittest.TestCase):
     
     def testCodeTag(self):
         text = 'foo [code]foo\nbar[/code] bar'
-        self.assertEqual('foo <div class="code"><pre>foo\nbar</pre></div>bar', self.markup(text))
+        self.assertEqual('foo <pre><code>foo\nbar</code></pre>bar', self.markup(text))
 
