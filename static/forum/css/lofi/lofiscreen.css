@@ -14,7 +14,7 @@ BODY
 	padding: 0px;
 }
 
-.ipbnav
+.djangobbnav
 {
 	font-size: 11px;
 	font-weight: bold;
@@ -22,7 +22,7 @@ BODY
 	padding:10px;
 }
 
-.ipbpagespan
+.djangobbpagespan
 {
 	font-size: 11px;
 	font-weight: bold;
@@ -31,7 +31,7 @@ BODY
 	margin-top: 10px;
 }
 
-.ipbnavsmall
+.djangobbnavsmall
 {
 	font-size: 10px;
 	font-weight: bold;
@@ -51,19 +51,19 @@ BODY
 	width:auto;
 }
 
-#ipbwrapper
+#djangobbwrapper
 {
 
 }
 
-#ipbcopyright
+#djangobbcopyright
 {
 	margin-top: 10px;
 	font-size: 10px;
 	text-align:center;
 }
 
-#ipbcontent
+#djangobbcontent
 {
 	padding: 10px;
 	margin-top:10px;

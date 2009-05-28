@@ -6,9 +6,9 @@
 
 BODY {BACKGROUND-COLOR: #FFF}
 
-.pun {COLOR: #333}
+.djangobb {COLOR: #333}
 
-DIV.box, .pun BLOCKQUOTE, DIV.codebox, #adminconsole FIELDSET TH, .rowodd, .roweven {BACKGROUND-COLOR: #F1F1F1}
+DIV.box, .djangobb BLOCKQUOTE, DIV.codebox, #adminconsole FIELDSET TH, .rowodd, .roweven {BACKGROUND-COLOR: #F1F1F1}
 #adminconsole TD, #adminconsole TH {BORDER-COLOR: #F1F1F1}
 
 /* 1. 2 Darker background colours */
@@ -18,19 +18,19 @@ TD.tc2, TD.tc3, TD.tcmod, #postpreview, #viewprofile DD, DIV.forminfo,
 
 /* 1.3 Main headers and navigation bar background and text colour */
 
-.pun H2, #brdmenu {BACKGROUND-COLOR: #0066B9; COLOR: #FFF}
+.djangobb H2, #brdmenu {BACKGROUND-COLOR: #0066B9; COLOR: #FFF}
 
 /* 1.4 Table header rows */
 
-.pun TH {BACKGROUND-COLOR: #D1D1D1}
+.djangobb TH {BACKGROUND-COLOR: #D1D1D1}
 
 /* 1.5 Fieldset legend text colour */
 
-.pun LEGEND {COLOR: #005CB1}
+.djangobb LEGEND {COLOR: #005CB1}
 
 /* 1.6 Highlighted text for various items */
 
-.pun DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #333}
+.djangobb DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #333}
 
 /****************************************************************/
 /* 2. POST BACKGROUNDS AND TEXT */
@@ -49,7 +49,7 @@ DIV.blockpost H2 SPAN.conr {COLOR: #AABDCD}
 
 /* 2.3 This is the line above the signature in posts. Colour and background should be the same */
 
-.pun HR {BACKGROUND-COLOR: #333; COLOR: #333}
+.djangobb HR {BACKGROUND-COLOR: #333; COLOR: #333}
 
 /****************************************************************/
 /* 3. BORDER COLOURS */
@@ -65,17 +65,17 @@ DIV.blockpost DIV.box {BORDER-COLOR: #006fC9 #0066B9 #0066B9}
 
 /* 3.3 Table internal borders. By default TH is same as background so border is invisible */
 
-.pun TD {BORDER-COLOR: #BBCEDE}
-.pun TH {BORDER-COLOR: #D1D1D1}
+.djangobb TD {BORDER-COLOR: #BBCEDE}
+.djangobb TH {BORDER-COLOR: #D1D1D1}
 
 /* 3.4 Creates the inset border for quote boxes, code boxes and form info boxes */
 
-.pun BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #ACA899 #FFF #FFF #ACA899}
+.djangobb BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #ACA899 #FFF #FFF #ACA899}
 
 /* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour
 without interferring with IE's rather nice default */
 
-.pun DIV>FIELDSET {BORDER-COLOR: #ACA899}
+.djangobb DIV>FIELDSET {BORDER-COLOR: #ACA899}
 
 /****************************************************************/
 /* 4. LINK COLOURS */
@@ -83,13 +83,13 @@ without interferring with IE's rather nice default */
 
 /* 4.1 This is the default for all links */
 
-.pun A:link, .pun A:visited {COLOR: #005CB1}
-.pun A:hover {COLOR: #B42000}
+.djangobb A:link, .djangobb A:visited {COLOR: #005CB1}
+.djangobb A:hover {COLOR: #B42000}
 
 /* 4.2 This is the colour for links in header rows and the navigation bar */
 
-.pun H2 A:link, .pun H2 A:visited, #brdmenu A:link, #brdmenu A:visited {COLOR: #FFF}
-.pun H2 A:hover, #brdmenu A:hover {COLOR: #FFF}
+.djangobb H2 A:link, .djangobb H2 A:visited, #brdmenu A:link, #brdmenu A:visited {COLOR: #FFF}
+.djangobb H2 A:hover, #brdmenu A:hover {COLOR: #FFF}
 
 /* 4.3 This is for closed topics and "hot" links */
 

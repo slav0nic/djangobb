@@ -6,11 +6,11 @@
 
 body{text-align:center;background : url(../img/back.gif);}
 /* �������� ����� */
-.pun {COLOR: #333}
+.djangobb {COLOR: #333}
 
 
 DIV.box, #adminconsole FIELDSET TH, .rowodd, .roweven {BACKGROUND-COLOR: #f8f8f8}
-.pun BLOCKQUOTE, DIV.codebox {BACKGROUND-COLOR: #f1f1f1}
+.djangobb BLOCKQUOTE, DIV.codebox {BACKGROUND-COLOR: #f1f1f1}
 #adminconsole TD, #adminconsole TH {BORDER-COLOR: #eeeeee} /*<<<<<<<<<<<neizvestno*/
 
 /* 1. 2 Darker background colours */
@@ -22,20 +22,20 @@ TH.tc3 {width: 70px}
 
 /* 1.3 Main headers and navigation bar background and text colour */
 
-.pun H2, #brdmenu {BACKGROUND: url(../img/fon111.gif); COLOR: #FFF; font-weight: bold; height: 16px;}
-.pun H2 {font-weight: bold;BACKGROUND: #7897BB url(../img/fon111.gif);border-top: 1px solid #7897BB;border-left: 1px solid #7897BB;border-right: 1px solid #7897BB; height: 16px;}
+.djangobb H2, #brdmenu {BACKGROUND: url(../img/fon111.gif); COLOR: #FFF; font-weight: bold; height: 16px;}
+.djangobb H2 {font-weight: bold;BACKGROUND: #7897BB url(../img/fon111.gif);border-top: 1px solid #7897BB;border-left: 1px solid #7897BB;border-right: 1px solid #7897BB; height: 16px;}
 
 /* 1.4 Table header rows */
 
-.pun TH {BACKGROUND-COLOR: #eeeeee;}
+.djangobb TH {BACKGROUND-COLOR: #eeeeee;}
 
 /* 1.5 Fieldset legend text colour */
 
-.pun LEGEND {COLOR: #5A799D}
+.djangobb LEGEND {COLOR: #5A799D}
 
 /* 1.6 Highlighted text for various items */
 
-.pun DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #7897BB}
+.djangobb DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #7897BB}
 
 /****************************************************************/
 /* 2. POST BACKGROUNDS AND TEXT */
@@ -54,7 +54,7 @@ DIV.blockpost H2 SPAN.conr {COLOR: #CCC}
 
 /* 2.3 This is the line above the signature in posts. Colour and background should be the same */
 
-.pun HR {BACKGROUND-COLOR: #35567C; COLOR: #35567C}
+.djangobb HR {BACKGROUND-COLOR: #35567C; COLOR: #35567C}
 
 /****************************************************************/
 /* 3. BORDER COLOURS */
@@ -71,17 +71,17 @@ DIV.blockpost DIV.box {BORDER: 1px solid  #7897BB;BORDER-TOP: 1px solid #7897BB;
 
 /* 3.3 Table internal borders. By default TH is same as background so border is invisible */
 
-.pun TD {BORDER-COLOR: #d6e1f1}
-.pun TH {BORDER-COLOR: #d6e1f1}
+.djangobb TD {BORDER-COLOR: #d6e1f1}
+.djangobb TH {BORDER-COLOR: #d6e1f1}
 
 /* 3.4 Creates the inset border for quote boxes, code boxes and form info boxes */
 
-.pun BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #7897BB #7897BB #7897BB #7897BB}
+.djangobb BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #7897BB #7897BB #7897BB #7897BB}
 
 /* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour
 without interferring with IE's rather nice default */
 
-.pun DIV>FIELDSET {BORDER-COLOR: #7897BB} /*>>> neizvestno shto*/
+.djangobb DIV>FIELDSET {BORDER-COLOR: #7897BB} /*>>> neizvestno shto*/
 
 /****************************************************************/
 /* 4. LINK COLOURS */
@@ -89,13 +89,13 @@ without interferring with IE's rather nice default */
 
 /* 4.1 This is the default for all links */
 
-.pun A:link, .pun A:visited {COLOR: #7897BB;}
-.pun A:hover {COLOR: #B42000; }
+.djangobb A:link, .djangobb A:visited {COLOR: #7897BB;}
+.djangobb A:hover {COLOR: #B42000; }
 
 /* 4.2 This is the colour for links in header rows and the navigation bar */
 
-.pun H2 A:link, .pun H2 A:visited, #brdmenu A:link, #brdmenu A:visited {COLOR: #FFF;text-decoration : underline; }
-.pun H2 A:hover, #brdmenu A:hover {COLOR: #35567C;}
+.djangobb H2 A:link, .djangobb H2 A:visited, #brdmenu A:link, #brdmenu A:visited {COLOR: #FFF;text-decoration : underline; }
+.djangobb H2 A:hover, #brdmenu A:hover {COLOR: #35567C;}
 
 /* 4.3 This is for closed topics and "hot" links */
 
@@ -124,24 +124,24 @@ DIV.iredirect {background:url(../img/link.png)}
 #brdmenu {BACKGROUND: url(../img/fon111.gif); border-top: 1px solid #7897BB;border-bottom: 1px solid #7897BB; BACKGROUND-COLOR: #7897BB;}
 /* header logo */
  
-.pun H1 span
+.djangobb H1 span
 {
 color: #3A3B3C;
 font-size: 16px; /*bylo 12*/
 font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
 }
 
-.pun h2 span {
+.djangobb h2 span {
 background:transparent url(../img/category.gif) no-repeat scroll left center;
 }
 
-.pun h2 span.conr {
+.djangobb h2 span.conr {
 background-image:none;
 }
 
 /* board stats icon */
-#punindex #brdstats div.box div.inbox dl.conl,
-#punforum #brdstats div.box div.inbox dl.conl
+#djangobbindex #brdstats div.box div.inbox dl.conl,
+#djangobbforum #brdstats div.box div.inbox dl.conl
 {
 background: transparent url(../img/stats.gif) no-repeat 0% 50%;
 padding-left: 38px;

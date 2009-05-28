@@ -2,25 +2,25 @@
 /* 1. INITIAL SETTINGS */
 /****************************************************************/
 
-.pun TABLE, .pun FORM, .pun P, .pun H1, .pun H2, .pun H3,
-.pun H4, .pun PRE, .pun BLOCKQUOTE, .pun UL, .pun OL, .pun LI, .pun DL,
-.pun DT, .pun DD, .pun TH, .pun TD, .pun FIELDSET, .pun IMG {
+.djangobb TABLE, .djangobb FORM, .djangobb P, .djangobb H1, .djangobb H2, .djangobb H3,
+.djangobb H4, .djangobb PRE, .djangobb BLOCKQUOTE, .djangobb UL, .djangobb OL, .djangobb LI, .djangobb DL,
+.djangobb DT, .djangobb DD, .djangobb TH, .djangobb TD, .djangobb FIELDSET, .djangobb IMG {
 	MARGIN: 0px;
 	PADDING: 0px;
 	FONT-WEIGHT: normal;
 	LIST-STYLE: none;
 }
 
-.pun IMG {BORDER: none}
+.djangobb IMG {BORDER: none}
 
-.pun INPUT, .pun SELECT, .pun TEXTAREA, .pun OPTGROUP {MARGIN: 0}
+.djangobb INPUT, .djangobb SELECT, .djangobb TEXTAREA, .djangobb OPTGROUP {MARGIN: 0}
 
 /****************************************************************/
 /* 2. STRUCTURAL SETTINGS - VERY IMPORTANT - DO NOT CHANGE */
 /****************************************************************/
 
 /* 2.1 Clearing floats and invisible items */
-.pun .clearer, .pun .nosize {
+.djangobb .clearer, .djangobb .nosize {
 	HEIGHT: 0;
 	WIDTH: 0;
 	LINE-HEIGHT: 0;
@@ -28,8 +28,8 @@
 	OVERFLOW: hidden
 }
 
-.pun .clearer, .pun .clearb {CLEAR: both}
-.pun .nosize {POSITION: absolute; LEFT: -10000px}
+.djangobb .clearer, .djangobb .clearb {CLEAR: both}
+.djangobb .nosize {POSITION: absolute; LEFT: -10000px}
 
 /* 2.2 Overflow settings for posts */
 
@@ -46,7 +46,7 @@ DIV>DIV>DIV.postfootleft, DIV>DIV>DIV.postfootright {PADDING-TOP: 1px; MARGIN-TO
 /* 3.2 This is only visible to IE Windows and cures various bugs. Do not alter comments */
 
 /* Begin IEWin Fix \*/
-* HTML .inbox, * HTML .inform, * HTML .pun, * HTML .intd, * HTML .tclcon {HEIGHT: 1px}
+* HTML .inbox, * HTML .inform, * HTML .djangobb, * HTML .intd, * HTML .tclcon {HEIGHT: 1px}
 * HTML .inbox DIV.postmsg {WIDTH: 98%}
 /* End of IEWin Fix */
 
@@ -127,11 +127,11 @@ DIV.blockmenu, #viewprofile DT {
 
 /* 6.1 Table Basic Setup */
 
-.pun TABLE {WIDTH: 100%}
+.djangobb TABLE {WIDTH: 100%}
 
 /* 6.2 Fixed Table Setup */
 
-#punindex TABLE, #vf TABLE {TABLE-LAYOUT: fixed}
+#djangobbindex TABLE, #vf TABLE {TABLE-LAYOUT: fixed}
 
 .tcl {TEXT-ALIGN: left; WIDTH: 50%}
 
@@ -139,9 +139,9 @@ DIV.blockmenu, #viewprofile DT {
 
 .tcr {WIDTH: 32%; TEXT-ALIGN: left}
 
-#punsearch #vf .tcl, #punmoderate #vf .tcl {WIDTH: 41%}
+#djangobbsearch #vf .tcl, #djangobbmoderate #vf .tcl {WIDTH: 41%}
 
-#punsearch #vf .tc2 {WIDTH: 18%; TEXT-ALIGN: left}
+#djangobbsearch #vf .tc2 {WIDTH: 18%; TEXT-ALIGN: left}
 
 .tcl, .tcr {OVERFLOW: HIDDEN}
 
@@ -157,7 +157,7 @@ DIV.blockmenu, #viewprofile DT {
 
 #debug .tcr {WIDTH: 85%; WHITE-SPACE: normal}
 
-#punindex TD.tcr SPAN.byuser {DISPLAY: block}
+#djangobbindex TD.tcr SPAN.byuser {DISPLAY: block}
 
 /****************************************************************/
 /* 7. VIEWTOPIC SETUP */
@@ -242,7 +242,7 @@ DIV.postfootright LI, UL.bblinks LI {
 
 DIV.txtarea {WIDTH: 75%}
 
-.pun LABEL {DISPLAY: block}
+.djangobb LABEL {DISPLAY: block}
 
 #qjump SELECT {WIDTH: 50%}
 
@@ -260,7 +260,7 @@ DIV.txtarea {WIDTH: 75%}
 
 /* 10.3 Other templates */
 
-#punredirect DIV.block, #punmaint DIV.block {MARGIN: 50px 20% 12px 20%}
+#djangobbredirect DIV.block, #djangobbmaint DIV.block {MARGIN: 50px 20% 12px 20%}
 
 /****************************************************************/
 /* MOD QUICK QUOTE STYLE INDICATORS */
@@ -292,13 +292,13 @@ a.quotehint:hover .infobox {
 	padding: 0.5em; 
 }
 
-.pun input#id_captcha_1 {
+.djangobb input#id_captcha_1 {
 font-size:22px;
 margin-left:10px;
 width:88px;
 }
 
-.pun UL.errorlist {
+.djangobb UL.errorlist {
 	MARGIN-BOTTOM: 12px;
 	PADDING: 9px 10px;
 	BORDER-STYLE: solid;
@@ -308,13 +308,13 @@ width:88px;
 	color: #FF0000;
 }
 
-.pun UL.errorlist LI {
+.djangobb UL.errorlist LI {
 }
 
-.pun img.rss {
+.djangobb img.rss {
 	float: right;
 }
 
-.pun img.breadcrumb_rss {
+.djangobb img.breadcrumb_rss {
 	vertical-align: middle;
 }
