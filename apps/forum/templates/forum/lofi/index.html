@@ -4,11 +4,11 @@
 
 {% block content %}
 <div id='largetext'>{% trans "Full Version:" %} <a href="{% url index %}">{% trans "Root" %}</a></div>
-<div class='ipbnav'>
+<div class='djangobbnav'>
 	<a href="{% url lofi_index %}">{% trans "Root" %}</a>
 </div>
 
-<div id="ipbcontent">
+<div id="djangobbcontent">
   <div class="forumwrap">
 <ul>
 {% for iter in cats %}

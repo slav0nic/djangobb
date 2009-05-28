@@ -5,13 +5,13 @@ background-color : #FFFFFF;
 color : #000000; 
 } 
 /* header logo */
-.pun H1 
+.djangobb H1 
 {
 border-top : 5px solid #efefef;
 border-bottom : 20px solid #efefef;
 }
 /*header title*/
-.pun H1 span
+.djangobb H1 span
 {
 color: #006699;
 font-size: 18px;
@@ -20,14 +20,14 @@ text-transform: none;
 text-decoration: underline;
 position: absolute; 
 }
-.pun #brdtitle P {
+.djangobb #brdtitle P {
 text-align : left; 
 text-decoration : none; 
 } 
-.pun {
+.djangobb {
 color : #000000; 
 } 
-.pun BLOCKQUOTE , DIV.codebox , DIV.box , adminconsole FIELDSET TH , .rowodd , .roweven {
+.djangobb BLOCKQUOTE , DIV.codebox , DIV.box , adminconsole FIELDSET TH , .rowodd , .roweven {
 background-color : #EFEFEF; 
 } 
 #adminconsole TD , #adminconsole TH {
@@ -48,7 +48,7 @@ background-color : #DEE3E7;
 TD.tcmod , adstats DD {
 background-color : #EFEFEF; 
 } 
-.pun H2 {
+.djangobb H2 {
 background-image : url(../img/cellpic1.gif); 
 border-right : 1px solid #006699; 
 border-left : 1px solid #006699; 
@@ -57,7 +57,7 @@ border-bottom : 0px solid #006699;
 color : #FFA34F; 
 font-weight : bold; 
 } 
-.pun #brdmenu {
+.djangobb #brdmenu {
 background-image : url(../img/cellpic1.gif); 
 border-right : 0 solid #006699; 
 border-left : 0 solid #006699; 
@@ -66,33 +66,33 @@ border-bottom : 1px solid #006699;
 color : #fff; 
 font-weight : bold; 
 } 
-.pun TH {
+.djangobb TH {
 background-color : #EFEFEF; 
 color : #006699; 
 } 
-.pun TH.tcl , TH.tc2 , TH.tc3 , TH.tc4 , TH.tc5 , TH.tcr , TH.tcmod {
+.djangobb TH.tcl , TH.tc2 , TH.tc3 , TH.tc4 , TH.tc5 , TH.tcr , TH.tcmod {
 background-image : url(../img/cellpic2.gif); 
 color : #006699; 
 font-weight : bold; 
 } 
-.pun div.infldset TH.tcl , div.infldset TH.tc2 , div.infldset TH.tc3 , div.infldset TH.tcr {
+.djangobb div.infldset TH.tcl , div.infldset TH.tc2 , div.infldset TH.tc3 , div.infldset TH.tcr {
 background-image : url(../img/pix.gif); 
 color : #006699; 
 } 
-.pun div.infldset th.hidehead {
+.djangobb div.infldset th.hidehead {
 color : #006699; 
 background-image : url(../img/pix.gif); 
 } 
-.pun span.byuser {
+.djangobb span.byuser {
 background-position : 0% 50%; 
 background-repeat : no-repeat; 
 background-image : url(../img/icon_post.gif); 
 padding : 0 20px; 
 } 
-.pun LEGEND {
+.djangobb LEGEND {
 color : #006699; 
 } 
-.pun DIV.blockmenu LI.isactive A , #posterror LI STRONG {
+.djangobb DIV.blockmenu LI.isactive A , #posterror LI STRONG {
 color : #f26522; 
 } 
 DIV.blockpost DIV.box , DIV.postright , DIV.postfootright {
@@ -110,7 +110,7 @@ background-color : #efefeb;
 DIV.blockpost H2 SPAN.conr {
 color : #EFEFEF; 
 } 
-.pun HR {
+.djangobb HR {
 color : #000000; 
 } 
 DIV.box {
@@ -122,32 +122,32 @@ border-bottom-color : #006699;
 DIV.blockpost DIV.box {
 border-color : #bec8ce; 
 } 
-.pun TD {
+.djangobb TD {
 border-color : #bec8ce; 
 } 
-.pun TH {
+.djangobb TH {
 border-color : #d9e0e4; 
 } 
-.pun BLOCKQUOTE {
+.djangobb BLOCKQUOTE {
 background-color : #dfe6ef; 
 color : #000000; 
 } 
-.pun BLOCKQUOTE , DIV.codebox , DIV.forminfo , DIV.blockpost LABEL {
+.djangobb BLOCKQUOTE , DIV.codebox , DIV.forminfo , DIV.blockpost LABEL {
 border-color : #bec8ce; 
 } 
 FIELDSET {
 border-color : #dfe6ef; 
 } 
-.pun A:link , .pun A:visited {
+.djangobb A:link , .djangobb A:visited {
 color : #006699; 
 } 
-.pun A:hover {
+.djangobb A:hover {
 color : #f26522; 
 } 
-.pun H2 A:link , .pun H2 A:visited , #brdmenu A:link , #brdmenu A:visited {
+.djangobb H2 A:link , .djangobb H2 A:visited , #brdmenu A:link , #brdmenu A:visited {
 color : #EFEFEF; 
 } 
-.pun H2 A:hover , #brdmenu A:hover {
+.djangobb H2 A:hover , #brdmenu A:hover {
 color : #fff; 
 } 
 LI.postreport A:link , LI.postreport A:visited , TR.iclosed TD.tcl A:link , TR.iclosed TD.tcl A:visited {
@@ -177,23 +177,23 @@ background-image : url(../img/icon_new.gif);
 TR.isticky DIV.icon {
 background-image : url(../img/icon_sticky.gif); 
 } 
-.pun , .pun INPUT , .pun SELECT , .pun TEXTAREA , .pun OPTGROUP {
+.djangobb , .djangobb INPUT , .djangobb SELECT , .djangobb TEXTAREA , .djangobb OPTGROUP {
 font-family : Verdana, Arial, Helvetica, sans-serif; 
 } 
-.pun {
+.djangobb {
 font-size : 11px; 
 line-height : normal; 
 } 
-* HTML .pun {
+* HTML .djangobb {
 font-size : 68.75%; 
 } 
-.pun TABLE , .pun INPUT , .pun SELECT , .pun OPTGROUP , .pun TEXTAREA , DIV.postmsg P.postedit {
+.djangobb TABLE , .djangobb INPUT , .djangobb SELECT , .djangobb OPTGROUP , .djangobb TEXTAREA , DIV.postmsg P.postedit {
 font-size : 1em; 
 } 
-.pun H2 , .pun H4 {
+.djangobb H2 , .djangobb H4 {
 font-size : 1em; 
 } 
-.pun H3 {
+.djangobb H3 {
 font-size : 1.1em; 
 } 
 #brdtitle H1 {
@@ -205,10 +205,10 @@ line-height : 1.4;
 DIV.postleft DT {
 font-size : 1.1em; 
 } 
-.pun PRE {
+.djangobb PRE {
 font-size : 1.2em; 
 } 
-DIV.postleft DT , DIV.postmsg H4 , TD.tcl H3 , DIV.forminfo H3 , P.postlink , DIV.linkst LI , DIV.linksb LI , DIV.postlinksb LI , .blockmenu LI , #brdtitle H1 , .pun SPAN.warntext , .pun P.warntext {
+DIV.postleft DT , DIV.postmsg H4 , TD.tcl H3 , DIV.forminfo H3 , P.postlink , DIV.linkst LI , DIV.linksb LI , DIV.postlinksb LI , .blockmenu LI , #brdtitle H1 , .djangobb SPAN.warntext , .djangobb P.warntext {
 font-weight : bold; 
 } 
 #brdmenu A:link , #brdmenu A:visited , .blockpost DT A:link , .blockpost DT A:visited , .blockpost H2 A:link , .blockpost H2 A:visited , .postlink A:link , .postlink A:visited , .postfootright A:link , .postfootright A:visited , .blockmenu A:link , .blockmenu A:visited {
@@ -217,18 +217,18 @@ text-decoration : none;
 #brdmenu A:hover , .blockpost H2 A:hover {
 text-decoration : underline; 
 } 
-DIV.box , .pun TD , .pun TH , .pun BLOCKQUOTE , DIV.codebox , DIV.forminfo , DIV.blockpost LABEL {
+DIV.box , .djangobb TD , .djangobb TH , .djangobb BLOCKQUOTE , DIV.codebox , DIV.forminfo , DIV.blockpost LABEL {
 border-style : solid; 
 border-width : 1px; 
 } 
 #brdheader DIV.box {
 border-top-width : 4px; 
 } 
-.pun TD , .pun TH {
+.djangobb TD , .djangobb TH {
 border-bottom : medium none inherit; 
 border-right : medium none inherit; 
 } 
-.pun .tcl {
+.djangobb .tcl {
 border-left : medium none inherit; 
 } 
 FIELDSET {
@@ -239,13 +239,13 @@ HTML , BODY {
 margin : 0; 
 padding : 0; 
 } 
-#punwrap {
+#djangobbwrap {
 margin : 12px 20px; 
 } 
 DIV.blocktable , DIV.block , DIV.blockform , DIV.block2col , #postreview {
 margin-bottom : 12px; 
 } 
-#punindex DIV.blocktable , DIV.blockpost {
+#djangobbindex DIV.blocktable , DIV.blockpost {
 margin-bottom : 6px; 
 } 
 DIV.block2col DIV.blockform , DIV.block2col DIV.block {
@@ -263,13 +263,13 @@ margin-top : 12px;
 DIV.block DIV.inbox , DIV.blockmenu DIV.inbox {
 padding : 3px 6px; 
 } 
-.pun P , .pun UL , .pun DL , DIV.blockmenu LI , .pun LABEL , #announce DIV.inbox DIV {
+.djangobb P , .djangobb UL , .djangobb DL , DIV.blockmenu LI , .djangobb LABEL , #announce DIV.inbox DIV {
 padding : 3px 0; 
 } 
-.pun H2 {
+.djangobb H2 {
 padding : 4px 6px; 
 } 
-.pun H1 {
+.djangobb H1 {
 padding : 3px 0 0 0; 
 } 
 #brdtitle P {
@@ -291,10 +291,10 @@ line-height : 2em;
 #brdmenu LI , DIV.rbox INPUT , DIV.blockform P INPUT {
 margin-right : 12px; 
 } 
-.pun TH , .pun TD {
+.djangobb TH , .djangobb TD {
 padding : 4px 6px; 
 } 
-.pun TD P {
+.djangobb TD P {
 padding : 5px 0 0; 
 } 
 DIV.postleft DL , DIV.postright {
@@ -312,7 +312,7 @@ padding-top : 15px;
 DIV.postmsg H4 {
 margin-bottom : 10px; 
 } 
-.pun BLOCKQUOTE , DIV.codebox {
+.djangobb BLOCKQUOTE , DIV.codebox {
 margin : 5px 15px 15px; 
 padding : 8px; 
 } 
@@ -336,13 +336,13 @@ padding : 20px 20px 15px;
 DIV.inform {
 padding-bottom : 12px; 
 } 
-.pun FIELDSET {
+.djangobb FIELDSET {
 padding : 0 12px; 
 } 
 DIV.infldset {
 padding : 9px 0 12px 0; 
 } 
-.pun LEGEND {
+.djangobb LEGEND {
 padding : 0 6px; 
 } 
 DIV.forminfo {
@@ -371,7 +371,7 @@ margin-left : 0;
 TD DIV.tclcon {
 margin-left : 2.3em; 
 } 
-.pun DIV.validator {
+.djangobb DIV.validator {
 position : absolute; 
 top: 20px;
 right : 20px;

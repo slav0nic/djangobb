@@ -4,15 +4,15 @@
 
 {% block content %}
 <div id='largetext'>{% trans "Full Version:" %} {% link forum %}</div>
-<div class='ipbnav'>
+<div class='djangobbnav'>
 	<a href="{% url lofi_index %}">{% trans "Root" %}</a> &raquo; {% lofi_link forum %}
 </div>
 
-<div class="ipbpagespan">
+<div class="djangobbpagespan">
 	{% lofi_pagination %}
 </div>
 
-  <div id="ipbcontent">
+  <div id="djangobbcontent">
   <div class="topicwrap">
 <ol>
 {% for topic in topics|forum_unreads:user %}

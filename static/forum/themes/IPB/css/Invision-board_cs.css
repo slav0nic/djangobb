@@ -8,14 +8,14 @@ HTML, BODY { MARGIN: 10px; PADDING: 0;
 BACKGROUND-COLOR: #ececec; 
 }
 
-.pun {COLOR: #333}
+.djangobb {COLOR: #333}
 
-A:link, .pun A:visited {COLOR: #1064B0}
+A:link, .djangobb A:visited {COLOR: #1064B0}
 A:hover {COLOR: #000}
 
-.pun DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #000}
+.djangobb DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #000}
 
-H2 A:link, .pun H2 A:visited, #brdmenu A:link, #brdmenu A:visited {COLOR: #fff}
+H2 A:link, .djangobb H2 A:visited, #brdmenu A:link, #brdmenu A:visited {COLOR: #fff}
 H2 A:hover, #brdmenu A:hover {COLOR: #fff}
 
 .postleft A:link, .postleft A:visited { color:#1064B0; }
@@ -26,7 +26,7 @@ DIV.blockpost H2 A:link, DIV.blockpost h2 A:visited{COLOR: #fff}
 DIV.blockpost h2 A:hover {COLOR: #fff}
 
 
-BODY #punwrap {
+BODY #djangobbwrap {
 BACKGROUND-COLOR: #FDFDFD;
 margin:auto; width: 98%; 
 padding:10px; 
@@ -36,13 +36,13 @@ border:1px solid #072A66;
 /* 3.1 All external borders */
 DIV.box {BORDER-COLOR: #072A66}
 DIV.blockpost DIV.box {BORDER-COLOR: #072A66 #072A66 #072A66}
-.pun TD {BORDER-COLOR: #fff}
-.pun TH {BORDER-COLOR: #fff}
+.djangobb TD {BORDER-COLOR: #fff}
+.djangobb TH {BORDER-COLOR: #fff}
 
 
 #brdheader DIV.box {BORDER-TOP: 1px solid #072A66;}
 
-.pun #brdmenu { /*BACKGROUND-COLOR: #1064B0;*/ 
+.djangobb #brdmenu { /*BACKGROUND-COLOR: #1064B0;*/ 
 background-image: url(../img/title_cat.gif);  
 border-top: 0px solid #072A66; 
 border-bottom: 1px solid #fff;
@@ -50,7 +50,7 @@ padding: 3px 6px;
 margin:0; 
 }
 
-.pun H2, DIV.blockpost H2{ /*BACKGROUND-COLOR: #1064B0;*/
+.djangobb H2, DIV.blockpost H2{ /*BACKGROUND-COLOR: #1064B0;*/
 padding: 5px 3px;
 color:#fff;
 background-image: url(../img/title_cat.gif); 
@@ -60,14 +60,14 @@ border-right:1px solid #072A66;
 border-bottom: 0px solid #fff;
 }
 
-.pun h2 span{ /*text-indent:10px;*/}
+.djangobb h2 span{ /*text-indent:10px;*/}
 
 DIV.blockpost H2 SPAN.conr {background-image:none;  }
 
 
-.pun #brdtitle { margin:0; padding:0;}
+.djangobb #brdtitle { margin:0; padding:0;}
 
-.pun #brdtitle h1 {padding:0; margin:0;
+.djangobb #brdtitle h1 {padding:0; margin:0;
 height: 67px;  
 background-image : url(../img/title_back.gif);
 /*
@@ -76,7 +76,7 @@ background-position: center;
 */
 }
 
-.pun #brdtitle h1 span { font-size: 0; text-indent: -100px;
+.djangobb #brdtitle h1 span { font-size: 0; text-indent: -100px;
 position:relative; 
 color:#fff;
 
@@ -88,7 +88,7 @@ padding:0; margin:0;
 }
 
 
-.pun #brdtitle p { padding: 6px;}
+.djangobb #brdtitle p { padding: 6px;}
 
 div.newsfoot {
 padding:1px;
@@ -101,14 +101,14 @@ DIV.box,  #adminconsole FIELDSET TH, .rowodd, .roweven {BACKGROUND-COLOR: #DEDFD
 
 /* 1. 2 Darker background colours */
 
-.pun BLOCKQUOTE, DIV.codebox, DIV.forminfo { BACKGROUND-COLOR: #eee}
+.djangobb BLOCKQUOTE, DIV.codebox, DIV.forminfo { BACKGROUND-COLOR: #eee}
 
 TD.tc2, TD.tc3, TD.tcmod, #postpreview, #viewprofile DD, 
 #adminconsole FIELDSET TD, DIV.blockmenu DIV.box, #adstats DD {BACKGROUND-COLOR: #DEDFDF}
 
 
 /* sub title */
-.pun TH.tcl ,.pun TH.tc2 ,.pun TH.tc3 ,.pun TH.tc4 ,.pun TH.tc5 ,.pun TH.tcr ,.pun TH.tcmod {
+.djangobb TH.tcl ,.djangobb TH.tc2 ,.djangobb TH.tc3 ,.djangobb TH.tc4 ,.djangobb TH.tc5 ,.djangobb TH.tcr ,.djangobb TH.tcmod {
 background-color : #ddd; 
 color: #3A4F6C;
 background-image : url(../img/title_sub.gif);
@@ -120,10 +120,10 @@ background-color : #f1f1f1;
 color: #333;
 } 
 
-.pun div.infldset TH.tcl , div.infldset TH.tc2 , div.infldset TH.tc3 , div.infldset TH.tcr {
+.djangobb div.infldset TH.tcl , div.infldset TH.tc2 , div.infldset TH.tc3 , div.infldset TH.tcr {
 background-image : url(../img/pix.gif); 
 } 
-.pun div.infldset th.hidehead {
+.djangobb div.infldset th.hidehead {
 background-image : url(../img/pix.gif); 
 } 
 
@@ -132,11 +132,11 @@ background-image : url(../img/pix.gif);
 
 /* 1.4 Table header rows */
 
-.pun TH {BACKGROUND-COLOR: #BFCCDE}
+.djangobb TH {BACKGROUND-COLOR: #BFCCDE}
 
 /* 1.5 Fieldset legend text colour */
 
-.pun LEGEND {COLOR: #333}
+.djangobb LEGEND {COLOR: #333}
 
 
 /****************************************************************/
@@ -155,7 +155,7 @@ DIV.postleft, DIV.postfootleft, DIV.blockpost LABEL {BACKGROUND-COLOR: #DEDFDF}
 /* 2.3 This is the line above the signature in posts. Colour and background should be the same */
 
 hr {BACKGROUND-COLOR: #333; COLOR: #333; }
-.pun hr {BACKGROUND-COLOR: #333; COLOR: #333; }
+.djangobb hr {BACKGROUND-COLOR: #333; COLOR: #333; }
 
 /****************************************************************/
 /* 3. BORDER COLOURS */
@@ -163,12 +163,12 @@ hr {BACKGROUND-COLOR: #333; COLOR: #333; }
 
 /* 3.4 Creates the inset border for quote boxes, code boxes and form info boxes */
 
-.pun BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #ACA899 #FFF #FFF #ACA899}
+.djangobb BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #ACA899 #FFF #FFF #ACA899}
 
 /* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour
 without interferring with IE's rather nice default */
 
-.pun DIV>FIELDSET {BORDER-COLOR: #ACA899}
+.djangobb DIV>FIELDSET {BORDER-COLOR: #ACA899}
 
 /****************************************************************/
 /* 4. LINK COLOURS */
@@ -217,28 +217,28 @@ background-image : url(../img/f_moved.gif);
 }
 
 /* forum cat */
-.pun H2 span {
+.djangobb H2 span {
 background-position : 0% 50%; 
 background-repeat : no-repeat; 
 background-image : url(../img/nav_m.gif); 
 padding : 10px; 
 } 
-.pun H2 span.conr {
+.djangobb H2 span.conr {
 background-image : none; 
 color : #fff; 
 padding : 0; 
 }
 
 /* board stats icon */
-#punindex #brdstats div.box div.inbox dl.conl,
-#punforum #brdstats div.box div.inbox dl.conl
+#djangobbindex #brdstats div.box div.inbox dl.conl,
+#djangobbforum #brdstats div.box div.inbox dl.conl
 {
 background: transparent url(../img/stats.gif) no-repeat 0% 50%;
 padding-left: 32px;
 }
 
 /* offline */
-.pun DIV.postfootleft p {
+.djangobb DIV.postfootleft p {
 /*display: block;
 height : 21px;
 position: relative; 
@@ -248,7 +248,7 @@ text-indent: 33px;*/
 } 
 
 /* online */
-.pun DIV.postfootleft p strong {
+.djangobb DIV.postfootleft p strong {
 /*display: block;
 height : 21px;
 position: relative;*/
