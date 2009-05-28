@@ -188,6 +188,8 @@ def search(request):
                     query = 'user:%s' % (author)
                 else:
                     query = 'forum:%s AND user:%s' % (forum, author)
+            else:
+                return HttpResponseRedirect(reverse('search'))
 
             if sort_by == '0':
                 order = 'created'
