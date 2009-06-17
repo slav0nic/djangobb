@@ -32,7 +32,7 @@
 			{% if "ATTACHMENT_SUPPORT"|forum_setting %}
 			<div class="inform">
 				<fieldset>
-					<legend>������������� ���{% trans "Attachment" %}��</legend>
+					<legend>{% trans "Attachment" %}</legend>
 					<div class="infldset">
 						<div class="rbox">
 							{{ form.attachment }}
@@ -62,7 +62,7 @@
 			</div>
 			<div class="postright">
 				<div class="postmsg">
-					{{ post.body_html|safe }}	
+					{{ post.body_html|safe }}
 				</div>
 			</div>
 			<div class="clearer"></div>

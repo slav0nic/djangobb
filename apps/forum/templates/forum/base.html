@@ -14,15 +14,15 @@
 	{% endif %}
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/skins/markitup/style.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/sets/bbcode/style.css" />
-	
+
     <link rel="alternate" type="application/atom+xml" href="{% url forum_feed "posts" %}" title="{% trans "Latest posts on forum" %}" />
     <link rel="alternate" type="application/atom+xml" href="{% url forum_feed "topics" %}" title="{% trans "Latest topics on forum" %}" />
-	
+
     <!--<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />-->
-	
+
     <script type="text/javascript" src="{{ MEDIA_URL }}forum/js/jquery.pack.js"></script>
 	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/board.js"></script>
-	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/markitup/jquery.markitup.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/markitup/jquery.markitup.pack.js"></script>
 	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/markitup/sets/bbcode/set.js"></script>
 	
 	<script type="text/javascript" >
