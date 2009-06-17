@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os.path
 import sys
+import re
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(PROJECT_ROOT, 'apps'))
@@ -137,6 +138,7 @@ ACCOUNT_PASSWORD_MIN_LENGTH = 2
 LOGIN_URL = '/forum/login/'
 ACCOUNT_DOMAIN = '/forum/account/'
 ACCOUNT_AUTH_KEY_TIMEOUT = 60 * 60 * 24
+ACCOUNT_RE_USERNAME = re.compile(r"^[\w ]+$", re.UNICODE)
 
 try:
    from local_settings import *
