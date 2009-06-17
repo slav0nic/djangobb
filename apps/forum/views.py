@@ -493,7 +493,8 @@ def user(request, username):
         return {'profile': user,
                 'topic_count': topic_count,
                }
-    
+
+@login_required
 @render_to('forum/reputation.html')
 def reputation(request, username):
     user = get_object_or_404(User, username=username)
