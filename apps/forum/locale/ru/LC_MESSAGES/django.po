@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: DjangoBB dev\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-18 13:52+0300\n"
-"PO-Revision-Date: 2009-06-18 14:00+0300\n"
+"PO-Revision-Date: 2009-06-20 12:35+0300\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: Russian <slav0nic0@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,7 @@ msgstr "Прикреплённый файл слишком большой"
 #: forms.py:117 templates/forum/topic.html:62 templates/forum/user.html:40
 #: templates/forum/pm/message.html:40
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: forms.py:144
 msgid "Real name"
