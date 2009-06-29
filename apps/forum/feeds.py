@@ -1,4 +1,5 @@
 from django.contrib.syndication.feeds import Feed, FeedDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.feedgenerator import Atom1Feed
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
