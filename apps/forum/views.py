@@ -263,7 +263,7 @@ def misc(request):
 @render_to('forum/forum.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def show_forum(request, forum_id, full=True):
-    forum = Forum.objects.get(pk=forum_id)
+    forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
         return HttpResponseForbidden()
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
@@ -293,7 +293,7 @@ def show_forum(request, forum_id, full=True):
 @render_to('forum/topic.html')
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def show_topic(request, topic_id, full=True):
-    topic = Topic.objects.select_related().get(pk=topic_id)
+    topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
     topic.views += 1
