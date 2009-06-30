@@ -14,10 +14,12 @@ class ForumAdmin(admin.ModelAdmin):
 class TopicAdmin(admin.ModelAdmin):
     list_display = ['name', 'forum', 'created', 'head', 'post_count']
     search_fields = ['name']
+    raw_id_fields = ['user', 'subscribers', 'last_post']
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['topic', 'user', 'created', 'updated', 'summary']
     search_fields = ['body']
+    raw_id_fields = ['topic', 'user']
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'status', 'time_zone', 'location', 'language']
@@ -27,12 +29,15 @@ class ReadAdmin(admin.ModelAdmin):
     
 class ReputationAdmin(admin.ModelAdmin):
     list_display = ['from_user', 'to_user', 'topic', 'sign', 'time', 'reason']
-    
+    raw_id_fields = ['from_user', 'to_user', 'topic']
+
 class ReportAdmin(admin.ModelAdmin):
     list_display = ['reported_by', 'post', 'zapped', 'zapped_by', 'created', 'reason']
-    
+    raw_id_fields = ['reported_by', 'post']
+
 class BanAdmin(admin.ModelAdmin):
     list_display = ['user', 'ban_start', 'ban_end', 'reason']
+    raw_id_fields = ['user']
 
 
 admin.site.register(Category, CategoryAdmin)
