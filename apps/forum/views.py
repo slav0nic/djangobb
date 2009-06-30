@@ -793,7 +793,7 @@ def show_attachment(request, hash):
     attachment = get_object_or_404(Attachment, hash=hash)
     file_obj = file(attachment.get_absolute_path())
     response = HttpResponse(file_obj, content_type=attachment.content_type)
-    response['Content-Disposition'] = 'attachment; filename=%s' % attachment.name
+    response['Content-Disposition'] = 'attachment; filename=%s' % attachment.name.encode('utf-8', 'ignore')
     return response
 
 #TODO: check markup
