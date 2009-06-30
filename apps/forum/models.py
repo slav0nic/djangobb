@@ -14,7 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 from markdown import Markdown
 
 from forum.markups import mypostmarkup 
-from forum.fields import AutoOneToOneField, ExtendedImageField
+from forum.fields import AutoOneToOneField, ExtendedImageField, RangesField
 from forum.util import urlize, smiles
 from forum import settings as forum_settings
 
@@ -220,7 +220,7 @@ class Reputation(models.Model):
     topic = models.ForeignKey(Topic, related_name='topic', verbose_name=_('Topic'))
     time = models.DateTimeField(_('Time'), blank=True)
     sign = models.IntegerField(_('Sign'), choices=SIGN_CHOICES, default=0)
-    reason = models.TextField(_('Reason'), blank=True, default='', max_length='1000')
+    reason = models.TextField(_('Reason'), blank=True, default='', max_length=1000)
     
     class Meta:
         verbose_name = _('Reputation')
@@ -231,15 +231,14 @@ class Reputation(models.Model):
         
 class Profile(models.Model):
     user = AutoOneToOneField(User, related_name='forum_profile', verbose_name=_('User'))
-    #group = models.ForeignKey(Group, verbose_name=_('Group'), default='Member')
-    status = models.CharField(_('Status'), max_length=30, blank=True, default='')
-    site = models.URLField(_('Site'), verify_exists=False, blank=True, default='')
-    jabber = models.CharField(_('Jabber'), max_length=80, blank=True, default='')
-    icq = models.CharField(_('ICQ'), max_length=12, blank=True, default='')
-    msn = models.CharField(_('MSN'), max_length=80, blank=True, default='')
-    aim = models.CharField(_('AIM'), max_length=80, blank=True, default='')
-    yahoo = models.CharField(_('Yahoo'), max_length=80, blank=True, default='')
-    location = models.CharField(_('Location'), max_length=30, blank=True, default='')
+    status = models.CharField(_('Status'), max_length=30, blank=True, null=True)
+    site = models.URLField(_('Site'), verify_exists=False, blank=True, null=True)
+    jabber = models.CharField(_('Jabber'), max_length=80, blank=True, null=True)
+    icq = models.CharField(_('ICQ'), max_length=12, blank=True, null=True)
+    msn = models.CharField(_('MSN'), max_length=80, blank=True, null=True)
+    aim = models.CharField(_('AIM'), max_length=80, blank=True, null=True)
+    yahoo = models.CharField(_('Yahoo'), max_length=80, blank=True, null=True)
+    location = models.CharField(_('Location'), max_length=30, blank=True, null=True)
     signature = models.TextField(_('Signature'), blank=True, default='', max_length=forum_settings.SIGNATURE_MAX_LENGTH)
     time_zone = models.FloatField(_('Time zone'), choices=TZ_CHOICES, default=float(forum_settings.DEFAULT_TIME_ZONE))
     language = models.CharField(_('Language'), max_length=3, default='', choices=settings.LANGUAGES)
@@ -250,6 +249,7 @@ class Profile(models.Model):
     privacy_permission = models.IntegerField(_('Privacy permission'), choices=PRIVACY_CHOICES, default=1)
     markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
+    #read_posts = fields.RangesField(editable=False)
 
     class Meta:
         verbose_name = _('Profile')
