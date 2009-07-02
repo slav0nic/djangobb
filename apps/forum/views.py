@@ -523,7 +523,7 @@ def reputation(request, username):
                     reputation_id = reputation_match.group(1)
                     reputation = get_object_or_404(Reputation, pk=reputation_id)
                     reputation.delete()
-                    
+
             return HttpResponseRedirect(reverse('index'))
         elif form.is_valid():
             form.save()
@@ -660,7 +660,7 @@ def unstick_topic(request, topic_id):
 @render_to('forum/delete_post.html')
 def delete_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    last_post = post.topic.posts.order_by('-created')[0]
+    last_post = post.topic.last_post
     topic = post.topic
     forum = post.topic.forum
 
@@ -674,9 +674,9 @@ def delete_post(request, post_id):
         return HttpResponseRedirect(post.get_absolute_url())
 
     post.delete()
-    profile = get_object_or_404(Profile, user=post.user)
+    profile = post.user.forum_profile
     profile.post_count = Post.objects.filter(user=post.user).count()
-    profile.save()    
+    profile.save()
 
     try:
         Topic.objects.get(pk=topic.id)
