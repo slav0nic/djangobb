@@ -6,7 +6,6 @@ from datetime import datetime
 from django import forms
 from django.conf import settings
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
@@ -79,7 +78,7 @@ class AddPostForm(forms.ModelForm):
             return self.cleaned_data['attachment']
 
 
-    def save(self):
+    def save(self, commit=True):
         if self.forum:
             topic = Topic(forum=self.forum,
                           user=self.user,
@@ -95,9 +94,10 @@ class AddPostForm(forms.ModelForm):
         if forum_settings.ATTACHMENT_SUPPORT:
             self.save_attachment(post, self.cleaned_data['attachment'])
 
-        profile = get_object_or_404(Profile, user=self.user)
+        profile = self.user.forum_profile
         profile.post_count += 1
-        profile.save()
+        if commit:
+            profile.save()
         return post
 
     def save_attachment(self, post, memfile):
@@ -129,7 +129,7 @@ class EssentialsProfileForm(forms.ModelForm):
             self.fields['username'].widget = forms.HiddenInput()
         self.fields['email'].initial = self.user.email
 
-    def save(self):
+    def save(self, commit=True):
         if self.cleaned_data:
             if self.user.is_superuser:
                 self.user.username = self.cleaned_data['username']
@@ -137,7 +137,8 @@ class EssentialsProfileForm(forms.ModelForm):
             self.profile.time_zone = self.cleaned_data['time_zone']
             self.profile.language = self.cleaned_data['language']
             self.user.save()
-            self.profile.save()
+            if commit:
+                self.profile.save()
         return self.profile
 
 
@@ -150,23 +151,24 @@ class PersonalProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
+        self.profile = kwargs['instance']
         super(PersonalProfileForm, self).__init__(*args, **kwargs)
         self.fields['name'].initial = "%s %s" % (self.user.first_name, self.user.last_name)
 
-    def save(self):
-        user = get_object_or_404(User, username=self.user)
-        profile = get_object_or_404(Profile, user=self.user)
-        profile.status = self.cleaned_data['status']
-        profile.location = self.cleaned_data['location']
-        profile.site = self.cleaned_data['site']
+    def save(self, commit=True):
+        self.profile.status = self.cleaned_data['status']
+        self.profile.location = self.cleaned_data['location']
+        self.profile.site = self.cleaned_data['site']
         if self.cleaned_data['name']:
             if len(self.cleaned_data['name'].split()) > 1:
-                user.first_name, user.last_name = self.cleaned_data['name'].split()
+                self.user.first_name, self.user.last_name = self.cleaned_data['name'].split()
             else:
                 user.first_name = self.cleaned_data['name'].split()[0]
                 user.last_name = ''
-            user.save()
-        return profile.save()
+            self.user.save()
+            if commit:
+                self.profile.save()
+        return self.profile
 
 
 class MessagingProfileForm(forms.ModelForm):
@@ -184,10 +186,11 @@ class PersonalityProfileForm(forms.ModelForm):
         super(PersonalityProfileForm, self).__init__(*args, **kwargs)
         self.fields['signature'].widget = forms.Textarea(attrs={'class':'bbcode', 'rows':'10', 'cols':'75'})
 
-    def save(self):
+    def save(self, commit=True):
         profile = super(PersonalityProfileForm, self).save(commit=False)
         profile.signature = mypostmarkup.markup(profile.signature, auto_urls=False)
-        profile.save()
+        if commit:
+            profile.save()
         return profile
 
 
@@ -229,10 +232,11 @@ class EditPostForm(forms.ModelForm):
         self.fields['name'].initial = self.topic
         self.fields['body'].widget = forms.Textarea(attrs={'class':'bbcode'})
 
-    def save(self):
+    def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
         post.updated = datetime.now()
-        post.save()
+        if commit:
+            post.save()
         return post
 
 
@@ -305,12 +309,13 @@ class ReputationForm(forms.ModelForm):
         else:
             return user
 
-    def save(self):
+    def save(self, commit=True):
         reputation = super(ReputationForm, self).save(commit=False)
         reputation.from_user = self.from_user
         reputation.to_user = self.to_user
         reputation.time = datetime.now()
-        reputation.save()
+        if commit:
+            reputation.save()
         return reputation
 
 class MailToForm(forms.Form):
@@ -334,11 +339,12 @@ class ReportForm(forms.ModelForm):
         self.fields['post'].initial = self.post
         self.fields['reason'].widget = forms.Textarea(attrs={'rows':'10', 'cols':'75'})
 
-    def save(self):
+    def save(self, commit=True):
         report = super(ReportForm, self).save(commit=False)
         report.created = datetime.now()
         report.reported_by = self.reported_by
-        report.save()
+        if commit:
+            report.save()
         return report
 
 
