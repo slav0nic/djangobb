@@ -147,9 +147,11 @@ class JsonResponse(HttpResponse):
         
 def build_form(Form, _request, GET=False, *args, **kwargs):
     """
-    Shorcut for building the form instance of given form class.
+    Shorcut for building the form instance of given form class
+    and adds request to kwargs.
     """
 
+    kwargs['request'] = _request
     if not GET and 'POST' == _request.method:
         form = Form(_request.POST, _request.FILES, *args, **kwargs)
     elif GET and 'GET' == _request.method:
