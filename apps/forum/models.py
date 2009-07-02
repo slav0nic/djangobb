@@ -134,7 +134,7 @@ class Topic(models.Model):
     
     @property
     def head(self):
-        'None'#return self.posts.all().order_by('created').select_related()[0]
+        return self.posts.select_related().order_by('created')[0]
 
     @property
     def reply_count(self):
@@ -214,6 +214,7 @@ class Post(models.Model):
         if self_id == head_post_id:
             self.topic.delete()
 
+
 class Reputation(models.Model):
     from_user = models.ForeignKey(User, related_name='reputations_from', verbose_name=_('From'))
     to_user = models.ForeignKey(User, related_name='reputations_to', verbose_name=_('To'))
@@ -228,7 +229,8 @@ class Reputation(models.Model):
 
     def __unicode__(self):
         return u'T[%d], FU[%d], TU[%d]: %s' % (self.topic.id, self.from_user.id, self.to_user.id, unicode(self.time))
-        
+
+
 class Profile(models.Model):
     user = AutoOneToOneField(User, related_name='forum_profile', verbose_name=_('User'))
     status = models.CharField(_('Status'), max_length=30, blank=True, null=True)
@@ -256,8 +258,8 @@ class Profile(models.Model):
         verbose_name_plural = _('Profiles')
 
     def last_post(self):
-        posts = Post.objects.filter(user=self.user).order_by('-created').select_related()
-        if posts.count():
+        posts = Post.objects.filter(user=self.user).order_by('-created')
+        if posts:
             return posts[0].created
         else:
             return  None
@@ -289,9 +291,9 @@ class Read(models.Model):
             self.time = datetime.now()
         super(Read, self).save(*args, **kwargs)
 
-
     def __unicode__(self):
         return u'T[%d], U[%d]: %s' % (self.topic.id, self.user.id, unicode(self.time))
+
 
 class Report(models.Model):
     reported_by = models.ForeignKey(User, related_name='reported_by', verbose_name=_('Reported by'))
@@ -307,6 +309,7 @@ class Report(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.reported_by ,self.zapped)
+
 
 class PrivateMessage(models.Model):
     dst_user = models.ForeignKey(User, verbose_name=_('Recipient'), related_name='dst_users')
@@ -353,7 +356,7 @@ class PrivateMessage(models.Model):
     
     def get_absolute_url(self):
         return  reverse('forum_show_pm', args=[self.id])
-    
+
 
 class Ban(models.Model):
     user = models.ForeignKey(User, verbose_name=_('Banned user'), related_name='ban_users')
