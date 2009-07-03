@@ -81,7 +81,7 @@
 				<form id="qjump" method="get" action="forum">
 					<div><label>{% trans "Jump to" %}
 					<br />
-					<select name="id" id="forum_id" onchange="window.location=('/forum/'+this.options[this.selectedIndex].value)">
+					<select name="id" id="forum_id" onchange="window.location=('{% url index %}'+this.options[this.selectedIndex].value)">
 						{% for category in categories %}
 						<optgroup label="{{ category }}">
 							{% for forum in category.forums.all %}
@@ -90,7 +90,7 @@
 						</optgroup>
 						{% endfor %}
 					</select>
-					<input type="button" onclick="window.location=('/forum/'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
+					<input type="button" onclick="window.location=('{% url index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
 					</label></div>
 				</form>
 			{% if moderator %}

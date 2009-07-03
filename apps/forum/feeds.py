@@ -18,6 +18,7 @@ class ForumFeed(Feed):
     def item_pubdate(self, obj):
         return obj.created
 
+
 class LastPosts(ForumFeed):
     title = _('Latest posts on forum')
     description = _('Latest posts on forum')
@@ -36,7 +37,8 @@ class LastTopics(ForumFeed):
 
     def items(self):
         return Topic.objects.order_by('-created')[:15]
-  
+
+
 class LastPostsOnTopic(ForumFeed):
     title_template = 'forum/feeds/posts_title.html'
     description_template = 'forum/feeds/posts_description.html'
@@ -60,11 +62,11 @@ class LastPostsOnTopic(ForumFeed):
     def items(self, obj):
        return Post.objects.filter(topic__id__exact=obj.id).order_by('-created')[:15]
 
-    
+
 class LastPostsOnForum(ForumFeed):
     title_template = 'forum/feeds/posts_title.html'
     description_template = 'forum/feeds/posts_description.html'
-    
+
     def get_object(self, forums):
         if len(forums) != 1:
             raise ObjectDoesNotExist
@@ -83,6 +85,7 @@ class LastPostsOnForum(ForumFeed):
 
     def items(self, obj):
        return Post.objects.filter(topic__forum__id__exact=obj.id).order_by('-created')[:15]
+
 
 class LastPostsOnCategory(ForumFeed):
     title_template = 'forum/feeds/posts_title.html'
