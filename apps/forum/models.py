@@ -134,7 +134,10 @@ class Topic(models.Model):
     
     @property
     def head(self):
-        return self.posts.select_related().order_by('created')[0]
+        try:
+            return self.posts.select_related().order_by('created')[0]
+        except IndexError:
+            return None
 
     @property
     def reply_count(self):
