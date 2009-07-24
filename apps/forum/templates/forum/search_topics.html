@@ -5,11 +5,11 @@
 {% block content %}
 <div class="linkst">
 	<div class="inbox">
-		<p class="pagelink"></p>
-
+		<p class="pagelink">{% pagination %}</p>
+		<div class="clearer"></div>
 	</div>
 </div>
-{% if topics %}
+{% if results %}
 <div id="vf" class="blocktable">
 	<h2><span>{% trans "Search results" %}</span></h2>
 	<div class="box">
@@ -25,7 +25,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% for topic in topics %}
+			{% for topic in results %}
 				<tr {% if topic|has_unreads:user %}class="inew"{% endif %} {% if topic.closed %}class="iclosed"{% endif %}>
 					<td class="tcl">
 						<div class="intd">
@@ -64,7 +64,8 @@
 
 <div class="linksb">
 	<div class="inbox">
-		<p class="pagelink"></p>
+		<p class="pagelink">{% pagination %}</p>
+		<div class="clearer"></div>
 	</div>
 </div>
 {% endblock %}

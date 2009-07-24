@@ -8,6 +8,7 @@ def get(key, default):
 ADMIN_EMAIL = get('ADMIN_EMAIL', 'alafin@python.su')
 TOPIC_PAGE_SIZE = get('TOPIC_PAGE_SIZE', 10)
 FORUM_PAGE_SIZE = get('FORUM_PAGE_SIZE', 20)
+SEARCH_PAGE_SIZE = get('SEARCH_PAGE_SIZE', 20)
 USERS_PAGE_SIZE = get('USERS_PAGE_SIZE', 20)
 AVATARS_UPLOAD_TO = get('AVATARS_UPLOAD_TO', 'forum/avatars')
 AVATAR_WIDTH = get('AVATAR_WIDTH', 60)
@@ -57,8 +58,8 @@ ATTACHMENT_SUPPORT = get('ATTACHMENT_SUPPORT', True)
 ATTACHMENT_UPLOAD_TO = get('ATTACHMENT_UPLOAD_TO', 'forum/attachments')
 ATTACHMENT_SIZE_LIMIT = get('ATTACHMENT_SIZE_LIMIT', 1024 * 1024)
 
-
 # SMILE Extension
+SMILES_SUPPORT = get('SMILES_SUPPORT', True)
 EMOTION_SMILE = get('EMOTION_SMILE', '<img src="%sforum/img/smilies/smile.png">' % settings.MEDIA_URL)
 EMOTION_NEUTRAL = get('EMOTION_NEUTRAL', '<img src="%sforum/img/smilies/neutral.png">' % settings.MEDIA_URL)
 EMOTION_SAD = get('EMOTION_SAD', '<img src="%sforum/img/smilies/sad.png">' % settings.MEDIA_URL)
@@ -85,4 +86,3 @@ SMILES = ((r'(:|=)\)', EMOTION_SMILE), #:), =)
           (r':cool:', EMOTION_COOL)
          )
 SMILES = get('SMILES', SMILES)
-SMILES_SUPPORT = get('SMILES_SUPPORT', True)
