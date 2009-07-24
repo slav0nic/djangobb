@@ -5,11 +5,12 @@
 {% block content %}
 <div class="linkst">
 	<div class="inbox">
-		<p class="pagelink"></p>
+		<p class="pagelink">{% pagination %}</p>
+		<div class="clearer"></div>
 	</div>
 </div>
-{% if posts %}
-{% for post in posts %}
+{% if results %}
+{% for post in results %}
 <div class="blockpost searchposts roweven">
 	<h2>{% link post.instance.topic.forum %}&nbsp;&raquo;&nbsp;{% link post.instance.topic %}&nbsp;&raquo;&nbsp;<a href="{{ post.instance.get_absolute_url }}">{% forum_time post.instance.created %}</a></h2>
 
@@ -51,8 +52,8 @@
 
 <div class="postlinksb">
 	<div class="inbox">
-		<p class="pagelink"></p>
-
+		<p class="pagelink">{% pagination %}</p>
+		<div class="clearer"></div>
 	</div>
 </div>
 {% endblock %}

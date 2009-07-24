@@ -124,6 +124,7 @@ def moderate(request, forum_id):
         raise Http404
 
 @render_to('forum/search_topics.html')
+@paged('results', forum_settings.SEARCH_PAGE_SIZE)
 def search(request):
     # TODO: move to form
     if 'action' in request.GET:
@@ -209,10 +210,16 @@ def search(request):
                 for post in posts:
                     if post.instance.topic not in topics:
                         topics.append(post.instance.topic)
-                return {'topics': topics}, 'forum/search_topics.html'
+                return {'results': topics,
+                        'paged_qs': topics,
+                        }, 'forum/search_topics.html'
             elif 'posts' in request.GET['show_as']:
-                return {'posts': posts}, 'forum/search_posts.html'
-        return {'topics': topics}
+                return {'results': posts,
+                        'paged_qs': posts,
+                        }, 'forum/search_posts.html'
+        return {'results': topics,
+                'paged_qs': topics,
+                }
     else:
         form = PostSearchForm()
         return {'categories': Category.objects.all(),
