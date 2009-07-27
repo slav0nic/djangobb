@@ -16,7 +16,6 @@
 		<div class="clearer"></div>
 	</div>
 </div>
-
 {% for post in posts %}
 <div id="p{{ post.id }}" class="blockpost roweven firstpost">
 	<a name="post-{{ post.id }}"></a>
@@ -24,7 +23,6 @@
 	<div class="box">
 		<div class="inbox">
 			<div class="postleft">
-
 				<dl>
 					<dt><strong><a href="javascript:pasteN('{{ post.user }}');">{{ post.user }}</a></strong></dt>
 					<dd class="usertitle">
@@ -74,17 +72,15 @@
 			</div>
 			<div class="postright">
 				<h3>{{ post.topic.name }}</h3>
-
 				<div class="postmsg">
 					{{ post.body_html|safe }}
                     {% if not user.is_authenticated or user.forum_profile.show_signatures %}
                     {% if post.user.forum_profile.signature %}
                     	<div class="postsignature">
                     		<br>
-                    		---
 							<br>
-                    		{{ post.user.forum_profile.signature|safe }}
-                    	</div>
+				{{ post.user.forum_profile.signature|safe }}
+			</div>
                     {% endif %}
                     {% endif %}
                     {% if post.updated %}
@@ -95,10 +91,8 @@
 						<p class="postedit"><em>{% trans "Attachments:" %} <div>{{ attach|attachment_link }}</div></em></p>
 					{% endfor %}
 					{% endif %}
-
 				</div>
 			</div>
-
 			<div class="clearer"></div>
 			<div class="postfootleft">
 			{% if post.user|online %}
@@ -144,20 +138,17 @@
 		<div class="clearer"></div>
 	</div>
 </div>
-
 {% if not topic.closed and user.is_authenticated %}
 <div class="blockform">
 	<h2><span>{% trans "Quick post" %}</span></h2>
 	<div class="box">
 		<form id="post" action="{% url add_post topic.id %}" method="post" enctype="multipart/form-data">
-
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Write your message and submit" %}</legend>
 					<div class="infldset txtarea">
 						{{ form.body }}
 					</div>
-
 				</fieldset>
 			</div>
 			{% if "ATTACHMENT_SUPPORT"|forum_setting %}
@@ -188,7 +179,6 @@
 		</div>
 </div>
 {% endif %}
-
 {% endblock %}
 
 {% block controls %}
@@ -207,15 +197,12 @@
 					</select>
 					<input type="button" onclick="window.location=('{% url index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
 					</label></div>
-
 				</form>
 			<dl id="modcontrols"><dt><strong>{% trans "Moderator control" %}</strong></dt>
 			
 			{% if moderator %}
 			<dd><a href="{% url delete_posts topic.id %}">{% trans "Delete multiple posts" %}</a></dd>
-
 			<dd><a href="{% url move_topic topic.id %}">{% trans "Move topic" %}</a></dd>
-
 			{% if topic.closed %}
 		    <dd><a href="{% url open_topic topic.id %}">{% trans "Open topic" %}</a></dd>
     		{% else %}

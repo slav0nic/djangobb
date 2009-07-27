@@ -78,11 +78,15 @@ class Category(models.Model):
 
     def has_access(self, user):
         if self.groups.count() > 0:
-            try:
-                self.groups.get(user=user)
-            except Group.DoesNotExist:
+            if user.is_authenticated(): 
+                try:
+                    self.groups.get(user__pk=user.id)
+                except Group.DoesNotExist:
+                    return False
+            else:
                 return False
         return True
+
 
 class Forum(models.Model):
     category = models.ForeignKey(Category, related_name='forums', verbose_name=_('Category'))
