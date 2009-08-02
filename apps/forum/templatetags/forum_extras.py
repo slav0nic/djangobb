@@ -22,7 +22,6 @@ from forum.models import Forum, Topic, Post, Read, PrivateMessage, Report
 from forum.unread import cache_unreads
 from forum import settings as forum_settings
 
-
 register = template.Library()
 
 # TODO:

@@ -1,0 +1,30 @@
+{% extends "forum/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="blockform">
+	<h2><span>{% trans "Login" %}</span></h2>
+	<div class="box">
+		<form method='post' action='?next={{ request.GET.next }}' id="loginform">
+	    	<div class="inform">
+				<fieldset>
+					<legend>{% trans "Enter your username and password below" %}</legend>
+						<div class="infldset">
+							<label class="conl"><strong>{{ form.login.label }}</strong><br />{{ form.login }}<br /></label>
+							<label class="conl"><strong>{{ form.password.label }}</strong><br />{{ form.password }}<br /></label>
+							<p class="clearb">{% trans "If you have not registered or have forgotten your password click on the appropriate link below." %}</p>
+							<p>
+								<a href="{% url openauth-openid-login %}">{% trans "OpenID login" %}</a>&nbsp;&nbsp;
+								<a href="{% url openauth-registration %}">{% trans "Not registered yet?" %}</a>&nbsp;&nbsp;
+								<a href="{% url openauth-reset-password %}">{% trans "Forgotten your password?" %}</a>
+							</p>
+						</div>
+				</fieldset>
+			</div>
+			<p><input type="submit" value="{% trans "Login" %}" /></p>
+			<input type="hidden" name="next" value="{{ next }}" />
+		</form>
+	</div>
+</div>
+
+{% endblock %}

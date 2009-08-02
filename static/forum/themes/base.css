@@ -318,3 +318,60 @@ width:88px;
 .djangobb img.breadcrumb_rss {
 	vertical-align: middle;
 }
+
+.djangobb #header-nav-login-forms {
+	float:right;
+	margin-top:-45px;
+}
+
+.djangobb #header-nav-login-forms form {
+	margin:0 0 0 10px !important;
+	padding:0px !important;
+}
+
+.djangobb fieldset {
+	border:0 none;
+	margin:0;
+	padding:0;
+}
+
+.djangobb #header-nav-login-forms form input.login {
+	border:1px solid #CCCCCC;
+	color:#999999 !important;
+	font-size:0.9em !important;
+	height:16px;
+	padding-bottom:1px !important;
+	padding-top:1px !important;
+	width:75px;
+}
+
+.djangobb #header-nav-login-forms form input.openid {
+	border:1px solid #CCCCCC;
+	color:#999999 !important;
+	font-size:0.9em !important;
+	height:16px;
+	margin-top:3px;
+	padding-bottom:1px !important;
+	padding-top:1px !important;
+	width:136px;
+}
+
+.djangobb input.openid {
+	background:#FFFFFF url(../img/login-bg.gif) no-repeat scroll 1px center;
+	padding-left:20px;
+}
+
+.djangobb .left {
+	float: left;
+	background: #DDE7EF;
+}
+
+.djangobb .openid_login {
+	position: relative;
+}
+
+.djangobb img.openid-logo {
+	bottom:15px;
+	position:absolute;
+	right:20px;
+}

@@ -1,0 +1,41 @@
+{% extends "forum/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<script type="text/javascript">
+function chooseProvider(provider) {
+    var form = document.getElementById('openid_login');
+    var url = document.getElementById('id_openid_url');
+    if (provider == 'google') {
+        url.value = 'https://www.google.com/accounts/o8/id';
+        form.submit();
+    } else if(provider == 'yahoo') {
+        url.value =  'http://yahoo.com';
+        form.submit();
+    } else {
+        alert('unknown provider');
+    }
+}
+</script>
+
+<div class="blockform">
+	<h2><span>{% trans "OpenID Login" %}</span></h2>
+	<div class="box openid_login">
+		<img class="openid-logo" alt="OpenID" src="{{ MEDIA_URL }}forum/img/openid_logo.png"/>
+		<form method='post' action='?next={{ request.GET.next }}' id="loginform">
+	    	<div class="inform">
+				<fieldset>
+					<legend>{% trans "Enter your OpenID URL" %}</legend>
+						<div class="infldset">
+							<label class="conl"><strong>{{ form.openid_url.label }}</strong><br />{{ form.openid_url }} <input type="submit" value="{% trans "Login" %}" /><br /></label>
+						</div>
+				</fieldset>
+			</div>
+			<p>
+				<input type="button" name="auth_google" onclick="chooseProvider('google')" value="Google"/>
+    			<input type="button" name="auth_yahoo" onclick="chooseProvider('yahoo')" value="Yahoo"/>
+			</p>
+		</form>
+	</div>
+</div>
+{% endblock %}

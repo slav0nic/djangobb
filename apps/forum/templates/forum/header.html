@@ -10,6 +10,24 @@
 		<div id="brdtitle" class="inbox">
 			<h1><span><a href="{% url index %}">{{ "HEADER"|forum_setting }}</a></span></h1>
 			<p><span>{{ "TAGLINE"|forum_setting|safe }}</span></p>
+			{% if not user.is_authenticated %}
+			<!--<div id="header-nav-login-forms">
+				<form method="post" action="?next={{ request.GET.next }}">
+					<fieldset>
+						<input id="id_username_header" class="required login" type="text" onfocus="if(this.value=='username'){this.value='';}; $(this).addClass('normaltext');" maxlength="30" value="username" name="username"/>
+						<input id="id_password_header" class="required login" type="password" onfocus="if(this.value=='password'){this.value='';}; $(this).addClass('normaltext');" maxlength="128" value="password" name="password"/>
+						<input type="submit" style="display: none;" value="»" name="blogin"/>
+					</fieldset>
+				</form>
+				<form method="post" action="/account/signin/" name="fopenid">
+					<fieldset>
+						<input id="id_openid_url" class="required openid" type="text" onfocus="if(this.value=='your OpenID URL'){this.value='';}; $(this).addClass('normaltext');" value="your OpenID URL" maxlength="255" name="openid_url"/>
+						<input type="submit" style="display: none;" value="»" name="bsignin"/>
+						<input type="hidden" value="/offline/django-openauth/" name="next"/>
+					</fieldset>
+				</form>
+			</div>-->
+			{% endif %}
 		</div>
 		<div id="brdmenu" class="inbox">
 			<ul>
@@ -24,10 +42,10 @@
 				{% if "PM_SUPPORT"|forum_setting %}
 				<li id="navpm"><a href="{% url forum_pm_inbox %}">{% trans "PM" %}</a></li> 
 				{% endif %}
-				<li id="navlogout"><a href="{% url auth_logout %}">{% trans "Log out" %}</a></li>
+				<li id="navlogout"><a href="{% url openauth-logout %}">{% trans "Log out" %}</a></li>
 				{% else %}
-    	        <li><a href="{% url auth_login %}">{% trans "Log in" %}</a></li>
-	            <li><a href="{% url registration_register %}">{% trans "Sign up" %}</a></li>
+    	        <li><a href="{% url openauth-login %}">{% trans "Log in" %}</a></li>
+	            <li><a href="{% url openauth-registration %}">{% trans "Sign up" %}</a></li>
         	    {% endif %}
 			</ul>
 		</div>
