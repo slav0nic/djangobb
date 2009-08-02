@@ -91,6 +91,12 @@ MIDDLEWARE_CLASSES = (
     'account.middleware.AuthKeyMiddleware',
     'forum.middleware.LastLoginMiddleware',
     'forum.middleware.UsersOnline',
+    'flashcookie.FlashMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'openauth.backends.OpenIDBackend',
 )
 
 ROOT_URLCONF = 'urls'
@@ -110,7 +116,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'account',
+    'openauth',
     'captcha',
     'forum',
     'djapian',
@@ -124,21 +130,18 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
+    'flashcookie.flash_context',
 )
 
 # Djapian settings
 DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
 
 # Account settings
-ACCOUNT_ACTIVATION = False
-LOGIN_REDIRECT_URL = '/forum'
+REGISTRATION_FORM = 'forum.forms.CustomRegistrationForm'
 ACCOUNT_CAPTCHA = True
-ACCOUNT_USERNAME_MIN_LENGTH = 3
-ACCOUNT_PASSWORD_MIN_LENGTH = 2
-LOGIN_URL = '/forum/login/'
-ACCOUNT_DOMAIN = '/forum/account/'
-ACCOUNT_AUTH_KEY_TIMEOUT = 60 * 60 * 24
-ACCOUNT_RE_USERNAME = re.compile(r"^[\w ]+$", re.UNICODE)
+LOGIN_REDIRECT_URL = '/forum/'
+LOGOUT_REDIRECT_URL = '/forum/'
+NOTIFY_TYPE = 'flashcookie'
 
 try:
    from local_settings import *

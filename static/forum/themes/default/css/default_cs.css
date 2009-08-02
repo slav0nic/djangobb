@@ -23,7 +23,7 @@ TH.tc3 {width: 70px}
 /* 1.3 Main headers and navigation bar background and text colour */
 
 .djangobb H2, #brdmenu {BACKGROUND: url(../img/fon111.gif); COLOR: #FFF; font-weight: bold; height: 16px;}
-.djangobb H2 {font-weight: bold;BACKGROUND: #7897BB url(../img/fon111.gif);border-top: 1px solid #7897BB;border-left: 1px solid #7897BB;border-right: 1px solid #7897BB; height: 16px;}
+.djangobb H2 {font-weight: bold;BACKGROUND: #46586a url(../img/fon111.gif);border-top: 1px solid #46586a;border-left: 1px solid #46586a;border-right: 1px solid #46586a; height: 16px;}
 
 /* 1.4 Table header rows */
 
@@ -35,7 +35,7 @@ TH.tc3 {width: 70px}
 
 /* 1.6 Highlighted text for various items */
 
-.djangobb DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #7897BB}
+.djangobb DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #46586a}
 
 /****************************************************************/
 /* 2. POST BACKGROUNDS AND TEXT */
@@ -49,7 +49,7 @@ DIV.postleft, DIV.postfootleft, DIV.blockpost LABEL {BACKGROUND-COLOR: #f1f1f1}
 
 /* 2.2 Background for post headers and text colour for post numbers in viewtopic */
 
-DIV.blockpost H2 {BACKGROUND-COLOR: #7897bb}
+DIV.blockpost H2 {BACKGROUND-COLOR: #46586a}
 DIV.blockpost H2 SPAN.conr {COLOR: #CCC}
 
 /* 2.3 This is the line above the signature in posts. Colour and background should be the same */
@@ -62,12 +62,12 @@ DIV.blockpost H2 SPAN.conr {COLOR: #CCC}
 
 /* 3.1 All external borders */
 
-DIV.box {BORDER-COLOR: #7897BB}
+DIV.box {BORDER-COLOR: #46586a}
 
 /* 3.2 Makes the top border of posts match the colour used for post headers */
 
 /*DIV.blockpost DIV.box {BORDER-COLOR: #686E80 #686E80 #686E80}*/
-DIV.blockpost DIV.box {BORDER: 1px solid  #7897BB;BORDER-TOP: 1px solid #7897BB;}
+DIV.blockpost DIV.box {BORDER: 1px solid  #46586a;BORDER-TOP: 1px solid #46586a;}
 
 /* 3.3 Table internal borders. By default TH is same as background so border is invisible */
 
@@ -76,12 +76,12 @@ DIV.blockpost DIV.box {BORDER: 1px solid  #7897BB;BORDER-TOP: 1px solid #7897BB;
 
 /* 3.4 Creates the inset border for quote boxes, code boxes and form info boxes */
 
-.djangobb BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #7897BB #7897BB #7897BB #7897BB}
+.djangobb BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #46586a #46586a #46586a #46586a}
 
 /* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour
 without interferring with IE's rather nice default */
 
-.djangobb DIV>FIELDSET {BORDER-COLOR: #7897BB} /*>>> neizvestno shto*/
+.djangobb DIV>FIELDSET {BORDER-COLOR: #46586a} /*>>> neizvestno shto*/
 
 /****************************************************************/
 /* 4. LINK COLOURS */
@@ -89,7 +89,7 @@ without interferring with IE's rather nice default */
 
 /* 4.1 This is the default for all links */
 
-.djangobb A:link, .djangobb A:visited {COLOR: #7897BB;}
+.djangobb A:link, .djangobb A:visited {COLOR: #46586a;}
 .djangobb A:hover {COLOR: #B42000; }
 
 /* 4.2 This is the colour for links in header rows and the navigation bar */
@@ -121,7 +121,7 @@ DIV.iredirect {background:url(../img/link.png)}
 /****************************************************************/
 /* 6. EXTRAS */
 /****************************************************************/
-#brdmenu {BACKGROUND: url(../img/fon111.gif); border-top: 1px solid #7897BB;border-bottom: 1px solid #7897BB; BACKGROUND-COLOR: #7897BB;}
+#brdmenu {BACKGROUND: url(../img/fon111.gif); border-top: 1px solid #46586a;border-bottom: 1px solid #46586a; BACKGROUND-COLOR: #46586a;}
 /* header logo */
  
 .djangobb H1 span

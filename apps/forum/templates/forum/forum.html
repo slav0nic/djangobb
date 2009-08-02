@@ -6,7 +6,9 @@
 <div class="linkst">
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
+		{% if user.is_authenticated %}
 		<p class="postlink conr"><a href="{% url add_topic forum.id %}">{% trans "New topic" %}</a></p>
+		{% endif %}
 		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
 
 		<div class="clearer"></div>
@@ -60,7 +62,9 @@
 <div class="linkst">
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
+		{% if user.is_authenticated %}
 		<p class="postlink conr"><a href="{% url add_topic forum.id %}">{% trans "New topic" %}</a></p>
+		{% endif %}
 		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
 		<div class="clearer"></div>
 	</div>

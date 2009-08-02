@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans "Registration with OpenID: last step" %}</h2>
+<p><label>{% trans "OpenID URL" %}:</label> {{ openid_url }}</p>
+<form method="post">
+    <formfield>
+        <legend>Регистрация через OpenID</legend>
+        <div class="wide">{{ form.as_p }}</div>
+        <p><input type="submit" value="{% trans "Submit" %}"/></p>
+    </formfield>
+</form>
+{% endblock %}

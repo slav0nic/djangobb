@@ -1,0 +1,85 @@
+{% extends "forum/base.html" %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div class="blockform">
+	<h2><span>{% trans "Register" %}</span></h2>
+	<div class="box">
+		<form method="post">
+			<div class="inform">
+				<div class="forminfo">
+					<h3>{% trans "Important information" %}</h3>
+
+					<p>{% trans "Registration will grant you access to a number of features and capabilities otherwise unavailable. These functions include the ability to edit and delete posts, design your own signature that accompanies your posts and much more. If you have any questions regarding this forum you should ask an administrator." %}</p>
+					<p>{% trans "elow is a form you must fill out in order to register. Once you are registered you should visit your profile and review the different settings you can change. The fields below only make up a small part of all the settings you can alter in your profile." %}</p>
+				</div>
+				<fieldset>
+					<legend>{% blocktrans %}Please enter a username{% endblocktrans %}</legend>
+					<div class="infldset">
+						<label><strong>{{ form.login.label }}</strong><br />{{ form.login }}<br /></label>
+					</div>
+				</fieldset>
+			</div>
+
+			<div class="inform">
+				<fieldset>
+					<legend>{% trans "Please enter and confirm your chosen password" %}</legend>
+					<div class="infldset">
+						<label class="conl"><strong>{{ form.password.label }}</strong><br />{{ form.password }}<br /></label>
+						<label class="conl"><strong>{{ form.password_dup.label }}</strong><br />{{ form.password_dup }}<br /></label>
+						<p class="clearb">{% blocktrans %}Passwords are case sensitive.{% endblocktrans %}</p>
+
+					</div>
+				</fieldset>
+			</div>
+			
+			<div class="inform">
+				<fieldset>			
+					<legend>{% trans "Image Verification" %}</legend>
+					<div class="infldset">
+						{{ form.captcha }}
+						<p class="clearb">{% trans "Please enter 4 letters or digits that appear in the image opposite" %}</p>
+
+					</div>
+				</fieldset>
+			</div>
+			
+			<div class="inform">
+				<fieldset>
+					<legend>{% trans "Enter a valid e-mail address" %}</legend>
+					<div class="infldset">
+					<label><strong>{{ form.email.label }}</strong><br />
+						{{ form.email }}<br /></label>
+					</div>
+				</fieldset>
+			</div>
+			<div class="inform">
+				<fieldset>
+					<legend>{% trans "Set your localisation options" %}</legend>
+					<div class="infldset">
+						<label>{% trans "Timezone: For the forum to display times correctly you must select your local timezone." %}
+							<br />
+						{{ form.time_zone }}
+						<br /></label>
+					</div>
+				</fieldset>
+			</div>
+			<div class="inform">
+
+				<fieldset>
+					<legend>{% trans "Set your privacy options" %}</legend>
+					<div class="infldset">
+						<p>{% trans "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not." %}</p>
+						<div class="rbox">
+							{{ form.privacy_permission }}
+						</div>
+					</div>
+
+				</fieldset>
+			</div>
+            <p><input type="submit" value="{% trans "Register" %}" /></p>
+		</form>
+	</div>
+</div>
+{% endblock %}
