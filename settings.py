@@ -88,7 +88,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'account.middleware.AuthKeyMiddleware',
     'forum.middleware.LastLoginMiddleware',
     'forum.middleware.UsersOnline',
     'flashcookie.FlashMiddleware',
