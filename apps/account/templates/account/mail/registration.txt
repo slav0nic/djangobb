@@ -1,3 +1,0 @@
-{% load i18n %}{% blocktrans %}Registration on {{ domain }}{% endblocktrans %}
-{% blocktrans %}You have begun registration on {{ domain }}{% endblocktrans %}.
-{% blocktrans %}If you want activate you account {{ login }}, follow the link please: {{ url }}{% endblocktrans %}
