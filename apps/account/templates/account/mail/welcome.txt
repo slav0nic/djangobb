@@ -1,4 +1,0 @@
-{% load i18n %}{% blocktrans %}Successfuly registration on {{ domain }}{% endblocktrans %}
-Congratulations!
-{% blocktrans %}You have registered on {{ domain }}{% endblocktrans %}.
-{% blocktrans %}Your login is {{ login }}{% endblocktrans %}.
