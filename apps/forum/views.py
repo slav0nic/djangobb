@@ -330,7 +330,6 @@ def show_topic(request, topic_id, full=True):
 
             for post in posts:
                 post.user.forum_profile.reply_total = replies.get(post.user.id, 0)
-            print replies
 
     initial = {}
     if request.user.is_authenticated():
