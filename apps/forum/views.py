@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db import connection
 from django.core.cache import cache
 from django.utils import translation
-from django.db.models import Q, Sum
+from django.db.models import Q, F, Sum
 
 from forum.util import render_to, paged, build_form, paginate, set_language
 from forum.models import Category, Forum, Topic, Post, Profile, Read,\
@@ -67,8 +67,8 @@ def index(request, full=True):
                 'online_count': users_count,
                 'guest_count': guest_count,
                 'last_user': User.objects.order_by('-date_joined')[0],
-               }, 'forum/lofi/index.html'
-        
+                'TEMPLATE': 'forum/lofi/index.html'
+               }
 
 @render_to('forum/moderate.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
@@ -192,15 +192,11 @@ def search(request):
             else:
                 return HttpResponseRedirect(reverse('search'))
 
-            if sort_by == '0':
-                order = 'created'
-            elif sort_by == '1':
-                order = 'user'
-            elif sort_by == '2':
-                order = 'topic'
-            elif sort_by == '3':
-                order = 'forum'
-            
+            order = {'0': 'created',
+                     '1': 'user',
+                     '2': 'topic',
+                     '3': 'forum'}.get(sort_by, 'created')
+
             if sort_dir == 'DESC':
                 order = '-' + order
             posts = post_indexer.search(query).order_by(order)
@@ -212,11 +208,12 @@ def search(request):
                         topics.append(post.instance.topic)
                 return {'results': topics,
                         'paged_qs': topics,
-                        }, 'forum/search_topics.html'
+                        }
             elif 'posts' in request.GET['show_as']:
                 return {'results': posts,
                         'paged_qs': posts,
-                        }, 'forum/search_posts.html'
+                        'TEMPLATE': 'forum/search_posts.html'
+                        }
         return {'results': topics,
                 'paged_qs': topics,
                 }
@@ -224,7 +221,8 @@ def search(request):
         form = PostSearchForm()
         return {'categories': Category.objects.all(),
                 'form': form,
-                }, 'forum/search_form.html'
+                'TEMPLATE': 'forum/search_form.html'
+                }
 
 @login_required
 @render_to('forum/report.html')
@@ -264,7 +262,8 @@ def misc(request):
         form = MailToForm()
         return {'form':form,
                 'user': user,
-               }, 'forum/mail_to.html'
+               'TEMPLATE': 'forum/mail_to.html'
+               }
 
 
 @render_to('forum/forum.html')
@@ -294,7 +293,8 @@ def show_forum(request, forum_id, full=True):
                 'pages': pages,
                 'paginator': paginator, 
                 'topics': paged_list_name,
-                }, 'forum/lofi/forum.html'
+                'TEMPLATE': 'forum/lofi/forum.html'
+                }
 
 
 @render_to('forum/topic.html')
@@ -303,7 +303,7 @@ def show_topic(request, topic_id, full=True):
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
-    topic.views += 1
+    topic.views = F('views') + 1
     topic.save()
 
     last_post = topic.last_post
@@ -367,7 +367,8 @@ def show_topic(request, topic_id, full=True):
                 'pages': pages,
                 'paginator': paginator, 
                 'posts': paged_list_name,
-                }, 'forum/lofi/topic.html'
+                'TEMPLATE': 'forum/lofi/topic.html'
+                }
 
 
 @login_required
@@ -422,7 +423,8 @@ def user(request, username):
                 return {'active_menu':'privacy',
                         'profile': user,
                         'form': form,
-                       }, 'forum/profile/profile_privacy.html'
+                        'TEMPLATE': 'forum/profile/profile_privacy.html'
+                       }
             elif section == 'display':
                 form = build_form(DisplayProfileForm, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
@@ -430,7 +432,8 @@ def user(request, username):
                 return {'active_menu':'display',
                         'profile': user,
                         'form': form,
-                       }, 'forum/profile/profile_display.html'
+                        'TEMPLATE': 'forum/profile/profile_display.html'
+                       }
             elif section == 'personality':
                 form = build_form(PersonalityProfileForm, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
@@ -438,7 +441,8 @@ def user(request, username):
                 return {'active_menu':'personality',
                         'profile': user,
                         'form': form,
-                        }, 'forum/profile/profile_personality.html'
+                        'TEMPLATE': 'forum/profile/profile_personality.html'
+                        }
             elif section == 'messaging':
                 form = build_form(MessagingProfileForm, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
@@ -446,7 +450,8 @@ def user(request, username):
                 return {'active_menu':'messaging',
                         'profile': user,
                         'form': form,
-                       }, 'forum/profile/profile_messaging.html'
+                        'TEMPLATE': 'forum/profile/profile_messaging.html'
+                       }
             elif section == 'personal':
                 form = build_form(PersonalProfileForm, request, instance=user.forum_profile, user=user)
                 if request.method == 'POST' and form.is_valid():
@@ -454,7 +459,8 @@ def user(request, username):
                 return {'active_menu':'personal',
                         'profile': user,
                         'form': form,
-                       }, 'forum/profile/profile_personal.html'
+                        'TEMPLATE': 'forum/profile/profile_personal.html'
+                       }
             elif section == 'essentials':
                 form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, user=user)
                 if request.method == 'POST' and form.is_valid():
@@ -464,7 +470,8 @@ def user(request, username):
                 return {'active_menu':'essentials',
                         'profile': user,
                         'form': form,
-                        }, 'forum/profile/profile_essentials.html'
+                        'TEMPLATE': 'forum/profile/profile_essentials.html'
+                        }
                 
         elif 'action' in request.GET:
             action = request.GET['action']
@@ -476,7 +483,8 @@ def user(request, username):
                 return {'form': form,
                         'avatar_width': forum_settings.AVATAR_WIDTH,
                         'avatar_height': forum_settings.AVATAR_HEIGHT,
-                       }, 'forum/upload_avatar.html'
+                        'TEMPLATE': 'forum/upload_avatar.html'
+                       }
             elif action == 'delete_avatar':
                 profile = get_object_or_404(Profile, user=request.user)
                 profile.avatar = None
@@ -491,7 +499,8 @@ def user(request, username):
             return {'active_menu':'essentials',
                     'profile': user,
                     'form': form,
-                   }, 'forum/profile/profile_essentials.html'
+                    'TEMPLATE': 'forum/profile/profile_essentials.html'
+                   }
             
     else:
         topic_count = Topic.objects.filter(user=user).count()
@@ -517,7 +526,9 @@ def reputation(request, username):
             elif request.GET['action'] == 'minus':
                 form.fields['sign'].initial = -1
             
-            return {'form': form}, 'forum/reputation_form.html'
+            return {'form': form,
+                    'TEMPLATE': 'forum/reputation_form.html'
+                    }
         else:
             raise Http404
 
@@ -701,8 +712,7 @@ def close_topic(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
         if not topic.closed:
-            topic.closed = True
-            topic.save()
+            Topic.objects.filter(pk=topik.id).update(closed=True)
     return HttpResponseRedirect(topic.get_absolute_url())
 
 
@@ -713,8 +723,7 @@ def open_topic(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
         if topic.closed:
-            topic.closed = False
-            topic.save()
+            Topic.objects.filter(pk=topik.id).update(closed=False)
     return HttpResponseRedirect(topic.get_absolute_url())
 
 
@@ -727,7 +736,7 @@ def users(request):
     return {'paged_qs': users,
             'form': form,
             }
-    
+
 @login_required
 @render_to('forum/pm/create_pm.html')
 def create_pm(request):

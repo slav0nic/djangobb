@@ -23,53 +23,68 @@ _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMI
 
 def render_to(template):
     """
-    Decorator for Django views that sends returned dict to render_to_response function
-    with given template and RequestContext as context instance.
+    Decorator for Django views that sends returned dict to render_to_response function.
 
+    Template name can be decorator parameter or TEMPLATE item in returned dictionary.
+    RequestContext always added as context instance.
     If view doesn't return dict then decorator simply returns output.
-    Additionally view can return two-tuple, which must contain dict as first
-    element and string with template name as second. This string will
-    override template name, given as parameter
 
     Parameters:
-
      - template: template name to use
 
-    Examples::
+    Examples:
+    # 1. Template name in decorator parameters
 
-      @render_to('some/tmpl.html')
-      def view(request):
-          if smth:
-              return {'context': 'dict'}
-          else:
-              return {'context': 'dict'}, 'other/tmpl.html'
+    @render_to('template.html')
+    def foo(request):
+        bar = Bar.object.all()  
+        return {'bar': bar}
 
-     2006-2009 Alexander Solovyov, new BSD License
+    # equals to 
+    def foo(request):
+        bar = Bar.object.all()  
+        return render_to_response('template.html', 
+                                  {'bar': bar}, 
+                                  context_instance=RequestContext(request))
+
+    # 2. Template name as TEMPLATE item value in return dictionary
+
+    @render_to()
+    def foo(request, category):
+        template_name = '%s.html' % category
+        return {'bar': bar, 'TEMPLATE': template_name}
+    
+    #equals to
+    def foo(request, category):
+        template_name = '%s.html' % category
+        return render_to_response(template_name, 
+                                  {'bar': bar}, 
+                                  context_instance=RequestContext(request))
     """
-    def renderer(func):
-        def wrapper(request, *args, **kw):
-            output = func(request, *args, **kw)
-            if isinstance(output, (list, tuple)):
-                return render_to_response(output[1], output[0], RequestContext(request))
-            elif isinstance(output, dict):
-                return render_to_response(template, output, RequestContext(request))
-            return output
+
+    def renderer(function):
+        def wrapper(request, *args, **kwargs):
+            output = function(request, *args, **kwargs)
+            if not isinstance(output, dict):
+                return output
+            tmpl = output.pop('TEMPLATE', template)
+            return render_to_response(tmpl, output, context_instance=RequestContext(request))
         return wrapper
     return renderer
 
 def absolute_url(path):
     return 'http://%s%s' % (forum_settings.HOST, path)
 
-def paged(paged_list_name, per_page):#, per_page_var='per_page'):
+def paged(paged_list_name, per_page):
     """
     Parse page from GET data and pass it to view. Split the
     query set returned from view.
     """
-    
+
     def decorator(func):
         def wrapper(request, *args, **kwargs):
             result = func(request, *args, **kwargs)
-            if not isinstance(result, dict):
+            if not isinstance(result, dict) or 'paged_qs' not in result:
                 return result
             try:
                 page = int(request.GET.get('page', 1))
