@@ -68,8 +68,8 @@ def pagination(context, adjacent_pages=1):
     """
 
     page_list = range(
-        max(1,context['page'] - adjacent_pages),
-        min(context['pages'],context['page'] + adjacent_pages) + 1)
+        max(1, context['page'] - adjacent_pages),
+        min(context['pages'], context['page'] + adjacent_pages) + 1)
     lower_page = None
     higher_page = None
 
@@ -88,8 +88,8 @@ def pagination(context, adjacent_pages=1):
         if not context['pages'] - 1 in page_list:
             page_list.append('.')
         page_list.append(context['pages'])
-    get_params = '&'.join(['%s=%s' % (x[0],','.join(x[1])) for x in
-        context['request'].GET.iteritems() if (not x[0] == 'page' and not x[0] == 'per_page')])
+    get_params = '&'.join(['%s=%s' % (x[0], x[1]) for x in
+        context['request'].GET.iteritems() if (x[0] != 'page' and x[0] != 'per_page')])
     if get_params:
         get_params = '?%s&' % get_params
     else:
