@@ -344,7 +344,7 @@ def show_topic(request, topic_id, full=True):
     else:
         subscribed = False
 
-    highlight_word = request.GET.get('hw', '')
+    highlight_word = request.GET.get('hl', '')
     if full:
         return {'categories': Category.objects.all(),
                 'topic': topic,
