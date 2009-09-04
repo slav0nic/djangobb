@@ -13,7 +13,9 @@ from forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessag
     Forum, Attachment, TZ_CHOICES, PRIVACY_CHOICES
 from forum.markups import mypostmarkup
 from forum import settings as forum_settings
-from openauth.forms import RegistrationForm
+import openauth
+from openauth.forms import RegistrationForm, OpenIDRegistrationForm
+from openauth.models import OpenID
 from annoying.functions import get_object_or_None
 
 
@@ -395,15 +397,11 @@ class CustomRegistrationForm(RegistrationForm):
                                                     choices=self.base_fields['privacy_permission'].choices
                                                     )
         super(RegistrationForm, self).__init__(*args, **kwargs)
-        if ACCOUNT_CAPTCHA:
-            self.fields['captcha'] = CaptchaField()
 
-    
     def clean_email(self):
-        if get_object_or_None(User, email=self.cleaned_data['login'].lower()):
+        if get_object_or_None(User, email=self.cleaned_data['email'].lower()):
                 raise forms.ValidationError(_(u'This email already registered'))
-            
-    
+
     def save(self):
         username = self.cleaned_data['login']
         email = self.cleaned_data['email']
@@ -418,4 +416,29 @@ class CustomRegistrationForm(RegistrationForm):
                               status = 'Member'
                              )
         profile.save()
+        return user
+
+
+class CustomOpenIDRegistrationForm(OpenIDRegistrationForm):
+    username = forms.CharField()
+    email = forms.EmailField()
+
+    def clean_email(self):
+        if get_object_or_None(User, email=self.cleaned_data['email'].lower()):
+            raise forms.ValidationError(_(u'This email already registered'))
+        return self.cleaned_data['email']
+
+    def clean_username(self):
+        if get_object_or_None(User, username__iexact=self.cleaned_data['username']):
+            raise forms.ValidationError(_(u'This username is already taken'))
+        return self.cleaned_data['username']
+
+    def save(self, openid_url):
+        username = self.cleaned_data['username']
+        email = self.cleaned_data['email']
+        user = User.objects.create(username=username, email=email)
+        if openauth.settings.OPENID_ACTIVATION_REQUIRED:
+            user.is_active = False
+        user.save()
+        OpenID(user=user, url=openid_url).save()
         return user

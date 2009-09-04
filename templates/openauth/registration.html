@@ -21,7 +21,6 @@
 					</div>
 				</fieldset>
 			</div>
-
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Please enter and confirm your chosen password" %}</legend>
@@ -29,22 +28,9 @@
 						<label class="conl"><strong>{{ form.password.label }}</strong><br />{{ form.password }}<br /></label>
 						<label class="conl"><strong>{{ form.password_dup.label }}</strong><br />{{ form.password_dup }}<br /></label>
 						<p class="clearb">{% blocktrans %}Passwords are case sensitive.{% endblocktrans %}</p>
-
 					</div>
 				</fieldset>
 			</div>
-			
-			<div class="inform">
-				<fieldset>			
-					<legend>{% trans "Image Verification" %}</legend>
-					<div class="infldset">
-						{{ form.captcha }}
-						<p class="clearb">{% trans "Please enter 4 letters or digits that appear in the image opposite" %}</p>
-
-					</div>
-				</fieldset>
-			</div>
-			
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Enter a valid e-mail address" %}</legend>
@@ -66,7 +52,6 @@
 				</fieldset>
 			</div>
 			<div class="inform">
-
 				<fieldset>
 					<legend>{% trans "Set your privacy options" %}</legend>
 					<div class="infldset">
@@ -75,7 +60,6 @@
 							{{ form.privacy_permission }}
 						</div>
 					</div>
-
 				</fieldset>
 			</div>
             <p><input type="submit" value="{% trans "Register" %}" /></p>
