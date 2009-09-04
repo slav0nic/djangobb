@@ -396,11 +396,12 @@ class CustomRegistrationForm(RegistrationForm):
         self.base_fields['privacy_permission'].widget = forms.RadioSelect(  
                                                     choices=self.base_fields['privacy_permission'].choices
                                                     )
-        super(RegistrationForm, self).__init__(*args, **kwargs)
+        super(CustomRegistrationForm, self).__init__(*args, **kwargs)
 
     def clean_email(self):
         if get_object_or_None(User, email=self.cleaned_data['email'].lower()):
                 raise forms.ValidationError(_(u'This email already registered'))
+        return self.cleaned_data['email']
 
     def save(self):
         username = self.cleaned_data['login']
@@ -408,6 +409,7 @@ class CustomRegistrationForm(RegistrationForm):
         password = self.cleaned_data['password']
         time_zone = self.cleaned_data['time_zone']
         privacy_permission = self.cleaned_data['privacy_permission']
+        print email
         user = User.objects.create_user(username, email, password=password)
         user.save()
         profile = Profile(user = user,
