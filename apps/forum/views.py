@@ -207,17 +207,12 @@ def search(request):
                 for post in posts:
                     if post.instance.topic not in topics:
                         topics.append(post.instance.topic)
-                return {'results': topics,
-                        'paged_qs': topics,
-                        }
+                return {'paged_qs': topics}
             elif 'posts' in request.GET['show_as']:
-                return {'results': posts,
-                        'paged_qs': posts,
+                return {'paged_qs': posts,
                         'TEMPLATE': 'forum/search_posts.html'
                         }
-        return {'results': topics,
-                'paged_qs': topics,
-                }
+        return {'results': topics}
     else:
         form = PostSearchForm()
         return {'categories': Category.objects.all(),
@@ -279,7 +274,6 @@ def show_forum(request, forum_id, full=True):
     if full:
         return {'categories': Category.objects.all(),
                 'forum': forum,
-                'topics': topics,
                 'paged_qs': topics,
                 'posts': forum.post_count,
                 'topics': forum.topic_count,
