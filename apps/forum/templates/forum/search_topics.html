@@ -17,7 +17,6 @@
 			<table cellspacing="0">
 			<thead>
 				<tr>
-
 					<th class="tcl" scope="col">{% trans "Topic" %}</th>
 					<th class="tc2" scope="col">{% trans "Forum" %}</th>
 					<th class="tc3" scope="col">{% trans "Replies" %}</th>
@@ -32,9 +31,9 @@
 							<div class="icon"><div class="nosize"><!-- --></div></div>
 							<div class="tclcon">
 								{% if topic|has_unreads:user %}
-								<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
+									<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
 								{% else %}
-								{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span>
+									{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span>
 								{% endif %}
 							</div>
 						</div>
@@ -49,6 +48,7 @@
 		</div>
 	</div>
 </div>
+
 {% else %}
 <div id="msg" class="block">
 	<h2><span>{% trans "Info" %}</span></h2>
@@ -61,7 +61,6 @@
 	</div>
 </div>
 {% endif %}
-
 <div class="linksb">
 	<div class="inbox">
 		<p class="pagelink">{% pagination %}</p>
