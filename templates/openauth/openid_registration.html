@@ -1,14 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'forum/base.html' %}
 {% load i18n %}
 
 {% block content %}
-<h2>{% trans "Registration with OpenID: last step" %}</h2>
-<p><label>{% trans "OpenID URL" %}:</label> {{ openid_url }}</p>
-<form method="post">
-    <formfield>
-        <legend>Регистрация через OpenID</legend>
-        <div class="wide">{{ form.as_p }}</div>
-        <p><input type="submit" value="{% trans "Submit" %}"/></p>
-    </formfield>
-</form>
+<div class="blockform">
+    <h2><span>{% trans "Registration with OpenID: last step" %}</span></h2>
+    <div class="box">
+        <form method="post">
+            <div class="inform">
+                <fieldset>
+                    <legend>{% trans "Registration with OpenID" %}</legend>
+                    <div class="infldset">
+                        <div class="inform">{{ form.as_p }}</div>
+                        <p>{% trans "OpenID URL" %}: {{ openid_url }}</p>
+                    </div>
+                    <p><input type="submit" value="{% trans "Submit" %}"/></p>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

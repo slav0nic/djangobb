@@ -359,11 +359,6 @@ def show_topic(request, topic_id, full=True):
         pages, paginator, paged_list_name = paginate(posts, request, forum_settings.TOPIC_PAGE_SIZE)
         return {'categories': Category.objects.all(),
                 'topic': topic,
-                #'last_post': last_post,
-                #'form': form,
-                #'moderator': moderator,
-                #'subscribed': subscribed,
-                #'paged_qs': posts,
                 'pages': pages,
                 'paginator': paginator, 
                 'posts': paged_list_name,

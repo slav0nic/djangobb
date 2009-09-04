@@ -6,25 +6,23 @@ from openauth import views as openauth_views
 
 urlpatterns = patterns('',
     # Account
-    url(r'^registration/$', openauth_views.registration, name='openauth-registration'),
-    url(r'^login/$', openauth_views.login, name='openauth-login'),
-    url(r'^openid-login/$', openauth_views.openid_login, name='openauth-openid-login'),
-    #url(r'^openid-complete/$', openauth_views.openid_complete, name='openauth-openid-complete'),
-    #url(r'^openid-registration/$', openauth_views.openid_registration, name='openauth-openid-registration'),
-    url(r'^logout/$', openauth_views.logout, name='openauth-logout'),
-    url(r'^reset-password/$', openauth_views.reset_password, name='openauth-reset-password'),
-    url(r'^change-password/$', openauth_views.change_password, name='openauth-change-password'),
-    
-    # Captcha
-    (r'^', include('captcha.urls')),
-      
+    url(r'^auth/registration/$', openauth_views.registration, name='openauth-registration'),
+    url(r'^auth/login/$', openauth_views.login, name='openauth-login'),
+    url(r'^auth/openid-login/$', openauth_views.openid_login, name='openauth-openid-login'),
+    url(r'^auth/openid-complete/$', openauth_views.openid_complete, name='openauth-openid-complete'),
+    url(r'^auth/openid-registration/$', openauth_views.openid_registration, name='openauth-openid-registration'),
+    url(r'^auth/logout/$', openauth_views.logout, name='openauth-logout'),
+    url(r'^auth/reset-password/$', openauth_views.reset_password, name='openauth-reset-password'),
+    url(r'^auth/change-password/$', openauth_views.change_password, name='openauth-change-password'),
+    #(r'', include('confirmation.urls'))# needed for activation
+
     # Misc
     url('^$', forum_views.index, name='index'),
     url('^(?P<forum_id>\d+)/$', forum_views.show_forum, name='forum'),
     url('^moderate/(?P<forum_id>\d+)/$', forum_views.moderate, name='moderate'),
     url('^search/$', forum_views.search, name='search'),
     url('^misc/$', forum_views.misc, name='misc'),
-    
+
     # User
     url('^user/(?P<username>.*)/$', forum_views.user, name='forum_profile'),
     url('^users/$', forum_views.users, name='forum_users'),
@@ -79,7 +77,7 @@ if (forum_settings.REPUTATION_SUPPORT):
     urlpatterns += patterns('',
         url('^reputation/(?P<username>.*)/$', forum_views.reputation, name='reputation'),
     )
-    
+
 # ATTACHMENT Extension
 if (forum_settings.ATTACHMENT_SUPPORT):
     urlpatterns += patterns('',

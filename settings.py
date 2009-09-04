@@ -115,8 +115,9 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'notify',
+    'confirmation',
     'openauth',
-    'captcha',
     'forum',
     'djapian',
 )
@@ -137,10 +138,13 @@ DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
 
 # Account settings
 REGISTRATION_FORM = 'forum.forms.CustomRegistrationForm'
-ACCOUNT_CAPTCHA = True
+OPENID_REGISTRATION_FORM = 'forum.forms.CustomOpenIDRegistrationForm'
 LOGIN_REDIRECT_URL = '/forum/'
 LOGOUT_REDIRECT_URL = '/forum/'
 NOTIFY_TYPE = 'flashcookie'
+OPENID_EXTRA_FIELDS = ['nickname', 'email']
+OPENID_PROFILE_MAPPING = {'nickname': 'login', 'email': 'email'}
+
 
 try:
    from local_settings import *
