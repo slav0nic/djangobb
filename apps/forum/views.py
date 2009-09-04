@@ -5,13 +5,14 @@ import datetime
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import connection
 from django.core.cache import cache
 from django.utils import translation
 from django.db.models import Q, F, Sum
+
+from openauth.utils import login_required
 
 from forum.util import render_to, paged, build_form, paginate, set_language
 from forum.models import Category, Forum, Topic, Post, Profile, Read,\
