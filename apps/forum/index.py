@@ -12,7 +12,7 @@ class PostIndexer(djapian.Indexer):
         ('created', 'created'         ),
     ]
 
-    trigger = ( lambda post: not post.topic.forum.category.groups.count() )
+    trigger = lambda indexer, post: post.topic.forum.category.groups.count()
 
 
 post_indexer = djapian.add_index(Post, PostIndexer)
