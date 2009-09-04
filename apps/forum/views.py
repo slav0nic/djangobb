@@ -490,11 +490,11 @@ def user(request, username):
                     'form': form,
                     'TEMPLATE': 'forum/profile/profile_essentials.html'
                    }
-            
+
     else:
         topic_count = Topic.objects.filter(user=user).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('openauth_login') + '?next=%s' % request.path)
+            return HttpResponseRedirect(reverse('openauth-login') + '?next=%s' % request.path)
         return {'profile': user,
                 'topic_count': topic_count,
                }
