@@ -5,23 +5,16 @@ from forum import views as forum_views
 from openauth import views as openauth_views
 
 urlpatterns = patterns('',
-    # Account
-    url(r'^auth/registration/$', openauth_views.registration, name='openauth-registration'),
-    url(r'^auth/login/$', openauth_views.login, name='openauth-login'),
-    url(r'^auth/openid-login/$', openauth_views.openid_login, name='openauth-openid-login'),
-    url(r'^auth/openid-complete/$', openauth_views.openid_complete, name='openauth-openid-complete'),
-    url(r'^auth/openid-registration/$', openauth_views.openid_registration, name='openauth-openid-registration'),
-    url(r'^auth/logout/$', openauth_views.logout, name='openauth-logout'),
-    url(r'^auth/reset-password/$', openauth_views.reset_password, name='openauth-reset-password'),
-    url(r'^auth/change-password/$', openauth_views.change_password, name='openauth-change-password'),
-    #(r'', include('confirmation.urls'))# needed for activation
 
-    # Misc
+    # Forum
     url('^$', forum_views.index, name='index'),
     url('^(?P<forum_id>\d+)/$', forum_views.show_forum, name='forum'),
     url('^moderate/(?P<forum_id>\d+)/$', forum_views.moderate, name='moderate'),
     url('^search/$', forum_views.search, name='search'),
     url('^misc/$', forum_views.misc, name='misc'),
+
+        # Account
+    ('account/', include('django_authopenid.urls')),
 
     # User
     url('^user/(?P<username>.*)/$', forum_views.user, name='forum_profile'),
