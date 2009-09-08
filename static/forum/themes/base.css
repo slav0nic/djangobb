@@ -378,3 +378,11 @@ width:88px;
 .djangobb .highlight {
 	background-color: yellow;
 }
+
+#registration_form {
+	float: left;
+}
+
+div.box {
+	overflow: hidden;
+}
