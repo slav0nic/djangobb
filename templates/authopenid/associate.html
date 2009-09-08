@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+{% if msg %}
+	<div class="errors"><p>{{ msg }}</p></div>
+{% endif %}
+
+{% if form.errors %}
+    <div class="errors"><p>Openid url : {{ form.openid_url.errors|join:', ' }}</p></div>
+{% endif %}
+
+<div class="login">
+
+<form name="openid_form" id="openid_form" action="{% url user_associate %}" method="post">
+    <input type="hidden" name="action" value="verify" />
+    <input type="hidden" name="next" value="{{ next }}" />
+	<fieldset>
+		<legend>{% trans "Add a new OpenID URL" %}</legend>
+		<div id="openid_choice">
+    		<p>Please click your account provider:</p>
+    		<div id="openid_btns"></div>
+    	</div>
+    	<div id="openid_input_area">
+            <label for="id_openid_url">{% trans "OpenId URL :" %}</label><br />{{ form.openid_url }}
+            <input name="openid_submit" type="submit" value="{% trans "Add OpenID" %}">
+		</div>
+	</fieldset>
+</form>	
+</div>	
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/openid-jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    openid.init('id_openid_url');
+});
+</script>
+{% endblock %}

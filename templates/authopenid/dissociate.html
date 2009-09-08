@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block content %}
+{% if msg %}
+	<p class="warning">{{ msg }}</p>
+{% endif %}
+
+<div class="login">
+
+<form name="fopenid" action="" method="post">
+    <input type="hidden" name="next" value="{{ next }}" />
+	{{ form.openid_url }}
+	<fieldset>
+		<legend>{% trans "Dissociate OpenID URL" %}</legend>
+        <p>Confirm to dissociate {{ openid_url }} from your account</p>
+        <div class="submit-row "><input name="bdissociate" type="submit" value="{% trans "Dissociate OpenID" %}"></div>
+		
+	</fieldset>
+</form>	
+</div>	
+{% endblock %}
+

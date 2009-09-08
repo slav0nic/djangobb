@@ -5,6 +5,7 @@ import datetime
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import connection
@@ -12,7 +13,6 @@ from django.core.cache import cache
 from django.utils import translation
 from django.db.models import Q, F, Sum
 
-from openauth.utils import login_required
 
 from forum.util import render_to, paged, build_form, paginate, set_language
 from forum.models import Category, Forum, Topic, Post, Profile, Read,\
@@ -494,7 +494,7 @@ def user(request, username):
     else:
         topic_count = Topic.objects.filter(user=user).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('openauth_login') + '?next=%s' % request.path)
+            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
         return {'profile': user,
                 'topic_count': topic_count,
                }

@@ -88,14 +88,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_authopenid.middleware.OpenIDMiddleware',
     'forum.middleware.LastLoginMiddleware',
-    'forum.middleware.UsersOnline',
-    'flashcookie.FlashMiddleware',
-)
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'openauth.backends.OpenIDBackend',
+    'forum.middleware.UsersOnline'
 )
 
 ROOT_URLCONF = 'urls'
@@ -115,9 +110,8 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'notify',
-    'confirmation',
-    'openauth',
+    'registration',
+    'django_authopenid',
     'forum',
     'djapian',
 )
@@ -130,20 +124,16 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
-    'flashcookie.flash_context',
+    'django_authopenid.context_processors.authopenid'
 )
 
 # Djapian settings
 DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
 
 # Account settings
-REGISTRATION_FORM = 'forum.forms.CustomRegistrationForm'
-OPENID_REGISTRATION_FORM = 'forum.forms.CustomOpenIDRegistrationForm'
+ACCOUNT_ACTIVATION_DAYS = 10
+
 LOGIN_REDIRECT_URL = '/forum/'
-LOGOUT_REDIRECT_URL = '/forum/'
-NOTIFY_TYPE = 'flashcookie'
-OPENID_EXTRA_FIELDS = ['nickname', 'email']
-OPENID_PROFILE_MAPPING = {'nickname': 'login', 'email': 'email'}
 
 
 try:

@@ -26,10 +26,10 @@
 				{% if "PM_SUPPORT"|forum_setting %}
 				<li id="navpm"><a href="{% url forum_pm_inbox %}">{% trans "PM" %}</a></li> 
 				{% endif %}
-				<li id="navlogout"><a href="{% url openauth-logout %}">{% trans "Log out" %}</a></li>
+				<li id="navlogout"><a href="{% url user_signout %}">{% trans "Log out" %}</a></li>
 				{% else %}
-    	        <li><a href="{% url openauth-login %}">{% trans "Log in" %}</a></li>
-	            <li><a href="{% url openauth-registration %}">{% trans "Sign up" %}</a></li>
+    	        <li><a href="{% url user_signin %}">{% trans "Log in" %}</a></li>
+	            <li><a href="{% url registration_register %}">{% trans "Sign up" %}</a></li>
         	    {% endif %}
 			</ul>
 		</div>

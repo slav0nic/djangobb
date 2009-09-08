@@ -13,16 +13,8 @@ from forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessag
     Forum, Attachment, TZ_CHOICES, PRIVACY_CHOICES
 from forum.markups import mypostmarkup
 from forum import settings as forum_settings
-import openauth
-from openauth.forms import RegistrationForm, OpenIDRegistrationForm
-from openauth.models import OpenID
-from annoying.functions import get_object_or_None
 
 
-ACCOUNT_CAPTCHA = getattr(settings, 'ACCOUNT_CAPTCHA', False)
-
-if ACCOUNT_CAPTCHA:
-    from captcha.fields import CaptchaField
 
 SORT_USER_BY_CHOICES = (
     ('username', _(u'Username')),
@@ -385,62 +377,3 @@ class CreatePMForm(forms.ModelForm):
         pm = PrivateMessage(src_user=self.user, dst_user=self.cleaned_data['recipient'])
         pm = forms.save_instance(self, pm)
         return pm
-    
-    
-class CustomRegistrationForm(RegistrationForm):
-    email = forms.EmailField(label=_('Email'))
-    time_zone = forms.ChoiceField(label=_('Time zone'), choices=TZ_CHOICES)
-    privacy_permission = forms.ChoiceField(label=_('Privacy permission'), choices=PRIVACY_CHOICES)
-
-    def __init__(self, *args, **kwargs):
-        self.base_fields['privacy_permission'].widget = forms.RadioSelect(  
-                                                    choices=self.base_fields['privacy_permission'].choices
-                                                    )
-        super(CustomRegistrationForm, self).__init__(*args, **kwargs)
-
-    def clean_email(self):
-        if get_object_or_None(User, email=self.cleaned_data['email'].lower()):
-                raise forms.ValidationError(_(u'This email already registered'))
-        return self.cleaned_data['email']
-
-    def save(self):
-        username = self.cleaned_data['login']
-        email = self.cleaned_data['email']
-        password = self.cleaned_data['password']
-        time_zone = self.cleaned_data['time_zone']
-        privacy_permission = self.cleaned_data['privacy_permission']
-        print email
-        user = User.objects.create_user(username, email, password=password)
-        user.save()
-        profile = Profile(user = user,
-                              time_zone = time_zone,
-                              privacy_permission = privacy_permission,
-                              status = 'Member'
-                             )
-        profile.save()
-        return user
-
-
-class CustomOpenIDRegistrationForm(OpenIDRegistrationForm):
-    username = forms.CharField()
-    email = forms.EmailField()
-
-    def clean_email(self):
-        if get_object_or_None(User, email=self.cleaned_data['email'].lower()):
-            raise forms.ValidationError(_(u'This email already registered'))
-        return self.cleaned_data['email']
-
-    def clean_username(self):
-        if get_object_or_None(User, username__iexact=self.cleaned_data['username']):
-            raise forms.ValidationError(_(u'This username is already taken'))
-        return self.cleaned_data['username']
-
-    def save(self, openid_url):
-        username = self.cleaned_data['username']
-        email = self.cleaned_data['email']
-        user = User.objects.create(username=username, email=email)
-        if openauth.settings.OPENID_ACTIVATION_REQUIRED:
-            user.is_active = False
-        user.save()
-        OpenID(user=user, url=openid_url).save()
-        return user
