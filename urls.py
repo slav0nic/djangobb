@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     
     # Apps
+    ('^forum/account/', include('django_authopenid.urls')),
     url(r'^forum/', include('forum.urls')),
     
     # Feeds
