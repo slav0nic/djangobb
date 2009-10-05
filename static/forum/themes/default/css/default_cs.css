@@ -81,8 +81,6 @@ DIV.blockpost DIV.box {BORDER: 1px solid  #46586a;BORDER-TOP: 1px solid #46586a;
 /* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour
 without interferring with IE's rather nice default */
 
-.djangobb DIV>FIELDSET {BORDER-COLOR: #46586a} /*>>> neizvestno shto*/
-
 /****************************************************************/
 /* 4. LINK COLOURS */
 /****************************************************************/

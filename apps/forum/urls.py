@@ -13,9 +13,6 @@ urlpatterns = patterns('',
     url('^search/$', forum_views.search, name='search'),
     url('^misc/$', forum_views.misc, name='misc'),
 
-        # Account
-    ('account/', include('django_authopenid.urls')),
-
     # User
     url('^user/(?P<username>.*)/$', forum_views.user, name='forum_profile'),
     url('^users/$', forum_views.users, name='forum_users'),
