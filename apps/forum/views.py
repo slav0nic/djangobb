@@ -40,7 +40,12 @@ def index(request, full=True):
     user_groups = request.user.groups.all()
     if request.user.is_anonymous():  # in django 1.1 EmptyQuerySet raise exception
         user_groups = []
-    for forum in Forum.objects.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True)).select_related('last_post__topic','last_post__user', 'category'):
+    _forums = Forum.objects.filter(
+            Q(category__groups__in=user_groups) | \
+            Q(category__groups__isnull=True)).select_related('last_post__topic',
+                                                            'last_post__user',
+                                                            'category')
+    for forum in _forums:
         cat = cats.setdefault(forum.category.id,
             {'cat': forum.category, 'forums': []})
         cat['forums'].append(forum)
@@ -49,27 +54,20 @@ def index(request, full=True):
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
 
+    to_return = {'cats': cats,
+                'posts': Post.objects.count(),
+                'topics': Topic.objects.count(),
+                'users': User.objects.count(),
+                'users_online': users_online,
+                'online_count': users_count,
+                'guest_count': guest_count,
+                'last_user': User.objects.order_by('-date_joined')[0],
+                }
     if full:
-        return {'cats': cats,
-                'posts': Post.objects.count(),
-                'topics': Topic.objects.count(),
-                'users': User.objects.count(),
-                'users_online': users_online,
-                'online_count': users_count,
-                'guest_count': guest_count,
-                'last_user': User.objects.order_by('-date_joined')[0],
-               }
+        return to_return
     else:
-        return {'cats': cats,
-                'posts': Post.objects.count(),
-                'topics': Topic.objects.count(),
-                'users': User.objects.count(),
-                'users_online': users_online,
-                'online_count': users_count,
-                'guest_count': guest_count,
-                'last_user': User.objects.order_by('-date_joined')[0],
-                'TEMPLATE': 'forum/lofi/index.html'
-               }
+        to_return['TEMPLATE'] = 'forum/lofi/index.html'
+        return to_return
 
 @render_to('forum/moderate.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
@@ -271,25 +269,24 @@ def show_forum(request, forum_id, full=True):
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
     moderator = request.user.is_superuser or\
         request.user in forum.moderators.all()
-    if full:
-        return {'categories': Category.objects.all(),
+    to_return = {'categories': Category.objects.all(),
                 'forum': forum,
                 'paged_qs': topics,
                 'posts': forum.post_count,
                 'topics': forum.topic_count,
                 'moderator': moderator,
                 }
+    if full:
+        return to_return
     else:
         pages, paginator, paged_list_name = paginate(topics, request, forum_settings.FORUM_PAGE_SIZE)
-        return {'categories': Category.objects.all(),
-                'forum': forum,
-                'posts': forum.post_count,
-                'moderator': moderator,
-                'pages': pages,
-                'paginator': paginator, 
-                'topics': paged_list_name,
-                'TEMPLATE': 'forum/lofi/forum.html'
-                }
+        to_return.update({'pages': pages,
+                        'paginator': paginator, 
+                        'topics': paged_list_name,
+                        'TEMPLATE': 'forum/lofi/forum.html'
+                        })
+        del to_return['paged_qs']
+        return to_return
 
 
 @render_to('forum/topic.html')
