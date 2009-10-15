@@ -84,13 +84,16 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.csrf.middleware.CsrfMiddleware',
     'django_authopenid.middleware.OpenIDMiddleware',
     'forum.middleware.LastLoginMiddleware',
-    'forum.middleware.UsersOnline'
+    'forum.middleware.UsersOnline',
 )
 
 ROOT_URLCONF = 'urls'
@@ -132,9 +135,10 @@ DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
 
 # Account settings
 ACCOUNT_ACTIVATION_DAYS = 10
-
 LOGIN_REDIRECT_URL = '/forum/'
 
+#Cache settings
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
 try:
    from local_settings import *
