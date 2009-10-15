@@ -2,11 +2,17 @@ from django.conf.urls.defaults import *
 from django.views.generic.simple import redirect_to
 from django.conf import settings
 from django.contrib import admin
-import django.views.static
 
 from forum.feeds import LastPosts, LastTopics, LastPostsOnForum, LastPostsOnCategory, LastPostsOnTopic
 from sitemap import SitemapCategory, SitemapForum, SitemapTopic
+from forms import RegistrationFormUtfUsername
 
+#Hack for add default_params with RegistrationFormUtfUsername to registration urlpattern
+from django_authopenid.urls import urlpatterns as authopenid_urlpatterns
+for i, rurl in enumerate(authopenid_urlpatterns):
+    if rurl.name == 'registration_register':
+        authopenid_urlpatterns[i].default_args = {'form_class': RegistrationFormUtfUsername}
+        break
 
 admin.autodiscover()
 
@@ -32,8 +38,8 @@ urlpatterns = patterns('',
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     
     # Apps
-    ('^forum/account/', include('django_authopenid.urls')),
-    url(r'^forum/', include('forum.urls')),
+    ('^forum/account/', include(authopenid_urlpatterns)),
+    (r'^forum/', include('forum.urls')),
     
     # Feeds
     url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
@@ -43,5 +49,5 @@ urlpatterns = patterns('',
 if (settings.DEBUG):
     urlpatterns += patterns('',
         (r'^%s(?P<path>.*)$' % settings.MEDIA_URL.lstrip('/'),
-            django.views.static.serve, {'document_root': settings.MEDIA_ROOT}),
+            'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )
