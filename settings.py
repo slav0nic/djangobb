@@ -6,7 +6,7 @@ import re
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(PROJECT_ROOT, 'apps'))
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -86,12 +86,12 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.csrf.middleware.CsrfMiddleware',
     'django_authopenid.middleware.OpenIDMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'forum.middleware.LastLoginMiddleware',
     'forum.middleware.UsersOnline',
 )
