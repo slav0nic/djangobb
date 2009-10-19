@@ -255,7 +255,7 @@ def paginate(items, request, per_page, total_count=None):
         page_number = int(request.GET.get('page', 1))
     except ValueError:
         page_number = 1
-        
+
     paginator = Paginator(items, per_page)
     pages = paginator.num_pages
     try:

@@ -210,7 +210,7 @@ def search(request):
                 return {'paged_qs': posts,
                         'TEMPLATE': 'forum/search_posts.html'
                         }
-        return {'results': topics}
+        return {'paged_qs': topics}
     else:
         form = PostSearchForm()
         return {'categories': Category.objects.all(),
