@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 import os.path
-import sha
+
 
 from django.db import models
 from django.contrib.auth.models import User, Group
@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.utils.html import escape, strip_tags
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.hashcompat import sha_constructor
 #from django.contrib.markup.templatetags.markup import markdown
 from markdown import Markdown
 
@@ -398,7 +399,7 @@ class Attachment(models.Model):
     def save(self, *args, **kwargs):
         super(Attachment, self).save(*args, **kwargs)
         if not self.hash:
-            self.hash = sha.new(str(self.id) + settings.SECRET_KEY).hexdigest()
+            self.hash = sha_constructor(str(self.id) + settings.SECRET_KEY).hexdigest()
         super(Attachment, self).save(*args, **kwargs)
 
     def __unicode__(self):
