@@ -1,11 +1,6 @@
 # -*- coding: utf-8
 from datetime import datetime, timedelta
 import urllib
-try:
-    from hashlib import md5
-except ImportError:
-    import md5
-    md5 = md5.new
 
 from django import template
 from django.core.urlresolvers import reverse
@@ -17,6 +12,7 @@ from django.db import settings
 from django.utils.html import escape
 from django.utils.translation import ugettext as _
 from django.utils import dateformat
+from django.utils.hashcompat import md5_constructor
 
 from forum.models import Forum, Topic, Post, Read, PrivateMessage, Report
 from forum.unread import cache_unreads
@@ -287,7 +283,7 @@ def gravatar(email):
         size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
         url = "http://www.gravatar.com/avatar.php?"
         url += urllib.urlencode({
-            'gravatar_id': md5(email.lower()).hexdigest(),
+            'gravatar_id': md5_constructor(email.lower()).hexdigest(),
             'size': size,
             'default': forum_settings.GRAVATAR_DEFAULT,
         })
