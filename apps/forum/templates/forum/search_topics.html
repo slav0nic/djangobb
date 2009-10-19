@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block content %}
+{% with results as paged_qs %}
 <div class="linkst">
 	<div class="inbox">
 		<p class="pagelink">{% pagination %}</p>
@@ -67,6 +68,7 @@
 		<div class="clearer"></div>
 	</div>
 </div>
+{% endwith %}
 {% endblock %}
 
 {% block controls %}

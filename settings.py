@@ -6,7 +6,7 @@ import re
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(PROJECT_ROOT, 'apps'))
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
