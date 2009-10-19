@@ -3,7 +3,6 @@ import os
 import os.path
 import sha
 
-
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
@@ -97,7 +96,7 @@ class Forum(models.Model):
     updated = models.DateTimeField(_('Updated'), default=datetime.now)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
     topic_count = models.IntegerField(_('Topic count'), blank=True, default=0)
-    last_post = models.ForeignKey('Post', related_name='last_post', blank=True, null=True)
+    last_post = models.ForeignKey('Post', related_name='last_forum_post', blank=True, null=True)
 
     class Meta:
         ordering = ['position']
@@ -184,6 +183,7 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['created']
+        get_latest_by = 'created'
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
 
@@ -215,9 +215,12 @@ class Post(models.Model):
 
     def delete(self, *args, **kwargs):
         self_id = self.id
-        head_post_id = self.topic.posts.order_by('created')[0].id
+        head_post_id = self.topic.posts.latest().id
+        self.last_topic_post.clear()
+        self.last_forum_post.clear()
         super(Post, self).delete(*args, **kwargs)
 
+        #if post was last in topic - remove topic
         if self_id == head_post_id:
             self.topic.delete()
 

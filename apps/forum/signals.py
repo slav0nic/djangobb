@@ -21,15 +21,20 @@ def post_saved(instance, **kwargs):
 
         notify_topic_subscribers(post)
 
+
 def post_deleted(instance, **kwargs):
     post = instance
     post.topic.post_count = Post.objects.filter(topic=post.topic).count()
+    post.topic.last_post = Post.objects.filter(topic=post.topic).latest()
     post.topic.save()
     post.topic.forum.post_count = Post.objects.filter(topic__forum=post.topic.forum).count()
+    post.topic.forum.last_post = Post.objects.filter(topic__forum=post.topic.forum).latest()
     post.topic.forum.save()
+
 
 def pm_saved(instance, **kwargs):
     notify_pm_recipients(instance) 
+
 
 def topic_saved(instance, **kwargs):
     created = kwargs.get('created')
