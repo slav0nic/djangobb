@@ -61,7 +61,7 @@ def index(request, full=True):
                 'users_online': users_online,
                 'online_count': users_count,
                 'guest_count': guest_count,
-                'last_user': User.objects.order_by('-date_joined')[0],
+                'last_user': User.objects.latest('date_joined'),
                 }
     if full:
         return to_return
@@ -589,7 +589,7 @@ def delete_posts(request, topic_id):
         if deleted:
             return HttpResponseRedirect(topic.get_absolute_url())
 
-    last_post = topic.posts.order_by('-created')[0]
+    last_post = topic.posts.latest()
 
     if request.user.is_authenticated():
         topic.update_read(request.user)
