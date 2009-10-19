@@ -2,7 +2,6 @@ from django.conf.urls.defaults import *
 
 from forum import settings as forum_settings
 from forum import views as forum_views
-from openauth import views as openauth_views
 
 urlpatterns = patterns('',
 
