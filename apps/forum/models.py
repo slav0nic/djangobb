@@ -370,11 +370,11 @@ class PrivateMessage(models.Model):
 
 
 class Ban(models.Model):
-    user = models.ForeignKey(User, verbose_name=_('Banned user'), related_name='ban_users')
+    user = models.OneToOneField(User, verbose_name=_('Banned user'), related_name='ban_users')
     ban_start = models.DateTimeField(_('Ban start'), default=datetime.now)
     ban_end = models.DateTimeField(_('Ban end'), blank=True, null=True)
     reason = models.TextField(_('Reason'))
-    
+
     class Meta:
         verbose_name = _('Ban')
         verbose_name_plural = _('Bans')
@@ -384,8 +384,13 @@ class Ban(models.Model):
         self.user.save()
         super(Ban, self).save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        self.user.is_active = True
+        self.user.save()
+        super(Ban, self).delete(*args, **kwargs)
+
     def __unicode__(self):
-        return self.user
+        return self.user.username
 
 
 class Attachment(models.Model):
