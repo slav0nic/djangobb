@@ -37,15 +37,14 @@
 					        {% endif %}
 							<dt>{% trans "E-mail:" %} </dt>
 							{% ifequal profile.forum_profile.privacy_permission 0 %}
-							<dd><a href="mailto:{{ profile.email }}">{% trans "E-mail" %}</a></dd>
+								<dd><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></dd>
 							{% else %}
-							{% ifequal profile.forum_profile.privacy_permission 1 %}
-							<dd><a href="{% url misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></dd>
-							{% else %}
-							<dd>{% trans "(Unknown)" %}</dd>
+								{% ifequal profile.forum_profile.privacy_permission 1 %}
+									<dd><a href="{% url misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></dd>
+								{% else %}
+									<dd>{% trans "(Hidden)" %}</dd>
+								{% endifequal %}
 							{% endifequal %}
-							{% endifequal %}
-							<dd>{{ profile.forum_profile.user.email }}</dd>        
 						</dl>
 						<div class="clearer"></div>
 					</div>
