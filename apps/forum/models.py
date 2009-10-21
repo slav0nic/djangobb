@@ -216,14 +216,30 @@ class Post(models.Model):
 
     def delete(self, *args, **kwargs):
         self_id = self.id
-        head_post_id = self.topic.posts.latest().id
+        head_post_id = self.topic.posts.order_by('created')[0].id
+        forum = self.topic.forum
+        topic = self.topic
         self.last_topic_post.clear()
         self.last_forum_post.clear()
         super(Post, self).delete(*args, **kwargs)
-
         #if post was last in topic - remove topic
         if self_id == head_post_id:
-            self.topic.delete()
+            topic.delete()
+        else:
+            try:
+                topic.last_post = Post.objects.filter(topic=topic).latest()
+            except Post.DoesNotExist:
+                topic.last_post = None
+            topic.post_count = Post.objects.filter(topic=topic).count()
+            topic.save()
+        try:
+            forum.last_post = Post.objects.filter(topic__forum=forum).latest()
+        except Post.DoesNotExist:
+            forum.last_post = None
+        forum.post_count = Post.objects.filter(topic__forum=forum).count()
+        forum.topic_count = Topic.objects.filter(forum=forum).count()
+        forum.save()
+
 
 
 class Reputation(models.Model):
