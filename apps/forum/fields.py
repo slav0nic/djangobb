@@ -7,15 +7,13 @@ try:
 except ImportError:
     from StringIO import StringIO
 import logging
-try:
-    import cPickle as pickle
-except ImportError:
-    import Pickle as pickle
 
 from django.db.models import OneToOneField
 from django.db.models.fields.related import SingleRelatedObjectDescriptor 
 from django.db import models
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.serializers.json import DjangoJSONEncoder
+from django.utils import simplejson as json
 
 
 class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
@@ -83,19 +81,30 @@ class ExtendedImageField(models.ImageField):
         return string.getvalue()
 
 
-class RangesField(models.TextField):
+class JSONField(models.TextField):
     """
-    Field for stored pickled data.
-    Taken from Cicero forum engine.
+    JSONField is a generic textfield that neatly serializes/unserializes
+    JSON objects seamlessly.
+    Django snippet #1478
     """
+
     __metaclass__ = models.SubfieldBase
 
     def to_python(self, value):
-        if isinstance(value, list):
-            return value
-        if not value:
-            return [(0, 0)]
-        return pickle.loads(str(value))
+        if value == "":
+            return None
 
-    def get_db_prep_value(self, value):
-        return unicode(pickle.dumps(value))
+        try:
+            if isinstance(value, basestring):
+                return json.loads(value)
+        except ValueError:
+            pass
+        return value
+
+    def get_db_prep_save(self, value):
+        if value == "":
+            return None
+        if isinstance(value, dict):
+            value = json.dumps(value, cls=DjangoJSONEncoder)
+        return super(JSONField, self).get_db_prep_save(value)
+

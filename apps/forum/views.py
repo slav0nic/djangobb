@@ -1,6 +1,6 @@
 import math
 import re
-import datetime
+from datetime import datetime, timedelta
 
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -15,8 +15,8 @@ from django.db.models import Q, F, Sum
 
 
 from forum.util import render_to, paged, build_form, paginate, set_language
-from forum.models import Category, Forum, Topic, Post, Profile, Read,\
-    Reputation, Report, PrivateMessage, Attachment
+from forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
+    Report, PrivateMessage, Attachment, PostTracking
 from forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
     PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
@@ -129,10 +129,11 @@ def search(request):
     if 'action' in request.GET:
         action = request.GET['action']
         if action == 'show_24h':
-            date =  datetime.datetime.today() - datetime.timedelta(1)
+            date = datetime.today() - timedelta(1)
             topics = Topic.objects.filter(created__gte=date).order_by('created')
         elif action == 'show_new':
             #TODO: FIXME
+            #must be filter topic.last_post > tracking.last_read and exclude tracking.topics
             topics = Topic.objects.all().order_by('created')
             topics = [topic for topic in topics if forum_extras.has_unreads(topic, request.user)] 
         elif action == 'show_unanswered':
@@ -224,14 +225,10 @@ def misc(request):
     if 'action' in request.GET:
         action = request.GET['action']
         if action =='markread':
-            for category in Category.objects.all():
-                for topic in category.topics:
-                    read, new = Read.objects.get_or_create(user=request.user, topic=topic)
-                    if not new:
-                        read.time = datetime.datetime.now()
-                        read.save()
+            user = request.user
+            PostTracking.objects.filter(user=user).update(last_read=datetime.now(), topics=None)
             return HttpResponseRedirect(reverse('index'))
-        
+
         elif action == 'report':
             if request.GET.get('post_id', ''):
                 post_id = request.GET['post_id']

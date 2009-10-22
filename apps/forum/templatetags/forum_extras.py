@@ -14,8 +14,7 @@ from django.utils.translation import ugettext as _
 from django.utils import dateformat
 from django.utils.hashcompat import md5_constructor
 
-from forum.models import Forum, Topic, Post, Read, PrivateMessage, Report
-from forum.unread import cache_unreads
+from forum.models import Forum, Topic, Post, PostTracking, PrivateMessage, Report
 from forum import settings as forum_settings
 
 register = template.Library()
@@ -100,7 +99,8 @@ def pagination(context, adjacent_pages=1):
         'page_list': page_list,
         'per_page': context['per_page'],
         }
-    
+
+
 @register.inclusion_tag('forum/lofi/pagination.html',takes_context=True)
 def lofi_pagination(context):
     page_list = range(1, context['pages'] + 1)
@@ -119,6 +119,7 @@ def lofi_pagination(context):
             'paginator': paginator,
             } 
 
+
 @register.simple_tag
 def link(object, anchor=u''):
     """
@@ -128,6 +129,7 @@ def link(object, anchor=u''):
     url = hasattr(object,'get_absolute_url') and object.get_absolute_url() or None
     anchor = anchor or smart_unicode(object)
     return mark_safe('<a href="%s">%s</a>' % (url, escape(anchor)))
+
 
 @register.simple_tag
 def lofi_link(object, anchor=u''):
@@ -139,36 +141,23 @@ def lofi_link(object, anchor=u''):
     anchor = anchor or smart_unicode(object)
     return mark_safe('<a href="%slofi">%s</a>' % (url, escape(anchor)))
 
+
 @register.filter
 def has_unreads(topic, user):
     """
     Check if topic has messages which user didn't read.
     """
-
-    now = datetime.now()
-    delta = timedelta(seconds=forum_settings.READ_TIMEOUT)
-
-    if not user.is_authenticated():
-        return False
+    if not user.is_authenticated() or\
+        (user.posttracking.last_read is not None and\
+         user.posttracking.last_read > topic.last_post.created):
+            return False
     else:
-        if isinstance(topic, Topic):
-            if (now - delta > topic.updated):
-                return False
+        if isinstance(user.posttracking.topics, dict):
+            if topic.last_post.id > user.posttracking.topics.get(str(topic.id), 0):
+                return True
             else:
-                if hasattr(topic, '_read'):
-                    read = topic._read
-                else:
-                    try:
-                        read = Read.objects.get(user=user, topic=topic)
-                    except Read.DoesNotExist:
-                        read = None
-
-                if read is None:
-                    return True
-                else:
-                    return topic.updated > read.time
-        else:
-            raise Exception('Object should be a topic')
+                return False
+        return True
 
 
 @register.filter
@@ -216,11 +205,6 @@ def forum_equal_to(obj1, obj2):
     """
 
     return obj1 == obj2
-
-
-@register.filter
-def forum_unreads(qs, user):
-    return cache_unreads(qs, user)
 
 
 @register.filter
