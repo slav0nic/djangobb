@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from forum.models import Category, Forum, Topic, Post, Profile, Read,\
-    Reputation, Report, Ban
+from forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
+    Report, Ban
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -25,10 +25,6 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'status', 'time_zone', 'location', 'language']
     raw_id_fields = ['user']
 
-class ReadAdmin(admin.ModelAdmin):
-    list_display = ['user', 'topic', 'time']
-    raw_id_fields = ['user', 'topic']
-
 class ReputationAdmin(admin.ModelAdmin):
     list_display = ['from_user', 'to_user', 'topic', 'sign', 'time', 'reason']
     raw_id_fields = ['from_user', 'to_user', 'topic']
@@ -47,7 +43,6 @@ admin.site.register(Forum, ForumAdmin)
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Read, ReadAdmin)
 admin.site.register(Reputation, ReputationAdmin)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(Ban, BanAdmin)

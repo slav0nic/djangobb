@@ -14,7 +14,7 @@ from django.utils.hashcompat import sha_constructor
 from markdown import Markdown
 
 from forum.markups import mypostmarkup 
-from forum.fields import AutoOneToOneField, ExtendedImageField, RangesField
+from forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from forum.util import urlize, smiles
 from forum import settings as forum_settings
 
@@ -156,18 +156,24 @@ class Topic(models.Model):
         super(Topic, self).save(*args, **kwargs)
 
     def update_read(self, user):
-        read, new = Read.objects.get_or_create(user=user, topic=self)
-        if not new:
-            read.time = datetime.now()
-            read.save()
-
-    #def has_unreads(self, user):
-        #try:
-            #read = Read.objects.get(user=user, topic=self)
-        #except Read.DoesNotExist:
-            #return True
-        #else:
-            #return self.updated > read.time
+        tracking = user.posttracking
+        #if last_read > last_read - don't check topics
+        if tracking.last_read and (tracking.last_read > self.last_post.created):
+            return
+        if isinstance(tracking.topics, dict):
+            #clear topics if len > 5Kb and set last_read to current time
+            if len(tracking.topics) > 5120:
+                tracking.topics = None
+                tracking.last_read = datetime.now()
+                tracking.save()
+            #update topics if exist new post or does't exist in dict
+            if self.last_post.id > tracking.topics.get(str(self.id), 0):
+                tracking.topics.setdefault(str(self.id), self.last_post.id)
+                tracking.save()
+        else:
+            #initialize topic tracking dict
+            tracking.topics = {self.id: self.last_post.id}
+            tracking.save()
 
 
 class Post(models.Model):
@@ -241,7 +247,6 @@ class Post(models.Model):
         forum.save()
 
 
-
 class Reputation(models.Model):
     from_user = models.ForeignKey(User, related_name='reputations_from', verbose_name=_('From'))
     to_user = models.ForeignKey(User, related_name='reputations_to', verbose_name=_('To'))
@@ -249,7 +254,7 @@ class Reputation(models.Model):
     time = models.DateTimeField(_('Time'), blank=True)
     sign = models.IntegerField(_('Sign'), choices=SIGN_CHOICES, default=0)
     reason = models.TextField(_('Reason'), blank=True, default='', max_length=1000)
-    
+
     class Meta:
         verbose_name = _('Reputation')
         verbose_name_plural = _('Reputations')
@@ -278,7 +283,6 @@ class Profile(models.Model):
     privacy_permission = models.IntegerField(_('Privacy permission'), choices=PRIVACY_CHOICES, default=1)
     markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
-    #read_posts = fields.RangesField(editable=False)
 
     class Meta:
         verbose_name = _('Profile')
@@ -298,28 +302,22 @@ class Profile(models.Model):
         return Reputation.objects.filter(to_user=self.user, sign=1).count()
 
 
-class Read(models.Model):
+class PostTracking(models.Model):
     """
-    For each topic that user has entered the time 
-    is logged to this model.
+    Model for tracking read/unread posts.
+    In topics stored ids of topics and last_posts as dict.
     """
 
-    user = models.ForeignKey(User, verbose_name=_('User'))
-    topic = models.ForeignKey(Topic, verbose_name=_('Topic'))
-    time = models.DateTimeField(_('Time'), blank=True)
+    user = AutoOneToOneField(User)
+    topics = JSONField(null=True)
+    last_read = models.DateTimeField(null=True)
 
     class Meta:
-        unique_together = [('user', 'topic')]
-        verbose_name = _('Read')
-        verbose_name_plural = _('Reads')
-
-    def save(self, *args, **kwargs):
-        if self.time is None:
-            self.time = datetime.now()
-        super(Read, self).save(*args, **kwargs)
+        verbose_name = _('Post tracking')
+        verbose_name_plural = _('Post tracking')
 
     def __unicode__(self):
-        return u'T[%d], U[%d]: %s' % (self.topic.id, self.user.id, unicode(self.time))
+        return self.user.username
 
 
 class Report(models.Model):
