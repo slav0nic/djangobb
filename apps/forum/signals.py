@@ -11,13 +11,17 @@ def post_saved(instance, **kwargs):
         updated_time = datetime.now()
         post.topic.updated = updated_time
         post.topic.last_post = post
-        post.topic.post_count = Post.objects.filter(topic=post.topic).count()
+        post.topic.post_count = post.topic.posts.count()
         post.topic.save(force_update=True)
 
         post.topic.forum.updated = updated_time
-        post.topic.forum.post_count = Post.objects.filter(topic__forum=post.topic.forum).count()
+        post.topic.forum.post_count = post.topic.forum.posts.count()
         post.topic.forum.last_post = post
         post.topic.forum.save(force_update=True)
+
+        profile = post.user.forum_profile
+        profile.post_count = post.user.posts.count()
+        profile.save(force_update=True)
 
         notify_topic_subscribers(post)
 
