@@ -15,7 +15,7 @@
   <div id="djangobbcontent">
   <div class="topicwrap">
 <ol>
-{% for topic in topics|forum_unreads:user %}
+{% for topic in topics %}
 <li>{% if topic.sticky %}<span style="color: red;"><strong>{% trans "IMPORTANT:" %}</strong></span>{% endif %}{% lofi_link topic %} <span class="desc">({{ topic.reply_count }} {% trans "replies" %})</span></li>
 {% endfor %}
 </ol>
