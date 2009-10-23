@@ -1,20 +1,17 @@
 {% extends "forum/base.html" %}
 {% load i18n %}
-
-{% block head %}
-
-
-{% endblock %}
-
+{% load forum_extras %}
 
 {% block content %}
 <div class="blockform">
-    <div class="box">
-        {% blocktrans %}
-        <h1>Thank you!</h1>
-        <p>An email has been sent to you. You need to click link in it to activate your account.</p>
-        {% endblocktrans %}
-    </div>
+	<h2><span>{% trans "Message" %}</span></h2>
+	<div class="box">
+			<div class="inform message">
+				<div class="forminfo">
+					<h3>{% trans "Thank you!" %}</h3>
+					<p>{% trans "An email has been sent to you. You need to click link in it to activate your account." %}</p>
+				</div>
+			</div>
+	</div>
 </div>
-
 {% endblock %}
