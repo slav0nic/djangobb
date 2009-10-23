@@ -385,3 +385,7 @@ width:88px;
 div.box {
 	overflow: hidden;
 }
+
+div.message {
+	padding:20px 20px 15px;
+}
