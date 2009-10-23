@@ -573,8 +573,6 @@ def delete_posts(request, topic_id):
     from forum.templatetags.forum_extras import forum_moderated_by
 
     topic = Topic.objects.select_related().get(pk=topic_id)
-    topic.views += 1
-    topic.save()
 
     if forum_moderated_by(topic, request.user):
         deleted = False
