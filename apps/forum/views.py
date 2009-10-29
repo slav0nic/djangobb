@@ -445,7 +445,8 @@ def user(request, username):
                         'TEMPLATE': 'forum/profile/profile_personal.html'
                        }
             elif section == 'essentials':
-                form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, user=user)
+                form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, 
+                                  user_view=user, user_request=request.user)
                 if request.method == 'POST' and form.is_valid():
                     profile = form.save()
                     set_language(request, profile.language)
@@ -475,7 +476,8 @@ def user(request, username):
                 return HttpResponseRedirect(reverse('forum_profile', args=[user.username]))
          
         else:
-            form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, user=user)
+            form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, 
+                                  user_view=user, user_request=request.user)
             if request.method == 'POST' and form.is_valid():
                 profile = form.save()
                 set_language(request, profile.language)
