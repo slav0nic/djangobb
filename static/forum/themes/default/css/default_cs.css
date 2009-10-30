@@ -112,6 +112,8 @@ LI.maintenancelink A:hover {COLOR: #B42000}
 
 DIV.icon {background:url(../img/inactive_topic.gif)}
 DIV.inew {background:url(../img/active_topic.gif)}
+DIV.sticky {background:url(../img/sticky_topic.gif)}
+DIV.closed {background:url(../img/closed_topic.gif)}
 TR.inew DIV.icon {background:url(../img/active_topic.gif)} 
 TR.isticky DIV.inew {background:url(../img/active_topic.gif)}
 TR.iclosed DIV.icon {background:url(../img/closed.png)}

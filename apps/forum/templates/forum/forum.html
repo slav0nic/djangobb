@@ -36,8 +36,11 @@
 				<tr>
 					<td class="tcl">
 						<div class="intd">
-							<div {% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}><div class="nosize"><!-- --></div></div>
+							<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
 							<div class="tclcon">
+								{% if topic.sticky %}
+									{% trans "Sticky:" %}
+								{% endif %}
 								{% if topic|has_unreads:user %}
 									<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span></strong>
 								{% else %}

@@ -236,7 +236,7 @@ DIV.blockform P INPUT {MARGIN-LEFT: 12px}
 .inew = new posts, .iredirect = redirect forums, .iclosed = closed topics and
 .isticky = sticky topics. By default only .inew is different from the default.*/
 
-DIV.icon,DIV.inew {
+DIV.icon,DIV.inew, DIV.sticky, DIV.closed {
 	FLOAT: left;
 	MARGIN-TOP: 0.1em;
 	MARGIN-right: 0.4em;
