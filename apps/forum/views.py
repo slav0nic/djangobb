@@ -706,7 +706,7 @@ def open_topic(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
         if topic.closed:
-            Topic.objects.filter(pk=topik.id).update(closed=False)
+            Topic.objects.filter(pk=topic.id).update(closed=False)
     return HttpResponseRedirect(topic.get_absolute_url())
 
 
