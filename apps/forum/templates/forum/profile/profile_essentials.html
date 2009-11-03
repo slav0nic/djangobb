@@ -21,7 +21,13 @@
 								{{ form.fields.username.initial }}
 							{% endif %}
 							<br></label>
-							<p><a href="{% url auth_password_change %}">{% trans "Change password" %}</a></p>
+							<p>
+							{% if request.user.is_superuser %}
+								<a href="{% url admin:user_change_password profile.id %}">{% trans "Change password" %}</a>
+							{% else %}
+								<a href="{% url auth_password_change %}">{% trans "Change password" %}</a>
+							{% endif %}
+							</p>
 					</div>
 
 					</fieldset>
