@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django.contrib.auth import admin as auth_admin
+from django.contrib.auth.models import User
 
 from forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
     Report, Ban
@@ -37,7 +39,17 @@ class BanAdmin(admin.ModelAdmin):
     list_display = ['user', 'ban_start', 'ban_end', 'reason']
     raw_id_fields = ['user']
 
+class UserAdmin(auth_admin.UserAdmin):
+    def get_urls(self):
+        from django.conf.urls.defaults import patterns, url
+        return patterns('',
+                        url(r'^(\d+)/password/$', self.admin_site.admin_view(self.user_change_password), name='user_change_password'),
+                        ) + super(auth_admin.UserAdmin, self).get_urls()
 
+
+admin.site.unregister(User)
+
+admin.site.register(User, UserAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Forum, ForumAdmin)
 admin.site.register(Topic, TopicAdmin)
