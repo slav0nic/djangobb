@@ -13,6 +13,7 @@ djapian_db
 *~
 *.kpf
 *.autosave
+*.wpr
 static/forum/avatars
 static/forum/attachments
 secret.txt
