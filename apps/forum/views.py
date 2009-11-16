@@ -373,7 +373,7 @@ def add_post(request, forum_id, topic_id):
     if topic and topic.closed:
         return HttpResponseRedirect(topic.get_absolute_url())
     
-    ip = request.META.get('REMOTE_ADDR', '')
+    ip = request.META.get('REMOTE_ADDR', None)
     form = build_form(AddPostForm, request, topic=topic, forum=forum,
                       user=request.user, ip=ip,
                       initial={'markup': request.user.forum_profile.markup})
