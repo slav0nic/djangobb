@@ -185,7 +185,7 @@ class Post(models.Model):
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
     body_text = models.TextField(_('Text version'))
-    user_ip = models.IPAddressField(_('User IP'), blank=True, default='')
+    user_ip = models.IPAddressField(_('User IP'), blank=True, null=True)
 
 
     class Meta:
