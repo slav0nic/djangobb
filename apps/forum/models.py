@@ -65,9 +65,6 @@ class Category(models.Model):
     def forum_count(self):
         return self.forums.all().count()
 
-    def get_absolute_url(self):
-        return reverse('category', args=[self.id])
-
     @property
     def topics(self):
         return Topic.objects.filter(forum__category=self).select_related()

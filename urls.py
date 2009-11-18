@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 
 from forum.feeds import LastPosts, LastTopics, LastPostsOnForum, LastPostsOnCategory, LastPostsOnTopic
-from sitemap import SitemapCategory, SitemapForum, SitemapTopic
+from sitemap import SitemapForum, SitemapTopic
 from forms import RegistrationFormUtfUsername
 
 #Hack for add default_params with RegistrationFormUtfUsername to registration urlpattern
@@ -25,7 +25,6 @@ feeds = {
 }
 
 sitemaps = {
-    'category': SitemapCategory,
     'forum': SitemapForum,
     'topic': SitemapTopic,
 }
