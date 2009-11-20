@@ -136,7 +136,7 @@ DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
 # Account settings
 ACCOUNT_ACTIVATION_DAYS = 10
 LOGIN_REDIRECT_URL = '/forum/'
-LOGIN_URL = 'forum/account/signin/'
+LOGIN_URL = '/forum/account/signin/'
 
 #Cache settings
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
