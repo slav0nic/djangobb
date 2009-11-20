@@ -80,7 +80,7 @@ class AddPostForm(forms.ModelForm):
             return self.cleaned_data['attachment']
 
 
-    def save(self, commit=True):
+    def save(self):
         if self.forum:
             topic = Topic(forum=self.forum,
                           user=self.user,
@@ -92,13 +92,12 @@ class AddPostForm(forms.ModelForm):
         post = Post(topic=topic, user=self.user, user_ip=self.ip,
                     markup='bbcode',
                     body=self.cleaned_data['body'])
-        
+
+        post.save()
         if forum_settings.ATTACHMENT_SUPPORT:
             self.save_attachment(post, self.cleaned_data['attachment'])
-
-        if commit:
-            post.save()
         return post
+
 
     def save_attachment(self, post, memfile):
         if memfile:
