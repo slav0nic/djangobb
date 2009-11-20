@@ -12,7 +12,7 @@ from django.db import connection
 from django.core.cache import cache
 from django.utils import translation
 from django.db.models import Q, F, Sum
-
+from django.utils.encoding import smart_str
 
 from forum.util import render_to, paged, build_form, paginate, set_language
 from forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
@@ -790,9 +790,9 @@ def add_subscription(request, topic_id):
 @login_required
 def show_attachment(request, hash):
     attachment = get_object_or_404(Attachment, hash=hash)
-    file_obj = file(attachment.get_absolute_path())
-    response = HttpResponse(file_obj, content_type=attachment.content_type)
-    response['Content-Disposition'] = 'attachment; filename=%s' % attachment.name.encode('utf-8', 'ignore')
+    file_data = file(attachment.get_absolute_path()).read()
+    response = HttpResponse(file_data, mimetype=attachment.content_type)
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(attachment.name)
     return response
 
 #TODO: check markup
