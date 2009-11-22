@@ -18,7 +18,7 @@
     <link rel="alternate" type="application/atom+xml" href="{% url forum_feed "posts" %}" title="{% trans "Latest posts on forum" %}" />
     <link rel="alternate" type="application/atom+xml" href="{% url forum_feed "topics" %}" title="{% trans "Latest topics on forum" %}" />
 
-    <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ MEDIA_URL }}forum/favicon.png" type="image/png" />
     <script type="text/javascript">
 	var MEDIA_URL = "{{ MEDIA_URL }}";
 	var POST_PREVIEW_URL = "{% url post_preview %}";
