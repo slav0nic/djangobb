@@ -18,7 +18,6 @@
 	<div class="box">
 		<div class="inbox">
 			<table cellspacing="0">
-
 			<thead>
 				<tr>
 					<th class="tcl" scope="col">{% trans "Topic" %}</th>
@@ -30,7 +29,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for topic in sticky_topics|forum_unreads:user %}
+				{% for topic in sticky_topics %}
 				<tr class="isticky">
 					<td class="tcl">
 						<div class="intd">
@@ -51,7 +50,7 @@
 				</tr>
 			{% endfor %}
 			
-			{% for topic in topics|forum_unreads:user %}
+			{% for topic in topics %}
 				<tr {% if topic|has_unreads:user %}class="inew"{% endif %} {% if topic.closed %}class="iclosed"{% endif %}>
 					<td class="tcl">
 						<div class="intd">
