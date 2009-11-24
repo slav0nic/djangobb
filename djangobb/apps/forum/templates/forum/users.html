@@ -6,31 +6,28 @@
 <div class="blockform">
 	<h2><span>{% trans "User search" %}</span></h2>
 	<div class="box">
-    <form method="get" id="userlist">
-        		<div class="inform">
+	<form method="get" id="userlist">
+		<div class="inform">
 			<fieldset>
 				<legend>{% trans "Find and sort users" %}</legend>
 				<div class="infldset">
-
 					<label class="conl">{{ form.username.label }}<br />{{ form.username }}<br /></label>
 					
 					<label class="conl">{{ form.sort_by.label }}
 					<br />
 					{{ form.sort_by }}
-
 					<br /></label>
 					<label class="conl">{{ form.sort_dir.label }}
 					<br />
 					{{ form.sort_dir }}
-					
-					<br /></label>
+					<br />
+					</label>
 					<p class="clearb">{% trans "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order." %}</p>
-
 				</div>
 			</fieldset>
 		</div>
-        <input type="submit" value="{% trans "Search" %}" />
-    </form>
+	<input type="submit" value="{% trans "Search" %}" />
+	</form>
 	</div>
 </div>
 <div class="linkst">
@@ -45,7 +42,6 @@
 		<table cellspacing="0">
 			<thead>
 			<tr>
-
 				<th class="tcl" scope="col">{% trans "Username" %}</th>
 				<th class="tc2" scope="col">{% trans "Title" %}</th>
 				<th class="tc3" scope="col">{% trans "Posts" %}</th>
@@ -53,15 +49,14 @@
 			</tr>
 			</thead>
 			<tbody>
-				{% for profile in users %}
+			{% for profile in users %}
 				<tr>
 					<td class="tcl">{{ profile|profile_link }}</td>
 					<td class="tc2">{{ profile.forum_profile.status }}</td>
 					<td class="tc3">{{ profile.forum_profile.post_count }}</td>
 					<td class="tcr">{{ profile.date_joined|date:"d-m-Y" }}</td>
 				</tr>
-				{% endfor %}
-				
+			{% endfor %}
 			</tbody>
 			</table>
 		</div>

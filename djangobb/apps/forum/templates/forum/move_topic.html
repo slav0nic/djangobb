@@ -10,26 +10,22 @@
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Select destination of move" %}</legend>
-
 					<div class="infldset">
 						<label>{% trans "Move to" %}<br />
 						<select name="to_forum">
 						{% for category in categories %}
 							<optgroup label="{{ category }}">
 							{% for forum in category.forums.all %}
-								<option value="{{ forum.id }}">{{ forum }}</option>
+								<option value="{{ forum.id }}">{{ forum.name }}</option>
 							{% endfor %}
 							</optgroup>
 						{% endfor %}
 						</select>
-
 						<br /></label>
-
 					</div>
 				</fieldset>
 			</div>
 			<p><input type="submit" value="{% trans "Move" %}" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
-
 		</form>
 	</div>
 </div>

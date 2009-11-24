@@ -2,121 +2,122 @@
 {% load forum_extras %}
 {% load i18n %}
 
+{% block title %} / {{ topic.forum.name }} / {{ topic.name }}{% endblock %}
 {% block content %}
 <div class="linkst">
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
 		{% if not topic.closed and user.is_authenticated %}
-		<p class="postlink conr"><a href="{% url add_post topic.id %}">{% trans "Reply" %}</a></p>
+			<p class="postlink conr"><a href="{% url add_post topic.id %}">{% trans "Reply" %}</a></p>
 		{% endif %}
-				<ul><li><a href="{% url index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
-				<a href="{% url forum_feed "topic" %}{{ topic.id }}/"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
-				</li></ul>
-
+		<ul>
+			<li>
+			<a href="{% url index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
+			<a href="{% url forum_feed "topic" %}{{ topic.id }}/"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+			</li>
+		</ul>
 		<div class="clearer"></div>
 	</div>
 </div>
 {% for post in posts %}
-<div id="p{{ post.id }}" class="blockpost roweven firstpost">
-	<a name="post-{{ post.id }}"></a>
-	<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
-	<div class="box">
-		<div class="inbox">
-			<div class="postleft">
-				<dl>
-					<dt><strong><a href="javascript:pasteN('{{ post.user }}');">{{ post.user }}</a></strong></dt>
-					<dd class="usertitle">
-						{% if post.user.forum_profile.status %}
-						<strong>{{ post.user.forum_profile.status }}</strong>
-						{% else %}
-						<strong>{{ post.user.forum_profile.group }}</strong>
+	<div id="p{{ post.id }}" class="blockpost roweven firstpost">
+		<a name="post-{{ post.id }}"></a>
+		<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
+		<div class="box">
+			<div class="inbox">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="javascript:pasteN('{{ post.user.username }}');">{{ post.user.username }}</a></strong></dt>
+						<dd class="usertitle">
+							{% if post.user.forum_profile.status %}
+								<strong>{{ post.user.forum_profile.status }}</strong>
+							{% else %}
+								<strong>{{ post.user.forum_profile.group }}</strong>
+							{% endif %}
+						</dd>
+						{% if "AUTHORITY_SUPPORT"|forum_setting %}
+							<dd class="usertitle">
+								{{ post.user|forum_authority }}
+							</dd>
 						{% endif %}
-					</dd>
-					{% if "AUTHORITY_SUPPORT"|forum_setting %}
-					<dd class="usertitle">
-						{{ post.user|forum_authority }}
-					</dd>
-					{% endif %}
-					{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
-						<dd class="postavatar"><img src="{{ post.user.forum_profile.avatar.url }}" /></dd>
-					{% else %}
-						<dd class="postavatar"><img src="{% gravatar post.user.email %}" /></dd>
-					{% endif %}
-					{% if post.user.forum_profile.location %}
-					<dd>{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
-					{% endif %}
-					<dd>{% trans "Registered:" %} {{ post.user.date_joined|date:"Y-m-d" }}</dd>
-					<dd>{% trans "Posts:" %} {{ post.user.forum_profile.post_count }}</dd>
-					{% if moderator %}
-                    <dd>{% trans "IP:" %} {{ post.user_ip }}</dd>
-                    {% endif %}
-					{% if "REPUTATION_SUPPORT"|forum_setting %}
-						{% ifnotequal request.user post.user %}
-							<dd><a href="{% url reputation post.user %}">{% trans "Reputation" %}</a> :  <a href="{% url reputation post.user %}?action=plus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" border="0"></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url reputation post.user %}?action=minus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" border="0"></a></dd>
-						{% endifnotequal %}
-					{% endif %}
-					<dd class="usercontacts"><a href="{% url forum_profile post.user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
-					{% ifequal post.user.forum_profile.privacy_permission 0 %}
-							<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
+						{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
+							<dd class="postavatar"><img src="{{ post.user.forum_profile.avatar.url }}" /></dd>
 						{% else %}
-							{% ifequal post.user.forum_profile.privacy_permission 1 %}
-								<a href="{% url misc %}?mail_to={{ post.user }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
-							{% endifequal %}
-					{% endifequal %}
-					{% if "PM_SUPPORT"|forum_setting %}
-					{% if user.is_authenticated %}
-					<a href="{% url forum_create_pm %}?recipient={{ post.user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
-					{% endif %}
-					{% endif %}
+							<dd class="postavatar"><img src="{% gravatar post.user.email %}" /></dd>
+						{% endif %}
+						{% if post.user.forum_profile.location %}
+							<dd>{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
+						{% endif %}
+						<dd>{% trans "Registered:" %} {{ post.user.date_joined|date:"Y-m-d" }}</dd>
+						<dd>{% trans "Posts:" %} {{ post.user.forum_profile.post_count }}</dd>
+						{% if moderator %}
+							<dd>{% trans "IP:" %} {{ post.user_ip }}</dd>
+						{% endif %}
+						{% if "REPUTATION_SUPPORT"|forum_setting %}
+							{% ifnotequal request.user post.user.username %}
+								<dd><a href="{% url reputation post.user %}">{% trans "Reputation" %}</a> :  <a href="{% url reputation post.user %}?action=plus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" border="0"></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url reputation post.user %}?action=minus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" border="0"></a></dd>
+							{% endifnotequal %}
+						{% endif %}
+						<dd class="usercontacts"><a href="{% url forum_profile post.user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
+						{% ifequal post.user.forum_profile.privacy_permission 0 %}
+								<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
+							{% else %}
+								{% ifequal post.user.forum_profile.privacy_permission 1 %}
+									<a href="{% url misc %}?mail_to={{ post.user }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
+								{% endifequal %}
+						{% endifequal %}
+						{% if "PM_SUPPORT"|forum_setting %}
+							{% if user.is_authenticated %}
+								<a href="{% url forum_create_pm %}?recipient={{ post.user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
+							{% endif %}
+						{% endif %}
 				</dl>
 			</div>
 			<div class="postright">
 				<h3>{{ post.topic.name }}</h3>
 				<div class="postmsg">
 					{{ post.body_html|safe }}
-                    {% if not user.is_authenticated or user.forum_profile.show_signatures %}
-                    {% if post.user.forum_profile.signature %}
-                    	<div class="postsignature">
-                    		<br>
-							<br>
-				{{ post.user.forum_profile.signature|safe }}
-			</div>
-                    {% endif %}
-                    {% endif %}
-                    {% if post.updated %}
-                    	<p class="postedit"><em>{% trans "Edited" %} {{ post.user }} ({% forum_time post.updated %})</em></p>
-                    {% endif %}
+					{% if not user.is_authenticated or user.forum_profile.show_signatures %}
+						{% if post.user.forum_profile.signature %}
+						<div class="postsignature">
+							<br /><br/ >
+							{{ post.user.forum_profile.signature|safe }}
+						</div>
+						{% endif %}
+					{% endif %}
+					{% if post.updated %}
+						<p class="postedit"><em>{% trans "Edited" %} {{ post.user }} ({% forum_time post.updated %})</em></p>
+					{% endif %}
 					{% if post.attachments.all %}
-					{% for attach in post.attachments.all %}
-						<p class="postedit"><em>{% trans "Attachments:" %} <div>{{ attach|attachment_link }}</div></em></p>
-					{% endfor %}
+						{% for attach in post.attachments.all %}
+							<p class="postedit"><em>{% trans "Attachments:" %} <div>{{ attach|attachment_link }}</div></em></p>
+						{% endfor %}
 					{% endif %}
 				</div>
 			</div>
 			<div class="clearer"></div>
 			<div class="postfootleft">
-			{% if post.user|online %}
-				<p><strong>{% trans "Online" %}</strong></p>
-			{% else %}
-				<p>{% trans "Offline" %}</p>
-			{% endif %}
+				{% if post.user|online %}
+					<p><strong>{% trans "Online" %}</strong></p>
+				{% else %}
+					<p>{% trans "Offline" %}</p>
+				{% endif %}
 			</div>
 			<div class="postfootright">
 				<ul>
 					<li class="postreport"><a href="{% url misc %}?action=report&post_id={{ post.id }}">{% trans "Report" %}</a> | </li>
 					{% if moderator or post|forum_equal_to:last_post %}
-                    {% if moderator or post.user|forum_equal_to:user %}
-					<li class="postdelete"><a onclick="return confirm('{% trans "Are you sure you want to delete this post?" %}')" href="{% url delete_post post.id %}">{% trans "Delete" %}</a> | </li>
+						{% if moderator or post.user|forum_equal_to:user %}
+							<li class="postdelete"><a onclick="return confirm('{% trans "Are you sure you want to delete this post?" %}')" href="{% url delete_post post.id %}">{% trans "Delete" %}</a> | </li>
+						{% endif %}
 					{% endif %}
-                    {% endif %}
 					{% if moderator or post|forum_posted_by:user %}
-					<li class="postedit"><a href="{% url edit_post post.id %}">{% trans "Edit" %}</a> | </li>
+						<li class="postedit"><a href="{% url edit_post post.id %}">{% trans "Edit" %}</a> | </li>
 					{% endif %}
 					<li class="postquote"><a href="{% url add_post topic.id %}?post_id={{ post.id }}">{% trans "Reply" %}</a> | </li>
 					<li class="postquote"><a onmouseover="copyQ('{{ post.user }}');" href="javascript:pasteQ();">{% trans "Quote" %}</a></li>
 				</ul>
 			</div>
-
 		</div>
 	</div>
 </div>
@@ -129,12 +130,12 @@
 				<a href="{% url forum_feed "topic" %}{{ topic.id }}"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 				</li></ul>
 		{% if user.is_authenticated %}
-    	{% if subscribed %}
-    		<a class="subscribelink clearb" href="{% url forum_delete_subscription topic.id %}?from_topic">{% trans "Unsubscribe" %}</a>
-    	{% else %}
-    		<a class="subscribelink clearb" href="{% url forum_add_subscription topic.id %}">{% trans "Subscribe" %}</a>
-    	{% endif %}
-    	{% endif %}
+			{% if subscribed %}
+				<a class="subscribelink clearb" href="{% url forum_delete_subscription topic.id %}?from_topic">{% trans "Unsubscribe" %}</a>
+			{% else %}
+				<a class="subscribelink clearb" href="{% url forum_add_subscription topic.id %}">{% trans "Subscribe" %}</a>
+			{% endif %}
+		{% endif %}
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -152,16 +153,16 @@
 				</fieldset>
 			</div>
 			{% if "ATTACHMENT_SUPPORT"|forum_setting %}
-			<div class="inform">
-				<fieldset>
-					<legend>{% trans "Attachment" %}</legend>
-					<div class="infldset">
-						<div class="rbox">
-							{{ form.attachment }}
+				<div class="inform">
+					<fieldset>
+						<legend>{% trans "Attachment" %}</legend>
+						<div class="infldset">
+							<div class="rbox">
+								{{ form.attachment }}
+							</div>
 						</div>
-					</div>
-				</fieldset>
-			</div>
+					</fieldset>
+				</div>
 			{% endif %}
 			<p><input type="submit" value="{% trans "Submit" %}" /></p>
 		</form>
@@ -170,49 +171,48 @@
 {% endif %}
 
 {% if "LOFI_SUPPORT"|forum_setting %}
-<div id="brdfooter" class="block">
+	<div id="brdfooter" class="block">
 		<div class="box">
 			<div class="inbox" align="center">
 				<a href="{{ topic.get_absolute_url }}lofi/">Lo-Fi Version</a>
 				<div class="clearer"></div>
 			</div>
 		</div>
-</div>
+	</div>
 {% endif %}
 {% endblock %}
 
 {% block controls %}
-			<div class="conl">
-				<form id="qjump" method="GET" action="forum">
-					<div><label>{% trans "Jump to " %}
-					<br />
-					<select name="id" id="forum_id" onchange="window.location=('{% url index %}'+this.options[this.selectedIndex].value)">
-						{% for category in categories %}
-						<optgroup label="{{ category }}">
-							{% for forum in category.forums.all %}
-							<option value="{{ forum.id }}">{{ forum }}</option>
-							{% endfor %}
-						</optgroup>
-						{% endfor %}
-					</select>
-					<input type="button" onclick="window.location=('{% url index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
-					</label></div>
-				</form>
-			<dl id="modcontrols"><dt><strong>{% trans "Moderator control" %}</strong></dt>
-			
-			{% if moderator %}
-			<dd><a href="{% url delete_posts topic.id %}">{% trans "Delete multiple posts" %}</a></dd>
-			<dd><a href="{% url move_topic topic.id %}">{% trans "Move topic" %}</a></dd>
-			{% if topic.closed %}
-		    <dd><a href="{% url open_topic topic.id %}">{% trans "Open topic" %}</a></dd>
-    		{% else %}
-    		<dd><a href="{% url close_topic topic.id %}">{% trans "Close topic" %}</a></dd>
-    		{% endif %}
-		    {% if topic.sticky %}
-    			<dd><a href="{% url unstick_topic topic.id %}">{% trans "Unstick topic" %}</a></dd></dl>
-    		{% else %}
-    			<dd><a href="{% url stick_topic topic.id %}">{% trans "Stick topic" %}</a></dd></dl>
-    		{% endif %}
-			{% endif %}
-			</div>
+<div class="conl">
+	<form id="qjump" method="GET" action="forum">
+		<div><label>{% trans "Jump to " %}
+		<br />
+		<select name="id" id="forum_id" onchange="window.location=('{% url index %}'+this.options[this.selectedIndex].value)">
+			{% for category in categories %}
+				<optgroup label="{{ category }}">
+					{% for forum in category.forums.all %}
+						<option value="{{ forum.id }}">{{ forum }}</option>
+					{% endfor %}
+				</optgroup>
+			{% endfor %}
+		</select>
+		<input type="button" onclick="window.location=('{% url index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
+		</label></div>
+	</form>
+	<dl id="modcontrols"><dt><strong>{% trans "Moderator control" %}</strong></dt>
+	{% if moderator %}
+		<dd><a href="{% url delete_posts topic.id %}">{% trans "Delete multiple posts" %}</a></dd>
+		<dd><a href="{% url move_topic topic.id %}">{% trans "Move topic" %}</a></dd>
+		{% if topic.closed %}
+			<dd><a href="{% url open_topic topic.id %}">{% trans "Open topic" %}</a></dd>
+		{% else %}
+			<dd><a href="{% url close_topic topic.id %}">{% trans "Close topic" %}</a></dd>
+		{% endif %}
+		{% if topic.sticky %}
+			<dd><a href="{% url unstick_topic topic.id %}">{% trans "Unstick topic" %}</a></dd></dl>
+		{% else %}
+			<dd><a href="{% url stick_topic topic.id %}">{% trans "Stick topic" %}</a></dd></dl>
+		{% endif %}
+	{% endif %}
+</div>
 {% endblock %}

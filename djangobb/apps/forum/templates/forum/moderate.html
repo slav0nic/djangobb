@@ -7,7 +7,6 @@
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
 		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
-
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -25,7 +24,6 @@
 					<th class="tc3" scope="col">{% trans "Views" %}</th>
 					<th class="tcr">{% trans "Last post" %}</th>
 					<th class="tcmod" scope="col">{% trans "Select" %}</th>
-
 				</tr>
 			</thead>
 			<tbody>
@@ -36,9 +34,9 @@
 							<div class="icon"><div class="nosize"><!-- --></div></div>
 							<div class="tclcon">
 								{% if topic|has_unreads:user %}
-								<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
+									<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
 								{% else %}
-								{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span>
+									{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span>
 								{% endif %}
 							</div>
 						</div>
@@ -49,7 +47,6 @@
 					<td class="tcmod"><input type="checkbox" name="{{ topic.id }}" value="1" /></td>
 				</tr>
 			{% endfor %}
-			
 			{% for topic in topics %}
 				<tr {% if topic|has_unreads:user %}class="inew"{% endif %} {% if topic.closed %}class="iclosed"{% endif %}>
 					<td class="tcl">
@@ -57,11 +54,10 @@
 							<div class="icon"><div class="nosize"><!-- --></div></div>
 							<div class="tclcon">
 								{% if topic|has_unreads:user %}
-								<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
+									<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
 								{% else %}
-								{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span>
+									{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span>
 								{% endif %}
-
 							</div>
 						</div>
 					</td>
@@ -75,13 +71,10 @@
 			</table>
 		</div>
 	</div>
-
 </div>
-
 <div class="linksb">
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
-		
 		<p class="conr">
 			<input type="submit" name="move_topics" value="{% trans "Move" %}" />&nbsp;&nbsp;
 			<input type="submit" name="delete_topics" value="{% trans "Delete" %}" />&nbsp;&nbsp;
@@ -90,7 +83,6 @@
 		</p>
 		<div class="clearer"></div>
 	</div>
-
 </div>
 </form>
 {% endblock %}
