@@ -2,22 +2,22 @@
 {% load forum_extras %}
 {% load i18n %}
 
+{% block title %} / {{ forum.name }}{% endblock %}
 {% block content %}
 <div class="linkst">
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
 		{% if user.is_authenticated %}
-		<p class="postlink conr"><a href="{% url add_topic forum.id %}">{% trans "New topic" %}</a></p>
+			<p class="postlink conr"><a href="{% url add_topic forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
-		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
-
+		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
 <div id="vf" class="blocktable">
 	<h2>
 		<a href="{% url forum_feed "forum" %}{{ forum.id }}"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
-		<b><span>{{ forum }}</span></b>
+		<b><span>{{ forum.name }}</span></b>
 	</h2>
 	<div class="box">
 		<div class="inbox">
@@ -32,30 +32,30 @@
 			</thead>
 			<tbody>
 			{% if topics %}
-			{% for topic in topics %}
-				<tr>
-					<td class="tcl">
-						<div class="intd">
-							<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
-							<div class="tclcon">
-								{% if topic.sticky %}
-									{% trans "Sticky:" %}
-								{% endif %}
-								{% if topic|has_unreads:user %}
-									<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span></strong>
-								{% else %}
-									{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
-								{% endif %}
+				{% for topic in topics %}
+					<tr>
+						<td class="tcl">
+							<div class="intd">
+								<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
+								<div class="tclcon">
+									{% if topic.sticky %}
+										{% trans "Sticky:" %}
+									{% endif %}
+									{% if topic|has_unreads:user %}
+										<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span></strong>
+									{% else %}
+										{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
+									{% endif %}
+								</div>
 							</div>
-						</div>
-					</td>
-					<td class="tc2">{{ topic.reply_count }}</td>
-					<td class="tc3">{{ topic.views }}</td>
-					<td class="tcr"><a href="{{ topic.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
-				</tr>
-			{% endfor %}
+						</td>
+						<td class="tc2">{{ topic.reply_count }}</td>
+						<td class="tc3">{{ topic.views }}</td>
+						<td class="tcr"><a href="{{ topic.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+					</tr>
+				{% endfor %}
 			{% else %}
-			<tr><td class="djangobbcon1" colspan="4">{% trans "Forum is empty." %}</td></tr>
+				<tr><td class="djangobbcon1" colspan="4">{% trans "Forum is empty." %}</td></tr>
 			{% endif %}
 			</tbody>
 			</table>
@@ -66,42 +66,42 @@
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
 		{% if user.is_authenticated %}
-		<p class="postlink conr"><a href="{% url add_topic forum.id %}">{% trans "New topic" %}</a></p>
+			<p class="postlink conr"><a href="{% url add_topic forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
-		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
+		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
 {% if "LOFI_SUPPORT"|forum_setting %}
-<div id="brdfooter" class="block">
+	<div id="brdfooter" class="block">
 		<div class="box">
 			<div class="inbox" align="center">
 				<a href="{{ forum.get_absolute_url }}lofi/">Lo-Fi Version</a>
 				<div class="clearer"></div>
 			</div>
 		</div>
-</div>
+	</div>
 {% endif %}
 {% endblock %}
 {% block controls %}
 <div class="conl">
-				<form id="qjump" method="get" action="forum">
-					<div><label>{% trans "Jump to" %}
-					<br />
-					<select name="id" id="forum_id" onchange="window.location=('{% url index %}'+this.options[this.selectedIndex].value)">
-						{% for category in categories %}
-						<optgroup label="{{ category }}">
-							{% for forum in category.forums.all %}
-							<option value="{{ forum.id }}">{{ forum }}</option>
-							{% endfor %}
-						</optgroup>
-						{% endfor %}
-					</select>
-					<input type="button" onclick="window.location=('{% url index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
-					</label></div>
-				</form>
-			{% if moderator %}
-			<p id="modcontrols"><a href="{% url moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
-			{% endif %}
-			</div>
+	<form id="qjump" method="get" action="forum">
+		<div><label>{% trans "Jump to" %}
+		<br />
+		<select name="id" id="forum_id" onchange="window.location=('{% url index %}'+this.options[this.selectedIndex].value)">
+			{% for category in categories %}
+				<optgroup label="{{ category }}">
+					{% for forum in category.forums.all %}
+						<option value="{{ forum.id }}">{{ forum.name }}</option>
+					{% endfor %}
+				</optgroup>
+			{% endfor %}
+		</select>
+		<input type="button" onclick="window.location=('{% url index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
+		</label></div>
+	</form>
+	{% if moderator %}
+		<p id="modcontrols"><a href="{% url moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
+	{% endif %}
+</div>
 {% endblock %}

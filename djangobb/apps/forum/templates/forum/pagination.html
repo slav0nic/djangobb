@@ -1,21 +1,21 @@
 {% load i18n %}
 {% ifnotequal pages 1 %}
 	{% trans "Pages" %}: 
-	{% if lower_page %} 
-        <a href="{{ get_params }}page={{ lower_page }}{#&per_page={{ per_page }}#}">&laquo;</a>
-    {% endif %}
+	{% if lower_page %}
+		<a href="{{ get_params }}page={{ lower_page }}{#&per_page={{ per_page }}#}">&laquo;</a>
+	{% endif %}
 	{% for number in page_list %}
-        {% ifequal number "." %}...
-        {% else %}
-            {% ifequal number page %}
-            <strong>{{ number }}</strong> 
-            {% endifequal %}
-            {% ifnotequal number page %}
-            <a href="{{ get_params }}page={{ number }}{#&per_page={{ per_page }}#}">{{ number }}</a> 
-            {% endifnotequal %}
-        {% endifequal %}
-    {% endfor %}
+		{% ifequal number "." %}
+		{% else %}
+			{% ifequal number page %}
+				<strong>{{ number }}</strong> 
+			{% endifequal %}
+			{% ifnotequal number page %}
+				<a href="{{ get_params }}page={{ number }}{#&per_page={{ per_page }}#}">{{ number }}</a>
+			{% endifnotequal %}
+		{% endifequal %}
+	{% endfor %}
 	{% if higher_page %} 
-        <a href="{{ get_params }}page={{ higher_page }}{#&per_page={{ per_page }}#}">&raquo;</a>
-    {% endif %}
+		<a href="{{ get_params }}page={{ higher_page }}{#&per_page={{ per_page }}#}">&raquo;</a>
+	{% endif %}
 {% endifnotequal %}

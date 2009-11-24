@@ -1,33 +1,32 @@
 {% load i18n %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>Django Bulletin Board</title>
-    <meta name="description" content="DjangoBB description" />
-    <meta name="keywords" content="DjangoBB keywords" />
-
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    {% if request.user.is_authenticated %}
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/{{ request.user.forum_profile.theme }}/style.css" />
+	<title>Django Bulletin Board {% block title %}{% endblock %}</title>
+	<meta name="description" content="DjangoBB description" />
+	<meta name="keywords" content="DjangoBB keywords" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	{% if request.user.is_authenticated %}
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/{{ request.user.forum_profile.theme }}/style.css" />
 	{% else %}
-	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/default/style.css" />
+		<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/themes/default/style.css" />
 	{% endif %}
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/skins/markitup/style.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/sets/bbcode/style.css" />
 
-    <link rel="alternate" type="application/atom+xml" href="{% url forum_feed "posts" %}" title="{% trans "Latest posts on forum" %}" />
-    <link rel="alternate" type="application/atom+xml" href="{% url forum_feed "topics" %}" title="{% trans "Latest topics on forum" %}" />
+	<link rel="alternate" type="application/atom+xml" href="{% url forum_feed "posts" %}" title="{% trans "Latest posts on forum" %}" />
+	<link rel="alternate" type="application/atom+xml" href="{% url forum_feed "topics" %}" title="{% trans "Latest topics on forum" %}" />
 
-    <link rel="shortcut icon" href="{{ MEDIA_URL }}forum/favicon.png" type="image/png" />
-    <script type="text/javascript">
-	var MEDIA_URL = "{{ MEDIA_URL }}";
-	var POST_PREVIEW_URL = "{% url post_preview %}";
-    </script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<link rel="shortcut icon" href="{{ MEDIA_URL }}forum/favicon.png" type="image/png" />
+	<script type="text/javascript">
+		var MEDIA_URL = "{{ MEDIA_URL }}";
+		var POST_PREVIEW_URL = "{% url post_preview %}";
+	</script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/board.js"></script>
 	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/markitup/jquery.markitup.pack.js"></script>
 	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/markitup/sets/bbcode/set.js"></script>
-	
+
 	<script type="text/javascript" >
 	   $(document).ready(function() {
 	        $(".bbcode").markItUp(mySettings);
@@ -35,26 +34,24 @@
 	</script>
 
     <!-- Highlightjs goodies -->
-    <script type="text/javascript" src="{{ MEDIA_URL }}forum/js/highlight.pack.js"></script>
-    <script type="text/javascript">
-      hljs.initHighlightingOnLoad();
-    </script>
-    <link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}forum/css/hljs_styles/djangobb.css" />
-    {% if highlight_word %}
-	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/jquery.highlight-3.pack.js"></script>
+	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/highlight.pack.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-	    $("div.postmsg").highlight("{{ highlight_word }}");
-	});
+		hljs.initHighlightingOnLoad();
 	</script>
-    {% endif %}
-    {% block extra_meta %}{% endblock %}
+	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}forum/css/hljs_styles/djangobb.css" />
+	{% if highlight_word %}
+		<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/jquery.highlight-3.pack.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("div.postmsg").highlight("{{ highlight_word }}");
+			});
+		</script>
+	{% endif %}
+	{% block extra_meta %}{% endblock %}
 </head>
 <body>
-    {% include 'forum/header.html' %}
-
-    {% block content %}{% endblock %}
-
+	{% include 'forum/header.html' %}
+	{% block content %}{% endblock %}
 	<div id="brdfooter" class="block">
 	<h2><span>{% trans "Board footer" %}</span></h2>
 	<div class="box">
