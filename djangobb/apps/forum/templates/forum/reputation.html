@@ -43,7 +43,7 @@
 						</td>
 						<td>{% forum_time reputation.time %}</td>
 						{% if request.user.is_superuser %}
-							<td style="text-align: center;"><input name="reputation_id[{{ reputation.id }}]" type="checkbox"></td>						
+							<td style="text-align: center;"><input type="checkbox" name="reputation_id" value="{{ reputation.id }}"></td>
 						{% endif %}
 					</tr>
 				{% endfor %}

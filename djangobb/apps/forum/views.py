@@ -1,5 +1,4 @@
 import math
-import re
 from datetime import datetime, timedelta
 
 from django.shortcuts import get_object_or_404
@@ -75,42 +74,22 @@ def moderate(request, forum_id):
     forum = Forum.objects.get(pk=forum_id)
     topics = forum.topics.filter(sticky=False).select_related()
     if request.user.is_superuser or request.user in forum.moderators.all():
+        topic_list = request.POST.getlist('topic_id')
         if 'move_topics' in request.POST:
-            for topic in request.POST:
-                topic_match = re.match('topic_id\[(\d+)\]', topic)
-
-                if topic_match:
-                    topic_id = topic_match.group(1)
-                    reverse('move_topic', args=[topic_id])
-
+            #TODO
             return HttpResponseRedirect(reverse('index'))
         elif 'delete_topics' in request.POST:
-            for topic in request.POST:
-                topic_match = re.match('topic_id\[(\d+)\]', reputation)
-
-                if topic_match:
-                    topic_id = topic_match.group(1)
-                    topic = get_object_or_404(Topic, pk=topic_id)
-                    topic.delete()
-                        
+            for topic_id in topic_list:
+                topic = get_object_or_404(Topic, pk=topic_id)
+                topic.delete()
             return HttpResponseRedirect(reverse('index'))
         elif 'open_topics' in request.POST:
-            for topic in request.POST:
-                topic_match = re.match('topic_id\[(\d+)\]', topic)
-
-                if topic_match:
-                    topic_id = topic_match.group(1)
-                    open_topic(request, topic_id)
-
+            for topic_id in topic_list:
+                open_topic(request, topic_id)
             return HttpResponseRedirect(reverse('index'))
         elif 'close_topics' in request.POST:
-            for topic in request.POST:
-                topic_match = re.match('topic_id\[(\d+)\]', topic)
-
-                if topic_match:
-                    topic_id = topic_match.group(1)
-                    close_topic(request, topic_id)
-                        
+            for topic_id in topic_list:
+                close_topic(request, topic_id)
             return HttpResponseRedirect(reverse('index'))
 
         return {'forum': forum,
@@ -510,7 +489,6 @@ def reputation(request, username):
                 form.fields['sign'].initial = 1
             elif request.GET['action'] == 'minus':
                 form.fields['sign'].initial = -1
-            
             return {'form': form,
                     'TEMPLATE': 'forum/reputation_form.html'
                     }
@@ -519,14 +497,10 @@ def reputation(request, username):
 
     elif request.method == 'POST':
         if 'del_reputation' in request.POST:
-            for reputation in request.POST:
-                reputation_match = re.match('reputation_id\[(\d+)\]', reputation)
-                
-                if reputation_match:
-                    reputation_id = reputation_match.group(1)
+            reputation_list = request.POST.getlist('reputation_id')
+            for reputation_id in reputation_list:
                     reputation = get_object_or_404(Reputation, pk=reputation_id)
                     reputation.delete()
-
             return HttpResponseRedirect(reverse('index'))
         elif form.is_valid():
             form.save()
@@ -535,10 +509,8 @@ def reputation(request, username):
             return HttpResponseRedirect(topic.get_absolute_url())
         else:
             raise Http404
-
     else:
         reputations = Reputation.objects.filter(to_user=user).order_by('-time').select_related()
-        
         return {'reputations': reputations,
                 'profile': user.forum_profile,
                }
@@ -578,10 +550,10 @@ def delete_posts(request, topic_id):
 
     if forum_moderated_by(topic, request.user):
         deleted = False
-        for post in request.POST:
+        post_list = request.POST.getlist('post')
+        for post_id in post_list:
             if not deleted:
                 deleted = True
-            post_id = re.match('post\[(\d+)\]', post).group(1)
             delete_post(request, post_id)
         if deleted:
             return HttpResponseRedirect(topic.get_absolute_url())
