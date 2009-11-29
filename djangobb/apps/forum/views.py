@@ -291,13 +291,12 @@ def show_topic(request, topic_id, full=True):
     if forum_settings.REPUTATION_SUPPORT:
         replies_list = Reputation.objects.filter(to_user__pk__in=users).values('to_user_id').annotate(sign=Sum('sign')) #values_list buggy?
 
-        if replies_list:
-            replies = {}
-            for r in replies_list:
-                replies[r['to_user_id']] = r['sign']
+        replies = {}
+        for r in replies_list:
+            replies[r['to_user_id']] = r['sign']
 
-            for post in posts:
-                post.user.forum_profile.reply_total = replies.get(post.user.id, 0)
+        for post in posts:
+            post.user.forum_profile.reply_total = replies.get(post.user.id, 0)
 
     initial = {}
     if request.user.is_authenticated():

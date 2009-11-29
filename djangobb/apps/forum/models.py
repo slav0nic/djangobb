@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 import os.path
-
+from markdown import Markdown
 
 from django.db import models
 from django.contrib.auth.models import User, Group
@@ -10,8 +10,6 @@ from django.utils.html import escape, strip_tags
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.hashcompat import sha_constructor
-#from django.contrib.markup.templatetags.markup import markdown
-from markdown import Markdown
 
 from forum.markups import mypostmarkup 
 from forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
