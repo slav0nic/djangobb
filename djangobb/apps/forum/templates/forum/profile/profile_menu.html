@@ -4,14 +4,14 @@
 		<div class="box">
 			<div class="inbox">
 				<ul>
-					<li {%ifequal active_menu "essentials" %}class="isactive"{% endifequal %}><a href="{% url forum_profile profile %}?section=essentials">{% trans "Essentials" %}</a></li>
-					<li {%ifequal active_menu "personal" %}class="isactive"{% endifequal %}><a href="{% url forum_profile profile %}?section=personal">{% trans "Personal" %}</a></li>
-					<li {%ifequal active_menu "messaging" %}class="isactive"{% endifequal %}><a href="{% url forum_profile profile %}?section=messaging">{% trans "Messaging" %}</a></li>
-					<li {%ifequal active_menu "personality" %}class="isactive"{% endifequal %}><a href="{% url forum_profile profile %}?section=personality">{% trans "Personality" %}</a></li>
-					<li {%ifequal active_menu "display" %}class="isactive"{% endifequal %}><a href="{% url forum_profile profile %}?section=display">{% trans "Display" %}</a></li>
-					<li {%ifequal active_menu "privacy" %}class="isactive"{% endifequal %}><a href="{% url forum_profile profile %}?section=privacy">{% trans "Privacy" %}</a></li>
+					<li {%ifequal active_menu "essentials" %}class="isactive"{% endifequal %}><a href="{% url djangobb:forum_profile profile %}?section=essentials">{% trans "Essentials" %}</a></li>
+					<li {%ifequal active_menu "personal" %}class="isactive"{% endifequal %}><a href="{% url djangobb:forum_profile profile %}?section=personal">{% trans "Personal" %}</a></li>
+					<li {%ifequal active_menu "messaging" %}class="isactive"{% endifequal %}><a href="{% url djangobb:forum_profile profile %}?section=messaging">{% trans "Messaging" %}</a></li>
+					<li {%ifequal active_menu "personality" %}class="isactive"{% endifequal %}><a href="{% url djangobb:forum_profile profile %}?section=personality">{% trans "Personality" %}</a></li>
+					<li {%ifequal active_menu "display" %}class="isactive"{% endifequal %}><a href="{% url djangobb:forum_profile profile %}?section=display">{% trans "Display" %}</a></li>
+					<li {%ifequal active_menu "privacy" %}class="isactive"{% endifequal %}><a href="{% url djangobb:forum_profile profile %}?section=privacy">{% trans "Privacy" %}</a></li>
 					{# if request.user.is_superuser #}
-					<!--li {%ifequal active_menu "admin" %}class="isactive"{% endifequal %}><a href="{% url forum_profile profile %}?section=admin">{% trans "Administration" %}</a></li-->
+					<!--li {% ifequal active_menu "admin" %}class="isactive"{% endifequal %}><a href="{% url djangobb:forum_profile profile %}?section=admin">{% trans "Administration" %}</a></li-->
 					{# endif #}
 
 				</ul>

@@ -38,7 +38,7 @@ urlpatterns = patterns('',
     
     # Apps
     (r'^forum/account/', include(authopenid_urlpatterns)),
-    (r'^forum/', include('forum.urls')),
+    (r'^forum/', include('forum.urls', namespace='djangobb')),
     
     # Feeds
     url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',

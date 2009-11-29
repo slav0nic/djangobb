@@ -22,11 +22,11 @@
 						<div class="intd">
 							<div class="icon"><div class="nosize"><!-- --></div></div>
 							<div class="tclcon">
-								<a href="{% url forum_show_pm msg.id %}">{{ msg.subject }}</a>
+								<a href="{% url djangobb:forum_show_pm msg.id %}">{{ msg.subject }}</a>
 							</div>
 						</div>
 					</td>
-					<td class="tc2" style="white-space: nowrap; OVERFLOW: hidden"><a href="{% url forum_profile msg.dst_user.username %}">{{ msg.dst_user }}</a></td>
+					<td class="tc2" style="white-space: nowrap; OVERFLOW: hidden"><a href="{% url djangobb:forum_profile msg.dst_user.username %}">{{ msg.dst_user }}</a></td>
 					<td class="tcr" style="white-space: nowrap">{% forum_time msg.created %}</td>
 				</tr>
 				{% endfor %}

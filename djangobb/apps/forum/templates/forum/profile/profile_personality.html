@@ -13,20 +13,20 @@
 					<fieldset id="profileavatar">
 						<legend>{% trans "Set your avatar display options" %}</legend>
 						<div class="infldset">
-						{{ profile.forum_profile.avatar.errors }}
-						{% if profile.forum_profile.avatar %}
-						<img src="{{ profile.forum_profile.avatar.url }}" />
-						{% endif %}
-					<p>{% trans "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts." %}</p>
+							{{ profile.forum_profile.avatar.errors }}
+							{% if profile.forum_profile.avatar %}
+								<img src="{{ profile.forum_profile.avatar.url }}" />
+							{% endif %}
+							<p>{% trans "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts." %}</p>
 							<div class="rbox">
 								{{ form.show_avatar.errors }}
 								<label>{{ form.show_avatar }}{% trans "Use avatar." %}<br></label>
 							</div>
 							{% if profile.forum_profile.avatar %}
-							<p class="clearb"><a href="{% url forum_profile profile.username %}?action=upload_avatar">{% trans "Upload avatar" %}</a>
-							&nbsp;&nbsp;&nbsp;<a href="{% url forum_profile profile.username %}?action=delete_avatar">{% trans "Delete avatar" %}</a></p>
+								<p class="clearb"><a href="{% url djangobb:forum_profile profile.username %}?action=upload_avatar">{% trans "Upload avatar" %}</a>
+								&nbsp;&nbsp;&nbsp;<a href="{% url djangobb:forum_profile profile.username %}?action=delete_avatar">{% trans "Delete avatar" %}</a></p>
 							{% else %}
-							<p class="clearb"><a href="{% url forum_profile profile.username %}?action=upload_avatar">{% trans "Upload avatar" %}</a>
+								<p class="clearb"><a href="{% url djangobb:forum_profile profile.username %}?action=upload_avatar">{% trans "Upload avatar" %}</a>
 							{% endif %}
 						</div>
 					</fieldset>
@@ -34,7 +34,6 @@
 				<div class="inform">
 					<fieldset>
 						<legend>{% trans "Compose your signature" %}</legend>
-
 						<div class="infldset">
 							{{ form.signature.errors }}
 							<p>{% trans "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature." %}</p>
@@ -44,9 +43,9 @@
 								<br></label>
 							</div>
 							{% if profile.forum_profile.signature %}
-							<p>{{ profile.forum_profile.signature|safe }}</p>
+								<p>{{ profile.forum_profile.signature|safe }}</p>
 							{% else %}
-							<p>{% trans "No signature currently stored in profile." %}</p>
+								<p>{% trans "No signature currently stored in profile." %}</p>
 							{% endif %}
 						</div>
 					</fieldset>

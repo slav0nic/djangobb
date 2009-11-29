@@ -33,14 +33,14 @@
 	                    <dd>{% trans "IP:" %} {{ post_user_ip }}</dd>
 	                    {% endif %}
 						{% if "REPUTATION_SUPPORT"|forum_setting %}
-						<dd><a href="{% url reputation post_user %}">{% trans "Reputation" %}</a> : <b>{{ post_user.forum_profile.reply_total }}</b></dd>
+						<dd><a href="{% url djangobb:reputation post_user %}">{% trans "Reputation" %}</a> : <b>{{ post_user.forum_profile.reply_total }}</b></dd>
 						{% endif %}
-						<dd class="usercontacts"><a href="{% url forum_profile post_user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
+						<dd class="usercontacts"><a href="{% url djangobb:forum_profile post_user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
 						{% ifequal post_user.forum_profile.privacy_permission 0 %}
 						<a href="mailto:{{ post_user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
 						{% endifequal %}
 						{% if user_is_authenticated %}
-						<a href="{% url forum_create_pm %}?recipient={{ post_user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
+						<a href="{% url djangobb:forum_create_pm %}?recipient={{ post_user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
 						{% endif %}
 					</dl>
 				</div>
@@ -72,12 +72,12 @@
 						<li>
 								{% if moderator or post|forum_equal_to:last_post %}
 								{% if moderator or post.user|forum_equal_to:user %}
-								/ <a onclick="return confirm('{% trans "Are you sure you want to delete this post?" %}')" href="{% url delete_post post.id %}">{% trans "Delete" %}</a>
+								/ <a onclick="return confirm('{% trans "Are you sure you want to delete this post?" %}')" href="{% url djangobb:delete_post post.id %}">{% trans "Delete" %}</a>
 								{% endif %}
 								{% endif %}
 						</li>
 						{% if inbox %}
-						<li><a href="{% url forum_create_pm %}?recipient={{ post.src_user.username }}">{% trans "Reply" %}</a></li>
+						<li><a href="{% url djangobb:forum_create_pm %}?recipient={{ post.src_user.username }}">{% trans "Reply" %}</a></li>
 						{% endif %}
 					</ul>
 				</div>

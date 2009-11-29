@@ -5,7 +5,7 @@
 {% block content %}
 <div id='largetext'>{% trans "Full Version:" %} {% link topic %}</div>
 <div class='djangobbnav'>
-	<a href="{% url lofi_index %}">{% trans "Root" %}</a> &raquo; {% lofi_link topic.forum %} &raquo; {% lofi_link topic %}
+	<a href="{% url djangobb:lofi_index %}">{% trans "Root" %}</a> &raquo; {% lofi_link topic.forum %} &raquo; {% lofi_link topic %}
 </div>
 
 <div class="djangobbpagespan">
