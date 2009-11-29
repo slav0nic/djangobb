@@ -14,33 +14,33 @@
 						<dt><strong>{{ post_user|profile_link }}</strong></dt>
 						<dd>
 						{% if post_user.forum_profile.status %}
-						<strong>{{ post_user.forum_profile.status }}</strong>
+							<strong>{{ post_user.forum_profile.status }}</strong>
 						{% else %}
-						<strong>{{ post_user.forum_profile.group }}</strong>
+							<strong>{{ post_user.forum_profile.group }}</strong>
 						{% endif %}
 						</dd>
-						{% if "AUTHORITY_SUPPORT"|forum_setting %}
-						<dd class="usertitle">
-						{{ post_user|forum_authority }}
-						</dd>
+						{% if forum_settings.AUTHORITY_SUPPORT" %}
+							<dd class="usertitle">
+							{{ post_user|forum_authority }}
+							</dd>
 						{% endif %}
 						{% if post_user.forum_profile.avatar %}
-						<dd class="postavatar"><img src="{{ post_user.forum_profile.avatar.url }}" /></dd>
+							<dd class="postavatar"><img src="{{ post_user.forum_profile.avatar.url }}" /></dd>
 						{% endif %}
 						<dd>{% trans "Registered:" %} {{ post_user.date_joined|date:"Y-m-d" }}</dd>
 						<dd>{% trans "Posts:" %} {{ post_user.posts.count }}</dd>
 						{% if moderator %}
-	                    <dd>{% trans "IP:" %} {{ post_user_ip }}</dd>
-	                    {% endif %}
-						{% if "REPUTATION_SUPPORT"|forum_setting %}
-						<dd><a href="{% url djangobb:reputation post_user %}">{% trans "Reputation" %}</a> : <b>{{ post_user.forum_profile.reply_total }}</b></dd>
+							<dd>{% trans "IP:" %} {{ post_user_ip }}</dd>
+						{% endif %}
+						{% if forum_settings.REPUTATION_SUPPORT %}
+							<dd><a href="{% url djangobb:reputation post_user %}">{% trans "Reputation" %}</a> : <b>{{ post_user.forum_profile.reply_total }}</b></dd>
 						{% endif %}
 						<dd class="usercontacts"><a href="{% url djangobb:forum_profile post_user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
 						{% ifequal post_user.forum_profile.privacy_permission 0 %}
-						<a href="mailto:{{ post_user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
+							<a href="mailto:{{ post_user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
 						{% endifequal %}
 						{% if user_is_authenticated %}
-						<a href="{% url djangobb:forum_create_pm %}?recipient={{ post_user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
+							<a href="{% url djangobb:forum_create_pm %}?recipient={{ post_user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
 						{% endif %}
 					</dl>
 				</div>
@@ -84,7 +84,5 @@
 			</div>
 		</div>
 	</div>
-
 {% endwith %}
 {% endblock %}
-

@@ -35,7 +35,7 @@
 								<strong>{{ post.user.forum_profile.group }}</strong>
 							{% endif %}
 						</dd>
-						{% if "AUTHORITY_SUPPORT"|forum_setting %}
+						{% if forum_settings.AUTHORITY_SUPPORT %}
 							<dd class="usertitle">
 								{{ post.user|forum_authority }}
 							</dd>
@@ -53,7 +53,7 @@
 						{% if moderator %}
 							<dd>{% trans "IP:" %} {{ post.user_ip }}</dd>
 						{% endif %}
-						{% if "REPUTATION_SUPPORT"|forum_setting %}
+						{% if forum_settings.REPUTATION_SUPPORT %}
 							{% ifnotequal request.user post.user.username %}
 								<dd><a href="{% url djangobb:reputation post.user %}">{% trans "Reputation" %}</a> : <a href="{% url djangobb:reputation post.user %}?action=plus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" border="0"></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url djangobb:reputation post.user %}?action=minus&topic_id={{ post.topic.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" border="0"></a></dd>
 							{% endifnotequal %}
@@ -66,7 +66,7 @@
 									<a href="{% url djangobb:misc %}?mail_to={{ post.user }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
 							{% endifequal %}
 						{% endifequal %}
-						{% if "PM_SUPPORT"|forum_setting %}
+						{% if forum_settings.PM_SUPPORT %}
 							{% if user.is_authenticated %}
 								<a href="{% url djangobb:forum_create_pm %}?recipient={{ post.user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
 							{% endif %}
@@ -152,7 +152,7 @@
 					</div>
 				</fieldset>
 			</div>
-			{% if "ATTACHMENT_SUPPORT"|forum_setting %}
+			{% if forum_settings.ATTACHMENT_SUPPORT %}
 				<div class="inform">
 					<fieldset>
 						<legend>{% trans "Attachment" %}</legend>
@@ -170,7 +170,7 @@
 </div>
 {% endif %}
 
-{% if "LOFI_SUPPORT"|forum_setting %}
+{% if forum_settings.LOFI_SUPPORT %}
 	<div id="brdfooter" class="block">
 		<div class="box">
 			<div class="inbox" align="center">

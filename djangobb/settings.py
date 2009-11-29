@@ -127,7 +127,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
-    'django_authopenid.context_processors.authopenid'
+    'django_authopenid.context_processors.authopenid',
+    'forum.context_processors.forum_settings'
 )
 
 # Djapian settings
@@ -142,6 +143,6 @@ LOGIN_URL = '/forum/account/signin/'
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
 try:
-   from local_settings import *
+    from local_settings import *
 except ImportError:
     pass

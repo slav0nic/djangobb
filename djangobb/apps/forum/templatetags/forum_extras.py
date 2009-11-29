@@ -38,6 +38,7 @@ def forum_time(parser, token):
     else:
         return ForumTimeNode(time)
 
+
 class ForumTimeNode(template.Node):
     def __init__(self, time):
         self.time = template.Variable(time)
@@ -54,6 +55,7 @@ class ForumTimeNode(template.Node):
             return u'Вчера %s' % time.strftime('%H:%M:%S')
         else:
             return time.strftime('%Y-%m-%d %H:%M:%S')
+
 
 # TODO: this old code requires refactoring
 @register.inclusion_tag('forum/pagination.html',takes_context=True)
@@ -161,11 +163,6 @@ def has_unreads(topic, user):
 
 
 @register.filter
-def forum_setting(name):
-    return getattr(forum_settings, name, 'NOT DEFINED')
-
-
-@register.filter
 def forum_moderated_by(topic, user):
     """
     Check if user is moderator of topic's forum.
@@ -233,13 +230,16 @@ def forum_authority(user):
     else:
         return mark_safe('<img src="%sforum/img/authority/vote0.gif" alt="" >' % (settings.MEDIA_URL))
 
+    
 @register.filter
 def online(user):
     return cache.get(str(user.id))
 
+
 @register.filter
 def pm_unreads(user):
     return PrivateMessage.objects.filter(dst_user=user, read=False).count()
+
 
 @register.filter
 def attachment_link(attach):
@@ -257,9 +257,11 @@ def attachment_link(attach):
     attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     return mark_safe(attachment)
 
+
 @register.simple_tag
 def new_reports():
     return Report.objects.filter(zapped=False).count()
+
 
 @register.simple_tag
 def gravatar(email):
