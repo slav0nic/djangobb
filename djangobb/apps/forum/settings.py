@@ -5,7 +5,9 @@ def get(key, default):
     return getattr(settings, key, default)
 
 # FORUM Settings
-ADMIN_EMAIL = get('ADMIN_EMAIL', 'alafin@python.su')
+FORUM_BASE_TITLE = get('FORUM_BASE_TITLE', 'Django Bulletin Board')
+FORUM_META_DESCRIPTION = get('FORUM_META_DESCRIPTION', '')
+FORUM_META_KEYWORDS = get('FORUM_META_KEYWORDS', '')
 TOPIC_PAGE_SIZE = get('TOPIC_PAGE_SIZE', 10)
 FORUM_PAGE_SIZE = get('FORUM_PAGE_SIZE', 20)
 SEARCH_PAGE_SIZE = get('SEARCH_PAGE_SIZE', 20)
