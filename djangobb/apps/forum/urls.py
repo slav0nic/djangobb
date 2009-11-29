@@ -2,6 +2,16 @@ from django.conf.urls.defaults import *
 
 from forum import settings as forum_settings
 from forum import views as forum_views
+from forum.feeds import LastPosts, LastTopics, LastPostsOnForum,\
+     LastPostsOnCategory, LastPostsOnTopic
+
+feeds = {
+    'posts': LastPosts,
+    'topics': LastTopics,
+    'topic': LastPostsOnTopic,
+    'forum': LastPostsOnForum,
+    'category': LastPostsOnCategory,
+}
 
 urlpatterns = patterns('',
 
@@ -39,6 +49,9 @@ urlpatterns = patterns('',
     # Subscription
     url('^subscription/topic/(?P<topic_id>\d+)/delete/$', forum_views.delete_subscription, name='forum_delete_subscription'),
     url('^subscription/topic/(?P<topic_id>\d+)/add/$', forum_views.add_subscription, name='forum_add_subscription'),
+    # Feeds
+    url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
+        {'feed_dict': feeds}, name='forum_feed'),
 )
 
 
