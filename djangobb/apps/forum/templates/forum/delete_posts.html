@@ -7,14 +7,13 @@
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
 				<ul><li><a href="{% url index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
-				<a href="{% url forum_feed "topic" %}{{ topic.id }}"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" style="vertical-align:middle;" /></a>
+				<a href="{% url forum_feed "topic" %}{{ topic.id }}"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" style="vertical-align:middle;" /></a>
 				</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
 
 <form method="post">
-	
 {% for post in posts %}
 <div id="p{{ post.id }}" class="blockpost roweven firstpost">
 	<a name="post-{{ post.id }}"></a>
@@ -22,7 +21,6 @@
 	<div class="box">
 		<div class="inbox">
 			<div class="postleft">
-
 				<dl>
 					<dt><strong><a href="{% url forum_profile post.user %}">{{ post.user }}</a></strong></dt>
 					<dd class="usertitle"><strong>{{ post.user.forum_profile.status }}</strong></dd>
@@ -30,20 +28,18 @@
 			</div>
 			<div class="postright">
 				<h3>{{ post.topic.name }}</h3>
-
 				<div class="postmsg">
 					{{ post.body_html|safe }}
-                    {% if post.updated %}
-                    	<p class="postedit"><em>{% trans "Edited" %} {{ post.user }} ({% forum_time post.updated %})</em></p>
-                    {% endif %}
+			{% if post.updated %}
+				<p class="postedit"><em>{% trans "Edited" %} {{ post.user }} ({% forum_time post.updated %})</em></p>
+			{% endif %}
 				</div>
 				{% if not forloop.first %} 
-				<p class="multidelete"><label><strong>{% trans "Select" %}</strong>&nbsp;&nbsp;<input type="checkbox" name="post[{{ post.id }}]" value="1" /></label></p>
+				<p class="multidelete"><label><strong>{% trans "Select" %}</strong>&nbsp;&nbsp;<input type="checkbox" name="post" value="{{ post.id }}" /></label></p>
 				{% endif %}
 			</div>
 			<div class="clearer"></div>
 		</div>
-
 	</div>
 </div>
 {% endfor %}
@@ -54,8 +50,6 @@
 		<p class="conr"><input type="submit" value="{% trans "Delete" %}" /></p>
 		<div class="clearer"></div>
 	</div>
-
 </div>
 </form>
 {% endblock %}
-
