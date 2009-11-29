@@ -6,7 +6,7 @@
 <div class="linkst">
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
-				<ul><li><a href="{% url index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
+				<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
 				<a href="{% url forum_feed "topic" %}{{ topic.id }}"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" style="vertical-align:middle;" /></a>
 				</li></ul>
 		<div class="clearer"></div>
@@ -22,7 +22,7 @@
 		<div class="inbox">
 			<div class="postleft">
 				<dl>
-					<dt><strong><a href="{% url forum_profile post.user %}">{{ post.user }}</a></strong></dt>
+					<dt><strong><a href="{% url djangobb:forum_profile post.user %}">{{ post.user }}</a></strong></dt>
 					<dd class="usertitle"><strong>{{ post.user.forum_profile.status }}</strong></dd>
 				</dl>
 			</div>

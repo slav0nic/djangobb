@@ -10,7 +10,7 @@ class ForumFeed(Feed):
     feed_type = Atom1Feed
 
     def link(self):
-        return reverse('forum.views.index')
+        return reverse('djangobb:forum.views.index')
 
     def item_guid(self, obj):
         return str(obj.id)

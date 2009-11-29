@@ -40,7 +40,7 @@
 							<label><strong>{{ form.email.label }}</strong><br>
 							{{ form.email }}<br></label>
 							{% if request.user.is_superuser %}
-							<p><a href="{% url misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
+							<p><a href="{% url djangobb:misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
 							{% endif %}
 
 						</div>
@@ -73,7 +73,7 @@
 							<p>{% trans "Registered:" %} {{ profile.date_joined|date:"Y-m-d" }}</p>
 							<p>{% trans "Last post:" %} {{ profile.forum_profile.last_post }}</p>
 							<label>{% trans "Posts:" %} {{ profile.forum_profile.post_count }} - 
-							<a href="{% url search %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></p>
+							<a href="{% url djangobb:search %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></p>
 							</label>
 						</div>
 					</fieldset>

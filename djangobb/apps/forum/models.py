@@ -5,7 +5,6 @@ from markdown import Markdown
 
 from django.db import models
 from django.contrib.auth.models import User, Group
-from django.core.urlresolvers import reverse
 from django.utils.html import escape, strip_tags
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -102,8 +101,9 @@ class Forum(models.Model):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
     def get_absolute_url(self):
-        return reverse('forum', args=[self.id])
+        return ('djangobb:forum', [self.id])
 
     @property
     def posts(self):
@@ -142,8 +142,9 @@ class Topic(models.Model):
     def reply_count(self):
         return self.post_count - 1
 
+    @models.permalink
     def get_absolute_url(self):
-        return reverse('topic', args=[self.id])
+        return ('djangobb:topic', [self.id])
 
     def save(self, *args, **kwargs):
         if self.id is None:
@@ -189,13 +190,6 @@ class Post(models.Model):
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
 
-    def summary(self):
-        LIMIT = 50
-        tail = len(self.body) > LIMIT and '...' or '' 
-        return self.body[:LIMIT] + tail
-
-    __unicode__ = summary
-
     def save(self, *args, **kwargs):
         if self.created is None:
             self.created = datetime.now()
@@ -211,9 +205,6 @@ class Post(models.Model):
         if forum_settings.SMILES_SUPPORT:
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse('post', args=[self.id])
 
     def delete(self, *args, **kwargs):
         self_id = self.id
@@ -240,6 +231,17 @@ class Post(models.Model):
         forum.post_count = Post.objects.filter(topic__forum=forum).count()
         forum.topic_count = Topic.objects.filter(forum=forum).count()
         forum.save()
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('djangobb:post', [self.id])
+
+    def summary(self):
+        LIMIT = 50
+        tail = len(self.body) > LIMIT and '...' or '' 
+        return self.body[:LIMIT] + tail
+
+    __unicode__ = summary
 
 
 class Reputation(models.Model):
@@ -341,22 +343,15 @@ class PrivateMessage(models.Model):
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
     body_text = models.TextField(_('Text version'))
-    
+
     class Meta:
         ordering = ['-created']
         verbose_name = _('Private message')
         verbose_name_plural = _('Private messages')
-        
-    # TODO: summary and part of the save method is the same as in the Post model
-    # move to common functions
-    def summary(self):
-        LIMIT = 50
-        tail = len(self.body) > LIMIT and '...' or '' 
-        return self.body[:LIMIT] + tail
 
     def __unicode__(self):
         return self.subject
-    
+
     def save(self, *args, **kwargs):
         if self.created is None:
             self.created = datetime.now()
@@ -373,9 +368,17 @@ class PrivateMessage(models.Model):
             self.body_html = smiles(self.body_html)
         new = self.id is None
         super(PrivateMessage, self).save(*args, **kwargs)
-    
+
+    @models.permalink
     def get_absolute_url(self):
-        return  reverse('forum_show_pm', args=[self.id])
+        return  ('djangobb:forum_show_pm', [self.id])
+
+    # TODO: summary and part of the save method is the same as in the Post model
+    # move to common functions
+    def summary(self):
+        LIMIT = 50
+        tail = len(self.body) > LIMIT and '...' or '' 
+        return self.body[:LIMIT] + tail
 
 
 class Ban(models.Model):
@@ -387,7 +390,10 @@ class Ban(models.Model):
     class Meta:
         verbose_name = _('Ban')
         verbose_name_plural = _('Bans')
-        
+
+    def __unicode__(self):
+        return self.user.username
+
     def save(self, *args, **kwargs):
         self.user.is_active = False
         self.user.save()
@@ -398,9 +404,6 @@ class Ban(models.Model):
         self.user.save()
         super(Ban, self).delete(*args, **kwargs)
 
-    def __unicode__(self):
-        return self.user.username
-
 
 class Attachment(models.Model):
     post = models.ForeignKey(Post, verbose_name=_('Post'), related_name='attachments')
@@ -410,17 +413,18 @@ class Attachment(models.Model):
     name = models.TextField(_('Name'))
     hash = models.CharField(_('Hash'), max_length=40, blank=True, default='', db_index=True)
 
+    def __unicode__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         super(Attachment, self).save(*args, **kwargs)
         if not self.hash:
             self.hash = sha_constructor(str(self.id) + settings.SECRET_KEY).hexdigest()
         super(Attachment, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return self.name
-
+    @models.permalink
     def get_absolute_url(self):
-        return reverse('forum_attachment', args=[self.hash])
+        return ('djangobb:forum_attachment', [self.hash])
 
     def get_absolute_path(self):
         return os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO,

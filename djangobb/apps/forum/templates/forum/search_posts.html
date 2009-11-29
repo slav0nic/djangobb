@@ -20,7 +20,7 @@
 		<div class="inbox">
 			<div class="postleft">
 				<dl>
-					<dt><strong><a href="{% url forum_profile post.instance.user %}">{{ post.instance.user }}</a></strong></dt>
+					<dt><strong><a href="{% url djangobb:forum_profile post.instance.user %}">{{ post.instance.user }}</a></strong></dt>
 					<dd>{% trans "Replies:" %} {{ post.instance.topic.post_count }}</dd>
 					<dd><div class="icon"><div class="nosize"><!-- --></div></div>
 </dd>
@@ -65,11 +65,11 @@
 {% block controls %}
 				<dl id="searchlinks" class="conl">
 					<dt><strong>{% trans "Search links" %}</strong></dt>
-					<dd><a href="{% url search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
-					<dd><a href="{% url search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
+					<dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
+					<dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
 					{% if user.is_authenticated %}
-					<dd><a href="{% url search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
-					<dd><a href="{% url search %}?action=show_user&amp;user_id={{ request.user.id }}">{% trans "Show your posts" %}</a></dd>
+					<dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
+					<dd><a href="{% url djangobb:search %}?action=show_user&amp;user_id={{ request.user.id }}">{% trans "Show your posts" %}</a></dd>
 					{% endif %}
 				</dl>
 {% endblock %}

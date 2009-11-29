@@ -6,9 +6,9 @@
 <div class="linkst">
 	<div class="inbox">
 		{% if forum %}
-    		<ul class="start"><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link forum %}</li></ul>
+    		<ul class="start"><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link forum %}</li></ul>
 		{% else %}
-			<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link topic.forum %}</li><li>&raquo; {{ topic }}</li></ul>
+			<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link topic.forum %}</li><li>&raquo; {{ topic }}</li></ul>
 		{% endif %}
 		<div class="clearer"></div>
 	</div>
@@ -17,7 +17,7 @@
 <div class="blockform">
 	<h2><span>{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}</span></h2>
 	<div class="box">
-		<form id="post" action="{% if forum %}{% url add_topic forum.id %}{% else %}{% url add_post topic.id %}{% endif %}" method="post" enctype="multipart/form-data">
+		<form id="post" action="{% if forum %}{% url djangobb:add_topic forum.id %}{% else %}{% url djangobb:add_post topic.id %}{% endif %}" method="post" enctype="multipart/form-data">
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Write your message and submit" %}</legend>

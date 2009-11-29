@@ -8,9 +8,9 @@
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
 		{% if user.is_authenticated %}
-			<p class="postlink conr"><a href="{% url add_topic forum.id %}">{% trans "New topic" %}</a></p>
+			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
-		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
+		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -66,9 +66,9 @@
 	<div class="inbox">
 		<p class="pagelink conl">{% pagination %}</p>
 		{% if user.is_authenticated %}
-			<p class="postlink conr"><a href="{% url add_topic forum.id %}">{% trans "New topic" %}</a></p>
+			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
-		<ul><li><a href="{% url index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
+		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -88,7 +88,7 @@
 	<form id="qjump" method="get" action="forum">
 		<div><label>{% trans "Jump to" %}
 		<br />
-		<select name="id" id="forum_id" onchange="window.location=('{% url index %}'+this.options[this.selectedIndex].value)">
+		<select name="id" id="forum_id" onchange="window.location=('{% url djangobb:index %}'+this.options[this.selectedIndex].value)">
 			{% for category in categories %}
 				<optgroup label="{{ category }}">
 					{% for forum in category.forums.all %}
@@ -97,11 +97,11 @@
 				</optgroup>
 			{% endfor %}
 		</select>
-		<input type="button" onclick="window.location=('{% url index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
+		<input type="button" onclick="window.location=('{% url djangobb:index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
 		</label></div>
 	</form>
 	{% if moderator %}
-		<p id="modcontrols"><a href="{% url moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
+		<p id="modcontrols"><a href="{% url djangobb:moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
 	{% endif %}
 </div>
 {% endblock %}

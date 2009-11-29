@@ -31,7 +31,7 @@
 				<tbody>
 				{% for reputation in reputations %}
 					<tr>
-						<td><a href="{% url reputation reputation.from_user %}">{{ reputation.from_user }}</a></td>
+						<td><a href="{% url djangobb:reputation reputation.from_user %}">{{ reputation.from_user }}</a></td>
 						<td>{% link reputation.topic %}</td>
 						<td>{{ reputation.reason }}</td>
 						<td style="text-align: center;">
