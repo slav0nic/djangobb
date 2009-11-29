@@ -8,7 +8,7 @@ class SitemapForum(Sitemap):
     
     def items(self):
         return Forum.objects.all()
-    
+
 class SitemapTopic(Sitemap):
     priority = 0.5
     

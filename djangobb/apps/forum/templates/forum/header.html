@@ -6,8 +6,8 @@
 <div id="brdheader" class="block">
 	<div class="box">
 		<div id="brdtitle" class="inbox">
-			<h1><span><a href="{% url djangobb:index %}">{{ "HEADER"|forum_setting }}</a></span></h1>
-			<p><span>{{ "TAGLINE"|forum_setting|safe }}</span></p>
+			<h1><span><a href="{% url djangobb:index %}">{{ forum_setting.HEADER|safe }}</a></span></h1>
+			<p><span>{{ forum_settings.TAGLINE|safe }}</span></p>
 			{% if not user.is_authenticated %}
 			{% endif %}
 		</div>
@@ -21,7 +21,7 @@
 				{% endif %}
 				{% if user.is_authenticated %}
 					<li id="navprofile"><a href="{% url djangobb:forum_profile request.user %}">{% trans "Profile" %}</a></li>
-				{% if "PM_SUPPORT"|forum_setting %}
+				{% if forum_settings.PM_SUPPORT %}
 					<li id="navpm"><a href="{% url djangobb:forum_pm_inbox %}">{% trans "PM" %}</a></li> 
 				{% endif %}
 					<li id="navlogout"><a href="{% url user_signout %}?next={{ request.path }}">{% trans "Log out" %}</a></li>
@@ -57,12 +57,12 @@
 	</div>
 </div>
 
-{% if "NOTICE"|forum_setting %}
+{% if forum_settings.NOTICE %}
 <div id="announce" class="block">
 	<h2><span>{% trans "Notice" %}</span></h2>
 	<div class="box">
 		<div class="inbox">
-			<div>{{ "NOTICE"|forum_setting }}</div>
+			<div>{{ forum_settings.NOTICE }}</div>
 		</div>
 	</div>
 </div>

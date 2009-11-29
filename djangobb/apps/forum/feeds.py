@@ -60,7 +60,7 @@ class LastPostsOnTopic(ForumFeed):
         return _('Latest posts on %s topic' % obj.name)
 
     def items(self, obj):
-       return Post.objects.filter(topic__id__exact=obj.id).order_by('-created')[:15]
+        return Post.objects.filter(topic__id__exact=obj.id).order_by('-created')[:15]
 
 
 class LastPostsOnForum(ForumFeed):
@@ -84,7 +84,7 @@ class LastPostsOnForum(ForumFeed):
         return _('Latest posts on %s forum' % obj.name)
 
     def items(self, obj):
-       return Post.objects.filter(topic__forum__id__exact=obj.id).order_by('-created')[:15]
+        return Post.objects.filter(topic__forum__id__exact=obj.id).order_by('-created')[:15]
 
 
 class LastPostsOnCategory(ForumFeed):
@@ -103,4 +103,4 @@ class LastPostsOnCategory(ForumFeed):
         return _('Latest posts on %s category' % obj.name)
 
     def items(self, obj):
-       return Post.objects.filter(topic__forum__category__id__exact=obj.id).order_by('-created')[:15]
+        return Post.objects.filter(topic__forum__category__id__exact=obj.id).order_by('-created')[:15]
