@@ -50,9 +50,9 @@ class ForumTimeNode(template.Node):
         yesterday = today - timedelta(days=1)
         
         if time > today:
-            return u'Сегодня %s' % time.strftime('%H:%M:%S')
+            return _(u'Today %s' % time.strftime('%H:%M:%S'))
         elif time > yesterday:
-            return u'Вчера %s' % time.strftime('%H:%M:%S')
+            return _(u'Yesterday %s' % time.strftime('%H:%M:%S'))
         else:
             return time.strftime('%Y-%m-%d %H:%M:%S')
 
