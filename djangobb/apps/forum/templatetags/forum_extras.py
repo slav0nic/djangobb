@@ -13,6 +13,7 @@ from django.utils.html import escape
 from django.utils.translation import ugettext as _
 from django.utils import dateformat
 from django.utils.hashcompat import md5_constructor
+from django.contrib.humanize.templatetags.humanize import naturalday
 
 from forum.models import Forum, Topic, Post, PostTracking, PrivateMessage, Report
 from forum import settings as forum_settings
@@ -45,16 +46,9 @@ class ForumTimeNode(template.Node):
 
     def render(self, context):
         time = self.time.resolve(context)
-        delta = datetime.now() - time
-        today = datetime.now().replace(hour=0, minute=0, second=0)
-        yesterday = today - timedelta(days=1)
-        
-        if time > today:
-            return _(u'Today %s') % time.strftime('%H:%M:%S')
-        elif time > yesterday:
-            return _(u'Yesterday %s') % time.strftime('%H:%M:%S')
-        else:
-            return time.strftime('%Y-%m-%d %H:%M:%S')
+        formated_time = u'%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
+        formated_time = mark_safe(formated_time)
+        return formated_time
 
 
 # TODO: this old code requires refactoring
