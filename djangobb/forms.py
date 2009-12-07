@@ -1,9 +1,9 @@
 import re
 from django import forms
-from registration.forms import RegistrationForm
+from registration.forms import RegistrationFormUniqueEmail
 
 
-class RegistrationFormUtfUsername(RegistrationForm):
+class RegistrationFormUtfUsername(RegistrationFormUniqueEmail):
     '''
     Allowed UTF8 logins with space
     '''
