@@ -179,7 +179,7 @@ def search(request):
             if sort_dir == 'DESC':
                 order = '-' + order
             posts = post_indexer.search(query).order_by(order)
-            
+
             if 'topics' in request.GET['show_as']:
                 topics = []
                 for post in posts:
@@ -217,7 +217,7 @@ def misc(request):
                     form.save()
                     return HttpResponseRedirect(post.get_absolute_url())
                 return {'form':form}
-        
+
     elif 'submit' in request.POST and 'mail_to' in request.GET:
         form = MailToForm(request.POST)
         if form.is_valid():
@@ -226,7 +226,7 @@ def misc(request):
             body = form.cleaned_data['body']
             user.email_user(subject, body, request.user.email)
             return HttpResponseRedirect(reverse('djangobb:index'))
-        
+
     elif 'mail_to' in request.GET:
         user = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
