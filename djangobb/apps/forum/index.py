@@ -1,7 +1,8 @@
 import djapian
 
 from forum.models import Post
-        
+
+
 class PostIndexer(djapian.Indexer):
     fields=['body']
     tags=[
@@ -12,7 +13,7 @@ class PostIndexer(djapian.Indexer):
         ('created', 'created'         ),
     ]
 
-    trigger = lambda indexer, post: post.topic.forum.category.groups.count()
+    trigger = lambda indexer, post: not post.topic.forum.category.groups.count()
 
 
-post_indexer = djapian.add_index(Post, PostIndexer)
+post_indexer = djapian.space.add_index(Post, PostIndexer)
