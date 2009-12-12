@@ -1,0 +1,35 @@
+body {background-color: #fff; color: #333333; text-align: left; font-family: Verdana,Arial,Helvetica,sans-serif; }
+div.dialog {
+	width: 25em;
+	padding: 0 4em;
+	margin: 4em auto 0 auto;
+	border: 1px solid #ccc;
+	border-right-color: #999;
+	border-bottom-color: #999;
+}
+h1 {font-size: 40px; color: #333333; font-weight: normal; margin: 0px; padding: 30px 0px 5px 0px;}
+h3 {font-size: 18px; color: #333333; font-weight: normal; margin: 0px; padding: 0px 0px 10px 0px;}
+p {font-size: 12px;}
+
+table.p404 {background: #f8f8f8; border: 1px solid #d6d6d6; width: 450px;}
+
+#h_align {
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	overflow: visible;
+	visibility: visible;
+	display: block
+	}
+#content    
+	{
+	margin-left: -224px;
+	position: absolute;
+	top: -150px;
+	left: 50%;
+	width: 450px;
+	height: 300px;
+	visibility: visible
+	}

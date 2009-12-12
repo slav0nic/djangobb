@@ -1,0 +1,56 @@
+{% load i18n %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>404 Page not found</title>
+  <link href="{{ MEDIA_URL }}forum/css/error.css" media="screen" rel="stylesheet" type="text/css" />	
+</head>
+
+<body>
+	
+
+
+	<div id="h_align">
+
+		<div id="content">
+			<table class="p404" cellspacing="0" cellpadding="0">
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3"><img style="margin: 0px 0px 0px 15px;" src="{{ MEDIA_URL }}forum/img/logo.png" /></td>
+			</tr>
+			<tr>
+
+				<td width="50"></td>
+				<td><h1>{% trans "Error 404" %}</h1></td>
+				<td width="50"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><h3>{% trans "Page not found." %}</h3></td>
+				<td></td>
+
+			</tr>
+			<tr>
+				<td></td>
+				<td><p>{% trans "The requested URL was not found on this server." %}</p>
+			<p><a href="{% url djangobb:index %}">{% trans "Back home" %}</a></p>
+			</td>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			</table>	
+		</div>
+	</div>
+
+</body>
+</html>
