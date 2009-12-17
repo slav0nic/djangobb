@@ -111,6 +111,32 @@ class AddPostForm(forms.ModelForm):
             obj.save()
 
 
+class EditPostForm(forms.ModelForm):
+    name = forms.CharField(required=False, label=_('Subject'),
+                           widget=forms.TextInput(attrs={'size':'115'}))
+
+    class Meta:
+        model = Post
+        fields = ['body']
+
+    def __init__(self, *args, **kwargs):
+        self.topic = kwargs.pop('topic', None)
+        super(EditPostForm, self).__init__(*args, **kwargs)
+        self.fields['name'].initial = self.topic
+        self.fields['body'].widget = forms.Textarea(attrs={'class':'bbcode'})
+
+    def save(self, commit=True):
+        post = super(EditPostForm, self).save(commit=False)
+        post.updated = datetime.now()
+        topic_name = self.cleaned_data['name']
+        if topic_name:
+            post.topic.name = topic_name
+        if commit:
+            post.topic.save()
+            post.save()
+        return post
+
+
 class EssentialsProfileForm(forms.ModelForm):
     username = forms.CharField(label=_('Username'))
     email = forms.CharField(label=_('E-mail'))
@@ -216,28 +242,6 @@ class UploadAvatarForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['avatar']
-
-
-class EditPostForm(forms.ModelForm):
-    name = forms.CharField(required=False, label=_('Subject'),
-                           widget=forms.TextInput(attrs={'size':'115'}))
-
-    class Meta:
-        model = Post
-        fields = ['body']
-
-    def __init__(self, *args, **kwargs):
-        self.topic = kwargs.pop('topic', None)
-        super(EditPostForm, self).__init__(*args, **kwargs)
-        self.fields['name'].initial = self.topic
-        self.fields['body'].widget = forms.Textarea(attrs={'class':'bbcode'})
-
-    def save(self, commit=True):
-        post = super(EditPostForm, self).save(commit=False)
-        post.updated = datetime.now()
-        if commit:
-            post.save()
-        return post
 
 
 class UserSearchForm(forms.Form):
