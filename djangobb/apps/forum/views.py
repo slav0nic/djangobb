@@ -428,6 +428,7 @@ def user(request, username):
                 if request.method == 'POST' and form.is_valid():
                     profile = form.save()
                     set_language(request, profile.language)
+                    return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
                     
                 return {'active_menu':'essentials',
                         'profile': user,
@@ -459,6 +460,7 @@ def user(request, username):
             if request.method == 'POST' and form.is_valid():
                 profile = form.save()
                 set_language(request, profile.language)
+                return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
             return {'active_menu':'essentials',
                     'profile': user,
                     'form': form,
