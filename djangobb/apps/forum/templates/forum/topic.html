@@ -202,7 +202,7 @@
 	<dl id="modcontrols"><dt><strong>{% trans "Moderator control" %}</strong></dt>
 	{% if moderator %}
 		<dd><a href="{% url djangobb:delete_posts topic.id %}">{% trans "Delete multiple posts" %}</a></dd>
-		<dd><a href="{% url djangobb:move_topic topic.id %}">{% trans "Move topic" %}</a></dd>
+		<dd><a href="{% url djangobb:move_topic %}?topic_id={{ topic.id }}">{% trans "Move topic" %}</a></dd>
 		{% if topic.closed %}
 			<dd><a href="{% url djangobb:open_topic topic.id %}">{% trans "Open topic" %}</a></dd>
 		{% else %}

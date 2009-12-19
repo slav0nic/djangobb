@@ -6,8 +6,9 @@
 <div class="blockform">
 	<h2><span>{% trans "Move topic" %}</span></h2>
 	<div class="box">
-		<form method="get">
+		<form method="get" action="{% url djangobb:move_topic %}">
 			<div class="inform">
+				<input type="hidden" value="{{ topic_id }}" name="topic_id"/>
 				<fieldset>
 					<legend>{% trans "Select destination of move" %}</legend>
 					<div class="infldset">

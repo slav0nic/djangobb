@@ -72,11 +72,15 @@ def index(request, full=True):
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def moderate(request, forum_id):
     forum = Forum.objects.get(pk=forum_id)
-    topics = forum.topics.filter(sticky=False).select_related()
+    topics = forum.topics.order_by('-sticky', '-updated').select_related()
     if request.user.is_superuser or request.user in forum.moderators.all():
-        topic_list = request.POST.getlist('topic_id')
         if 'move_topics' in request.POST:
-            #TODO
+            topic_ids = ','.join([topic for topic in request.POST.getlist('topic_id')])
+            return {
+                'categories': Category.objects.all(),
+                'topic_id': topic_ids,
+                'TEMPLATE': 'forum/move_topic.html'
+            }
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'delete_topics' in request.POST:
             for topic_id in topic_list:
@@ -94,7 +98,7 @@ def moderate(request, forum_id):
 
         return {'forum': forum,
                 'topics': topics,
-                'sticky_topics': forum.topics.filter(sticky=True),
+                #'sticky_topics': forum.topics.filter(sticky=True),
                 'paged_qs': topics,
                 'posts': forum.posts.count(), 
                 }
@@ -594,16 +598,40 @@ def delete_posts(request, topic_id):
 
 @login_required
 @render_to('forum/move_topic.html')
-def move_topic(request, topic_id):
+def move_topic(request):
     from forum.templatetags.forum_extras import forum_moderated_by
-
-    topic = get_object_or_404(Topic, pk=topic_id)
-    if forum_moderated_by(topic, request.user):
-        if 'to_forum' in request.GET:
-            topic.forum_id = request.GET['to_forum']
-            topic.save()
-            return HttpResponseRedirect(topic.forum.get_absolute_url())
+    first_topic = topic_ids = list(request.GET['topic_id'])
+    if len(topic_ids) > 1:
+        topic_ids = [topic_id for topic_id in topic_ids if topic_id != ',']
+    first_topic = topic_ids[0]
+    topic = get_object_or_404(Topic, pk=first_topic)
+    from_forum = topic.forum_id
+    if 'to_forum' in request.GET:
+        to_forum = int(request.GET['to_forum'])
+        for topic_id in topic_ids:
+            topic = get_object_or_404(Topic, pk=topic_id)
+            if topic.forum_id != to_forum:
+                if forum_moderated_by(topic, request.user):
+                    forum = get_object_or_404(Forum, pk=topic.forum_id)
+                    topic.forum_id = to_forum
+                    forum.post_count -= topic.post_count
+                    topic.forum.post_count += topic.post_count
+                    forum.topic_count -= 1
+                    topic.forum.topic_count += 1
+                    topic.forum.save()
+                    forum.save()
+                    topic.save()
+        
+        from_forum = get_object_or_404(Forum, pk=from_forum)
+        to_forum = get_object_or_404(Forum, pk=to_forum)
+        post = Post.objects.filter(topic__forum=from_forum)
+        from_forum.last_post = post.latest() if post else None
+        to_forum.last_post = Post.objects.filter(topic__forum=to_forum).latest()
+        from_forum.save()
+        to_forum.save()
+        return HttpResponseRedirect(to_forum.get_absolute_url())
     return {'categories': Category.objects.all(),
+            'topic_id': topic_ids[0]
             }
 
 @login_required
