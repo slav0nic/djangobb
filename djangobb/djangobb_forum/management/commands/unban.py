@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
-from forum.models import Ban
+from djangobb_forum.models import Ban
 
 
 class Command(BaseCommand):

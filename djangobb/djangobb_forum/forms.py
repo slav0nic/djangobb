@@ -9,10 +9,10 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessage,\
+from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessage,\
     Forum, Attachment, TZ_CHOICES, PRIVACY_CHOICES
-from forum.markups import mypostmarkup
-from forum import settings as forum_settings
+from djangobb_forum.markups import mypostmarkup
+from djangobb_forum import settings as forum_settings
 
 
 

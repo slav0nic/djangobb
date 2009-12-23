@@ -13,18 +13,18 @@ from django.utils import translation
 from django.db.models import Q, F, Sum
 from django.utils.encoding import smart_str
 
-from forum.util import render_to, paged, build_form, paginate, set_language
-from forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
+from djangobb_forum.util import render_to, paged, build_form, paginate, set_language
+from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
     Report, PrivateMessage, Attachment, PostTracking
-from forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
+from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
     PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
     DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
-from forum.markups import mypostmarkup
-from forum.templatetags import forum_extras
-from forum import settings as forum_settings
-from forum.util import urlize, smiles
-from forum.index import post_indexer
+from djangobb_forum.markups import mypostmarkup
+from djangobb_forum.templatetags import forum_extras
+from djangobb_forum import settings as forum_settings
+from djangobb_forum.util import urlize, smiles
+from djangobb_forum.index import post_indexer
 
 @render_to('forum/index.html')
 def index(request, full=True):
@@ -81,7 +81,6 @@ def moderate(request, forum_id):
                 'topic_id': topic_ids,
                 'TEMPLATE': 'forum/move_topic.html'
             }
-            return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'delete_topics' in request.POST:
             for topic_id in topic_list:
                 topic = get_object_or_404(Topic, pk=topic_id)
@@ -530,7 +529,7 @@ def show_post(request, post_id):
 @login_required
 @render_to('forum/edit_post.html')
 def edit_post(request, post_id):
-    from forum.templatetags.forum_extras import forum_editable_by
+    from djangobb_forum.templatetags.forum_extras import forum_editable_by
 
     post = get_object_or_404(Post, pk=post_id)
     topic = post.topic
@@ -549,7 +548,7 @@ def edit_post(request, post_id):
 @render_to('forum/delete_posts.html')
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def delete_posts(request, topic_id):
-    from forum.templatetags.forum_extras import forum_moderated_by
+    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = Topic.objects.select_related().get(pk=topic_id)
 
@@ -599,7 +598,7 @@ def delete_posts(request, topic_id):
 @login_required
 @render_to('forum/move_topic.html')
 def move_topic(request):
-    from forum.templatetags.forum_extras import forum_moderated_by
+    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
     first_topic = topic_ids = list(request.GET['topic_id'])
     if len(topic_ids) > 1:
         topic_ids = [topic_id for topic_id in topic_ids if topic_id != ',']
@@ -636,7 +635,7 @@ def move_topic(request):
 
 @login_required
 def stick_topic(request, topic_id):
-    from forum.templatetags.forum_extras import forum_moderated_by
+    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -648,7 +647,7 @@ def stick_topic(request, topic_id):
 
 @login_required
 def unstick_topic(request, topic_id):
-    from forum.templatetags.forum_extras import forum_moderated_by
+    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -691,7 +690,7 @@ def delete_post(request, post_id):
 
 @login_required
 def close_topic(request, topic_id):
-    from forum.templatetags.forum_extras import forum_moderated_by
+    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -702,7 +701,7 @@ def close_topic(request, topic_id):
 
 @login_required
 def open_topic(request, topic_id):
-    from forum.templatetags.forum_extras import forum_moderated_by
+    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):

@@ -1,6 +1,6 @@
 import unittest
 
-from forum.markups import mypostmarkup
+from djangobb_forum.markups import mypostmarkup
 
 class PostmarkupTestCase(unittest.TestCase):
     def setUp(self):

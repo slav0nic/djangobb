@@ -1,6 +1,7 @@
 syntax: glob
 *.pyc
 *.pyo
+*.orig
 .pydevproject
 .project
 *.db

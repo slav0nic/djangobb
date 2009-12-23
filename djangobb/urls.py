@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     
     # Apps
     (r'^forum/account/', include(authopenid_urlpatterns)),
-    (r'^forum/', include('forum.urls', namespace='djangobb')),
+    (r'^forum/', include('djangobb_forum.urls', namespace='djangobb')),
 )
 
 if (settings.DEBUG):

@@ -1,6 +1,6 @@
 import re
 
-from forum.markups import postmarkup
+from djangobb_forum.markups import postmarkup
 
 RE_FIRST_LF = re.compile('^\s*\r?\n')
 markup = postmarkup.create(exclude=['link', 'url', 'code'], use_pygments=False)
