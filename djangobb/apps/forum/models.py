@@ -164,7 +164,7 @@ class Topic(models.Model):
                 tracking.save()
             #update topics if exist new post or does't exist in dict
             if self.last_post.id > tracking.topics.get(str(self.id), 0):
-                tracking.topics.setdefault(str(self.id), self.last_post.id)
+                tracking.topics[str(self.id)] = self.last_post.id
                 tracking.save()
         else:
             #initialize topic tracking dict
