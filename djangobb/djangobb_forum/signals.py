@@ -1,8 +1,8 @@
 from datetime import datetime
 from django.db.models.signals import post_save, pre_save, post_delete
 
-from forum.subscription import notify_topic_subscribers, notify_pm_recipients
-from forum.models import Topic, Post, PrivateMessage
+from djangobb_forum.subscription import notify_topic_subscribers, notify_pm_recipients
+from djangobb_forum.models import Topic, Post, PrivateMessage
 
 def post_saved(instance, **kwargs):
     created = kwargs.get('created')

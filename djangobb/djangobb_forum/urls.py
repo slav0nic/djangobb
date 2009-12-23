@@ -1,8 +1,8 @@
 from django.conf.urls.defaults import *
 
-from forum import settings as forum_settings
-from forum import views as forum_views
-from forum.feeds import LastPosts, LastTopics, LastPostsOnForum,\
+from djangobb_forum import settings as forum_settings
+from djangobb_forum import views as forum_views
+from djangobb_forum.feeds import LastPosts, LastTopics, LastPostsOnForum,\
      LastPostsOnCategory, LastPostsOnTopic
 
 feeds = {

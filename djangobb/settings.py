@@ -4,7 +4,6 @@ import sys
 import re
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(PROJECT_ROOT, 'apps'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -93,8 +92,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.csrf.middleware.CsrfMiddleware',
     'django_authopenid.middleware.OpenIDMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
-    'forum.middleware.LastLoginMiddleware',
-    'forum.middleware.UsersOnline',
+    'djangobb_forum.middleware.LastLoginMiddleware',
+    'djangobb_forum.middleware.UsersOnline',
 )
 
 ROOT_URLCONF = 'urls'
@@ -116,7 +115,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'registration',
     'django_authopenid',
-    'forum',
+    'djangobb_forum',
     'djapian',
 )
 
@@ -129,7 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.request',
     'django_authopenid.context_processors.authopenid',
-    'forum.context_processors.forum_settings'
+    'djangobb_forum.context_processors.forum_settings'
 )
 
 # Djapian settings

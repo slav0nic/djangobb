@@ -4,7 +4,7 @@ from django.core.cache import cache
 from django.utils import translation
 from django.conf import settings as global_settings
 
-from forum import settings as forum_settings
+from djangobb_forum import settings as forum_settings
 
 class LastLoginMiddleware(object):
     def process_request(self, request):

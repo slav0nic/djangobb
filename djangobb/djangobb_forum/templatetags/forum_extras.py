@@ -15,8 +15,8 @@ from django.utils import dateformat
 from django.utils.hashcompat import md5_constructor
 from django.contrib.humanize.templatetags.humanize import naturalday
 
-from forum.models import Forum, Topic, Post, PostTracking, PrivateMessage, Report
-from forum import settings as forum_settings
+from djangobb_forum.models import Forum, Topic, Post, PostTracking, PrivateMessage, Report
+from djangobb_forum import settings as forum_settings
 
 register = template.Library()
 

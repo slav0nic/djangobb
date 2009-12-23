@@ -4,13 +4,13 @@ from django.utils.feedgenerator import Atom1Feed
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from forum.models import Post, Topic, Forum, Category
+from djangobb_forum.models import Post, Topic, Forum, Category
 
 class ForumFeed(Feed):
     feed_type = Atom1Feed
 
     def link(self):
-        return reverse('djangobb:forum.views.index')
+        return reverse('djangobb:index')
 
     def item_guid(self, obj):
         return str(obj.id)

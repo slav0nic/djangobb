@@ -1,6 +1,6 @@
 import djapian
 
-from forum.models import Post
+from djangobb_forum.models import Post
 
 
 class PostIndexer(djapian.Indexer):

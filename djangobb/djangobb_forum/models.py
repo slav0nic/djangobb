@@ -10,10 +10,10 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.hashcompat import sha_constructor
 
-from forum.markups import mypostmarkup 
-from forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
-from forum.util import urlize, smiles
-from forum import settings as forum_settings
+from djangobb_forum.markups import mypostmarkup 
+from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
+from djangobb_forum.util import urlize, smiles
+from djangobb_forum import settings as forum_settings
 
 TZ_CHOICES = [(float(x[0]), x[1]) for x in (
     (-12, '-12'), (-11, '-11'), (-10, '-10'), (-9.5, '-09.5'), (-9, '-09'),
