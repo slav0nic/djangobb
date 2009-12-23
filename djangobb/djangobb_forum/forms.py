@@ -186,11 +186,12 @@ class PersonalProfileForm(forms.ModelForm):
         self.profile.location = self.cleaned_data['location']
         self.profile.site = self.cleaned_data['site']
         if self.cleaned_data['name']:
-            if len(self.cleaned_data['name'].split()) > 1:
-                self.user.first_name, self.user.last_name = self.cleaned_data['name'].split()
+            cleaned_name = self.cleaned_data['name'].strip()
+            if  ' ' in cleaned_name:
+                self.user.first_name, self.user.last_name = cleaned_name.split(None, 1)
             else:
-                user.first_name = self.cleaned_data['name'].split()[0]
-                user.last_name = ''
+                self.user.first_name = cleaned_name
+                self.user.last_name = ''
             self.user.save()
             if commit:
                 self.profile.save()
