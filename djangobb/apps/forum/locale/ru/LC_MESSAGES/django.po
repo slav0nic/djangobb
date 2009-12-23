@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-18 23:15+0200\n"
-"PO-Revision-Date: 2009-06-20 12:35+0300\n"
+"POT-Creation-Date: 2009-12-23 15:57+0200\n"
+"PO-Revision-Date: 2009-12-23 16:07+0200\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: Russian <slav0nic0@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -483,7 +483,7 @@ msgid "Submit"
 msgstr "Отправить"
 
 #: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
-#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:28
+#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:29
 #: templates/forum/report.html:21 templates/forum/reputation.html:64
 #: templates/forum/reputation_form.html:41
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
@@ -511,7 +511,7 @@ msgstr "Отредактировано"
 msgid "Select"
 msgstr "Выбрать"
 
-#: templates/forum/delete_posts.html:50 templates/forum/moderate.html:80
+#: templates/forum/delete_posts.html:50 templates/forum/moderate.html:67
 #: templates/forum/reputation.html:27 templates/forum/topic.html:111
 #: templates/forum/pm/message.html:75
 msgid "Delete"
@@ -543,22 +543,20 @@ msgstr "Просмотров"
 msgid "Last post"
 msgstr "Последнее сообщение"
 
-#: templates/forum/forum.html:42
+#: templates/forum/forum.html:42 templates/forum/moderate.html:38
 #, fuzzy
 msgid "Sticky:"
 msgstr "Выделено"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
 #: templates/forum/forum.html:54 templates/forum/forum_row.html:36
-#: templates/forum/moderate.html:37 templates/forum/moderate.html.py:39
-#: templates/forum/moderate.html:46 templates/forum/moderate.html.py:57
-#: templates/forum/moderate.html:59 templates/forum/moderate.html.py:66
-#: templates/forum/search_topics.html:35 templates/forum/search_topics.html:37
-#: templates/forum/search_topics.html:44
+#: templates/forum/moderate.html:41 templates/forum/moderate.html.py:43
+#: templates/forum/moderate.html:50 templates/forum/search_topics.html:35
+#: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
 msgstr "оставил"
 
-#: templates/forum/forum.html:58
+#: templates/forum/forum.html:58 templates/forum/moderate.html:55
 msgid "Forum is empty."
 msgstr "Форум пуст."
 
@@ -722,16 +720,18 @@ msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
 msgstr ""
+"Пожалуйста, обратите внимание, что при использовании этой формы, ваш "
+"электронный адрес станет известен получателю."
 
-#: templates/forum/moderate.html:79 templates/forum/move_topic.html:28
+#: templates/forum/moderate.html:66 templates/forum/move_topic.html:29
 msgid "Move"
 msgstr "Перенести"
 
-#: templates/forum/moderate.html:81
+#: templates/forum/moderate.html:68
 msgid "Open"
 msgstr "Открыть"
 
-#: templates/forum/moderate.html:82
+#: templates/forum/moderate.html:69
 msgid "Close"
 msgstr "Закрыть"
 
@@ -743,11 +743,11 @@ msgstr "Модераторы"
 msgid "Move topic"
 msgstr "Перенести тему"
 
-#: templates/forum/move_topic.html:12
+#: templates/forum/move_topic.html:13
 msgid "Select destination of move"
-msgstr ""
+msgstr "Выберите назначение для переноса"
 
-#: templates/forum/move_topic.html:14
+#: templates/forum/move_topic.html:15
 msgid "Move to"
 msgstr "Перенести в"
 
@@ -1027,7 +1027,7 @@ msgstr ""
 
 #: templates/forum/user.html:44
 msgid "(Hidden)"
-msgstr ""
+msgstr "(Скрыто)"
 
 #: templates/forum/user.html:54 templates/forum/profile/profile_menu.html:9
 #: templates/forum/profile/profile_messaging.html:9
@@ -1155,7 +1155,7 @@ msgstr "Отправить новое сообщение"
 
 #: templates/forum/pm/outbox.html:6
 msgid "Outbox"
-msgstr ""
+msgstr "Отправленные"
 
 #: templates/forum/pm/outbox.html:13
 msgid "Receiver"
