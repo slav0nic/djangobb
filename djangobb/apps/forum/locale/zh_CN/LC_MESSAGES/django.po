@@ -1,0 +1,1296 @@
+# China translation for DjangoBB forum
+# This file is distributed under the same license as the PACKAGE package.
+# lzhshen <lzhshen@hotmail.com>, 2009.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Djangobb dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-23 20:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: lzhshen <lzhshen@hotmail.com>\n"
+"Language-Team: : Simplified Chinese <slav0nic0@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: feeds.py:23 feeds.py:24 templates/forum/base.html:18
+msgid "Latest posts on forum"
+msgstr "最新帖子"
+
+#: feeds.py:33 feeds.py:34 templates/forum/base.html:19
+msgid "Latest topics on forum"
+msgstr "最新主题"
+
+#: feeds.py:52 feeds.py:60
+#, python-format
+msgid "Latest posts on %s topic"
+msgstr "%s主题的最新帖子"
+
+#: feeds.py:76 feeds.py:84
+#, python-format
+msgid "Latest posts on %s forum"
+msgstr "%s论坛的最新帖子"
+
+#: feeds.py:100 feeds.py:103
+#, python-format
+msgid "Latest posts on %s category"
+msgstr "%s分类的最新帖子"
+
+#: forms.py:20 forms.py:115 forms.py:244 templates/forum/users.html:45
+msgid "Username"
+msgstr "用户名"
+
+#: forms.py:21 templates/forum/users.html:48
+msgid "Registered"
+msgstr "已注册"
+
+#: forms.py:22
+msgid "No. of posts"
+msgstr "帖子数量"
+
+#: forms.py:26
+msgid "Post time"
+msgstr "发贴时间"
+
+#: forms.py:27 models.py:338
+msgid "Author"
+msgstr "作者"
+
+#: forms.py:28 forms.py:50 forms.py:222 forms.py:322 models.py:115
+#: models.py:342 templates/forum/add_post.html:26
+#: templates/forum/edit_post.html:23 templates/forum/pm/inbox.html:12
+#: templates/forum/pm/outbox.html:12
+msgid "Subject"
+msgstr "主题"
+
+#: forms.py:29 forms.py:279 models.py:98 models.py:114
+#: templates/forum/index.html:17 templates/forum/search_topics.html:22
+msgid "Forum"
+msgstr "论坛"
+
+#: forms.py:33
+msgid "Ascending"
+msgstr "升序"
+
+#: forms.py:34
+msgid "Descending"
+msgstr "降序"
+
+#: forms.py:38 models.py:129 templates/forum/index.html:18
+msgid "Topics"
+msgstr "主题"
+
+#: forms.py:39 models.py:191 templates/forum/index.html:19
+#: templates/forum/users.html:47
+msgid "Posts"
+msgstr "贴子"
+
+#: forms.py:43
+msgid "Message text and topic subject"
+msgstr "显示文章标题和内容"
+
+#: forms.py:44
+msgid "Message text only"
+msgstr "只显示消息内容"
+
+#: forms.py:45
+msgid "Topic subject only"
+msgstr "只显示文章标题"
+
+#: forms.py:52 templates/forum/add_post.html:35 templates/forum/topic.html:159
+msgid "Attachment"
+msgstr "附件"
+
+#: forms.py:79
+msgid "Attachment is too big"
+msgstr "附件大小超过限制"
+
+#: forms.py:116 templates/forum/topic.html:63
+#: templates/forum/pm/message.html:40
+msgid "E-mail"
+msgstr "电子邮箱"
+
+#: forms.py:146
+msgid "Real name"
+msgstr "真实姓名"
+
+#: forms.py:246 forms.py:281
+msgid "Sort by"
+msgstr "排序方式"
+
+#: forms.py:247 forms.py:282
+msgid "Sort order"
+msgstr "排序顺序"
+
+#: forms.py:275
+msgid "Keyword search"
+msgstr "关键字查询"
+
+#: forms.py:277
+msgid "Author search"
+msgstr "按作者查询"
+
+#: forms.py:280
+msgid "Search in"
+msgstr "查找"
+
+#: forms.py:283
+msgid "Show results as"
+msgstr "结果为"
+
+#: forms.py:308 forms.py:370
+#, python-format
+msgid "User with login %s does not exist"
+msgstr "用户(%s)不存在"
+
+#: forms.py:324 models.py:181 models.py:343 templates/forum/add_post.html:28
+#: templates/forum/edit_post.html:26
+msgid "Message"
+msgstr "消息"
+
+#: forms.py:352 models.py:337
+msgid "Recipient"
+msgstr "接收者"
+
+#: models.py:35
+msgid "Display your e-mail address."
+msgstr "显示您的电子邮箱地址。"
+
+#: models.py:36
+msgid "Hide your e-mail address but allow form e-mail."
+msgstr "隐藏您的电子邮箱，但是允许其他人给你发送电子邮件。"
+
+#: models.py:37
+msgid "Hide your e-mail address and disallow form e-mail."
+msgstr "隐藏您的电子邮箱，并且不允许其他人给你发送电子邮件。"
+
+#: models.py:50 models.py:87 models.py:413
+msgid "Name"
+msgstr "名字"
+
+#: models.py:51
+msgid "Groups"
+msgstr "组"
+
+#: models.py:51
+msgid "Only users from these groups can see this category"
+msgstr "只有此组的用户能看到这个类别"
+
+#: models.py:52 models.py:88
+msgid "Position"
+msgstr "位置"
+
+#: models.py:56 models.py:86
+msgid "Category"
+msgstr "类别"
+
+#: models.py:57
+msgid "Categories"
+msgstr "类别"
+
+#: models.py:89
+msgid "Description"
+msgstr "描述"
+
+#: models.py:90
+msgid "Moderators"
+msgstr "版主"
+
+#: models.py:91 models.py:117 models.py:179
+msgid "Updated"
+msgstr "更新"
+
+#: models.py:92 models.py:123 models.py:282
+msgid "Post count"
+msgstr "帖子数量"
+
+#: models.py:93
+msgid "Topic count"
+msgstr "主题数量"
+
+#: models.py:99
+msgid "Forums"
+msgstr "论坛"
+
+#: models.py:116 models.py:178 models.py:325 models.py:340
+msgid "Created"
+msgstr "创建"
+
+#: models.py:118 models.py:177 models.py:264
+msgid "User"
+msgstr "用户"
+
+#: models.py:119
+msgid "Views count"
+msgstr "查看次数"
+
+#: models.py:120
+msgid "Sticky"
+msgstr "置顶"
+
+#: models.py:121
+msgid "Closed"
+msgstr "关闭"
+
+#: models.py:122
+msgid "Subscribers"
+msgstr "订阅者"
+
+#: models.py:128 models.py:176 models.py:250 templates/forum/forum.html:27
+#: templates/forum/moderate.html:22 templates/forum/search_topics.html:21
+msgid "Topic"
+msgstr "主题"
+
+#: models.py:180 models.py:341
+msgid "Markup"
+msgstr "标签"
+
+#: models.py:182 models.py:344
+msgid "HTML version"
+msgstr "HTML 版本"
+
+#: models.py:183 models.py:345
+msgid "Text version"
+msgstr "Text 版本"
+
+#: models.py:184
+msgid "User IP"
+msgstr "用户IP"
+
+#: models.py:190 models.py:322 models.py:409
+msgid "Post"
+msgstr "帖子"
+
+#: models.py:248
+msgid "From"
+msgstr "发送者"
+
+#: models.py:249
+msgid "To"
+msgstr "收件人"
+
+#: models.py:251
+msgid "Time"
+msgstr "时间"
+
+#: models.py:252
+msgid "Sign"
+msgstr "注册"
+
+#: models.py:253 models.py:326 models.py:388 templates/forum/report.html:15
+#: templates/forum/reputation.html:23
+msgid "Reason"
+msgstr "原因"
+
+#: models.py:256 templates/forum/topic.html:58
+#: templates/forum/pm/message.html:36
+msgid "Reputation"
+msgstr "声望"
+
+#: models.py:257
+msgid "Reputations"
+msgstr "声望"
+
+#: models.py:265
+msgid "Status"
+msgstr "状态"
+
+#: models.py:266
+msgid "Site"
+msgstr "站点"
+
+#: models.py:267
+msgid "Jabber"
+msgstr "Jabber"
+
+#: models.py:268
+msgid "ICQ"
+msgstr "ICQ"
+
+#: models.py:269
+msgid "MSN"
+msgstr "MSN"
+
+#: models.py:270
+msgid "AIM"
+msgstr "AIM"
+
+#: models.py:271
+msgid "Yahoo"
+msgstr "Yahoo"
+
+#: models.py:272 templates/forum/user.html:30
+msgid "Location"
+msgstr "位置"
+
+#: models.py:273
+msgid "Signature"
+msgstr "签名"
+
+#: models.py:274
+msgid "Time zone"
+msgstr "时区"
+
+#: models.py:275
+msgid "Language"
+msgstr "语言"
+
+#: models.py:276
+msgid "Avatar"
+msgstr "头像"
+
+#: models.py:277
+msgid "Theme"
+msgstr "外观主题"
+
+#: models.py:278
+msgid "Show avatar"
+msgstr "显示头像"
+
+#: models.py:279
+msgid "Show signatures"
+msgstr "显示签名"
+
+#: models.py:280
+msgid "Privacy permission"
+msgstr "隐私设置"
+
+#: models.py:281
+msgid "Default markup"
+msgstr "默认标记"
+
+#: models.py:285 templates/forum/header.html:21 templates/forum/topic.html:61
+#: templates/forum/user.html:7 templates/forum/pm/message.html:38
+msgid "Profile"
+msgstr "个人信息"
+
+#: models.py:286
+msgid "Profiles"
+msgstr "个人信息"
+
+#: models.py:313 models.py:314
+msgid "Post tracking"
+msgstr "帖子跟踪"
+
+#: models.py:321
+msgid "Reported by"
+msgstr "报告"
+
+#: models.py:323
+msgid "Zapped"
+msgstr ""
+
+#: models.py:324
+msgid "Zapped by"
+msgstr ""
+
+#: models.py:329 templates/forum/topic.html:109
+msgid "Report"
+msgstr "报告"
+
+#: models.py:330
+msgid "Reports"
+msgstr "报告"
+
+#: models.py:339
+msgid "Read"
+msgstr "查看"
+
+#: models.py:349
+msgid "Private message"
+msgstr "站内消息"
+
+#: models.py:350
+msgid "Private messages"
+msgstr "站内消息"
+
+#: models.py:385
+msgid "Banned user"
+msgstr "被屏蔽用户"
+
+#: models.py:386
+msgid "Ban start"
+msgstr "屏蔽开始时间"
+
+#: models.py:387
+msgid "Ban end"
+msgstr "屏蔽结束时间"
+
+#: models.py:391
+msgid "Ban"
+msgstr "屏蔽"
+
+#: models.py:392
+msgid "Bans"
+msgstr "屏蔽"
+
+#: models.py:410
+msgid "Size"
+msgstr "大小"
+
+#: models.py:411
+msgid "Content type"
+msgstr "内容类型"
+
+#: models.py:412
+msgid "Path"
+msgstr "路径"
+
+#: models.py:414
+msgid "Hash"
+msgstr ""
+
+#: templates/forum/add_post.html:9 templates/forum/add_post.html.py:11
+#: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
+#: templates/forum/forum.html:13 templates/forum/forum.html.py:71
+#: templates/forum/moderate.html:9 templates/forum/topic.html:15
+#: templates/forum/topic.html.py:130 templates/forum/lofi/forum.html:8
+#: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
+#: templates/forum/lofi/topic.html:8
+msgid "Root"
+msgstr "论坛主页"
+
+#: templates/forum/add_post.html:18 templates/forum/forum.html:11
+#: templates/forum/forum.html.py:69
+msgid "New topic"
+msgstr "发贴"
+
+#: templates/forum/add_post.html:18
+msgid "New reply"
+msgstr "回贴"
+
+#: templates/forum/add_post.html:23 templates/forum/topic.html:150
+#: templates/forum/pm/create_pm.html:14
+msgid "Write your message and submit"
+msgstr "写消息并发布"
+
+#: templates/forum/add_post.html:45 templates/forum/mail_to.html:24
+#: templates/forum/report.html:21 templates/forum/reputation_form.html:41
+#: templates/forum/search_form.html:71 templates/forum/topic.html:168
+#: templates/forum/profile/profile_display.html:24
+#: templates/forum/profile/profile_essentials.html:77
+#: templates/forum/profile/profile_messaging.html:30
+#: templates/forum/profile/profile_personal.html:31
+#: templates/forum/profile/profile_personality.html:53
+#: templates/forum/profile/profile_privacy.html:25
+msgid "Submit"
+msgstr "提交"
+
+#: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
+#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:28
+#: templates/forum/report.html:21 templates/forum/reputation.html:64
+#: templates/forum/reputation_form.html:41
+#: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
+#: templates/forum/upload_avatar.html:22 templates/forum/pm/create_pm.html:28
+msgid "Go back"
+msgstr "返回"
+
+#: templates/forum/add_post.html:53
+msgid "Topic review (newest first)"
+msgstr "主题预览"
+
+#: templates/forum/add_post.html:69 templates/forum/topic.html:119
+msgid "Quote"
+msgstr "引用"
+
+#: templates/forum/base.html:57
+msgid "Board footer"
+msgstr ""
+
+#: templates/forum/delete_posts.html:34 templates/forum/topic.html:90
+msgid "Edited"
+msgstr "编辑"
+
+#: templates/forum/delete_posts.html:38 templates/forum/moderate.html:26
+msgid "Select"
+msgstr "选择"
+
+#: templates/forum/delete_posts.html:50 templates/forum/moderate.html:80
+#: templates/forum/reputation.html:27 templates/forum/topic.html:112
+#: templates/forum/pm/message.html:75
+msgid "Delete"
+msgstr "删除"
+
+#: templates/forum/edit_post.html:14
+msgid "Edit post"
+msgstr "编辑帖子"
+
+#: templates/forum/edit_post.html:20
+msgid "Edit the post and submit changes"
+msgstr "编辑并发布"
+
+#: templates/forum/edit_post.html:33
+msgid "Save"
+msgstr "保存"
+
+#: templates/forum/forum.html:28 templates/forum/moderate.html:23
+#: templates/forum/search_topics.html:23
+msgid "Replies"
+msgstr "回帖"
+
+#: templates/forum/forum.html:29 templates/forum/moderate.html:24
+msgid "Views"
+msgstr "查看"
+
+#: templates/forum/forum.html:30 templates/forum/index.html:20
+#: templates/forum/moderate.html:25 templates/forum/search_topics.html:24
+msgid "Last post"
+msgstr "最新回复"
+
+#: templates/forum/forum.html:42
+msgid "Sticky:"
+msgstr "置顶"
+
+#: templates/forum/forum.html:45 templates/forum/forum.html.py:47
+#: templates/forum/forum.html:54 templates/forum/forum_row.html:36
+#: templates/forum/moderate.html:37 templates/forum/moderate.html.py:39
+#: templates/forum/moderate.html:46 templates/forum/moderate.html.py:57
+#: templates/forum/moderate.html:59 templates/forum/moderate.html.py:66
+#: templates/forum/search_topics.html:35 templates/forum/search_topics.html:37
+#: templates/forum/search_topics.html:44
+msgid "by"
+msgstr "由"
+
+#: templates/forum/forum.html:58
+msgid "Forum is empty."
+msgstr "论坛没有帖子"
+
+#: templates/forum/forum.html:89
+msgid "Jump to"
+msgstr "版块切换"
+
+#: templates/forum/forum.html:100 templates/forum/topic.html:200
+msgid "Go"
+msgstr "版块切换"
+
+#: templates/forum/forum.html:104
+msgid "Moderate forum"
+msgstr "管理论坛"
+
+#: templates/forum/header.html:14
+msgid "Index"
+msgstr "论坛"
+
+#: templates/forum/header.html:15 templates/forum/users.html:39
+#: templates/forum/lofi/header.html:5
+msgid "User list"
+msgstr "用户列表"
+
+#: templates/forum/header.html:16 templates/forum/search_form.html:7
+#: templates/forum/users.html:29 templates/forum/lofi/header.html:4
+msgid "Search"
+msgstr "搜索"
+
+#: templates/forum/header.html:18 templates/forum/profile/profile_admin.html:9
+#: templates/forum/profile/profile_menu.html:14
+msgid "Administration"
+msgstr "管理界面"
+
+#: templates/forum/header.html:23 templates/forum/topic.html:72
+#: templates/forum/pm/message.html:43
+msgid "PM"
+msgstr "站内消息"
+
+#: templates/forum/header.html:25
+msgid "Log out"
+msgstr "登出"
+
+#: templates/forum/header.html:27
+msgid "Log in"
+msgstr "登录"
+
+#: templates/forum/header.html:28
+msgid "Sign up"
+msgstr "注册"
+
+#: templates/forum/header.html:35
+msgid "Logged in as"
+msgstr "登录用户"
+
+#: templates/forum/header.html:36
+msgid "Last visit:"
+msgstr "最后访问"
+
+#: templates/forum/header.html:39
+#, python-format
+msgid " There are new messages (%(new_msg)s)"
+msgstr "有新消息 (%(new_msg)s)"
+
+#: templates/forum/header.html:43
+msgid "You are not logged in."
+msgstr "您没有登录"
+
+#: templates/forum/header.html:46
+msgid "There are new reports"
+msgstr "有新的报告"
+
+#: templates/forum/header.html:51
+msgid "Show new posts since last visit"
+msgstr "显示上次访问后的新帖子"
+
+#: templates/forum/header.html:52
+msgid "Mark all topics as read"
+msgstr "把所有主题标记为已读"
+
+#: templates/forum/header.html:62
+msgid "Notice"
+msgstr "通知"
+
+#: templates/forum/index.html:35
+msgid "Board information"
+msgstr ""
+
+#: templates/forum/index.html:40 templates/forum/index.html.py:61
+msgid "Board statistics"
+msgstr ""
+
+#: templates/forum/index.html:41 templates/forum/index.html.py:62
+msgid "Total number of registered users:"
+msgstr "注册用户数量"
+
+#: templates/forum/index.html:42 templates/forum/index.html.py:63
+msgid "Total number of topics:"
+msgstr "主题数量"
+
+#: templates/forum/index.html:43 templates/forum/index.html.py:64
+msgid "Total number of posts:"
+msgstr "帖子数量"
+
+#: templates/forum/index.html:46 templates/forum/index.html.py:67
+msgid "User information"
+msgstr "用户信息"
+
+#: templates/forum/index.html:47 templates/forum/index.html.py:68
+msgid "Newest registered user:"
+msgstr "最新注册用户"
+
+#: templates/forum/index.html:48 templates/forum/index.html.py:69
+msgid "Registered users online:"
+msgstr "在线的注册用户"
+
+#: templates/forum/index.html:49 templates/forum/index.html.py:70
+msgid "Guests online:"
+msgstr "在线的访客"
+
+#: templates/forum/index.html:53 templates/forum/index.html.py:75
+msgid "Online:"
+msgstr "在线"
+
+#: templates/forum/index.html:100 templates/forum/search_posts.html:67
+#: templates/forum/search_topics.html:76
+msgid "Search links"
+msgstr "搜索链接"
+
+#: templates/forum/index.html:101 templates/forum/search_posts.html:68
+#: templates/forum/search_topics.html:77
+msgid "Show recent posts"
+msgstr "显示最近的帖子"
+
+#: templates/forum/index.html:102 templates/forum/search_posts.html:69
+#: templates/forum/search_topics.html:78
+msgid "Show unanswered posts"
+msgstr "显示没有回复的帖子"
+
+#: templates/forum/index.html:104 templates/forum/search_posts.html:71
+#: templates/forum/search_topics.html:80
+msgid "Show your subscribed topics"
+msgstr "显示我订阅的主题"
+
+#: templates/forum/index.html:105 templates/forum/search_posts.html:72
+#: templates/forum/search_topics.html:81
+msgid "Show your posts"
+msgstr "显示我的帖子"
+
+#: templates/forum/mail_to.html:7
+msgid "Send e-mail to"
+msgstr "发送邮件给"
+
+#: templates/forum/mail_to.html:12
+msgid "Write and submit your e-mail message"
+msgstr "书写并提交您的邮件"
+
+#: templates/forum/mail_to.html:20
+msgid ""
+"Please note that by using this form, your e-mail address will be disclosed "
+"to the recipient."
+msgstr "提示:接收者将会看到您的电子邮箱地址。"
+
+#: templates/forum/moderate.html:79 templates/forum/move_topic.html:28
+msgid "Move"
+msgstr "移动"
+
+#: templates/forum/moderate.html:81
+msgid "Open"
+msgstr "打开"
+
+#: templates/forum/moderate.html:82
+msgid "Close"
+msgstr "关闭"
+
+#: templates/forum/moderators.html:3
+msgid "Moderated by"
+msgstr "版主"
+
+#: templates/forum/move_topic.html:7 templates/forum/topic.html:206
+msgid "Move topic"
+msgstr "移动主题"
+
+#: templates/forum/move_topic.html:12
+msgid "Select destination of move"
+msgstr "选择移动的目的地"
+
+#: templates/forum/move_topic.html:14
+msgid "Move to"
+msgstr "移到"
+
+#: templates/forum/pagination.html:3
+msgid "Pages"
+msgstr "页面"
+
+#: templates/forum/report.html:7
+msgid "Report post"
+msgstr "举报帖子"
+
+#: templates/forum/report.html:12
+msgid "Please enter a short reason why you are reporting this post"
+msgstr "请输入您举报这个帖子的原因"
+
+#: templates/forum/reputation.html:15
+msgid "Reputation of the user"
+msgstr "用户声望"
+
+#: templates/forum/reputation.html:21
+msgid "From user"
+msgstr "用户"
+
+#: templates/forum/reputation.html:22
+msgid "For topic"
+msgstr "帖子"
+
+#: templates/forum/reputation.html:24
+msgid "Estimation"
+msgstr "评估"
+
+#: templates/forum/reputation.html:25 templates/forum/pm/inbox.html:14
+#: templates/forum/pm/outbox.html:14
+msgid "Date"
+msgstr "时间"
+
+#: templates/forum/reputation.html:62
+msgid "Are you sure"
+msgstr "你确定吗"
+
+#: templates/forum/reputation_form.html:7
+msgid "Please, fill the form"
+msgstr "请填写表格"
+
+#: templates/forum/reputation_form.html:15
+msgid "Your name:"
+msgstr "您的姓名"
+
+#: templates/forum/reputation_form.html:19
+msgid "To whom we change a reputation:"
+msgstr "被评价的用户"
+
+#: templates/forum/reputation_form.html:24
+msgid "The reason of change of reputation:"
+msgstr "改变声望的原因"
+
+#: templates/forum/reputation_form.html:28
+msgid "Method:"
+msgstr "方法"
+
+#: templates/forum/reputation_form.html:31
+msgid "Add of a reputation"
+msgstr "增加一点声望"
+
+#: templates/forum/reputation_form.html:33
+msgid "Reduction of a reputation"
+msgstr "减少一点声望"
+
+#: templates/forum/search_form.html:13
+msgid "Enter your search criteria"
+msgstr "输入您的搜索标准"
+
+#: templates/forum/search_form.html:18
+msgid ""
+"To search by keyword, enter a term or terms to search for. Separate terms "
+"with spaces. To search by author enter the username of the author whose "
+"posts you wish to search for."
+msgstr ""
+"要根据关键字搜索，请输入一个或多个关键字搜索，关键字之间用空格分隔。要根据作"
+"者搜索，请输入作者的用户名"
+
+#: templates/forum/search_form.html:24
+msgid "Select where to search"
+msgstr "选择搜索的位置"
+
+#: templates/forum/search_form.html:30
+msgid "All forums"
+msgstr "所有论坛"
+
+#: templates/forum/search_form.html:44
+msgid ""
+"Choose in which forum you would like to search and if you want to search in "
+"topic subjects, message text or both."
+msgstr "选择您要搜索的论坛和搜索范围(标题或全文)"
+
+#: templates/forum/search_form.html:51
+msgid "Select how to view search results"
+msgstr "选择查看搜索结果的方式"
+
+#: templates/forum/search_form.html:66
+msgid "You can choose how you wish to sort and show your results."
+msgstr "您可以选择如何显示和排序搜索结果"
+
+#: templates/forum/search_posts.html:24
+msgid "Replies:"
+msgstr "回复"
+
+#: templates/forum/search_posts.html:28
+msgid "Go to post"
+msgstr "跳转到帖子"
+
+#: templates/forum/search_posts.html:44 templates/forum/search_topics.html:55
+msgid "Info"
+msgstr "信息"
+
+#: templates/forum/search_posts.html:48 templates/forum/search_topics.html:59
+msgid "Your search returned no hits."
+msgstr ""
+
+#: templates/forum/search_topics.html:15
+msgid "Search results"
+msgstr "搜索结果"
+
+#: templates/forum/topic.html:11 templates/forum/topic.html.py:118
+#: templates/forum/topic.html:129 templates/forum/pm/message.html:80
+msgid "Reply"
+msgstr "回复"
+
+#: templates/forum/topic.html:49
+msgid "From:"
+msgstr "从"
+
+#: templates/forum/topic.html:51 templates/forum/user.html:132
+#: templates/forum/pm/message.html:30
+#: templates/forum/profile/profile_essentials.html:69
+msgid "Registered:"
+msgstr "已注册"
+
+#: templates/forum/topic.html:52 templates/forum/user.html:124
+#: templates/forum/pm/message.html:31
+#: templates/forum/profile/profile_essentials.html:71
+msgid "Posts:"
+msgstr "帖子"
+
+#: templates/forum/topic.html:54 templates/forum/pm/message.html:33
+msgid "IP:"
+msgstr "IP"
+
+#: templates/forum/topic.html:66 templates/forum/user.html:47
+#: templates/forum/profile/profile_essentials.html:39
+msgid "Send e-mail"
+msgstr "发送电子邮件"
+
+#: templates/forum/topic.html:94
+msgid "Attachments:"
+msgstr "附件"
+
+#: templates/forum/topic.html:102 templates/forum/pm/message.html:65
+msgid "Online"
+msgstr "在线"
+
+#: templates/forum/topic.html:104 templates/forum/pm/message.html:67
+msgid "Offline"
+msgstr "离线"
+
+#: templates/forum/topic.html:112 templates/forum/pm/message.html:75
+msgid "Are you sure you want to delete this post?"
+msgstr "您确认要删除这个帖子来吗？"
+
+#: templates/forum/topic.html:116
+msgid "Edit"
+msgstr "编辑"
+
+#: templates/forum/topic.html:135
+msgid "Unsubscribe"
+msgstr "取消订阅"
+
+#: templates/forum/topic.html:137
+msgid "Subscribe"
+msgstr "订阅"
+
+#: templates/forum/topic.html:145
+msgid "Quick post"
+msgstr "快速发布"
+
+#: templates/forum/topic.html:189
+msgid "Jump to "
+msgstr "跳转"
+
+#: templates/forum/topic.html:203
+msgid "Moderator control"
+msgstr "版主面板"
+
+#: templates/forum/topic.html:205
+msgid "Delete multiple posts"
+msgstr "删除多个帖子"
+
+#: templates/forum/topic.html:208
+msgid "Open topic"
+msgstr "开放主题"
+
+#: templates/forum/topic.html:210
+msgid "Close topic"
+msgstr "关闭主题"
+
+#: templates/forum/topic.html:213
+msgid "Unstick topic"
+msgstr "取消置顶"
+
+#: templates/forum/topic.html:215
+msgid "Stick topic"
+msgstr "置顶"
+
+#: templates/forum/upload_avatar.html:7
+#: templates/forum/profile/profile_personality.html:26
+#: templates/forum/profile/profile_personality.html:29
+msgid "Upload avatar"
+msgstr "上传头像"
+
+#: templates/forum/upload_avatar.html:12
+msgid "Enter an avatar file to upload"
+msgstr "选择头像图标并上传"
+
+#: templates/forum/upload_avatar.html:18
+#, python-format
+msgid ""
+"An avatar is a small image that will be displayed under your username in "
+"your posts. It must not be any bigger than %(avatar_width)s x %"
+"(avatar_height)s pixels "
+msgstr "头像文件大小不能超过 %(avatar_width)s x %(avatar_height)s 像素"
+
+#: templates/forum/upload_avatar.html:22
+msgid "Upload"
+msgstr "上传"
+
+#: templates/forum/user.html:12 templates/forum/profile/profile_menu.html:8
+#: templates/forum/profile/profile_messaging.html:15
+#: templates/forum/profile/profile_personal.html:9
+msgid "Personal"
+msgstr "个人信息"
+
+#: templates/forum/user.html:15 templates/forum/user.html.py:20
+msgid "Username:"
+msgstr "用户名"
+
+#: templates/forum/user.html:22 templates/forum/users.html:46
+msgid "Title"
+msgstr ""
+
+#: templates/forum/user.html:24
+msgid "Real name:"
+msgstr "真实姓名"
+
+#: templates/forum/user.html:28 templates/forum/user.html.py:34
+#: templates/forum/user.html:40 templates/forum/user.html.py:66
+#: templates/forum/user.html:72 templates/forum/user.html.py:78
+#: templates/forum/user.html:84 templates/forum/user.html.py:90
+#: templates/forum/user.html:112 templates/forum/user.html.py:130
+msgid "(Unknown)"
+msgstr "(未知)"
+
+#: templates/forum/user.html:36
+msgid "Website:"
+msgstr "网站"
+
+#: templates/forum/user.html:42
+msgid "E-mail:"
+msgstr "电子邮箱"
+
+#: templates/forum/user.html:49
+msgid "(Hidden)"
+msgstr "(隐藏)"
+
+#: templates/forum/user.html:59 templates/forum/profile/profile_menu.html:9
+#: templates/forum/profile/profile_messaging.html:9
+msgid "Messaging"
+msgstr "消息"
+
+#: templates/forum/user.html:62
+msgid "Jabber:"
+msgstr "Jabber:"
+
+#: templates/forum/user.html:68
+msgid "ICQ:"
+msgstr "ICQ:"
+
+#: templates/forum/user.html:74
+msgid "MSN Messenger:"
+msgstr "MSN Messenger:"
+
+#: templates/forum/user.html:80
+msgid "AOL IM:"
+msgstr "AOL IM:"
+
+#: templates/forum/user.html:86
+msgid "Yahoo! Messenger:"
+msgstr "Yahoo! Messenger:"
+
+#: templates/forum/user.html:99 templates/forum/profile/profile_menu.html:10
+#: templates/forum/profile/profile_personality.html:9
+msgid "Personality"
+msgstr "个性"
+
+#: templates/forum/user.html:102
+msgid "Avatar:"
+msgstr "头像"
+
+#: templates/forum/user.html:106
+msgid "(No avatar)"
+msgstr "(没有头像)"
+
+#: templates/forum/user.html:108
+msgid "Signature:"
+msgstr "签名"
+
+#: templates/forum/user.html:121
+#: templates/forum/profile/profile_essentials.html:67
+msgid "User activity"
+msgstr "用户活跃度"
+
+#: templates/forum/user.html:125
+#: templates/forum/profile/profile_essentials.html:72
+msgid "Show all posts"
+msgstr "显示所有帖子"
+
+#: templates/forum/user.html:126
+#: templates/forum/profile/profile_essentials.html:70
+msgid "Last post:"
+msgstr "上个帖子"
+
+#: templates/forum/users.html:7
+msgid "User search"
+msgstr "用户搜索"
+
+#: templates/forum/users.html:12
+msgid "Find and sort users"
+msgstr "查找并排序用户"
+
+#: templates/forum/users.html:25
+msgid ""
+"Enter a username to search for. The username field can be left blank. Sort "
+"users by name, date registered or number of posts and in ascending/"
+"descending order."
+msgstr ""
+
+#: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
+#: templates/forum/lofi/topic.html:6
+msgid "Full Version:"
+msgstr "完全版本"
+
+#: templates/forum/lofi/forum.html:19
+msgid "IMPORTANT:"
+msgstr "置顶:"
+
+#: templates/forum/lofi/forum.html:19
+msgid "replies"
+msgstr "回复"
+
+#: templates/forum/lofi/index.html:18
+msgid "posts"
+msgstr "帖子"
+
+#: templates/forum/pm/create_pm.html:9
+msgid "Send a message"
+msgstr "发送消息"
+
+#: templates/forum/pm/create_pm.html:28
+msgid "Send"
+msgstr "发送"
+
+#: templates/forum/pm/inbox.html:6 templates/forum/pm/menu_pm.html:7
+msgid "Inbox"
+msgstr "收件箱"
+
+#: templates/forum/pm/inbox.html:13
+msgid "Sender"
+msgstr "发送者"
+
+#: templates/forum/pm/inbox.html:34 templates/forum/pm/outbox.html:34
+msgid "No messages"
+msgstr "没有消息"
+
+#: templates/forum/pm/menu_pm.html:3
+msgid "Private Messages"
+msgstr "私密消息"
+
+#: templates/forum/pm/menu_pm.html:8
+msgid "Sent"
+msgstr "发送"
+
+#: templates/forum/pm/menu_pm.html:9
+msgid "Send new message"
+msgstr "发送一个新消息"
+
+#: templates/forum/pm/outbox.html:6
+msgid "Outbox"
+msgstr "发件箱"
+
+#: templates/forum/pm/outbox.html:13
+msgid "Receiver"
+msgstr "收件人"
+
+#: templates/forum/profile/profile_admin.html:15
+msgid "Delete (administrators only) or ban user"
+msgstr "删除(仅限管理员)或屏蔽用户"
+
+#: templates/forum/profile/profile_admin.html:17
+msgid "Delete user"
+msgstr "删除用户"
+
+#: templates/forum/profile/profile_admin.html:17
+msgid "Ban user"
+msgstr "屏蔽用户"
+
+#: templates/forum/profile/profile_admin.html:24
+msgid "Set moderator access"
+msgstr "设置版主权限"
+
+#: templates/forum/profile/profile_admin.html:26
+msgid ""
+"Choose what forums this user should be allowed to moderate. Note: This only "
+"applies to moderators. Administrators always have full permissions in all "
+"forums."
+msgstr "选择此用户可以管理的版块"
+
+#: templates/forum/profile/profile_admin.html:30
+msgid "Update forums"
+msgstr "更新论坛"
+
+#: templates/forum/profile/profile_display.html:9
+#: templates/forum/profile/profile_menu.html:11
+msgid "Display"
+msgstr "显示"
+
+#: templates/forum/profile/profile_display.html:14
+msgid "Select your preferred style"
+msgstr "选择您喜欢的风格"
+
+#: templates/forum/profile/profile_display.html:17
+msgid "If you like you can use a different visual style for this forum."
+msgstr "如果您喜欢，您可以为此论坛选择不同的显示风格。"
+
+#: templates/forum/profile/profile_display.html:24
+#: templates/forum/profile/profile_essentials.html:77
+#: templates/forum/profile/profile_messaging.html:30
+#: templates/forum/profile/profile_personal.html:31
+#: templates/forum/profile/profile_personality.html:53
+#: templates/forum/profile/profile_privacy.html:25
+msgid "When you update your profile, you will be redirected back to this page."
+msgstr "当您更改个人信息后，将会跳转到此页面"
+
+#: templates/forum/profile/profile_essentials.html:9
+#: templates/forum/profile/profile_menu.html:7
+msgid "Essentials"
+msgstr "概要"
+
+#: templates/forum/profile/profile_essentials.html:15
+msgid "Enter your username and password"
+msgstr "输入您的用户名和密码"
+
+#: templates/forum/profile/profile_essentials.html:25
+msgid "Change password"
+msgstr "修改密码"
+
+#: templates/forum/profile/profile_essentials.html:33
+msgid "Enter a valid e-mail address"
+msgstr "输入一个合法的邮箱地址"
+
+#: templates/forum/profile/profile_essentials.html:47
+msgid "Set your localisation options"
+msgstr "设置您的区域选项"
+
+#: templates/forum/profile/profile_essentials.html:51
+msgid ""
+"Timezone: For the forum to display times correctly you must select your "
+"local timezone."
+msgstr "时区:为了在论坛显示正确的时间，您必须设定您所在的时区。"
+
+#: templates/forum/profile/profile_essentials.html:57
+msgid ""
+"Language: You can choose which language you wish to use to view the forum"
+msgstr "语言：您可以选择不同的语言开查看论坛"
+
+#: templates/forum/profile/profile_menu.html:3
+msgid "Profile menu"
+msgstr "个人信息菜单"
+
+#: templates/forum/profile/profile_menu.html:12
+#: templates/forum/profile/profile_privacy.html:9
+msgid "Privacy"
+msgstr "隐私"
+
+#: templates/forum/profile/profile_personal.html:15
+msgid "Enter your personal details"
+msgstr "输入您的个人信息"
+
+#: templates/forum/profile/profile_personal.html:21
+msgid "Leave blank to use forum default."
+msgstr "使用默认"
+
+#: templates/forum/profile/profile_personality.html:14
+msgid "Set your avatar display options"
+msgstr "设置头像显示选项"
+
+#: templates/forum/profile/profile_personality.html:20
+msgid ""
+"An avatar is a small image that will be displayed with all your posts. You "
+"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
+"below must be checked in order for the avatar to be visible in your posts."
+msgstr ""
+"头像是一个小图标，它将显示于您所有的帖子中。通过点击下面的链接，您可以上传一"
+"个头像。为了使头像生效，‘使用头像’的选项必须选中。"
+
+#: templates/forum/profile/profile_personality.html:23
+msgid "Use avatar."
+msgstr "使用头像"
+
+#: templates/forum/profile/profile_personality.html:27
+msgid "Delete avatar"
+msgstr "删除头像"
+
+#: templates/forum/profile/profile_personality.html:36
+msgid "Compose your signature"
+msgstr "编辑您的签名档"
+
+#: templates/forum/profile/profile_personality.html:39
+msgid ""
+"A signature is a small piece of text that is attached to your posts. In it, "
+"you can enter just about anything you like. Perhaps you would like to enter "
+"your favourite quote or your star sign. It's up to you! In your signature "
+"you can use BBCode if it is allowed in this particular forum. You can see "
+"the features that are allowed/enabled listed below whenever you edit your "
+"signature."
+msgstr ""
+"签名档是一小段文字，它将附加到您发布的帖子后面。您可以添加任何喜欢的内容。比"
+"如可以是您喜欢的名言或者您的签名。"
+
+#: templates/forum/profile/profile_personality.html:48
+msgid "No signature currently stored in profile."
+msgstr "没有签名档"
+
+#: templates/forum/profile/profile_privacy.html:15
+msgid "Set your privacy options"
+msgstr "设置您的隐私选项"
+
+#: templates/forum/profile/profile_privacy.html:18
+msgid ""
+"Select whether you want your e-mail address to be viewable to other users or "
+"not and if you want other users to be able to send you e-mail via the forum "
+"(form e-mail) or not."
+msgstr ""
+"设置是否允许其他人看到您的电子邮箱或允许其他人通过论坛给你发送电子邮件。"
