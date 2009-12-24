@@ -25,6 +25,8 @@ from djangobb_forum.templatetags import forum_extras
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import urlize, smiles
 from djangobb_forum.index import post_indexer
+from djangobb_forum.templatetags.forum_extras import forum_moderated_by
+
 
 @render_to('forum/index.html')
 def index(request, full=True):
@@ -68,17 +70,19 @@ def index(request, full=True):
         to_return['TEMPLATE'] = 'forum/lofi/index.html'
         return to_return
 
+
 @render_to('forum/moderate.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def moderate(request, forum_id):
-    forum = Forum.objects.get(pk=forum_id)
+    forum = get_object_or_404(Forum, pk=forum_id)
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
     if request.user.is_superuser or request.user in forum.moderators.all():
         if 'move_topics' in request.POST:
-            topic_ids = ','.join([topic for topic in request.POST.getlist('topic_id')])
+            topic_ids = request.POST.getlist('topic_id')
             return {
                 'categories': Category.objects.all(),
-                'topic_id': topic_ids,
+                'topic_ids': topic_ids,
+                'exclude_forum': forum,
                 'TEMPLATE': 'forum/move_topic.html'
             }
         elif 'delete_topics' in request.POST:
@@ -103,6 +107,7 @@ def moderate(request, forum_id):
                 }
     else:
         raise Http404
+
 
 @render_to('forum/search_topics.html')
 @paged('results', forum_settings.SEARCH_PAGE_SIZE)
@@ -200,6 +205,7 @@ def search(request):
                 'form': form,
                 'TEMPLATE': 'forum/search_form.html'
                 }
+
 
 @login_required
 @render_to('forum/report.html')
@@ -374,6 +380,7 @@ def add_post(request, forum_id, topic_id):
             'forum': forum,
             }
 
+
 @render_to('forum/user.html')
 def user(request, username):
     user = get_object_or_404(User, username=username)
@@ -478,6 +485,7 @@ def user(request, username):
                 'topic_count': topic_count,
                }
 
+
 @login_required
 @render_to('forum/reputation.html')
 def reputation(request, username):
@@ -519,12 +527,14 @@ def reputation(request, username):
                 'profile': user.forum_profile,
                }
 
+
 def show_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     count = post.topic.posts.filter(created__lt=post.created).count() + 1
     page = math.ceil(count / float(forum_settings.TOPIC_PAGE_SIZE))
     url = '%s?page=%d#post-%d' % (reverse('djangobb:topic', args=[post.topic.id]), page, post.id)
     return HttpResponseRedirect(url)
+
 
 @login_required
 @render_to('forum/edit_post.html')
@@ -544,11 +554,11 @@ def edit_post(request, post_id):
             'post': post,
             }
 
+
 @login_required
 @render_to('forum/delete_posts.html')
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def delete_posts(request, topic_id):
-    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = Topic.objects.select_related().get(pk=topic_id)
 
@@ -595,47 +605,43 @@ def delete_posts(request, topic_id):
             'paged_qs': posts,
             }
 
+
 @login_required
 @render_to('forum/move_topic.html')
 def move_topic(request):
-    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
-    first_topic = topic_ids = list(request.GET['topic_id'])
-    if len(topic_ids) > 1:
-        topic_ids = [topic_id for topic_id in topic_ids if topic_id != ',']
+    topic_ids = request.POST.getlist('topic_id')
     first_topic = topic_ids[0]
     topic = get_object_or_404(Topic, pk=first_topic)
-    from_forum = topic.forum_id
-    if 'to_forum' in request.GET:
-        to_forum = int(request.GET['to_forum'])
+    from_forum = topic.forum
+    if 'to_forum' in request.POST:
+        to_forum_id = int(request.POST['to_forum'])
+        to_forum = get_object_or_404(Forum, pk=to_forum_id)
         for topic_id in topic_ids:
             topic = get_object_or_404(Topic, pk=topic_id)
-            if topic.forum_id != to_forum:
+            if topic.forum != to_forum:
                 if forum_moderated_by(topic, request.user):
-                    forum = get_object_or_404(Forum, pk=topic.forum_id)
-                    topic.forum_id = to_forum
-                    forum.post_count -= topic.post_count
-                    topic.forum.post_count += topic.post_count
-                    forum.topic_count -= 1
-                    topic.forum.topic_count += 1
-                    topic.forum.save()
-                    forum.save()
+                    topic.forum = to_forum
                     topic.save()
-        
-        from_forum = get_object_or_404(Forum, pk=from_forum)
-        to_forum = get_object_or_404(Forum, pk=to_forum)
-        post = Post.objects.filter(topic__forum=from_forum)
-        from_forum.last_post = post.latest() if post else None
-        to_forum.last_post = Post.objects.filter(topic__forum=to_forum).latest()
+
+        #TODO: not DRY 
+        try:
+            last_post = Post.objects.filter(topic__forum=from_forum).latest()
+        except Post.DoesNotExist:
+            last_post = None
+        from_forum.last_post = last_post
+        from_forum.topic_count = from_forum.topics.count()
+        from_forum.post_count = from_forum.posts.count()
         from_forum.save()
-        to_forum.save()
         return HttpResponseRedirect(to_forum.get_absolute_url())
+
     return {'categories': Category.objects.all(),
-            'topic_id': topic_ids[0]
+            'topic_id': topic_ids[0],
+            'exclude_forum': from_forum,
             }
+
 
 @login_required
 def stick_topic(request, topic_id):
-    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -647,7 +653,6 @@ def stick_topic(request, topic_id):
 
 @login_required
 def unstick_topic(request, topic_id):
-    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -690,7 +695,6 @@ def delete_post(request, post_id):
 
 @login_required
 def close_topic(request, topic_id):
-    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -701,7 +705,6 @@ def close_topic(request, topic_id):
 
 @login_required
 def open_topic(request, topic_id):
-    from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -720,6 +723,7 @@ def users(request):
             'form': form,
             }
 
+
 @login_required
 @render_to('forum/pm/create_pm.html')
 def create_pm(request):
@@ -736,6 +740,7 @@ def create_pm(request):
             'form': form,
             }
 
+
 @login_required
 @render_to('forum/pm/outbox.html')
 def pm_outbox(request):
@@ -744,6 +749,7 @@ def pm_outbox(request):
             'messages': messages,
             }
 
+
 @login_required
 @render_to('forum/pm/inbox.html')
 def pm_inbox(request):
@@ -751,6 +757,7 @@ def pm_inbox(request):
     return {'active_menu':'inbox',
             'messages': messages,
             }
+
 
 @login_required
 @render_to('forum/pm/message.html')
@@ -772,6 +779,7 @@ def show_pm(request, pm_id):
             'post_user': post_user,
             }
 
+
 @login_required
 def delete_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
@@ -781,11 +789,13 @@ def delete_subscription(request, topic_id):
     else:
         return HttpResponseRedirect(reverse('djangobb:edit_profile'))
 
+
 @login_required
 def add_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.add(request.user)
     return HttpResponseRedirect(reverse('djangobb:topic', args=[topic.id]))
+
 
 @login_required
 def show_attachment(request, hash):
