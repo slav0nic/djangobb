@@ -6,7 +6,7 @@ try:
     from cStringIO import StringIO
 except ImportError:
     from StringIO import StringIO
-import logging
+import random
 
 from django.db.models import OneToOneField
 from django.db.models.fields.related import SingleRelatedObjectDescriptor 
@@ -14,6 +14,8 @@ from django.db import models
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils import simplejson as json
+from django.utils.hashcompat import sha_constructor
+from django.conf import settings
 
 
 class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
@@ -51,7 +53,9 @@ class ExtendedImageField(models.ImageField):
     def save_form_data(self, instance, data):
         if data and self.width and self.height:
             content = self.resize_image(data.read(), width=self.width, height=self.height)
-            data = SimpleUploadedFile(data.name, content, data.content_type)
+            salt = sha_constructor(str(random.random())).hexdigest()[:5]
+            fname =  sha_constructor(salt + settings.SECRET_KEY).hexdigest() + '.png'
+            data = SimpleUploadedFile(fname, content, data.content_type)
         super(ExtendedImageField, self).save_form_data(instance, data)
 
     def resize_image(self, rawdata, width, height):
@@ -63,18 +67,15 @@ class ExtendedImageField(models.ImageField):
         except ImportError:
             from PIL import Image
         image = Image.open(StringIO(rawdata))
-        try:
-            oldw, oldh = image.size
-            if oldw >= oldh:
-                x = int(round((oldw - oldh) / 2.0))
-                image = image.crop((x, 0, (x + oldh) - 1, oldh - 1))
-            else:
-                y = int(round((oldh - oldw) / 2.0))
-                image = image.crop((0, y, oldw - 1, (y + oldw) - 1))
-            image = image.resize((width, height), resample=Image.ANTIALIAS)
-        except Exception, err:
-            logging.error(err)
-            return ''
+        oldw, oldh = image.size
+        if oldw >= oldh:
+            x = int(round((oldw - oldh) / 2.0))
+            image = image.crop((x, 0, (x + oldh) - 1, oldh - 1))
+        else:
+            y = int(round((oldh - oldw) / 2.0))
+            image = image.crop((0, y, oldw - 1, (y + oldw) - 1))
+        image = image.resize((width, height), resample=Image.ANTIALIAS)
+
 
         string = StringIO()
         image.save(string, format='PNG')
@@ -107,4 +108,3 @@ class JSONField(models.TextField):
         if isinstance(value, dict):
             value = json.dumps(value, cls=DjangoJSONEncoder)
         return super(JSONField, self).get_db_prep_save(value)
-
