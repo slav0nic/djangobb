@@ -65,7 +65,7 @@ class Category(models.Model):
     @property
     def topics(self):
         return Topic.objects.filter(forum__category=self).select_related()
-    
+
     @property
     def posts(self):
         return Post.objects.filter(topic__forum__category=self).select_related()
@@ -88,7 +88,7 @@ class Forum(models.Model):
     position = models.IntegerField(_('Position'), blank=True, default=0)
     description = models.TextField(_('Description'), blank=True, default='')
     moderators = models.ManyToManyField(User, blank=True, null=True, verbose_name=_('Moderators'))
-    updated = models.DateTimeField(_('Updated'), default=datetime.now)
+    updated = models.DateTimeField(_('Updated'), auto_now=True)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
     topic_count = models.IntegerField(_('Topic count'), blank=True, default=0)
     last_post = models.ForeignKey('Post', related_name='last_forum_post', blank=True, null=True)
@@ -113,8 +113,8 @@ class Forum(models.Model):
 class Topic(models.Model):
     forum = models.ForeignKey(Forum, related_name='topics', verbose_name=_('Forum'))
     name = models.CharField(_('Subject'), max_length=255)
-    created = models.DateTimeField(_('Created'), null=True)
-    updated = models.DateTimeField(_('Updated'), null=True)
+    created = models.DateTimeField(_('Created'), auto_now_add=True)
+    updated = models.DateTimeField(_('Updated'), auto_now=True)
     user = models.ForeignKey(User, verbose_name=_('User'))
     views = models.IntegerField(_('Views count'), blank=True, default=0)
     sticky = models.BooleanField(_('Sticky'), blank=True, default=False)
@@ -130,7 +130,7 @@ class Topic(models.Model):
 
     def __unicode__(self):
         return self.name
-    
+
     @property
     def head(self):
         try:
@@ -145,11 +145,6 @@ class Topic(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('djangobb:topic', [self.id])
-
-    def save(self, *args, **kwargs):
-        if self.id is None:
-            self.created = datetime.now()
-        super(Topic, self).save(*args, **kwargs)
 
     def update_read(self, user):
         tracking = user.posttracking
@@ -175,7 +170,7 @@ class Topic(models.Model):
 class Post(models.Model):
     topic = models.ForeignKey(Topic, related_name='posts', verbose_name=_('Topic'))
     user = models.ForeignKey(User, related_name='posts', verbose_name=_('User'))
-    created = models.DateTimeField(_('Created'), blank=True)
+    created = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(_('Updated'), blank=True, null=True)
     markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     body = models.TextField(_('Message'))
@@ -191,8 +186,6 @@ class Post(models.Model):
         verbose_name_plural = _('Posts')
 
     def save(self, *args, **kwargs):
-        if self.created is None:
-            self.created = datetime.now()
         if self.markup == 'bbcode':
             self.body_html = mypostmarkup.markup(self.body, auto_urls=False)
         elif self.markup == 'markdown':
@@ -337,7 +330,7 @@ class PrivateMessage(models.Model):
     dst_user = models.ForeignKey(User, verbose_name=_('Recipient'), related_name='dst_users')
     src_user = models.ForeignKey(User, verbose_name=_('Author'), related_name='src_users')
     read = models.BooleanField(_('Read'), blank=True, default=False)
-    created = models.DateTimeField(_('Created'), blank=True)
+    created = models.DateTimeField(_('Created'), auto_now_add=True)
     markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     subject = models.CharField(_('Subject'), max_length=255)
     body = models.TextField(_('Message'))
@@ -353,8 +346,6 @@ class PrivateMessage(models.Model):
         return self.subject
 
     def save(self, *args, **kwargs):
-        if self.created is None:
-            self.created = datetime.now()
         if self.markup == 'bbcode':
             self.body_html = mypostmarkup.markup(self.body, auto_urls=False)
         elif self.markup == 'markdown':

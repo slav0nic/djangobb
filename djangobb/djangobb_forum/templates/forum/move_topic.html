@@ -6,9 +6,11 @@
 <div class="blockform">
 	<h2><span>{% trans "Move topic" %}</span></h2>
 	<div class="box">
-		<form method="get" action="{% url djangobb:move_topic %}">
+		<form method="POST" action="{% url djangobb:move_topic %}">
 			<div class="inform">
-				<input type="hidden" value="{{ topic_id }}" name="topic_id"/>
+				{% for topic_id in topic_ids %}
+					<input type="hidden" value="{{ topic_id }}" name="topic_id"/>
+				{% endfor %}
 				<fieldset>
 					<legend>{% trans "Select destination of move" %}</legend>
 					<div class="infldset">
@@ -17,7 +19,9 @@
 						{% for category in categories %}
 							<optgroup label="{{ category }}">
 							{% for forum in category.forums.all %}
-								<option value="{{ forum.id }}">{{ forum.name }}</option>
+								{% ifnotequal forum exclude_forum %}
+									<option value="{{ forum.id }}">{{ forum.name }}</option>
+								{% endifnotequal %}
 							{% endfor %}
 							</optgroup>
 						{% endfor %}
