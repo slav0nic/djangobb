@@ -609,7 +609,11 @@ def delete_posts(request, topic_id):
 @login_required
 @render_to('forum/move_topic.html')
 def move_topic(request):
-    topic_ids = request.POST.getlist('topic_id')
+    if 'topic_id' in request.GET:
+        #if move only 1 topic
+        topic_ids = [request.GET['topic_id']]
+    else:
+        topic_ids = request.POST.getlist('topic_id')
     first_topic = topic_ids[0]
     topic = get_object_or_404(Topic, pk=first_topic)
     from_forum = topic.forum
@@ -635,7 +639,7 @@ def move_topic(request):
         return HttpResponseRedirect(to_forum.get_absolute_url())
 
     return {'categories': Category.objects.all(),
-            'topic_id': topic_ids[0],
+            'topic_ids': topic_ids,
             'exclude_forum': from_forum,
             }
 
