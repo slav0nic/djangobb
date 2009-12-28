@@ -204,14 +204,14 @@
 		<dd><a href="{% url djangobb:delete_posts topic.id %}">{% trans "Delete multiple posts" %}</a></dd>
 		<dd><a href="{% url djangobb:move_topic %}?topic_id={{ topic.id }}">{% trans "Move topic" %}</a></dd>
 		{% if topic.closed %}
-			<dd><a href="{% url djangobb:open_topic topic.id %}">{% trans "Open topic" %}</a></dd>
+			<dd><a href="{% url djangobb:open_close_topic topic.id %}">{% trans "Open topic" %}</a></dd>
 		{% else %}
-			<dd><a href="{% url djangobb:close_topic topic.id %}">{% trans "Close topic" %}</a></dd>
+			<dd><a href="{% url djangobb:open_close_topic topic.id %}">{% trans "Close topic" %}</a></dd>
 		{% endif %}
 		{% if topic.sticky %}
-			<dd><a href="{% url djangobb:unstick_topic topic.id %}">{% trans "Unstick topic" %}</a></dd></dl>
+			<dd><a href="{% url djangobb:stick_unstick_topic topic.id %}">{% trans "Unstick topic" %}</a></dd></dl>
 		{% else %}
-			<dd><a href="{% url djangobb:stick_topic topic.id %}">{% trans "Stick topic" %}</a></dd></dl>
+			<dd><a href="{% url djangobb:stick_unstick_topic topic.id %}">{% trans "Stick topic" %}</a></dd></dl>
 		{% endif %}
 	{% endif %}
 </div>

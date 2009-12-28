@@ -92,11 +92,11 @@ def moderate(request, forum_id):
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'open_topics' in request.POST:
             for topic_id in topic_list:
-                open_topic(request, topic_id)
+                open_close_topic(request, topic_id)
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'close_topics' in request.POST:
             for topic_id in topic_list:
-                close_topic(request, topic_id)
+                open_close_topic(request, topic_id)
             return HttpResponseRedirect(reverse('djangobb:index'))
 
         return {'forum': forum,
@@ -645,24 +645,12 @@ def move_topic(request):
 
 
 @login_required
-def stick_topic(request, topic_id):
+def stick_unstick_topic(request, topic_id):
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
-        if not topic.sticky:
-            topic.sticky = True
-            topic.save()
-    return HttpResponseRedirect(topic.get_absolute_url())
-
-
-@login_required
-def unstick_topic(request, topic_id):
-
-    topic = get_object_or_404(Topic, pk=topic_id)
-    if forum_moderated_by(topic, request.user):
-        if topic.sticky:
-            topic.sticky = False
-            topic.save()
+        topic.sticky = not topic.sticky
+        topic.save()
     return HttpResponseRedirect(topic.get_absolute_url())
 
 
@@ -698,22 +686,12 @@ def delete_post(request, post_id):
 
 
 @login_required
-def close_topic(request, topic_id):
+def open_close_topic(request, topic_id):
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
-        if not topic.closed:
-            Topic.objects.filter(pk=topic.id).update(closed=True)
-    return HttpResponseRedirect(topic.get_absolute_url())
-
-
-@login_required
-def open_topic(request, topic_id):
-
-    topic = get_object_or_404(Topic, pk=topic_id)
-    if forum_moderated_by(topic, request.user):
-        if topic.closed:
-            Topic.objects.filter(pk=topic.id).update(closed=False)
+        topic.closed = not topic.closed
+        topic.save()
     return HttpResponseRedirect(topic.get_absolute_url())
 
 
