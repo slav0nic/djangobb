@@ -32,10 +32,8 @@ urlpatterns = patterns('',
         {'topic_id': None}, name='add_topic'),
     url('^topic/(?P<topic_id>\d+)/delete_posts/$', forum_views.delete_posts, name='delete_posts'),
     url('^topic/move/$', forum_views.move_topic, name='move_topic'),
-    url('^topic/(?P<topic_id>\d+)/stick/$', forum_views.stick_topic, name='stick_topic'),
-    url('^topic/(?P<topic_id>\d+)/unstick/$', forum_views.unstick_topic, name='unstick_topic'),
-    url('^topic/(?P<topic_id>\d+)/close/$', forum_views.close_topic, name='close_topic'),
-    url('^topic/(?P<topic_id>\d+)/open/$', forum_views.open_topic, name='open_topic'),
+    url('^topic/(?P<topic_id>\d+)/stick_unstick/$', forum_views.stick_unstick_topic, name='stick_unstick_topic'),
+    url('^topic/(?P<topic_id>\d+)/open_close/$', forum_views.open_close_topic, name='open_close_topic'),
 
     # Post
     url('^topic/(?P<topic_id>\d+)/post/add/$', forum_views.add_post,
