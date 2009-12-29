@@ -114,7 +114,7 @@ class Topic(models.Model):
     forum = models.ForeignKey(Forum, related_name='topics', verbose_name=_('Forum'))
     name = models.CharField(_('Subject'), max_length=255)
     created = models.DateTimeField(_('Created'), auto_now_add=True)
-    updated = models.DateTimeField(_('Updated'), auto_now=True)
+    updated = models.DateTimeField(_('Updated'), null=True)
     user = models.ForeignKey(User, verbose_name=_('User'))
     views = models.IntegerField(_('Views count'), blank=True, default=0)
     sticky = models.BooleanField(_('Sticky'), blank=True, default=False)
