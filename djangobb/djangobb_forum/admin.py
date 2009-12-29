@@ -40,6 +40,8 @@ class BanAdmin(admin.ModelAdmin):
     raw_id_fields = ['user']
 
 class UserAdmin(auth_admin.UserAdmin):
+    list_display = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active']
+    
     def get_urls(self):
         from django.conf.urls.defaults import patterns, url
         return patterns('',
