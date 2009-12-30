@@ -289,7 +289,7 @@ def show_topic(request, topic_id, full=True):
 
     posts = topic.posts.all().select_related()
 
-    users= set(post.user.id for post in posts)
+    users = set(post.user.id for post in posts)
     profiles = Profile.objects.filter(user__pk__in=users)
     profiles = dict((profile.user_id, profile) for profile in profiles)
 
