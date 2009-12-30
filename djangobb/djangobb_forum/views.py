@@ -280,8 +280,7 @@ def show_topic(request, topic_id, full=True):
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
-    topic.views = F('views') + 1
-    topic.save()
+    Topic.objects.filter(pk=topic.id).update(views=F('views') + 1)
 
     last_post = topic.last_post
 
