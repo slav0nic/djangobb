@@ -23,6 +23,7 @@ BBCODE_RULES = [ (r'\[url\](.+?)\[/url\]', r'<a href="\1">\1</a>'),
         (r'\[u\](.+?)\[/u\]', r'<u>\1</u>'),
         (r'\[s\](.+?)\[/s\]', r'<strike>\1</strike>'),
         (r'\[quote\](.+?)\[/quote\]', r'<blockquote>\1</blockquote>'),
+        (r'\[quote=(.+?)\](.+?)\[/quote\]', r'<blockquote><em>\1</em> <br /> \2</blockquote>'),
         (r'\[center\](.+?)\[/center\]', r'<div style="text-align: center;">\1</div>'),
         (r'\[big\](.+?)\[/big\]', r'<big>\1</big>'),
         (r'\[small\](.+?)\[/small\]', r'<small>\1</small>'),
@@ -65,6 +66,8 @@ def bbcode(value, linebr=True, code_parser=code_parser):
     u'<ol start="2"> <li>a</li> <li>b</li> <li>c</li></ol>'
     >>> bbmarkup.bbcode("[code]print 123\nprint '<br/>'[/code]")
     u'<pre><code>print 123\nprint &#39;&lt;br/&gt;&#39;</code></pre>'
+    >>> bbmarkup.bbcode('[quote=test user]Test quote text[/quote]')
+    u'<blockquote><em>test user</em> <br /> Test quote text</blockquote>'
     """
 
     value = escape(value)
