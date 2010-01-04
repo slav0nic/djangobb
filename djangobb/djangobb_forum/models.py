@@ -42,9 +42,9 @@ MARKUP_CHOICES = (
     ('markdown', 'markdown'),
 )
 
-path = settings.PROJECT_ROOT + settings.MEDIA_URL + 'forum/themes/'
+path = os.path.join(settings.MEDIA_ROOT, 'forum', 'themes')
 THEME_CHOICES = [(theme, theme) for theme in os.listdir(path) 
-                 if os.path.isdir(path + theme)]
+                 if os.path.isdir(os.path.join(path, theme))]
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
