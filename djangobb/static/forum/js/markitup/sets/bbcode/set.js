@@ -19,11 +19,10 @@ mySettings = {
 		{name:'Picture', key:'P', replaceWith:'[img][![Url]!][/img]'},
 		{name:'Link', key:'L', openWith:'[url=[![Url]!]]', closeWith:'[/url]', placeHolder:'Your text to link here...'},
 		{separator:'---------------' },
-		{name:'Size', key:'S', openWith:'[size=[![Text size]!]]', closeWith:'[/size]',
+		{name:'Size', key:'S', openWith:'', closeWith:'',
 		dropMenu :[
-			{name:'Big', openWith:'[size=200]', closeWith:'[/size]' },
-			{name:'Normal', openWith:'[size=100]', closeWith:'[/size]' },
-			{name:'Small', openWith:'[size=50]', closeWith:'[/size]' }
+			{name:'Big', openWith:'[big]', closeWith:'[/big]' },
+			{name:'Small', openWith:'[small]', closeWith:'[/small]' }
 		]},
 		{separator:'---------------' },
 		{name:'Bulleted list', openWith:'[list]\n', closeWith:'\n[/list]'},

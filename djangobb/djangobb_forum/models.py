@@ -10,7 +10,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.hashcompat import sha_constructor
 
-from djangobb_forum.markups import mypostmarkup 
+from djangobb_forum.markups import bbmarkup
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import urlize, smiles
 from djangobb_forum import settings as forum_settings
@@ -187,8 +187,8 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         if self.markup == 'bbcode':
-            self.body_html = mypostmarkup.markup(self.body, auto_urls=False)
-        elif self.markup == 'markdown':
+            self.body_html = bbmarkup.bbcode(self.body)
+        elif self.markup == 'markdown' and MARKDOWN_AVAILABLE:
             self.body_html = unicode(Markdown(self.body, safe_mode='escape'))
             #self.body_html = markdown(self.body, 'safe')
         else:
@@ -347,17 +347,16 @@ class PrivateMessage(models.Model):
 
     def save(self, *args, **kwargs):
         if self.markup == 'bbcode':
-            self.body_html = mypostmarkup.markup(self.body, auto_urls=False)
+            self.body_html = bbmarkup.bbcode(self.body)
         elif self.markup == 'markdown':
             self.body_html = unicode(Markdown(self.body, safe_mode='escape'))
             #self.body_html = markdown(self.body, 'safe')
         else:
             raise Exception('Invalid markup property: %s' % self.markup)
-        self.body_text = strip_tags(self.body_html)
+        #self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
         if forum_settings.SMILES_SUPPORT:
             self.body_html = smiles(self.body_html)
-        new = self.id is None
         super(PrivateMessage, self).save(*args, **kwargs)
 
     @models.permalink
