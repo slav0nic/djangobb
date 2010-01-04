@@ -1,5 +1,6 @@
 import math
 from datetime import datetime, timedelta
+from markdown import Markdown
 
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -12,6 +13,7 @@ from django.core.cache import cache
 from django.utils import translation
 from django.db.models import Q, F, Sum
 from django.utils.encoding import smart_str
+from django.views.decorators.http import require_POST
 
 from djangobb_forum.util import render_to, paged, build_form, paginate, set_language
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
@@ -20,7 +22,7 @@ from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
     PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
     DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
-from djangobb_forum.markups import mypostmarkup
+from djangobb_forum.markups import bbmarkup
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import urlize, smiles
@@ -786,11 +788,23 @@ def show_attachment(request, hash):
     response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(attachment.name)
     return response
 
-#TODO: check markup
+
+@login_required
+#@require_POST
 @render_to('forum/post_preview.html')
 def post_preview(request):
     '''Preview for markitup'''
-    data = mypostmarkup.markup(request.POST.get('data', ''), auto_urls=False)
+
+    markup = request.user.forum_profile.markup
+    data = request.POST.get('data', '')
+    if markup == 'bbcode':
+        data = bbmarkup.bbcode(data)
+    elif markup == 'markdown' and MARKDOWN_AVAILABLE:
+        data = unicode(Markdown(data, safe_mode='escape'))
+    else:
+        raise Exception('Invalid markup property: %s' % markup)
+
     data = urlize(data)
-    data = smiles(data)
+    if forum_settings.SMILES_SUPPORT:
+        data = smiles(data)
     return {'data': data}

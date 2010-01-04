@@ -21,6 +21,7 @@ from djangobb_forum import settings as forum_settings
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
 
+
 def render_to(template):
     """
     Decorator for Django views that sends returned dict to render_to_response function.
@@ -72,8 +73,10 @@ def render_to(template):
         return wrapper
     return renderer
 
+
 def absolute_url(path):
     return 'http://%s%s' % (forum_settings.HOST, path)
+
 
 def paged(paged_list_name, per_page):
     """
@@ -209,7 +212,7 @@ class ExcludeTagsHTMLParser(HTMLParser):
             self.html.append('&%s;' % name)
 
         def handle_charref(self, name):
-            self.html.append('&%s;' % name)
+            self.html.append('&#%s;' % name)
 
         def __html_attrs(self, attrs):
             _attrs = ''
@@ -261,7 +264,7 @@ def paginate(items, request, per_page, total_count=None):
     try:
         paged_list_name = paginator.page(page_number).object_list
     except (InvalidPage, EmptyPage):
-       raise Http404
+        raise Http404
     return pages, paginator, paged_list_name 
 
 def set_language(request, language):
