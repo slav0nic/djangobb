@@ -47,7 +47,7 @@ SEARCH_IN_CHOICES = (
 
 
 class AddPostForm(forms.ModelForm):
-    name = forms.CharField(label=_('Subject'),
+    name = forms.CharField(label=_('Subject'), max_length=255,
                            widget=forms.TextInput(attrs={'size':'115'}))
     attachment = forms.FileField(label=_('Attachment'), required=False)
 
