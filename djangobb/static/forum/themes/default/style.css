@@ -132,7 +132,7 @@ have a 6px space beneath them */
 
 DIV.block DIV.inbox, DIV.blockmenu DIV.inbox {PADDING: 3px 6px}
 .djangobb P, .djangobb UL, .djangobb DL, DIV.blockmenu LI, .djangobb LABEL, #announce DIV.inbox DIV {PADDING: 3px 0}
-.djangobb H2 {PADDING: 4px 6px}
+.djangobb H2 {margin-top:5px; PADDING: 4px 6px}
 
 /* 6.2 Special spacing for various elements */
 
