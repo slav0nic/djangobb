@@ -169,7 +169,7 @@ class EssentialsProfileForm(forms.ModelForm):
 
 
 class PersonalProfileForm(forms.ModelForm):
-    name = forms.CharField(label=_('Real name'))
+    name = forms.CharField(label=_('Real name'), required=False)
 
     class Meta:
         model = Profile
