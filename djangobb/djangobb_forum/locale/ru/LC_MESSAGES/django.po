@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-23 15:57+0200\n"
+"POT-Creation-Date: 2010-01-05 16:05+0200\n"
 "PO-Revision-Date: 2009-12-23 16:07+0200\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: Russian <slav0nic0@gmail.com>\n"
@@ -37,7 +37,7 @@ msgstr "Последние сообщения на %s форуме"
 msgid "Latest posts on %s category"
 msgstr "Последние сообщения в %s категории"
 
-#: forms.py:20 forms.py:141 forms.py:248 templates/forum/users.html:45
+#: forms.py:20 forms.py:141 forms.py:249 templates/forum/users.html:45
 msgid "Username"
 msgstr "Имя"
 
@@ -53,18 +53,18 @@ msgstr "Кол-во сообщений"
 msgid "Post time"
 msgstr "Время сообщения"
 
-#: forms.py:27 models.py:338
+#: forms.py:27 models.py:331
 msgid "Author"
 msgstr "Автор"
 
-#: forms.py:28 forms.py:50 forms.py:115 forms.py:326 models.py:115
-#: models.py:342 templates/forum/add_post.html:26
+#: forms.py:28 forms.py:50 forms.py:115 forms.py:327 models.py:115
+#: models.py:335 templates/forum/add_post.html:26
 #: templates/forum/edit_post.html:23 templates/forum/pm/inbox.html:12
 #: templates/forum/pm/outbox.html:12
 msgid "Subject"
 msgstr "Заголовок"
 
-#: forms.py:29 forms.py:283 models.py:98 models.py:114
+#: forms.py:29 forms.py:284 models.py:98 models.py:114
 #: templates/forum/index.html:17 templates/forum/search_topics.html:22
 msgid "Forum"
 msgstr "Форум"
@@ -81,7 +81,7 @@ msgstr "Убыванию"
 msgid "Topics"
 msgstr "Темы"
 
-#: forms.py:39 models.py:191 templates/forum/index.html:19
+#: forms.py:39 models.py:186 templates/forum/index.html:19
 #: templates/forum/users.html:47
 msgid "Posts"
 msgstr "Сообщения"
@@ -115,41 +115,41 @@ msgstr "E-mail"
 msgid "Real name"
 msgstr "Настоящее имя"
 
-#: forms.py:250 forms.py:285
+#: forms.py:251 forms.py:286
 msgid "Sort by"
 msgstr "Сортировать по"
 
-#: forms.py:251 forms.py:286
+#: forms.py:252 forms.py:287
 msgid "Sort order"
 msgstr "Упорядочить по"
 
-#: forms.py:279
+#: forms.py:280
 msgid "Keyword search"
 msgstr "Ключевые слова"
 
-#: forms.py:281
+#: forms.py:282
 msgid "Author search"
 msgstr "Поиск автора"
 
-#: forms.py:284
+#: forms.py:285
 msgid "Search in"
 msgstr "Поиск в"
 
-#: forms.py:287
+#: forms.py:288
 msgid "Show results as"
 msgstr "Показать результат как"
 
-#: forms.py:312 forms.py:374
+#: forms.py:313 forms.py:375
 #, python-format
 msgid "User with login %s does not exist"
 msgstr "Пользователь с логином %s не существует"
 
-#: forms.py:328 models.py:181 models.py:343 templates/forum/add_post.html:28
+#: forms.py:329 models.py:176 models.py:336 templates/forum/add_post.html:28
 #: templates/forum/edit_post.html:26
 msgid "Message"
 msgstr "Сообщение"
 
-#: forms.py:356 models.py:337
+#: forms.py:357 models.py:330
 msgid "Recipient"
 msgstr "Получатель"
 
@@ -165,7 +165,7 @@ msgstr "Скрыть ваш e-mail адрес, но разрешить слат�
 msgid "Hide your e-mail address and disallow form e-mail."
 msgstr "Скрыть ваш e-mail адрес и запретить слать вам сообщения через форум."
 
-#: models.py:50 models.py:87 models.py:413
+#: models.py:50 models.py:87 models.py:403
 msgid "Name"
 msgstr "Имя"
 
@@ -197,11 +197,11 @@ msgstr "Описание"
 msgid "Moderators"
 msgstr "Модераторы"
 
-#: models.py:91 models.py:117 models.py:179
+#: models.py:91 models.py:117 models.py:174
 msgid "Updated"
 msgstr "Дата обновления"
 
-#: models.py:92 models.py:123 models.py:282
+#: models.py:92 models.py:123 models.py:275
 msgid "Post count"
 msgstr "Количество сообщений"
 
@@ -213,11 +213,11 @@ msgstr "Количество тем"
 msgid "Forums"
 msgstr "Форумы"
 
-#: models.py:116 models.py:178 models.py:325 models.py:340
+#: models.py:116 models.py:173 models.py:318 models.py:333
 msgid "Created"
 msgstr "Дата создания"
 
-#: models.py:118 models.py:177 models.py:264
+#: models.py:118 models.py:172 models.py:257
 msgid "User"
 msgstr "Пользователь"
 
@@ -237,212 +237,212 @@ msgstr "Закрыто"
 msgid "Subscribers"
 msgstr "Подписчики"
 
-#: models.py:128 models.py:176 models.py:250 templates/forum/forum.html:27
+#: models.py:128 models.py:171 models.py:243 templates/forum/forum.html:27
 #: templates/forum/moderate.html:22 templates/forum/search_topics.html:21
 msgid "Topic"
 msgstr "Тема"
 
-#: models.py:180 models.py:341
+#: models.py:175 models.py:334
 msgid "Markup"
 msgstr "Разметка"
 
-#: models.py:182 models.py:344
+#: models.py:177 models.py:337
 msgid "HTML version"
 msgstr "HTML версия"
 
-#: models.py:183 models.py:345
+#: models.py:178 models.py:338
 msgid "Text version"
 msgstr "Текстовая версия"
 
-#: models.py:184
+#: models.py:179
 msgid "User IP"
 msgstr "IP автора"
 
-#: models.py:190 models.py:322 models.py:409
+#: models.py:185 models.py:315 models.py:399
 msgid "Post"
 msgstr "Сообщение"
 
-#: models.py:248
+#: models.py:241
 msgid "From"
 msgstr "От"
 
-#: models.py:249
+#: models.py:242
 msgid "To"
 msgstr "К"
 
-#: models.py:251
+#: models.py:244
 msgid "Time"
 msgstr "Время"
 
-#: models.py:252
+#: models.py:245
 #, fuzzy
 msgid "Sign"
 msgstr "Регистрация"
 
-#: models.py:253 models.py:326 models.py:388 templates/forum/report.html:15
+#: models.py:246 models.py:319 models.py:378 templates/forum/report.html:15
 #: templates/forum/reputation.html:23
 msgid "Reason"
 msgstr "Причина"
 
-#: models.py:256 templates/forum/topic.html:58
+#: models.py:249 templates/forum/topic.html:58
 #: templates/forum/pm/message.html:36
 msgid "Reputation"
 msgstr "Репутация"
 
-#: models.py:257
+#: models.py:250
 msgid "Reputations"
 msgstr "Репутация"
 
-#: models.py:265
+#: models.py:258
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:266
+#: models.py:259
 msgid "Site"
 msgstr "Вебсайт"
 
-#: models.py:267
+#: models.py:260
 msgid "Jabber"
 msgstr ""
 
-#: models.py:268
+#: models.py:261
 msgid "ICQ"
 msgstr ""
 
-#: models.py:269
+#: models.py:262
 msgid "MSN"
 msgstr ""
 
-#: models.py:270
+#: models.py:263
 msgid "AIM"
 msgstr ""
 
-#: models.py:271
+#: models.py:264
 msgid "Yahoo"
 msgstr ""
 
-#: models.py:272 templates/forum/user.html:25
+#: models.py:265 templates/forum/user.html:25
 msgid "Location"
 msgstr "Местонахождение"
 
-#: models.py:273
+#: models.py:266
 msgid "Signature"
 msgstr "Подпись"
 
-#: models.py:274
+#: models.py:267
 msgid "Time zone"
 msgstr "Временная зона"
 
-#: models.py:275
+#: models.py:268
 msgid "Language"
 msgstr "Язык"
 
-#: models.py:276
+#: models.py:269
 msgid "Avatar"
 msgstr "Аватар"
 
-#: models.py:277
+#: models.py:270
 msgid "Theme"
 msgstr "Тема"
 
-#: models.py:278
+#: models.py:271
 msgid "Show avatar"
 msgstr "Показывать аватар"
 
-#: models.py:279
+#: models.py:272
 msgid "Show signatures"
 msgstr "Показывать подписи"
 
-#: models.py:280
+#: models.py:273
 msgid "Privacy permission"
 msgstr ""
 
-#: models.py:281
+#: models.py:274
 msgid "Default markup"
 msgstr "Разметка по умолчанию"
 
-#: models.py:285 templates/forum/header.html:23 templates/forum/topic.html:61
+#: models.py:278 templates/forum/header.html:23 templates/forum/topic.html:61
 #: templates/forum/user.html:7 templates/forum/pm/message.html:38
 msgid "Profile"
 msgstr "Профиль"
 
-#: models.py:286
+#: models.py:279
 msgid "Profiles"
 msgstr "Профили"
 
-#: models.py:313 models.py:314
+#: models.py:306 models.py:307
 #, fuzzy
 msgid "Post tracking"
 msgstr "Время сообщения"
 
-#: models.py:321
+#: models.py:314
 msgid "Reported by"
 msgstr "Жалоба от"
 
-#: models.py:323
+#: models.py:316
 msgid "Zapped"
 msgstr "Рассмотрена"
 
-#: models.py:324
+#: models.py:317
 msgid "Zapped by"
 msgstr "Рассмотрел"
 
-#: models.py:329 templates/forum/topic.html:108
+#: models.py:322 templates/forum/topic.html:108
 msgid "Report"
 msgstr "Пожаловаться"
 
-#: models.py:330
+#: models.py:323
 msgid "Reports"
 msgstr "Жалобы"
 
-#: models.py:339
+#: models.py:332
 msgid "Read"
 msgstr "Просмотр"
 
-#: models.py:349
+#: models.py:342
 msgid "Private message"
 msgstr "Приватное сообщение"
 
-#: models.py:350
+#: models.py:343
 msgid "Private messages"
 msgstr "Приватные сообщения"
 
-#: models.py:385
+#: models.py:375
 #, fuzzy
 msgid "Banned user"
 msgstr "Забанен"
 
-#: models.py:386
+#: models.py:376
 #, fuzzy
 msgid "Ban start"
 msgstr "Забанен"
 
-#: models.py:387
+#: models.py:377
 msgid "Ban end"
 msgstr "Забанен до"
 
-#: models.py:391
+#: models.py:381
 msgid "Ban"
 msgstr "Бан"
 
-#: models.py:392
+#: models.py:382
 #, fuzzy
 msgid "Bans"
 msgstr "Забанен"
 
-#: models.py:410
+#: models.py:400
 msgid "Size"
 msgstr "Размер"
 
-#: models.py:411
+#: models.py:401
 msgid "Content type"
 msgstr ""
 
-#: models.py:412
+#: models.py:402
 msgid "Path"
 msgstr "Путь"
 
-#: models.py:414
+#: models.py:404
 msgid "Hash"
 msgstr "Хэш"
 
@@ -483,7 +483,7 @@ msgid "Submit"
 msgstr "Отправить"
 
 #: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
-#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:29
+#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:33
 #: templates/forum/report.html:21 templates/forum/reputation.html:64
 #: templates/forum/reputation_form.html:41
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
@@ -723,7 +723,7 @@ msgstr ""
 "Пожалуйста, обратите внимание, что при использовании этой формы, ваш "
 "электронный адрес станет известен получателю."
 
-#: templates/forum/moderate.html:66 templates/forum/move_topic.html:29
+#: templates/forum/moderate.html:66 templates/forum/move_topic.html:33
 msgid "Move"
 msgstr "Перенести"
 
@@ -743,11 +743,11 @@ msgstr "Модераторы"
 msgid "Move topic"
 msgstr "Перенести тему"
 
-#: templates/forum/move_topic.html:13
+#: templates/forum/move_topic.html:15
 msgid "Select destination of move"
 msgstr "Выберите назначение для переноса"
 
-#: templates/forum/move_topic.html:15
+#: templates/forum/move_topic.html:17
 msgid "Move to"
 msgstr "Перенести в"
 

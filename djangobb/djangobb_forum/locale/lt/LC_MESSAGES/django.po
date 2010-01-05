@@ -1,305 +1,305 @@
-# China translation for DjangoBB forum
+# Lithuanian translation for DjangoBB forum
 # This file is distributed under the same license as the PACKAGE package.
-# lzhshen <lzhshen@hotmail.com>, 2009.
+# Arns Udovīčė <zordsdavini@gmail.com>, 2010.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Djangobb dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 16:05+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: lzhshen <lzhshen@hotmail.com>\n"
-"Language-Team: : Simplified Chinese <slav0nic0@gmail.com>\n"
+"POT-Creation-Date: 2010-01-05 16:06+0200\n"
+"PO-Revision-Date: 2010-01-05 13:49+0200\n"
+"Last-Translator: Arns Udovīčė <zordsdavini@gmail.com>\n"
+"Language-Team:  <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: feeds.py:23 feeds.py:24 templates/forum/base.html:18
 msgid "Latest posts on forum"
-msgstr "最新帖子"
+msgstr "Naujausi įrašai forume"
 
 #: feeds.py:33 feeds.py:34 templates/forum/base.html:19
 msgid "Latest topics on forum"
-msgstr "最新主题"
+msgstr "Naujausios temos forume"
 
 #: feeds.py:52 feeds.py:60
 #, python-format
 msgid "Latest posts on %s topic"
-msgstr "%s主题的最新帖子"
+msgstr "Naujausi įrašai %s temoje"
 
 #: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s forum"
-msgstr "%s论坛的最新帖子"
+msgstr "Naujausi įrašai %s forume"
 
 #: feeds.py:100 feeds.py:103
 #, python-format
 msgid "Latest posts on %s category"
-msgstr "%s分类的最新帖子"
+msgstr "Naujausi įrašai %s kategorijoje"
 
 #: forms.py:20 forms.py:141 forms.py:249 templates/forum/users.html:45
 msgid "Username"
-msgstr "用户名"
+msgstr "Vartotojo vardas"
 
 #: forms.py:21 templates/forum/users.html:48
 msgid "Registered"
-msgstr "已注册"
+msgstr "Registruotas"
 
 #: forms.py:22
 msgid "No. of posts"
-msgstr "帖子数量"
+msgstr "Įrašų skaičius"
 
 #: forms.py:26
 msgid "Post time"
-msgstr "发贴时间"
+msgstr "Parašyta"
 
 #: forms.py:27 models.py:331
 msgid "Author"
-msgstr "作者"
+msgstr "Autorius"
 
 #: forms.py:28 forms.py:50 forms.py:115 forms.py:327 models.py:115
 #: models.py:335 templates/forum/add_post.html:26
 #: templates/forum/edit_post.html:23 templates/forum/pm/inbox.html:12
 #: templates/forum/pm/outbox.html:12
 msgid "Subject"
-msgstr "主题"
+msgstr "Pavadinimas"
 
 #: forms.py:29 forms.py:284 models.py:98 models.py:114
 #: templates/forum/index.html:17 templates/forum/search_topics.html:22
 msgid "Forum"
-msgstr "论坛"
+msgstr "Diskusijų forumas"
 
 #: forms.py:33
 msgid "Ascending"
-msgstr "升序"
+msgstr "Didėjančia tvarka"
 
 #: forms.py:34
 msgid "Descending"
-msgstr "降序"
+msgstr "Mažėjančia tvarka"
 
 #: forms.py:38 models.py:129 templates/forum/index.html:18
 msgid "Topics"
-msgstr "主题"
+msgstr "Temos"
 
 #: forms.py:39 models.py:186 templates/forum/index.html:19
 #: templates/forum/users.html:47
 msgid "Posts"
-msgstr "贴子"
+msgstr "Įrašai"
 
 #: forms.py:43
 msgid "Message text and topic subject"
-msgstr "显示文章标题和内容"
+msgstr "Žinutės textas ir temos pavadinimas"
 
 #: forms.py:44
 msgid "Message text only"
-msgstr "只显示消息内容"
+msgstr "Tik žinutės tekstas"
 
 #: forms.py:45
 msgid "Topic subject only"
-msgstr "只显示文章标题"
+msgstr "Tik temos pavadinimas"
 
 #: forms.py:52 templates/forum/add_post.html:35 templates/forum/topic.html:158
 msgid "Attachment"
-msgstr "附件"
+msgstr "Prikabintas failas"
 
 #: forms.py:79
 msgid "Attachment is too big"
-msgstr "附件大小超过限制"
+msgstr "Prikabintas failas per didelis"
 
 #: forms.py:142 templates/forum/topic.html:63
 #: templates/forum/pm/message.html:40
 msgid "E-mail"
-msgstr "电子邮箱"
+msgstr "E-paštas"
 
 #: forms.py:172
 msgid "Real name"
-msgstr "真实姓名"
+msgstr "Tikras vardas"
 
 #: forms.py:251 forms.py:286
 msgid "Sort by"
-msgstr "排序方式"
+msgstr "Rūšiuoti pagal"
 
 #: forms.py:252 forms.py:287
 msgid "Sort order"
-msgstr "排序顺序"
+msgstr "Rūšiavimo tvarka"
 
 #: forms.py:280
 msgid "Keyword search"
-msgstr "关键字查询"
+msgstr "Reikšminių žodžių paieška"
 
 #: forms.py:282
 msgid "Author search"
-msgstr "按作者查询"
+msgstr "Autorių paieška"
 
 #: forms.py:285
 msgid "Search in"
-msgstr "查找"
+msgstr "Ieškoti"
 
 #: forms.py:288
 msgid "Show results as"
-msgstr "结果为"
+msgstr "Rodyti rezultatus kaip"
 
 #: forms.py:313 forms.py:375
 #, python-format
 msgid "User with login %s does not exist"
-msgstr "用户(%s)不存在"
+msgstr "Vartotojas prisijungimu %s neegzistuoja"
 
 #: forms.py:329 models.py:176 models.py:336 templates/forum/add_post.html:28
 #: templates/forum/edit_post.html:26
 msgid "Message"
-msgstr "消息"
+msgstr "Žinutė"
 
 #: forms.py:357 models.py:330
 msgid "Recipient"
-msgstr "接收者"
+msgstr "Gavėjas"
 
 #: models.py:35
 msgid "Display your e-mail address."
-msgstr "显示您的电子邮箱地址。"
+msgstr "Rodyti jūsų e-pašto adresą."
 
 #: models.py:36
 msgid "Hide your e-mail address but allow form e-mail."
-msgstr "隐藏您的电子邮箱，但是允许其他人给你发送电子邮件。"
+msgstr "Slėpti jūsų e-pašto adresą, bet leisti siųsti per formą"
 
 #: models.py:37
 msgid "Hide your e-mail address and disallow form e-mail."
-msgstr "隐藏您的电子邮箱，并且不允许其他人给你发送电子邮件。"
+msgstr "Slėpti jūsų e-pašto adresą ir neleisti siųsti per formą"
 
 #: models.py:50 models.py:87 models.py:403
 msgid "Name"
-msgstr "名字"
+msgstr "Pavadinimas"
 
 #: models.py:51
 msgid "Groups"
-msgstr "组"
+msgstr "Grupės"
 
 #: models.py:51
 msgid "Only users from these groups can see this category"
-msgstr "只有此组的用户能看到这个类别"
+msgstr "Tik vartotojai iš šių grupių gali matyti šią kategoriją"
 
 #: models.py:52 models.py:88
 msgid "Position"
-msgstr "位置"
+msgstr "Pozicija"
 
 #: models.py:56 models.py:86
 msgid "Category"
-msgstr "类别"
+msgstr "Kategorija"
 
 #: models.py:57
 msgid "Categories"
-msgstr "类别"
+msgstr "Kategorijos"
 
 #: models.py:89
 msgid "Description"
-msgstr "描述"
+msgstr "Paaiškinimas"
 
 #: models.py:90
 msgid "Moderators"
-msgstr "版主"
+msgstr "Moderatoriai"
 
 #: models.py:91 models.py:117 models.py:174
 msgid "Updated"
-msgstr "更新"
+msgstr "Atnaujinta"
 
 #: models.py:92 models.py:123 models.py:275
 msgid "Post count"
-msgstr "帖子数量"
+msgstr "Įrašų skaičius"
 
 #: models.py:93
 msgid "Topic count"
-msgstr "主题数量"
+msgstr "Temų skaičius"
 
 #: models.py:99
 msgid "Forums"
-msgstr "论坛"
+msgstr "Forumai"
 
 #: models.py:116 models.py:173 models.py:318 models.py:333
 msgid "Created"
-msgstr "创建"
+msgstr "Sukurtas"
 
 #: models.py:118 models.py:172 models.py:257
 msgid "User"
-msgstr "用户"
+msgstr "Vartotojas"
 
 #: models.py:119
 msgid "Views count"
-msgstr "查看次数"
+msgstr "Peržiūrų skaičius"
 
 #: models.py:120
 msgid "Sticky"
-msgstr "置顶"
+msgstr "Visada viršuje"
 
 #: models.py:121
 msgid "Closed"
-msgstr "关闭"
+msgstr "Uždarytas"
 
 #: models.py:122
 msgid "Subscribers"
-msgstr "订阅者"
+msgstr "Prenumeratoriai"
 
 #: models.py:128 models.py:171 models.py:243 templates/forum/forum.html:27
 #: templates/forum/moderate.html:22 templates/forum/search_topics.html:21
 msgid "Topic"
-msgstr "主题"
+msgstr "Tema"
 
 #: models.py:175 models.py:334
 msgid "Markup"
-msgstr "标签"
+msgstr "Markup"
 
 #: models.py:177 models.py:337
 msgid "HTML version"
-msgstr "HTML 版本"
+msgstr "HTML versija"
 
 #: models.py:178 models.py:338
 msgid "Text version"
-msgstr "Text 版本"
+msgstr "Tekstinė versija"
 
 #: models.py:179
 msgid "User IP"
-msgstr "用户IP"
+msgstr "Vartotojo IP"
 
 #: models.py:185 models.py:315 models.py:399
 msgid "Post"
-msgstr "帖子"
+msgstr "Siųsti"
 
 #: models.py:241
 msgid "From"
-msgstr "发送者"
+msgstr "Nuo"
 
 #: models.py:242
 msgid "To"
-msgstr "收件人"
+msgstr "Kam"
 
 #: models.py:244
 msgid "Time"
-msgstr "时间"
+msgstr "Laikas"
 
 #: models.py:245
 msgid "Sign"
-msgstr "注册"
+msgstr "Pasirašyti"
 
 #: models.py:246 models.py:319 models.py:378 templates/forum/report.html:15
 #: templates/forum/reputation.html:23
 msgid "Reason"
-msgstr "原因"
+msgstr "Priežastis"
 
 #: models.py:249 templates/forum/topic.html:58
 #: templates/forum/pm/message.html:36
 msgid "Reputation"
-msgstr "声望"
+msgstr "Reputacija"
 
 #: models.py:250
 msgid "Reputations"
-msgstr "声望"
+msgstr "Reputacijos"
 
 #: models.py:258
 msgid "Status"
-msgstr "状态"
+msgstr "Statusas"
 
 #: models.py:259
 msgid "Site"
-msgstr "站点"
+msgstr "Svetainė"
 
 #: models.py:260
 msgid "Jabber"
@@ -323,124 +323,124 @@ msgstr "Yahoo"
 
 #: models.py:265 templates/forum/user.html:25
 msgid "Location"
-msgstr "位置"
+msgstr "Vieta"
 
 #: models.py:266
 msgid "Signature"
-msgstr "签名"
+msgstr "Parašas"
 
 #: models.py:267
 msgid "Time zone"
-msgstr "时区"
+msgstr "Laiko juosta"
 
 #: models.py:268
 msgid "Language"
-msgstr "语言"
+msgstr "Kalba"
 
 #: models.py:269
 msgid "Avatar"
-msgstr "头像"
+msgstr "Avataras"
 
 #: models.py:270
 msgid "Theme"
-msgstr "外观主题"
+msgstr "Tema"
 
 #: models.py:271
 msgid "Show avatar"
-msgstr "显示头像"
+msgstr "Rodyti avatarą"
 
 #: models.py:272
 msgid "Show signatures"
-msgstr "显示签名"
+msgstr "Rodyti parašą"
 
 #: models.py:273
 msgid "Privacy permission"
-msgstr "隐私设置"
+msgstr "Privatumo leidimai"
 
 #: models.py:274
 msgid "Default markup"
-msgstr "默认标记"
+msgstr "Numatytasis markup"
 
 #: models.py:278 templates/forum/header.html:23 templates/forum/topic.html:61
 #: templates/forum/user.html:7 templates/forum/pm/message.html:38
 msgid "Profile"
-msgstr "个人信息"
+msgstr "Profilis"
 
 #: models.py:279
 msgid "Profiles"
-msgstr "个人信息"
+msgstr "Profiliai"
 
 #: models.py:306 models.py:307
 msgid "Post tracking"
-msgstr "帖子跟踪"
+msgstr "Siųsti stebimą"
 
 #: models.py:314
 msgid "Reported by"
-msgstr "报告"
+msgstr "Pranešta"
 
 #: models.py:316
 msgid "Zapped"
-msgstr ""
+msgstr "Pakeistas"
 
 #: models.py:317
 msgid "Zapped by"
-msgstr ""
+msgstr "Pakeistas"
 
 #: models.py:322 templates/forum/topic.html:108
 msgid "Report"
-msgstr "报告"
+msgstr "Pranešimas"
 
 #: models.py:323
 msgid "Reports"
-msgstr "报告"
+msgstr "Pranešimai"
 
 #: models.py:332
 msgid "Read"
-msgstr "查看"
+msgstr "Perskaityta"
 
 #: models.py:342
 msgid "Private message"
-msgstr "站内消息"
+msgstr "Asmeninė žinutė"
 
 #: models.py:343
 msgid "Private messages"
-msgstr "站内消息"
+msgstr "Asmeninės žinutės"
 
 #: models.py:375
 msgid "Banned user"
-msgstr "被屏蔽用户"
+msgstr "Užblokuotas vartotojas"
 
 #: models.py:376
 msgid "Ban start"
-msgstr "屏蔽开始时间"
+msgstr "Blokavimo pradžia"
 
 #: models.py:377
 msgid "Ban end"
-msgstr "屏蔽结束时间"
+msgstr "Blokavimo pabaiga"
 
 #: models.py:381
 msgid "Ban"
-msgstr "屏蔽"
+msgstr "Blokavimas"
 
 #: models.py:382
 msgid "Bans"
-msgstr "屏蔽"
+msgstr "Blokavimai"
 
 #: models.py:400
 msgid "Size"
-msgstr "大小"
+msgstr "Dydis"
 
 #: models.py:401
 msgid "Content type"
-msgstr "内容类型"
+msgstr "Turinio tipas"
 
 #: models.py:402
 msgid "Path"
-msgstr "路径"
+msgstr "Kelias"
 
 #: models.py:404
 msgid "Hash"
-msgstr ""
+msgstr "Hash"
 
 #: templates/forum/add_post.html:9 templates/forum/add_post.html.py:11
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
@@ -450,21 +450,21 @@ msgstr ""
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
-msgstr "论坛主页"
+msgstr "Pradžia"
 
 #: templates/forum/add_post.html:18 templates/forum/forum.html:11
 #: templates/forum/forum.html.py:69
 msgid "New topic"
-msgstr "发贴"
+msgstr "Nauja tema"
 
 #: templates/forum/add_post.html:18
 msgid "New reply"
-msgstr "回贴"
+msgstr "Naujas atsakymas"
 
 #: templates/forum/add_post.html:23 templates/forum/topic.html:149
 #: templates/forum/pm/create_pm.html:14
 msgid "Write your message and submit"
-msgstr "写消息并发布"
+msgstr "Parašyti savo žinutę ir išsiųsti"
 
 #: templates/forum/add_post.html:45 templates/forum/mail_to.html:24
 #: templates/forum/report.html:21 templates/forum/reputation_form.html:41
@@ -476,7 +476,7 @@ msgstr "写消息并发布"
 #: templates/forum/profile/profile_personality.html:53
 #: templates/forum/profile/profile_privacy.html:25
 msgid "Submit"
-msgstr "提交"
+msgstr "Siųsti"
 
 #: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
 #: templates/forum/mail_to.html:24 templates/forum/move_topic.html:33
@@ -485,63 +485,63 @@ msgstr "提交"
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
 #: templates/forum/upload_avatar.html:22 templates/forum/pm/create_pm.html:28
 msgid "Go back"
-msgstr "返回"
+msgstr "Atgal"
 
 #: templates/forum/add_post.html:53
 msgid "Topic review (newest first)"
-msgstr "主题预览"
+msgstr "Peržiūrėti temas (naujausios viršuje)"
 
 #: templates/forum/add_post.html:69 templates/forum/topic.html:118
 msgid "Quote"
-msgstr "引用"
+msgstr "Citata"
 
 #: templates/forum/base.html:57
 msgid "Board footer"
-msgstr ""
+msgstr "Lentos apačia"
 
 #: templates/forum/delete_posts.html:34 templates/forum/topic.html:89
 msgid "Edited"
-msgstr "编辑"
+msgstr "Redaguotas"
 
 #: templates/forum/delete_posts.html:38 templates/forum/moderate.html:26
 msgid "Select"
-msgstr "选择"
+msgstr "Pasirinkti"
 
 #: templates/forum/delete_posts.html:50 templates/forum/moderate.html:67
 #: templates/forum/reputation.html:27 templates/forum/topic.html:111
 #: templates/forum/pm/message.html:75
 msgid "Delete"
-msgstr "删除"
+msgstr "Ištrinti"
 
 #: templates/forum/edit_post.html:14
 msgid "Edit post"
-msgstr "编辑帖子"
+msgstr "Redaguoti įrašą"
 
 #: templates/forum/edit_post.html:20
 msgid "Edit the post and submit changes"
-msgstr "编辑并发布"
+msgstr "Redaguoti įrašą ir siųsti pakeitimus"
 
 #: templates/forum/edit_post.html:33
 msgid "Save"
-msgstr "保存"
+msgstr "Išsaugoti"
 
 #: templates/forum/forum.html:28 templates/forum/moderate.html:23
 #: templates/forum/search_topics.html:23
 msgid "Replies"
-msgstr "回帖"
+msgstr "Atsakymai"
 
 #: templates/forum/forum.html:29 templates/forum/moderate.html:24
 msgid "Views"
-msgstr "查看"
+msgstr "Žiūrėta"
 
 #: templates/forum/forum.html:30 templates/forum/index.html:20
 #: templates/forum/moderate.html:25 templates/forum/search_topics.html:24
 msgid "Last post"
-msgstr "最新回复"
+msgstr "Paskutinis įrašas"
 
 #: templates/forum/forum.html:42 templates/forum/moderate.html:38
 msgid "Sticky:"
-msgstr "置顶"
+msgstr "Visada viršuje:"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
 #: templates/forum/forum.html:54 templates/forum/forum_row.html:36
@@ -549,268 +549,271 @@ msgstr "置顶"
 #: templates/forum/moderate.html:50 templates/forum/search_topics.html:35
 #: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
-msgstr "由"
+msgstr "-"
 
 #: templates/forum/forum.html:58 templates/forum/moderate.html:55
 msgid "Forum is empty."
-msgstr "论坛没有帖子"
+msgstr "Forumas yra tuščias."
 
 #: templates/forum/forum.html:89
 msgid "Jump to"
-msgstr "版块切换"
+msgstr "Eiti į"
 
 #: templates/forum/forum.html:100 templates/forum/topic.html:199
 msgid "Go"
-msgstr "版块切换"
+msgstr "Eiti"
 
 #: templates/forum/forum.html:104
 msgid "Moderate forum"
-msgstr "管理论坛"
+msgstr "Moderuoti forumą"
 
 #: templates/forum/header.html:16
 msgid "Index"
-msgstr "论坛"
+msgstr "Pradžia"
 
 #: templates/forum/header.html:17 templates/forum/users.html:39
 #: templates/forum/lofi/header.html:5
 msgid "User list"
-msgstr "用户列表"
+msgstr "Vartotojų sąrašas"
 
 #: templates/forum/header.html:18 templates/forum/search_form.html:7
 #: templates/forum/users.html:29 templates/forum/lofi/header.html:4
 msgid "Search"
-msgstr "搜索"
+msgstr "Paieška"
 
 #: templates/forum/header.html:20 templates/forum/profile/profile_admin.html:9
 #: templates/forum/profile/profile_menu.html:14
 msgid "Administration"
-msgstr "管理界面"
+msgstr "Administravimas"
 
 #: templates/forum/header.html:25 templates/forum/topic.html:71
 #: templates/forum/pm/message.html:43
 msgid "PM"
-msgstr "站内消息"
+msgstr "PM"
 
 #: templates/forum/header.html:27
 msgid "Log out"
-msgstr "登出"
+msgstr "Atsijungti"
 
 #: templates/forum/header.html:29
 msgid "Log in"
-msgstr "登录"
+msgstr "Prisijungti"
 
 #: templates/forum/header.html:30
 msgid "Sign up"
-msgstr "注册"
+msgstr "Registruotis"
 
 #: templates/forum/header.html:37
 msgid "Logged in as"
-msgstr "登录用户"
+msgstr "Prisijungęs kaip"
 
 #: templates/forum/header.html:38
 msgid "Last visit:"
-msgstr "最后访问"
+msgstr "Paskutinis apsilankymas:"
 
 #: templates/forum/header.html:40
 #, python-format
 msgid " There are new messages (%(new_msg)s)"
-msgstr "有新消息 (%(new_msg)s)"
+msgstr "Yra naujų žinučių (%(new_msg)s)"
 
 #: templates/forum/header.html:43
 msgid "You are not logged in."
-msgstr "您没有登录"
+msgstr "Jūs neprisijungęs."
 
 #: templates/forum/header.html:46
 msgid "There are new reports"
-msgstr "有新的报告"
+msgstr "Yra naujų pranešimų"
 
 #: templates/forum/header.html:51
 msgid "Show new posts since last visit"
-msgstr "显示上次访问后的新帖子"
+msgstr "Rodyti naujausius įrašus nuo paskutinio apsilankymo"
 
 #: templates/forum/header.html:52
 msgid "Mark all topics as read"
-msgstr "把所有主题标记为已读"
+msgstr "Pažymėti visas temas perskaitytom"
 
 #: templates/forum/header.html:62
 msgid "Notice"
-msgstr "通知"
+msgstr "Pranešimas"
 
 #: templates/forum/index.html:35
 msgid "Board information"
-msgstr ""
+msgstr "Lentos informacija"
 
 #: templates/forum/index.html:39
 msgid "Board statistics"
-msgstr ""
+msgstr "Lentos statistika"
 
 #: templates/forum/index.html:40
 msgid "Total number of registered users:"
-msgstr "注册用户数量"
+msgstr "Viso registruotų vartotojų:"
 
 #: templates/forum/index.html:41
 msgid "Total number of topics:"
-msgstr "主题数量"
+msgstr "Viso temų:"
 
 #: templates/forum/index.html:42
 msgid "Total number of posts:"
-msgstr "帖子数量"
+msgstr "Viso įrašų:"
 
 #: templates/forum/index.html:45
 msgid "User information"
-msgstr "用户信息"
+msgstr "Vartotojo informacija"
 
 #: templates/forum/index.html:46
 msgid "Newest registered user:"
-msgstr "最新注册用户"
+msgstr "Naujausias vartotojas:"
 
 #: templates/forum/index.html:47
 msgid "Registered users online:"
-msgstr "在线的注册用户"
+msgstr "Prisijungę registruoti vartotojai:"
 
 #: templates/forum/index.html:48
 msgid "Guests online:"
-msgstr "在线的访客"
+msgstr "Prisijungę svečiai:"
 
 #: templates/forum/index.html:52
 msgid "Online:"
-msgstr "在线"
+msgstr "Prisijungęs:"
 
 #: templates/forum/index.html:76 templates/forum/search_posts.html:67
 #: templates/forum/search_topics.html:76
 msgid "Search links"
-msgstr "搜索链接"
+msgstr "Ieškoti tarp nuorodų"
 
 #: templates/forum/index.html:77 templates/forum/search_posts.html:68
 #: templates/forum/search_topics.html:77
 msgid "Show recent posts"
-msgstr "显示最近的帖子"
+msgstr "Rodyti naujausius įrašus"
 
 #: templates/forum/index.html:78 templates/forum/search_posts.html:69
 #: templates/forum/search_topics.html:78
 msgid "Show unanswered posts"
-msgstr "显示没有回复的帖子"
+msgstr "Rodyti neatsakytus įrašus"
 
 #: templates/forum/index.html:80 templates/forum/search_posts.html:71
 #: templates/forum/search_topics.html:80
 msgid "Show your subscribed topics"
-msgstr "显示我订阅的主题"
+msgstr "Rodyti jūsų prenumeruojamas temas"
 
 #: templates/forum/index.html:81 templates/forum/search_posts.html:72
 #: templates/forum/search_topics.html:81
 msgid "Show your posts"
-msgstr "显示我的帖子"
+msgstr "Rodyti jūsų įrašus"
 
 #: templates/forum/mail_to.html:7
 msgid "Send e-mail to"
-msgstr "发送邮件给"
+msgstr "Siųsti e-paštą vartotojui"
 
 #: templates/forum/mail_to.html:12
 msgid "Write and submit your e-mail message"
-msgstr "书写并提交您的邮件"
+msgstr "Rašyti ir siųsti e-pašto žinutę"
 
 #: templates/forum/mail_to.html:20
 msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
-msgstr "提示:接收者将会看到您的电子邮箱地址。"
+msgstr ""
+"Prašau atminti, kad naudojant šią formą, jūsų e-pašto adresas bus atslėptas "
+"gavėjui."
 
 #: templates/forum/moderate.html:66 templates/forum/move_topic.html:33
 msgid "Move"
-msgstr "移动"
+msgstr "Perkelti"
 
 #: templates/forum/moderate.html:68
 msgid "Open"
-msgstr "打开"
+msgstr "Atidaryti"
 
 #: templates/forum/moderate.html:69
 msgid "Close"
-msgstr "关闭"
+msgstr "Uždaryti"
 
 #: templates/forum/moderators.html:3
 msgid "Moderated by"
-msgstr "版主"
+msgstr "Moderuojama"
 
 #: templates/forum/move_topic.html:7 templates/forum/topic.html:205
 msgid "Move topic"
-msgstr "移动主题"
+msgstr "Perkelti temą"
 
 #: templates/forum/move_topic.html:15
 msgid "Select destination of move"
-msgstr "选择移动的目的地"
+msgstr "Pasirinkite perkėlimo vietą"
 
 #: templates/forum/move_topic.html:17
 msgid "Move to"
-msgstr "移到"
+msgstr "Perkelti į"
 
 #: templates/forum/pagination.html:3
 msgid "Pages"
-msgstr "页面"
+msgstr "Puslapiai"
 
 #: templates/forum/report.html:7
 msgid "Report post"
-msgstr "举报帖子"
+msgstr "Pranešti apie įrašą"
 
 #: templates/forum/report.html:12
 msgid "Please enter a short reason why you are reporting this post"
-msgstr "请输入您举报这个帖子的原因"
+msgstr ""
+"Prašom įvesti trumpą priežastį, kodėl jūs norite pranešti apie šį įrašą"
 
 #: templates/forum/reputation.html:15
 msgid "Reputation of the user"
-msgstr "用户声望"
+msgstr "Vartotojo reputacija"
 
 #: templates/forum/reputation.html:21
 msgid "From user"
-msgstr "用户"
+msgstr "Nuo vartotojo"
 
 #: templates/forum/reputation.html:22
 msgid "For topic"
-msgstr "帖子"
+msgstr "Temai"
 
 #: templates/forum/reputation.html:24
 msgid "Estimation"
-msgstr "评估"
+msgstr "Įvertinimas"
 
 #: templates/forum/reputation.html:25 templates/forum/pm/inbox.html:14
 #: templates/forum/pm/outbox.html:14
 msgid "Date"
-msgstr "时间"
+msgstr "Data"
 
 #: templates/forum/reputation.html:62
 msgid "Are you sure"
-msgstr "你确定吗"
+msgstr "Ar esate tikras"
 
 #: templates/forum/reputation_form.html:7
 msgid "Please, fill the form"
-msgstr "请填写表格"
+msgstr "Prašau užpildyti formą"
 
 #: templates/forum/reputation_form.html:15
 msgid "Your name:"
-msgstr "您的姓名"
+msgstr "Jūsų vardas:"
 
 #: templates/forum/reputation_form.html:19
 msgid "To whom we change a reputation:"
-msgstr "被评价的用户"
+msgstr "Į ką mes kaičiam reputaciją:"
 
 #: templates/forum/reputation_form.html:24
 msgid "The reason of change of reputation:"
-msgstr "改变声望的原因"
+msgstr "Reputacijos keitimo priežastis:"
 
 #: templates/forum/reputation_form.html:28
 msgid "Method:"
-msgstr "方法"
+msgstr "Metodas:"
 
 #: templates/forum/reputation_form.html:31
 msgid "Add of a reputation"
-msgstr "增加一点声望"
+msgstr "Reputacijos didinimas"
 
 #: templates/forum/reputation_form.html:33
 msgid "Reduction of a reputation"
-msgstr "减少一点声望"
+msgstr "Reputacijos mažinimas"
 
 #: templates/forum/search_form.html:13
 msgid "Enter your search criteria"
-msgstr "输入您的搜索标准"
+msgstr "Įveskite paieškos kriterijus"
 
 #: templates/forum/search_form.html:18
 msgid ""
@@ -818,150 +821,153 @@ msgid ""
 "with spaces. To search by author enter the username of the author whose "
 "posts you wish to search for."
 msgstr ""
-"要根据关键字搜索，请输入一个或多个关键字搜索，关键字之间用空格分隔。要根据作"
-"者搜索，请输入作者的用户名"
+"Ieškant pagal reikšminius žodžius, įveskite sąlygą arba sąlygas. Atskirkite "
+"sąlygas tarpais. Ieškant pagal autorių, įveskite autoriaus vartotojo vardą, "
+"kurio įrašų ieškote."
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
-msgstr "选择搜索的位置"
+msgstr "Pasirink, kur ieškoti"
 
 #: templates/forum/search_form.html:30
 msgid "All forums"
-msgstr "所有论坛"
+msgstr "Visi forumai"
 
 #: templates/forum/search_form.html:44
 msgid ""
 "Choose in which forum you would like to search and if you want to search in "
 "topic subjects, message text or both."
-msgstr "选择您要搜索的论坛和搜索范围(标题或全文)"
+msgstr ""
+"Pasirinkite kuriame forume jūs norite ieškoti ir jei norite ieškoti temų "
+"pavadinimuose, įrašų tekstuose ar abu."
 
 #: templates/forum/search_form.html:51
 msgid "Select how to view search results"
-msgstr "选择查看搜索结果的方式"
+msgstr "Pasirinkite kaip peržiūrėti paieškos rezultatus"
 
 #: templates/forum/search_form.html:66
 msgid "You can choose how you wish to sort and show your results."
-msgstr "您可以选择如何显示和排序搜索结果"
+msgstr "Jūs galiet pasirinkti kaip atvaizduoti ir rūšiuoti rezultatus."
 
 #: templates/forum/search_posts.html:24
 msgid "Replies:"
-msgstr "回复"
+msgstr "Atsakymai:"
 
 #: templates/forum/search_posts.html:28
 msgid "Go to post"
-msgstr "跳转到帖子"
+msgstr "Eikite į įraša"
 
 #: templates/forum/search_posts.html:44 templates/forum/search_topics.html:55
 msgid "Info"
-msgstr "信息"
+msgstr "Informacija"
 
 #: templates/forum/search_posts.html:48 templates/forum/search_topics.html:59
 msgid "Your search returned no hits."
-msgstr ""
+msgstr "Jūsų paieška nieko negrąžino."
 
 #: templates/forum/search_topics.html:15
 msgid "Search results"
-msgstr "搜索结果"
+msgstr "Paieškos rezultatai"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:117
 #: templates/forum/topic.html:128 templates/forum/pm/message.html:80
 msgid "Reply"
-msgstr "回复"
+msgstr "Atsakyti"
 
 #: templates/forum/topic.html:49
 msgid "From:"
-msgstr "从"
+msgstr "Nuo:"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
 #: templates/forum/pm/message.html:30
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
-msgstr "已注册"
+msgstr "Registruotas:"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
 #: templates/forum/pm/message.html:31
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
-msgstr "帖子"
+msgstr "Įrašai:"
 
 #: templates/forum/topic.html:54 templates/forum/pm/message.html:33
 msgid "IP:"
-msgstr "IP"
+msgstr "IP:"
 
 #: templates/forum/topic.html:66 templates/forum/user.html:42
 #: templates/forum/profile/profile_essentials.html:43
 msgid "Send e-mail"
-msgstr "发送电子邮件"
+msgstr "Siųsti e-paštą"
 
 #: templates/forum/topic.html:93
 msgid "Attachments:"
-msgstr "附件"
+msgstr "Prikabinti failai:"
 
 #: templates/forum/topic.html:101 templates/forum/pm/message.html:65
 msgid "Online"
-msgstr "在线"
+msgstr "Prisijungęs"
 
 #: templates/forum/topic.html:103 templates/forum/pm/message.html:67
 msgid "Offline"
-msgstr "离线"
+msgstr "Atsijungęs"
 
 #: templates/forum/topic.html:111 templates/forum/pm/message.html:75
 msgid "Are you sure you want to delete this post?"
-msgstr "您确认要删除这个帖子来吗？"
+msgstr "Ar jūs tikrai norite ištrinti šį įrašą?"
 
 #: templates/forum/topic.html:115
 msgid "Edit"
-msgstr "编辑"
+msgstr "Redaguoti"
 
 #: templates/forum/topic.html:134
 msgid "Unsubscribe"
-msgstr "取消订阅"
+msgstr "Atsisakyti prenumeratos"
 
 #: templates/forum/topic.html:136
 msgid "Subscribe"
-msgstr "订阅"
+msgstr "Užsakyti prenumeratą"
 
 #: templates/forum/topic.html:144
 msgid "Quick post"
-msgstr "快速发布"
+msgstr "Greitas įrašas"
 
 #: templates/forum/topic.html:188
 msgid "Jump to "
-msgstr "跳转"
+msgstr "Eiti į"
 
 #: templates/forum/topic.html:202
 msgid "Moderator control"
-msgstr "版主面板"
+msgstr "Moderatoriaus valdymas"
 
 #: templates/forum/topic.html:204
 msgid "Delete multiple posts"
-msgstr "删除多个帖子"
+msgstr "Ištrinti kelis įrašus"
 
 #: templates/forum/topic.html:207
 msgid "Open topic"
-msgstr "开放主题"
+msgstr "Atidaryti temą"
 
 #: templates/forum/topic.html:209
 msgid "Close topic"
-msgstr "关闭主题"
+msgstr "Uždaryti temą"
 
 #: templates/forum/topic.html:212
 msgid "Unstick topic"
-msgstr "取消置顶"
+msgstr "Nebelaikyti temos viršuje"
 
 #: templates/forum/topic.html:214
 msgid "Stick topic"
-msgstr "置顶"
+msgstr "Laikyti temą viršuje"
 
 #: templates/forum/upload_avatar.html:7
 #: templates/forum/profile/profile_personality.html:26
 #: templates/forum/profile/profile_personality.html:29
 msgid "Upload avatar"
-msgstr "上传头像"
+msgstr "Įkelti avatarą"
 
 #: templates/forum/upload_avatar.html:12
 msgid "Enter an avatar file to upload"
-msgstr "选择头像图标并上传"
+msgstr "Įkėlimui įveskite avataro failą"
 
 #: templates/forum/upload_avatar.html:18
 #, python-format
@@ -969,29 +975,32 @@ msgid ""
 "An avatar is a small image that will be displayed under your username in "
 "your posts. It must not be any bigger than %(avatar_width)s x %"
 "(avatar_height)s pixels "
-msgstr "头像文件大小不能超过 %(avatar_width)s x %(avatar_height)s 像素"
+msgstr ""
+"Avataras yra mažas paveiksliukas, kuris bus rodomas po jūsų vartotojo vardo "
+"jūsų įrašuose. Jis negali būti didesnis nei %(avatar_width)s x %"
+"(avatar_height)s taškų"
 
 #: templates/forum/upload_avatar.html:22
 msgid "Upload"
-msgstr "上传"
+msgstr "Įkelti"
 
 #: templates/forum/user.html:12 templates/forum/profile/profile_menu.html:8
 #: templates/forum/profile/profile_messaging.html:15
 #: templates/forum/profile/profile_personal.html:9
 msgid "Personal"
-msgstr "个人信息"
+msgstr "Asmeninis"
 
 #: templates/forum/user.html:15
 msgid "Username:"
-msgstr "用户名"
+msgstr "Vartotojo vardas:"
 
 #: templates/forum/user.html:17 templates/forum/users.html:46
 msgid "Title"
-msgstr ""
+msgstr "Pavadinimas"
 
 #: templates/forum/user.html:19
 msgid "Real name:"
-msgstr "真实姓名"
+msgstr "Tikras vardas:"
 
 #: templates/forum/user.html:23 templates/forum/user.html.py:29
 #: templates/forum/user.html:35 templates/forum/user.html.py:61
@@ -999,24 +1008,24 @@ msgstr "真实姓名"
 #: templates/forum/user.html:79 templates/forum/user.html.py:85
 #: templates/forum/user.html:107 templates/forum/user.html.py:125
 msgid "(Unknown)"
-msgstr "(未知)"
+msgstr "(Nežinomas)"
 
 #: templates/forum/user.html:31
 msgid "Website:"
-msgstr "网站"
+msgstr "Svetainė:"
 
 #: templates/forum/user.html:37
 msgid "E-mail:"
-msgstr "电子邮箱"
+msgstr "E-paštas:"
 
 #: templates/forum/user.html:44
 msgid "(Hidden)"
-msgstr "(隐藏)"
+msgstr "(Paslėptas)"
 
 #: templates/forum/user.html:54 templates/forum/profile/profile_menu.html:9
 #: templates/forum/profile/profile_messaging.html:9
 msgid "Messaging"
-msgstr "消息"
+msgstr "Žinučių siuntimai"
 
 #: templates/forum/user.html:57
 msgid "Jabber:"
@@ -1041,42 +1050,42 @@ msgstr "Yahoo! Messenger:"
 #: templates/forum/user.html:94 templates/forum/profile/profile_menu.html:10
 #: templates/forum/profile/profile_personality.html:9
 msgid "Personality"
-msgstr "个性"
+msgstr "Asmeniniai duomenys"
 
 #: templates/forum/user.html:97
 msgid "Avatar:"
-msgstr "头像"
+msgstr "Avataras:"
 
 #: templates/forum/user.html:101
 msgid "(No avatar)"
-msgstr "(没有头像)"
+msgstr "(avataro nėra)"
 
 #: templates/forum/user.html:103
 msgid "Signature:"
-msgstr "签名"
+msgstr "Parašas:"
 
 #: templates/forum/user.html:116
 #: templates/forum/profile/profile_essentials.html:71
 msgid "User activity"
-msgstr "用户活跃度"
+msgstr "Vartotojo aktyvumas"
 
 #: templates/forum/user.html:120
 #: templates/forum/profile/profile_essentials.html:76
 msgid "Show all posts"
-msgstr "显示所有帖子"
+msgstr "Rodyti visus įrašus"
 
 #: templates/forum/user.html:121
 #: templates/forum/profile/profile_essentials.html:74
 msgid "Last post:"
-msgstr "上个帖子"
+msgstr "Paskutinis įrašas"
 
 #: templates/forum/users.html:7
 msgid "User search"
-msgstr "用户搜索"
+msgstr "Vartotojo paieška"
 
 #: templates/forum/users.html:12
 msgid "Find and sort users"
-msgstr "查找并排序用户"
+msgstr "Rasti ir rūšiuoti vartotojus"
 
 #: templates/forum/users.html:25
 msgid ""
@@ -1084,103 +1093,109 @@ msgid ""
 "users by name, date registered or number of posts and in ascending/"
 "descending order."
 msgstr ""
+"Įveskite ieškomo vartotojo vardą. Vartotojo vardas gali būti neįvestas. "
+"Rūšiuokite vartotojus pagal vardą, registracijos datą arba įrašų skaičių, "
+"taip pat didėjančia/mažėjančia tvarka."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
 msgid "Full Version:"
-msgstr "完全版本"
+msgstr "Pilna versija:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "IMPORTANT:"
-msgstr "置顶:"
+msgstr "SVARBU:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "replies"
-msgstr "回复"
+msgstr "atsakymai"
 
 #: templates/forum/lofi/index.html:18
 msgid "posts"
-msgstr "帖子"
+msgstr "įrašai"
 
 #: templates/forum/pm/create_pm.html:9
 msgid "Send a message"
-msgstr "发送消息"
+msgstr "Siųsti žinutę"
 
 #: templates/forum/pm/create_pm.html:28
 msgid "Send"
-msgstr "发送"
+msgstr "Siųsti"
 
 #: templates/forum/pm/inbox.html:6 templates/forum/pm/menu_pm.html:7
 msgid "Inbox"
-msgstr "收件箱"
+msgstr "Gauta"
 
 #: templates/forum/pm/inbox.html:13
 msgid "Sender"
-msgstr "发送者"
+msgstr "Siuntėjas"
 
 #: templates/forum/pm/inbox.html:34 templates/forum/pm/outbox.html:34
 msgid "No messages"
-msgstr "没有消息"
+msgstr "Žinučių nėra"
 
 #: templates/forum/pm/menu_pm.html:3
 msgid "Private Messages"
-msgstr "私密消息"
+msgstr "Asmeninė žinutė"
 
 #: templates/forum/pm/menu_pm.html:8
 msgid "Sent"
-msgstr "发送"
+msgstr "Siųsta"
 
 #: templates/forum/pm/menu_pm.html:9
 msgid "Send new message"
-msgstr "发送一个新消息"
+msgstr "Siųsti naują žinutę"
 
 #: templates/forum/pm/outbox.html:6
 msgid "Outbox"
-msgstr "发件箱"
+msgstr "Siunčiama"
 
 #: templates/forum/pm/outbox.html:13
 msgid "Receiver"
-msgstr "收件人"
+msgstr "Gavėjas"
 
 #: templates/forum/profile/profile_admin.html:15
 msgid "Delete (administrators only) or ban user"
-msgstr "删除(仅限管理员)或屏蔽用户"
+msgstr "Ištrinti (tik administratoriams) arba blokuoti vartotoją"
 
 #: templates/forum/profile/profile_admin.html:17
 msgid "Delete user"
-msgstr "删除用户"
+msgstr "Ištrinti vartotoją"
 
 #: templates/forum/profile/profile_admin.html:17
 msgid "Ban user"
-msgstr "屏蔽用户"
+msgstr "Blokuoti vartotoją"
 
 #: templates/forum/profile/profile_admin.html:24
 msgid "Set moderator access"
-msgstr "设置版主权限"
+msgstr "Suteikti moderatoriaus prieigą"
 
 #: templates/forum/profile/profile_admin.html:26
 msgid ""
 "Choose what forums this user should be allowed to moderate. Note: This only "
 "applies to moderators. Administrators always have full permissions in all "
 "forums."
-msgstr "选择此用户可以管理的版块"
+msgstr ""
+"Parinkite, kuriuos forumus vartotojas galės moderuoti. Atminkite: tai "
+"galioja tik moderatoriams. Administratoriai turi visas teises visuose "
+"forumuose."
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
-msgstr "更新论坛"
+msgstr "Atnaujinti forumus"
 
 #: templates/forum/profile/profile_display.html:9
 #: templates/forum/profile/profile_menu.html:11
 msgid "Display"
-msgstr "显示"
+msgstr "Atvaizdavimas"
 
 #: templates/forum/profile/profile_display.html:14
 msgid "Select your preferred style"
-msgstr "选择您喜欢的风格"
+msgstr "Pasirinkite jums tinkantį stilių"
 
 #: templates/forum/profile/profile_display.html:17
 msgid "If you like you can use a different visual style for this forum."
-msgstr "如果您喜欢，您可以为此论坛选择不同的显示风格。"
+msgstr "Jei norite, galite pasirinkti kitokį atvaizdavimo stilių forumui."
 
 #: templates/forum/profile/profile_display.html:24
 #: templates/forum/profile/profile_essentials.html:81
@@ -1189,61 +1204,64 @@ msgstr "如果您喜欢，您可以为此论坛选择不同的显示风格。"
 #: templates/forum/profile/profile_personality.html:53
 #: templates/forum/profile/profile_privacy.html:25
 msgid "When you update your profile, you will be redirected back to this page."
-msgstr "当您更改个人信息后，将会跳转到此页面"
+msgstr ""
+"Kai atnaujinsite savo profilį, jūs būsite nukreiptas atgal į šį puslapį."
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
 msgid "Essentials"
-msgstr "概要"
+msgstr "Svarbus"
 
 #: templates/forum/profile/profile_essentials.html:15
 msgid "Enter your username and password"
-msgstr "输入您的用户名和密码"
+msgstr "Įveskite savo vartotojo vardą ir slaptažodį"
 
 #: templates/forum/profile/profile_essentials.html:26
 #: templates/forum/profile/profile_essentials.html:28
 msgid "Change password"
-msgstr "修改密码"
+msgstr "Keisti slaptažodį"
 
 #: templates/forum/profile/profile_essentials.html:37
 msgid "Enter a valid e-mail address"
-msgstr "输入一个合法的邮箱地址"
+msgstr "Įveskite galiojantį e-pašto adresą"
 
 #: templates/forum/profile/profile_essentials.html:51
 msgid "Set your localisation options"
-msgstr "设置您的区域选项"
+msgstr "Keisti lokalizacijos nuostatas"
 
 #: templates/forum/profile/profile_essentials.html:55
 msgid ""
 "Timezone: For the forum to display times correctly you must select your "
 "local timezone."
-msgstr "时区:为了在论坛显示正确的时间，您必须设定您所在的时区。"
+msgstr ""
+"Laiko juosta: kad forumas atvaizduotų teisingai laiką, jūs turite pasirinkti "
+"laiko juostą. "
 
 #: templates/forum/profile/profile_essentials.html:61
 msgid ""
 "Language: You can choose which language you wish to use to view the forum"
-msgstr "语言：您可以选择不同的语言开查看论坛"
+msgstr "Kalba: Jūs galite pasirinkti kokia kalba norite matyti forumą"
 
 #: templates/forum/profile/profile_menu.html:3
 msgid "Profile menu"
-msgstr "个人信息菜单"
+msgstr "Profilio meniu"
 
 #: templates/forum/profile/profile_menu.html:12
 #: templates/forum/profile/profile_privacy.html:9
 msgid "Privacy"
-msgstr "隐私"
+msgstr "Privatumas"
 
 #: templates/forum/profile/profile_personal.html:15
 msgid "Enter your personal details"
-msgstr "输入您的个人信息"
+msgstr "Įveskite asmeninius duomenis"
 
 #: templates/forum/profile/profile_personal.html:21
 msgid "Leave blank to use forum default."
-msgstr "使用默认"
+msgstr "Palikite tuščią, kad naudoti forumo numatytą."
 
 #: templates/forum/profile/profile_personality.html:14
 msgid "Set your avatar display options"
-msgstr "设置头像显示选项"
+msgstr "Nustatykite avataro vaizdavimo nuostatas"
 
 #: templates/forum/profile/profile_personality.html:20
 msgid ""
@@ -1251,20 +1269,22 @@ msgid ""
 "can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
 "below must be checked in order for the avatar to be visible in your posts."
 msgstr ""
-"头像是一个小图标，它将显示于您所有的帖子中。通过点击下面的链接，您可以上传一"
-"个头像。为了使头像生效，‘使用头像’的选项必须选中。"
+"Avataras yra mažas paveiksliukas, kuris bus atvaizduotas visuose jūsų "
+"įrašuose. Jūs galite įkelti avatarą spausdami žemiau esančią nuorodą. "
+"Varnelė 'Vartotojo avataras' žemiau turi būti pažymėta, kad avataras būtų "
+"matomas."
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
-msgstr "使用头像"
+msgstr "Naudoti avatarą."
 
 #: templates/forum/profile/profile_personality.html:27
 msgid "Delete avatar"
-msgstr "删除头像"
+msgstr "Ištrinti avatarą"
 
 #: templates/forum/profile/profile_personality.html:36
 msgid "Compose your signature"
-msgstr "编辑您的签名档"
+msgstr "Sukurti parašą"
 
 #: templates/forum/profile/profile_personality.html:39
 msgid ""
@@ -1275,16 +1295,18 @@ msgid ""
 "the features that are allowed/enabled listed below whenever you edit your "
 "signature."
 msgstr ""
-"签名档是一小段文字，它将附加到您发布的帖子后面。您可以添加任何喜欢的内容。比"
-"如可以是您喜欢的名言或者您的签名。"
+"Parašas yra trumpas tekstas, kuris pridedamas po jūsų įrašais. Jame jūs "
+"galite įvesti ką tik norite. Galbūt jūs norite įvesti savo mėgstamą citatą "
+"ar savo horoskopo ženklą. Taip priklauso nuo jūsų. Paraše galite naudoti "
+"BBKodą, jei jis aktyvuotas."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
-msgstr "没有签名档"
+msgstr "Joks parašas nėra saugomas vartotojo profilyje"
 
 #: templates/forum/profile/profile_privacy.html:15
 msgid "Set your privacy options"
-msgstr "设置您的隐私选项"
+msgstr "Redaguoti privatumo nuostatas"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
@@ -1292,4 +1314,6 @@ msgid ""
 "not and if you want other users to be able to send you e-mail via the forum "
 "(form e-mail) or not."
 msgstr ""
-"设置是否允许其他人看到您的电子邮箱或允许其他人通过论坛给你发送电子邮件。"
+"Pasirinkite, ar norite, kad jūsų e-pašto adresas būtų matomas kitiems "
+"vartotojams, ar ne. Taip pat pasirinkite, ar vartotojai galės jums siųsti "
+"forumo e-pašto forma, ar ne."
