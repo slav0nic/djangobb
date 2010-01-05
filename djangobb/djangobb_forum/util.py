@@ -165,7 +165,7 @@ class JsonResponse(HttpResponse):
         super(JsonResponse, self).__init__(
             content=json_data, mimetype=mimetype)
 
-        
+
 def build_form(Form, _request, GET=False, *args, **kwargs):
     """
     Shorcut for building the form instance of given form class
@@ -178,6 +178,7 @@ def build_form(Form, _request, GET=False, *args, **kwargs):
     else:
         form = Form(*args, **kwargs)
     return form
+
 
 class ExcludeTagsHTMLParser(HTMLParser):
         """
@@ -214,6 +215,10 @@ class ExcludeTagsHTMLParser(HTMLParser):
         def handle_charref(self, name):
             self.html.append('&#%s;' % name)
 
+        def unescape(self, s):
+            #we don't need unescape data (without this possible XSS-attack)
+            return s
+
         def __html_attrs(self, attrs):
             _attrs = ''
             if attrs:
@@ -223,6 +228,7 @@ class ExcludeTagsHTMLParser(HTMLParser):
         def feed(self, data):
             HTMLParser.feed(self, data)
             self.html = ''.join(self.html)
+
 
 def urlize(data):
     """

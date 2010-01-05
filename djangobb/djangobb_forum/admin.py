@@ -12,6 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ForumAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'position', 'topic_count']
+    raw_id_fields = ['moderators', 'last_post']
 
 class TopicAdmin(admin.ModelAdmin):
     list_display = ['name', 'forum', 'created', 'head', 'post_count']
