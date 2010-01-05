@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessage,\
     Forum, Attachment, TZ_CHOICES, PRIVACY_CHOICES
-from djangobb_forum.markups import mypostmarkup
+from djangobb_forum.markups import bbmarkup
 from djangobb_forum import settings as forum_settings
 
 
@@ -215,7 +215,7 @@ class PersonalityProfileForm(forms.ModelForm):
 
     def save(self, commit=True):
         profile = super(PersonalityProfileForm, self).save(commit=False)
-        profile.signature = mypostmarkup.markup(profile.signature, auto_urls=False)
+        profile.signature = bbmarkup.bbcode(profile.signature)
         if commit:
             profile.save()
         return profile
