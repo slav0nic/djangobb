@@ -16,4 +16,4 @@ class PostIndexer(djapian.Indexer):
     trigger = lambda indexer, post: not post.topic.forum.category.groups.count()
 
 
-post_indexer = djapian.space.add_index(Post, PostIndexer)
+post_indexer = djapian.add_index(Post, PostIndexer)
