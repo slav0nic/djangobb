@@ -7,29 +7,27 @@ from django.utils.safestring import mark_safe
 
 __all__ = ('BBCODE_RULES', 'bbcode')
 
-BBCODE_RULES = [ (r'\[url\](.+?)\[/url\]', r'<a href="\1">\1</a>'),
-        (r'\[url=(.+?)\](.+?)\[/url\]', r'<a href="\1">\2</a>'),
-        (r'\[link\](.+?)\[/link\]', r'<a href="\1">\1</a>'),
-        (r'\[link=(.+?)\](.+?)\[/link\]', r'<a href="\1">\2</a>'),
-        (r'\[email\](.+?)\[/email\]', r'<a href="mailto:\1">\1</a>'),
-        (r'\[email=(.+?)\](.+?)\[/email\]', r'<a href="mailto:\1">\2</a>'),
-        (r'\[img\](.+?)\[/img\]', r'<img src="\1">'),
-        (r'\[img=(.+?)\](.+?)\[/img\]', r'<img src="\1" alt="\2">'),
-        (r'\[IMG\](.+?)\[/IMG\]', r'<img src="\1">'),
-        (r'\[IMG=(.+?)\](.+?)\[/IMG\]', r'<img src="\1" alt="\2">'),
-        (r'\[color=(.+?)\](.+?)\[/color\]', r'<span style="color:\1">\2</span>'),
-        (r'\[b\](.+?)\[/b\]', r'<strong>\1</strong>'),
-        (r'\[i\](.+?)\[/i\]', r'<em>\1</em>'),
-        (r'\[u\](.+?)\[/u\]', r'<u>\1</u>'),
-        (r'\[s\](.+?)\[/s\]', r'<strike>\1</strike>'),
-        (r'\[quote\](.+?)\[/quote\]', r'<blockquote>\1</blockquote>'),
-        (r'\[quote=(.+?)\](.+?)\[/quote\]', r'<blockquote><em>\1</em> <br /> \2</blockquote>'),
-        (r'\[center\](.+?)\[/center\]', r'<div style="text-align: center;">\1</div>'),
-        (r'\[big\](.+?)\[/big\]', r'<big>\1</big>'),
-        (r'\[small\](.+?)\[/small\]', r'<small>\1</small>'),
-        (r'\[list\](.+?)\[/list\]', r'<ul>\1</ul>'),
-        (r'\[list\=(.+?)\](.+?)\[/list\]', r'<ol start="\1">\2</ol>'),
-        (r'\[\*\]\s?(.*?)\n', r'<li>\1</li>'),
+BBCODE_RULES = [ (r'\[url\](.*?)\[/url\]', r'<a href="\1">\1</a>'),
+        (r'\[url=(.*?)\](.*?)\[/url\]', r'<a href="\1">\2</a>'),
+        (r'\[link\](.*?)\[/link\]', r'<a href="\1">\1</a>'),
+        (r'\[link=(.*?)\](.*?)\[/link\]', r'<a href="\1">\2</a>'),
+        (r'\[email\](.*?)\[/email\]', r'<a href="mailto:\1">\1</a>'),
+        (r'\[email=(.*?)\](.*?)\[/email\]', r'<a href="mailto:\1">\2</a>'),
+        (r'\[img\](.*?)\[/img\]', r'<img src="\1">'),
+        (r'\[img=(.*?)\](.*?)\[/img\]', r'<img src="\1" alt="\2">'),
+        (r'\[color=([a-zA-Z]*|\#?[0-9a-fA-F]{6})\](.*?)\[/color\]', r'<span style="color:\1">\2</span>'),
+        (r'\[b\](.*?)\[/b\]', r'<strong>\1</strong>'),
+        (r'\[i\](.*?)\[/i\]', r'<em>\1</em>'),
+        (r'\[u\](.*?)\[/u\]', r'<u>\1</u>'),
+        (r'\[s\](.*?)\[/s\]', r'<strike>\1</strike>'),
+        (r'\[quote\](.*?)\[/quote\]', r'<blockquote>\1</blockquote>'),
+        (r'\[quote=(.*?)\](.*?)\[/quote\]', r'<blockquote><em>\1</em> <br /> \2</blockquote>'),
+        (r'\[center\](.*?)\[/center\]', r'<div style="text-align: center;">\1</div>'),
+        (r'\[big\](.*?)\[/big\]', r'<big>\1</big>'),
+        (r'\[small\](.*?)\[/small\]', r'<small>\1</small>'),
+        (r'\[list\](.*?)\[/list\]', r'<ul>\1</ul>'),
+        (r'\[list\=(\d+)\](.*?)\[/list\]', r'<ol start="\1">\2</ol>'),
+        (r'\[\*\](.*?)<br./>', r'<li>\1</li>'),
         (r'\[br\]', r'<br />') ]
 
 BBCODE_RULES += getattr(settings, 'BBMARKUP_EXTRA_RULES', [])
@@ -53,7 +51,7 @@ def code_parser(matchobj):
     return "<pre><code>%s</code></pre>" % value
 
 
-def bbcode(value, linebr=True, code_parser=code_parser):
+def bbcode(value, code_parser=code_parser):
     """
     >>> data = '[code]print "Lorem [b]imsum[b]"[/code]'
     >>> bbcode(data)
@@ -68,12 +66,18 @@ def bbcode(value, linebr=True, code_parser=code_parser):
     u'<pre><code>print 123\nprint &#39;&lt;br/&gt;&#39;</code></pre>'
     >>> bbmarkup.bbcode('[quote=test user]Test quote text[/quote]')
     u'<blockquote><em>test user</em> <br /> Test quote text</blockquote>'
+    >>> bbmarkup.bbcode('[color=red]Lorem[/color]')
+    u'<span style="color:red">Lorem</span>'
+    >>> bbmarkup.bbcode('[color=#FAaF12]Lorem[/color]')
+    u'<span style="color:#FAaF12">Lorem</span>'
+    >>> bbmarkup.bbcode('[color=#FAaF121]Lorem[/color]')
+    u'[color=#FAaF121]Lorem[/color]'
+    
     """
 
     value = escape(value)
-    if linebr:
-        value = linebreaksbr(value)
-    value = re.sub(re.compile(r'\[code\](.+?)\[/code\]', re.DOTALL), code_parser, value)
+    value = linebreaksbr(value)
+    value = re.sub(re.compile(r'\[code\](.*?)\[/code\]', re.DOTALL), code_parser, value)
     for bbset in BBCODE_RULES_COMPILED:
         value = bbset[0].sub(bbset[1], value)
 
