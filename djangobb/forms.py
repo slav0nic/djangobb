@@ -9,5 +9,5 @@ class RegistrationFormUtfUsername(RegistrationFormUniqueEmail):
     '''
     def __init__(self, *args, **kwargs):
         super(RegistrationFormUtfUsername, self).__init__(*args, **kwargs)
-        self.fields['username'].regex = re.compile(r"^[\w- ]+$", re.UNICODE)
+        self.fields['username'].regex = re.compile(r"^[\w\s-]+$", re.UNICODE)
 
