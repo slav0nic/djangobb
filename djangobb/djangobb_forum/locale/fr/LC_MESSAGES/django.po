@@ -1,0 +1,1321 @@
+# French translation for DjangoBB forum
+# This file is distributed under the same license as the PACKAGE package.
+# Hugoh.org and Euphormica.eu, 2010
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Djangobb dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-03 22:49+0200\n"
+"PO-Revision-Date: 2010-02-03 22:49+0200\n"
+"Last-Translator: Hugoh.org\n"
+"Language-Team:  <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: feeds.py:23 feeds.py:24 templates/forum/base.html:18
+msgid "Latest posts on forum"
+msgstr "Derniers messages du forum"
+
+#: feeds.py:33 feeds.py:34 templates/forum/base.html:19
+msgid "Latest topics on forum"
+msgstr "Derniers sujets du forum"
+
+#: feeds.py:52 feeds.py:60
+#, python-format
+msgid "Latest posts on %s topic"
+msgstr "Derniers messages du sujet %s"
+
+#: feeds.py:76 feeds.py:84
+#, python-format
+msgid "Latest posts on %s forum"
+msgstr "Derniers messages sur du forum %s"
+
+#: feeds.py:100 feeds.py:103
+#, python-format
+msgid "Latest posts on %s category"
+msgstr "Derniers messages de la catégorie %s"
+
+#: forms.py:20 forms.py:141 forms.py:249 templates/forum/users.html:45
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: forms.py:21 templates/forum/users.html:48
+msgid "Registered"
+msgstr "Enregistré"
+
+#: forms.py:22
+msgid "No. of posts"
+msgstr "N° des messages"
+
+#: forms.py:26
+msgid "Post time"
+msgstr "Date d'envoi"
+
+#: forms.py:27 models.py:331
+msgid "Author"
+msgstr "Auteur"
+
+#: forms.py:28 forms.py:50 forms.py:115 forms.py:327 models.py:115
+#: models.py:335 templates/forum/add_post.html:26
+#: templates/forum/edit_post.html:23 templates/forum/pm/inbox.html:12
+#: templates/forum/pm/outbox.html:12
+msgid "Subject"
+msgstr "Sujet"
+
+#: forms.py:29 forms.py:284 models.py:98 models.py:114
+#: templates/forum/index.html:17 templates/forum/search_topics.html:22
+msgid "Forum"
+msgstr "Forum"
+
+#: forms.py:33
+msgid "Ascending"
+msgstr "Ascendant"
+
+#: forms.py:34
+msgid "Descending"
+msgstr "Descendant"
+
+#: forms.py:38 models.py:129 templates/forum/index.html:18
+msgid "Topics"
+msgstr "Sujets"
+
+#: forms.py:39 models.py:186 templates/forum/index.html:19
+#: templates/forum/users.html:47
+msgid "Posts"
+msgstr "Messages"
+
+#: forms.py:43
+msgid "Message text and topic subject"
+msgstr "Texte des messages et titre des sujets"
+
+#: forms.py:44
+msgid "Message text only"
+msgstr "Texte des messages uniquement"
+
+#: forms.py:45
+msgid "Topic subject only"
+msgstr "Titre des sujets uniquement"
+
+#: forms.py:52 templates/forum/add_post.html:35 templates/forum/topic.html:158
+msgid "Attachment"
+msgstr "Pièce jointe"
+
+#: forms.py:79
+msgid "Attachment is too big"
+msgstr "Pièce jointe trop grande"
+
+#: forms.py:142 templates/forum/topic.html:63
+#: templates/forum/pm/message.html:40
+msgid "E-mail"
+msgstr "Courriel"
+
+#: forms.py:172
+msgid "Real name"
+msgstr "Vrai Prénom"
+
+#: forms.py:251 forms.py:286
+msgid "Sort by"
+msgstr "Trier par"
+
+#: forms.py:252 forms.py:287
+msgid "Sort order"
+msgstr "Ordre de tri"
+
+#: forms.py:280
+msgid "Keyword search"
+msgstr "Recherche par mot clef"
+
+#: forms.py:282
+msgid "Author search"
+msgstr "Recherche par auteur"
+
+#: forms.py:285
+msgid "Search in"
+msgstr "Chercher dans"
+
+#: forms.py:288
+msgid "Show results as"
+msgstr "Montrer les résultats"
+
+#: forms.py:313 forms.py:375
+#, python-format
+msgid "User with login %s does not exist"
+msgstr "L'utilisateur nommé %s n'existe pas"
+
+#: forms.py:329 models.py:176 models.py:336 templates/forum/add_post.html:28
+#: templates/forum/edit_post.html:26
+msgid "Message"
+msgstr "Message"
+
+#: forms.py:357 models.py:330
+msgid "Recipient"
+msgstr "Contenu"
+
+#: models.py:35
+msgid "Display your e-mail address."
+msgstr "Montrez votre adresse de courriel."
+
+#: models.py:36
+msgid "Hide your e-mail address but allow form e-mail."
+msgstr "Cacher votre adresse de courriel mais autoriser l'envoi"
+
+#: models.py:37
+msgid "Hide your e-mail address and disallow form e-mail."
+msgstr "Cacher votre adresse de courriel et interdire l'envoi"
+
+#: models.py:50 models.py:87 models.py:403
+msgid "Name"
+msgstr "Nom"
+
+#: models.py:51
+msgid "Groups"
+msgstr "Groupes"
+
+#: models.py:51
+msgid "Only users from these groups can see this category"
+msgstr "Seuls les utilisateurs de ces groupes peuvent voir cette categorie"
+
+#: models.py:52 models.py:88
+msgid "Position"
+msgstr "Position"
+
+#: models.py:56 models.py:86
+msgid "Category"
+msgstr "Catégorie"
+
+#: models.py:57
+msgid "Categories"
+msgstr "Catégories"
+
+#: models.py:89
+msgid "Description"
+msgstr "Description"
+
+#: models.py:90
+msgid "Moderators"
+msgstr "Modérateurs"
+
+#: models.py:91 models.py:117 models.py:174
+msgid "Updated"
+msgstr "Mise à jour"
+
+#: models.py:92 models.py:123 models.py:275
+msgid "Post count"
+msgstr "Nombre de message"
+
+#: models.py:93
+msgid "Topic count"
+msgstr "Nombre de Sujet"
+
+#: models.py:99
+msgid "Forums"
+msgstr "Forums"
+
+#: models.py:116 models.py:173 models.py:318 models.py:333
+msgid "Created"
+msgstr "Créé"
+
+#: models.py:118 models.py:172 models.py:257
+msgid "User"
+msgstr "Utilisateur"
+
+#: models.py:119
+msgid "Views count"
+msgstr "Nombre de vues"
+
+#: models.py:120
+msgid "Sticky"
+msgstr "Collant"
+
+#: models.py:121
+msgid "Closed"
+msgstr "Fermé"
+
+#: models.py:122
+msgid "Subscribers"
+msgstr "Inscrits"
+
+#: models.py:128 models.py:171 models.py:243 templates/forum/forum.html:27
+#: templates/forum/moderate.html:22 templates/forum/search_topics.html:21
+msgid "Topic"
+msgstr "Sujet"
+
+#: models.py:175 models.py:334
+msgid "Markup"
+msgstr "Balisage"
+
+#: models.py:177 models.py:337
+msgid "HTML version"
+msgstr "Version HTML"
+
+#: models.py:178 models.py:338
+msgid "Text version"
+msgstr "Version texte"
+
+#: models.py:179
+msgid "User IP"
+msgstr "IP de l'utilisateur"
+
+#: models.py:185 models.py:315 models.py:399
+msgid "Post"
+msgstr "Message"
+
+#: models.py:241
+msgid "From"
+msgstr "De"
+
+#: models.py:242
+msgid "To"
+msgstr "À"
+
+#: models.py:244
+msgid "Time"
+msgstr "Date"
+
+#: models.py:245
+msgid "Sign"
+msgstr "S'inscrire"
+
+#: models.py:246 models.py:319 models.py:378 templates/forum/report.html:15
+#: templates/forum/reputation.html:23
+msgid "Reason"
+msgstr "Raison"
+
+#: models.py:249 templates/forum/topic.html:58
+#: templates/forum/pm/message.html:36
+msgid "Reputation"
+msgstr "Réputation"
+
+#: models.py:250
+msgid "Reputations"
+msgstr "Réputations"
+
+#: models.py:258
+msgid "Status"
+msgstr "Status"
+
+#: models.py:259
+msgid "Site"
+msgstr "Site"
+
+#: models.py:260
+msgid "Jabber"
+msgstr "Jabber"
+
+#: models.py:261
+msgid "ICQ"
+msgstr "ICQ"
+
+#: models.py:262
+msgid "MSN"
+msgstr "MSN"
+
+#: models.py:263
+msgid "AIM"
+msgstr "AIM"
+
+#: models.py:264
+msgid "Yahoo"
+msgstr "Yahoo"
+
+#: models.py:265 templates/forum/user.html:25
+msgid "Location"
+msgstr "Localisation"
+
+#: models.py:266
+msgid "Signature"
+msgstr "Signature"
+
+#: models.py:267
+msgid "Time zone"
+msgstr "Fuseau horaire"
+
+#: models.py:268
+msgid "Language"
+msgstr "Langue"
+
+#: models.py:269
+msgid "Avatar"
+msgstr "Avatar"
+
+#: models.py:270
+msgid "Theme"
+msgstr "Thème"
+
+#: models.py:271
+msgid "Show avatar"
+msgstr "Montrer l'avatar"
+
+#: models.py:272
+msgid "Show signatures"
+msgstr "Montrer la signature"
+
+#: models.py:273
+msgid "Privacy permission"
+msgstr "Préférences d'intimité"
+
+#: models.py:274
+msgid "Default markup"
+msgstr "Balisage par défaut"
+
+#: models.py:278 templates/forum/header.html:23 templates/forum/topic.html:61
+#: templates/forum/user.html:7 templates/forum/pm/message.html:38
+msgid "Profile"
+msgstr "Profil"
+
+#: models.py:279
+msgid "Profiles"
+msgstr "Profils"
+
+#: models.py:306 models.py:307
+msgid "Post tracking"
+msgstr "Suivi de message"
+
+#: models.py:314
+msgid "Reported by"
+msgstr "Reporté par"
+
+#: models.py:316
+msgid "Zapped"
+msgstr "Zappé"
+
+#: models.py:317
+msgid "Zapped by"
+msgstr "Zappé par"
+
+#: models.py:322 templates/forum/topic.html:108
+msgid "Report"
+msgstr "Alerte"
+
+#: models.py:323
+msgid "Reports"
+msgstr "Alertes"
+
+#: models.py:332
+msgid "Read"
+msgstr "Lire"
+
+#: models.py:342
+msgid "Private message"
+msgstr "Message personnel"
+
+#: models.py:343
+msgid "Private messages"
+msgstr "Messages personnels"
+
+#: models.py:375
+msgid "Banned user"
+msgstr "Utilisateur banni"
+
+#: models.py:376
+msgid "Ban start"
+msgstr "Début du bannissement"
+
+#: models.py:377
+msgid "Ban end"
+msgstr "Fin du bannissement"
+
+#: models.py:381
+msgid "Ban"
+msgstr "Bannissement"
+
+#: models.py:382
+msgid "Bans"
+msgstr "Bannissements"
+
+#: models.py:400
+msgid "Size"
+msgstr "Taille"
+
+#: models.py:401
+msgid "Content type"
+msgstr "Type de contenu"
+
+#: models.py:402
+msgid "Path"
+msgstr "Chemin"
+
+#: models.py:404
+msgid "Hash"
+msgstr "Hash"
+
+#: templates/forum/add_post.html:9 templates/forum/add_post.html.py:11
+#: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
+#: templates/forum/forum.html:13 templates/forum/forum.html.py:71
+#: templates/forum/moderate.html:9 templates/forum/topic.html:15
+#: templates/forum/topic.html.py:129 templates/forum/lofi/forum.html:8
+#: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
+#: templates/forum/lofi/topic.html:8
+msgid "Root"
+msgstr "Accueil"
+
+#: templates/forum/add_post.html:18 templates/forum/forum.html:11
+#: templates/forum/forum.html.py:69
+msgid "New topic"
+msgstr "Nouveau sujet"
+
+#: templates/forum/add_post.html:18
+msgid "New reply"
+msgstr "Nouvelle réponse"
+
+#: templates/forum/add_post.html:23 templates/forum/topic.html:149
+#: templates/forum/pm/create_pm.html:14
+msgid "Write your message and submit"
+msgstr "Écrire votre message et soumettre"
+
+#: templates/forum/add_post.html:45 templates/forum/mail_to.html:24
+#: templates/forum/report.html:21 templates/forum/reputation_form.html:41
+#: templates/forum/search_form.html:71 templates/forum/topic.html:167
+#: templates/forum/profile/profile_display.html:24
+#: templates/forum/profile/profile_essentials.html:81
+#: templates/forum/profile/profile_messaging.html:30
+#: templates/forum/profile/profile_personal.html:31
+#: templates/forum/profile/profile_personality.html:53
+#: templates/forum/profile/profile_privacy.html:25
+msgid "Submit"
+msgstr "Soumettre"
+
+#: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
+#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:33
+#: templates/forum/report.html:21 templates/forum/reputation.html:64
+#: templates/forum/reputation_form.html:41
+#: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
+#: templates/forum/upload_avatar.html:22 templates/forum/pm/create_pm.html:28
+msgid "Go back"
+msgstr "Précédent"
+
+#: templates/forum/add_post.html:53
+msgid "Topic review (newest first)"
+msgstr "Revue du sujet (Les nouveautés en premier)"
+
+#: templates/forum/add_post.html:69 templates/forum/topic.html:118
+msgid "Quote"
+msgstr "Citation"
+
+#: templates/forum/base.html:57
+msgid "Board footer"
+msgstr "Pied de page"
+
+#: templates/forum/delete_posts.html:34 templates/forum/topic.html:89
+msgid "Edited"
+msgstr "Modifié"
+
+#: templates/forum/delete_posts.html:38 templates/forum/moderate.html:26
+msgid "Select"
+msgstr "Sélectionner"
+
+#: templates/forum/delete_posts.html:50 templates/forum/moderate.html:67
+#: templates/forum/reputation.html:27 templates/forum/topic.html:111
+#: templates/forum/pm/message.html:75
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/forum/edit_post.html:14
+msgid "Edit post"
+msgstr "Modifier le message"
+
+#: templates/forum/edit_post.html:20
+msgid "Edit the post and submit changes"
+msgstr "Modifier le message et soumettre les changements"
+
+#: templates/forum/edit_post.html:33
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: templates/forum/forum.html:28 templates/forum/moderate.html:23
+#: templates/forum/search_topics.html:23
+msgid "Replies"
+msgstr "Réponses"
+
+#: templates/forum/forum.html:29 templates/forum/moderate.html:24
+msgid "Views"
+msgstr "Vues"
+
+#: templates/forum/forum.html:30 templates/forum/index.html:20
+#: templates/forum/moderate.html:25 templates/forum/search_topics.html:24
+msgid "Last post"
+msgstr "Derniers messages"
+
+#: templates/forum/forum.html:42 templates/forum/moderate.html:38
+msgid "Sticky:"
+msgstr "Collant:"
+
+#: templates/forum/forum.html:45 templates/forum/forum.html.py:47
+#: templates/forum/forum.html:54 templates/forum/forum_row.html:36
+#: templates/forum/moderate.html:41 templates/forum/moderate.html.py:43
+#: templates/forum/moderate.html:50 templates/forum/search_topics.html:35
+#: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
+msgid "by"
+msgstr "par"
+
+#: templates/forum/forum.html:58 templates/forum/moderate.html:55
+msgid "Forum is empty."
+msgstr "Le forum est vide."
+
+#: templates/forum/forum.html:89
+msgid "Jump to"
+msgstr "Sauter vers"
+
+#: templates/forum/forum.html:100 templates/forum/topic.html:199
+msgid "Go"
+msgstr "Aller"
+
+#: templates/forum/forum.html:104
+msgid "Moderate forum"
+msgstr "Modérer le forum"
+
+#: templates/forum/header.html:16
+msgid "Index"
+msgstr "Index"
+
+#: templates/forum/header.html:17 templates/forum/users.html:39
+#: templates/forum/lofi/header.html:5
+msgid "User list"
+msgstr "Liste des utilisateurs"
+
+#: templates/forum/header.html:18 templates/forum/search_form.html:7
+#: templates/forum/users.html:29 templates/forum/lofi/header.html:4
+msgid "Search"
+msgstr "Chercher"
+
+#: templates/forum/header.html:20 templates/forum/profile/profile_admin.html:9
+#: templates/forum/profile/profile_menu.html:14
+msgid "Administration"
+msgstr "Administration"
+
+#: templates/forum/header.html:25 templates/forum/topic.html:71
+#: templates/forum/pm/message.html:43
+msgid "PM"
+msgstr "MP"
+
+#: templates/forum/header.html:27
+msgid "Log out"
+msgstr "Quitter"
+
+#: templates/forum/header.html:29
+msgid "Log in"
+msgstr "Connexion"
+
+#: templates/forum/header.html:30
+msgid "Sign up"
+msgstr "Créer un compte"
+
+#: templates/forum/header.html:37
+msgid "Logged in as"
+msgstr "Connecté en tant que "
+
+#: templates/forum/header.html:38
+msgid "Last visit:"
+msgstr "Dernière visite :"
+
+#: templates/forum/header.html:40
+#, python-format
+msgid " There are new messages (%(new_msg)s)"
+msgstr "Nouveaux messages (%(new_msg)s)"
+
+#: templates/forum/header.html:43
+msgid "You are not logged in."
+msgstr "Vous n'êtes pas connecté."
+
+#: templates/forum/header.html:46
+msgid "There are new reports"
+msgstr "Il y a de nouvelles notifications"
+
+#: templates/forum/header.html:51
+msgid "Show new posts since last visit"
+msgstr "Afficher les nouveaux messages depuis la dernière visite"
+
+#: templates/forum/header.html:52
+msgid "Mark all topics as read"
+msgstr "Marquer tous les sujets comme lus"
+
+#: templates/forum/header.html:62
+msgid "Notice"
+msgstr "Notice"
+
+#: templates/forum/index.html:35
+msgid "Board information"
+msgstr "Informations sur le forum"
+
+#: templates/forum/index.html:39
+msgid "Board statistics"
+msgstr "Statistiques du forum"
+
+#: templates/forum/index.html:40
+msgid "Total number of registered users:"
+msgstr "Nombre total d'utilisateurs enregistrés:"
+
+#: templates/forum/index.html:41
+msgid "Total number of topics:"
+msgstr "Nombre total de sujets:"
+
+#: templates/forum/index.html:42
+msgid "Total number of posts:"
+msgstr "Nombre total de messages:"
+
+#: templates/forum/index.html:45
+msgid "User information"
+msgstr "Information sur l'utilisateur"
+
+#: templates/forum/index.html:46
+msgid "Newest registered user:"
+msgstr "Dernier utilisateur enregistré:"
+
+#: templates/forum/index.html:47
+msgid "Registered users online:"
+msgstr "Utilisateurs enregistrés connectés:"
+
+#: templates/forum/index.html:48
+msgid "Guests online:"
+msgstr "Invités connectés:"
+
+#: templates/forum/index.html:52
+msgid "Online:"
+msgstr "En ligne:"
+
+#: templates/forum/index.html:76 templates/forum/search_posts.html:67
+#: templates/forum/search_topics.html:76
+msgid "Search links"
+msgstr "Chercher des liens"
+
+#: templates/forum/index.html:77 templates/forum/search_posts.html:68
+#: templates/forum/search_topics.html:77
+msgid "Show recent posts"
+msgstr "Montrer les messages récents"
+
+#: templates/forum/index.html:78 templates/forum/search_posts.html:69
+#: templates/forum/search_topics.html:78
+msgid "Show unanswered posts"
+msgstr "Messages sans réponse"
+
+#: templates/forum/index.html:80 templates/forum/search_posts.html:71
+#: templates/forum/search_topics.html:80
+msgid "Show your subscribed topics"
+msgstr "Montrer les sujets surveillés"
+
+#: templates/forum/index.html:81 templates/forum/search_posts.html:72
+#: templates/forum/search_topics.html:81
+msgid "Show your posts"
+msgstr "Montrer vos messages"
+
+#: templates/forum/mail_to.html:7
+msgid "Send e-mail to"
+msgstr "Envoyer un courriel à"
+
+#: templates/forum/mail_to.html:12
+msgid "Write and submit your e-mail message"
+msgstr "Écrivez et envoyez votre courriel"
+
+#: templates/forum/mail_to.html:20
+msgid ""
+"Please note that by using this form, your e-mail address will be disclosed "
+"to the recipient."
+msgstr ""
+"Veuillez noter qu'en utilisant ce formulaire, votre adresse de courriel sera divulguée."
+"au destinataire."
+
+#: templates/forum/moderate.html:66 templates/forum/move_topic.html:33
+msgid "Move"
+msgstr "Déplacer"
+
+#: templates/forum/moderate.html:68
+msgid "Open"
+msgstr "Ouvrir"
+
+#: templates/forum/moderate.html:69
+msgid "Close"
+msgstr "Fermer"
+
+#: templates/forum/moderators.html:3
+msgid "Moderated by"
+msgstr "Modéré par"
+
+#: templates/forum/move_topic.html:7 templates/forum/topic.html:205
+msgid "Move topic"
+msgstr "Déplacer le sujet"
+
+#: templates/forum/move_topic.html:15
+msgid "Select destination of move"
+msgstr "Sélectionner la destination du déplacement"
+
+#: templates/forum/move_topic.html:17
+msgid "Move to"
+msgstr "Déplacer vers"
+
+#: templates/forum/pagination.html:3
+msgid "Pages"
+msgstr "Pages"
+
+#: templates/forum/report.html:7
+msgid "Report post"
+msgstr "Signaler un message"
+
+#: templates/forum/report.html:12
+msgid "Please enter a short reason why you are reporting this post"
+msgstr ""
+"Veuillez entrer brèvement la raison pour laquelle vous signalez ce message"
+
+#: templates/forum/reputation.html:15
+msgid "Reputation of the user"
+msgstr "Réputation de l'utilisateur"
+
+#: templates/forum/reputation.html:21
+msgid "From user"
+msgstr "Provient de"
+
+#: templates/forum/reputation.html:22
+msgid "For topic"
+msgstr "Pour le sujet"
+
+#: templates/forum/reputation.html:24
+msgid "Estimation"
+msgstr "Valeur"
+
+#: templates/forum/reputation.html:25 templates/forum/pm/inbox.html:14
+#: templates/forum/pm/outbox.html:14
+msgid "Date"
+msgstr "Date"
+
+#: templates/forum/reputation.html:62
+msgid "Are you sure"
+msgstr "Êtes-vous sûr"
+
+#: templates/forum/reputation_form.html:7
+msgid "Please, fill the form"
+msgstr "Veuillez remplir ce formulaire"
+
+#: templates/forum/reputation_form.html:15
+msgid "Your name:"
+msgstr "Votre nom d'utilisateur:"
+
+#: templates/forum/reputation_form.html:19
+msgid "To whom we change a reputation:"
+msgstr "A qui changer la réputation:"
+
+#: templates/forum/reputation_form.html:24
+msgid "The reason of change of reputation:"
+msgstr "La raison du changement de réputation:"
+
+#: templates/forum/reputation_form.html:28
+msgid "Method:"
+msgstr "Méthode:"
+
+#: templates/forum/reputation_form.html:31
+msgid "Add of a reputation"
+msgstr "Augmenter la réputation"
+
+#: templates/forum/reputation_form.html:33
+msgid "Reduction of a reputation"
+msgstr "Diminuer la réputation"
+
+#: templates/forum/search_form.html:13
+msgid "Enter your search criteria"
+msgstr "Entrez vos critères de recherche"
+
+#: templates/forum/search_form.html:18
+msgid ""
+"To search by keyword, enter a term or terms to search for. Separate terms "
+"with spaces. To search by author enter the username of the author whose "
+"posts you wish to search for."
+msgstr ""
+"Pour rechercher par mots clés, entrez un ou des termes de recherche, séparés par des espaces. "
+"Pour rechercher des messages par auteur entrez le nom d'utilisateur de l'auteur en question, "
+
+#: templates/forum/search_form.html:24
+msgid "Select where to search"
+msgstr "Sélectionnez où chercher"
+
+#: templates/forum/search_form.html:30
+msgid "All forums"
+msgstr "Tous les forums"
+
+#: templates/forum/search_form.html:44
+msgid ""
+"Choose in which forum you would like to search and if you want to search in "
+"topic subjects, message text or both."
+msgstr ""
+"Choisissez dans quel forum vous souhaiteriez rechercher et si vous voulez recherchez dans "
+"les sujets, les messages ou les deux."
+
+#: templates/forum/search_form.html:51
+msgid "Select how to view search results"
+msgstr "Choisissez comment visualiser les résultats de recherche"
+
+#: templates/forum/search_form.html:66
+msgid "You can choose how you wish to sort and show your results."
+msgstr "Vous pouvez choisir comment vous souhaiteriez trier et montrer vos résultats."
+
+#: templates/forum/search_posts.html:24
+msgid "Replies:"
+msgstr "Réponses:"
+
+#: templates/forum/search_posts.html:28
+msgid "Go to post"
+msgstr "Aller au message"
+
+#: templates/forum/search_posts.html:44 templates/forum/search_topics.html:55
+msgid "Info"
+msgstr "Information"
+
+#: templates/forum/search_posts.html:48 templates/forum/search_topics.html:59
+msgid "Your search returned no hits."
+msgstr "Votre recherche n'a donné aucun résultat."
+
+#: templates/forum/search_topics.html:15
+msgid "Search results"
+msgstr "Résultats de recherche"
+
+#: templates/forum/topic.html:11 templates/forum/topic.html.py:117
+#: templates/forum/topic.html:128 templates/forum/pm/message.html:80
+msgid "Reply"
+msgstr "Réponse"
+
+#: templates/forum/topic.html:49
+msgid "From:"
+msgstr "De:"
+
+#: templates/forum/topic.html:51 templates/forum/user.html:127
+#: templates/forum/pm/message.html:30
+#: templates/forum/profile/profile_essentials.html:73
+msgid "Registered:"
+msgstr "Enregistré:"
+
+#: templates/forum/topic.html:52 templates/forum/user.html:119
+#: templates/forum/pm/message.html:31
+#: templates/forum/profile/profile_essentials.html:75
+msgid "Posts:"
+msgstr "Messages:"
+
+#: templates/forum/topic.html:54 templates/forum/pm/message.html:33
+msgid "IP:"
+msgstr "IP:"
+
+#: templates/forum/topic.html:66 templates/forum/user.html:42
+#: templates/forum/profile/profile_essentials.html:43
+msgid "Send e-mail"
+msgstr "Envoyer un courriel"
+
+#: templates/forum/topic.html:93
+msgid "Attachments:"
+msgstr "Pièces jointes:"
+
+#: templates/forum/topic.html:101 templates/forum/pm/message.html:65
+msgid "Online"
+msgstr "En ligne"
+
+#: templates/forum/topic.html:103 templates/forum/pm/message.html:67
+msgid "Offline"
+msgstr "Hors-ligne"
+
+#: templates/forum/topic.html:111 templates/forum/pm/message.html:75
+msgid "Are you sure you want to delete this post?"
+msgstr "Êtes-vous sur de vouloir supprimer ce message?"
+
+#: templates/forum/topic.html:115
+msgid "Edit"
+msgstr "Modifier"
+
+#: templates/forum/topic.html:134
+msgid "Unsubscribe"
+msgstr "Se désinscrire"
+
+#: templates/forum/topic.html:136
+msgid "Subscribe"
+msgstr "S'inscrire"
+
+#: templates/forum/topic.html:144
+msgid "Quick post"
+msgstr "Message rapide"
+
+#: templates/forum/topic.html:188
+msgid "Jump to "
+msgstr "Sauter à "
+
+#: templates/forum/topic.html:202
+msgid "Moderator control"
+msgstr "Modération"
+
+#: templates/forum/topic.html:204
+msgid "Delete multiple posts"
+msgstr "Supprimer plusieurs messages"
+
+#: templates/forum/topic.html:207
+msgid "Open topic"
+msgstr "Ouvrir le sujet"
+
+#: templates/forum/topic.html:209
+msgid "Close topic"
+msgstr "Clore le sujet"
+
+#: templates/forum/topic.html:212
+msgid "Unstick topic"
+msgstr "Décoller le sujet"
+
+#: templates/forum/topic.html:214
+msgid "Stick topic"
+msgstr "Coller le sujet"
+
+#: templates/forum/upload_avatar.html:7
+#: templates/forum/profile/profile_personality.html:26
+#: templates/forum/profile/profile_personality.html:29
+msgid "Upload avatar"
+msgstr "Charger un avatar"
+
+#: templates/forum/upload_avatar.html:12
+msgid "Enter an avatar file to upload"
+msgstr "Choisir un fichier pour charger votre avatar"
+
+#: templates/forum/upload_avatar.html:18
+#, python-format
+msgid ""
+"An avatar is a small image that will be displayed under your username in "
+"your posts. It must not be any bigger than %(avatar_width)s x %"
+"(avatar_height)s pixels "
+msgstr ""
+"Un avatar est une petite image qui sera affichée sous votre nom d'utilisateur dans "
+"vos messages. Celui-ci ne doit pas être plus grand que  %(avatar_width)s x %"
+"(avatar_height)s pixels "
+
+#: templates/forum/upload_avatar.html:22
+msgid "Upload"
+msgstr "Envoyer"
+
+#: templates/forum/user.html:12 templates/forum/profile/profile_menu.html:8
+#: templates/forum/profile/profile_messaging.html:15
+#: templates/forum/profile/profile_personal.html:9
+msgid "Personal"
+msgstr "Personel"
+
+#: templates/forum/user.html:15
+msgid "Username:"
+msgstr "Nom d'utilisateur:"
+
+#: templates/forum/user.html:17 templates/forum/users.html:46
+msgid "Title"
+msgstr "Titre"
+
+#: templates/forum/user.html:19
+msgid "Real name:"
+msgstr "Vrai nom:"
+
+#: templates/forum/user.html:23 templates/forum/user.html.py:29
+#: templates/forum/user.html:35 templates/forum/user.html.py:61
+#: templates/forum/user.html:67 templates/forum/user.html.py:73
+#: templates/forum/user.html:79 templates/forum/user.html.py:85
+#: templates/forum/user.html:107 templates/forum/user.html.py:125
+msgid "(Unknown)"
+msgstr "(Inconnu)"
+
+#: templates/forum/user.html:31
+msgid "Website:"
+msgstr "Site Web:"
+
+#: templates/forum/user.html:37
+msgid "E-mail:"
+msgstr "Courriel:"
+
+#: templates/forum/user.html:44
+msgid "(Hidden)"
+msgstr "(Camouflés)"
+
+#: templates/forum/user.html:54 templates/forum/profile/profile_menu.html:9
+#: templates/forum/profile/profile_messaging.html:9
+msgid "Messaging"
+msgstr "En train d'écrire le message"
+
+#: templates/forum/user.html:57
+msgid "Jabber:"
+msgstr "Jabber:"
+
+#: templates/forum/user.html:63
+msgid "ICQ:"
+msgstr "ICQ:"
+
+#: templates/forum/user.html:69
+msgid "MSN Messenger:"
+msgstr "MSN Messenger:"
+
+#: templates/forum/user.html:75
+msgid "AOL IM:"
+msgstr "AOL IM:"
+
+#: templates/forum/user.html:81
+msgid "Yahoo! Messenger:"
+msgstr "Yahoo! Messenger:"
+
+#: templates/forum/user.html:94 templates/forum/profile/profile_menu.html:10
+#: templates/forum/profile/profile_personality.html:9
+msgid "Personality"
+msgstr "Personnalité"
+
+#: templates/forum/user.html:97
+msgid "Avatar:"
+msgstr "Avatar:"
+
+#: templates/forum/user.html:101
+msgid "(No avatar)"
+msgstr "(Pas d'avatar)"
+
+#: templates/forum/user.html:103
+msgid "Signature:"
+msgstr "Signature:"
+
+#: templates/forum/user.html:116
+#: templates/forum/profile/profile_essentials.html:71
+msgid "User activity"
+msgstr "Activité de l'utilisateur"
+
+#: templates/forum/user.html:120
+#: templates/forum/profile/profile_essentials.html:76
+msgid "Show all posts"
+msgstr "Monter tout les messages"
+
+#: templates/forum/user.html:121
+#: templates/forum/profile/profile_essentials.html:74
+msgid "Last post:"
+msgstr "Dernier message"
+
+#: templates/forum/users.html:7
+msgid "User search"
+msgstr "Recherche d'utilisateur"
+
+#: templates/forum/users.html:12
+msgid "Find and sort users"
+msgstr "Trouver et trier les utilisateurs"
+
+#: templates/forum/users.html:25
+msgid ""
+"Enter a username to search for. The username field can be left blank. Sort "
+"users by name, date registered or number of posts and in ascending/"
+"descending order."
+msgstr ""
+"Entrez un nom d'utilisateur à rechercher. Le champ du nom d'utilisateur peut être laissé vide. Triez "
+"les utilisateurs par nom, date d'inscription ou nombre de messages, "
+"par ordre croissant/décroissant."
+
+#: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
+#: templates/forum/lofi/topic.html:6
+msgid "Full Version:"
+msgstr "Version complète:"
+
+#: templates/forum/lofi/forum.html:19
+msgid "IMPORTANT:"
+msgstr "IMPORTANT:"
+
+#: templates/forum/lofi/forum.html:19
+msgid "replies"
+msgstr "réponses"
+
+#: templates/forum/lofi/index.html:18
+msgid "posts"
+msgstr "messages"
+
+#: templates/forum/pm/create_pm.html:9
+msgid "Send a message"
+msgstr "Envoyer un message"
+
+#: templates/forum/pm/create_pm.html:28
+msgid "Send"
+msgstr "Envoyer"
+
+#: templates/forum/pm/inbox.html:6 templates/forum/pm/menu_pm.html:7
+msgid "Inbox"
+msgstr "Boîte de réception"
+
+#: templates/forum/pm/inbox.html:13
+msgid "Sender"
+msgstr "Expéditeur"
+
+#: templates/forum/pm/inbox.html:34 templates/forum/pm/outbox.html:34
+msgid "No messages"
+msgstr "Pas de messages"
+
+#: templates/forum/pm/menu_pm.html:3
+msgid "Private Messages"
+msgstr "Message privé"
+
+#: templates/forum/pm/menu_pm.html:8
+msgid "Sent"
+msgstr "Envoyé"
+
+#: templates/forum/pm/menu_pm.html:9
+msgid "Send new message"
+msgstr "Envoyer un nouveau message"
+
+#: templates/forum/pm/outbox.html:6
+msgid "Outbox"
+msgstr "Messages envoyés"
+
+#: templates/forum/pm/outbox.html:13
+msgid "Receiver"
+msgstr "Destinataire"
+
+#: templates/forum/profile/profile_admin.html:15
+msgid "Delete (administrators only) or ban user"
+msgstr "Supprimer (administrateurs uniquement) ou bannir l'utilisateur"
+
+#: templates/forum/profile/profile_admin.html:17
+msgid "Delete user"
+msgstr "Supprimer l'utilisateur"
+
+#: templates/forum/profile/profile_admin.html:17
+msgid "Ban user"
+msgstr "Bannir l'utilisateur"
+
+#: templates/forum/profile/profile_admin.html:24
+msgid "Set moderator access"
+msgstr "Donner un accès modérateur"
+
+#: templates/forum/profile/profile_admin.html:26
+msgid ""
+"Choose what forums this user should be allowed to moderate. Note: This only "
+"applies to moderators. Administrators always have full permissions in all "
+"forums."
+msgstr ""
+"Choisir quels forums cet utilisateur pourrait être abilité à modérer. Note: Ceci "
+"s'applique uniquement aux modérateurs. Les administrateurs ont toujours tous droits dans tous les "
+"forums."
+
+#: templates/forum/profile/profile_admin.html:30
+msgid "Update forums"
+msgstr "Mettre à jour les forums"
+
+#: templates/forum/profile/profile_display.html:9
+#: templates/forum/profile/profile_menu.html:11
+msgid "Display"
+msgstr "Affichage"
+
+#: templates/forum/profile/profile_display.html:14
+msgid "Select your preferred style"
+msgstr "Sélectionnez votre style préféré"
+
+#: templates/forum/profile/profile_display.html:17
+msgid "If you like you can use a different visual style for this forum."
+msgstr "Vous pouvez utiliser un style différent pour le forum si vous le désirez."
+
+#: templates/forum/profile/profile_display.html:24
+#: templates/forum/profile/profile_essentials.html:81
+#: templates/forum/profile/profile_messaging.html:30
+#: templates/forum/profile/profile_personal.html:31
+#: templates/forum/profile/profile_personality.html:53
+#: templates/forum/profile/profile_privacy.html:25
+msgid "When you update your profile, you will be redirected back to this page."
+msgstr ""
+"Lorsque vous mettrez à jour votre profil, vous serez redirigé vers cette page."
+
+#: templates/forum/profile/profile_essentials.html:9
+#: templates/forum/profile/profile_menu.html:7
+msgid "Essentials"
+msgstr "Essentiel"
+
+#: templates/forum/profile/profile_essentials.html:15
+msgid "Enter your username and password"
+msgstr "Entrez votre nom d'utilisateur et mot de passe"
+
+#: templates/forum/profile/profile_essentials.html:26
+#: templates/forum/profile/profile_essentials.html:28
+msgid "Change password"
+msgstr "Changer le mot de passe"
+
+#: templates/forum/profile/profile_essentials.html:37
+msgid "Enter a valid e-mail address"
+msgstr "Entrez une adresse de courriel valide"
+
+#: templates/forum/profile/profile_essentials.html:51
+msgid "Set your localisation options"
+msgstr "Définissez vos options de localisation"
+
+#: templates/forum/profile/profile_essentials.html:55
+msgid ""
+"Timezone: For the forum to display times correctly you must select your "
+"local timezone."
+msgstr ""
+"Fuseau horaire: Pour que le forum affiche l'heure correctement vous devez sélectioner votre "
+"fuseau horaire. "
+
+#: templates/forum/profile/profile_essentials.html:61
+msgid ""
+"Language: You can choose which language you wish to use to view the forum"
+msgstr "Langue: Vous pouvez choisir en quel langue voir le forum"
+
+#: templates/forum/profile/profile_menu.html:3
+msgid "Profile menu"
+msgstr "Menu du Profil"
+
+#: templates/forum/profile/profile_menu.html:12
+#: templates/forum/profile/profile_privacy.html:9
+msgid "Privacy"
+msgstr "Intimité"
+
+#: templates/forum/profile/profile_personal.html:15
+msgid "Enter your personal details"
+msgstr "Entrez vos détails personnels"
+
+#: templates/forum/profile/profile_personal.html:21
+msgid "Leave blank to use forum default."
+msgstr "Laissez blanc pour utiliser les valeurs par défaut du forum."
+
+#: templates/forum/profile/profile_personality.html:14
+msgid "Set your avatar display options"
+msgstr "Définissez les options d'affichage de votre avatar"
+
+#: templates/forum/profile/profile_personality.html:20
+msgid ""
+"An avatar is a small image that will be displayed with all your posts. You "
+"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
+"below must be checked in order for the avatar to be visible in your posts."
+msgstr ""
+"Un avatar est une petite image qui sera affichée avec tous vos messages. Vous "
+"pouvez charger un avatar en cliquant sur le lien ci-dessous. La case de vérification 'Utiliser avatar' "
+"ci-dessous doit être vérifiée pour que votre avatar soit visible dans vos messages "
+
+
+#: templates/forum/profile/profile_personality.html:23
+msgid "Use avatar."
+msgstr "Utiliser l'avatar."
+
+#: templates/forum/profile/profile_personality.html:27
+msgid "Delete avatar"
+msgstr "Supprimer l'avatar"
+
+#: templates/forum/profile/profile_personality.html:36
+msgid "Compose your signature"
+msgstr "Entrez votre signature"
+
+#: templates/forum/profile/profile_personality.html:39
+msgid ""
+"A signature is a small piece of text that is attached to your posts. In it, "
+"you can enter just about anything you like. Perhaps you would like to enter "
+"your favourite quote or your star sign. It's up to you! In your signature "
+"you can use BBCode if it is allowed in this particular forum. You can see "
+"the features that are allowed/enabled listed below whenever you edit your "
+"signature."
+msgstr ""
+"Une signature est un petit morceau de text qui est joint à vos messages. "
+"Vous pouvez y mettre ce que vous aimez. Vous désirez peut-être y copier "
+"votre citation préférée ou votre signe astrologique. Celà dépend de vous!"
+"Dans votre signature, vous pouvez utiliser du BBCode si c'est est autorisé "
+"dans sur le forum. Vous pouvez voir quelles sont les fonctionnalités autorisées/activées "
+"ci-dessous et à chaque fois que vous éditez votre signature."
+
+#: templates/forum/profile/profile_personality.html:48
+msgid "No signature currently stored in profile."
+msgstr "Aucune signature n'est actuellement stockée dans le profil"
+
+#: templates/forum/profile/profile_privacy.html:15
+msgid "Set your privacy options"
+msgstr "Selectionnez vos options de securité"
+
+#: templates/forum/profile/profile_privacy.html:18
+msgid ""
+"Select whether you want your e-mail address to be viewable to other users or "
+"not and if you want other users to be able to send you e-mail via the forum "
+"(form e-mail) or not."
+msgstr ""
+"Selectionnez si vous desirez rendre visible ou non votre adresse de courriel aux autres utilisateurs, "
+"et si vous acceptez de recevoir des courriels d'autres utilisateurs via le forum "
+
+
+
