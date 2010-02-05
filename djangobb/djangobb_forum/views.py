@@ -481,7 +481,8 @@ def user(request, username):
     else:
         topic_count = Topic.objects.filter(user=user).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
+            #FIXME: problem with redirect to unicoded url; blocker - django ticket #11522
+            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path) 
         return {'profile': user,
                 'topic_count': topic_count,
                }
