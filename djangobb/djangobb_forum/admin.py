@@ -22,7 +22,7 @@ class TopicAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ['topic', 'user', 'created', 'updated', 'summary']
     search_fields = ['body']
-    raw_id_fields = ['topic', 'user']
+    raw_id_fields = ['topic', 'user', 'updated_by']
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'status', 'time_zone', 'location', 'language']

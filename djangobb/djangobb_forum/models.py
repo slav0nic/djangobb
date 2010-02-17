@@ -5,7 +5,7 @@ from markdown import Markdown
 
 from django.db import models
 from django.contrib.auth.models import User, Group
-from django.utils.html import escape, strip_tags
+from django.utils.html import escape
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.hashcompat import sha_constructor
@@ -172,10 +172,10 @@ class Post(models.Model):
     user = models.ForeignKey(User, related_name='posts', verbose_name=_('User'))
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(_('Updated'), blank=True, null=True)
+    updated_by = models.ForeignKey(User, verbose_name=_('Updated by'), blank=True, null=True)
     markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
-    body_text = models.TextField(_('Text version'))
     user_ip = models.IPAddressField(_('User IP'), blank=True, null=True)
 
 
@@ -193,7 +193,6 @@ class Post(models.Model):
             #self.body_html = markdown(self.body, 'safe')
         else:
             raise Exception('Invalid markup property: %s' % self.markup)
-        self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
         if forum_settings.SMILES_SUPPORT:
             self.body_html = smiles(self.body_html)
@@ -223,6 +222,7 @@ class Post(models.Model):
             forum.last_post = Post.objects.filter(topic__forum=forum).latest()
         except Post.DoesNotExist:
             forum.last_post = None
+        #TODO: for speedup - save/update only changed fields
         forum.post_count = Post.objects.filter(topic__forum=forum).count()
         forum.topic_count = Topic.objects.filter(forum=forum).count()
         forum.save()
@@ -357,7 +357,6 @@ class PrivateMessage(models.Model):
             #self.body_html = markdown(self.body, 'safe')
         else:
             raise Exception('Invalid markup property: %s' % self.markup)
-        #self.body_text = strip_tags(self.body_html)
         self.body_html = urlize(self.body_html)
         if forum_settings.SMILES_SUPPORT:
             self.body_html = smiles(self.body_html)
