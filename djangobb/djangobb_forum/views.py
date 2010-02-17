@@ -549,7 +549,9 @@ def edit_post(request, post_id):
         return HttpResponseRedirect(post.get_absolute_url())
     form = build_form(EditPostForm, request, topic=topic, instance=post)
     if form.is_valid():
-        post = form.save()
+        post = form.save(commit=False)
+        post.updated_by = request.user
+        post.save()
         return HttpResponseRedirect(post.get_absolute_url())
 
     return {'form': form,
