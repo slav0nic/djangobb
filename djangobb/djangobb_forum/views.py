@@ -674,9 +674,6 @@ def delete_post(request, post_id):
         return HttpResponseRedirect(post.get_absolute_url())
 
     post.delete()
-    profile = post.user.forum_profile
-    profile.post_count = Post.objects.filter(user=post.user).count()
-    profile.save()
 
     try:
         Topic.objects.get(pk=topic.id)
