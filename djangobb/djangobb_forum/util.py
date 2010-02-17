@@ -13,6 +13,7 @@ from django.utils.simplejson import JSONEncoder
 from django import forms
 from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.contrib.sites.models import Site
 from django.conf import settings
 
 from djangobb_forum import settings as forum_settings
@@ -75,7 +76,7 @@ def render_to(template):
 
 
 def absolute_url(path):
-    return 'http://%s%s' % (forum_settings.HOST, path)
+    return 'http://%s%s' % (Site.objects.get_current().domain, path)
 
 
 def paged(paged_list_name, per_page):
