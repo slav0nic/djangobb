@@ -199,11 +199,13 @@ class Post(models.Model):
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)
 
+
     def delete(self, *args, **kwargs):
         self_id = self.id
         head_post_id = self.topic.posts.order_by('created')[0].id
         forum = self.topic.forum
         topic = self.topic
+        profile = self.user.forum_profile
         self.last_topic_post.clear()
         self.last_forum_post.clear()
         super(Post, self).delete(*args, **kwargs)
@@ -224,6 +226,8 @@ class Post(models.Model):
         forum.post_count = Post.objects.filter(topic__forum=forum).count()
         forum.topic_count = Topic.objects.filter(forum=forum).count()
         forum.save()
+        profile.post_count = Post.objects.filter(user=self.user).count()
+        profile.save()
 
     @models.permalink
     def get_absolute_url(self):
