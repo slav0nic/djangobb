@@ -79,8 +79,8 @@ def moderate(request, forum_id):
     forum = get_object_or_404(Forum, pk=forum_id)
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
     if request.user.is_superuser or request.user in forum.moderators.all():
+        topic_ids = request.POST.getlist('topic_id')
         if 'move_topics' in request.POST:
-            topic_ids = request.POST.getlist('topic_id')
             return {
                 'categories': Category.objects.all(),
                 'topic_ids': topic_ids,
@@ -88,16 +88,16 @@ def moderate(request, forum_id):
                 'TEMPLATE': 'forum/move_topic.html'
             }
         elif 'delete_topics' in request.POST:
-            for topic_id in topic_list:
+            for topic_id in topic_ids:
                 topic = get_object_or_404(Topic, pk=topic_id)
                 topic.delete()
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'open_topics' in request.POST:
-            for topic_id in topic_list:
+            for topic_id in topic_ids:
                 open_close_topic(request, topic_id)
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'close_topics' in request.POST:
-            for topic_id in topic_list:
+            for topic_id in topic_ids:
                 open_close_topic(request, topic_id)
             return HttpResponseRedirect(reverse('djangobb:index'))
 
