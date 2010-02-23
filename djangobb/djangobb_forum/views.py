@@ -495,10 +495,14 @@ def reputation(request, username):
     form = build_form(ReputationForm, request, from_user=request.user, to_user=user)
 
     if 'action' in request.GET:
-        if 'topic_id' in request.GET:
+        if request.user == user:
+            return HttpResponseForbidden(u'You can not change the reputation of yourself')
+
+        if 'post_id' in request.GET:
             sign = 0
-            topic_id = request.GET['topic_id']
-            form.fields['topic'].initial = topic_id
+            post_id = request.GET['post_id']
+            form.fields['post'].initial = post_id
+            print form.fields['post']
             if request.GET['action'] == 'plus':
                 form.fields['sign'].initial = 1
             elif request.GET['action'] == 'minus':
@@ -510,7 +514,7 @@ def reputation(request, username):
             raise Http404
 
     elif request.method == 'POST':
-        if 'del_reputation' in request.POST:
+        if 'del_reputation' in request.POST and request.user.is_superuser:
             reputation_list = request.POST.getlist('reputation_id')
             for reputation_id in reputation_list:
                     reputation = get_object_or_404(Reputation, pk=reputation_id)
@@ -518,11 +522,13 @@ def reputation(request, username):
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif form.is_valid():
             form.save()
-            topic_id = request.POST['topic']
-            topic = get_object_or_404(Topic, id=topic_id)
-            return HttpResponseRedirect(topic.get_absolute_url())
+            post_id = request.POST['post']
+            post = get_object_or_404(Post, id=post_id)
+            return HttpResponseRedirect(post.get_absolute_url())
         else:
-            raise Http404
+            return {'form': form,
+                    'TEMPLATE': 'forum/reputation_form.html'
+                    }
     else:
         reputations = Reputation.objects.filter(to_user=user).order_by('-time').select_related()
         return {'reputations': reputations,

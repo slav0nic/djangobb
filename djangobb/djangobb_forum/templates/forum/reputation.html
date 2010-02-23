@@ -19,7 +19,7 @@
 			<thead>
 				<tr>
 				<th class="tc3" style="width: 15%;">{% trans "From user" %}</th>
-				<th class="tc3" style="width: 15%;">{% trans "For topic" %}</th>
+				<th class="tc3" style="width: 15%;">{% trans "For post in topic" %}</th>
 				<th class="tc3" style="width: 35%;">{% trans "Reason" %}</th>
 				<th class="tc3" style="width: 10%; text-align: center;">{% trans "Estimation" %}</th>
 				<th class="tc3" style="width: 15%;">{% trans "Date" %}</th>
@@ -32,7 +32,7 @@
 				{% for reputation in reputations %}
 					<tr>
 						<td><a href="{% url djangobb:reputation reputation.from_user %}">{{ reputation.from_user }}</a></td>
-						<td>{% link reputation.topic %}</td>
+						<td><a href="{{ reputation.post.get_absolute_url }}">{{ reputation.post.topic }}</a></td>
 						<td>{{ reputation.reason }}</td>
 						<td style="text-align: center;">
 						{% ifequal reputation.sign 1 %}
