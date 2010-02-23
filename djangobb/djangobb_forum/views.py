@@ -6,12 +6,13 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.models import Site
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.db import connection
 from django.core.cache import cache
-from django.utils import translation
+from django.db import connection
 from django.db.models import Q, F, Sum
+from django.utils import translation
 from django.utils.encoding import smart_str
 from django.views.decorators.http import require_POST
 
@@ -234,7 +235,9 @@ def misc(request):
         if form.is_valid():
             user = get_object_or_404(User, username=request.GET['mail_to'])
             subject = form.cleaned_data['subject']
-            body = form.cleaned_data['body']
+            body = form.cleaned_data['body'] + '\n %s %s [%s]' % (Site.objects.get_current().domain,
+                                                                  request.user.username,
+                                                                  request.user.email)
             user.email_user(subject, body, request.user.email)
             return HttpResponseRedirect(reverse('djangobb:index'))
 
