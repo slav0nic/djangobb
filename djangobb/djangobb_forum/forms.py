@@ -321,6 +321,8 @@ class ReputationForm(forms.ModelForm):
             pass
         else:
             raise forms.ValidationError(_('You already voted for this post'))
+        return self.cleaned_data
+
 
     def save(self, commit=True):
         reputation = super(ReputationForm, self).save(commit=False)
