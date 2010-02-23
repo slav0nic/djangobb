@@ -244,17 +244,18 @@ class Post(models.Model):
 class Reputation(models.Model):
     from_user = models.ForeignKey(User, related_name='reputations_from', verbose_name=_('From'))
     to_user = models.ForeignKey(User, related_name='reputations_to', verbose_name=_('To'))
-    topic = models.ForeignKey(Topic, related_name='topic', verbose_name=_('Topic'))
-    time = models.DateTimeField(_('Time'), blank=True)
+    post = models.ForeignKey(Post, related_name='post', verbose_name=_('Post'))
+    time = models.DateTimeField(_('Time'), auto_now_add=True)
     sign = models.IntegerField(_('Sign'), choices=SIGN_CHOICES, default=0)
-    reason = models.TextField(_('Reason'), blank=True, default='', max_length=1000)
+    reason = models.TextField(_('Reason'), max_length=1000)
 
     class Meta:
         verbose_name = _('Reputation')
         verbose_name_plural = _('Reputations')
+        unique_together = (('from_user', 'post'),)
 
     def __unicode__(self):
-        return u'T[%d], FU[%d], TU[%d]: %s' % (self.topic.id, self.from_user.id, self.to_user.id, unicode(self.time))
+        return u'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(self.time))
 
 
 class Profile(models.Model):

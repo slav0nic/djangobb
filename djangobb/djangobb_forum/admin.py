@@ -29,8 +29,8 @@ class ProfileAdmin(admin.ModelAdmin):
     raw_id_fields = ['user']
 
 class ReputationAdmin(admin.ModelAdmin):
-    list_display = ['from_user', 'to_user', 'topic', 'sign', 'time', 'reason']
-    raw_id_fields = ['from_user', 'to_user', 'topic']
+    list_display = ['from_user', 'to_user', 'post', 'sign', 'time', 'reason']
+    raw_id_fields = ['from_user', 'to_user', 'post']
 
 class ReportAdmin(admin.ModelAdmin):
     list_display = ['reported_by', 'post', 'zapped', 'zapped_by', 'created', 'reason']

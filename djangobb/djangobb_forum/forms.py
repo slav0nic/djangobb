@@ -293,15 +293,15 @@ class ReputationForm(forms.ModelForm):
 
     class Meta:
         model = Reputation
-        fields = ['reason', 'topic', 'sign']
+        fields = ['reason', 'post', 'sign']
 
     def __init__(self, *args, **kwargs):
         self.from_user = kwargs.pop('from_user', None)
         self.to_user = kwargs.pop('to_user', None)
-        self.topic = kwargs.pop('topic', None)
+        self.post = kwargs.pop('post', None)
         self.sign = kwargs.pop('sign', None)
         super(ReputationForm, self).__init__(*args, **kwargs)
-        self.fields['topic'].widget = forms.HiddenInput()
+        self.fields['post'].widget = forms.HiddenInput()
         self.fields['sign'].widget = forms.HiddenInput()
         self.fields['reason'].widget = forms.Textarea(attrs={'class':'bbcode'})
 
@@ -314,11 +314,18 @@ class ReputationForm(forms.ModelForm):
         else:
             return user
 
+    def clean(self):
+        try:
+            Reputation.objects.get(from_user=self.from_user, post=self.cleaned_data['post'])
+        except Reputation.DoesNotExist:
+            pass
+        else:
+            raise forms.ValidationError(_('You already voted for this post'))
+
     def save(self, commit=True):
         reputation = super(ReputationForm, self).save(commit=False)
         reputation.from_user = self.from_user
         reputation.to_user = self.to_user
-        reputation.time = datetime.now()
         if commit:
             reputation.save()
         return reputation

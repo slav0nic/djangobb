@@ -9,7 +9,8 @@
 		<div class="inbox">
 			<form action="{% url djangobb:reputation form.to_user %}" method="post">
 			<table cellspacing="0">
-				{{ form.topic }}
+				{{ form.errors.as_ul }}
+				{{ form.post }}
 				{{ form.sign }}
 				<tbody><tr>
 					<td class="tc4" width="30%">{% trans "Your name:" %}</td>
@@ -18,10 +19,9 @@
 				<tr>
 					<td class="tc4" width="30%">{% trans "To whom we change a reputation:" %}</td>
 					<td class="tc4" width="70%">{{ form.to_user }}</td>
-
 				</tr>
 				<tr>
-					<td class="tc4" width="30%">{% trans "The reason of change of reputation:" %}</td>
+					<td class="tc4" width="30%"></td>
 					<td class="tc4" width="70%">{{ form.reason }}</td>
 				</tr>				
 				<tr>
@@ -33,7 +33,6 @@
 						{% trans "Reduction of a reputation" %}
 						{% endifequal %}
 					</td>
-
 				</tr>
 			</tbody></table>
 			<table cellspacing="0">
