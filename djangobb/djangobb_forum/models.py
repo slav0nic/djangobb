@@ -270,7 +270,7 @@ class Profile(models.Model):
     location = models.CharField(_('Location'), max_length=30, blank=True)
     signature = models.TextField(_('Signature'), blank=True, default='', max_length=forum_settings.SIGNATURE_MAX_LENGTH)
     time_zone = models.FloatField(_('Time zone'), choices=TZ_CHOICES, default=float(forum_settings.DEFAULT_TIME_ZONE))
-    language = models.CharField(_('Language'), max_length=3, default='', choices=settings.LANGUAGES)
+    language = models.CharField(_('Language'), max_length=5, default='', choices=settings.LANGUAGES)
     avatar = ExtendedImageField(_('Avatar'), blank=True, default='', upload_to=forum_settings.AVATARS_UPLOAD_TO, width=forum_settings.AVATAR_WIDTH, height=forum_settings.AVATAR_HEIGHT)
     theme = models.CharField(_('Theme'), choices=THEME_CHOICES, max_length=80, default='default')
     show_avatar = models.BooleanField(_('Show avatar'), blank=True, default=True)
