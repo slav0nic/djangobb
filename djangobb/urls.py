@@ -12,10 +12,10 @@ from forms import RegistrationFormUtfUsername
 from django_authopenid.urls import urlpatterns as authopenid_urlpatterns
 for i, rurl in enumerate(authopenid_urlpatterns):
     if rurl.name == 'registration_register':
-        authopenid_urlpatterns[i].default_args.update({'form_class': RegistrationFormUtfUsername})
-      #                                            'backend': 'registration.backends.default.DefaultBackend'}
-    #elif rurl.name == 'registration_activate':
-     #           authopenid_urlpatterns[i].default_args = {'backend': 'registration.backends.default.DefaultBackend'}
+        authopenid_urlpatterns[i].default_args.update({'form_class': RegistrationFormUtfUsername,
+                                                  'backend': 'registration.backends.default.DefaultBackend'})
+    elif rurl.name == 'registration_activate':
+                authopenid_urlpatterns[i].default_args = {'backend': 'registration.backends.default.DefaultBackend'}
 
 admin.autodiscover()
 
