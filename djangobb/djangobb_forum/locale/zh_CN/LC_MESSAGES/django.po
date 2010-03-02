@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Djangobb dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 16:05+0200\n"
+"POT-Creation-Date: 2010-03-02 22:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: lzhshen <lzhshen@hotmail.com>\n"
 "Language-Team: : Simplified Chinese <slav0nic0@gmail.com>\n"
@@ -54,12 +54,12 @@ msgstr "帖子数量"
 msgid "Post time"
 msgstr "发贴时间"
 
-#: forms.py:27 models.py:331
+#: forms.py:27 models.py:336
 msgid "Author"
 msgstr "作者"
 
-#: forms.py:28 forms.py:50 forms.py:115 forms.py:327 models.py:115
-#: models.py:335 templates/forum/add_post.html:26
+#: forms.py:28 forms.py:50 forms.py:115 forms.py:336 models.py:115
+#: models.py:340 templates/forum/add_post.html:26
 #: templates/forum/edit_post.html:23 templates/forum/pm/inbox.html:12
 #: templates/forum/pm/outbox.html:12
 msgid "Subject"
@@ -99,7 +99,7 @@ msgstr "只显示消息内容"
 msgid "Topic subject only"
 msgstr "只显示文章标题"
 
-#: forms.py:52 templates/forum/add_post.html:35 templates/forum/topic.html:158
+#: forms.py:52 templates/forum/add_post.html:35 templates/forum/topic.html:162
 msgid "Attachment"
 msgstr "附件"
 
@@ -107,7 +107,7 @@ msgstr "附件"
 msgid "Attachment is too big"
 msgstr "附件大小超过限制"
 
-#: forms.py:142 templates/forum/topic.html:63
+#: forms.py:142 templates/forum/topic.html:67
 #: templates/forum/pm/message.html:40
 msgid "E-mail"
 msgstr "电子邮箱"
@@ -140,17 +140,21 @@ msgstr "查找"
 msgid "Show results as"
 msgstr "结果为"
 
-#: forms.py:313 forms.py:375
+#: forms.py:313 forms.py:384
 #, python-format
 msgid "User with login %s does not exist"
 msgstr "用户(%s)不存在"
 
-#: forms.py:329 models.py:176 models.py:336 templates/forum/add_post.html:28
+#: forms.py:323
+msgid "You already voted for this post"
+msgstr ""
+
+#: forms.py:338 models.py:177 models.py:341 templates/forum/add_post.html:28
 #: templates/forum/edit_post.html:26
 msgid "Message"
 msgstr "消息"
 
-#: forms.py:357 models.py:330
+#: forms.py:366 models.py:335
 msgid "Recipient"
 msgstr "接收者"
 
@@ -166,7 +170,7 @@ msgstr "隐藏您的电子邮箱，但是允许其他人给你发送电子邮件
 msgid "Hide your e-mail address and disallow form e-mail."
 msgstr "隐藏您的电子邮箱，并且不允许其他人给你发送电子邮件。"
 
-#: models.py:50 models.py:87 models.py:403
+#: models.py:50 models.py:87 models.py:407
 msgid "Name"
 msgstr "名字"
 
@@ -202,7 +206,7 @@ msgstr "版主"
 msgid "Updated"
 msgstr "更新"
 
-#: models.py:92 models.py:123 models.py:275
+#: models.py:92 models.py:123 models.py:280
 msgid "Post count"
 msgstr "帖子数量"
 
@@ -214,11 +218,11 @@ msgstr "主题数量"
 msgid "Forums"
 msgstr "论坛"
 
-#: models.py:116 models.py:173 models.py:318 models.py:333
+#: models.py:116 models.py:173 models.py:323 models.py:338
 msgid "Created"
 msgstr "创建"
 
-#: models.py:118 models.py:172 models.py:257
+#: models.py:118 models.py:172 models.py:262
 msgid "User"
 msgstr "用户"
 
@@ -238,207 +242,212 @@ msgstr "关闭"
 msgid "Subscribers"
 msgstr "订阅者"
 
-#: models.py:128 models.py:171 models.py:243 templates/forum/forum.html:27
+#: models.py:128 models.py:171 templates/forum/forum.html:27
 #: templates/forum/moderate.html:22 templates/forum/search_topics.html:21
 msgid "Topic"
 msgstr "主题"
 
-#: models.py:175 models.py:334
+#: models.py:175
+#, fuzzy
+msgid "Updated by"
+msgstr "更新"
+
+#: models.py:176 models.py:339
 msgid "Markup"
 msgstr "标签"
 
-#: models.py:177 models.py:337
+#: models.py:178 models.py:342
 msgid "HTML version"
 msgstr "HTML 版本"
-
-#: models.py:178 models.py:338
-msgid "Text version"
-msgstr "Text 版本"
 
 #: models.py:179
 msgid "User IP"
 msgstr "用户IP"
 
-#: models.py:185 models.py:315 models.py:399
+#: models.py:185 models.py:247 models.py:320 models.py:403
 msgid "Post"
 msgstr "帖子"
 
-#: models.py:241
+#: models.py:245
 msgid "From"
 msgstr "发送者"
 
-#: models.py:242
+#: models.py:246
 msgid "To"
 msgstr "收件人"
 
-#: models.py:244
+#: models.py:248
 msgid "Time"
 msgstr "时间"
 
-#: models.py:245
+#: models.py:249
 msgid "Sign"
 msgstr "注册"
 
-#: models.py:246 models.py:319 models.py:378 templates/forum/report.html:15
+#: models.py:250 models.py:324 models.py:382 templates/forum/report.html:15
 #: templates/forum/reputation.html:23
 msgid "Reason"
 msgstr "原因"
 
-#: models.py:249 templates/forum/topic.html:58
+#: models.py:253 templates/forum/topic.html:57
 #: templates/forum/pm/message.html:36
 msgid "Reputation"
 msgstr "声望"
 
-#: models.py:250
+#: models.py:254
 msgid "Reputations"
 msgstr "声望"
 
-#: models.py:258
+#: models.py:263
 msgid "Status"
 msgstr "状态"
 
-#: models.py:259
+#: models.py:264
 msgid "Site"
 msgstr "站点"
 
-#: models.py:260
+#: models.py:265
 msgid "Jabber"
 msgstr "Jabber"
 
-#: models.py:261
+#: models.py:266
 msgid "ICQ"
 msgstr "ICQ"
 
-#: models.py:262
+#: models.py:267
 msgid "MSN"
 msgstr "MSN"
 
-#: models.py:263
+#: models.py:268
 msgid "AIM"
 msgstr "AIM"
 
-#: models.py:264
+#: models.py:269
 msgid "Yahoo"
 msgstr "Yahoo"
 
-#: models.py:265 templates/forum/user.html:25
+#: models.py:270 templates/forum/user.html:25
 msgid "Location"
 msgstr "位置"
 
-#: models.py:266
+#: models.py:271
 msgid "Signature"
 msgstr "签名"
 
-#: models.py:267
+#: models.py:272
 msgid "Time zone"
 msgstr "时区"
 
-#: models.py:268
+#: models.py:273
 msgid "Language"
 msgstr "语言"
 
-#: models.py:269
+#: models.py:274
 msgid "Avatar"
 msgstr "头像"
 
-#: models.py:270
+#: models.py:275
 msgid "Theme"
 msgstr "外观主题"
 
-#: models.py:271
+#: models.py:276
 msgid "Show avatar"
 msgstr "显示头像"
 
-#: models.py:272
+#: models.py:277
 msgid "Show signatures"
 msgstr "显示签名"
 
-#: models.py:273
+#: models.py:278
 msgid "Privacy permission"
 msgstr "隐私设置"
 
-#: models.py:274
+#: models.py:279
 msgid "Default markup"
 msgstr "默认标记"
 
-#: models.py:278 templates/forum/header.html:23 templates/forum/topic.html:61
+#: models.py:283 templates/forum/header.html:23 templates/forum/topic.html:65
 #: templates/forum/user.html:7 templates/forum/pm/message.html:38
 msgid "Profile"
 msgstr "个人信息"
 
-#: models.py:279
+#: models.py:284
 msgid "Profiles"
 msgstr "个人信息"
 
-#: models.py:306 models.py:307
+#: models.py:311 models.py:312
 msgid "Post tracking"
 msgstr "帖子跟踪"
 
-#: models.py:314
+#: models.py:319
 msgid "Reported by"
 msgstr "报告"
 
-#: models.py:316
+#: models.py:321
 msgid "Zapped"
 msgstr ""
 
-#: models.py:317
+#: models.py:322
 msgid "Zapped by"
 msgstr ""
 
-#: models.py:322 templates/forum/topic.html:108
+#: models.py:327 templates/forum/topic.html:112
 msgid "Report"
 msgstr "报告"
 
-#: models.py:323
+#: models.py:328
 msgid "Reports"
 msgstr "报告"
 
-#: models.py:332
+#: models.py:337
 msgid "Read"
 msgstr "查看"
 
-#: models.py:342
+#: models.py:343
+msgid "Text version"
+msgstr "Text 版本"
+
+#: models.py:347
 msgid "Private message"
 msgstr "站内消息"
 
-#: models.py:343
+#: models.py:348
 msgid "Private messages"
 msgstr "站内消息"
 
-#: models.py:375
+#: models.py:379
 msgid "Banned user"
 msgstr "被屏蔽用户"
 
-#: models.py:376
+#: models.py:380
 msgid "Ban start"
 msgstr "屏蔽开始时间"
 
-#: models.py:377
+#: models.py:381
 msgid "Ban end"
 msgstr "屏蔽结束时间"
 
-#: models.py:381
+#: models.py:385
 msgid "Ban"
 msgstr "屏蔽"
 
-#: models.py:382
+#: models.py:386
 msgid "Bans"
 msgstr "屏蔽"
 
-#: models.py:400
+#: models.py:404
 msgid "Size"
 msgstr "大小"
 
-#: models.py:401
+#: models.py:405
 msgid "Content type"
 msgstr "内容类型"
 
-#: models.py:402
+#: models.py:406
 msgid "Path"
 msgstr "路径"
 
-#: models.py:404
+#: models.py:408
 msgid "Hash"
 msgstr ""
 
@@ -446,7 +455,7 @@ msgstr ""
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
 #: templates/forum/forum.html:13 templates/forum/forum.html.py:71
 #: templates/forum/moderate.html:9 templates/forum/topic.html:15
-#: templates/forum/topic.html.py:129 templates/forum/lofi/forum.html:8
+#: templates/forum/topic.html.py:133 templates/forum/lofi/forum.html:8
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
@@ -461,14 +470,14 @@ msgstr "发贴"
 msgid "New reply"
 msgstr "回贴"
 
-#: templates/forum/add_post.html:23 templates/forum/topic.html:149
+#: templates/forum/add_post.html:23 templates/forum/topic.html:153
 #: templates/forum/pm/create_pm.html:14
 msgid "Write your message and submit"
 msgstr "写消息并发布"
 
 #: templates/forum/add_post.html:45 templates/forum/mail_to.html:24
-#: templates/forum/report.html:21 templates/forum/reputation_form.html:41
-#: templates/forum/search_form.html:71 templates/forum/topic.html:167
+#: templates/forum/report.html:21 templates/forum/reputation_form.html:40
+#: templates/forum/search_form.html:71 templates/forum/topic.html:171
 #: templates/forum/profile/profile_display.html:24
 #: templates/forum/profile/profile_essentials.html:81
 #: templates/forum/profile/profile_messaging.html:30
@@ -481,7 +490,7 @@ msgstr "提交"
 #: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
 #: templates/forum/mail_to.html:24 templates/forum/move_topic.html:33
 #: templates/forum/report.html:21 templates/forum/reputation.html:64
-#: templates/forum/reputation_form.html:41
+#: templates/forum/reputation_form.html:40
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
 #: templates/forum/upload_avatar.html:22 templates/forum/pm/create_pm.html:28
 msgid "Go back"
@@ -491,7 +500,7 @@ msgstr "返回"
 msgid "Topic review (newest first)"
 msgstr "主题预览"
 
-#: templates/forum/add_post.html:69 templates/forum/topic.html:118
+#: templates/forum/add_post.html:69 templates/forum/topic.html:122
 msgid "Quote"
 msgstr "引用"
 
@@ -499,7 +508,7 @@ msgstr "引用"
 msgid "Board footer"
 msgstr ""
 
-#: templates/forum/delete_posts.html:34 templates/forum/topic.html:89
+#: templates/forum/delete_posts.html:34 templates/forum/topic.html:93
 msgid "Edited"
 msgstr "编辑"
 
@@ -508,7 +517,7 @@ msgid "Select"
 msgstr "选择"
 
 #: templates/forum/delete_posts.html:50 templates/forum/moderate.html:67
-#: templates/forum/reputation.html:27 templates/forum/topic.html:111
+#: templates/forum/reputation.html:27 templates/forum/topic.html:115
 #: templates/forum/pm/message.html:75
 msgid "Delete"
 msgstr "删除"
@@ -559,7 +568,7 @@ msgstr "论坛没有帖子"
 msgid "Jump to"
 msgstr "版块切换"
 
-#: templates/forum/forum.html:100 templates/forum/topic.html:199
+#: templates/forum/forum.html:100 templates/forum/topic.html:203
 msgid "Go"
 msgstr "版块切换"
 
@@ -586,7 +595,7 @@ msgstr "搜索"
 msgid "Administration"
 msgstr "管理界面"
 
-#: templates/forum/header.html:25 templates/forum/topic.html:71
+#: templates/forum/header.html:25 templates/forum/topic.html:75
 #: templates/forum/pm/message.html:43
 msgid "PM"
 msgstr "站内消息"
@@ -731,7 +740,7 @@ msgstr "关闭"
 msgid "Moderated by"
 msgstr "版主"
 
-#: templates/forum/move_topic.html:7 templates/forum/topic.html:205
+#: templates/forum/move_topic.html:7 templates/forum/topic.html:209
 msgid "Move topic"
 msgstr "移动主题"
 
@@ -764,7 +773,8 @@ msgid "From user"
 msgstr "用户"
 
 #: templates/forum/reputation.html:22
-msgid "For topic"
+#, fuzzy
+msgid "For post in topic"
 msgstr "帖子"
 
 #: templates/forum/reputation.html:24
@@ -784,17 +794,13 @@ msgstr "你确定吗"
 msgid "Please, fill the form"
 msgstr "请填写表格"
 
-#: templates/forum/reputation_form.html:15
+#: templates/forum/reputation_form.html:16
 msgid "Your name:"
 msgstr "您的姓名"
 
-#: templates/forum/reputation_form.html:19
+#: templates/forum/reputation_form.html:20
 msgid "To whom we change a reputation:"
 msgstr "被评价的用户"
-
-#: templates/forum/reputation_form.html:24
-msgid "The reason of change of reputation:"
-msgstr "改变声望的原因"
 
 #: templates/forum/reputation_form.html:28
 msgid "Method:"
@@ -863,8 +869,8 @@ msgstr ""
 msgid "Search results"
 msgstr "搜索结果"
 
-#: templates/forum/topic.html:11 templates/forum/topic.html.py:117
-#: templates/forum/topic.html:128 templates/forum/pm/message.html:80
+#: templates/forum/topic.html:11 templates/forum/topic.html.py:121
+#: templates/forum/topic.html:132 templates/forum/pm/message.html:80
 msgid "Reply"
 msgstr "回复"
 
@@ -888,68 +894,68 @@ msgstr "帖子"
 msgid "IP:"
 msgstr "IP"
 
-#: templates/forum/topic.html:66 templates/forum/user.html:42
+#: templates/forum/topic.html:70 templates/forum/user.html:42
 #: templates/forum/profile/profile_essentials.html:43
 msgid "Send e-mail"
 msgstr "发送电子邮件"
 
-#: templates/forum/topic.html:93
+#: templates/forum/topic.html:97
 msgid "Attachments:"
 msgstr "附件"
 
-#: templates/forum/topic.html:101 templates/forum/pm/message.html:65
+#: templates/forum/topic.html:105 templates/forum/pm/message.html:65
 msgid "Online"
 msgstr "在线"
 
-#: templates/forum/topic.html:103 templates/forum/pm/message.html:67
+#: templates/forum/topic.html:107 templates/forum/pm/message.html:67
 msgid "Offline"
 msgstr "离线"
 
-#: templates/forum/topic.html:111 templates/forum/pm/message.html:75
+#: templates/forum/topic.html:115 templates/forum/pm/message.html:75
 msgid "Are you sure you want to delete this post?"
 msgstr "您确认要删除这个帖子来吗？"
 
-#: templates/forum/topic.html:115
+#: templates/forum/topic.html:119
 msgid "Edit"
 msgstr "编辑"
 
-#: templates/forum/topic.html:134
+#: templates/forum/topic.html:138
 msgid "Unsubscribe"
 msgstr "取消订阅"
 
-#: templates/forum/topic.html:136
+#: templates/forum/topic.html:140
 msgid "Subscribe"
 msgstr "订阅"
 
-#: templates/forum/topic.html:144
+#: templates/forum/topic.html:148
 msgid "Quick post"
 msgstr "快速发布"
 
-#: templates/forum/topic.html:188
+#: templates/forum/topic.html:192
 msgid "Jump to "
 msgstr "跳转"
 
-#: templates/forum/topic.html:202
+#: templates/forum/topic.html:206
 msgid "Moderator control"
 msgstr "版主面板"
 
-#: templates/forum/topic.html:204
+#: templates/forum/topic.html:208
 msgid "Delete multiple posts"
 msgstr "删除多个帖子"
 
-#: templates/forum/topic.html:207
+#: templates/forum/topic.html:211
 msgid "Open topic"
 msgstr "开放主题"
 
-#: templates/forum/topic.html:209
+#: templates/forum/topic.html:213
 msgid "Close topic"
 msgstr "关闭主题"
 
-#: templates/forum/topic.html:212
+#: templates/forum/topic.html:216
 msgid "Unstick topic"
 msgstr "取消置顶"
 
-#: templates/forum/topic.html:214
+#: templates/forum/topic.html:218
 msgid "Stick topic"
 msgstr "置顶"
 
@@ -1293,3 +1299,6 @@ msgid ""
 "(form e-mail) or not."
 msgstr ""
 "设置是否允许其他人看到您的电子邮箱或允许其他人通过论坛给你发送电子邮件。"
+
+#~ msgid "The reason of change of reputation:"
+#~ msgstr "改变声望的原因"

@@ -36,6 +36,7 @@ LANGUAGES = (
     ('en', 'English'),
     ('fr', 'France'),
     ('lt', 'Lithuanian'),
+    ('pl', 'Polish'),
     ('ru', 'Russian'),
     ('zh_CN', 'Chinese'),
 ) 
