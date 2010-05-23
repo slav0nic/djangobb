@@ -51,13 +51,15 @@ def index(request, full=True):
                                                             'category')
     for forum in _forums:
         cat = cats.setdefault(forum.category.id,
-            {'cat': forum.category, 'forums': []})
+            {'id': forum.category.id, 'cat': forum.category, 'forums': []})
         cat['forums'].append(forum)
         forums[forum.id] = forum
 
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
 
+    print cats
+    
     to_return = {'cats': cats,
                 'posts': Post.objects.count(),
                 'topics': Topic.objects.count(),

@@ -24,6 +24,22 @@ TH.tc3 {width: 70px}
 
 .djangobb H2, #brdmenu {BACKGROUND: url(../img/fon111.gif); COLOR: #FFF; font-weight: bold; height: 16px;}
 .djangobb H2 {font-weight: bold;BACKGROUND: #46586a url(../img/fon111.gif);border-top: 1px solid #46586a;border-left: 1px solid #46586a;border-right: 1px solid #46586a; height: 16px;}
+.djangobb H2 a.toggle  {
+	float: right;
+	BACKGROUND: url(../img/cat_minimize.png);
+	display:block;
+	height:17px;
+	line-height:1px;
+	outline-color:-moz-use-text-color;
+	outline-style:none;
+	outline-width:0;
+	text-indent:-3000em;
+	width:28px;
+}
+
+.djangobb H2.collapsed a.toggle {
+	background-image:url(../img/cat_maximize.png);
+}
 
 /* 1.4 Table header rows */
 
@@ -110,6 +126,7 @@ LI.maintenancelink A:hover {COLOR: #B42000}
 .inew = new posts, .iredirect = redirect forums, .iclosed = closed topics and
 .isticky = sticky topics. The default is "icon". By default only .inew is different.*/
 
+DIV.forum_icon {background:url(../img/active_forum.gif)}
 DIV.icon {background:url(../img/inactive_topic.gif)}
 DIV.inew {background:url(../img/active_topic.gif)}
 DIV.sticky {background:url(../img/sticky_topic.gif)}
