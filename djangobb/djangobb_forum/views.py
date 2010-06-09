@@ -15,6 +15,7 @@ from django.db.models import Q, F, Sum
 from django.utils import translation
 from django.utils.encoding import smart_str
 from django.views.decorators.http import require_POST
+from django.db import transaction
 
 from djangobb_forum.util import render_to, paged, build_form, paginate, set_language
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
@@ -57,8 +58,6 @@ def index(request, full=True):
 
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
-
-    print cats
     
     to_return = {'cats': cats,
                 'posts': Post.objects.count(),
@@ -76,6 +75,7 @@ def index(request, full=True):
         return to_return
 
 
+@transaction.commit_on_success
 @render_to('forum/moderate.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def moderate(request, forum_id):
@@ -281,6 +281,7 @@ def show_forum(request, forum_id, full=True):
         return to_return
 
 
+@transaction.commit_on_success
 @render_to('forum/topic.html')
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def show_topic(request, topic_id, full=True):
@@ -348,6 +349,7 @@ def show_topic(request, topic_id, full=True):
 
 
 @login_required
+@transaction.commit_on_success
 @render_to('forum/add_post.html')
 def add_post(request, forum_id, topic_id):
     forum = None
@@ -387,6 +389,7 @@ def add_post(request, forum_id, topic_id):
             }
 
 
+@transaction.commit_on_success
 @render_to('forum/user.html')
 def user(request, username):
     user = get_object_or_404(User, username=username)
@@ -494,6 +497,7 @@ def user(request, username):
 
 
 @login_required
+@transaction.commit_on_success
 @render_to('forum/reputation.html')
 def reputation(request, username):
     user = get_object_or_404(User, username=username)
@@ -550,6 +554,7 @@ def show_post(request, post_id):
 
 
 @login_required
+@transaction.commit_on_success
 @render_to('forum/edit_post.html')
 def edit_post(request, post_id):
     from djangobb_forum.templatetags.forum_extras import forum_editable_by
@@ -571,6 +576,7 @@ def edit_post(request, post_id):
 
 
 @login_required
+@transaction.commit_on_success
 @render_to('forum/delete_posts.html')
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def delete_posts(request, topic_id):
@@ -622,6 +628,7 @@ def delete_posts(request, topic_id):
 
 
 @login_required
+@transaction.commit_on_success
 @render_to('forum/move_topic.html')
 def move_topic(request):
     if 'topic_id' in request.GET:
@@ -660,6 +667,7 @@ def move_topic(request):
 
 
 @login_required
+@transaction.commit_on_success
 def stick_unstick_topic(request, topic_id):
 
     topic = get_object_or_404(Topic, pk=topic_id)
@@ -670,6 +678,7 @@ def stick_unstick_topic(request, topic_id):
 
 
 @login_required
+@transaction.commit_on_success
 @render_to('forum/delete_post.html')
 def delete_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -698,6 +707,7 @@ def delete_post(request, post_id):
 
 
 @login_required
+@transaction.commit_on_success
 def open_close_topic(request, topic_id):
 
     topic = get_object_or_404(Topic, pk=topic_id)
@@ -719,6 +729,7 @@ def users(request):
 
 
 @login_required
+@transaction.commit_on_success
 @render_to('forum/pm/create_pm.html')
 def create_pm(request):
     recipient = request.GET.get('recipient', '')
@@ -754,6 +765,7 @@ def pm_inbox(request):
 
 
 @login_required
+@transaction.commit_on_success
 @render_to('forum/pm/message.html')
 def show_pm(request, pm_id):
     msg = get_object_or_404(PrivateMessage, pk=pm_id)
@@ -775,6 +787,7 @@ def show_pm(request, pm_id):
 
 
 @login_required
+@transaction.commit_on_success
 def delete_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.remove(request.user)
@@ -785,6 +798,7 @@ def delete_subscription(request, topic_id):
 
 
 @login_required
+@transaction.commit_on_success
 def add_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.add(request.user)
