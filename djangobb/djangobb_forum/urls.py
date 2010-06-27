@@ -63,15 +63,6 @@ if (forum_settings.LOFI_SUPPORT):
         url('^topic/(?P<topic_id>\d+)/lofi/$', forum_views.show_topic, {'full':False}, name='lofi_topic'),
     )
 
-# PM Extension
-if (forum_settings.PM_SUPPORT):
-    urlpatterns += patterns('',
-        url('^pm/new/$', forum_views.create_pm, name='forum_create_pm'),
-        url('^pm/outbox/$', forum_views.pm_outbox, name='forum_pm_outbox'),
-        url('^pm/inbox/$', forum_views.pm_inbox, name='forum_pm_inbox'),
-        url('^pm/show/(?P<pm_id>\d+)/$', forum_views.show_pm, name='forum_show_pm'),
-   )
-
 # REPUTATION Extension
 if (forum_settings.REPUTATION_SUPPORT):
     urlpatterns += patterns('',
