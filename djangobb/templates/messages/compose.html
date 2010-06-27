@@ -1,4 +1,4 @@
-{% extends 'forum/pm/base_pm.html' %}
+{% extends 'messages/base_pm.html' %}
 {% load forum_extras %}
 {% load i18n %}
 
@@ -8,7 +8,9 @@
 <div class="blockform">
 	<h2><span>{% trans "Send a message" %}</span></h2>
 	<div class="box">
-	<form method="post" id="post">
+
+
+	<form action="" method="post">
 		<div class="inform">
 		<fieldset>
 			<legend>{% trans "Write your message and submit" %}</legend>

@@ -15,8 +15,9 @@ from django.utils import dateformat
 from django.utils.hashcompat import md5_constructor
 from django.contrib.humanize.templatetags.humanize import naturalday
 
-from djangobb_forum.models import Forum, Topic, Post, PostTracking, PrivateMessage, Report
+from djangobb_forum.models import Forum, Topic, Post, PostTracking, Report
 from djangobb_forum import settings as forum_settings
+from messages.models import inbox_count_for
 
 register = template.Library()
 
@@ -232,7 +233,7 @@ def online(user):
 
 @register.filter
 def pm_unreads(user):
-    return PrivateMessage.objects.filter(dst_user=user, read=False).count()
+    return inbox_count_for(user)
 
 
 @register.filter

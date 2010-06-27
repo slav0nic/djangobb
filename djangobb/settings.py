@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'django_authopenid',
     'djangobb_forum',
     'djapian',
+    'messages',
 )
 
 FORCE_SCRIPT_NAME = ''

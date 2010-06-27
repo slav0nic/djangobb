@@ -22,7 +22,7 @@
 				{% if user.is_authenticated %}
 					<li id="navprofile"><a href="{% url djangobb:forum_profile request.user %}">{% trans "Profile" %}</a></li>
 				{% if forum_settings.PM_SUPPORT %}
-					<li id="navpm"><a href="{% url djangobb:forum_pm_inbox %}">{% trans "PM" %}</a></li> 
+					<li id="navpm"><a href="{% url messages_inbox %}">{% trans "PM" %}</a></li> 
 				{% endif %}
 					<li id="navlogout"><a href="{% url user_signout %}?next={{ request.path }}">{% trans "Log out" %}</a></li>
 				{% else %}
@@ -36,8 +36,8 @@
 				{% if user.is_authenticated %}
 					<li>{% trans "Logged in as" %} <strong>{{ user.username }}</strong></li>
 					<li>{% trans "Last visit:" %} {% forum_time user.last_login %}</li>
-					{% if request.user|pm_unreads %}
-						<ul><li class="pmlink"><strong><a href="{% url djangobb:forum_pm_inbox %}">{% blocktrans with request.user|pm_unreads as new_msg %} There are new messages ({{ new_msg }}){% endblocktrans %}</a></strong></li></ul>
+					{% if forum_settings.PM_SUPPORT and request.user|pm_unreads %}
+						<ul><li class="pmlink"><strong><a href="{% url messages_inbox %}">{% blocktrans with request.user|pm_unreads as new_msg %} There are new messages ({{ new_msg }}){% endblocktrans %}</a></strong></li></ul>
 					{% endif %}
 				{% else %}
 					<li>{% trans "You are not logged in." %}</li>

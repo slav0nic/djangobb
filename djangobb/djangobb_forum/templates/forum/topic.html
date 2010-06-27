@@ -72,7 +72,7 @@
 						{% endifequal %}
 						{% if forum_settings.PM_SUPPORT %}
 							{% if user.is_authenticated %}
-								<a href="{% url djangobb:forum_create_pm %}?recipient={{ post.user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
+								<a href="{% url messages_compose_to post.user %}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
 							{% endif %}
 						{% endif %}
 				</dl>
