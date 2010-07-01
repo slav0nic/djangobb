@@ -730,64 +730,6 @@ def users(request):
 
 @login_required
 @transaction.commit_on_success
-@render_to('forum/pm/create_pm.html')
-def create_pm(request):
-    recipient = request.GET.get('recipient', '')
-    form = build_form(CreatePMForm, request, user=request.user,
-                      initial={'markup': request.user.forum_profile.markup,
-                               'recipient': recipient})
-
-    if form.is_valid():
-        post = form.save();
-        return HttpResponseRedirect(reverse('djangobb:forum_pm_outbox'))
-
-    return {'active_menu':'create',
-            'form': form,
-            }
-
-
-@login_required
-@render_to('forum/pm/outbox.html')
-def pm_outbox(request):
-    messages = PrivateMessage.objects.filter(src_user=request.user)
-    return {'active_menu':'outbox',
-            'messages': messages,
-            }
-
-
-@login_required
-@render_to('forum/pm/inbox.html')
-def pm_inbox(request):
-    messages = PrivateMessage.objects.filter(dst_user=request.user)
-    return {'active_menu':'inbox',
-            'messages': messages,
-            }
-
-
-@login_required
-@transaction.commit_on_success
-@render_to('forum/pm/message.html')
-def show_pm(request, pm_id):
-    msg = get_object_or_404(PrivateMessage, pk=pm_id)
-    if not request.user in [msg.dst_user, msg.src_user]:
-        return HttpRedirectException('/')
-    if request.user == msg.dst_user:
-        inbox = True
-        post_user = msg.src_user
-    else:
-        inbox = False
-        post_user = msg.dst_user
-    if not msg.read:
-        msg.read = True
-        msg.save()
-    return {'msg': msg,
-            'inbox': inbox,
-            'post_user': post_user,
-            }
-
-
-@login_required
-@transaction.commit_on_success
 def delete_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.remove(request.user)
