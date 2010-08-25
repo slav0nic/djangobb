@@ -1,18 +1,21 @@
 # French translation for DjangoBB forum
 # This file is distributed under the same license as the PACKAGE package.
 # Hugoh.org and Euphormica.eu, 2010
-#
+# 
+# Sylvain Glaize <mokona@puupuu.org>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Djangobb dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 22:48+0200\n"
-"PO-Revision-Date: 2010-02-03 22:49+0200\n"
-"Last-Translator: Hugoh.org\n"
-"Language-Team: <>\n"
+"POT-Creation-Date: 2010-05-22 21:24+0300\n"
+"PO-Revision-Date: 2010-08-20 22:34+0200\n"
+"Last-Translator: Sylvain Glaize <mokona@puupuu.org>\n"
+"Language-Team: Mokona\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: feeds.py:23 feeds.py:24 templates/forum/base.html:18
 msgid "Latest posts on forum"
@@ -113,7 +116,7 @@ msgstr "Courriel"
 
 #: forms.py:172
 msgid "Real name"
-msgstr "Vrai Prénom"
+msgstr "Prénom"
 
 #: forms.py:251 forms.py:286
 msgid "Sort by"
@@ -146,7 +149,7 @@ msgstr "L'utilisateur nommé %s n'existe pas"
 
 #: forms.py:323
 msgid "You already voted for this post"
-msgstr ""
+msgstr "Vous avez déjà voté"
 
 #: forms.py:338 models.py:177 models.py:341 templates/forum/add_post.html:28
 #: templates/forum/edit_post.html:26
@@ -155,7 +158,7 @@ msgstr "Message"
 
 #: forms.py:366 models.py:335
 msgid "Recipient"
-msgstr "Contenu"
+msgstr "Destinataire"
 
 #: models.py:35
 msgid "Display your e-mail address."
@@ -163,11 +166,11 @@ msgstr "Montrez votre adresse de courriel."
 
 #: models.py:36
 msgid "Hide your e-mail address but allow form e-mail."
-msgstr "Cacher votre adresse de courriel mais autoriser l'envoi"
+msgstr "Cacher votre adresse de courriel mais autoriser l'envoi."
 
 #: models.py:37
 msgid "Hide your e-mail address and disallow form e-mail."
-msgstr "Cacher votre adresse de courriel et interdire l'envoi"
+msgstr "Cacher votre adresse de courriel et interdire l'envoi."
 
 #: models.py:50 models.py:87 models.py:407
 msgid "Name"
@@ -211,7 +214,7 @@ msgstr "Nombre de message"
 
 #: models.py:93
 msgid "Topic count"
-msgstr "Nombre de Sujet"
+msgstr "Nombre de Sujets"
 
 #: models.py:99
 msgid "Forums"
@@ -359,7 +362,7 @@ msgstr "Montrer la signature"
 
 #: models.py:278
 msgid "Privacy permission"
-msgstr "Préférences d'intimité"
+msgstr "Préférences de confidentialité"
 
 #: models.py:279
 msgid "Default markup"
@@ -682,7 +685,7 @@ msgstr "Invités connectés:"
 
 #: templates/forum/index.html:52
 msgid "Online:"
-msgstr "En ligne:"
+msgstr "En ligne :"
 
 #: templates/forum/index.html:76 templates/forum/search_posts.html:67
 #: templates/forum/search_topics.html:76
@@ -718,12 +721,8 @@ msgid "Write and submit your e-mail message"
 msgstr "Écrivez et envoyez votre courriel"
 
 #: templates/forum/mail_to.html:20
-msgid ""
-"Please note that by using this form, your e-mail address will be disclosed "
-"to the recipient."
-msgstr ""
-"Veuillez noter qu'en utilisant ce formulaire, votre adresse de courriel sera "
-"divulguée.au destinataire."
+msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
+msgstr "Veuillez noter qu'en utilisant ce formulaire, votre adresse de courriel sera divulguée.au destinataire."
 
 #: templates/forum/moderate.html:66 templates/forum/move_topic.html:33
 msgid "Move"
@@ -763,8 +762,7 @@ msgstr "Signaler un message"
 
 #: templates/forum/report.html:12
 msgid "Please enter a short reason why you are reporting this post"
-msgstr ""
-"Veuillez entrer brèvement la raison pour laquelle vous signalez ce message"
+msgstr "Veuillez entrer brèvement la raison pour laquelle vous signalez ce message"
 
 #: templates/forum/reputation.html:15
 msgid "Reputation of the user"
@@ -802,7 +800,7 @@ msgstr "Votre nom d'utilisateur:"
 
 #: templates/forum/reputation_form.html:20
 msgid "To whom we change a reputation:"
-msgstr "A qui changer la réputation:"
+msgstr "De qui changer la réputation:"
 
 #: templates/forum/reputation_form.html:28
 msgid "Method:"
@@ -821,14 +819,8 @@ msgid "Enter your search criteria"
 msgstr "Entrez vos critères de recherche"
 
 #: templates/forum/search_form.html:18
-msgid ""
-"To search by keyword, enter a term or terms to search for. Separate terms "
-"with spaces. To search by author enter the username of the author whose "
-"posts you wish to search for."
-msgstr ""
-"Pour rechercher par mots clés, entrez un ou des termes de recherche, séparés "
-"par des espaces. Pour rechercher des messages par auteur entrez le nom "
-"d'utilisateur de l'auteur en question, "
+msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
+msgstr "Pour rechercher par mots clés, entrez un ou des termes de recherche, séparés par des espaces. Pour rechercher des messages par auteur entrez le nom d'utilisateur de l'auteur en question, "
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
@@ -839,12 +831,8 @@ msgid "All forums"
 msgstr "Tous les forums"
 
 #: templates/forum/search_form.html:44
-msgid ""
-"Choose in which forum you would like to search and if you want to search in "
-"topic subjects, message text or both."
-msgstr ""
-"Choisissez dans quel forum vous souhaiteriez rechercher et si vous voulez "
-"recherchez dans les sujets, les messages ou les deux."
+msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
+msgstr "Choisissez dans quel forum vous souhaiteriez rechercher et si vous voulez recherchez dans les sujets, les messages ou les deux."
 
 #: templates/forum/search_form.html:51
 msgid "Select how to view search results"
@@ -852,12 +840,11 @@ msgstr "Choisissez comment visualiser les résultats de recherche"
 
 #: templates/forum/search_form.html:66
 msgid "You can choose how you wish to sort and show your results."
-msgstr ""
-"Vous pouvez choisir comment vous souhaiteriez trier et montrer vos résultats."
+msgstr "Vous pouvez choisir comment vous souhaiteriez trier et montrer vos résultats."
 
 #: templates/forum/search_posts.html:24
 msgid "Replies:"
-msgstr "Réponses:"
+msgstr "Réponses :"
 
 #: templates/forum/search_posts.html:28
 msgid "Go to post"
@@ -882,23 +869,23 @@ msgstr "Réponse"
 
 #: templates/forum/topic.html:49
 msgid "From:"
-msgstr "De:"
+msgstr "De :"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
 #: templates/forum/pm/message.html:30
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
-msgstr "Enregistré:"
+msgstr "Enregistré :"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
 #: templates/forum/pm/message.html:31
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
-msgstr "Messages:"
+msgstr "Messages :"
 
 #: templates/forum/topic.html:54 templates/forum/pm/message.html:33
 msgid "IP:"
-msgstr "IP:"
+msgstr "IP :"
 
 #: templates/forum/topic.html:70 templates/forum/user.html:42
 #: templates/forum/profile/profile_essentials.html:43
@@ -907,7 +894,7 @@ msgstr "Envoyer un courriel"
 
 #: templates/forum/topic.html:97
 msgid "Attachments:"
-msgstr "Pièces jointes:"
+msgstr "Pièces jointes :"
 
 #: templates/forum/topic.html:105 templates/forum/pm/message.html:65
 msgid "Online"
@@ -919,7 +906,7 @@ msgstr "Hors-ligne"
 
 #: templates/forum/topic.html:115 templates/forum/pm/message.html:75
 msgid "Are you sure you want to delete this post?"
-msgstr "Êtes-vous sur de vouloir supprimer ce message?"
+msgstr "Êtes-vous sur de vouloir supprimer ce message ?"
 
 #: templates/forum/topic.html:119
 msgid "Edit"
@@ -939,7 +926,7 @@ msgstr "Message rapide"
 
 #: templates/forum/topic.html:192
 msgid "Jump to "
-msgstr "Sauter à "
+msgstr "Aller vers"
 
 #: templates/forum/topic.html:206
 msgid "Moderator control"
@@ -977,14 +964,8 @@ msgstr "Choisir un fichier pour charger votre avatar"
 
 #: templates/forum/upload_avatar.html:18
 #, python-format
-msgid ""
-"An avatar is a small image that will be displayed under your username in "
-"your posts. It must not be any bigger than %(avatar_width)s x %"
-"(avatar_height)s pixels "
-msgstr ""
-"Un avatar est une petite image qui sera affichée sous votre nom "
-"d'utilisateur dans vos messages. Celui-ci ne doit pas être plus grand que  %"
-"(avatar_width)s x %(avatar_height)s pixels "
+msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
+msgstr "Un avatar est une petite image qui sera affichée sous votre nom d'utilisateur dans vos messages. Celui-ci ne doit pas être plus grand que  %(avatar_width)s x %(avatar_height)s pixels "
 
 #: templates/forum/upload_avatar.html:22
 msgid "Upload"
@@ -994,11 +975,11 @@ msgstr "Envoyer"
 #: templates/forum/profile/profile_messaging.html:15
 #: templates/forum/profile/profile_personal.html:9
 msgid "Personal"
-msgstr "Personel"
+msgstr "Personnel"
 
 #: templates/forum/user.html:15
 msgid "Username:"
-msgstr "Nom d'utilisateur:"
+msgstr "Nom d'utilisateur :"
 
 #: templates/forum/user.html:17 templates/forum/users.html:46
 msgid "Title"
@@ -1006,7 +987,7 @@ msgstr "Titre"
 
 #: templates/forum/user.html:19
 msgid "Real name:"
-msgstr "Vrai nom:"
+msgstr "Nom :"
 
 #: templates/forum/user.html:23 templates/forum/user.html.py:29
 #: templates/forum/user.html:35 templates/forum/user.html.py:61
@@ -1018,11 +999,11 @@ msgstr "(Inconnu)"
 
 #: templates/forum/user.html:31
 msgid "Website:"
-msgstr "Site Web:"
+msgstr "Site Web :"
 
 #: templates/forum/user.html:37
 msgid "E-mail:"
-msgstr "Courriel:"
+msgstr "Courriel :"
 
 #: templates/forum/user.html:44
 msgid "(Hidden)"
@@ -1035,23 +1016,23 @@ msgstr "Messagerie instantanée"
 
 #: templates/forum/user.html:57
 msgid "Jabber:"
-msgstr "Jabber:"
+msgstr "Jabber :"
 
 #: templates/forum/user.html:63
 msgid "ICQ:"
-msgstr "ICQ:"
+msgstr "ICQ :"
 
 #: templates/forum/user.html:69
 msgid "MSN Messenger:"
-msgstr "MSN Messenger:"
+msgstr "MSN Messenger :"
 
 #: templates/forum/user.html:75
 msgid "AOL IM:"
-msgstr "AOL IM:"
+msgstr "AOL IM :"
 
 #: templates/forum/user.html:81
 msgid "Yahoo! Messenger:"
-msgstr "Yahoo! Messenger:"
+msgstr "Yahoo! Messenger :"
 
 #: templates/forum/user.html:94 templates/forum/profile/profile_menu.html:10
 #: templates/forum/profile/profile_personality.html:9
@@ -1060,7 +1041,7 @@ msgstr "Personnalité"
 
 #: templates/forum/user.html:97
 msgid "Avatar:"
-msgstr "Avatar:"
+msgstr "Avatar :"
 
 #: templates/forum/user.html:101
 msgid "(No avatar)"
@@ -1068,7 +1049,7 @@ msgstr "(Pas d'avatar)"
 
 #: templates/forum/user.html:103
 msgid "Signature:"
-msgstr "Signature:"
+msgstr "Signature :"
 
 #: templates/forum/user.html:116
 #: templates/forum/profile/profile_essentials.html:71
@@ -1083,7 +1064,7 @@ msgstr "Monter tout les messages"
 #: templates/forum/user.html:121
 #: templates/forum/profile/profile_essentials.html:74
 msgid "Last post:"
-msgstr "Dernier message"
+msgstr "Dernier message :"
 
 #: templates/forum/users.html:7
 msgid "User search"
@@ -1094,23 +1075,17 @@ msgid "Find and sort users"
 msgstr "Trouver et trier les utilisateurs"
 
 #: templates/forum/users.html:25
-msgid ""
-"Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
-msgstr ""
-"Entrez un nom d'utilisateur à rechercher. Le champ du nom d'utilisateur peut "
-"être laissé vide. Triez les utilisateurs par nom, date d'inscription ou "
-"nombre de messages, par ordre croissant/décroissant."
+msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
+msgstr "Entrez un nom d'utilisateur à rechercher. Le champ du nom d'utilisateur peut être laissé vide. Triez les utilisateurs par nom, date d'inscription ou nombre de messages, par ordre croissant/décroissant."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
 msgid "Full Version:"
-msgstr "Version complète:"
+msgstr "Version complète :"
 
 #: templates/forum/lofi/forum.html:19
 msgid "IMPORTANT:"
-msgstr "IMPORTANT:"
+msgstr "IMPORTANT :"
 
 #: templates/forum/lofi/forum.html:19
 msgid "replies"
@@ -1138,15 +1113,15 @@ msgstr "Expéditeur"
 
 #: templates/forum/pm/inbox.html:34 templates/forum/pm/outbox.html:34
 msgid "No messages"
-msgstr "Pas de messages"
+msgstr "Pas de message"
 
 #: templates/forum/pm/menu_pm.html:3
 msgid "Private Messages"
-msgstr "Message privé"
+msgstr "Messages privés"
 
 #: templates/forum/pm/menu_pm.html:8
 msgid "Sent"
-msgstr "Envoyé"
+msgstr "Envoyés"
 
 #: templates/forum/pm/menu_pm.html:9
 msgid "Send new message"
@@ -1177,14 +1152,8 @@ msgid "Set moderator access"
 msgstr "Donner un accès modérateur"
 
 #: templates/forum/profile/profile_admin.html:26
-msgid ""
-"Choose what forums this user should be allowed to moderate. Note: This only "
-"applies to moderators. Administrators always have full permissions in all "
-"forums."
-msgstr ""
-"Choisir quels forums cet utilisateur pourrait être abilité à modérer. Note: "
-"Ceci s'applique uniquement aux modérateurs. Les administrateurs ont toujours "
-"tous droits dans tous les forums."
+msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
+msgstr "Choisir quels forums cet utilisateur pourrait être abilité à modérer. Note: Ceci s'applique uniquement aux modérateurs. Les administrateurs ont toujours tous droits dans tous les forums."
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
@@ -1201,8 +1170,7 @@ msgstr "Sélectionnez votre style préféré"
 
 #: templates/forum/profile/profile_display.html:17
 msgid "If you like you can use a different visual style for this forum."
-msgstr ""
-"Vous pouvez utiliser un style différent pour le forum si vous le désirez."
+msgstr "Vous pouvez utiliser un style différent pour le forum si vous le désirez."
 
 #: templates/forum/profile/profile_display.html:24
 #: templates/forum/profile/profile_essentials.html:81
@@ -1211,9 +1179,7 @@ msgstr ""
 #: templates/forum/profile/profile_personality.html:53
 #: templates/forum/profile/profile_privacy.html:25
 msgid "When you update your profile, you will be redirected back to this page."
-msgstr ""
-"Lorsque vous mettrez à jour votre profil, vous serez redirigé vers cette "
-"page."
+msgstr "Lorsque vous mettrez à jour votre profil, vous serez redirigé vers cette page."
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
@@ -1238,16 +1204,11 @@ msgid "Set your localisation options"
 msgstr "Définissez vos options de localisation"
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid ""
-"Timezone: For the forum to display times correctly you must select your "
-"local timezone."
-msgstr ""
-"Fuseau horaire: Pour que le forum affiche l'heure correctement vous devez "
-"sélectioner votre fuseau horaire. "
+msgid "Timezone: For the forum to display times correctly you must select your local timezone."
+msgstr "Fuseau horaire: Pour que le forum affiche l'heure correctement vous devez sélectioner votre fuseau horaire. "
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid ""
-"Language: You can choose which language you wish to use to view the forum"
+msgid "Language: You can choose which language you wish to use to view the forum"
 msgstr "Langue: Vous pouvez choisir en quel langue voir le forum"
 
 #: templates/forum/profile/profile_menu.html:3
@@ -1257,7 +1218,7 @@ msgstr "Menu du Profil"
 #: templates/forum/profile/profile_menu.html:12
 #: templates/forum/profile/profile_privacy.html:9
 msgid "Privacy"
-msgstr "Intimité"
+msgstr "Confidentialité"
 
 #: templates/forum/profile/profile_personal.html:15
 msgid "Enter your personal details"
@@ -1272,15 +1233,8 @@ msgid "Set your avatar display options"
 msgstr "Définissez les options d'affichage de votre avatar"
 
 #: templates/forum/profile/profile_personality.html:20
-msgid ""
-"An avatar is a small image that will be displayed with all your posts. You "
-"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
-"below must be checked in order for the avatar to be visible in your posts."
-msgstr ""
-"Un avatar est une petite image qui sera affichée avec tous vos messages. "
-"Vous pouvez charger un avatar en cliquant sur le lien ci-dessous. La case de "
-"vérification 'Utiliser avatar' ci-dessous doit être vérifiée pour que votre "
-"avatar soit visible dans vos messages "
+msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
+msgstr "Un avatar est une petite image qui sera affichée avec tous vos messages. Vous pouvez charger un avatar en cliquant sur le lien ci-dessous. La case de vérification 'Utiliser avatar' ci-dessous doit être vérifiée pour que votre avatar soit visible dans vos messages "
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
@@ -1295,21 +1249,8 @@ msgid "Compose your signature"
 msgstr "Entrez votre signature"
 
 #: templates/forum/profile/profile_personality.html:39
-msgid ""
-"A signature is a small piece of text that is attached to your posts. In it, "
-"you can enter just about anything you like. Perhaps you would like to enter "
-"your favourite quote or your star sign. It's up to you! In your signature "
-"you can use BBCode if it is allowed in this particular forum. You can see "
-"the features that are allowed/enabled listed below whenever you edit your "
-"signature."
-msgstr ""
-"Une signature est un petit morceau de text qui est joint à vos messages. "
-"Vous pouvez y mettre ce que vous aimez. Vous désirez peut-être y copier "
-"votre citation préférée ou votre signe astrologique. Celà dépend de vous!"
-"Dans votre signature, vous pouvez utiliser du BBCode si c'est est autorisé "
-"dans sur le forum. Vous pouvez voir quelles sont les fonctionnalités "
-"autorisées/activées ci-dessous et à chaque fois que vous éditez votre "
-"signature."
+msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
+msgstr "Une signature est un petit morceau de text qui est joint à vos messages. Vous pouvez y mettre ce que vous aimez. Vous désirez peut-être y copier votre citation préférée ou votre signe astrologique. Celà dépend de vous!Dans votre signature, vous pouvez utiliser du BBCode si c'est est autorisé dans sur le forum. Vous pouvez voir quelles sont les fonctionnalités autorisées/activées ci-dessous et à chaque fois que vous éditez votre signature."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1320,14 +1261,8 @@ msgid "Set your privacy options"
 msgstr "Selectionnez vos options de securité"
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
-msgstr ""
-"Selectionnez si vous desirez rendre visible ou non votre adresse de courriel "
-"aux autres utilisateurs, et si vous acceptez de recevoir des courriels "
-"d'autres utilisateurs via le forum "
+msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
+msgstr "Selectionnez si vous desirez rendre visible ou non votre adresse de courriel aux autres utilisateurs, et si vous acceptez de recevoir des courriels d'autres utilisateurs via le forum "
 
 #~ msgid "The reason of change of reputation:"
 #~ msgstr "La raison du changement de réputation:"
