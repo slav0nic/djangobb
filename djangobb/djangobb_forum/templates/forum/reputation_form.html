@@ -27,11 +27,11 @@
 				<tr>
 					<td class="tc4" width="30%">{% trans "Method:" %}</td>
 					<td class="tc4" width="70%">
-						{% ifequal request.GET.action "plus" %}
+						{% if request.GET.action == "plus" %}
 						{% trans "Add of a reputation" %}
 						{% else %}
 						{% trans "Reduction of a reputation" %}
-						{% endifequal %}
+						{% endif %}
 					</td>
 				</tr>
 			</tbody></table>
