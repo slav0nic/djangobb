@@ -19,10 +19,10 @@
 				<fieldset>
 					<legend>{% trans "Edit the post and submit changes" %}</legend>
 					<div class="infldset txtarea">
-						{% ifequal post.id post.topic.head.id %}
+						{% if post.id == post.topic.head.id %}
 						<label>{% trans "Subject" %}<br />
 						{{ form.name }}<br /></label>
-						{% endifequal %}
+						{% endif %}
 						<label>{% trans "Message" %}<br />
 						{{ form.body }}
 						<br /></label>
