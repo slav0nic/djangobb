@@ -40,6 +40,7 @@ LANGUAGES = (
     ('pl', 'Polish'),
     ('ru', 'Russian'),
     ('zh_CN', 'Chinese'),
+    ('de', 'German'),
 ) 
 
 SITE_ID = 1
