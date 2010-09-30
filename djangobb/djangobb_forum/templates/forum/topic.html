@@ -63,13 +63,13 @@
 								</dd>
 						{% endif %}
 						<dd class="usercontacts"><a href="{% url djangobb:forum_profile post.user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
-						{% ifequal post.user.forum_profile.privacy_permission 0 %}
+						{% if post.user.forum_profile.privacy_permission == 0 %}
 							<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
 						{% else %}
-							{% ifequal post.user.forum_profile.privacy_permission 1 %}
+							{% if post.user.forum_profile.privacy_permission == 1 %}
 									<a href="{% url djangobb:misc %}?mail_to={{ post.user }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
-							{% endifequal %}
-						{% endifequal %}
+							{% endif %}
+						{% endif %}
 						{% if forum_settings.PM_SUPPORT %}
 							{% if user.is_authenticated %}
 								<a href="{% url messages_compose_to post.user %}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
