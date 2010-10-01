@@ -7,6 +7,7 @@
 	<h2><span>{% trans "Move topic" %}</span></h2>
 	<div class="box">
 		<form method="POST" action="{% url djangobb:move_topic %}">
+			{% csrf_token %}
 			<div class="inform">
 				{% for topic_id in topic_ids %}
 					<input type="hidden" value="{{ topic_id }}" name="topic_id"/>
@@ -19,9 +20,9 @@
 						{% for category in categories %}
 							<optgroup label="{{ category }}">
 							{% for forum in category.forums.all %}
-								{% ifnotequal forum exclude_forum %}
+								{% if forum != exclude_forum %}
 									<option value="{{ forum.id }}">{{ forum.name }}</option>
-								{% endifnotequal %}
+								{% endif %}
 							{% endfor %}
 							</optgroup>
 						{% endfor %}

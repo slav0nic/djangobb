@@ -18,6 +18,7 @@
 	<h2><span>{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}</span></h2>
 	<div class="box">
 		<form id="post" action="{% if forum %}{% url djangobb:add_topic forum.id %}{% else %}{% url djangobb:add_post topic.id %}{% endif %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Write your message and submit" %}</legend>

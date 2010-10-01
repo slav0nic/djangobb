@@ -11,6 +11,7 @@
 </div>
 
 <form method="POST">
+{% csrf_token %}
 <div class="blockform">
 	<h2><span>{% trans "Reputation of the user" %} {{ profile.user }}&nbsp;&nbsp;<strong>[+{{ profile.reply_count_plus }} / -{{ profile.reply_count_minus }}] &nbsp;</strong></span></h2>
 	<div class="box">

@@ -34,13 +34,13 @@
 							<dd>{% trans "IP:" %} {{ post_user_ip }}</dd>
 						{% endif %}
 						<dd class="usercontacts"><a href="{% url djangobb:forum_profile message.sender %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
-						{% ifequal message.sender.forum_profile.privacy_permission 0 %}
+						{% if message.sender.forum_profile.privacy_permission == 0 %}
 							<a href="mailto:{{ message.sender.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
 						{% else %}
-							{% ifequal message.sender.forum_profile.privacy_permission 1 %}
+							{% if message.sender.forum_profile.privacy_permission == 1 %}
 									<a href="{% url djangobb:misc %}?mail_to={{ message.sender }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
-							{% endifequal %}
-						{% endifequal %}
+							{% endif %}
+						{% endif %}
 						{% if user_is_authenticated %}
 							<a href="{% url messages_reply %}?recipient={{ post_user.username }}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
 						{% endif %}

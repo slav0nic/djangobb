@@ -15,6 +15,7 @@
 
 	<div class="box">
 		<form method="post">
+			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Edit the post and submit changes" %}</legend>
