@@ -14,6 +14,7 @@
 </div>
 
 <form method="post">
+{% csrf_token %}
 {% for post in posts %}
 <div id="p{{ post.id }}" class="blockpost roweven firstpost">
 	<a name="post-{{ post.id }}"></a>

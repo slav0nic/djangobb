@@ -7,6 +7,7 @@
 	<h2><span>{% trans "Report post" %}</span></h2>
 	<div class="box">
 		<form id="report" method="post">
+			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Please enter a short reason why you are reporting this post" %}</legend>

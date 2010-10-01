@@ -55,11 +55,11 @@
 						{% endif %}
 						{% if forum_settings.REPUTATION_SUPPORT %}
 								<dd><a href="{% url djangobb:reputation post.user %}">{% trans "Reputation" %}</a>: 
-								{% ifnotequal request.user post.user %} {# TODO: and user.is_authenticated #}
+								{% if request.user != post.user %} {# TODO: and user.is_authenticated #}
 									<a href="{% url djangobb:reputation post.user %}?action=plus&post_id={{ post.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" border="0"></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url djangobb:reputation post.user %}?action=minus&post_id={{ post.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" border="0"></a>
 								{% else %}
 									<strong>{{ post.user.forum_profile.reply_total }}</strong>
-								{% endifnotequal %}
+								{% endif %}
 								</dd>
 						{% endif %}
 						<dd class="usercontacts"><a href="{% url djangobb:forum_profile post.user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
@@ -150,6 +150,7 @@
 	<h2><span>{% trans "Quick post" %}</span></h2>
 	<div class="box">
 		<form id="post" action="{% url djangobb:add_post topic.id %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Write your message and submit" %}</legend>

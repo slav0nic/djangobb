@@ -7,6 +7,7 @@
 	<h2><span>{% trans "Send e-mail to" %} {{ user }}</span></h2>
 	<div class="box">
 		<form id="email" method="post">
+			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Write and submit your e-mail message" %}</legend>

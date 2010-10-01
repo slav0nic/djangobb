@@ -4,9 +4,9 @@
 		<div class="box">
 			<div class="inbox">
 				<ul>
-					<li {%ifequal active_menu "inbox" %}class="isactive"{% endifequal %}><a href="{% url messages_inbox %}">{% trans "Inbox" %}</a></li>
-					<li {%ifequal active_menu "outbox" %}class="isactive"{% endifequal %}><a href="{% url messages_outbox %}">{% trans "Sent" %}</a></li>
-					<li {%ifequal active_menu "create" %}class="isactive"{% endifequal %}><a href="{% url messages_compose %}">{% trans "Send new message" %}</a></li>
+					<li {% if active_menu == "inbox" %}class="isactive"{% endif %}><a href="{% url messages_inbox %}">{% trans "Inbox" %}</a></li>
+					<li {% if active_menu == "outbox" %}class="isactive"{% endif %}><a href="{% url messages_outbox %}">{% trans "Sent" %}</a></li>
+					<li {% if active_menu == "create" %}class="isactive"{% endif %}><a href="{% url messages_compose %}">{% trans "Send new message" %}</a></li>
 				</ul>
 			</div>
 		</div>
