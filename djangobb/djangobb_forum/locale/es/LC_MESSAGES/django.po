@@ -253,7 +253,7 @@ msgstr "Actualizado por"
 
 #: models.py:176 models.py:339
 msgid "Markup"
-msgstr ""
+msgstr "Marcado"
 
 #: models.py:178 models.py:342
 msgid "HTML version"
@@ -276,7 +276,6 @@ msgid "To"
 msgstr "A"
 
 #: models.py:248
-#, fuzzy
 msgid "Time"
 msgstr "Hora"
 
@@ -299,9 +298,8 @@ msgid "Reputations"
 msgstr "Reputaciones"
 
 #: models.py:263
-#, fuzzy
 msgid "Status"
-msgstr "Status"
+msgstr "Estado"
 
 #: models.py:264
 msgid "Site"
@@ -365,7 +363,7 @@ msgstr "Permisos de privacidad"
 
 #: models.py:279
 msgid "Default markup"
-msgstr ""
+msgstr "Marcado por defecto"
 
 #: models.py:283 templates/forum/header.html:23 templates/forum/topic.html:65
 #: templates/forum/user.html:7 templates/forum/pm/message.html:38
@@ -386,22 +384,21 @@ msgstr "Denunciado por"
 
 #: models.py:321
 msgid "Zapped"
-msgstr ""
+msgstr "Eliminado"
 
 #: models.py:322
 msgid "Zapped by"
-msgstr ""
+msgstr "Eliminado por"
 
 #: models.py:327 templates/forum/topic.html:112
 msgid "Report"
-msgstr ""
+msgstr "Reporte"
 
 #: models.py:328
 msgid "Reports"
-msgstr ""
+msgstr "Reportes"
 
 #: models.py:337
-#, fuzzy
 msgid "Read"
 msgstr "Leer"
 
@@ -419,23 +416,23 @@ msgstr "Mensajes privados"
 
 #: models.py:379
 msgid "Banned user"
-msgstr ""
+msgstr "Usuario prohibido"
 
 #: models.py:380
 msgid "Ban start"
-msgstr ""
+msgstr "Principio de la prohibición"
 
 #: models.py:381
 msgid "Ban end"
-msgstr ""
+msgstr "Fin de la prohibición"
 
 #: models.py:385
 msgid "Ban"
-msgstr ""
+msgstr "Prohibición"
 
 #: models.py:386
 msgid "Bans"
-msgstr ""
+msgstr "Prohibiciones"
 
 #: models.py:404
 msgid "Size"
@@ -447,11 +444,11 @@ msgstr "Tipo de contenido"
 
 #: models.py:406
 msgid "Path"
-msgstr ""
+msgstr "Camino"
 
 #: models.py:408
 msgid "Hash"
-msgstr ""
+msgstr "Hash"
 
 #: templates/forum/add_post.html:9 templates/forum/add_post.html.py:11
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
@@ -500,7 +497,7 @@ msgstr "Volver"
 
 #: templates/forum/add_post.html:53
 msgid "Topic review (newest first)"
-msgstr ""
+msgstr "Revisión de tema (primero el más nuevo)"
 
 #: templates/forum/add_post.html:69 templates/forum/topic.html:122
 msgid "Quote"
@@ -508,7 +505,7 @@ msgstr "Citar"
 
 #: templates/forum/base.html:57
 msgid "Board footer"
-msgstr ""
+msgstr "Pie de página"
 
 #: templates/forum/delete_posts.html:34 templates/forum/topic.html:93
 msgid "Edited"
@@ -552,7 +549,7 @@ msgstr "Último mensaje"
 
 #: templates/forum/forum.html:42 templates/forum/moderate.html:38
 msgid "Sticky:"
-msgstr ""
+msgstr "Pegajoso:"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
 #: templates/forum/forum.html:54 templates/forum/forum_row.html:35
@@ -616,7 +613,7 @@ msgstr "Registrarse"
 
 #: templates/forum/header.html:37
 msgid "Logged in as"
-msgstr ""
+msgstr "Autenticado como"
 
 #: templates/forum/header.html:38
 msgid "Last visit:"
@@ -625,11 +622,11 @@ msgstr "Última visita:"
 #: templates/forum/header.html:40
 #, python-format
 msgid " There are new messages (%(new_msg)s)"
-msgstr ""
+msgstr "Hay nuevos mensajes (%(new_msg)s)"
 
 #: templates/forum/header.html:43
 msgid "You are not logged in."
-msgstr ""
+msgstr "No está autenticado."
 
 #: templates/forum/header.html:46
 msgid "There are new reports"
@@ -645,15 +642,15 @@ msgstr "Marcar todos los temas como leídos"
 
 #: templates/forum/header.html:62
 msgid "Notice"
-msgstr ""
+msgstr "Aviso"
 
 #: templates/forum/index.html:71
 msgid "Board information"
-msgstr ""
+msgstr "Información de la cartelera"
 
 #: templates/forum/index.html:75
 msgid "Board statistics"
-msgstr ""
+msgstr "Estadísticas de la cartelera"
 
 #: templates/forum/index.html:76
 msgid "Total number of registered users:"
@@ -774,7 +771,7 @@ msgstr "Del usuario"
 
 #: templates/forum/reputation.html:22
 msgid "For post in topic"
-msgstr ""
+msgstr "Por envío en tema"
 
 #: templates/forum/reputation.html:24
 msgid "Estimation"
@@ -928,7 +925,6 @@ msgid "Jump to "
 msgstr "Saltar a"
 
 #: templates/forum/topic.html:206
-#, fuzzy
 msgid "Moderator control"
 msgstr "Control de moderador"
 
@@ -1149,7 +1145,7 @@ msgstr "Excluir usuario"
 
 #: templates/forum/profile/profile_admin.html:24
 msgid "Set moderator access"
-msgstr ""
+msgstr "Establecer el acceso del moderador"
 
 #: templates/forum/profile/profile_admin.html:26
 msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
@@ -1201,7 +1197,7 @@ msgstr "Escribir una dirección de e-mail válida"
 
 #: templates/forum/profile/profile_essentials.html:51
 msgid "Set your localisation options"
-msgstr ""
+msgstr "Establecer opciones de localización"
 
 #: templates/forum/profile/profile_essentials.html:55
 msgid "Timezone: For the forum to display times correctly you must select your local timezone."
@@ -1230,27 +1226,27 @@ msgstr "Dejar en blanco para usar el valor por defecto"
 
 #: templates/forum/profile/profile_personality.html:14
 msgid "Set your avatar display options"
-msgstr ""
+msgstr "Establecer opciones de avatar"
 
 #: templates/forum/profile/profile_personality.html:20
 msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
-msgstr ""
+msgstr "Un avatar es una pequeña imagen que será mostrada junto a todos sus mensajes. Puede subir un avatar haciendo click sobre el enlace debajo. La caja 'Usar avatar' ubicada debajo debe estar marcada para que el avatar sea visible en sus mensajes."
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
-msgstr ""
+msgstr "Usar avatar."
 
 #: templates/forum/profile/profile_personality.html:27
 msgid "Delete avatar"
-msgstr ""
+msgstr "Borrar avatar"
 
 #: templates/forum/profile/profile_personality.html:36
 msgid "Compose your signature"
-msgstr ""
+msgstr "Escribir firma"
 
 #: templates/forum/profile/profile_personality.html:39
 msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
-msgstr ""
+msgstr "Una firma es un texto corto que se agrega a sus mensajes. En ella puede poner lo que guste. Quizás quiera escribir su cita favorita o su signo del zodíaco. ¡Es su elección! En su firma puede usar BBCode si esta permitido en este foro en particular. Puede ver las opciones permitidas/habilitadas en la lista debajo siempre que cambie su firma."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1258,8 +1254,8 @@ msgstr "No hay firma actualmente guardada en su perfil."
 
 #: templates/forum/profile/profile_privacy.html:15
 msgid "Set your privacy options"
-msgstr ""
+msgstr "Establecer opciones de privacidad"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
-msgstr ""
+msgstr "Seleccione si quiere que su dirección de e-mail sea visible por otros usuarios o no, y si quiere que otros usuarios puedan enviarle e-mail a través del foro (formulario de e-mail) o no."
