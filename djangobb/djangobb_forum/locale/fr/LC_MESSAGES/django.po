@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2010-08-20 22:34+0200\n"
 "Last-Translator: Sylvain Glaize <mokona@puupuu.org>\n"
 "Language-Team: Mokona\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: feeds.py:23 feeds.py:24 templates/forum/base.html:18
@@ -33,7 +33,7 @@ msgstr "Derniers messages du sujet %s"
 #: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s forum"
-msgstr "Derniers messages sur du forum %s"
+msgstr "Derniers messages du forum %s"
 
 #: feeds.py:100 feeds.py:103
 #, python-format
@@ -162,7 +162,7 @@ msgstr "Destinataire"
 
 #: models.py:35
 msgid "Display your e-mail address."
-msgstr "Montrez votre adresse de courriel."
+msgstr "Montrer votre adresse de courriel."
 
 #: models.py:36
 msgid "Hide your e-mail address but allow form e-mail."
@@ -182,7 +182,7 @@ msgstr "Groupes"
 
 #: models.py:51
 msgid "Only users from these groups can see this category"
-msgstr "Seuls les utilisateurs de ces groupes peuvent voir cette categorie"
+msgstr "Seuls les utilisateurs de ces groupes peuvent voir cette catégorie"
 
 #: models.py:52 models.py:88
 msgid "Position"
@@ -210,11 +210,11 @@ msgstr "Mise à jour"
 
 #: models.py:92 models.py:123 models.py:280
 msgid "Post count"
-msgstr "Nombre de message"
+msgstr "Nombre de messages"
 
 #: models.py:93
 msgid "Topic count"
-msgstr "Nombre de Sujets"
+msgstr "Nombre de sujets"
 
 #: models.py:99
 msgid "Forums"
@@ -250,9 +250,8 @@ msgid "Topic"
 msgstr "Sujet"
 
 #: models.py:175
-#, fuzzy
 msgid "Updated by"
-msgstr "Mise à jour"
+msgstr "Mis à jour par"
 
 #: models.py:176 models.py:339
 msgid "Markup"
@@ -500,7 +499,7 @@ msgstr "Précédent"
 
 #: templates/forum/add_post.html:53
 msgid "Topic review (newest first)"
-msgstr "Revue du sujet (Les nouveautés en premier)"
+msgstr "Revue du sujet (les nouveautés en premier)"
 
 #: templates/forum/add_post.html:69 templates/forum/topic.html:122
 msgid "Quote"
@@ -552,7 +551,7 @@ msgstr "Derniers messages"
 
 #: templates/forum/forum.html:42 templates/forum/moderate.html:38
 msgid "Sticky:"
-msgstr "Collant:"
+msgstr "Collant :"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
 #: templates/forum/forum.html:54 templates/forum/forum_row.html:36
@@ -657,15 +656,15 @@ msgstr "Statistiques du forum"
 
 #: templates/forum/index.html:40
 msgid "Total number of registered users:"
-msgstr "Nombre total d'utilisateurs enregistrés:"
+msgstr "Nombre total d'utilisateurs enregistrés :"
 
 #: templates/forum/index.html:41
 msgid "Total number of topics:"
-msgstr "Nombre total de sujets:"
+msgstr "Nombre total de sujets :"
 
 #: templates/forum/index.html:42
 msgid "Total number of posts:"
-msgstr "Nombre total de messages:"
+msgstr "Nombre total de messages :"
 
 #: templates/forum/index.html:45
 msgid "User information"
@@ -673,15 +672,15 @@ msgstr "Information sur l'utilisateur"
 
 #: templates/forum/index.html:46
 msgid "Newest registered user:"
-msgstr "Dernier utilisateur enregistré:"
+msgstr "Dernier utilisateur enregistré :"
 
 #: templates/forum/index.html:47
 msgid "Registered users online:"
-msgstr "Utilisateurs enregistrés connectés:"
+msgstr "Utilisateurs enregistrés connectés :"
 
 #: templates/forum/index.html:48
 msgid "Guests online:"
-msgstr "Invités connectés:"
+msgstr "Invités connectés :"
 
 #: templates/forum/index.html:52
 msgid "Online:"
@@ -722,7 +721,7 @@ msgstr "Écrivez et envoyez votre courriel"
 
 #: templates/forum/mail_to.html:20
 msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
-msgstr "Veuillez noter qu'en utilisant ce formulaire, votre adresse de courriel sera divulguée.au destinataire."
+msgstr "Veuillez noter qu'en utilisant ce formulaire, votre adresse de courriel sera divulguée au destinataire."
 
 #: templates/forum/moderate.html:66 templates/forum/move_topic.html:33
 msgid "Move"
@@ -762,7 +761,7 @@ msgstr "Signaler un message"
 
 #: templates/forum/report.html:12
 msgid "Please enter a short reason why you are reporting this post"
-msgstr "Veuillez entrer brèvement la raison pour laquelle vous signalez ce message"
+msgstr "Veuillez entrer brièvement la raison pour laquelle vous signalez ce message"
 
 #: templates/forum/reputation.html:15
 msgid "Reputation of the user"
@@ -773,9 +772,8 @@ msgid "From user"
 msgstr "Provient de"
 
 #: templates/forum/reputation.html:22
-#, fuzzy
 msgid "For post in topic"
-msgstr "Pour le sujet"
+msgstr "Pour le message dans le sujet"
 
 #: templates/forum/reputation.html:24
 msgid "Estimation"
@@ -796,15 +794,15 @@ msgstr "Veuillez remplir ce formulaire"
 
 #: templates/forum/reputation_form.html:16
 msgid "Your name:"
-msgstr "Votre nom d'utilisateur:"
+msgstr "Votre nom d'utilisateur :"
 
 #: templates/forum/reputation_form.html:20
 msgid "To whom we change a reputation:"
-msgstr "De qui changer la réputation:"
+msgstr "De qui changer la réputation :"
 
 #: templates/forum/reputation_form.html:28
 msgid "Method:"
-msgstr "Méthode:"
+msgstr "Méthode :"
 
 #: templates/forum/reputation_form.html:31
 msgid "Add of a reputation"
@@ -820,7 +818,7 @@ msgstr "Entrez vos critères de recherche"
 
 #: templates/forum/search_form.html:18
 msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
-msgstr "Pour rechercher par mots clés, entrez un ou des termes de recherche, séparés par des espaces. Pour rechercher des messages par auteur entrez le nom d'utilisateur de l'auteur en question, "
+msgstr "Pour chercher par mots clés, entrez un ou des termes de recherche séparés par des espaces. Pour chercher des messages par auteur entrez le nom d'utilisateur de l'auteur recherché."
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
@@ -832,7 +830,7 @@ msgstr "Tous les forums"
 
 #: templates/forum/search_form.html:44
 msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
-msgstr "Choisissez dans quel forum vous souhaiteriez rechercher et si vous voulez recherchez dans les sujets, les messages ou les deux."
+msgstr "Choisissez dans quel forum vous souhaitez chercher et si vous voulez recherchez dans les sujets, les messages ou les deux."
 
 #: templates/forum/search_form.html:51
 msgid "Select how to view search results"
@@ -840,7 +838,7 @@ msgstr "Choisissez comment visualiser les résultats de recherche"
 
 #: templates/forum/search_form.html:66
 msgid "You can choose how you wish to sort and show your results."
-msgstr "Vous pouvez choisir comment vous souhaiteriez trier et montrer vos résultats."
+msgstr "Vous pouvez choisir comment vous souhaitez trier et montrer vos résultats."
 
 #: templates/forum/search_posts.html:24
 msgid "Replies:"
@@ -860,7 +858,7 @@ msgstr "Votre recherche n'a donné aucun résultat."
 
 #: templates/forum/search_topics.html:15
 msgid "Search results"
-msgstr "Résultats de recherche"
+msgstr "Résultats de la recherche"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:121
 #: templates/forum/topic.html:132 templates/forum/pm/message.html:80
@@ -1059,7 +1057,7 @@ msgstr "Activité de l'utilisateur"
 #: templates/forum/user.html:120
 #: templates/forum/profile/profile_essentials.html:76
 msgid "Show all posts"
-msgstr "Monter tout les messages"
+msgstr "Monter tous les messages"
 
 #: templates/forum/user.html:121
 #: templates/forum/profile/profile_essentials.html:74
@@ -1076,7 +1074,7 @@ msgstr "Trouver et trier les utilisateurs"
 
 #: templates/forum/users.html:25
 msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
-msgstr "Entrez un nom d'utilisateur à rechercher. Le champ du nom d'utilisateur peut être laissé vide. Triez les utilisateurs par nom, date d'inscription ou nombre de messages, par ordre croissant/décroissant."
+msgstr "Entrez un nom d'utilisateur à chercher. Le champ du nom d'utilisateur peut être laissé vide. Triez les utilisateurs par nom, date d'inscription ou nombre de messages, par ordre croissant/décroissant."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
@@ -1153,7 +1151,7 @@ msgstr "Donner un accès modérateur"
 
 #: templates/forum/profile/profile_admin.html:26
 msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
-msgstr "Choisir quels forums cet utilisateur pourrait être abilité à modérer. Note: Ceci s'applique uniquement aux modérateurs. Les administrateurs ont toujours tous droits dans tous les forums."
+msgstr "Choisir quels forums cet utilisateur pourra être autorisé à modérer. Note : ceci s'applique uniquement aux modérateurs. Les administrateurs ont toujours tous droits dans tous les forums."
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
@@ -1205,11 +1203,11 @@ msgstr "Définissez vos options de localisation"
 
 #: templates/forum/profile/profile_essentials.html:55
 msgid "Timezone: For the forum to display times correctly you must select your local timezone."
-msgstr "Fuseau horaire: Pour que le forum affiche l'heure correctement vous devez sélectioner votre fuseau horaire. "
+msgstr "Fuseau horaire : pour que le forum affiche l'heure correctement, vous devez sélectionner votre fuseau horaire. "
 
 #: templates/forum/profile/profile_essentials.html:61
 msgid "Language: You can choose which language you wish to use to view the forum"
-msgstr "Langue: Vous pouvez choisir en quel langue voir le forum"
+msgstr "Langue : vous pouvez choisir en quel langue voir le forum"
 
 #: templates/forum/profile/profile_menu.html:3
 msgid "Profile menu"
@@ -1234,7 +1232,7 @@ msgstr "Définissez les options d'affichage de votre avatar"
 
 #: templates/forum/profile/profile_personality.html:20
 msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
-msgstr "Un avatar est une petite image qui sera affichée avec tous vos messages. Vous pouvez charger un avatar en cliquant sur le lien ci-dessous. La case de vérification 'Utiliser avatar' ci-dessous doit être vérifiée pour que votre avatar soit visible dans vos messages "
+msgstr "Un avatar est une petite image qui sera affichée avec tous vos messages. Vous pouvez charger un avatar en cliquant sur le lien ci-dessous. La case de vérification 'Utiliser l'avatar' ci-dessous doit être cochée pour que votre avatar soit visible dans vos messages."
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
@@ -1250,7 +1248,7 @@ msgstr "Entrez votre signature"
 
 #: templates/forum/profile/profile_personality.html:39
 msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
-msgstr "Une signature est un petit morceau de text qui est joint à vos messages. Vous pouvez y mettre ce que vous aimez. Vous désirez peut-être y copier votre citation préférée ou votre signe astrologique. Celà dépend de vous!Dans votre signature, vous pouvez utiliser du BBCode si c'est est autorisé dans sur le forum. Vous pouvez voir quelles sont les fonctionnalités autorisées/activées ci-dessous et à chaque fois que vous éditez votre signature."
+msgstr "Une signature est un petit morceau de texte qui est joint à vos messages. Vous pouvez y mettre ce que vous aimez. Vous désirez peut-être y copier votre citation préférée ou votre signe astrologique. Cela dépend de vous! Dans votre signature, vous pouvez utiliser du BBCode si c'est est autorisé dans sur le forum. Vous pouvez voir quelles sont les fonctionnalités autorisées/activées ci-dessous et à chaque fois que vous éditez votre signature."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1258,11 +1256,11 @@ msgstr "Aucune signature n'est actuellement stockée dans le profil"
 
 #: templates/forum/profile/profile_privacy.html:15
 msgid "Set your privacy options"
-msgstr "Selectionnez vos options de securité"
+msgstr "Sélectionnez vos options de confidentialité"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
-msgstr "Selectionnez si vous desirez rendre visible ou non votre adresse de courriel aux autres utilisateurs, et si vous acceptez de recevoir des courriels d'autres utilisateurs via le forum "
+msgstr "Sélectionnez si vous désirez rendre visible ou non votre adresse de courriel aux autres utilisateurs et si vous acceptez de recevoir des courriels d'autres utilisateurs via le forum "
 
 #~ msgid "The reason of change of reputation:"
 #~ msgstr "La raison du changement de réputation:"
