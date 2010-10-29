@@ -17,12 +17,11 @@
 				{{ forum.description|safe }}
 				<p>
 				{% cache 6000 moderators forum.id %}
-					{% if forum.moderators.count %}
+					{% if forum.moderator.exist %}
 						{% include 'forum/moderators.html' %}
 					{% endif %}
 				{% endcache %}
 				</p>
-				
 			</div>
 		</div>
 	</td>
