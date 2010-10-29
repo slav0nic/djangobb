@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% if forum.last_post.topic %}
-	<tr {% if forum|forum_unreads:user %}class="inew"{% endif %}>
+	<tr {% if forum.last_post.topic|has_unreads:user %}class="inew"{% endif %}>
 {% else %}
 	<tr>
 {% endif %}
@@ -14,7 +14,7 @@
 			</div>
 			<div class="tclcon">
 				<h3>{% link forum %} <a href="{% url djangobb:forum_feed "forum" %}{{ forum.id }}/"><img src="{{ MEDIA_URL }}forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a></h3>
-				{{ forum.description|safe }}
+				{{ forum.description|safe }}				
 				<p>
 				{% cache 6000 moderators forum.id %}
 					{% if forum.moderator.exist %}
