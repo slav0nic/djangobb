@@ -13,7 +13,7 @@
 		<ul>
 			<li>
 			<a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
-			<a href="{% url djangobb:forum_feed "topic" %}{{ topic.id }}/"><img src="{{ MEDIA_URL }}forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+			<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ MEDIA_URL }}forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 			</li>
 		</ul>
 		<div class="clearer"></div>
@@ -133,7 +133,7 @@
 		<p class="pagelink conl">{% pagination %}</p>
 		<p class="postlink conr"><a href="{% url djangobb:add_post topic.id %}">{% trans "Reply" %}</a></p>
 				<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
-				<a href="{% url djangobb:forum_feed "topic" %}{{ topic.id }}"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+				<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 				</li></ul>
 		{% if user.is_authenticated %}
 			{% if subscribed %}

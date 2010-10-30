@@ -19,11 +19,11 @@ from django.db import transaction
 
 from djangobb_forum.util import render_to, paged, build_form, paginate, set_language
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
-    Report, PrivateMessage, Attachment, PostTracking
+    Report, Attachment, PostTracking
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
     PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
-    DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm, CreatePMForm
+    DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm
 from djangobb_forum.markups import bbmarkup
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum import settings as forum_settings

@@ -330,51 +330,6 @@ class Report(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.reported_by ,self.zapped)
 
-
-class PrivateMessage(models.Model):
-    dst_user = models.ForeignKey(User, verbose_name=_('Recipient'), related_name='dst_users')
-    src_user = models.ForeignKey(User, verbose_name=_('Author'), related_name='src_users')
-    read = models.BooleanField(_('Read'), blank=True, default=False)
-    created = models.DateTimeField(_('Created'), auto_now_add=True)
-    markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
-    subject = models.CharField(_('Subject'), max_length=255)
-    body = models.TextField(_('Message'))
-    body_html = models.TextField(_('HTML version'))
-    body_text = models.TextField(_('Text version'))
-
-    class Meta:
-        ordering = ['-created']
-        verbose_name = _('Private message')
-        verbose_name_plural = _('Private messages')
-
-    def __unicode__(self):
-        return self.subject
-
-    def save(self, *args, **kwargs):
-        if self.markup == 'bbcode':
-            self.body_html = bbmarkup.bbcode(self.body)
-        elif self.markup == 'markdown':
-            self.body_html = unicode(Markdown(self.body, safe_mode='escape'))
-            #self.body_html = markdown(self.body, 'safe')
-        else:
-            raise Exception('Invalid markup property: %s' % self.markup)
-        self.body_html = urlize(self.body_html)
-        if forum_settings.SMILES_SUPPORT:
-            self.body_html = smiles(self.body_html)
-        super(PrivateMessage, self).save(*args, **kwargs)
-
-    @models.permalink
-    def get_absolute_url(self):
-        return  ('djangobb:forum_show_pm', [self.id])
-
-    # TODO: summary and part of the save method is the same as in the Post model
-    # move to common functions
-    def summary(self):
-        LIMIT = 50
-        tail = len(self.body) > LIMIT and '...' or '' 
-        return self.body[:LIMIT] + tail
-
-
 class Ban(models.Model):
     user = models.OneToOneField(User, verbose_name=_('Banned user'), related_name='ban_users')
     ban_start = models.DateTimeField(_('Ban start'), default=datetime.now)
