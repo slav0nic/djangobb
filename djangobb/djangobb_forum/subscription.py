@@ -14,12 +14,6 @@ TOPIC_SUBSCRIPTION_TEXT_TEMPLATE = (u"""New reply from %(username)s to topic tha
 See topic: %(post_url)s
 Unsubscribe %(unsubscribe_url)s""")
 
-PM_RECIPIENT_TEXT_TEMPLATE = (u"""User %(username)s have sent your the new private message.
----
-%(message)s
----
-See message online: %(pm_url)s""")
-
 
 def send_mail(rec_list, subject, text, html=None):
     """
@@ -59,16 +53,3 @@ def notify_topic_subscribers(post):
                     }
                 #html_content = html_version(post)
                 send_mail([to_email], subject, text_content)
-
-
-def notify_pm_recipients(pm):
-    if not pm.read:
-        from djangobb_forum.models import PrivateMessage 
-        subject = (u'There are new messages')
-        to_email = pm.dst_user.email
-        text_content = PM_RECIPIENT_TEXT_TEMPLATE % {
-            'username': pm.src_user.username,
-            'message': pm.body_text,
-            'pm_url': absolute_url(pm.get_absolute_url()),
-         }
-        send_mail([to_email], subject, text_content)

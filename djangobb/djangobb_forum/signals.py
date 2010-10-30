@@ -2,8 +2,8 @@ from datetime import datetime
 
 from django.db.models.signals import post_save, pre_save, post_delete
 
-from djangobb_forum.subscription import notify_topic_subscribers, notify_pm_recipients
-from djangobb_forum.models import Topic, Post, PrivateMessage
+from djangobb_forum.subscription import notify_topic_subscribers
+from djangobb_forum.models import Topic, Post
 
 
 def post_saved(instance, **kwargs):
@@ -22,10 +22,6 @@ def post_saved(instance, **kwargs):
     topic.save(force_update=True)
 
 
-def pm_saved(instance, **kwargs):
-    notify_pm_recipients(instance) 
-
-
 def topic_saved(instance, **kwargs):
     created = kwargs.get('created')
     topic = instance
@@ -38,5 +34,4 @@ def topic_saved(instance, **kwargs):
 
 
 post_save.connect(post_saved, sender=Post)
-post_save.connect(pm_saved, sender=PrivateMessage)
 post_save.connect(topic_saved, sender=Topic)

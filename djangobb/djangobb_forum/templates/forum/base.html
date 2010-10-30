@@ -15,8 +15,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/skins/markitup/style.css" />
 	<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}forum/js/markitup/sets/bbcode/style.css" />
 
-	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_feed "posts" %}" title="{% trans "Latest posts on forum" %}" />
-	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_feed "topics" %}" title="{% trans "Latest topics on forum" %}" />
+	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_posts_feed %}" title="{% trans "Latest posts on forum" %}" />
+	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_topics_feed %}" title="{% trans "Latest topics on forum" %}" />
 
 	<link rel="shortcut icon" href="{{ MEDIA_URL }}forum/favicon.png" type="image/png" />
 	<script type="text/javascript">
