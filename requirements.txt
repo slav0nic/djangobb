@@ -5,3 +5,4 @@ django-registration==0.7
 django-messages==0.4.4
 -e hg+http://bitbucket.org/benoitc/django-authopenid#egg=django-authopenid
 -e svn+http://djapian.googlecode.com/svn/trunk/#egg=djapian
+-e git+http://github.com/jtauber/django-mailer#egg=django-mailer

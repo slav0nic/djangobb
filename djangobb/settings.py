@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'djangobb_forum',
     'djapian',
     'messages',
+    'mailer',
 )
 
 FORCE_SCRIPT_NAME = ''
@@ -150,6 +151,9 @@ DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
 ACCOUNT_ACTIVATION_DAYS = 10
 LOGIN_REDIRECT_URL = '/forum/'
 LOGIN_URL = '/forum/account/signin/'
+
+# Mailer settings
+EMAIL_BACKEND = "mailer.backend.DbBackend"
 
 #Cache settings
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
