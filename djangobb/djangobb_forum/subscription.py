@@ -7,6 +7,28 @@ from django.utils.html import strip_tags
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import absolute_url
 
+if "mailer" in settings.INSTALLED_APPS:
+    from mailer import send_mail
+else:
+    from django.core.mail import send_mail
+    def send_mail(subject, text, from_email, rec_list, html=None):
+        """
+        Shortcut for sending email.
+        """
+    
+        msg = EmailMultiAlternatives(subject, text, from_email, rec_list)
+        if html:
+            msg.attach_alternative(html, "text/html")
+        if forum_settings.EMAIL_DEBUG:
+            print '---begin---'
+            print 'To:', rec_list
+            print 'Subject:', subject
+            print 'Body:', text
+            print '---end---'
+        else:
+            msg.send(fail_silently=True)
+    
+
 TOPIC_SUBSCRIPTION_TEXT_TEMPLATE = (u"""New reply from %(username)s to topic that you have subscribed on.
 ---
 %(message)s
@@ -14,25 +36,6 @@ TOPIC_SUBSCRIPTION_TEXT_TEMPLATE = (u"""New reply from %(username)s to topic tha
 See topic: %(post_url)s
 Unsubscribe %(unsubscribe_url)s""")
 
-
-def send_mail(rec_list, subject, text, html=None):
-    """
-    Shortcut for sending email.
-    """
-
-    from_email = settings.DEFAULT_FROM_EMAIL
-
-    msg = EmailMultiAlternatives(subject, text, from_email, rec_list)
-    if html:
-        msg.attach_alternative(html, "text/html")
-    if forum_settings.EMAIL_DEBUG:
-        print '---begin---'
-        print 'To:', rec_list
-        print 'Subject:', subject
-        print 'Body:', text
-        print '---end---'
-    else:
-        msg.send(fail_silently=True)
 
 
 def notify_topic_subscribers(post):
@@ -52,4 +55,4 @@ def notify_topic_subscribers(post):
                         'unsubscribe_url': absolute_url(reverse('djangobb:forum_delete_subscription', args=[post.topic.id])),
                     }
                 #html_content = html_version(post)
-                send_mail([to_email], subject, text_content)
+                send_mail(subject, text_content, settings.DEFAULT_FROM_EMAIL, [to_email])
