@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'djangobb_forum',
     'haystack',
     'messages',
+    'mailer',
 )
 
 FORCE_SCRIPT_NAME = ''
@@ -152,6 +153,9 @@ HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_ROOT, 'djangobb_index')
 ACCOUNT_ACTIVATION_DAYS = 10
 LOGIN_REDIRECT_URL = '/forum/'
 LOGIN_URL = '/forum/account/signin/'
+
+# Mailer settings
+EMAIL_BACKEND = "mailer.backend.DbBackend"
 
 #Cache settings
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True

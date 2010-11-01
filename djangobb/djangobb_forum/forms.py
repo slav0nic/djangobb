@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, PrivateMessage,\
+from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Forum, Attachment, TZ_CHOICES, PRIVACY_CHOICES
 from djangobb_forum.markups import bbmarkup
 from djangobb_forum import settings as forum_settings
@@ -360,32 +360,3 @@ class ReportForm(forms.ModelForm):
         if commit:
             report.save()
         return report
-
-
-class CreatePMForm(forms.ModelForm):
-    recipient = forms.CharField(label=_('Recipient'))
-    
-    class Meta:
-        model = PrivateMessage
-        fields = ['subject', 'body']
-        
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        super(CreatePMForm, self).__init__(*args, **kwargs)
-        self.fields.keyOrder = ['recipient', 'subject', 'body']
-        self.fields['subject'].widget = widget=forms.TextInput(attrs={'size':'115'})
-        self.fields['body'].widget = forms.Textarea(attrs={'class':'bbcode'})
-        
-    def clean_recipient(self):
-        name = self.cleaned_data['recipient']
-        try:
-            user = User.objects.get(username=name)
-        except User.DoesNotExist:
-            raise forms.ValidationError(_('User with login %s does not exist') % name)
-        else:
-            return user
-
-    def save(self):
-        pm = PrivateMessage(src_user=self.user, dst_user=self.cleaned_data['recipient'])
-        pm = forms.save_instance(self, pm)
-        return pm

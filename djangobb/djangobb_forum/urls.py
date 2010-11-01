@@ -4,14 +4,7 @@ from djangobb_forum import settings as forum_settings
 from djangobb_forum import views as forum_views
 from djangobb_forum.feeds import LastPosts, LastTopics, LastPostsOnForum,\
      LastPostsOnCategory, LastPostsOnTopic
-
-feeds = {
-    'posts': LastPosts,
-    'topics': LastTopics,
-    'topic': LastPostsOnTopic,
-    'forum': LastPostsOnForum,
-    'category': LastPostsOnCategory,
-}
+     
 
 urlpatterns = patterns('',
 
@@ -47,11 +40,14 @@ urlpatterns = patterns('',
     # Subscription
     url('^subscription/topic/(?P<topic_id>\d+)/delete/$', forum_views.delete_subscription, name='forum_delete_subscription'),
     url('^subscription/topic/(?P<topic_id>\d+)/add/$', forum_views.add_subscription, name='forum_add_subscription'),
+    
     # Feeds
-    url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed',
-        {'feed_dict': feeds}, name='forum_feed'),
+    url(r'^feeds/posts/$', LastPosts(), name='forum_posts_feed'),
+    url(r'^feeds/topics/$', LastTopics(), name='forum_topics_feed'),
+    url(r'^feeds/topic/(?P<topics>\d+)/$', LastPostsOnTopic(), name='forum_topic_feed'),
+    url(r'^feeds/forum/(?P<forums>\d+)/$', LastPostsOnForum(), name='forum_forum_feed'),
+    url(r'^feeds/category/(?P<categories>\d+)/$', LastPostsOnCategory(), name='forum_category_feed'),
 )
-
 
 ### EXTENSIONS ###
 
