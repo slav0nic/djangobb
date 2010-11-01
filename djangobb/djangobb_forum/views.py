@@ -121,22 +121,26 @@ def search(request):
     # TODO: move to form
     if 'action' in request.GET:
         action = request.GET['action']
+
+        topics = Topic.objects.filter(
+                   Q(forum__category__groups__in=request.user.groups.all()) | \
+                   Q(forum__category__groups__isnull=True))
         if action == 'show_24h':
             date = datetime.today() - timedelta(1)
-            topics = Topic.objects.filter(created__gte=date).order_by('created')
+            topics = topics.filter(created__gte=date).order_by('created')
         elif action == 'show_new':
             #TODO: FIXME
             #must be filter topic.last_post > tracking.last_read and exclude tracking.topics
-            topics = Topic.objects.all().order_by('created')
+            topics = topics.order_by('created')
             topics = [topic for topic in topics if forum_extras.has_unreads(topic, request.user)]
         elif action == 'show_unanswered':
-            topics = Topic.objects.filter(post_count=1)
+            topics = topics.filter(post_count=1)
         elif action == 'show_subscriptions':
-            topics = Topic.objects.filter(subscribers=request.user)
+            topics = topics.filter(subscribers=request.user)
         elif action == 'show_user':
             user_id = request.GET['user_id']
             posts = Post.objects.filter(user__id=user_id)
-            topics = [post.topic for post in posts]
+            topics = [post.topic for post in posts if post.topic in topics]
         elif action == 'search':
             keywords = request.GET.get('keywords')
             author = request.GET.get('author')
@@ -190,7 +194,6 @@ def search(request):
                 return {'paged_qs': posts,
                         'TEMPLATE': 'forum/search_posts.html'
                         }
-        topics = [topic for topic in topics if topic.forum.category.has_access(request.user)]
         return {'paged_qs': topics}
     else:
         form = PostSearchForm()
