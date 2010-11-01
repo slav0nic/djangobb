@@ -45,7 +45,7 @@ LANGUAGES = (
     ('ru', 'Russian'),
     ('zh_CN', 'Chinese'),
     ('de', 'German'),
-) 
+)
 
 SITE_ID = 1
 
@@ -127,7 +127,7 @@ INSTALLED_APPS = (
     'registration',
     'django_authopenid',
     'djangobb_forum',
-    'djapian',
+    'haystack',
     'messages',
 )
 
@@ -143,8 +143,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'djangobb_forum.context_processors.forum_settings',
 )
 
-# Djapian settings
-DJAPIAN_DATABASE_PATH = os.path.join(PROJECT_ROOT, 'djapian_db')
+# Haystack settings
+HAYSTACK_SITECONF = 'djangobb.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_ROOT, 'djangobb_index')
 
 # Account settings
 ACCOUNT_ACTIVATION_DAYS = 10
@@ -158,3 +160,4 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
