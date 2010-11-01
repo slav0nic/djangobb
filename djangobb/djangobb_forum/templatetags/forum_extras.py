@@ -17,7 +17,9 @@ from django.contrib.humanize.templatetags.humanize import naturalday
 
 from djangobb_forum.models import Forum, Topic, Post, PostTracking, Report
 from djangobb_forum import settings as forum_settings
-from messages.models import inbox_count_for
+
+if forum_settings.PM_SUPPORT:
+    from messages.models import inbox_count_for
 
 register = template.Library()
 
@@ -233,8 +235,9 @@ def online(user):
 
 @register.filter
 def pm_unreads(user):
-    return inbox_count_for(user)
-
+    if forum_settings.PM_SUPPORT:
+        return inbox_count_for(user)
+    return None
 
 @register.filter
 def attachment_link(attach):
