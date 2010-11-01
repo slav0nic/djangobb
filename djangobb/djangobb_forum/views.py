@@ -28,8 +28,9 @@ from djangobb_forum.markups import bbmarkup
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import urlize, smiles
-from djangobb_forum.index import post_indexer
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
+
+from haystack.query import SearchQuerySet, SQ
 
 
 @render_to('forum/index.html')
@@ -58,7 +59,7 @@ def index(request, full=True):
 
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
-    
+
     to_return = {'cats': cats,
                 'posts': Post.objects.count(),
                 'topics': Topic.objects.count(),
@@ -108,7 +109,7 @@ def moderate(request, forum_id):
                 'topics': topics,
                 #'sticky_topics': forum.topics.filter(sticky=True),
                 'paged_qs': topics,
-                'posts': forum.posts.count(), 
+                'posts': forum.posts.count(),
                 }
     else:
         raise Http404
@@ -127,7 +128,7 @@ def search(request):
             #TODO: FIXME
             #must be filter topic.last_post > tracking.last_read and exclude tracking.topics
             topics = Topic.objects.all().order_by('created')
-            topics = [topic for topic in topics if forum_extras.has_unreads(topic, request.user)] 
+            topics = [topic for topic in topics if forum_extras.has_unreads(topic, request.user)]
         elif action == 'show_unanswered':
             topics = Topic.objects.filter(post_count=1)
         elif action == 'show_subscriptions':
@@ -144,65 +145,52 @@ def search(request):
             sort_by = request.GET.get('sort_by')
             sort_dir = request.GET.get('sort_dir')
 
-            if keywords and author:
-                if search_in == 'all':
-                    if forum == '0':
-                        query = 'user:%s AND (topic:%s OR body:%s)' % (author, keywords, keywords)
-                    else:
-                        query = 'user:%s AND forum:%s AND (topic:%s OR body:%s)' % (author, forum, keywords, keywords)
-                elif search_in == 'message':
-                    if forum == '0':
-                        query = 'user:%s AND body:%s' % (author, keywords)
-                    else:
-                        query = 'user:%s AND forum:%s AND body:%s' % (author, forum, keywords)
-                elif search_in == 'topic':
-                    if forum == '0':
-                        query = 'user:%s AND topic:%s' % (author, keywords)
-                    else:
-                        query = 'user:%s AND forum:%s AND topic:%s' % (author, forum, keywords)
-            elif keywords:
-                if search_in == 'all':
-                    if forum == '0':
-                        query = 'topic:%s OR body:%s' % (keywords, keywords)
-                    else:
-                        query = 'forum:%s AND (topic:%s OR body:%s)' % (forum, keywords, keywords)
-                elif search_in == 'message':
-                    if forum == '0':
-                        query = 'body:%s' % (keywords)
-                    else:
-                        query = 'forum:%s AND body:%s' % (forum, keywords)
-                elif search_in == 'topic':
-                    if forum == '0':
-                        query = 'topic:%s' % (keywords)
-                    else:
-                        query = 'forum:%s AND topic:%s' % (forum, keywords)
-            elif author:
-                if forum == '0':
-                    query = 'user:%s' % (author)
-                else:
-                    query = 'forum:%s AND user:%s' % (forum, author)
-            else:
+            if not (keywords or author):
                 return HttpResponseRedirect(reverse('djangobb:search'))
+
+            query = SearchQuerySet().models(Post)
+
+            if author:
+                query = query.filter(author=author)
+
+            if forum != u'0':
+                query = query.filter(forum=forum)
+
+            if keywords:
+                if search_in == 'all':
+                    query = query.filter(SQ(topic=keywords) | SQ(text=keywords))
+                elif search_in == 'messsage':
+                    query = query.filter(text=keywords)
+                elif search_in == 'topic':
+                    query = query.filter(topic=keywords)
 
             order = {'0': 'created',
                      '1': 'user',
                      '2': 'topic',
                      '3': 'forum'}.get(sort_by, 'created')
-
             if sort_dir == 'DESC':
                 order = '-' + order
-            posts = post_indexer.search(query).order_by(order)
+
+            posts = query.order_by(order)
 
             if 'topics' in request.GET['show_as']:
                 topics = []
+                topics_to_exclude = []
                 for post in posts:
-                    if post.instance.topic not in topics:
-                        topics.append(post.instance.topic)
+                    if post.object.topic not in topics:
+                        if post.object.topic.forum.category.has_access(request.user):
+                            topics.append(post.object.topic)
+                        else:
+                            topics_to_exclude |= SQ(topic=post.object.topic)
+
+                if topics_to_exclude:
+                    posts = posts.exclude(topics_to_exclude)
                 return {'paged_qs': topics}
             elif 'posts' in request.GET['show_as']:
                 return {'paged_qs': posts,
                         'TEMPLATE': 'forum/search_posts.html'
                         }
+        topics = [topic for topic in topics if topic.forum.category.has_access(request.user)]
         return {'paged_qs': topics}
     else:
         form = PostSearchForm()
@@ -273,7 +261,7 @@ def show_forum(request, forum_id, full=True):
     else:
         pages, paginator, paged_list_name = paginate(topics, request, forum_settings.FORUM_PAGE_SIZE)
         to_return.update({'pages': pages,
-                        'paginator': paginator, 
+                        'paginator': paginator,
                         'topics': paged_list_name,
                         'TEMPLATE': 'forum/lofi/forum.html'
                         })
@@ -342,7 +330,7 @@ def show_topic(request, topic_id, full=True):
         return {'categories': Category.objects.all(),
                 'topic': topic,
                 'pages': pages,
-                'paginator': paginator, 
+                'paginator': paginator,
                 'posts': paged_list_name,
                 'TEMPLATE': 'forum/lofi/topic.html'
                 }
@@ -367,7 +355,7 @@ def add_post(request, forum_id, topic_id):
             return HttpResponseForbidden()
     if topic and topic.closed:
         return HttpResponseRedirect(topic.get_absolute_url())
-    
+
     ip = request.META.get('REMOTE_ADDR', None)
     form = build_form(AddPostForm, request, topic=topic, forum=forum,
                       user=request.user, ip=ip,
@@ -442,19 +430,19 @@ def user(request, username):
                         'TEMPLATE': 'forum/profile/profile_personal.html'
                        }
             elif section == 'essentials':
-                form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, 
+                form = build_form(EssentialsProfileForm, request, instance=user.forum_profile,
                                   user_view=user, user_request=request.user)
                 if request.method == 'POST' and form.is_valid():
                     profile = form.save()
                     set_language(request, profile.language)
                     return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-                    
+
                 return {'active_menu':'essentials',
                         'profile': user,
                         'form': form,
                         'TEMPLATE': 'forum/profile/profile_essentials.html'
                         }
-                
+
         elif 'action' in request.GET:
             action = request.GET['action']
             if action == 'upload_avatar':
@@ -472,9 +460,9 @@ def user(request, username):
                 profile.avatar = None
                 profile.save()
                 return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-         
+
         else:
-            form = build_form(EssentialsProfileForm, request, instance=user.forum_profile, 
+            form = build_form(EssentialsProfileForm, request, instance=user.forum_profile,
                                   user_view=user, user_request=request.user)
             if request.method == 'POST' and form.is_valid():
                 profile = form.save()
@@ -485,12 +473,12 @@ def user(request, username):
                     'form': form,
                     'TEMPLATE': 'forum/profile/profile_essentials.html'
                    }
-            
+
     else:
         topic_count = Topic.objects.filter(user=user).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             #FIXME: problem with redirect to unicoded url; blocker - django ticket #11522
-            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path) 
+            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
         return {'profile': user,
                 'topic_count': topic_count,
                }
@@ -602,7 +590,7 @@ def delete_posts(request, topic_id):
 
     profiles = Profile.objects.filter(user__pk__in=set(x.user.id for x in posts))
     profiles = dict((x.user_id, x) for x in profiles)
-    
+
     for post in posts:
         post.user.forum_profile = profiles[post.user.id]
 
@@ -649,7 +637,7 @@ def move_topic(request):
                     topic.forum = to_forum
                     topic.save()
 
-        #TODO: not DRY 
+        #TODO: not DRY
         try:
             last_post = Post.objects.filter(topic__forum=from_forum).latest()
         except Post.DoesNotExist:
