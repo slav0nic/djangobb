@@ -145,7 +145,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 # Haystack settings
-HAYSTACK_SITECONF = 'djangobb.search_sites'
+HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_ROOT, 'djangobb_index')
 
