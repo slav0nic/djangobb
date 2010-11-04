@@ -284,7 +284,7 @@ class PostSearchForm(forms.Form):
     forum = forms.CharField(required=False, label=_('Forum'))
     search_in = forms.ChoiceField(choices=SEARCH_IN_CHOICES, label=_('Search in'))
     sort_by = forms.ChoiceField(choices=SORT_POST_BY_CHOICES, label=_('Sort by'))
-    sort_dir = forms.ChoiceField(choices=SORT_DIR_CHOICES, label=_('Sort order'))
+    sort_dir = forms.ChoiceField(choices=SORT_DIR_CHOICES, initial='DESC', label=_('Sort order'))
     show_as = forms.ChoiceField(choices=SHOW_AS_CHOICES, label=_('Show results as'))
 
 
