@@ -129,8 +129,12 @@ INSTALLED_APPS = (
     'djangobb_forum',
     'haystack',
     'messages',
-    'mailer',
 )
+try:
+    import mailer
+    INSTALLED_APPS += ('mailer',)
+except ImportError:
+    pass
 
 FORCE_SCRIPT_NAME = ''
 

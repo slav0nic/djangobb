@@ -1,5 +1,5 @@
 Django>=1.2
-PIL==1.1.7
+PIL>=1.1.7
 Markdown==2.0
 django-registration==0.7
 -e hg+http://bitbucket.org/benoitc/django-authopenid#egg=django-authopenid
