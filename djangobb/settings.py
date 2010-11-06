@@ -138,6 +138,12 @@ try:
 except ImportError:
     pass
 
+try:
+    import south
+    INSTALLED_APPS += ('south',)
+except ImportError:
+    pass
+
 FORCE_SCRIPT_NAME = ''
 
 TEMPLATE_CONTEXT_PROCESSORS = (
