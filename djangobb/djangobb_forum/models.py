@@ -15,6 +15,12 @@ from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONFie
 from djangobb_forum.util import urlize, smiles
 from djangobb_forum import settings as forum_settings
 
+if 'south' in settings.INSTALLED_APPS:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ['^djangobb_forum\.fields\.AutoOneToOneField',
+                                 '^djangobb_forum\.fields\.JSONField',
+                                 '^djangobb_forum\.fields\.ExtendedImageField'])
+
 TZ_CHOICES = [(float(x[0]), x[1]) for x in (
     (-12, '-12'), (-11, '-11'), (-10, '-10'), (-9.5, '-09.5'), (-9, '-09'),
     (-8.5, '-08.5'), (-8, '-08 PST'), (-7, '-07 MST'), (-6, '-06 CST'),
