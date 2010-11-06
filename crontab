@@ -1,0 +1,19 @@
+#Crontab example for DjangoBB
+
+$DJANGOBB_PROJECT = '<path to djangobb project>'
+#for expired sessions (is't needed if you use cache backend for sessions)
+* * * * */2 (cd $DJANGOBB_PROJECT; ./manage.py cleanup)
+
+#for django-authopenid
+* * * * */2 (cd $DJANGOBB_PROJECT; ./manage.py cleanupnonces)
+* * * * */2 (cd $DJANGOBB_PROJECT; ./manage.py cleanupassociations)
+
+#for registration
+* * * * 6 (cd $DJANGOBB_PROJECT; ./manage.py cleanupregistration)
+
+#for django-mailer
+* * * * * (cd $DJANGOBB_PROJECT; ./manage.py send_mail >> $DJANGOBB_PROJECT/cron_mail.log 2>&1)
+*/30 * * * * (cd $DJANGOBB_PROJECT; ./manage.py retry_deferred >> $DJANGOBB_PROJECT/cron_mail_deferred.log 2>&1)
+
+#for DjangoBB unban
+* */1 * * * (cd $DJANGOBB_PROJECT; ./manage.py djangobb_unban --by-time)
