@@ -121,9 +121,11 @@ def search(request):
     # TODO: move to form
     if 'action' in request.GET:
         action = request.GET['action']
-
+        #FIXME: show_user for anonymous raise exception, 
+        #django bug http://code.djangoproject.com/changeset/14087 :|
+        groups = request.user.groups.all() or [] #removed after django > 1.2.3 release
         topics = Topic.objects.filter(
-                   Q(forum__category__groups__in=request.user.groups.all()) | \
+                   Q(forum__category__groups__in=groups) | \
                    Q(forum__category__groups__isnull=True))
         if action == 'show_24h':
             date = datetime.today() - timedelta(1)
