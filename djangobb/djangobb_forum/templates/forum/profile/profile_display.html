@@ -15,9 +15,19 @@
 						<div class="infldset">
 							{{ form.theme.errors }}
 							<label>{% trans "If you like you can use a different visual style for this forum." %}<br>
-
 							{{ form.theme }}
 							<br></label>
+						</div>
+					</fieldset>
+					<br/>
+					<fieldset>
+						<legend>{% trans "Post display legend" %}</legend>
+						<div class="infldset">
+							<p>{% trans "Post display info" %}</p>
+							<div class="rbox">
+							{{ form.show_smilies.errors }}
+							<label>{{ form.show_smilies }}{% trans "Show smilies" %}<br></label>
+							</div>
 						</div>
 					</fieldset>
 				</div>
