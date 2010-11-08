@@ -224,7 +224,7 @@ class PersonalityProfileForm(forms.ModelForm):
 class DisplayProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['theme']
+        fields = ['theme', 'show_smilies']
 
 
 class PrivacyProfileForm(forms.ModelForm):
