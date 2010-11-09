@@ -129,12 +129,14 @@ def search(request):
                    Q(forum__category__groups__isnull=True))
         if action == 'show_24h':
             date = datetime.today() - timedelta(1)
-            topics = topics.filter(created__gte=date).order_by('created')
+            topics = topics.filter(created__gte=date)
         elif action == 'show_new':
-            #TODO: FIXME
-            #must be filter topic.last_post > tracking.last_read and exclude tracking.topics
-            topics = topics.order_by('created')
-            topics = [topic for topic in topics if forum_extras.has_unreads(topic, request.user)]
+            last_read = PostTracking.objects.get(user=request.user).last_read
+            if last_read:
+                topics = topics.filter(last_post__updated__gte=last_read).all()
+            else:
+                #searching more than forum_settings.SEARCH_PAGE_SIZE in this way - not good idea :]
+                topics = [topic for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, request.user)]
         elif action == 'show_unanswered':
             topics = topics.filter(post_count=1)
         elif action == 'show_subscriptions':
@@ -482,7 +484,6 @@ def user(request, username):
     else:
         topic_count = Topic.objects.filter(user=user).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
-            #FIXME: problem with redirect to unicoded url; blocker - django ticket #11522
             return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
         return {'profile': user,
                 'topic_count': topic_count,
