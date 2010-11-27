@@ -1,4 +1,4 @@
 django-messages==0.4.4
 whoosh==0.3.18
 south>=0.7.2
-+-e git+http://github.com/jtauber/django-mailer#egg=django-mailer
+-e git+http://github.com/jtauber/django-mailer#egg=django-mailer
