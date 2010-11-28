@@ -1,4 +1,3 @@
-"""
-The root of forum tests.
-"""
-import unittest
+from test_forum import TestForum
+from test_reputation import TestReputation
+from test_profile import TestProfile

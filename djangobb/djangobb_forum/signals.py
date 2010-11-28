@@ -29,7 +29,7 @@ def topic_saved(instance, **kwargs):
     forum.topic_count = forum.topics.count()
     forum.updated = topic.updated
     forum.post_count = forum.posts.count()
-    forum.last_post = topic.last_post
+    forum.last_post_id = topic.last_post_id
     forum.save(force_update=True)
 
 

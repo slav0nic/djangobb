@@ -505,7 +505,6 @@ def reputation(request, username):
             sign = 0
             post_id = request.GET['post_id']
             form.fields['post'].initial = post_id
-            print form.fields['post']
             if request.GET['action'] == 'plus':
                 form.fields['sign'].initial = 1
             elif request.GET['action'] == 'minus':
