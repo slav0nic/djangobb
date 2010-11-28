@@ -70,11 +70,11 @@ class Category(models.Model):
 
     @property
     def topics(self):
-        return Topic.objects.filter(forum__category=self).select_related()
+        return Topic.objects.filter(forum__category__id=self.id).select_related()
 
     @property
     def posts(self):
-        return Post.objects.filter(topic__forum__category=self).select_related()
+        return Post.objects.filter(topic__forum__category__id=self.id).select_related()
 
     def has_access(self, user):
         if self.groups.count() > 0:
@@ -113,7 +113,7 @@ class Forum(models.Model):
 
     @property
     def posts(self):
-        return Post.objects.filter(topic__forum=self).select_related()
+        return Post.objects.filter(topic__forum__id=self.id).select_related()
 
 
 class Topic(models.Model):
@@ -212,20 +212,20 @@ class Post(models.Model):
             topic.delete()
         else:
             try:
-                topic.last_post = Post.objects.filter(topic=topic).latest()
+                topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
             except Post.DoesNotExist:
                 topic.last_post = None
-            topic.post_count = Post.objects.filter(topic=topic).count()
+            topic.post_count = Post.objects.filter(topic__id=topic.id).count()
             topic.save()
         try:
-            forum.last_post = Post.objects.filter(topic__forum=forum).latest()
+            forum.last_post = Post.objects.filter(topic__forum__id=forum.id).latest()
         except Post.DoesNotExist:
             forum.last_post = None
         #TODO: for speedup - save/update only changed fields
-        forum.post_count = Post.objects.filter(topic__forum=forum).count()
-        forum.topic_count = Topic.objects.filter(forum=forum).count()
+        forum.post_count = Post.objects.filter(topic__forum__id=forum.id).count()
+        forum.topic_count = Topic.objects.filter(forum__id=forum.id).count()
         forum.save()
-        profile.post_count = Post.objects.filter(user=self.user).count()
+        profile.post_count = Post.objects.filter(user__id=self.user_id).count()
         profile.save()
 
     @models.permalink
@@ -284,17 +284,17 @@ class Profile(models.Model):
         verbose_name_plural = _('Profiles')
 
     def last_post(self):
-        posts = Post.objects.filter(user=self.user).order_by('-created')
+        posts = Post.objects.filter(user__id=self.user_id).order_by('-created')
         if posts:
             return posts[0].created
         else:
             return  None
 
     def reply_count_minus(self):
-        return Reputation.objects.filter(to_user=self.user, sign=-1).count()
+        return Reputation.objects.filter(to_user__id=self.user_id, sign=-1).count()
 
     def reply_count_plus(self):
-        return Reputation.objects.filter(to_user=self.user, sign=1).count()
+        return Reputation.objects.filter(to_user__id=self.user_id, sign=1).count()
 
 
 class PostTracking(models.Model):
