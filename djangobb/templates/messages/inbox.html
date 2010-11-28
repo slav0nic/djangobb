@@ -17,7 +17,7 @@
 			<tbody>
 			{% if message_list %}
 				{% for msg in message_list %}
-				<tr>
+				<tr {% if msg.new %}class="inew"{% endif %}>
 					<td class="tcl">
 						<div class="intd">
 							<div class="icon"><div class="nosize"><!-- --></div></div>
