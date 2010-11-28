@@ -138,7 +138,7 @@ def search(request):
         elif action == 'show_unanswered':
             topics = topics.filter(post_count=1)
         elif action == 'show_subscriptions':
-            topics = topics.filter(subscribers=request.user)
+            topics = topics.filter(subscribers__id=request.user_id)
         elif action == 'show_user':
             user_id = request.GET['user_id']
             posts = Post.objects.filter(user__id=user_id)
@@ -157,10 +157,10 @@ def search(request):
             query = SearchQuerySet().models(Post)
 
             if author:
-                query = query.filter(author=author)
+                query = query.filter(author__id=author.id)
 
             if forum != u'0':
-                query = query.filter(forum=forum)
+                query = query.filter(forum__id=forum.id)
 
             if keywords:
                 if search_in == 'all':
@@ -212,7 +212,7 @@ def misc(request):
         action = request.GET['action']
         if action =='markread':
             user = request.user
-            PostTracking.objects.filter(user=user).update(last_read=datetime.now(), topics=None)
+            PostTracking.objects.filter(user__id=user.id).update(last_read=datetime.now(), topics=None)
             return HttpResponseRedirect(reverse('djangobb:index'))
 
         elif action == 'report':
@@ -486,7 +486,7 @@ def user(request, username):
                    }
 
     else:
-        topic_count = Topic.objects.filter(user=user).count()
+        topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
         return {'profile': user,
@@ -536,7 +536,7 @@ def reputation(request, username):
                     'TEMPLATE': 'forum/reputation_form.html'
                     }
     else:
-        reputations = Reputation.objects.filter(to_user=user).order_by('-time').select_related()
+        reputations = Reputation.objects.filter(to_user__id=user.id).order_by('-time').select_related()
         return {'reputations': reputations,
                 'profile': user.forum_profile,
                }
@@ -648,7 +648,7 @@ def move_topic(request):
 
         #TODO: not DRY
         try:
-            last_post = Post.objects.filter(topic__forum=from_forum).latest()
+            last_post = Post.objects.filter(topic__forum__id=from_forum.id).latest()
         except Post.DoesNotExist:
             last_post = None
         from_forum.last_post = last_post
