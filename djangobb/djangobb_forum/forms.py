@@ -13,6 +13,7 @@ from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Forum, Attachment, TZ_CHOICES, PRIVACY_CHOICES
 from djangobb_forum.markups import bbmarkup
 from djangobb_forum import settings as forum_settings
+from djangobb_forum.util import convert_text_to_html
 
 
 
@@ -66,7 +67,7 @@ class AddPostForm(forms.ModelForm):
             self.fields['name'].widget = forms.HiddenInput()
             self.fields['name'].required = False
 
-        self.fields['body'].widget = forms.Textarea(attrs={'class':'bbcode', 'rows':'20', 'cols':'95'})
+        self.fields['body'].widget = forms.Textarea(attrs={'class':'markup', 'rows':'20', 'cols':'95'})
 
         if not forum_settings.ATTACHMENT_SUPPORT:
             self.fields['attachment'].widget = forms.HiddenInput()
@@ -90,7 +91,7 @@ class AddPostForm(forms.ModelForm):
             topic = self.topic
 
         post = Post(topic=topic, user=self.user, user_ip=self.ip,
-                    markup='bbcode',
+                    markup=self.user.forum_profile.markup,
                     body=self.cleaned_data['body'])
 
         post.save()
@@ -123,7 +124,7 @@ class EditPostForm(forms.ModelForm):
         self.topic = kwargs.pop('topic', None)
         super(EditPostForm, self).__init__(*args, **kwargs)
         self.fields['name'].initial = self.topic
-        self.fields['body'].widget = forms.Textarea(attrs={'class':'bbcode'})
+        self.fields['body'].widget = forms.Textarea(attrs={'class':'markup'})
 
     def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
@@ -210,12 +211,13 @@ class PersonalityProfileForm(forms.ModelForm):
         fields = ['show_avatar', 'signature']
         
     def __init__(self, *args, **kwargs):
+        self.markup = kwargs.pop('markup', None)
         super(PersonalityProfileForm, self).__init__(*args, **kwargs)
-        self.fields['signature'].widget = forms.Textarea(attrs={'class':'bbcode', 'rows':'10', 'cols':'75'})
+        self.fields['signature'].widget = forms.Textarea(attrs={'class':'markup', 'rows':'10', 'cols':'75'})
 
     def save(self, commit=True):
         profile = super(PersonalityProfileForm, self).save(commit=False)
-        profile.signature = bbmarkup.bbcode(profile.signature)
+        profile.signature = convert_text_to_html(profile.signature, self.markup)
         if commit:
             profile.save()
         return profile
@@ -224,7 +226,7 @@ class PersonalityProfileForm(forms.ModelForm):
 class DisplayProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['theme', 'show_smilies']
+        fields = ['theme', 'markup', 'show_smilies']
 
 
 class PrivacyProfileForm(forms.ModelForm):
@@ -303,7 +305,7 @@ class ReputationForm(forms.ModelForm):
         super(ReputationForm, self).__init__(*args, **kwargs)
         self.fields['post'].widget = forms.HiddenInput()
         self.fields['sign'].widget = forms.HiddenInput()
-        self.fields['reason'].widget = forms.Textarea(attrs={'class':'bbcode'})
+        self.fields['reason'].widget = forms.Textarea(attrs={'class':'markup'})
 
     def clean_to_user(self):
         name = self.cleaned_data['to_user']

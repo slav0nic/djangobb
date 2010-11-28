@@ -1,6 +1,5 @@
 import math
-from datetime import datetime, timedelta
-from markdown import Markdown
+from datetime import datetime, timedelta 
 
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -24,10 +23,9 @@ from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
     PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
     DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm
-from djangobb_forum.markups import bbmarkup
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum import settings as forum_settings
-from djangobb_forum.util import urlize, smiles
+from djangobb_forum.util import smiles, convert_text_to_html
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
 from haystack.query import SearchQuerySet, SQ
@@ -391,10 +389,12 @@ def user(request, username):
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
         if 'section' in request.GET:
             section = request.GET['section']
+            profile_url = reverse('djangobb:forum_profile', args=[user.username]) + '?section=' + section  
             if section == 'privacy':
                 form = build_form(PrivacyProfileForm, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
+                    return HttpResponseRedirect(profile_url)
                 return {'active_menu':'privacy',
                         'profile': user,
                         'form': form,
@@ -404,15 +404,17 @@ def user(request, username):
                 form = build_form(DisplayProfileForm, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
+                    return HttpResponseRedirect(profile_url)
                 return {'active_menu':'display',
                         'profile': user,
                         'form': form,
                         'TEMPLATE': 'forum/profile/profile_display.html'
                        }
             elif section == 'personality':
-                form = build_form(PersonalityProfileForm, request, instance=user.forum_profile)
+                form = build_form(PersonalityProfileForm, request, markup=user.forum_profile.markup, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
+                    return HttpResponseRedirect(profile_url)
                 return {'active_menu':'personality',
                         'profile': user,
                         'form': form,
@@ -422,6 +424,7 @@ def user(request, username):
                 form = build_form(MessagingProfileForm, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
+                    return HttpResponseRedirect(profile_url)
                 return {'active_menu':'messaging',
                         'profile': user,
                         'form': form,
@@ -431,6 +434,7 @@ def user(request, username):
                 form = build_form(PersonalProfileForm, request, instance=user.forum_profile, user=user)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
+                    return HttpResponseRedirect(profile_url)
                 return {'active_menu':'personal',
                         'profile': user,
                         'form': form,
@@ -442,7 +446,7 @@ def user(request, username):
                 if request.method == 'POST' and form.is_valid():
                     profile = form.save()
                     set_language(request, profile.language)
-                    return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
+                    return HttpResponseRedirect(profile_url)
 
                 return {'active_menu':'essentials',
                         'profile': user,
@@ -754,17 +758,10 @@ def show_attachment(request, hash):
 @render_to('forum/post_preview.html')
 def post_preview(request):
     '''Preview for markitup'''
-
     markup = request.user.forum_profile.markup
     data = request.POST.get('data', '')
-    if markup == 'bbcode':
-        data = bbmarkup.bbcode(data)
-    elif markup == 'markdown' and MARKDOWN_AVAILABLE:
-        data = unicode(Markdown(data, safe_mode='escape'))
-    else:
-        raise Exception('Invalid markup property: %s' % markup)
 
-    data = urlize(data)
+    data = convert_text_to_html(data, markup)
     if forum_settings.SMILES_SUPPORT:
         data = smiles(data)
     return {'data': data}

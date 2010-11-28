@@ -3,6 +3,10 @@ import os.path
 import random
 import re
 from HTMLParser import HTMLParser
+try:
+    import markdown
+except ImportError:
+    pass
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -17,7 +21,7 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 
 from djangobb_forum import settings as forum_settings
-
+from djangobb_forum.markups import bbmarkup
 
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
@@ -284,3 +288,12 @@ def set_language(request, language):
             request.session['django_language'] = language
         else:
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, language) 
+
+def convert_text_to_html(text, markup):
+    if markup == 'bbcode':
+        text = bbmarkup.bbcode(text)
+    elif markup == 'markdown':            
+        text = markdown.markdown(text, safe_mode='escape')
+    else:
+        raise Exception('Invalid markup property: %s' % markup)
+    return urlize(text)
