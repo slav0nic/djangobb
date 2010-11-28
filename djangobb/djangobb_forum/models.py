@@ -1,7 +1,6 @@
 from datetime import datetime
 import os
 import os.path
-from markdown import Markdown
 
 from django.db import models
 from django.contrib.auth.models import User, Group
@@ -10,9 +9,8 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.hashcompat import sha_constructor
 
-from djangobb_forum.markups import bbmarkup
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
-from djangobb_forum.util import urlize, smiles
+from djangobb_forum.util import smiles, convert_text_to_html
 from djangobb_forum import settings as forum_settings
 
 if 'south' in settings.INSTALLED_APPS:
@@ -43,10 +41,12 @@ PRIVACY_CHOICES = (
     (2, _(u'Hide your e-mail address and disallow form e-mail.')),
 )
 
-MARKUP_CHOICES = (
-    ('bbcode', 'bbcode'),
-    ('markdown', 'markdown'),
-)
+MARKUP_CHOICES = [('bbcode', 'bbcode')]
+try:
+    import markdown
+    MARKUP_CHOICES.append(("markdown", "markdown"))
+except ImportError:
+    pass
 
 path = os.path.join(settings.MEDIA_ROOT, 'forum', 'themes')
 THEME_CHOICES = [(theme, theme) for theme in os.listdir(path) 
@@ -192,14 +192,7 @@ class Post(models.Model):
         verbose_name_plural = _('Posts')
 
     def save(self, *args, **kwargs):
-        if self.markup == 'bbcode':
-            self.body_html = bbmarkup.bbcode(self.body)
-        elif self.markup == 'markdown' and MARKDOWN_AVAILABLE:
-            self.body_html = unicode(Markdown(self.body, safe_mode='escape'))
-            #self.body_html = markdown(self.body, 'safe')
-        else:
-            raise Exception('Invalid markup property: %s' % self.markup)
-        self.body_html = urlize(self.body_html)
+        self.body_html = convert_text_to_html(self.body, self.markup) 
         if forum_settings.SMILES_SUPPORT and self.user.forum_profile.show_smilies:
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)

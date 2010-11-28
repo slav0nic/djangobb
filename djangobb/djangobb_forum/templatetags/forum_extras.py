@@ -274,3 +274,34 @@ def gravatar(email):
         return url
     else:
         return ''
+
+@register.simple_tag
+def set_theme_style(user):
+    theme_style = ''
+    selected_theme = '' 
+    if user.is_authenticated():
+        selected_theme = user.forum_profile.theme
+        theme_style = '<link rel="stylesheet" type="text/css" href="%(media_url)sforum/themes/%(theme)s/style.css" />' 
+    else:
+        theme_style = '<link rel="stylesheet" type="text/css" href="%(media_url)sforum/themes/default/style.css" />'
+        
+    return theme_style % dict(
+        media_url=settings.MEDIA_URL,
+        theme=selected_theme
+    )
+
+@register.simple_tag
+def set_markup_editor(user, markup=None):
+    markup_style = '' 
+    if user.is_authenticated():
+        markup_style = '''
+            <link rel="stylesheet" type="text/css" href="%(media_url)sforum/js/markitup/skins/markitup/style.css" />
+            <link rel="stylesheet" type="text/css" href="%(media_url)sforum/js/markitup/sets/%(markup)s/style.css" />
+            <script type="text/javascript" src="%(media_url)sforum/js/markitup/jquery.markitup.pack.js"></script>
+            <script type="text/javascript" src="%(media_url)sforum/js/markitup/sets/%(markup)s/set.js"></script>
+            <script type="text/javascript" src="%(media_url)sforum/js/markup/%(markup)s/board.js"></script>
+        ''' % dict(
+            media_url=settings.MEDIA_URL,
+            markup=markup if markup else user.forum_profile.markup
+        )
+    return markup_style
