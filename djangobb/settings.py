@@ -141,6 +141,7 @@ except ImportError:
 try:
     import south
     INSTALLED_APPS += ('south',)
+    SOUTH_TESTS_MIGRATE = False
 except ImportError:
     pass
 
