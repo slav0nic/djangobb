@@ -19,7 +19,7 @@ class TestReputation(TestCase):
             from_user=self.from_user, to_user=self.to_user, post=self.post,
             sign=1, reason=self.reason
         )
-        reputations = Reputation.objects.filter(to_user__id=self.to_user_id)
+        reputations = Reputation.objects.filter(to_user__id=self.to_user.id)
         total_reputation = 0
         for reputation in reputations:
             total_reputation += reputation.sign
@@ -30,7 +30,7 @@ class TestReputation(TestCase):
             from_user=self.from_user, to_user=self.to_user, post=self.post,
             sign=-1, reason=self.reason
         )
-        reputations = Reputation.objects.filter(to_user__id=self.to_user_id)
+        reputations = Reputation.objects.filter(to_user__id=self.to_user.id)
         total_reputation = 0
         for reputation in reputations:
             total_reputation += reputation.sign
