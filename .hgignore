@@ -11,6 +11,7 @@ syntax: glob
 *.kpf
 *.autosave
 *.wpr
+.coverage
 local_settings.py
 djangobb/static/forum/avatars/
 djangobb/static/forum/attachments/
@@ -20,3 +21,4 @@ djangobb/debug_toolbar/
 djangobb/django/
 djangobb/djapian_db/
 djangobb/venv/
+djangobb/djangobb_index/
