@@ -2,12 +2,12 @@
 # Copyright (C) 2010 Marco Minutoli
 # This file is distributed under the same license as the DjangoBB package.
 # Marco Minutoli <marcominutoli@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-27 16:36-0300\n"
+"POT-Creation-Date: 2010-12-02 11:17+0200\n"
 "PO-Revision-Date: 2010-08-27 16:36-0300\n"
 "Last-Translator: Marco Minutoli <marcominutoli@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,346 +15,343 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: feeds.py:23 feeds.py:24 templates/forum/base.html:18
+#: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
 msgstr "Ultimi messaggi del forum"
 
-#: feeds.py:33 feeds.py:34 templates/forum/base.html:19
+#: feeds.py:45 feeds.py:46 templates/forum/base.html:15
 msgid "Latest topics on forum"
 msgstr "Ultimi Argomenti del forum"
 
-#: feeds.py:52 feeds.py:60
+#: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s topic"
 msgstr "Ultimi messaggi dell'argomento %s"
 
-#: feeds.py:76 feeds.py:84
+#: feeds.py:103 feeds.py:111
 #, python-format
 msgid "Latest posts on %s forum"
 msgstr "Ultimi messaggi del forum %s"
 
-#: feeds.py:100 feeds.py:103
+#: feeds.py:130 feeds.py:133
 #, python-format
 msgid "Latest posts on %s category"
 msgstr "Ultimi messaggi della categoria %s"
 
-#: forms.py:20 forms.py:141 forms.py:249 templates/forum/users.html:45
+#: forms.py:21 forms.py:142 forms.py:251 templates/forum/users.html:45
 msgid "Username"
 msgstr "Nome utente"
 
-#: forms.py:21 templates/forum/users.html:48
+#: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
 msgstr "Registrato"
 
-#: forms.py:22
+#: forms.py:23
 msgid "No. of posts"
 msgstr "N.di messaggi"
 
-#: forms.py:26
+#: forms.py:27
 msgid "Post time"
 msgstr "Data di invio"
 
-#: forms.py:27 models.py:336
+#: forms.py:28
 msgid "Author"
 msgstr "Autore"
 
-#: forms.py:28 forms.py:50 forms.py:115 forms.py:336 models.py:115
-#: models.py:340 templates/forum/add_post.html:26
-#: templates/forum/edit_post.html:23 templates/forum/pm/inbox.html:12
-#: templates/forum/pm/outbox.html:12
+#: forms.py:29 forms.py:51 forms.py:116 forms.py:338 models.py:121
+#: templates/forum/add_post.html:27 templates/forum/edit_post.html:24
 msgid "Subject"
 msgstr "Argomento"
 
-#: forms.py:29 forms.py:284 models.py:98 models.py:114
+#: forms.py:30 forms.py:286 models.py:104 models.py:120
 #: templates/forum/index.html:53 templates/forum/search_topics.html:22
 msgid "Forum"
 msgstr "Forum"
 
-#: forms.py:33
+#: forms.py:34
 msgid "Ascending"
 msgstr "Crescente"
 
-#: forms.py:34
+#: forms.py:35
 msgid "Descending"
 msgstr "Decrescente"
 
-#: forms.py:38 models.py:129 templates/forum/index.html:54
+#: forms.py:39 models.py:135 templates/forum/index.html:54
 msgid "Topics"
 msgstr "Argomenti"
 
-#: forms.py:39 models.py:186 templates/forum/index.html:55
+#: forms.py:40 models.py:192 templates/forum/index.html:55
 #: templates/forum/users.html:47
 msgid "Posts"
 msgstr "Messaggi"
 
-#: forms.py:43
+#: forms.py:44
 msgid "Message text and topic subject"
 msgstr "Testo del messaggio e titolo dell'argomento"
 
-#: forms.py:44
+#: forms.py:45
 msgid "Message text only"
 msgstr "Solo testo del messaggio"
 
-#: forms.py:45
+#: forms.py:46
 msgid "Topic subject only"
 msgstr "Solo titolo dell'argomento"
 
-#: forms.py:52 templates/forum/add_post.html:35 templates/forum/topic.html:162
+#: forms.py:53 templates/forum/add_post.html:36 templates/forum/topic.html:165
 msgid "Attachment"
 msgstr "Allegato"
 
-#: forms.py:79
+#: forms.py:80
 msgid "Attachment is too big"
 msgstr "L'allegato e' troppo grande"
 
-#: forms.py:142 templates/forum/topic.html:67
-#: templates/forum/pm/message.html:40
+#: forms.py:143 templates/forum/topic.html:67
 msgid "E-mail"
 msgstr "E-mail"
 
-#: forms.py:172
+#: forms.py:173
 msgid "Real name"
 msgstr "Nome reale"
 
-#: forms.py:251 forms.py:286
+#: forms.py:253 forms.py:288
 msgid "Sort by"
 msgstr "Ordina per"
 
-#: forms.py:252 forms.py:287
+#: forms.py:254 forms.py:289
 msgid "Sort order"
 msgstr "Scegli ordinamento"
 
-#: forms.py:280
+#: forms.py:282
 msgid "Keyword search"
 msgstr "Cerca per parole chiave"
 
-#: forms.py:282
+#: forms.py:284
 msgid "Author search"
 msgstr "Cerca per autore"
 
-#: forms.py:285
+#: forms.py:287
 msgid "Search in"
 msgstr "Cerca in"
 
-#: forms.py:288
+#: forms.py:290
 msgid "Show results as"
 msgstr "Visualizza i risultati come"
 
-#: forms.py:313 forms.py:384
+#: forms.py:315
 #, python-format
 msgid "User with login %s does not exist"
 msgstr "L'utente con login %s non esiste"
 
-#: forms.py:323
+#: forms.py:325
 msgid "You already voted for this post"
 msgstr "Hai gia' votato per questo argomento"
 
-#: forms.py:338 models.py:177 models.py:341 templates/forum/add_post.html:28
-#: templates/forum/edit_post.html:26
+#: forms.py:340 models.py:183 templates/forum/add_post.html:29
+#: templates/forum/edit_post.html:27
 msgid "Message"
 msgstr "Messaggio"
 
-#: forms.py:366 models.py:335
-msgid "Recipient"
-msgstr "Destinatario"
-
-#: models.py:35
+#: models.py:39
 msgid "Display your e-mail address."
 msgstr "Mostra il tuo indirizzo email."
 
-#: models.py:36
+#: models.py:40
 msgid "Hide your e-mail address but allow form e-mail."
 msgstr "Nascondi l'indirizzo mail ma consenti l'invio via email del form."
 
-#: models.py:37
+#: models.py:41
 msgid "Hide your e-mail address and disallow form e-mail."
 msgstr "Nascondi l'indirizzo mail e non consentire l'invio via email del form."
 
-#: models.py:50 models.py:87 models.py:407
+#: models.py:56 models.py:93 models.py:362
 msgid "Name"
 msgstr "Nome"
 
-#: models.py:51
+#: models.py:57
 msgid "Groups"
 msgstr "Gruppi"
 
-#: models.py:51
+#: models.py:57
 msgid "Only users from these groups can see this category"
 msgstr "Solo gli utenti di questo gruppo possono vedere questa categoria"
 
-#: models.py:52 models.py:88
+#: models.py:58 models.py:94
 msgid "Position"
 msgstr "Posizione"
 
-#: models.py:56 models.py:86
+#: models.py:62 models.py:92
 msgid "Category"
 msgstr "Categoria"
 
-#: models.py:57
+#: models.py:63
 msgid "Categories"
 msgstr "Categorie"
 
-#: models.py:89
+#: models.py:95
 msgid "Description"
 msgstr "Descrizione"
 
-#: models.py:90
+#: models.py:96
 msgid "Moderators"
 msgstr "Moderatori"
 
-#: models.py:91 models.py:117 models.py:174
+#: models.py:97 models.py:123 models.py:180
 msgid "Updated"
 msgstr "Aggiornato"
 
-#: models.py:92 models.py:123 models.py:280
+#: models.py:98 models.py:129 models.py:280
 msgid "Post count"
 msgstr "Numero messaggi"
 
-#: models.py:93
+#: models.py:99
 msgid "Topic count"
 msgstr "Numero argomenti"
 
-#: models.py:99
+#: models.py:105
 msgid "Forums"
 msgstr "Forum"
 
-#: models.py:116 models.py:173 models.py:323 models.py:338
+#: models.py:122 models.py:179 models.py:323
 msgid "Created"
 msgstr "Creato"
 
-#: models.py:118 models.py:172 models.py:262
+#: models.py:124 models.py:178 models.py:261
 msgid "User"
 msgstr "utente"
 
-#: models.py:119
+#: models.py:125
 msgid "Views count"
 msgstr "Conteggio visite"
 
-#: models.py:120
+#: models.py:126
 msgid "Sticky"
 msgstr "Nota"
 
-#: models.py:121
+#: models.py:127
 msgid "Closed"
 msgstr "Chiuso"
 
-#: models.py:122
+#: models.py:128
 msgid "Subscribers"
 msgstr "Sottoscrittori"
 
-#: models.py:128 models.py:171 templates/forum/forum.html:27
-#: templates/forum/moderate.html:22 templates/forum/search_topics.html:21
+#: models.py:134 models.py:177 templates/forum/forum.html:27
+#: templates/forum/moderate.html:23 templates/forum/search_topics.html:21
 msgid "Topic"
 msgstr "Argomento"
 
-#: models.py:175
+#: models.py:181
 msgid "Updated by"
 msgstr "Aggiornato da"
 
-#: models.py:176 models.py:339
+#: models.py:182 templates/forum/profile/profile_display.html:24
 msgid "Markup"
 msgstr "Markup"
 
-#: models.py:178 models.py:342
+#: models.py:184
 msgid "HTML version"
 msgstr "Versione HTML"
 
-#: models.py:179
+#: models.py:185
 msgid "User IP"
 msgstr "IP del'utente"
 
-#: models.py:185 models.py:247 models.py:320 models.py:403
+#: models.py:191 models.py:246 models.py:320 models.py:358
 msgid "Post"
 msgstr "Messaggio"
 
-#: models.py:245
+#: models.py:244
 msgid "From"
 msgstr "Da"
 
-#: models.py:246
+#: models.py:245
 msgid "To"
 msgstr "A"
 
-#: models.py:248
+#: models.py:247
 msgid "Time"
 msgstr "Ora"
 
-#: models.py:249
+#: models.py:248
 msgid "Sign"
 msgstr "Firma"
 
-#: models.py:250 models.py:324 models.py:382 templates/forum/report.html:15
-#: templates/forum/reputation.html:23
+#: models.py:249 models.py:324 models.py:337 templates/forum/report.html:16
+#: templates/forum/reputation.html:24
 msgid "Reason"
 msgstr "Ragione"
 
-#: models.py:253 templates/forum/topic.html:57
-#: templates/forum/pm/message.html:36
+#: models.py:252 templates/forum/topic.html:57
 msgid "Reputation"
 msgstr "Reputazione"
 
-#: models.py:254
+#: models.py:253
 msgid "Reputations"
 msgstr "Reputazioni"
 
-#: models.py:263
+#: models.py:262
 msgid "Status"
 msgstr "Stato"
 
-#: models.py:264
+#: models.py:263
 msgid "Site"
 msgstr "Sito"
 
-#: models.py:265
+#: models.py:264
 msgid "Jabber"
 msgstr "Jabber"
 
-#: models.py:266
+#: models.py:265
 msgid "ICQ"
 msgstr "ICQ"
 
-#: models.py:267
+#: models.py:266
 msgid "MSN"
 msgstr "MSN"
 
-#: models.py:268
+#: models.py:267
 msgid "AIM"
 msgstr "AIM"
 
-#: models.py:269
+#: models.py:268
 msgid "Yahoo"
 msgstr "Yahoo"
 
-#: models.py:270 templates/forum/user.html:25
+#: models.py:269 templates/forum/user.html:25
 msgid "Location"
 msgstr "Ubicazione"
 
-#: models.py:271
+#: models.py:270
 msgid "Signature"
 msgstr "Firma"
 
-#: models.py:272
+#: models.py:271
 msgid "Time zone"
 msgstr "Zona oraria"
 
-#: models.py:273
+#: models.py:272
 msgid "Language"
 msgstr "Lingua"
 
-#: models.py:274
+#: models.py:273
 msgid "Avatar"
 msgstr "Avatar"
 
-#: models.py:275
+#: models.py:274
 msgid "Theme"
 msgstr "Tema"
 
-#: models.py:276
+#: models.py:275
 msgid "Show avatar"
 msgstr "Mostra avatar"
 
-#: models.py:277
+#: models.py:276
 msgid "Show signatures"
+msgstr "Mostra firme"
+
+#: models.py:277 templates/forum/profile/profile_display.html:39
+#, fuzzy
+msgid "Show smilies"
 msgstr "Mostra firme"
 
 #: models.py:278
@@ -366,7 +363,7 @@ msgid "Default markup"
 msgstr "Markup di default"
 
 #: models.py:283 templates/forum/header.html:23 templates/forum/topic.html:65
-#: templates/forum/user.html:7 templates/forum/pm/message.html:38
+#: templates/forum/user.html:7
 msgid "Profile"
 msgstr "Profilo"
 
@@ -398,55 +395,39 @@ msgstr "Segnalazione"
 msgid "Reports"
 msgstr "Segnalazioni"
 
-#: models.py:337
-msgid "Read"
-msgstr "Letto"
-
-#: models.py:343
-msgid "Text version"
-msgstr "Versione del testo"
-
-#: models.py:347
-msgid "Private message"
-msgstr "Messaggio privato"
-
-#: models.py:348
-msgid "Private messages"
-msgstr "Messaggi privati"
-
-#: models.py:379
+#: models.py:334
 msgid "Banned user"
 msgstr "Utenti bannati"
 
-#: models.py:380
+#: models.py:335
 msgid "Ban start"
 msgstr "Inizio Ban"
 
-#: models.py:381
+#: models.py:336
 msgid "Ban end"
 msgstr "Fine Ban"
 
-#: models.py:385
+#: models.py:340
 msgid "Ban"
 msgstr "Ban"
 
-#: models.py:386
+#: models.py:341
 msgid "Bans"
 msgstr "Bannati"
 
-#: models.py:404
+#: models.py:359
 msgid "Size"
 msgstr "Grandezza"
 
-#: models.py:405
+#: models.py:360
 msgid "Content type"
 msgstr "Tipo Contenuto"
 
-#: models.py:406
+#: models.py:361
 msgid "Path"
 msgstr "Percorso"
 
-#: models.py:408
+#: models.py:363
 msgid "Hash"
 msgstr "Hash"
 
@@ -454,7 +435,7 @@ msgstr "Hash"
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
 #: templates/forum/forum.html:13 templates/forum/forum.html.py:71
 #: templates/forum/moderate.html:9 templates/forum/topic.html:15
-#: templates/forum/topic.html.py:133 templates/forum/lofi/forum.html:8
+#: templates/forum/topic.html.py:135 templates/forum/lofi/forum.html:8
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
@@ -469,15 +450,14 @@ msgstr "Nuovo argomento"
 msgid "New reply"
 msgstr "Nuova risposta"
 
-#: templates/forum/add_post.html:23 templates/forum/topic.html:153
-#: templates/forum/pm/create_pm.html:14
+#: templates/forum/add_post.html:24 templates/forum/topic.html:156
 msgid "Write your message and submit"
 msgstr "Scrivi il tuo messaggio e invia"
 
-#: templates/forum/add_post.html:45 templates/forum/mail_to.html:24
-#: templates/forum/report.html:21 templates/forum/reputation_form.html:40
-#: templates/forum/search_form.html:71 templates/forum/topic.html:171
-#: templates/forum/profile/profile_display.html:24
+#: templates/forum/add_post.html:46 templates/forum/mail_to.html:25
+#: templates/forum/report.html:22 templates/forum/reputation_form.html:41
+#: templates/forum/search_form.html:71 templates/forum/topic.html:174
+#: templates/forum/profile/profile_display.html:44
 #: templates/forum/profile/profile_essentials.html:81
 #: templates/forum/profile/profile_messaging.html:30
 #: templates/forum/profile/profile_personal.html:31
@@ -486,38 +466,37 @@ msgstr "Scrivi il tuo messaggio e invia"
 msgid "Submit"
 msgstr "Invia"
 
-#: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
-#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:33
-#: templates/forum/report.html:21 templates/forum/reputation.html:64
-#: templates/forum/reputation_form.html:40
+#: templates/forum/add_post.html:46 templates/forum/edit_post.html:34
+#: templates/forum/mail_to.html:25 templates/forum/move_topic.html:34
+#: templates/forum/report.html:22 templates/forum/reputation.html:65
+#: templates/forum/reputation_form.html:41
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
-#: templates/forum/upload_avatar.html:22 templates/forum/pm/create_pm.html:28
+#: templates/forum/upload_avatar.html:23
 msgid "Go back"
 msgstr "Torna indietro"
 
-#: templates/forum/add_post.html:53
+#: templates/forum/add_post.html:54
 msgid "Topic review (newest first)"
 msgstr "Revisioni argomento (le nuove per prime)"
 
-#: templates/forum/add_post.html:69 templates/forum/topic.html:122
+#: templates/forum/add_post.html:70 templates/forum/topic.html:123
 msgid "Quote"
 msgstr "Cita"
 
-#: templates/forum/base.html:57
+#: templates/forum/base.html:55
 msgid "Board footer"
 msgstr "Board Footer"
 
-#: templates/forum/delete_posts.html:34 templates/forum/topic.html:93
+#: templates/forum/delete_posts.html:35 templates/forum/topic.html:93
 msgid "Edited"
 msgstr "Modificato"
 
-#: templates/forum/delete_posts.html:38 templates/forum/moderate.html:26
+#: templates/forum/delete_posts.html:39 templates/forum/moderate.html:27
 msgid "Select"
 msgstr "Seleziona"
 
-#: templates/forum/delete_posts.html:50 templates/forum/moderate.html:67
-#: templates/forum/reputation.html:27 templates/forum/topic.html:115
-#: templates/forum/pm/message.html:75
+#: templates/forum/delete_posts.html:51 templates/forum/moderate.html:68
+#: templates/forum/reputation.html:28 templates/forum/topic.html:115
 msgid "Delete"
 msgstr "Cancella"
 
@@ -525,41 +504,41 @@ msgstr "Cancella"
 msgid "Edit post"
 msgstr "Modifica messaggio"
 
-#: templates/forum/edit_post.html:20
+#: templates/forum/edit_post.html:21
 msgid "Edit the post and submit changes"
 msgstr "Modifica il messaggio e invia i cambiamenti"
 
-#: templates/forum/edit_post.html:33
+#: templates/forum/edit_post.html:34
 msgid "Save"
 msgstr "Salva"
 
-#: templates/forum/forum.html:28 templates/forum/moderate.html:23
+#: templates/forum/forum.html:28 templates/forum/moderate.html:24
 #: templates/forum/search_topics.html:23
 msgid "Replies"
 msgstr "Rispondi"
 
-#: templates/forum/forum.html:29 templates/forum/moderate.html:24
+#: templates/forum/forum.html:29 templates/forum/moderate.html:25
 msgid "Views"
 msgstr "Viste"
 
 #: templates/forum/forum.html:30 templates/forum/index.html:56
-#: templates/forum/moderate.html:25 templates/forum/search_topics.html:24
+#: templates/forum/moderate.html:26 templates/forum/search_topics.html:24
 msgid "Last post"
 msgstr "Ultimi Messaggi"
 
-#: templates/forum/forum.html:42 templates/forum/moderate.html:38
+#: templates/forum/forum.html:42 templates/forum/moderate.html:39
 msgid "Sticky:"
 msgstr "Attaccato"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
-#: templates/forum/forum.html:54 templates/forum/forum_row.html:35
-#: templates/forum/moderate.html:41 templates/forum/moderate.html.py:43
-#: templates/forum/moderate.html:50 templates/forum/search_topics.html:35
+#: templates/forum/forum.html:54 templates/forum/forum_row.html:34
+#: templates/forum/moderate.html:42 templates/forum/moderate.html.py:44
+#: templates/forum/moderate.html:51 templates/forum/search_topics.html:35
 #: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
 msgstr "da"
 
-#: templates/forum/forum.html:58 templates/forum/moderate.html:55
+#: templates/forum/forum.html:58 templates/forum/moderate.html:56
 msgid "Forum is empty."
 msgstr "Il forum e' vuoto."
 
@@ -567,7 +546,7 @@ msgstr "Il forum e' vuoto."
 msgid "Jump to"
 msgstr "Salta a"
 
-#: templates/forum/forum.html:100 templates/forum/topic.html:203
+#: templates/forum/forum.html:100 templates/forum/topic.html:206
 msgid "Go"
 msgstr "Vai"
 
@@ -595,7 +574,6 @@ msgid "Administration"
 msgstr "Amministrazione"
 
 #: templates/forum/header.html:25 templates/forum/topic.html:75
-#: templates/forum/pm/message.html:43
 msgid "PM"
 msgstr "Messaggio Privato"
 
@@ -713,23 +691,27 @@ msgstr "Mostra i miei messaggi"
 msgid "Send e-mail to"
 msgstr "Invia e-mail a"
 
-#: templates/forum/mail_to.html:12
+#: templates/forum/mail_to.html:13
 msgid "Write and submit your e-mail message"
 msgstr "Scrivi e invia il tuo messaggio e-mail"
 
-#: templates/forum/mail_to.html:20
-msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
-msgstr "Attenzione, usando questo form il tuo indirizzo e-mail sara' visibile al destinatario."
+#: templates/forum/mail_to.html:21
+msgid ""
+"Please note that by using this form, your e-mail address will be disclosed "
+"to the recipient."
+msgstr ""
+"Attenzione, usando questo form il tuo indirizzo e-mail sara' visibile al "
+"destinatario."
 
-#: templates/forum/moderate.html:66 templates/forum/move_topic.html:33
+#: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
 msgstr "Sposta"
 
-#: templates/forum/moderate.html:68
+#: templates/forum/moderate.html:69
 msgid "Open"
 msgstr "Apri"
 
-#: templates/forum/moderate.html:69
+#: templates/forum/moderate.html:70
 msgid "Close"
 msgstr "Chiudi"
 
@@ -737,15 +719,15 @@ msgstr "Chiudi"
 msgid "Moderated by"
 msgstr "Moderato da"
 
-#: templates/forum/move_topic.html:7 templates/forum/topic.html:209
+#: templates/forum/move_topic.html:7 templates/forum/topic.html:212
 msgid "Move topic"
 msgstr "Sposta argomento"
 
-#: templates/forum/move_topic.html:15
+#: templates/forum/move_topic.html:16
 msgid "Select destination of move"
 msgstr "Seleziona la destinazione"
 
-#: templates/forum/move_topic.html:17
+#: templates/forum/move_topic.html:18
 msgid "Move to"
 msgstr "Sposta in"
 
@@ -757,32 +739,32 @@ msgstr "Pagine"
 msgid "Report post"
 msgstr "Segnala argomento"
 
-#: templates/forum/report.html:12
+#: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
-msgstr "Prego, inserisci una breve descrizione del motivo della tua segnalazione"
+msgstr ""
+"Prego, inserisci una breve descrizione del motivo della tua segnalazione"
 
-#: templates/forum/reputation.html:15
+#: templates/forum/reputation.html:16
 msgid "Reputation of the user"
 msgstr "Reputazione dell'utente"
 
-#: templates/forum/reputation.html:21
+#: templates/forum/reputation.html:22
 msgid "From user"
 msgstr "Dall'utente"
 
-#: templates/forum/reputation.html:22
+#: templates/forum/reputation.html:23
 msgid "For post in topic"
 msgstr "Per messaggio nell'argomento"
 
-#: templates/forum/reputation.html:24
+#: templates/forum/reputation.html:25
 msgid "Estimation"
 msgstr "Stima"
 
-#: templates/forum/reputation.html:25 templates/forum/pm/inbox.html:14
-#: templates/forum/pm/outbox.html:14
+#: templates/forum/reputation.html:26
 msgid "Date"
 msgstr "Data"
 
-#: templates/forum/reputation.html:62
+#: templates/forum/reputation.html:63
 msgid "Are you sure"
 msgstr "Sei sicuro"
 
@@ -790,23 +772,23 @@ msgstr "Sei sicuro"
 msgid "Please, fill the form"
 msgstr "Per favore, riempire il form"
 
-#: templates/forum/reputation_form.html:16
+#: templates/forum/reputation_form.html:17
 msgid "Your name:"
 msgstr "Tuo nome:"
 
-#: templates/forum/reputation_form.html:20
+#: templates/forum/reputation_form.html:21
 msgid "To whom we change a reputation:"
 msgstr "A chi modifichiamo la reputazione:"
 
-#: templates/forum/reputation_form.html:28
+#: templates/forum/reputation_form.html:29
 msgid "Method:"
 msgstr "Metodo:"
 
-#: templates/forum/reputation_form.html:31
+#: templates/forum/reputation_form.html:32
 msgid "Add of a reputation"
 msgstr "Aggiungi una reputazione"
 
-#: templates/forum/reputation_form.html:33
+#: templates/forum/reputation_form.html:34
 msgid "Reduction of a reputation"
 msgstr "Riduci una reputazione"
 
@@ -815,8 +797,14 @@ msgid "Enter your search criteria"
 msgstr "Inserisci il tuo criterio di ricerca"
 
 #: templates/forum/search_form.html:18
-msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
-msgstr "Per cercare tramite parole chiave, inserisci uno o piu' termini di ricerca separati da spazi. Per cercare per autore inserisci lo username dell'autore dei messaggi che stai ricercando"
+msgid ""
+"To search by keyword, enter a term or terms to search for. Separate terms "
+"with spaces. To search by author enter the username of the author whose "
+"posts you wish to search for."
+msgstr ""
+"Per cercare tramite parole chiave, inserisci uno o piu' termini di ricerca "
+"separati da spazi. Per cercare per autore inserisci lo username dell'autore "
+"dei messaggi che stai ricercando"
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
@@ -827,8 +815,12 @@ msgid "All forums"
 msgstr "Tutti i forum"
 
 #: templates/forum/search_form.html:44
-msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
-msgstr "Seleziona in quale forum vuoi cercare e se vuoi ricercare negli oggetti degli argomenti, nei messaggi o in entrambi."
+msgid ""
+"Choose in which forum you would like to search and if you want to search in "
+"topic subjects, message text or both."
+msgstr ""
+"Seleziona in quale forum vuoi cercare e se vuoi ricercare negli oggetti "
+"degli argomenti, nei messaggi o in entrambi."
 
 #: templates/forum/search_form.html:51
 msgid "Select how to view search results"
@@ -859,7 +851,7 @@ msgid "Search results"
 msgstr "Risultati della ricerca"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:121
-#: templates/forum/topic.html:132 templates/forum/pm/message.html:80
+#: templates/forum/topic.html:134
 msgid "Reply"
 msgstr "Rispondi"
 
@@ -868,18 +860,16 @@ msgid "From:"
 msgstr "Da:"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
-#: templates/forum/pm/message.html:30
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
 msgstr "Registrato:"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
-#: templates/forum/pm/message.html:31
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
 msgstr "Messaggi:"
 
-#: templates/forum/topic.html:54 templates/forum/pm/message.html:33
+#: templates/forum/topic.html:54
 msgid "IP:"
 msgstr "IP:"
 
@@ -892,15 +882,15 @@ msgstr "Invia e-mail"
 msgid "Attachments:"
 msgstr "Allegati:"
 
-#: templates/forum/topic.html:105 templates/forum/pm/message.html:65
+#: templates/forum/topic.html:105
 msgid "Online"
 msgstr "Connesso"
 
-#: templates/forum/topic.html:107 templates/forum/pm/message.html:67
+#: templates/forum/topic.html:107
 msgid "Offline"
 msgstr "Disconnesso"
 
-#: templates/forum/topic.html:115 templates/forum/pm/message.html:75
+#: templates/forum/topic.html:115
 msgid "Are you sure you want to delete this post?"
 msgstr "Sei sicuro di voler cancellare questo argomento?"
 
@@ -908,43 +898,43 @@ msgstr "Sei sicuro di voler cancellare questo argomento?"
 msgid "Edit"
 msgstr "Modifica"
 
-#: templates/forum/topic.html:138
+#: templates/forum/topic.html:140
 msgid "Unsubscribe"
 msgstr "Disiscriviti"
 
-#: templates/forum/topic.html:140
+#: templates/forum/topic.html:142
 msgid "Subscribe"
 msgstr "Iscriviti"
 
-#: templates/forum/topic.html:148
+#: templates/forum/topic.html:150
 msgid "Quick post"
 msgstr "Messaggio veloce"
 
-#: templates/forum/topic.html:192
+#: templates/forum/topic.html:195
 msgid "Jump to "
 msgstr "Salta a"
 
-#: templates/forum/topic.html:206
+#: templates/forum/topic.html:209
 msgid "Moderator control"
 msgstr "Controllo per i moderatori"
 
-#: templates/forum/topic.html:208
+#: templates/forum/topic.html:211
 msgid "Delete multiple posts"
 msgstr "Cancella messaggi multipli"
 
-#: templates/forum/topic.html:211
+#: templates/forum/topic.html:214
 msgid "Open topic"
 msgstr "Apri argomento"
 
-#: templates/forum/topic.html:213
+#: templates/forum/topic.html:216
 msgid "Close topic"
 msgstr "Chiudi argomento"
 
-#: templates/forum/topic.html:216
+#: templates/forum/topic.html:219
 msgid "Unstick topic"
 msgstr "Stacca argomento"
 
-#: templates/forum/topic.html:218
+#: templates/forum/topic.html:221
 msgid "Stick topic"
 msgstr "Attacca argomento"
 
@@ -954,16 +944,22 @@ msgstr "Attacca argomento"
 msgid "Upload avatar"
 msgstr "Carica avatar"
 
-#: templates/forum/upload_avatar.html:12
+#: templates/forum/upload_avatar.html:13
 msgid "Enter an avatar file to upload"
 msgstr "Inserisci il file con l'avatar che vuoi caricare"
 
-#: templates/forum/upload_avatar.html:18
+#: templates/forum/upload_avatar.html:19
 #, python-format
-msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
-msgstr "Un avatar e' una piccola immagine che verra' visualizata sotto il tuo nome utente nei tuoi messaggi. Non deve essere piu' grande di %(avatar_width)s x %(avatar_height)s pixels "
+msgid ""
+"An avatar is a small image that will be displayed under your username in "
+"your posts. It must not be any bigger than %(avatar_width)s x %"
+"(avatar_height)s pixels "
+msgstr ""
+"Un avatar e' una piccola immagine che verra' visualizata sotto il tuo nome "
+"utente nei tuoi messaggi. Non deve essere piu' grande di %(avatar_width)s x %"
+"(avatar_height)s pixels "
 
-#: templates/forum/upload_avatar.html:22
+#: templates/forum/upload_avatar.html:23
 msgid "Upload"
 msgstr "Carica"
 
@@ -1071,8 +1067,14 @@ msgid "Find and sort users"
 msgstr "Cerca e ordina utenti"
 
 #: templates/forum/users.html:25
-msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
-msgstr "Inserisci un nome utente da ricercare. Il campo nome utente puo' essere lasciato bianco. Ordina gli utenti per nome, data di registrazione o numero di messaggi e in ordine crescente/decrescente."
+msgid ""
+"Enter a username to search for. The username field can be left blank. Sort "
+"users by name, date registered or number of posts and in ascending/"
+"descending order."
+msgstr ""
+"Inserisci un nome utente da ricercare. Il campo nome utente puo' essere "
+"lasciato bianco. Ordina gli utenti per nome, data di registrazione o numero "
+"di messaggi e in ordine crescente/decrescente."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
@@ -1091,46 +1093,6 @@ msgstr "Risposte"
 msgid "posts"
 msgstr "messaggi"
 
-#: templates/forum/pm/create_pm.html:9
-msgid "Send a message"
-msgstr "Invia un messaggio"
-
-#: templates/forum/pm/create_pm.html:28
-msgid "Send"
-msgstr "Invia"
-
-#: templates/forum/pm/inbox.html:6 templates/forum/pm/menu_pm.html:7
-msgid "Inbox"
-msgstr "Posta in arrivo"
-
-#: templates/forum/pm/inbox.html:13
-msgid "Sender"
-msgstr "Mittente"
-
-#: templates/forum/pm/inbox.html:34 templates/forum/pm/outbox.html:34
-msgid "No messages"
-msgstr "Nessun messaggio"
-
-#: templates/forum/pm/menu_pm.html:3
-msgid "Private Messages"
-msgstr "Messaggi privati"
-
-#: templates/forum/pm/menu_pm.html:8
-msgid "Sent"
-msgstr "Inviato"
-
-#: templates/forum/pm/menu_pm.html:9
-msgid "Send new message"
-msgstr "Invia un nuovo messaggio"
-
-#: templates/forum/pm/outbox.html:6
-msgid "Outbox"
-msgstr "Posta in uscita"
-
-#: templates/forum/pm/outbox.html:13
-msgid "Receiver"
-msgstr "Destinatario"
-
 #: templates/forum/profile/profile_admin.html:15
 msgid "Delete (administrators only) or ban user"
 msgstr "Cancella (solo per amministratori) o banna un utente"
@@ -1148,8 +1110,13 @@ msgid "Set moderator access"
 msgstr "Configura gli accessi dei moderatori"
 
 #: templates/forum/profile/profile_admin.html:26
-msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
-msgstr "Scegli quale forum questo utente puo' moderare. Nota: Si applica solo ai moderatori. Gli amministratori hanno sempre pieni permessi su tutti i forum."
+msgid ""
+"Choose what forums this user should be allowed to moderate. Note: This only "
+"applies to moderators. Administrators always have full permissions in all "
+"forums."
+msgstr ""
+"Scegli quale forum questo utente puo' moderare. Nota: Si applica solo ai "
+"moderatori. Gli amministratori hanno sempre pieni permessi su tutti i forum."
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
@@ -1168,7 +1135,15 @@ msgstr "Seleziona il tuo stile preferito"
 msgid "If you like you can use a different visual style for this forum."
 msgstr "Se vuoi, puoi usare uno stile differente per questo forum."
 
-#: templates/forum/profile/profile_display.html:24
+#: templates/forum/profile/profile_display.html:34
+msgid "Post display legend"
+msgstr ""
+
+#: templates/forum/profile/profile_display.html:36
+msgid "Post display info"
+msgstr ""
+
+#: templates/forum/profile/profile_display.html:44
 #: templates/forum/profile/profile_essentials.html:81
 #: templates/forum/profile/profile_messaging.html:30
 #: templates/forum/profile/profile_personal.html:31
@@ -1200,11 +1175,16 @@ msgid "Set your localisation options"
 msgstr "Imposta le tue opzioni di localizzazione"
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid "Timezone: For the forum to display times correctly you must select your local timezone."
-msgstr "Fuso orario: Per visualizzare l'ora corretta nel forum devi selezionare il tuo fuso orario."
+msgid ""
+"Timezone: For the forum to display times correctly you must select your "
+"local timezone."
+msgstr ""
+"Fuso orario: Per visualizzare l'ora corretta nel forum devi selezionare il "
+"tuo fuso orario."
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid "Language: You can choose which language you wish to use to view the forum"
+msgid ""
+"Language: You can choose which language you wish to use to view the forum"
 msgstr "Lingua: Puoi scegliere in quale lingua vuoi vedere i forum"
 
 #: templates/forum/profile/profile_menu.html:3
@@ -1229,8 +1209,15 @@ msgid "Set your avatar display options"
 msgstr "Imposta le opzioni di visualizzazione del tuo avatar"
 
 #: templates/forum/profile/profile_personality.html:20
-msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
-msgstr "Un avatar e' una piccola immagine che verra' visualizzata in tutti i tuoi messaggi. Puoi caricare un avatar cliccando sul link qua sotto. La casella 'Usa avatar' qua sotto deve essere selezionata per fare in modo che l'avata venga visualizzato nei tuoi messaggi."
+msgid ""
+"An avatar is a small image that will be displayed with all your posts. You "
+"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
+"below must be checked in order for the avatar to be visible in your posts."
+msgstr ""
+"Un avatar e' una piccola immagine che verra' visualizzata in tutti i tuoi "
+"messaggi. Puoi caricare un avatar cliccando sul link qua sotto. La casella "
+"'Usa avatar' qua sotto deve essere selezionata per fare in modo che l'avata "
+"venga visualizzato nei tuoi messaggi."
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
@@ -1245,8 +1232,20 @@ msgid "Compose your signature"
 msgstr "Crea la tua firma"
 
 #: templates/forum/profile/profile_personality.html:39
-msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
-msgstr "Una firma e' una piccola porzione di testo che verra' aggiunta ai tuoi messaggi. In essa puoi inserire qualsiasi cosa tu voglia. Potresti, ad esempio, inserire la tua citazione favorita. Decidi tu! Nella firma puoi usare i BBcode se sono permessi in questo particolare forum. Puoi vedere le caratteristiche listate soto che sono abilitate/disabilitate quando modificherai la tua firma."
+msgid ""
+"A signature is a small piece of text that is attached to your posts. In it, "
+"you can enter just about anything you like. Perhaps you would like to enter "
+"your favourite quote or your star sign. It's up to you! In your signature "
+"you can use BBCode if it is allowed in this particular forum. You can see "
+"the features that are allowed/enabled listed below whenever you edit your "
+"signature."
+msgstr ""
+"Una firma e' una piccola porzione di testo che verra' aggiunta ai tuoi "
+"messaggi. In essa puoi inserire qualsiasi cosa tu voglia. Potresti, ad "
+"esempio, inserire la tua citazione favorita. Decidi tu! Nella firma puoi "
+"usare i BBcode se sono permessi in questo particolare forum. Puoi vedere le "
+"caratteristiche listate soto che sono abilitate/disabilitate quando "
+"modificherai la tua firma."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1257,5 +1256,56 @@ msgid "Set your privacy options"
 msgstr "Imposta le tue opzioni sulla privacy"
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
-msgstr "Seleziona quando vuoi che il tuo indirizzo e-mail sia visibile o meno agli altri utenti e se vuoi che gli altri utenti ti possano inviare e-mail tramite il forum."
+msgid ""
+"Select whether you want your e-mail address to be viewable to other users or "
+"not and if you want other users to be able to send you e-mail via the forum "
+"(form e-mail) or not."
+msgstr ""
+"Seleziona quando vuoi che il tuo indirizzo e-mail sia visibile o meno agli "
+"altri utenti e se vuoi che gli altri utenti ti possano inviare e-mail "
+"tramite il forum."
+
+#~ msgid "Recipient"
+#~ msgstr "Destinatario"
+
+#~ msgid "Read"
+#~ msgstr "Letto"
+
+#~ msgid "Text version"
+#~ msgstr "Versione del testo"
+
+#~ msgid "Private message"
+#~ msgstr "Messaggio privato"
+
+#~ msgid "Private messages"
+#~ msgstr "Messaggi privati"
+
+#~ msgid "Send a message"
+#~ msgstr "Invia un messaggio"
+
+#~ msgid "Send"
+#~ msgstr "Invia"
+
+#~ msgid "Inbox"
+#~ msgstr "Posta in arrivo"
+
+#~ msgid "Sender"
+#~ msgstr "Mittente"
+
+#~ msgid "No messages"
+#~ msgstr "Nessun messaggio"
+
+#~ msgid "Private Messages"
+#~ msgstr "Messaggi privati"
+
+#~ msgid "Sent"
+#~ msgstr "Inviato"
+
+#~ msgid "Send new message"
+#~ msgstr "Invia un nuovo messaggio"
+
+#~ msgid "Outbox"
+#~ msgstr "Posta in uscita"
+
+#~ msgid "Receiver"
+#~ msgstr "Destinatario"

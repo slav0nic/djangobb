@@ -1,12 +1,12 @@
 # Russian translation for DjangoBB forum
 # sl <slav0nic0@gmail.com>, 2009.
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-22 21:24+0300\n"
+"POT-Creation-Date: 2010-12-02 11:17+0200\n"
 "PO-Revision-Date: 2009-12-23 16:07+0200\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: Russian <slav0nic0@gmail.com>\n"
@@ -14,348 +14,345 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: feeds.py:23 feeds.py:24 templates/forum/base.html:18
+#: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
 msgstr "Последние сообщения на форуме"
 
-#: feeds.py:33 feeds.py:34 templates/forum/base.html:19
+#: feeds.py:45 feeds.py:46 templates/forum/base.html:15
 msgid "Latest topics on forum"
 msgstr "Последние темы на форуме"
 
-#: feeds.py:52 feeds.py:60
+#: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s topic"
 msgstr "Последние сообщения в %s теме"
 
-#: feeds.py:76 feeds.py:84
+#: feeds.py:103 feeds.py:111
 #, python-format
 msgid "Latest posts on %s forum"
 msgstr "Последние сообщения на %s форуме"
 
-#: feeds.py:100 feeds.py:103
+#: feeds.py:130 feeds.py:133
 #, python-format
 msgid "Latest posts on %s category"
 msgstr "Последние сообщения в %s категории"
 
-#: forms.py:20 forms.py:141 forms.py:249 templates/forum/users.html:45
+#: forms.py:21 forms.py:142 forms.py:251 templates/forum/users.html:45
 msgid "Username"
 msgstr "Имя"
 
-#: forms.py:21 templates/forum/users.html:48
+#: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
 msgstr "Зарегистрирован"
 
-#: forms.py:22
+#: forms.py:23
 msgid "No. of posts"
 msgstr "Кол-во сообщений"
 
-#: forms.py:26
+#: forms.py:27
 msgid "Post time"
 msgstr "Время сообщения"
 
-#: forms.py:27 models.py:336
+#: forms.py:28
 msgid "Author"
 msgstr "Автор"
 
-#: forms.py:28 forms.py:50 forms.py:115 forms.py:336 models.py:115
-#: models.py:340 templates/forum/add_post.html:26
-#: templates/forum/edit_post.html:23 templates/forum/pm/inbox.html:12
-#: templates/forum/pm/outbox.html:12
+#: forms.py:29 forms.py:51 forms.py:116 forms.py:338 models.py:121
+#: templates/forum/add_post.html:27 templates/forum/edit_post.html:24
 msgid "Subject"
 msgstr "Заголовок"
 
-#: forms.py:29 forms.py:284 models.py:98 models.py:114
-#: templates/forum/index.html:17 templates/forum/search_topics.html:22
+#: forms.py:30 forms.py:286 models.py:104 models.py:120
+#: templates/forum/index.html:53 templates/forum/search_topics.html:22
 msgid "Forum"
 msgstr "Форум"
 
-#: forms.py:33
+#: forms.py:34
 msgid "Ascending"
 msgstr "Возрастанию"
 
-#: forms.py:34
+#: forms.py:35
 msgid "Descending"
 msgstr "Убыванию"
 
-#: forms.py:38 models.py:129 templates/forum/index.html:18
+#: forms.py:39 models.py:135 templates/forum/index.html:54
 msgid "Topics"
 msgstr "Темы"
 
-#: forms.py:39 models.py:186 templates/forum/index.html:19
+#: forms.py:40 models.py:192 templates/forum/index.html:55
 #: templates/forum/users.html:47
 msgid "Posts"
 msgstr "Сообщения"
 
-#: forms.py:43
+#: forms.py:44
 msgid "Message text and topic subject"
 msgstr "Текстах сообщений и заголовках тем"
 
-#: forms.py:44
+#: forms.py:45
 msgid "Message text only"
 msgstr "Только в текстах сообщений"
 
-#: forms.py:45
+#: forms.py:46
 msgid "Topic subject only"
 msgstr "Только в заголовках тем"
 
-#: forms.py:52 templates/forum/add_post.html:35 templates/forum/topic.html:162
+#: forms.py:53 templates/forum/add_post.html:36 templates/forum/topic.html:165
 msgid "Attachment"
 msgstr "Прикреплённые файлы"
 
-#: forms.py:79
+#: forms.py:80
 msgid "Attachment is too big"
 msgstr "Прикреплённый файл слишком большой"
 
-#: forms.py:142 templates/forum/topic.html:67
-#: templates/forum/pm/message.html:40
+#: forms.py:143 templates/forum/topic.html:67
 msgid "E-mail"
 msgstr "E-mail"
 
-#: forms.py:172
+#: forms.py:173
 msgid "Real name"
 msgstr "Настоящее имя"
 
-#: forms.py:251 forms.py:286
+#: forms.py:253 forms.py:288
 msgid "Sort by"
 msgstr "Сортировать по"
 
-#: forms.py:252 forms.py:287
+#: forms.py:254 forms.py:289
 msgid "Sort order"
 msgstr "Упорядочить по"
 
-#: forms.py:280
+#: forms.py:282
 msgid "Keyword search"
 msgstr "Ключевые слова"
 
-#: forms.py:282
+#: forms.py:284
 msgid "Author search"
 msgstr "Поиск автора"
 
-#: forms.py:285
+#: forms.py:287
 msgid "Search in"
 msgstr "Поиск в"
 
-#: forms.py:288
+#: forms.py:290
 msgid "Show results as"
 msgstr "Показать результат как"
 
-#: forms.py:313 forms.py:384
+#: forms.py:315
 #, python-format
 msgid "User with login %s does not exist"
 msgstr "Пользователь с логином %s не существует"
 
-#: forms.py:323
+#: forms.py:325
 msgid "You already voted for this post"
 msgstr ""
 
-#: forms.py:338 models.py:177 models.py:341 templates/forum/add_post.html:28
-#: templates/forum/edit_post.html:26
+#: forms.py:340 models.py:183 templates/forum/add_post.html:29
+#: templates/forum/edit_post.html:27
 msgid "Message"
 msgstr "Сообщение"
 
-#: forms.py:366 models.py:335
-msgid "Recipient"
-msgstr "Получатель"
-
-#: models.py:35
+#: models.py:39
 msgid "Display your e-mail address."
 msgstr "Показывать ваш e-mail адрес"
 
-#: models.py:36
+#: models.py:40
 msgid "Hide your e-mail address but allow form e-mail."
 msgstr "Скрыть ваш e-mail адрес, но разрешить слать вам сообщения через форум."
 
-#: models.py:37
+#: models.py:41
 msgid "Hide your e-mail address and disallow form e-mail."
 msgstr "Скрыть ваш e-mail адрес и запретить слать вам сообщения через форум."
 
-#: models.py:50 models.py:87 models.py:407
+#: models.py:56 models.py:93 models.py:362
 msgid "Name"
 msgstr "Имя"
 
-#: models.py:51
+#: models.py:57
 msgid "Groups"
 msgstr "Группы"
 
-#: models.py:51
+#: models.py:57
 msgid "Only users from these groups can see this category"
 msgstr "Только пользователи с указанной группы могут видеть эту категорию"
 
-#: models.py:52 models.py:88
+#: models.py:58 models.py:94
 msgid "Position"
 msgstr "Позиция"
 
-#: models.py:56 models.py:86
+#: models.py:62 models.py:92
 msgid "Category"
 msgstr "Категория"
 
-#: models.py:57
+#: models.py:63
 msgid "Categories"
 msgstr "Категории"
 
-#: models.py:89
+#: models.py:95
 msgid "Description"
 msgstr "Описание"
 
-#: models.py:90
+#: models.py:96
 msgid "Moderators"
 msgstr "Модераторы"
 
-#: models.py:91 models.py:117 models.py:174
+#: models.py:97 models.py:123 models.py:180
 msgid "Updated"
 msgstr "Дата обновления"
 
-#: models.py:92 models.py:123 models.py:280
+#: models.py:98 models.py:129 models.py:280
 msgid "Post count"
 msgstr "Количество сообщений"
 
-#: models.py:93
+#: models.py:99
 msgid "Topic count"
 msgstr "Количество тем"
 
-#: models.py:99
+#: models.py:105
 msgid "Forums"
 msgstr "Форумы"
 
-#: models.py:116 models.py:173 models.py:323 models.py:338
+#: models.py:122 models.py:179 models.py:323
 msgid "Created"
 msgstr "Дата создания"
 
-#: models.py:118 models.py:172 models.py:262
+#: models.py:124 models.py:178 models.py:261
 msgid "User"
 msgstr "Пользователь"
 
-#: models.py:119
+#: models.py:125
 msgid "Views count"
 msgstr "Количество просмотров"
 
-#: models.py:120
+#: models.py:126
 msgid "Sticky"
 msgstr "Выделено"
 
-#: models.py:121
+#: models.py:127
 msgid "Closed"
 msgstr "Закрыто"
 
-#: models.py:122
+#: models.py:128
 msgid "Subscribers"
 msgstr "Подписчики"
 
-#: models.py:128 models.py:171 templates/forum/forum.html:27
-#: templates/forum/moderate.html:22 templates/forum/search_topics.html:21
+#: models.py:134 models.py:177 templates/forum/forum.html:27
+#: templates/forum/moderate.html:23 templates/forum/search_topics.html:21
 msgid "Topic"
 msgstr "Тема"
 
-#: models.py:175
+#: models.py:181
 #, fuzzy
 msgid "Updated by"
 msgstr "Дата обновления"
 
-#: models.py:176 models.py:339
+#: models.py:182 templates/forum/profile/profile_display.html:24
 msgid "Markup"
 msgstr "Разметка"
 
-#: models.py:178 models.py:342
+#: models.py:184
 msgid "HTML version"
 msgstr "HTML версия"
 
-#: models.py:179
+#: models.py:185
 msgid "User IP"
 msgstr "IP автора"
 
-#: models.py:185 models.py:247 models.py:320 models.py:403
+#: models.py:191 models.py:246 models.py:320 models.py:358
 msgid "Post"
 msgstr "Сообщение"
 
-#: models.py:245
+#: models.py:244
 msgid "From"
 msgstr "От"
 
-#: models.py:246
+#: models.py:245
 msgid "To"
 msgstr "К"
 
-#: models.py:248
+#: models.py:247
 msgid "Time"
 msgstr "Время"
 
-#: models.py:249
+#: models.py:248
 #, fuzzy
 msgid "Sign"
 msgstr "Регистрация"
 
-#: models.py:250 models.py:324 models.py:382 templates/forum/report.html:15
-#: templates/forum/reputation.html:23
+#: models.py:249 models.py:324 models.py:337 templates/forum/report.html:16
+#: templates/forum/reputation.html:24
 msgid "Reason"
 msgstr "Причина"
 
-#: models.py:253 templates/forum/topic.html:57
-#: templates/forum/pm/message.html:36
+#: models.py:252 templates/forum/topic.html:57
 msgid "Reputation"
 msgstr "Репутация"
 
-#: models.py:254
+#: models.py:253
 msgid "Reputations"
 msgstr "Репутация"
 
-#: models.py:263
+#: models.py:262
 msgid "Status"
 msgstr "Статус"
 
-#: models.py:264
+#: models.py:263
 msgid "Site"
 msgstr "Вебсайт"
 
-#: models.py:265
+#: models.py:264
 msgid "Jabber"
 msgstr ""
 
-#: models.py:266
+#: models.py:265
 msgid "ICQ"
 msgstr ""
 
-#: models.py:267
+#: models.py:266
 msgid "MSN"
 msgstr ""
 
-#: models.py:268
+#: models.py:267
 msgid "AIM"
 msgstr ""
 
-#: models.py:269
+#: models.py:268
 msgid "Yahoo"
 msgstr ""
 
-#: models.py:270 templates/forum/user.html:25
+#: models.py:269 templates/forum/user.html:25
 msgid "Location"
 msgstr "Местонахождение"
 
-#: models.py:271
+#: models.py:270
 msgid "Signature"
 msgstr "Подпись"
 
-#: models.py:272
+#: models.py:271
 msgid "Time zone"
 msgstr "Временная зона"
 
-#: models.py:273
+#: models.py:272
 msgid "Language"
 msgstr "Язык"
 
-#: models.py:274
+#: models.py:273
 msgid "Avatar"
 msgstr "Аватар"
 
-#: models.py:275
+#: models.py:274
 msgid "Theme"
 msgstr "Тема"
 
-#: models.py:276
+#: models.py:275
 msgid "Show avatar"
 msgstr "Показывать аватар"
 
-#: models.py:277
+#: models.py:276
 msgid "Show signatures"
+msgstr "Показывать подписи"
+
+#: models.py:277 templates/forum/profile/profile_display.html:39
+#, fuzzy
+msgid "Show smilies"
 msgstr "Показывать подписи"
 
 #: models.py:278
@@ -367,7 +364,7 @@ msgid "Default markup"
 msgstr "Разметка по умолчанию"
 
 #: models.py:283 templates/forum/header.html:23 templates/forum/topic.html:65
-#: templates/forum/user.html:7 templates/forum/pm/message.html:38
+#: templates/forum/user.html:7
 msgid "Profile"
 msgstr "Профиль"
 
@@ -400,58 +397,42 @@ msgstr "Пожаловаться"
 msgid "Reports"
 msgstr "Жалобы"
 
-#: models.py:337
-msgid "Read"
-msgstr "Просмотр"
-
-#: models.py:343
-msgid "Text version"
-msgstr "Текстовая версия"
-
-#: models.py:347
-msgid "Private message"
-msgstr "Приватное сообщение"
-
-#: models.py:348
-msgid "Private messages"
-msgstr "Приватные сообщения"
-
-#: models.py:379
+#: models.py:334
 #, fuzzy
 msgid "Banned user"
 msgstr "Забанен"
 
-#: models.py:380
+#: models.py:335
 #, fuzzy
 msgid "Ban start"
 msgstr "Забанен"
 
-#: models.py:381
+#: models.py:336
 msgid "Ban end"
 msgstr "Забанен до"
 
-#: models.py:385
+#: models.py:340
 msgid "Ban"
 msgstr "Бан"
 
-#: models.py:386
+#: models.py:341
 #, fuzzy
 msgid "Bans"
 msgstr "Забанен"
 
-#: models.py:404
+#: models.py:359
 msgid "Size"
 msgstr "Размер"
 
-#: models.py:405
+#: models.py:360
 msgid "Content type"
 msgstr ""
 
-#: models.py:406
+#: models.py:361
 msgid "Path"
 msgstr "Путь"
 
-#: models.py:408
+#: models.py:363
 msgid "Hash"
 msgstr "Хэш"
 
@@ -459,7 +440,7 @@ msgstr "Хэш"
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
 #: templates/forum/forum.html:13 templates/forum/forum.html.py:71
 #: templates/forum/moderate.html:9 templates/forum/topic.html:15
-#: templates/forum/topic.html.py:133 templates/forum/lofi/forum.html:8
+#: templates/forum/topic.html.py:135 templates/forum/lofi/forum.html:8
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
@@ -474,15 +455,14 @@ msgstr "Создать новую тему"
 msgid "New reply"
 msgstr "Новый ответ"
 
-#: templates/forum/add_post.html:23 templates/forum/topic.html:153
-#: templates/forum/pm/create_pm.html:14
+#: templates/forum/add_post.html:24 templates/forum/topic.html:156
 msgid "Write your message and submit"
 msgstr "Написать и отправить сообщение"
 
-#: templates/forum/add_post.html:45 templates/forum/mail_to.html:24
-#: templates/forum/report.html:21 templates/forum/reputation_form.html:40
-#: templates/forum/search_form.html:71 templates/forum/topic.html:171
-#: templates/forum/profile/profile_display.html:24
+#: templates/forum/add_post.html:46 templates/forum/mail_to.html:25
+#: templates/forum/report.html:22 templates/forum/reputation_form.html:41
+#: templates/forum/search_form.html:71 templates/forum/topic.html:174
+#: templates/forum/profile/profile_display.html:44
 #: templates/forum/profile/profile_essentials.html:81
 #: templates/forum/profile/profile_messaging.html:30
 #: templates/forum/profile/profile_personal.html:31
@@ -491,38 +471,37 @@ msgstr "Написать и отправить сообщение"
 msgid "Submit"
 msgstr "Отправить"
 
-#: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
-#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:33
-#: templates/forum/report.html:21 templates/forum/reputation.html:64
-#: templates/forum/reputation_form.html:40
+#: templates/forum/add_post.html:46 templates/forum/edit_post.html:34
+#: templates/forum/mail_to.html:25 templates/forum/move_topic.html:34
+#: templates/forum/report.html:22 templates/forum/reputation.html:65
+#: templates/forum/reputation_form.html:41
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
-#: templates/forum/upload_avatar.html:22 templates/forum/pm/create_pm.html:28
+#: templates/forum/upload_avatar.html:23
 msgid "Go back"
 msgstr "Назад"
 
-#: templates/forum/add_post.html:53
+#: templates/forum/add_post.html:54
 msgid "Topic review (newest first)"
 msgstr ""
 
-#: templates/forum/add_post.html:69 templates/forum/topic.html:122
+#: templates/forum/add_post.html:70 templates/forum/topic.html:123
 msgid "Quote"
 msgstr "Цитировать"
 
-#: templates/forum/base.html:57
+#: templates/forum/base.html:55
 msgid "Board footer"
 msgstr ""
 
-#: templates/forum/delete_posts.html:34 templates/forum/topic.html:93
+#: templates/forum/delete_posts.html:35 templates/forum/topic.html:93
 msgid "Edited"
 msgstr "Отредактировано"
 
-#: templates/forum/delete_posts.html:38 templates/forum/moderate.html:26
+#: templates/forum/delete_posts.html:39 templates/forum/moderate.html:27
 msgid "Select"
 msgstr "Выбрать"
 
-#: templates/forum/delete_posts.html:50 templates/forum/moderate.html:67
-#: templates/forum/reputation.html:27 templates/forum/topic.html:115
-#: templates/forum/pm/message.html:75
+#: templates/forum/delete_posts.html:51 templates/forum/moderate.html:68
+#: templates/forum/reputation.html:28 templates/forum/topic.html:115
 msgid "Delete"
 msgstr "Удалить"
 
@@ -530,42 +509,42 @@ msgstr "Удалить"
 msgid "Edit post"
 msgstr "Редактировать поста"
 
-#: templates/forum/edit_post.html:20
+#: templates/forum/edit_post.html:21
 msgid "Edit the post and submit changes"
 msgstr "Отредактировать пост и отправить изменения"
 
-#: templates/forum/edit_post.html:33
+#: templates/forum/edit_post.html:34
 msgid "Save"
 msgstr "Сохранить"
 
-#: templates/forum/forum.html:28 templates/forum/moderate.html:23
+#: templates/forum/forum.html:28 templates/forum/moderate.html:24
 #: templates/forum/search_topics.html:23
 msgid "Replies"
 msgstr "Ответов"
 
-#: templates/forum/forum.html:29 templates/forum/moderate.html:24
+#: templates/forum/forum.html:29 templates/forum/moderate.html:25
 msgid "Views"
 msgstr "Просмотров"
 
-#: templates/forum/forum.html:30 templates/forum/index.html:20
-#: templates/forum/moderate.html:25 templates/forum/search_topics.html:24
+#: templates/forum/forum.html:30 templates/forum/index.html:56
+#: templates/forum/moderate.html:26 templates/forum/search_topics.html:24
 msgid "Last post"
 msgstr "Последнее сообщение"
 
-#: templates/forum/forum.html:42 templates/forum/moderate.html:38
+#: templates/forum/forum.html:42 templates/forum/moderate.html:39
 #, fuzzy
 msgid "Sticky:"
 msgstr "Выделено"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
-#: templates/forum/forum.html:54 templates/forum/forum_row.html:36
-#: templates/forum/moderate.html:41 templates/forum/moderate.html.py:43
-#: templates/forum/moderate.html:50 templates/forum/search_topics.html:35
+#: templates/forum/forum.html:54 templates/forum/forum_row.html:34
+#: templates/forum/moderate.html:42 templates/forum/moderate.html.py:44
+#: templates/forum/moderate.html:51 templates/forum/search_topics.html:35
 #: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
 msgstr "оставил"
 
-#: templates/forum/forum.html:58 templates/forum/moderate.html:55
+#: templates/forum/forum.html:58 templates/forum/moderate.html:56
 msgid "Forum is empty."
 msgstr "Форум пуст."
 
@@ -573,7 +552,7 @@ msgstr "Форум пуст."
 msgid "Jump to"
 msgstr "Перейти"
 
-#: templates/forum/forum.html:100 templates/forum/topic.html:203
+#: templates/forum/forum.html:100 templates/forum/topic.html:206
 msgid "Go"
 msgstr "Перейти"
 
@@ -601,7 +580,6 @@ msgid "Administration"
 msgstr "Администрирование"
 
 #: templates/forum/header.html:25 templates/forum/topic.html:75
-#: templates/forum/pm/message.html:43
 msgid "PM"
 msgstr "ЛС"
 
@@ -650,68 +628,68 @@ msgstr "Пометить все форумы как прочитанные"
 msgid "Notice"
 msgstr "Уведомления"
 
-#: templates/forum/index.html:35
+#: templates/forum/index.html:71
 msgid "Board information"
 msgstr ""
 
-#: templates/forum/index.html:39
+#: templates/forum/index.html:75
 msgid "Board statistics"
 msgstr "Статистика форума"
 
-#: templates/forum/index.html:40
+#: templates/forum/index.html:76
 msgid "Total number of registered users:"
 msgstr "Всего зарегистрированных пользователей:"
 
-#: templates/forum/index.html:41
+#: templates/forum/index.html:77
 msgid "Total number of topics:"
 msgstr "Всего тем:"
 
-#: templates/forum/index.html:42
+#: templates/forum/index.html:78
 msgid "Total number of posts:"
 msgstr "Всего сообщений:"
 
-#: templates/forum/index.html:45
+#: templates/forum/index.html:81
 msgid "User information"
 msgstr "Информация пользователя"
 
-#: templates/forum/index.html:46
+#: templates/forum/index.html:82
 msgid "Newest registered user:"
 msgstr "Последний зарегистрированный пользователь:"
 
-#: templates/forum/index.html:47
+#: templates/forum/index.html:83
 msgid "Registered users online:"
 msgstr "Сейчас зарегистрированных посетителей:"
 
-#: templates/forum/index.html:48
+#: templates/forum/index.html:84
 msgid "Guests online:"
 msgstr "Сейчас гостей:"
 
-#: templates/forum/index.html:52
+#: templates/forum/index.html:88
 msgid "Online:"
 msgstr "Пользователи онлайн:"
 
-#: templates/forum/index.html:76 templates/forum/search_posts.html:67
+#: templates/forum/index.html:112 templates/forum/search_posts.html:67
 #: templates/forum/search_topics.html:76
 #, fuzzy
 msgid "Search links"
 msgstr "Поиск"
 
-#: templates/forum/index.html:77 templates/forum/search_posts.html:68
+#: templates/forum/index.html:113 templates/forum/search_posts.html:68
 #: templates/forum/search_topics.html:77
 msgid "Show recent posts"
 msgstr "Показать последние сообщения"
 
-#: templates/forum/index.html:78 templates/forum/search_posts.html:69
+#: templates/forum/index.html:114 templates/forum/search_posts.html:69
 #: templates/forum/search_topics.html:78
 msgid "Show unanswered posts"
 msgstr "Показать сообщения, не имеющие ответов"
 
-#: templates/forum/index.html:80 templates/forum/search_posts.html:71
+#: templates/forum/index.html:116 templates/forum/search_posts.html:71
 #: templates/forum/search_topics.html:80
 msgid "Show your subscribed topics"
 msgstr "Показать сообщения на которые Вы подписаны"
 
-#: templates/forum/index.html:81 templates/forum/search_posts.html:72
+#: templates/forum/index.html:117 templates/forum/search_posts.html:72
 #: templates/forum/search_topics.html:81
 msgid "Show your posts"
 msgstr "Показать ваши сообщения"
@@ -720,23 +698,27 @@ msgstr "Показать ваши сообщения"
 msgid "Send e-mail to"
 msgstr "Отправить e-mail"
 
-#: templates/forum/mail_to.html:12
+#: templates/forum/mail_to.html:13
 msgid "Write and submit your e-mail message"
 msgstr "Напишите и отправьте ваше сообщение"
 
-#: templates/forum/mail_to.html:20
-msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
-msgstr "Пожалуйста, обратите внимание, что при использовании этой формы, ваш электронный адрес станет известен получателю."
+#: templates/forum/mail_to.html:21
+msgid ""
+"Please note that by using this form, your e-mail address will be disclosed "
+"to the recipient."
+msgstr ""
+"Пожалуйста, обратите внимание, что при использовании этой формы, ваш "
+"электронный адрес станет известен получателю."
 
-#: templates/forum/moderate.html:66 templates/forum/move_topic.html:33
+#: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
 msgstr "Перенести"
 
-#: templates/forum/moderate.html:68
+#: templates/forum/moderate.html:69
 msgid "Open"
 msgstr "Открыть"
 
-#: templates/forum/moderate.html:69
+#: templates/forum/moderate.html:70
 msgid "Close"
 msgstr "Закрыть"
 
@@ -744,15 +726,15 @@ msgstr "Закрыть"
 msgid "Moderated by"
 msgstr "Модераторы"
 
-#: templates/forum/move_topic.html:7 templates/forum/topic.html:209
+#: templates/forum/move_topic.html:7 templates/forum/topic.html:212
 msgid "Move topic"
 msgstr "Перенести тему"
 
-#: templates/forum/move_topic.html:15
+#: templates/forum/move_topic.html:16
 msgid "Select destination of move"
 msgstr "Выберите назначение для переноса"
 
-#: templates/forum/move_topic.html:17
+#: templates/forum/move_topic.html:18
 msgid "Move to"
 msgstr "Перенести в"
 
@@ -764,34 +746,35 @@ msgstr "Страницы"
 msgid "Report post"
 msgstr "Жалоба на сообщение"
 
-#: templates/forum/report.html:12
+#: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
-msgstr "Пожалуйста, сделайте краткое описание причины, по которой вы обращаете внимание модератора на это сообщение"
+msgstr ""
+"Пожалуйста, сделайте краткое описание причины, по которой вы обращаете "
+"внимание модератора на это сообщение"
 
-#: templates/forum/reputation.html:15
+#: templates/forum/reputation.html:16
 msgid "Reputation of the user"
 msgstr "Репутация пользователя"
 
-#: templates/forum/reputation.html:21
+#: templates/forum/reputation.html:22
 msgid "From user"
 msgstr "От пользователя"
 
-#: templates/forum/reputation.html:22
+#: templates/forum/reputation.html:23
 #, fuzzy
 msgid "For post in topic"
 msgstr "За тему"
 
-#: templates/forum/reputation.html:24
+#: templates/forum/reputation.html:25
 #, fuzzy
 msgid "Estimation"
 msgstr "Позиция"
 
-#: templates/forum/reputation.html:25 templates/forum/pm/inbox.html:14
-#: templates/forum/pm/outbox.html:14
+#: templates/forum/reputation.html:26
 msgid "Date"
 msgstr "Дата"
 
-#: templates/forum/reputation.html:62
+#: templates/forum/reputation.html:63
 msgid "Are you sure"
 msgstr "Вы уверены"
 
@@ -799,23 +782,23 @@ msgstr "Вы уверены"
 msgid "Please, fill the form"
 msgstr "Пожалуйста, заполните форму"
 
-#: templates/forum/reputation_form.html:16
+#: templates/forum/reputation_form.html:17
 msgid "Your name:"
 msgstr "Ваше имя:"
 
-#: templates/forum/reputation_form.html:20
+#: templates/forum/reputation_form.html:21
 msgid "To whom we change a reputation:"
 msgstr "Кому вы меняете репутацию:"
 
-#: templates/forum/reputation_form.html:28
+#: templates/forum/reputation_form.html:29
 msgid "Method:"
 msgstr "Метод:"
 
-#: templates/forum/reputation_form.html:31
+#: templates/forum/reputation_form.html:32
 msgid "Add of a reputation"
 msgstr "Поднять репутацию"
 
-#: templates/forum/reputation_form.html:33
+#: templates/forum/reputation_form.html:34
 msgid "Reduction of a reputation"
 msgstr "Понизить репутацию"
 
@@ -824,8 +807,14 @@ msgid "Enter your search criteria"
 msgstr "Введите критерии поиска"
 
 #: templates/forum/search_form.html:18
-msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
-msgstr "Для поиска по ключевому слову, введите одно или несколько. Разделяйте слова пробелом. Для поиска по автору, введите имя пользователя, сообщения которого вы желаете найти."
+msgid ""
+"To search by keyword, enter a term or terms to search for. Separate terms "
+"with spaces. To search by author enter the username of the author whose "
+"posts you wish to search for."
+msgstr ""
+"Для поиска по ключевому слову, введите одно или несколько. Разделяйте слова "
+"пробелом. Для поиска по автору, введите имя пользователя, сообщения которого "
+"вы желаете найти."
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
@@ -836,7 +825,9 @@ msgid "All forums"
 msgstr "Все форумы"
 
 #: templates/forum/search_form.html:44
-msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
+msgid ""
+"Choose in which forum you would like to search and if you want to search in "
+"topic subjects, message text or both."
 msgstr "Выберите в каком форуме вы желаете искать и место поиска."
 
 #: templates/forum/search_form.html:51
@@ -845,7 +836,8 @@ msgstr "Выберите как отображать результаты пои
 
 #: templates/forum/search_form.html:66
 msgid "You can choose how you wish to sort and show your results."
-msgstr "Вы можете выбрать, как сортировать и отображать результат вашего поиска."
+msgstr ""
+"Вы можете выбрать, как сортировать и отображать результат вашего поиска."
 
 #: templates/forum/search_posts.html:24
 msgid "Replies:"
@@ -868,7 +860,7 @@ msgid "Search results"
 msgstr "Результаты поиска"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:121
-#: templates/forum/topic.html:132 templates/forum/pm/message.html:80
+#: templates/forum/topic.html:134
 msgid "Reply"
 msgstr "Ответить"
 
@@ -877,18 +869,16 @@ msgid "From:"
 msgstr "От:"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
-#: templates/forum/pm/message.html:30
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
 msgstr "Зарегистрирован:"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
-#: templates/forum/pm/message.html:31
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
 msgstr "Сообщения:"
 
-#: templates/forum/topic.html:54 templates/forum/pm/message.html:33
+#: templates/forum/topic.html:54
 msgid "IP:"
 msgstr ""
 
@@ -901,15 +891,15 @@ msgstr "Отправить e-mail"
 msgid "Attachments:"
 msgstr "Прикреплённый файлы:"
 
-#: templates/forum/topic.html:105 templates/forum/pm/message.html:65
+#: templates/forum/topic.html:105
 msgid "Online"
 msgstr "Онлайн"
 
-#: templates/forum/topic.html:107 templates/forum/pm/message.html:67
+#: templates/forum/topic.html:107
 msgid "Offline"
 msgstr "Офлайн"
 
-#: templates/forum/topic.html:115 templates/forum/pm/message.html:75
+#: templates/forum/topic.html:115
 msgid "Are you sure you want to delete this post?"
 msgstr "Вы уверены, что хотите удалить это сообщение?"
 
@@ -917,43 +907,43 @@ msgstr "Вы уверены, что хотите удалить это сооб�
 msgid "Edit"
 msgstr "Редактировать"
 
-#: templates/forum/topic.html:138
+#: templates/forum/topic.html:140
 msgid "Unsubscribe"
 msgstr "Запретить уведомления"
 
-#: templates/forum/topic.html:140
+#: templates/forum/topic.html:142
 msgid "Subscribe"
 msgstr "Получать уведомления"
 
-#: templates/forum/topic.html:148
+#: templates/forum/topic.html:150
 msgid "Quick post"
 msgstr "Быстрый ответ"
 
-#: templates/forum/topic.html:192
+#: templates/forum/topic.html:195
 msgid "Jump to "
 msgstr "Перейти"
 
-#: templates/forum/topic.html:206
+#: templates/forum/topic.html:209
 msgid "Moderator control"
 msgstr "Модераторировать"
 
-#: templates/forum/topic.html:208
+#: templates/forum/topic.html:211
 msgid "Delete multiple posts"
 msgstr "Удалить сообщения"
 
-#: templates/forum/topic.html:211
+#: templates/forum/topic.html:214
 msgid "Open topic"
 msgstr "Открыть тему"
 
-#: templates/forum/topic.html:213
+#: templates/forum/topic.html:216
 msgid "Close topic"
 msgstr "Закрыть тему"
 
-#: templates/forum/topic.html:216
+#: templates/forum/topic.html:219
 msgid "Unstick topic"
 msgstr "Убрать выделение"
 
-#: templates/forum/topic.html:218
+#: templates/forum/topic.html:221
 msgid "Stick topic"
 msgstr "Выделить тему"
 
@@ -963,16 +953,22 @@ msgstr "Выделить тему"
 msgid "Upload avatar"
 msgstr "Изменить аватар"
 
-#: templates/forum/upload_avatar.html:12
+#: templates/forum/upload_avatar.html:13
 msgid "Enter an avatar file to upload"
 msgstr "Укажите файл с аватаром для загрузки"
 
-#: templates/forum/upload_avatar.html:18
+#: templates/forum/upload_avatar.html:19
 #, python-format
-msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
-msgstr "Аватар - это маленькое изображение, которое будет отображаться под Вашим именем в сообщениях на форуме. Оно не может быть больше чем %(avatar_width)s  x %(avatar_height)s  пикселей "
+msgid ""
+"An avatar is a small image that will be displayed under your username in "
+"your posts. It must not be any bigger than %(avatar_width)s x %"
+"(avatar_height)s pixels "
+msgstr ""
+"Аватар - это маленькое изображение, которое будет отображаться под Вашим "
+"именем в сообщениях на форуме. Оно не может быть больше чем %(avatar_width)"
+"s  x %(avatar_height)s  пикселей "
 
-#: templates/forum/upload_avatar.html:22
+#: templates/forum/upload_avatar.html:23
 msgid "Upload"
 msgstr "Загрузить"
 
@@ -1080,8 +1076,14 @@ msgid "Find and sort users"
 msgstr "Поиск и сортировка пользователей"
 
 #: templates/forum/users.html:25
-msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
-msgstr "Введите имя пользователя для поиска . Имя пользователя может быть пустым. Отсортируйте пользователей по имени, дате регистрации или количеству переданных сообщений и упорядочите по возрастанию/убыванию."
+msgid ""
+"Enter a username to search for. The username field can be left blank. Sort "
+"users by name, date registered or number of posts and in ascending/"
+"descending order."
+msgstr ""
+"Введите имя пользователя для поиска . Имя пользователя может быть пустым. "
+"Отсортируйте пользователей по имени, дате регистрации или количеству "
+"переданных сообщений и упорядочите по возрастанию/убыванию."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
@@ -1100,46 +1102,6 @@ msgstr "ответов"
 msgid "posts"
 msgstr "сообщений"
 
-#: templates/forum/pm/create_pm.html:9
-msgid "Send a message"
-msgstr "Отправить сообщение"
-
-#: templates/forum/pm/create_pm.html:28
-msgid "Send"
-msgstr "Отправленные"
-
-#: templates/forum/pm/inbox.html:6 templates/forum/pm/menu_pm.html:7
-msgid "Inbox"
-msgstr "Входящие"
-
-#: templates/forum/pm/inbox.html:13
-msgid "Sender"
-msgstr "Отправитель"
-
-#: templates/forum/pm/inbox.html:34 templates/forum/pm/outbox.html:34
-msgid "No messages"
-msgstr "Сообщений нет"
-
-#: templates/forum/pm/menu_pm.html:3
-msgid "Private Messages"
-msgstr "Личные сообщения"
-
-#: templates/forum/pm/menu_pm.html:8
-msgid "Sent"
-msgstr "Отправить"
-
-#: templates/forum/pm/menu_pm.html:9
-msgid "Send new message"
-msgstr "Отправить новое сообщение"
-
-#: templates/forum/pm/outbox.html:6
-msgid "Outbox"
-msgstr "Отправленные"
-
-#: templates/forum/pm/outbox.html:13
-msgid "Receiver"
-msgstr "Получатель"
-
 #: templates/forum/profile/profile_admin.html:15
 msgid "Delete (administrators only) or ban user"
 msgstr "Удалить (только для администратора) или забанить пользователя"
@@ -1157,8 +1119,14 @@ msgid "Set moderator access"
 msgstr "Права модератора"
 
 #: templates/forum/profile/profile_admin.html:26
-msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
-msgstr "Выбери форумы в которых данный пользователь будет модератором. Примечание: это касается только модераторов. Администраторы имеют полные права доступа во всех форумах."
+msgid ""
+"Choose what forums this user should be allowed to moderate. Note: This only "
+"applies to moderators. Administrators always have full permissions in all "
+"forums."
+msgstr ""
+"Выбери форумы в которых данный пользователь будет модератором. Примечание: "
+"это касается только модераторов. Администраторы имеют полные права доступа "
+"во всех форумах."
 
 #: templates/forum/profile/profile_admin.html:30
 #, fuzzy
@@ -1176,16 +1144,26 @@ msgstr "Выберити стиль отображения"
 
 #: templates/forum/profile/profile_display.html:17
 msgid "If you like you can use a different visual style for this forum."
-msgstr "При желании, вы можете использовать другой визуальный стиль для этого форума."
+msgstr ""
+"При желании, вы можете использовать другой визуальный стиль для этого форума."
 
-#: templates/forum/profile/profile_display.html:24
+#: templates/forum/profile/profile_display.html:34
+msgid "Post display legend"
+msgstr ""
+
+#: templates/forum/profile/profile_display.html:36
+msgid "Post display info"
+msgstr ""
+
+#: templates/forum/profile/profile_display.html:44
 #: templates/forum/profile/profile_essentials.html:81
 #: templates/forum/profile/profile_messaging.html:30
 #: templates/forum/profile/profile_personal.html:31
 #: templates/forum/profile/profile_personality.html:53
 #: templates/forum/profile/profile_privacy.html:25
 msgid "When you update your profile, you will be redirected back to this page."
-msgstr "После обновления профиля, вы будете перенаправлены назад на эту страницу."
+msgstr ""
+"После обновления профиля, вы будете перенаправлены назад на эту страницу."
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
@@ -1210,11 +1188,16 @@ msgid "Set your localisation options"
 msgstr "Выберите свои региональные настройки"
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid "Timezone: For the forum to display times correctly you must select your local timezone."
-msgstr "Часовой пояс: Для того, чтобы время отображалось правильно, вы должны выбрать часовой пояс для местности, откуда вы посещаете форум."
+msgid ""
+"Timezone: For the forum to display times correctly you must select your "
+"local timezone."
+msgstr ""
+"Часовой пояс: Для того, чтобы время отображалось правильно, вы должны "
+"выбрать часовой пояс для местности, откуда вы посещаете форум."
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid "Language: You can choose which language you wish to use to view the forum"
+msgid ""
+"Language: You can choose which language you wish to use to view the forum"
 msgstr "Язык: Вы можете выбрать язык для отображения форума"
 
 #: templates/forum/profile/profile_menu.html:3
@@ -1239,8 +1222,15 @@ msgid "Set your avatar display options"
 msgstr "Настройка отображения аватара"
 
 #: templates/forum/profile/profile_personality.html:20
-msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
-msgstr "Аватар - это маленькое изображение, которое будет отображаться под Вашим именем в сообщениях на форуме. Вы можете загрузить аватар, нажав на ссылку ниже. Для того чтобы аватар был виден в ваших сообщениях, отметьте галочкой поле 'Использовать аватар'."
+msgid ""
+"An avatar is a small image that will be displayed with all your posts. You "
+"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
+"below must be checked in order for the avatar to be visible in your posts."
+msgstr ""
+"Аватар - это маленькое изображение, которое будет отображаться под Вашим "
+"именем в сообщениях на форуме. Вы можете загрузить аватар, нажав на ссылку "
+"ниже. Для того чтобы аватар был виден в ваших сообщениях, отметьте галочкой "
+"поле 'Использовать аватар'."
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
@@ -1255,8 +1245,18 @@ msgid "Compose your signature"
 msgstr "Составте вашу подпись"
 
 #: templates/forum/profile/profile_personality.html:39
-msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
-msgstr "Подпись - это небольшая приписка, прилагаемая к вашим сообщениям. Это может быть все, что вам нравится. Например, ваша любимая цитата. В подписи можно использовать встроенные теги BBCode, если это разрешено администратором. Что разрешено, можно увидеть слева, при редактировании подписи."
+msgid ""
+"A signature is a small piece of text that is attached to your posts. In it, "
+"you can enter just about anything you like. Perhaps you would like to enter "
+"your favourite quote or your star sign. It's up to you! In your signature "
+"you can use BBCode if it is allowed in this particular forum. You can see "
+"the features that are allowed/enabled listed below whenever you edit your "
+"signature."
+msgstr ""
+"Подпись - это небольшая приписка, прилагаемая к вашим сообщениям. Это может "
+"быть все, что вам нравится. Например, ваша любимая цитата. В подписи можно "
+"использовать встроенные теги BBCode, если это разрешено администратором. Что "
+"разрешено, можно увидеть слева, при редактировании подписи."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1267,8 +1267,59 @@ msgid "Set your privacy options"
 msgstr "Выберите свои личные настройки"
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
-msgstr "Выберете, каким образом вы хотите, чтобы ваш e-mail адрес отображался на форуме, и хотите ли вы, чтобы другие пользователи имели возможность слать вам e-mail сообщения через форум или нет."
+msgid ""
+"Select whether you want your e-mail address to be viewable to other users or "
+"not and if you want other users to be able to send you e-mail via the forum "
+"(form e-mail) or not."
+msgstr ""
+"Выберете, каким образом вы хотите, чтобы ваш e-mail адрес отображался на "
+"форуме, и хотите ли вы, чтобы другие пользователи имели возможность слать "
+"вам e-mail сообщения через форум или нет."
+
+#~ msgid "Recipient"
+#~ msgstr "Получатель"
+
+#~ msgid "Read"
+#~ msgstr "Просмотр"
+
+#~ msgid "Text version"
+#~ msgstr "Текстовая версия"
+
+#~ msgid "Private message"
+#~ msgstr "Приватное сообщение"
+
+#~ msgid "Private messages"
+#~ msgstr "Приватные сообщения"
+
+#~ msgid "Send a message"
+#~ msgstr "Отправить сообщение"
+
+#~ msgid "Send"
+#~ msgstr "Отправленные"
+
+#~ msgid "Inbox"
+#~ msgstr "Входящие"
+
+#~ msgid "Sender"
+#~ msgstr "Отправитель"
+
+#~ msgid "No messages"
+#~ msgstr "Сообщений нет"
+
+#~ msgid "Private Messages"
+#~ msgstr "Личные сообщения"
+
+#~ msgid "Sent"
+#~ msgstr "Отправить"
+
+#~ msgid "Send new message"
+#~ msgstr "Отправить новое сообщение"
+
+#~ msgid "Outbox"
+#~ msgstr "Отправленные"
+
+#~ msgid "Receiver"
+#~ msgstr "Получатель"
 
 #~ msgid "The reason of change of reputation:"
 #~ msgstr "Причина изменения репутации:"

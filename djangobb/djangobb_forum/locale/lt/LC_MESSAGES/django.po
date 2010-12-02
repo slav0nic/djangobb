@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Djangobb dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-22 21:24+0300\n"
+"POT-Creation-Date: 2010-12-02 11:17+0200\n"
 "PO-Revision-Date: 2010-01-05 13:49+0200\n"
 "Last-Translator: Arns Udovīčė <zordsdavini@gmail.com>\n"
 "Language-Team:  <>\n"
@@ -15,347 +15,344 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: feeds.py:23 feeds.py:24 templates/forum/base.html:18
+#: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
 msgstr "Naujausi įrašai forume"
 
-#: feeds.py:33 feeds.py:34 templates/forum/base.html:19
+#: feeds.py:45 feeds.py:46 templates/forum/base.html:15
 msgid "Latest topics on forum"
 msgstr "Naujausios temos forume"
 
-#: feeds.py:52 feeds.py:60
+#: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s topic"
 msgstr "Naujausi įrašai %s temoje"
 
-#: feeds.py:76 feeds.py:84
+#: feeds.py:103 feeds.py:111
 #, python-format
 msgid "Latest posts on %s forum"
 msgstr "Naujausi įrašai %s forume"
 
-#: feeds.py:100 feeds.py:103
+#: feeds.py:130 feeds.py:133
 #, python-format
 msgid "Latest posts on %s category"
 msgstr "Naujausi įrašai %s kategorijoje"
 
-#: forms.py:20 forms.py:141 forms.py:249 templates/forum/users.html:45
+#: forms.py:21 forms.py:142 forms.py:251 templates/forum/users.html:45
 msgid "Username"
 msgstr "Vartotojo vardas"
 
-#: forms.py:21 templates/forum/users.html:48
+#: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
 msgstr "Registruotas"
 
-#: forms.py:22
+#: forms.py:23
 msgid "No. of posts"
 msgstr "Įrašų skaičius"
 
-#: forms.py:26
+#: forms.py:27
 msgid "Post time"
 msgstr "Parašyta"
 
-#: forms.py:27 models.py:336
+#: forms.py:28
 msgid "Author"
 msgstr "Autorius"
 
-#: forms.py:28 forms.py:50 forms.py:115 forms.py:336 models.py:115
-#: models.py:340 templates/forum/add_post.html:26
-#: templates/forum/edit_post.html:23 templates/forum/pm/inbox.html:12
-#: templates/forum/pm/outbox.html:12
+#: forms.py:29 forms.py:51 forms.py:116 forms.py:338 models.py:121
+#: templates/forum/add_post.html:27 templates/forum/edit_post.html:24
 msgid "Subject"
 msgstr "Pavadinimas"
 
-#: forms.py:29 forms.py:284 models.py:98 models.py:114
-#: templates/forum/index.html:17 templates/forum/search_topics.html:22
+#: forms.py:30 forms.py:286 models.py:104 models.py:120
+#: templates/forum/index.html:53 templates/forum/search_topics.html:22
 msgid "Forum"
 msgstr "Diskusijų forumas"
 
-#: forms.py:33
+#: forms.py:34
 msgid "Ascending"
 msgstr "Didėjančia tvarka"
 
-#: forms.py:34
+#: forms.py:35
 msgid "Descending"
 msgstr "Mažėjančia tvarka"
 
-#: forms.py:38 models.py:129 templates/forum/index.html:18
+#: forms.py:39 models.py:135 templates/forum/index.html:54
 msgid "Topics"
 msgstr "Temos"
 
-#: forms.py:39 models.py:186 templates/forum/index.html:19
+#: forms.py:40 models.py:192 templates/forum/index.html:55
 #: templates/forum/users.html:47
 msgid "Posts"
 msgstr "Įrašai"
 
-#: forms.py:43
+#: forms.py:44
 msgid "Message text and topic subject"
 msgstr "Žinutės textas ir temos pavadinimas"
 
-#: forms.py:44
+#: forms.py:45
 msgid "Message text only"
 msgstr "Tik žinutės tekstas"
 
-#: forms.py:45
+#: forms.py:46
 msgid "Topic subject only"
 msgstr "Tik temos pavadinimas"
 
-#: forms.py:52 templates/forum/add_post.html:35 templates/forum/topic.html:162
+#: forms.py:53 templates/forum/add_post.html:36 templates/forum/topic.html:165
 msgid "Attachment"
 msgstr "Prikabintas failas"
 
-#: forms.py:79
+#: forms.py:80
 msgid "Attachment is too big"
 msgstr "Prikabintas failas per didelis"
 
-#: forms.py:142 templates/forum/topic.html:67
-#: templates/forum/pm/message.html:40
+#: forms.py:143 templates/forum/topic.html:67
 msgid "E-mail"
 msgstr "E-paštas"
 
-#: forms.py:172
+#: forms.py:173
 msgid "Real name"
 msgstr "Tikras vardas"
 
-#: forms.py:251 forms.py:286
+#: forms.py:253 forms.py:288
 msgid "Sort by"
 msgstr "Rūšiuoti pagal"
 
-#: forms.py:252 forms.py:287
+#: forms.py:254 forms.py:289
 msgid "Sort order"
 msgstr "Rūšiavimo tvarka"
 
-#: forms.py:280
+#: forms.py:282
 msgid "Keyword search"
 msgstr "Reikšminių žodžių paieška"
 
-#: forms.py:282
+#: forms.py:284
 msgid "Author search"
 msgstr "Autorių paieška"
 
-#: forms.py:285
+#: forms.py:287
 msgid "Search in"
 msgstr "Ieškoti"
 
-#: forms.py:288
+#: forms.py:290
 msgid "Show results as"
 msgstr "Rodyti rezultatus kaip"
 
-#: forms.py:313 forms.py:384
+#: forms.py:315
 #, python-format
 msgid "User with login %s does not exist"
 msgstr "Vartotojas prisijungimu %s neegzistuoja"
 
-#: forms.py:323
+#: forms.py:325
 msgid "You already voted for this post"
 msgstr ""
 
-#: forms.py:338 models.py:177 models.py:341 templates/forum/add_post.html:28
-#: templates/forum/edit_post.html:26
+#: forms.py:340 models.py:183 templates/forum/add_post.html:29
+#: templates/forum/edit_post.html:27
 msgid "Message"
 msgstr "Žinutė"
 
-#: forms.py:366 models.py:335
-msgid "Recipient"
-msgstr "Gavėjas"
-
-#: models.py:35
+#: models.py:39
 msgid "Display your e-mail address."
 msgstr "Rodyti jūsų e-pašto adresą."
 
-#: models.py:36
+#: models.py:40
 msgid "Hide your e-mail address but allow form e-mail."
 msgstr "Slėpti jūsų e-pašto adresą, bet leisti siųsti per formą"
 
-#: models.py:37
+#: models.py:41
 msgid "Hide your e-mail address and disallow form e-mail."
 msgstr "Slėpti jūsų e-pašto adresą ir neleisti siųsti per formą"
 
-#: models.py:50 models.py:87 models.py:407
+#: models.py:56 models.py:93 models.py:362
 msgid "Name"
 msgstr "Pavadinimas"
 
-#: models.py:51
+#: models.py:57
 msgid "Groups"
 msgstr "Grupės"
 
-#: models.py:51
+#: models.py:57
 msgid "Only users from these groups can see this category"
 msgstr "Tik vartotojai iš šių grupių gali matyti šią kategoriją"
 
-#: models.py:52 models.py:88
+#: models.py:58 models.py:94
 msgid "Position"
 msgstr "Pozicija"
 
-#: models.py:56 models.py:86
+#: models.py:62 models.py:92
 msgid "Category"
 msgstr "Kategorija"
 
-#: models.py:57
+#: models.py:63
 msgid "Categories"
 msgstr "Kategorijos"
 
-#: models.py:89
+#: models.py:95
 msgid "Description"
 msgstr "Paaiškinimas"
 
-#: models.py:90
+#: models.py:96
 msgid "Moderators"
 msgstr "Moderatoriai"
 
-#: models.py:91 models.py:117 models.py:174
+#: models.py:97 models.py:123 models.py:180
 msgid "Updated"
 msgstr "Atnaujinta"
 
-#: models.py:92 models.py:123 models.py:280
+#: models.py:98 models.py:129 models.py:280
 msgid "Post count"
 msgstr "Įrašų skaičius"
 
-#: models.py:93
+#: models.py:99
 msgid "Topic count"
 msgstr "Temų skaičius"
 
-#: models.py:99
+#: models.py:105
 msgid "Forums"
 msgstr "Forumai"
 
-#: models.py:116 models.py:173 models.py:323 models.py:338
+#: models.py:122 models.py:179 models.py:323
 msgid "Created"
 msgstr "Sukurtas"
 
-#: models.py:118 models.py:172 models.py:262
+#: models.py:124 models.py:178 models.py:261
 msgid "User"
 msgstr "Vartotojas"
 
-#: models.py:119
+#: models.py:125
 msgid "Views count"
 msgstr "Peržiūrų skaičius"
 
-#: models.py:120
+#: models.py:126
 msgid "Sticky"
 msgstr "Visada viršuje"
 
-#: models.py:121
+#: models.py:127
 msgid "Closed"
 msgstr "Uždarytas"
 
-#: models.py:122
+#: models.py:128
 msgid "Subscribers"
 msgstr "Prenumeratoriai"
 
-#: models.py:128 models.py:171 templates/forum/forum.html:27
-#: templates/forum/moderate.html:22 templates/forum/search_topics.html:21
+#: models.py:134 models.py:177 templates/forum/forum.html:27
+#: templates/forum/moderate.html:23 templates/forum/search_topics.html:21
 msgid "Topic"
 msgstr "Tema"
 
-#: models.py:175
+#: models.py:181
 #, fuzzy
 msgid "Updated by"
 msgstr "Atnaujinta"
 
-#: models.py:176 models.py:339
+#: models.py:182 templates/forum/profile/profile_display.html:24
 msgid "Markup"
 msgstr "Markup"
 
-#: models.py:178 models.py:342
+#: models.py:184
 msgid "HTML version"
 msgstr "HTML versija"
 
-#: models.py:179
+#: models.py:185
 msgid "User IP"
 msgstr "Vartotojo IP"
 
-#: models.py:185 models.py:247 models.py:320 models.py:403
+#: models.py:191 models.py:246 models.py:320 models.py:358
 msgid "Post"
 msgstr "Siųsti"
 
-#: models.py:245
+#: models.py:244
 msgid "From"
 msgstr "Nuo"
 
-#: models.py:246
+#: models.py:245
 msgid "To"
 msgstr "Kam"
 
-#: models.py:248
+#: models.py:247
 msgid "Time"
 msgstr "Laikas"
 
-#: models.py:249
+#: models.py:248
 msgid "Sign"
 msgstr "Pasirašyti"
 
-#: models.py:250 models.py:324 models.py:382 templates/forum/report.html:15
-#: templates/forum/reputation.html:23
+#: models.py:249 models.py:324 models.py:337 templates/forum/report.html:16
+#: templates/forum/reputation.html:24
 msgid "Reason"
 msgstr "Priežastis"
 
-#: models.py:253 templates/forum/topic.html:57
-#: templates/forum/pm/message.html:36
+#: models.py:252 templates/forum/topic.html:57
 msgid "Reputation"
 msgstr "Reputacija"
 
-#: models.py:254
+#: models.py:253
 msgid "Reputations"
 msgstr "Reputacijos"
 
-#: models.py:263
+#: models.py:262
 msgid "Status"
 msgstr "Statusas"
 
-#: models.py:264
+#: models.py:263
 msgid "Site"
 msgstr "Svetainė"
 
-#: models.py:265
+#: models.py:264
 msgid "Jabber"
 msgstr "Jabber"
 
-#: models.py:266
+#: models.py:265
 msgid "ICQ"
 msgstr "ICQ"
 
-#: models.py:267
+#: models.py:266
 msgid "MSN"
 msgstr "MSN"
 
-#: models.py:268
+#: models.py:267
 msgid "AIM"
 msgstr "AIM"
 
-#: models.py:269
+#: models.py:268
 msgid "Yahoo"
 msgstr "Yahoo"
 
-#: models.py:270 templates/forum/user.html:25
+#: models.py:269 templates/forum/user.html:25
 msgid "Location"
 msgstr "Vieta"
 
-#: models.py:271
+#: models.py:270
 msgid "Signature"
 msgstr "Parašas"
 
-#: models.py:272
+#: models.py:271
 msgid "Time zone"
 msgstr "Laiko juosta"
 
-#: models.py:273
+#: models.py:272
 msgid "Language"
 msgstr "Kalba"
 
-#: models.py:274
+#: models.py:273
 msgid "Avatar"
 msgstr "Avataras"
 
-#: models.py:275
+#: models.py:274
 msgid "Theme"
 msgstr "Tema"
 
-#: models.py:276
+#: models.py:275
 msgid "Show avatar"
 msgstr "Rodyti avatarą"
 
-#: models.py:277
+#: models.py:276
 msgid "Show signatures"
+msgstr "Rodyti parašą"
+
+#: models.py:277 templates/forum/profile/profile_display.html:39
+#, fuzzy
+msgid "Show smilies"
 msgstr "Rodyti parašą"
 
 #: models.py:278
@@ -367,7 +364,7 @@ msgid "Default markup"
 msgstr "Numatytasis markup"
 
 #: models.py:283 templates/forum/header.html:23 templates/forum/topic.html:65
-#: templates/forum/user.html:7 templates/forum/pm/message.html:38
+#: templates/forum/user.html:7
 msgid "Profile"
 msgstr "Profilis"
 
@@ -399,55 +396,39 @@ msgstr "Pranešimas"
 msgid "Reports"
 msgstr "Pranešimai"
 
-#: models.py:337
-msgid "Read"
-msgstr "Perskaityta"
-
-#: models.py:343
-msgid "Text version"
-msgstr "Tekstinė versija"
-
-#: models.py:347
-msgid "Private message"
-msgstr "Asmeninė žinutė"
-
-#: models.py:348
-msgid "Private messages"
-msgstr "Asmeninės žinutės"
-
-#: models.py:379
+#: models.py:334
 msgid "Banned user"
 msgstr "Užblokuotas vartotojas"
 
-#: models.py:380
+#: models.py:335
 msgid "Ban start"
 msgstr "Blokavimo pradžia"
 
-#: models.py:381
+#: models.py:336
 msgid "Ban end"
 msgstr "Blokavimo pabaiga"
 
-#: models.py:385
+#: models.py:340
 msgid "Ban"
 msgstr "Blokavimas"
 
-#: models.py:386
+#: models.py:341
 msgid "Bans"
 msgstr "Blokavimai"
 
-#: models.py:404
+#: models.py:359
 msgid "Size"
 msgstr "Dydis"
 
-#: models.py:405
+#: models.py:360
 msgid "Content type"
 msgstr "Turinio tipas"
 
-#: models.py:406
+#: models.py:361
 msgid "Path"
 msgstr "Kelias"
 
-#: models.py:408
+#: models.py:363
 msgid "Hash"
 msgstr "Hash"
 
@@ -455,7 +436,7 @@ msgstr "Hash"
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
 #: templates/forum/forum.html:13 templates/forum/forum.html.py:71
 #: templates/forum/moderate.html:9 templates/forum/topic.html:15
-#: templates/forum/topic.html.py:133 templates/forum/lofi/forum.html:8
+#: templates/forum/topic.html.py:135 templates/forum/lofi/forum.html:8
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
@@ -470,15 +451,14 @@ msgstr "Nauja tema"
 msgid "New reply"
 msgstr "Naujas atsakymas"
 
-#: templates/forum/add_post.html:23 templates/forum/topic.html:153
-#: templates/forum/pm/create_pm.html:14
+#: templates/forum/add_post.html:24 templates/forum/topic.html:156
 msgid "Write your message and submit"
 msgstr "Parašyti savo žinutę ir išsiųsti"
 
-#: templates/forum/add_post.html:45 templates/forum/mail_to.html:24
-#: templates/forum/report.html:21 templates/forum/reputation_form.html:40
-#: templates/forum/search_form.html:71 templates/forum/topic.html:171
-#: templates/forum/profile/profile_display.html:24
+#: templates/forum/add_post.html:46 templates/forum/mail_to.html:25
+#: templates/forum/report.html:22 templates/forum/reputation_form.html:41
+#: templates/forum/search_form.html:71 templates/forum/topic.html:174
+#: templates/forum/profile/profile_display.html:44
 #: templates/forum/profile/profile_essentials.html:81
 #: templates/forum/profile/profile_messaging.html:30
 #: templates/forum/profile/profile_personal.html:31
@@ -487,38 +467,37 @@ msgstr "Parašyti savo žinutę ir išsiųsti"
 msgid "Submit"
 msgstr "Siųsti"
 
-#: templates/forum/add_post.html:45 templates/forum/edit_post.html:33
-#: templates/forum/mail_to.html:24 templates/forum/move_topic.html:33
-#: templates/forum/report.html:21 templates/forum/reputation.html:64
-#: templates/forum/reputation_form.html:40
+#: templates/forum/add_post.html:46 templates/forum/edit_post.html:34
+#: templates/forum/mail_to.html:25 templates/forum/move_topic.html:34
+#: templates/forum/report.html:22 templates/forum/reputation.html:65
+#: templates/forum/reputation_form.html:41
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
-#: templates/forum/upload_avatar.html:22 templates/forum/pm/create_pm.html:28
+#: templates/forum/upload_avatar.html:23
 msgid "Go back"
 msgstr "Atgal"
 
-#: templates/forum/add_post.html:53
+#: templates/forum/add_post.html:54
 msgid "Topic review (newest first)"
 msgstr "Peržiūrėti temas (naujausios viršuje)"
 
-#: templates/forum/add_post.html:69 templates/forum/topic.html:122
+#: templates/forum/add_post.html:70 templates/forum/topic.html:123
 msgid "Quote"
 msgstr "Citata"
 
-#: templates/forum/base.html:57
+#: templates/forum/base.html:55
 msgid "Board footer"
 msgstr "Lentos apačia"
 
-#: templates/forum/delete_posts.html:34 templates/forum/topic.html:93
+#: templates/forum/delete_posts.html:35 templates/forum/topic.html:93
 msgid "Edited"
 msgstr "Redaguotas"
 
-#: templates/forum/delete_posts.html:38 templates/forum/moderate.html:26
+#: templates/forum/delete_posts.html:39 templates/forum/moderate.html:27
 msgid "Select"
 msgstr "Pasirinkti"
 
-#: templates/forum/delete_posts.html:50 templates/forum/moderate.html:67
-#: templates/forum/reputation.html:27 templates/forum/topic.html:115
-#: templates/forum/pm/message.html:75
+#: templates/forum/delete_posts.html:51 templates/forum/moderate.html:68
+#: templates/forum/reputation.html:28 templates/forum/topic.html:115
 msgid "Delete"
 msgstr "Ištrinti"
 
@@ -526,41 +505,41 @@ msgstr "Ištrinti"
 msgid "Edit post"
 msgstr "Redaguoti įrašą"
 
-#: templates/forum/edit_post.html:20
+#: templates/forum/edit_post.html:21
 msgid "Edit the post and submit changes"
 msgstr "Redaguoti įrašą ir siųsti pakeitimus"
 
-#: templates/forum/edit_post.html:33
+#: templates/forum/edit_post.html:34
 msgid "Save"
 msgstr "Išsaugoti"
 
-#: templates/forum/forum.html:28 templates/forum/moderate.html:23
+#: templates/forum/forum.html:28 templates/forum/moderate.html:24
 #: templates/forum/search_topics.html:23
 msgid "Replies"
 msgstr "Atsakymai"
 
-#: templates/forum/forum.html:29 templates/forum/moderate.html:24
+#: templates/forum/forum.html:29 templates/forum/moderate.html:25
 msgid "Views"
 msgstr "Žiūrėta"
 
-#: templates/forum/forum.html:30 templates/forum/index.html:20
-#: templates/forum/moderate.html:25 templates/forum/search_topics.html:24
+#: templates/forum/forum.html:30 templates/forum/index.html:56
+#: templates/forum/moderate.html:26 templates/forum/search_topics.html:24
 msgid "Last post"
 msgstr "Paskutinis įrašas"
 
-#: templates/forum/forum.html:42 templates/forum/moderate.html:38
+#: templates/forum/forum.html:42 templates/forum/moderate.html:39
 msgid "Sticky:"
 msgstr "Visada viršuje:"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
-#: templates/forum/forum.html:54 templates/forum/forum_row.html:36
-#: templates/forum/moderate.html:41 templates/forum/moderate.html.py:43
-#: templates/forum/moderate.html:50 templates/forum/search_topics.html:35
+#: templates/forum/forum.html:54 templates/forum/forum_row.html:34
+#: templates/forum/moderate.html:42 templates/forum/moderate.html.py:44
+#: templates/forum/moderate.html:51 templates/forum/search_topics.html:35
 #: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
 msgstr "-"
 
-#: templates/forum/forum.html:58 templates/forum/moderate.html:55
+#: templates/forum/forum.html:58 templates/forum/moderate.html:56
 msgid "Forum is empty."
 msgstr "Forumas yra tuščias."
 
@@ -568,7 +547,7 @@ msgstr "Forumas yra tuščias."
 msgid "Jump to"
 msgstr "Eiti į"
 
-#: templates/forum/forum.html:100 templates/forum/topic.html:203
+#: templates/forum/forum.html:100 templates/forum/topic.html:206
 msgid "Go"
 msgstr "Eiti"
 
@@ -596,7 +575,6 @@ msgid "Administration"
 msgstr "Administravimas"
 
 #: templates/forum/header.html:25 templates/forum/topic.html:75
-#: templates/forum/pm/message.html:43
 msgid "PM"
 msgstr "PM"
 
@@ -645,67 +623,67 @@ msgstr "Pažymėti visas temas perskaitytom"
 msgid "Notice"
 msgstr "Pranešimas"
 
-#: templates/forum/index.html:35
+#: templates/forum/index.html:71
 msgid "Board information"
 msgstr "Lentos informacija"
 
-#: templates/forum/index.html:39
+#: templates/forum/index.html:75
 msgid "Board statistics"
 msgstr "Lentos statistika"
 
-#: templates/forum/index.html:40
+#: templates/forum/index.html:76
 msgid "Total number of registered users:"
 msgstr "Viso registruotų vartotojų:"
 
-#: templates/forum/index.html:41
+#: templates/forum/index.html:77
 msgid "Total number of topics:"
 msgstr "Viso temų:"
 
-#: templates/forum/index.html:42
+#: templates/forum/index.html:78
 msgid "Total number of posts:"
 msgstr "Viso įrašų:"
 
-#: templates/forum/index.html:45
+#: templates/forum/index.html:81
 msgid "User information"
 msgstr "Vartotojo informacija"
 
-#: templates/forum/index.html:46
+#: templates/forum/index.html:82
 msgid "Newest registered user:"
 msgstr "Naujausias vartotojas:"
 
-#: templates/forum/index.html:47
+#: templates/forum/index.html:83
 msgid "Registered users online:"
 msgstr "Prisijungę registruoti vartotojai:"
 
-#: templates/forum/index.html:48
+#: templates/forum/index.html:84
 msgid "Guests online:"
 msgstr "Prisijungę svečiai:"
 
-#: templates/forum/index.html:52
+#: templates/forum/index.html:88
 msgid "Online:"
 msgstr "Prisijungęs:"
 
-#: templates/forum/index.html:76 templates/forum/search_posts.html:67
+#: templates/forum/index.html:112 templates/forum/search_posts.html:67
 #: templates/forum/search_topics.html:76
 msgid "Search links"
 msgstr "Ieškoti tarp nuorodų"
 
-#: templates/forum/index.html:77 templates/forum/search_posts.html:68
+#: templates/forum/index.html:113 templates/forum/search_posts.html:68
 #: templates/forum/search_topics.html:77
 msgid "Show recent posts"
 msgstr "Rodyti naujausius įrašus"
 
-#: templates/forum/index.html:78 templates/forum/search_posts.html:69
+#: templates/forum/index.html:114 templates/forum/search_posts.html:69
 #: templates/forum/search_topics.html:78
 msgid "Show unanswered posts"
 msgstr "Rodyti neatsakytus įrašus"
 
-#: templates/forum/index.html:80 templates/forum/search_posts.html:71
+#: templates/forum/index.html:116 templates/forum/search_posts.html:71
 #: templates/forum/search_topics.html:80
 msgid "Show your subscribed topics"
 msgstr "Rodyti jūsų prenumeruojamas temas"
 
-#: templates/forum/index.html:81 templates/forum/search_posts.html:72
+#: templates/forum/index.html:117 templates/forum/search_posts.html:72
 #: templates/forum/search_topics.html:81
 msgid "Show your posts"
 msgstr "Rodyti jūsų įrašus"
@@ -714,11 +692,11 @@ msgstr "Rodyti jūsų įrašus"
 msgid "Send e-mail to"
 msgstr "Siųsti e-paštą vartotojui"
 
-#: templates/forum/mail_to.html:12
+#: templates/forum/mail_to.html:13
 msgid "Write and submit your e-mail message"
 msgstr "Rašyti ir siųsti e-pašto žinutę"
 
-#: templates/forum/mail_to.html:20
+#: templates/forum/mail_to.html:21
 msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
@@ -726,15 +704,15 @@ msgstr ""
 "Prašau atminti, kad naudojant šią formą, jūsų e-pašto adresas bus atslėptas "
 "gavėjui."
 
-#: templates/forum/moderate.html:66 templates/forum/move_topic.html:33
+#: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
 msgstr "Perkelti"
 
-#: templates/forum/moderate.html:68
+#: templates/forum/moderate.html:69
 msgid "Open"
 msgstr "Atidaryti"
 
-#: templates/forum/moderate.html:69
+#: templates/forum/moderate.html:70
 msgid "Close"
 msgstr "Uždaryti"
 
@@ -742,15 +720,15 @@ msgstr "Uždaryti"
 msgid "Moderated by"
 msgstr "Moderuojama"
 
-#: templates/forum/move_topic.html:7 templates/forum/topic.html:209
+#: templates/forum/move_topic.html:7 templates/forum/topic.html:212
 msgid "Move topic"
 msgstr "Perkelti temą"
 
-#: templates/forum/move_topic.html:15
+#: templates/forum/move_topic.html:16
 msgid "Select destination of move"
 msgstr "Pasirinkite perkėlimo vietą"
 
-#: templates/forum/move_topic.html:17
+#: templates/forum/move_topic.html:18
 msgid "Move to"
 msgstr "Perkelti į"
 
@@ -762,34 +740,33 @@ msgstr "Puslapiai"
 msgid "Report post"
 msgstr "Pranešti apie įrašą"
 
-#: templates/forum/report.html:12
+#: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
 msgstr ""
 "Prašom įvesti trumpą priežastį, kodėl jūs norite pranešti apie šį įrašą"
 
-#: templates/forum/reputation.html:15
+#: templates/forum/reputation.html:16
 msgid "Reputation of the user"
 msgstr "Vartotojo reputacija"
 
-#: templates/forum/reputation.html:21
+#: templates/forum/reputation.html:22
 msgid "From user"
 msgstr "Nuo vartotojo"
 
-#: templates/forum/reputation.html:22
+#: templates/forum/reputation.html:23
 #, fuzzy
 msgid "For post in topic"
 msgstr "Temai"
 
-#: templates/forum/reputation.html:24
+#: templates/forum/reputation.html:25
 msgid "Estimation"
 msgstr "Įvertinimas"
 
-#: templates/forum/reputation.html:25 templates/forum/pm/inbox.html:14
-#: templates/forum/pm/outbox.html:14
+#: templates/forum/reputation.html:26
 msgid "Date"
 msgstr "Data"
 
-#: templates/forum/reputation.html:62
+#: templates/forum/reputation.html:63
 msgid "Are you sure"
 msgstr "Ar esate tikras"
 
@@ -797,23 +774,23 @@ msgstr "Ar esate tikras"
 msgid "Please, fill the form"
 msgstr "Prašau užpildyti formą"
 
-#: templates/forum/reputation_form.html:16
+#: templates/forum/reputation_form.html:17
 msgid "Your name:"
 msgstr "Jūsų vardas:"
 
-#: templates/forum/reputation_form.html:20
+#: templates/forum/reputation_form.html:21
 msgid "To whom we change a reputation:"
 msgstr "Į ką mes kaičiam reputaciją:"
 
-#: templates/forum/reputation_form.html:28
+#: templates/forum/reputation_form.html:29
 msgid "Method:"
 msgstr "Metodas:"
 
-#: templates/forum/reputation_form.html:31
+#: templates/forum/reputation_form.html:32
 msgid "Add of a reputation"
 msgstr "Reputacijos didinimas"
 
-#: templates/forum/reputation_form.html:33
+#: templates/forum/reputation_form.html:34
 msgid "Reduction of a reputation"
 msgstr "Reputacijos mažinimas"
 
@@ -876,7 +853,7 @@ msgid "Search results"
 msgstr "Paieškos rezultatai"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:121
-#: templates/forum/topic.html:132 templates/forum/pm/message.html:80
+#: templates/forum/topic.html:134
 msgid "Reply"
 msgstr "Atsakyti"
 
@@ -885,18 +862,16 @@ msgid "From:"
 msgstr "Nuo:"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
-#: templates/forum/pm/message.html:30
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
 msgstr "Registruotas:"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
-#: templates/forum/pm/message.html:31
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
 msgstr "Įrašai:"
 
-#: templates/forum/topic.html:54 templates/forum/pm/message.html:33
+#: templates/forum/topic.html:54
 msgid "IP:"
 msgstr "IP:"
 
@@ -909,15 +884,15 @@ msgstr "Siųsti e-paštą"
 msgid "Attachments:"
 msgstr "Prikabinti failai:"
 
-#: templates/forum/topic.html:105 templates/forum/pm/message.html:65
+#: templates/forum/topic.html:105
 msgid "Online"
 msgstr "Prisijungęs"
 
-#: templates/forum/topic.html:107 templates/forum/pm/message.html:67
+#: templates/forum/topic.html:107
 msgid "Offline"
 msgstr "Atsijungęs"
 
-#: templates/forum/topic.html:115 templates/forum/pm/message.html:75
+#: templates/forum/topic.html:115
 msgid "Are you sure you want to delete this post?"
 msgstr "Ar jūs tikrai norite ištrinti šį įrašą?"
 
@@ -925,43 +900,43 @@ msgstr "Ar jūs tikrai norite ištrinti šį įrašą?"
 msgid "Edit"
 msgstr "Redaguoti"
 
-#: templates/forum/topic.html:138
+#: templates/forum/topic.html:140
 msgid "Unsubscribe"
 msgstr "Atsisakyti prenumeratos"
 
-#: templates/forum/topic.html:140
+#: templates/forum/topic.html:142
 msgid "Subscribe"
 msgstr "Užsakyti prenumeratą"
 
-#: templates/forum/topic.html:148
+#: templates/forum/topic.html:150
 msgid "Quick post"
 msgstr "Greitas įrašas"
 
-#: templates/forum/topic.html:192
+#: templates/forum/topic.html:195
 msgid "Jump to "
 msgstr "Eiti į"
 
-#: templates/forum/topic.html:206
+#: templates/forum/topic.html:209
 msgid "Moderator control"
 msgstr "Moderatoriaus valdymas"
 
-#: templates/forum/topic.html:208
+#: templates/forum/topic.html:211
 msgid "Delete multiple posts"
 msgstr "Ištrinti kelis įrašus"
 
-#: templates/forum/topic.html:211
+#: templates/forum/topic.html:214
 msgid "Open topic"
 msgstr "Atidaryti temą"
 
-#: templates/forum/topic.html:213
+#: templates/forum/topic.html:216
 msgid "Close topic"
 msgstr "Uždaryti temą"
 
-#: templates/forum/topic.html:216
+#: templates/forum/topic.html:219
 msgid "Unstick topic"
 msgstr "Nebelaikyti temos viršuje"
 
-#: templates/forum/topic.html:218
+#: templates/forum/topic.html:221
 msgid "Stick topic"
 msgstr "Laikyti temą viršuje"
 
@@ -971,11 +946,11 @@ msgstr "Laikyti temą viršuje"
 msgid "Upload avatar"
 msgstr "Įkelti avatarą"
 
-#: templates/forum/upload_avatar.html:12
+#: templates/forum/upload_avatar.html:13
 msgid "Enter an avatar file to upload"
 msgstr "Įkėlimui įveskite avataro failą"
 
-#: templates/forum/upload_avatar.html:18
+#: templates/forum/upload_avatar.html:19
 #, python-format
 msgid ""
 "An avatar is a small image that will be displayed under your username in "
@@ -986,7 +961,7 @@ msgstr ""
 "jūsų įrašuose. Jis negali būti didesnis nei %(avatar_width)s x %"
 "(avatar_height)s taškų"
 
-#: templates/forum/upload_avatar.html:22
+#: templates/forum/upload_avatar.html:23
 msgid "Upload"
 msgstr "Įkelti"
 
@@ -1120,46 +1095,6 @@ msgstr "atsakymai"
 msgid "posts"
 msgstr "įrašai"
 
-#: templates/forum/pm/create_pm.html:9
-msgid "Send a message"
-msgstr "Siųsti žinutę"
-
-#: templates/forum/pm/create_pm.html:28
-msgid "Send"
-msgstr "Siųsti"
-
-#: templates/forum/pm/inbox.html:6 templates/forum/pm/menu_pm.html:7
-msgid "Inbox"
-msgstr "Gauta"
-
-#: templates/forum/pm/inbox.html:13
-msgid "Sender"
-msgstr "Siuntėjas"
-
-#: templates/forum/pm/inbox.html:34 templates/forum/pm/outbox.html:34
-msgid "No messages"
-msgstr "Žinučių nėra"
-
-#: templates/forum/pm/menu_pm.html:3
-msgid "Private Messages"
-msgstr "Asmeninė žinutė"
-
-#: templates/forum/pm/menu_pm.html:8
-msgid "Sent"
-msgstr "Siųsta"
-
-#: templates/forum/pm/menu_pm.html:9
-msgid "Send new message"
-msgstr "Siųsti naują žinutę"
-
-#: templates/forum/pm/outbox.html:6
-msgid "Outbox"
-msgstr "Siunčiama"
-
-#: templates/forum/pm/outbox.html:13
-msgid "Receiver"
-msgstr "Gavėjas"
-
 #: templates/forum/profile/profile_admin.html:15
 msgid "Delete (administrators only) or ban user"
 msgstr "Ištrinti (tik administratoriams) arba blokuoti vartotoją"
@@ -1203,7 +1138,15 @@ msgstr "Pasirinkite jums tinkantį stilių"
 msgid "If you like you can use a different visual style for this forum."
 msgstr "Jei norite, galite pasirinkti kitokį atvaizdavimo stilių forumui."
 
-#: templates/forum/profile/profile_display.html:24
+#: templates/forum/profile/profile_display.html:34
+msgid "Post display legend"
+msgstr ""
+
+#: templates/forum/profile/profile_display.html:36
+msgid "Post display info"
+msgstr ""
+
+#: templates/forum/profile/profile_display.html:44
 #: templates/forum/profile/profile_essentials.html:81
 #: templates/forum/profile/profile_messaging.html:30
 #: templates/forum/profile/profile_personal.html:31
@@ -1323,6 +1266,51 @@ msgstr ""
 "Pasirinkite, ar norite, kad jūsų e-pašto adresas būtų matomas kitiems "
 "vartotojams, ar ne. Taip pat pasirinkite, ar vartotojai galės jums siųsti "
 "forumo e-pašto forma, ar ne."
+
+#~ msgid "Recipient"
+#~ msgstr "Gavėjas"
+
+#~ msgid "Read"
+#~ msgstr "Perskaityta"
+
+#~ msgid "Text version"
+#~ msgstr "Tekstinė versija"
+
+#~ msgid "Private message"
+#~ msgstr "Asmeninė žinutė"
+
+#~ msgid "Private messages"
+#~ msgstr "Asmeninės žinutės"
+
+#~ msgid "Send a message"
+#~ msgstr "Siųsti žinutę"
+
+#~ msgid "Send"
+#~ msgstr "Siųsti"
+
+#~ msgid "Inbox"
+#~ msgstr "Gauta"
+
+#~ msgid "Sender"
+#~ msgstr "Siuntėjas"
+
+#~ msgid "No messages"
+#~ msgstr "Žinučių nėra"
+
+#~ msgid "Private Messages"
+#~ msgstr "Asmeninė žinutė"
+
+#~ msgid "Sent"
+#~ msgstr "Siųsta"
+
+#~ msgid "Send new message"
+#~ msgstr "Siųsti naują žinutę"
+
+#~ msgid "Outbox"
+#~ msgstr "Siunčiama"
+
+#~ msgid "Receiver"
+#~ msgstr "Gavėjas"
 
 #~ msgid "The reason of change of reputation:"
 #~ msgstr "Reputacijos keitimo priežastis:"
