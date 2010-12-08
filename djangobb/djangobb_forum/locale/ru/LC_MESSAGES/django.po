@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: DjangoBB\n"
 "Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2010-12-02 12:37+0200\n"
-"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"PO-Revision-Date: 2010-12-08 14:38+0000\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -406,15 +406,15 @@ msgstr "Начало блокировки"
 
 #: models.py:336
 msgid "Ban end"
-msgstr "Забанен до"
+msgstr "Конец блокировки"
 
 #: models.py:340
 msgid "Ban"
-msgstr "Бан"
+msgstr "Блокировка"
 
 #: models.py:341
 msgid "Bans"
-msgstr "Баны"
+msgstr "Блокировки"
 
 #: models.py:359
 msgid "Size"
@@ -1069,7 +1069,7 @@ msgstr "сообщений"
 
 #: templates/forum/profile/profile_admin.html:15
 msgid "Delete (administrators only) or ban user"
-msgstr "Удалить (только для администратора) или забанить пользователя"
+msgstr "Удалить (только для администратора) или заблокировать пользователя"
 
 #: templates/forum/profile/profile_admin.html:17
 msgid "Delete user"
@@ -1077,7 +1077,7 @@ msgstr "Удалить пользователя"
 
 #: templates/forum/profile/profile_admin.html:17
 msgid "Ban user"
-msgstr "Забанен"
+msgstr "Заблокирован"
 
 #: templates/forum/profile/profile_admin.html:24
 msgid "Set moderator access"
