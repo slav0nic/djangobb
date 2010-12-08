@@ -1,0 +1,7 @@
+[djangobb.default]
+file_filter = djangobb/djangobb_forum/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+
+[main]
+host = http://www.transifex.net
+

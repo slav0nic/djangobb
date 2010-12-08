@@ -2,435 +2,435 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-02 11:17+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: DjangoBB\n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
+"POT-Creation-Date: 2010-12-02 12:37+0200\n"
+"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"Last-Translator: minhlong139 <minhlong139@gmail.com>\n"
+"Language-Team: Vietnamese <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
-msgstr ""
+msgstr "Bài mới nhất"
 
 #: feeds.py:45 feeds.py:46 templates/forum/base.html:15
 msgid "Latest topics on forum"
-msgstr ""
+msgstr "Chủ đề mới nhất"
 
 #: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s topic"
-msgstr ""
+msgstr "Bài mới nhất trong chủ đề %s"
 
 #: feeds.py:103 feeds.py:111
 #, python-format
 msgid "Latest posts on %s forum"
-msgstr ""
+msgstr "Bài mới nhất trong diễn đàn %s"
 
 #: feeds.py:130 feeds.py:133
 #, python-format
 msgid "Latest posts on %s category"
-msgstr ""
+msgstr "Bài mới nhất trong mục %s"
 
 #: forms.py:21 forms.py:142 forms.py:251 templates/forum/users.html:45
 msgid "Username"
-msgstr ""
+msgstr "Tên đăng nhập"
 
 #: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
-msgstr ""
+msgstr "Đã đăng ký"
 
 #: forms.py:23
 msgid "No. of posts"
-msgstr ""
+msgstr "Số bài"
 
 #: forms.py:27
 msgid "Post time"
-msgstr ""
+msgstr "Đăng lúc"
 
 #: forms.py:28
 msgid "Author"
-msgstr ""
+msgstr "Tác giả"
 
 #: forms.py:29 forms.py:51 forms.py:116 forms.py:338 models.py:121
 #: templates/forum/add_post.html:27 templates/forum/edit_post.html:24
 msgid "Subject"
-msgstr ""
+msgstr "Tiêu đề"
 
 #: forms.py:30 forms.py:286 models.py:104 models.py:120
 #: templates/forum/index.html:53 templates/forum/search_topics.html:22
 msgid "Forum"
-msgstr ""
+msgstr "Diễn đàn"
 
 #: forms.py:34
 msgid "Ascending"
-msgstr ""
+msgstr "Tăng dần"
 
 #: forms.py:35
 msgid "Descending"
-msgstr ""
+msgstr "Giảm dần"
 
 #: forms.py:39 models.py:135 templates/forum/index.html:54
 msgid "Topics"
-msgstr ""
+msgstr "Chủ đề"
 
 #: forms.py:40 models.py:192 templates/forum/index.html:55
 #: templates/forum/users.html:47
 msgid "Posts"
-msgstr ""
+msgstr "Bài viết"
 
 #: forms.py:44
 msgid "Message text and topic subject"
-msgstr ""
+msgstr " Nội dung thông điệp và tiêu đề chủ đề"
 
 #: forms.py:45
 msgid "Message text only"
-msgstr ""
+msgstr "Chỉ dùng nội dung thông điệp"
 
 #: forms.py:46
 msgid "Topic subject only"
-msgstr ""
+msgstr "Chỉ dùng tiêu đề chủ đề"
 
 #: forms.py:53 templates/forum/add_post.html:36 templates/forum/topic.html:165
 msgid "Attachment"
-msgstr ""
+msgstr "Đính kèm"
 
 #: forms.py:80
 msgid "Attachment is too big"
-msgstr ""
+msgstr "Đính kèm quá lớn"
 
 #: forms.py:143 templates/forum/topic.html:67
 msgid "E-mail"
-msgstr ""
+msgstr "Thư điện tử"
 
 #: forms.py:173
 msgid "Real name"
-msgstr ""
+msgstr "Tên thật"
 
 #: forms.py:253 forms.py:288
 msgid "Sort by"
-msgstr ""
+msgstr "Xếp bởi"
 
 #: forms.py:254 forms.py:289
 msgid "Sort order"
-msgstr ""
+msgstr "Thứ tự xếp"
 
 #: forms.py:282
 msgid "Keyword search"
-msgstr ""
+msgstr "Tìm từ khóa"
 
 #: forms.py:284
 msgid "Author search"
-msgstr ""
+msgstr "Tìm tác giả"
 
 #: forms.py:287
 msgid "Search in"
-msgstr ""
+msgstr "Tìm trong"
 
 #: forms.py:290
 msgid "Show results as"
-msgstr ""
+msgstr "Xem kết quả theo"
 
 #: forms.py:315
 #, python-format
 msgid "User with login %s does not exist"
-msgstr ""
+msgstr "Thành viên %s không tồn tại"
 
 #: forms.py:325
 msgid "You already voted for this post"
-msgstr ""
+msgstr "Bạn đã bình chọn bài viết này"
 
 #: forms.py:340 models.py:183 templates/forum/add_post.html:29
 #: templates/forum/edit_post.html:27
 msgid "Message"
-msgstr ""
+msgstr "Thông điệp"
 
 #: models.py:39
 msgid "Display your e-mail address."
-msgstr ""
+msgstr "Hiển thị địa chỉ thư điện tử của bạn"
 
 #: models.py:40
 msgid "Hide your e-mail address but allow form e-mail."
-msgstr ""
+msgstr "Ẩn địa chỉ thư điện tử nhưng cho phép nhận thư"
 
 #: models.py:41
 msgid "Hide your e-mail address and disallow form e-mail."
-msgstr ""
+msgstr "Ẩn địa thư điện tử và không nhận thư"
 
 #: models.py:56 models.py:93 models.py:362
 msgid "Name"
-msgstr ""
+msgstr "Tên"
 
 #: models.py:57
 msgid "Groups"
-msgstr ""
+msgstr "Nhóm"
 
 #: models.py:57
 msgid "Only users from these groups can see this category"
-msgstr ""
+msgstr "Chỉ có thành viên trong nhóm trên có thể xem được mục này"
 
 #: models.py:58 models.py:94
 msgid "Position"
-msgstr ""
+msgstr "Vị trí"
 
 #: models.py:62 models.py:92
 msgid "Category"
-msgstr ""
+msgstr "Mục"
 
 #: models.py:63
 msgid "Categories"
-msgstr ""
+msgstr "Các mục"
 
 #: models.py:95
 msgid "Description"
-msgstr ""
+msgstr "Chi tiết"
 
 #: models.py:96
 msgid "Moderators"
-msgstr ""
+msgstr "Ban quản trị"
 
 #: models.py:97 models.py:123 models.py:180
 msgid "Updated"
-msgstr ""
+msgstr "Sửa lúc"
 
 #: models.py:98 models.py:129 models.py:280
 msgid "Post count"
-msgstr ""
+msgstr "Số bài"
 
 #: models.py:99
 msgid "Topic count"
-msgstr ""
+msgstr "Số chủ đề"
 
 #: models.py:105
 msgid "Forums"
-msgstr ""
+msgstr "Diễn đàn"
 
 #: models.py:122 models.py:179 models.py:323
 msgid "Created"
-msgstr ""
+msgstr "Tạo lúc"
 
 #: models.py:124 models.py:178 models.py:261
 msgid "User"
-msgstr ""
+msgstr "Thành viên"
 
 #: models.py:125
 msgid "Views count"
-msgstr ""
+msgstr "Lượt xem"
 
 #: models.py:126
 msgid "Sticky"
-msgstr ""
+msgstr "Chú ý"
 
 #: models.py:127
 msgid "Closed"
-msgstr ""
+msgstr "Đã đóng"
 
 #: models.py:128
 msgid "Subscribers"
-msgstr ""
+msgstr "Người theo dõi"
 
 #: models.py:134 models.py:177 templates/forum/forum.html:27
 #: templates/forum/moderate.html:23 templates/forum/search_topics.html:21
 msgid "Topic"
-msgstr ""
+msgstr "Chủ đề"
 
 #: models.py:181
 msgid "Updated by"
-msgstr ""
+msgstr "Sửa bởi"
 
 #: models.py:182 templates/forum/profile/profile_display.html:24
 msgid "Markup"
-msgstr ""
+msgstr "Đánh dấu"
 
 #: models.py:184
 msgid "HTML version"
-msgstr ""
+msgstr "Phiên bản HTML"
 
 #: models.py:185
 msgid "User IP"
-msgstr ""
+msgstr "IP thành viên"
 
 #: models.py:191 models.py:246 models.py:320 models.py:358
 msgid "Post"
-msgstr ""
+msgstr "Bài viết"
 
 #: models.py:244
 msgid "From"
-msgstr ""
+msgstr "Từ"
 
 #: models.py:245
 msgid "To"
-msgstr ""
+msgstr "Đến"
 
 #: models.py:247
 msgid "Time"
-msgstr ""
+msgstr "Thời điểm"
 
 #: models.py:248
 msgid "Sign"
-msgstr ""
+msgstr "Ký"
 
 #: models.py:249 models.py:324 models.py:337 templates/forum/report.html:16
 #: templates/forum/reputation.html:24
 msgid "Reason"
-msgstr ""
+msgstr "Nguyên nhân"
 
 #: models.py:252 templates/forum/topic.html:57
 msgid "Reputation"
-msgstr ""
+msgstr "Danh tiếng"
 
 #: models.py:253
 msgid "Reputations"
-msgstr ""
+msgstr "Danh tiếng"
 
 #: models.py:262
 msgid "Status"
-msgstr ""
+msgstr "Tình trạng"
 
 #: models.py:263
 msgid "Site"
-msgstr ""
+msgstr "Trang web"
 
 #: models.py:264
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: models.py:265
 msgid "ICQ"
-msgstr ""
+msgstr "ICQ"
 
 #: models.py:266
 msgid "MSN"
-msgstr ""
+msgstr "MSN"
 
 #: models.py:267
 msgid "AIM"
-msgstr ""
+msgstr "AIM"
 
 #: models.py:268
 msgid "Yahoo"
-msgstr ""
+msgstr "Yahoo"
 
 #: models.py:269 templates/forum/user.html:25
 msgid "Location"
-msgstr ""
+msgstr "Địa điểm"
 
 #: models.py:270
 msgid "Signature"
-msgstr ""
+msgstr "Chữ ký"
 
 #: models.py:271
 msgid "Time zone"
-msgstr ""
+msgstr "Múi giờ"
 
 #: models.py:272
 msgid "Language"
-msgstr ""
+msgstr "Ngôn ngữ"
 
 #: models.py:273
 msgid "Avatar"
-msgstr ""
+msgstr "Ảnh đại diện"
 
 #: models.py:274
 msgid "Theme"
-msgstr ""
+msgstr "Cách trang trí"
 
 #: models.py:275
 msgid "Show avatar"
-msgstr ""
+msgstr "Hiện ảnh đại diện"
 
 #: models.py:276
 msgid "Show signatures"
-msgstr ""
+msgstr "Hiện chữ ký"
 
 #: models.py:277 templates/forum/profile/profile_display.html:39
 msgid "Show smilies"
-msgstr ""
+msgstr "Hiện biểu tượng mặt cười"
 
 #: models.py:278
 msgid "Privacy permission"
-msgstr ""
+msgstr "Quyền truy cập"
 
 #: models.py:279
 msgid "Default markup"
-msgstr ""
+msgstr "Đánh dấu mặc định"
 
 #: models.py:283 templates/forum/header.html:23 templates/forum/topic.html:65
 #: templates/forum/user.html:7
 msgid "Profile"
-msgstr ""
+msgstr "Hồ sơ"
 
 #: models.py:284
 msgid "Profiles"
-msgstr ""
+msgstr "Hồ sơ"
 
 #: models.py:311 models.py:312
 msgid "Post tracking"
-msgstr ""
+msgstr "Bài theo dõi"
 
 #: models.py:319
 msgid "Reported by"
-msgstr ""
+msgstr "Báo cáo bởi"
 
 #: models.py:321
 msgid "Zapped"
-msgstr ""
+msgstr "Đã hạ gục"
 
 #: models.py:322
 msgid "Zapped by"
-msgstr ""
+msgstr "Đã hạ gục bởi"
 
 #: models.py:327 templates/forum/topic.html:112
 msgid "Report"
-msgstr ""
+msgstr "Báo cáo"
 
 #: models.py:328
 msgid "Reports"
-msgstr ""
+msgstr "Báo cáo"
 
 #: models.py:334
 msgid "Banned user"
-msgstr ""
+msgstr "Thành viên bị khóa"
 
 #: models.py:335
 msgid "Ban start"
-msgstr ""
+msgstr "Khóa từ"
 
 #: models.py:336
 msgid "Ban end"
-msgstr ""
+msgstr "Mãn hạn"
 
 #: models.py:340
 msgid "Ban"
-msgstr ""
+msgstr "Khóa"
 
 #: models.py:341
 msgid "Bans"
-msgstr ""
+msgstr "Khóa"
 
 #: models.py:359
 msgid "Size"
-msgstr ""
+msgstr "Dung lượng"
 
 #: models.py:360
 msgid "Content type"
-msgstr ""
+msgstr "Loại nội dung"
 
 #: models.py:361
 msgid "Path"
-msgstr ""
+msgstr "Đường dẫn"
 
 #: models.py:363
 msgid "Hash"
-msgstr ""
+msgstr "Hash"
 
 #: templates/forum/add_post.html:9 templates/forum/add_post.html.py:11
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
@@ -440,20 +440,20 @@ msgstr ""
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
-msgstr ""
+msgstr "Gốc"
 
 #: templates/forum/add_post.html:18 templates/forum/forum.html:11
 #: templates/forum/forum.html.py:69
 msgid "New topic"
-msgstr ""
+msgstr "Chủ đề mới"
 
 #: templates/forum/add_post.html:18
 msgid "New reply"
-msgstr ""
+msgstr "Trả lời mới"
 
 #: templates/forum/add_post.html:24 templates/forum/topic.html:156
 msgid "Write your message and submit"
-msgstr ""
+msgstr "Viết thông điệp và gửi"
 
 #: templates/forum/add_post.html:46 templates/forum/mail_to.html:25
 #: templates/forum/report.html:22 templates/forum/reputation_form.html:41
@@ -465,7 +465,7 @@ msgstr ""
 #: templates/forum/profile/profile_personality.html:53
 #: templates/forum/profile/profile_privacy.html:25
 msgid "Submit"
-msgstr ""
+msgstr "Gửi"
 
 #: templates/forum/add_post.html:46 templates/forum/edit_post.html:34
 #: templates/forum/mail_to.html:25 templates/forum/move_topic.html:34
@@ -474,62 +474,62 @@ msgstr ""
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
 #: templates/forum/upload_avatar.html:23
 msgid "Go back"
-msgstr ""
+msgstr "Quay lại"
 
 #: templates/forum/add_post.html:54
 msgid "Topic review (newest first)"
-msgstr ""
+msgstr "Duyệt chủ đề (mới nhất trước)"
 
 #: templates/forum/add_post.html:70 templates/forum/topic.html:123
 msgid "Quote"
-msgstr ""
+msgstr "Trích dẫn"
 
 #: templates/forum/base.html:55
 msgid "Board footer"
-msgstr ""
+msgstr "Chân bảng"
 
 #: templates/forum/delete_posts.html:35 templates/forum/topic.html:93
 msgid "Edited"
-msgstr ""
+msgstr "Đã sửa"
 
 #: templates/forum/delete_posts.html:39 templates/forum/moderate.html:27
 msgid "Select"
-msgstr ""
+msgstr "Chọn"
 
 #: templates/forum/delete_posts.html:51 templates/forum/moderate.html:68
 #: templates/forum/reputation.html:28 templates/forum/topic.html:115
 msgid "Delete"
-msgstr ""
+msgstr "Xóa"
 
 #: templates/forum/edit_post.html:14
 msgid "Edit post"
-msgstr ""
+msgstr "Sửa bài"
 
 #: templates/forum/edit_post.html:21
 msgid "Edit the post and submit changes"
-msgstr ""
+msgstr "Sửa bài và lưu lại"
 
 #: templates/forum/edit_post.html:34
 msgid "Save"
-msgstr ""
+msgstr "Lưu"
 
 #: templates/forum/forum.html:28 templates/forum/moderate.html:24
 #: templates/forum/search_topics.html:23
 msgid "Replies"
-msgstr ""
+msgstr "Những phản hồi"
 
 #: templates/forum/forum.html:29 templates/forum/moderate.html:25
 msgid "Views"
-msgstr ""
+msgstr "Lượt xem"
 
 #: templates/forum/forum.html:30 templates/forum/index.html:56
 #: templates/forum/moderate.html:26 templates/forum/search_topics.html:24
 msgid "Last post"
-msgstr ""
+msgstr "Bài viết cuối"
 
 #: templates/forum/forum.html:42 templates/forum/moderate.html:39
 msgid "Sticky:"
-msgstr ""
+msgstr "Chú ý:"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
 #: templates/forum/forum.html:54 templates/forum/forum_row.html:34
@@ -537,439 +537,429 @@ msgstr ""
 #: templates/forum/moderate.html:51 templates/forum/search_topics.html:35
 #: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
-msgstr ""
+msgstr "bởi"
 
 #: templates/forum/forum.html:58 templates/forum/moderate.html:56
 msgid "Forum is empty."
-msgstr ""
+msgstr "Diễn đàn trống."
 
 #: templates/forum/forum.html:89
 msgid "Jump to"
-msgstr ""
+msgstr "Nhảy tới"
 
 #: templates/forum/forum.html:100 templates/forum/topic.html:206
 msgid "Go"
-msgstr ""
+msgstr "Đến"
 
 #: templates/forum/forum.html:104
 msgid "Moderate forum"
-msgstr ""
+msgstr "Ban quản trị diễn đàn"
 
 #: templates/forum/header.html:16
 msgid "Index"
-msgstr ""
+msgstr "Chỉ số"
 
 #: templates/forum/header.html:17 templates/forum/users.html:39
 #: templates/forum/lofi/header.html:5
 msgid "User list"
-msgstr ""
+msgstr "Danh sách thành viên"
 
 #: templates/forum/header.html:18 templates/forum/search_form.html:7
 #: templates/forum/users.html:29 templates/forum/lofi/header.html:4
 msgid "Search"
-msgstr ""
+msgstr "Tìm kiếm"
 
 #: templates/forum/header.html:20 templates/forum/profile/profile_admin.html:9
 #: templates/forum/profile/profile_menu.html:14
 msgid "Administration"
-msgstr ""
+msgstr "Administration"
 
 #: templates/forum/header.html:25 templates/forum/topic.html:75
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: templates/forum/header.html:27
 msgid "Log out"
-msgstr ""
+msgstr "Thoát"
 
 #: templates/forum/header.html:29
 msgid "Log in"
-msgstr ""
+msgstr "Đăng nhập"
 
 #: templates/forum/header.html:30
 msgid "Sign up"
-msgstr ""
+msgstr "Đăng ký"
 
 #: templates/forum/header.html:37
 msgid "Logged in as"
-msgstr ""
+msgstr "Đăng nhập bởi"
 
 #: templates/forum/header.html:38
 msgid "Last visit:"
-msgstr ""
+msgstr "Lần cuối ghé thăm:"
 
 #: templates/forum/header.html:40
 #, python-format
 msgid " There are new messages (%(new_msg)s)"
-msgstr ""
+msgstr "Có tin nhắn mới (%(new_msg)s)"
 
 #: templates/forum/header.html:43
 msgid "You are not logged in."
-msgstr ""
+msgstr "Bạn chưa đăng nhập."
 
 #: templates/forum/header.html:46
 msgid "There are new reports"
-msgstr ""
+msgstr "Có báo cáo mới"
 
 #: templates/forum/header.html:51
 msgid "Show new posts since last visit"
-msgstr ""
+msgstr "Hiển thị bài viết mới kể từ lần cuối ghé thăm"
 
 #: templates/forum/header.html:52
 msgid "Mark all topics as read"
-msgstr ""
+msgstr "Đánh dấu tất cả các chủ đề như là đã đọc"
 
 #: templates/forum/header.html:62
 msgid "Notice"
-msgstr ""
+msgstr "Thông báo"
 
 #: templates/forum/index.html:71
 msgid "Board information"
-msgstr ""
+msgstr "Bảng thông tin"
 
 #: templates/forum/index.html:75
 msgid "Board statistics"
-msgstr ""
+msgstr "Bảng thống kê"
 
 #: templates/forum/index.html:76
 msgid "Total number of registered users:"
-msgstr ""
+msgstr "Tổng số thành viên:"
 
 #: templates/forum/index.html:77
 msgid "Total number of topics:"
-msgstr ""
+msgstr "Tổng số chủ đề:"
 
 #: templates/forum/index.html:78
 msgid "Total number of posts:"
-msgstr ""
+msgstr "Tổng số bài viết:"
 
 #: templates/forum/index.html:81
 msgid "User information"
-msgstr ""
+msgstr "Thông tin thành viên"
 
 #: templates/forum/index.html:82
 msgid "Newest registered user:"
-msgstr ""
+msgstr "Thành viên mới nhất:"
 
 #: templates/forum/index.html:83
 msgid "Registered users online:"
-msgstr ""
+msgstr "Thành viên đang online:"
 
 #: templates/forum/index.html:84
 msgid "Guests online:"
-msgstr ""
+msgstr "Khách đang online"
 
 #: templates/forum/index.html:88
 msgid "Online:"
-msgstr ""
+msgstr "Đang online"
 
 #: templates/forum/index.html:112 templates/forum/search_posts.html:67
 #: templates/forum/search_topics.html:76
 msgid "Search links"
-msgstr ""
+msgstr "Tìm kiếm các liên kết"
 
 #: templates/forum/index.html:113 templates/forum/search_posts.html:68
 #: templates/forum/search_topics.html:77
 msgid "Show recent posts"
-msgstr ""
+msgstr "Hiển thị bài viết gần đây"
 
 #: templates/forum/index.html:114 templates/forum/search_posts.html:69
 #: templates/forum/search_topics.html:78
 msgid "Show unanswered posts"
-msgstr ""
+msgstr "Hiện bài viết chưa được trả lời"
 
 #: templates/forum/index.html:116 templates/forum/search_posts.html:71
 #: templates/forum/search_topics.html:80
 msgid "Show your subscribed topics"
-msgstr ""
+msgstr "Hiển thị các chủ đề bạn đăng ký"
 
 #: templates/forum/index.html:117 templates/forum/search_posts.html:72
 #: templates/forum/search_topics.html:81
 msgid "Show your posts"
-msgstr ""
+msgstr "Hiển thị bài viết của bạn"
 
 #: templates/forum/mail_to.html:7
 msgid "Send e-mail to"
-msgstr ""
+msgstr "Gửi thư đến"
 
 #: templates/forum/mail_to.html:13
 msgid "Write and submit your e-mail message"
-msgstr ""
+msgstr "Soạn và gửi thư"
 
 #: templates/forum/mail_to.html:21
-msgid ""
-"Please note that by using this form, your e-mail address will be disclosed "
-"to the recipient."
-msgstr ""
+msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
+msgstr "Xin lưu ý rằng bằng cách sử dụng mẫu đơn này, địa chỉ thư điện tử của bạn sẽ được tiết lộ cho người nhận."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
-msgstr ""
+msgstr "Chuyển"
 
 #: templates/forum/moderate.html:69
 msgid "Open"
-msgstr ""
+msgstr "Mở"
 
 #: templates/forum/moderate.html:70
 msgid "Close"
-msgstr ""
+msgstr "Đóng"
 
 #: templates/forum/moderators.html:3
 msgid "Moderated by"
-msgstr ""
+msgstr "Kiểm duyệt bởi"
 
 #: templates/forum/move_topic.html:7 templates/forum/topic.html:212
 msgid "Move topic"
-msgstr ""
+msgstr "Di chuyển chủ đề"
 
 #: templates/forum/move_topic.html:16
 msgid "Select destination of move"
-msgstr ""
+msgstr "Chọn điểm đến"
 
 #: templates/forum/move_topic.html:18
 msgid "Move to"
-msgstr ""
+msgstr "Di chuyển đến"
 
 #: templates/forum/pagination.html:3
 msgid "Pages"
-msgstr ""
+msgstr "Trang"
 
 #: templates/forum/report.html:7
 msgid "Report post"
-msgstr ""
+msgstr "Báo cáo bài viết xấu"
 
 #: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
-msgstr ""
+msgstr "Xin vui lòng nhập một lý do ngắn tại sao bạn báo cáo bài viết này có nội dung xấu "
 
 #: templates/forum/reputation.html:16
 msgid "Reputation of the user"
-msgstr ""
+msgstr "Danh tiếng của thành viên"
 
 #: templates/forum/reputation.html:22
 msgid "From user"
-msgstr ""
+msgstr "Từ thành viên"
 
 #: templates/forum/reputation.html:23
 msgid "For post in topic"
-msgstr ""
+msgstr "Đối với bài viết trong chủ đề"
 
 #: templates/forum/reputation.html:25
 msgid "Estimation"
-msgstr ""
+msgstr "Dự toán"
 
 #: templates/forum/reputation.html:26
 msgid "Date"
-msgstr ""
+msgstr "Ngày"
 
 #: templates/forum/reputation.html:63
 msgid "Are you sure"
-msgstr ""
+msgstr "Bạn có chắc chắn"
 
 #: templates/forum/reputation_form.html:7
 msgid "Please, fill the form"
-msgstr ""
+msgstr "Xin vui lòng điền vào các mẫu"
 
 #: templates/forum/reputation_form.html:17
 msgid "Your name:"
-msgstr ""
+msgstr "Tên của bạn:"
 
 #: templates/forum/reputation_form.html:21
 msgid "To whom we change a reputation:"
-msgstr ""
+msgstr "Tới người mà chúng tôi thay đổi danh tiếng:"
 
 #: templates/forum/reputation_form.html:29
 msgid "Method:"
-msgstr ""
+msgstr "Phương pháp:"
 
 #: templates/forum/reputation_form.html:32
 msgid "Add of a reputation"
-msgstr ""
+msgstr "Thêm một danh tiếng"
 
 #: templates/forum/reputation_form.html:34
 msgid "Reduction of a reputation"
-msgstr ""
+msgstr "Giảm một danh tiếng"
 
 #: templates/forum/search_form.html:13
 msgid "Enter your search criteria"
-msgstr ""
+msgstr "Nhập tiêu chí tìm kiếm của bạn"
 
 #: templates/forum/search_form.html:18
-msgid ""
-"To search by keyword, enter a term or terms to search for. Separate terms "
-"with spaces. To search by author enter the username of the author whose "
-"posts you wish to search for."
-msgstr ""
+msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
+msgstr "Để tìm kiếm bằng từ khoá, hãy nhập một cụm từ hoặc nhiều cụm từ để tìm kiếm. Phân cách cụm từ bằng dấu cách. Để tìm kiếm theo tác giả, hãy nhập tên người dùng của tác giả có bài viết mà bạn muốn tìm kiếm."
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
-msgstr ""
+msgstr "Chọn nơi để tìm kiếm"
 
 #: templates/forum/search_form.html:30
 msgid "All forums"
-msgstr ""
+msgstr "Tất cả các diễn đàn"
 
 #: templates/forum/search_form.html:44
-msgid ""
-"Choose in which forum you would like to search and if you want to search in "
-"topic subjects, message text or both."
-msgstr ""
+msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
+msgstr "Chọn diễn đàn nào mà bạn muốn tìm kiếm và nếu bạn muốn tìm kiếm trong tiêu đề, tin nhắn văn bản hoặc cả hai."
 
 #: templates/forum/search_form.html:51
 msgid "Select how to view search results"
-msgstr ""
+msgstr "Chọn cách để xem kết quả tìm kiếm"
 
 #: templates/forum/search_form.html:66
 msgid "You can choose how you wish to sort and show your results."
-msgstr ""
+msgstr "Bạn có thể chọn cách bạn muốn sắp xếp và hiển thị kết quả của bạn."
 
 #: templates/forum/search_posts.html:24
 msgid "Replies:"
-msgstr ""
+msgstr "Trả lời:"
 
 #: templates/forum/search_posts.html:28
 msgid "Go to post"
-msgstr ""
+msgstr "Tới bài viết"
 
 #: templates/forum/search_posts.html:44 templates/forum/search_topics.html:55
 msgid "Info"
-msgstr ""
+msgstr "Thông tin"
 
 #: templates/forum/search_posts.html:48 templates/forum/search_topics.html:59
 msgid "Your search returned no hits."
-msgstr ""
+msgstr "Kết quả tìm kiếm trả lại không có số truy cập."
 
 #: templates/forum/search_topics.html:15
 msgid "Search results"
-msgstr ""
+msgstr "Kết quả tìm kiếm"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:121
 #: templates/forum/topic.html:134
 msgid "Reply"
-msgstr ""
+msgstr "Trả lời"
 
 #: templates/forum/topic.html:49
 msgid "From:"
-msgstr ""
+msgstr "Từ:"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
-msgstr ""
+msgstr "Đã đăng ký:"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
-msgstr ""
+msgstr "Bài viết:"
 
 #: templates/forum/topic.html:54
 msgid "IP:"
-msgstr ""
+msgstr "IP:"
 
 #: templates/forum/topic.html:70 templates/forum/user.html:42
 #: templates/forum/profile/profile_essentials.html:43
 msgid "Send e-mail"
-msgstr ""
+msgstr "Gửi thư"
 
 #: templates/forum/topic.html:97
 msgid "Attachments:"
-msgstr ""
+msgstr "Đính kèm:"
 
 #: templates/forum/topic.html:105
 msgid "Online"
-msgstr ""
+msgstr "Online"
 
 #: templates/forum/topic.html:107
 msgid "Offline"
-msgstr ""
+msgstr "Offline"
 
 #: templates/forum/topic.html:115
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Bạn có chắc chắn muốn xóa bài đăng này?"
 
 #: templates/forum/topic.html:119
 msgid "Edit"
-msgstr ""
+msgstr "Chỉnh sửa"
 
 #: templates/forum/topic.html:140
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Hủy đăng ký"
 
 #: templates/forum/topic.html:142
 msgid "Subscribe"
-msgstr ""
+msgstr "Đăng ký"
 
 #: templates/forum/topic.html:150
 msgid "Quick post"
-msgstr ""
+msgstr "Đăng bài nhanh"
 
 #: templates/forum/topic.html:195
 msgid "Jump to "
-msgstr ""
+msgstr "Nhảy tới"
 
 #: templates/forum/topic.html:209
 msgid "Moderator control"
-msgstr ""
+msgstr "Công cụ quản trị"
 
 #: templates/forum/topic.html:211
 msgid "Delete multiple posts"
-msgstr ""
+msgstr "Xoá nhiều bài viết"
 
 #: templates/forum/topic.html:214
 msgid "Open topic"
-msgstr ""
+msgstr "Mở chủ đề"
 
 #: templates/forum/topic.html:216
 msgid "Close topic"
-msgstr ""
+msgstr "Đóng chủ đề"
 
 #: templates/forum/topic.html:219
 msgid "Unstick topic"
-msgstr ""
+msgstr "Bỏ chú ý chủ đề"
 
 #: templates/forum/topic.html:221
 msgid "Stick topic"
-msgstr ""
+msgstr "Tạo chú ý cho chủ đề"
 
 #: templates/forum/upload_avatar.html:7
 #: templates/forum/profile/profile_personality.html:26
 #: templates/forum/profile/profile_personality.html:29
 msgid "Upload avatar"
-msgstr ""
+msgstr "Tải lên hình đại diện"
 
 #: templates/forum/upload_avatar.html:13
 msgid "Enter an avatar file to upload"
-msgstr ""
+msgstr "Chọn hình đại diện để tải lên"
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
-msgid ""
-"An avatar is a small image that will be displayed under your username in "
-"your posts. It must not be any bigger than %(avatar_width)s x %"
-"(avatar_height)s pixels "
-msgstr ""
+msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
+msgstr "Hình đại diện là một hình ảnh nhỏ sẽ được hiển thị dưới tên người dùng trong bài viết của bạn. Nó không được lớn hơn %(avatar_width)s x %(avatar_height)s px"
 
 #: templates/forum/upload_avatar.html:23
 msgid "Upload"
-msgstr ""
+msgstr "Tải lên"
 
 #: templates/forum/user.html:12 templates/forum/profile/profile_menu.html:8
 #: templates/forum/profile/profile_messaging.html:15
 #: templates/forum/profile/profile_personal.html:9
 msgid "Personal"
-msgstr ""
+msgstr "Cá nhân"
 
 #: templates/forum/user.html:15
 msgid "Username:"
-msgstr ""
+msgstr "Tên đăng nhập:"
 
 #: templates/forum/user.html:17 templates/forum/users.html:46
 msgid "Title"
-msgstr ""
+msgstr "Tiêu đề"
 
 #: templates/forum/user.html:19
 msgid "Real name:"
-msgstr ""
+msgstr "Tên thật:"
 
 #: templates/forum/user.html:23 templates/forum/user.html.py:29
 #: templates/forum/user.html:35 templates/forum/user.html.py:61
@@ -977,156 +967,150 @@ msgstr ""
 #: templates/forum/user.html:79 templates/forum/user.html.py:85
 #: templates/forum/user.html:107 templates/forum/user.html.py:125
 msgid "(Unknown)"
-msgstr ""
+msgstr "(Không rõ)"
 
 #: templates/forum/user.html:31
 msgid "Website:"
-msgstr ""
+msgstr "Website:"
 
 #: templates/forum/user.html:37
 msgid "E-mail:"
-msgstr ""
+msgstr "Thư điện tử:"
 
 #: templates/forum/user.html:44
 msgid "(Hidden)"
-msgstr ""
+msgstr "(Ẩn)"
 
 #: templates/forum/user.html:54 templates/forum/profile/profile_menu.html:9
 #: templates/forum/profile/profile_messaging.html:9
 msgid "Messaging"
-msgstr ""
+msgstr "Nhắn tin"
 
 #: templates/forum/user.html:57
 msgid "Jabber:"
-msgstr ""
+msgstr "Jabber:"
 
 #: templates/forum/user.html:63
 msgid "ICQ:"
-msgstr ""
+msgstr "ICQ:"
 
 #: templates/forum/user.html:69
 msgid "MSN Messenger:"
-msgstr ""
+msgstr "MSN Messenger:"
 
 #: templates/forum/user.html:75
 msgid "AOL IM:"
-msgstr ""
+msgstr "AOL IM:"
 
 #: templates/forum/user.html:81
 msgid "Yahoo! Messenger:"
-msgstr ""
+msgstr "Yahoo! Messenger:"
 
 #: templates/forum/user.html:94 templates/forum/profile/profile_menu.html:10
 #: templates/forum/profile/profile_personality.html:9
 msgid "Personality"
-msgstr ""
+msgstr "Tính cách"
 
 #: templates/forum/user.html:97
 msgid "Avatar:"
-msgstr ""
+msgstr "Hình đại diện:"
 
 #: templates/forum/user.html:101
 msgid "(No avatar)"
-msgstr ""
+msgstr "(Không dùng hình đại diện)"
 
 #: templates/forum/user.html:103
 msgid "Signature:"
-msgstr ""
+msgstr "Chữ ký:"
 
 #: templates/forum/user.html:116
 #: templates/forum/profile/profile_essentials.html:71
 msgid "User activity"
-msgstr ""
+msgstr "Hoạt động thành viên "
 
 #: templates/forum/user.html:120
 #: templates/forum/profile/profile_essentials.html:76
 msgid "Show all posts"
-msgstr ""
+msgstr "Hiển thị tất cả các bài viết"
 
 #: templates/forum/user.html:121
 #: templates/forum/profile/profile_essentials.html:74
 msgid "Last post:"
-msgstr ""
+msgstr "Bài cuối:"
 
 #: templates/forum/users.html:7
 msgid "User search"
-msgstr ""
+msgstr "Tìm kiếm thành viên"
 
 #: templates/forum/users.html:12
 msgid "Find and sort users"
-msgstr ""
+msgstr "Tìm và sắp xếp thành viên"
 
 #: templates/forum/users.html:25
-msgid ""
-"Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
-msgstr ""
+msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
+msgstr "Nhập tên thành viên để tìm kiếm. Trường tên thành viên có thể được để trống. Sắp xếp thành viên theo tên, ngày đăng ký hoặc số lượng bài viết và theo thứ tự tăng hoặc giảm dần"
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
 msgid "Full Version:"
-msgstr ""
+msgstr "Phiên bản đầy đủ:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "IMPORTANT:"
-msgstr ""
+msgstr "LƯU Ý:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "replies"
-msgstr ""
+msgstr "trả lời"
 
 #: templates/forum/lofi/index.html:18
 msgid "posts"
-msgstr ""
+msgstr "bài viết"
 
 #: templates/forum/profile/profile_admin.html:15
 msgid "Delete (administrators only) or ban user"
-msgstr ""
+msgstr "Xóa (chỉ administrators) hoặc khóa thành viên"
 
 #: templates/forum/profile/profile_admin.html:17
 msgid "Delete user"
-msgstr ""
+msgstr "Xoá thành viên"
 
 #: templates/forum/profile/profile_admin.html:17
 msgid "Ban user"
-msgstr ""
+msgstr "Khóa thành viên"
 
 #: templates/forum/profile/profile_admin.html:24
 msgid "Set moderator access"
-msgstr ""
+msgstr "Thiết lập chế độ truy cập của ban điều hành"
 
 #: templates/forum/profile/profile_admin.html:26
-msgid ""
-"Choose what forums this user should be allowed to moderate. Note: This only "
-"applies to moderators. Administrators always have full permissions in all "
-"forums."
-msgstr ""
+msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
+msgstr "Chọn diễn đàn nào mà thành viên này được phép quản lý. Chú ý: Chỉ áp dụng với ban thành viên ban điều hành. Administrators luôn có đầy đủ quyền hạn trên toàn diễn đàn"
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
-msgstr ""
+msgstr "Cập nhật diễn đàn"
 
 #: templates/forum/profile/profile_display.html:9
 #: templates/forum/profile/profile_menu.html:11
 msgid "Display"
-msgstr ""
+msgstr "Hiển thị"
 
 #: templates/forum/profile/profile_display.html:14
 msgid "Select your preferred style"
-msgstr ""
+msgstr "Chọn phong cách ưa thích của bạn"
 
 #: templates/forum/profile/profile_display.html:17
 msgid "If you like you can use a different visual style for this forum."
-msgstr ""
+msgstr "Nếu bạn thích, bạn có thể sử dụng một phong cách khác nhau hình ảnh cho diễn đàn này."
 
 #: templates/forum/profile/profile_display.html:34
 msgid "Post display legend"
-msgstr ""
+msgstr "Hiện phụ đề bài viết"
 
 #: templates/forum/profile/profile_display.html:36
 msgid "Post display info"
-msgstr ""
+msgstr "Hiển thị thông tin bài"
 
 #: templates/forum/profile/profile_display.html:44
 #: templates/forum/profile/profile_essentials.html:81
@@ -1135,102 +1119,87 @@ msgstr ""
 #: templates/forum/profile/profile_personality.html:53
 #: templates/forum/profile/profile_privacy.html:25
 msgid "When you update your profile, you will be redirected back to this page."
-msgstr ""
+msgstr "Khi bạn cập nhật hồ sơ, bạn sẽ được chuyển trở lại vào trang này."
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
 msgid "Essentials"
-msgstr ""
+msgstr "Bản chất"
 
 #: templates/forum/profile/profile_essentials.html:15
 msgid "Enter your username and password"
-msgstr ""
+msgstr "Nhập tên người dùng và mật khẩu"
 
 #: templates/forum/profile/profile_essentials.html:26
 #: templates/forum/profile/profile_essentials.html:28
 msgid "Change password"
-msgstr ""
+msgstr "Thay đổi mật khẩu"
 
 #: templates/forum/profile/profile_essentials.html:37
 msgid "Enter a valid e-mail address"
-msgstr ""
+msgstr "Nhập địa chỉ thư điện tử hợp lệ"
 
 #: templates/forum/profile/profile_essentials.html:51
 msgid "Set your localisation options"
-msgstr ""
+msgstr "Đặt tùy chọn khu vực của bạn"
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid ""
-"Timezone: For the forum to display times correctly you must select your "
-"local timezone."
-msgstr ""
+msgid "Timezone: For the forum to display times correctly you must select your local timezone."
+msgstr "Múi giờ: Đê diễn đàn hiển thị thời gian một cách chính xác, bạn phải chọn múi giờ địa phương."
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid ""
-"Language: You can choose which language you wish to use to view the forum"
-msgstr ""
+msgid "Language: You can choose which language you wish to use to view the forum"
+msgstr "Ngôn ngữ: Bạn có thể chọn ngôn ngữ mà bạn muốn sử dụng để xem các diễn đàn"
 
 #: templates/forum/profile/profile_menu.html:3
 msgid "Profile menu"
-msgstr ""
+msgstr "Danh mục hồ sơ"
 
 #: templates/forum/profile/profile_menu.html:12
 #: templates/forum/profile/profile_privacy.html:9
 msgid "Privacy"
-msgstr ""
+msgstr "Bảo mật"
 
 #: templates/forum/profile/profile_personal.html:15
 msgid "Enter your personal details"
-msgstr ""
+msgstr "Nhập thông tin chi tiết của bạn"
 
 #: templates/forum/profile/profile_personal.html:21
 msgid "Leave blank to use forum default."
-msgstr ""
+msgstr "Để trống nếu muốn sử dụng của diễn đàn mặc định."
 
 #: templates/forum/profile/profile_personality.html:14
 msgid "Set your avatar display options"
-msgstr ""
+msgstr "Thiết lập các tùy chọn hiển thị avatar của bạn"
 
 #: templates/forum/profile/profile_personality.html:20
-msgid ""
-"An avatar is a small image that will be displayed with all your posts. You "
-"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
-"below must be checked in order for the avatar to be visible in your posts."
-msgstr ""
+msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
+msgstr "Hình đại diện là một hình ảnh nhỏ sẽ được hiển thị trong tất cả các bài viết của bạn. Bạn có thể tải lên hình đại diện bằng cách nhấp vào liên kết dưới đây. Phải chọn ô 'Sử dụng hình đại diện' để hình đại diện được nhìn thấy trong bài viết của bạn."
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
-msgstr ""
+msgstr "Sử dụng hình đại diện."
 
 #: templates/forum/profile/profile_personality.html:27
 msgid "Delete avatar"
-msgstr ""
+msgstr "Xóa hình đại diện"
 
 #: templates/forum/profile/profile_personality.html:36
 msgid "Compose your signature"
-msgstr ""
+msgstr "Soạn chữ ký của bạn"
 
 #: templates/forum/profile/profile_personality.html:39
-msgid ""
-"A signature is a small piece of text that is attached to your posts. In it, "
-"you can enter just about anything you like. Perhaps you would like to enter "
-"your favourite quote or your star sign. It's up to you! In your signature "
-"you can use BBCode if it is allowed in this particular forum. You can see "
-"the features that are allowed/enabled listed below whenever you edit your "
-"signature."
-msgstr ""
+msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
+msgstr "Chữ ký là một đoạn văn bản ngắn được gắn liền với bài viết của bạn. Trong đó, bạn có thể nhập bất cứ thứ gì bạn thích. Có thể bạn muốn nhập trích dẫn yêu thích hay chữ ký ngôi sao của bạn. Nó thuộc vào bạn! Trong chữ ký, bạn có thể sử dụng BBCode nếu nó được cho phép sử dụng. Bạn có thể xem các tính năng được cho phép / cho phép liệt kê dưới đây bất cứ khi nào bạn chỉnh sửa chữ ký của bạn."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
-msgstr ""
+msgstr "Không có chữ ký nào hiện được lưu trong hồ sơ."
 
 #: templates/forum/profile/profile_privacy.html:15
 msgid "Set your privacy options"
-msgstr ""
+msgstr "Thiết lập các tùy chọn riêng tư của bạn"
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
-msgstr ""
+msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
+msgstr "Chọn nếu bạn muốn địa chỉ thư điện tử của bạn để có thể xem được cho người dùng khác hay không và nếu bạn muốn người dùng khác để có thể gửi e-mail thông qua diễn đàn này (mẫu e-mail) hay không."

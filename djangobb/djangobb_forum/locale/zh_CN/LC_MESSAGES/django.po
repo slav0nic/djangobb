@@ -1,18 +1,21 @@
-# China translation for DjangoBB forum
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# lzhshen <lzhshen@hotmail.com>, 2009.
-#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Djangobb dev\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-02 11:17+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: lzhshen <lzhshen@hotmail.com>\n"
-"Language-Team: : Simplified Chinese <slav0nic0@gmail.com>\n"
+"Project-Id-Version: DjangoBB\n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
+"POT-Creation-Date: 2010-12-02 12:37+0200\n"
+"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
+"Language-Team: Chinese (China) <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
@@ -349,9 +352,8 @@ msgid "Show signatures"
 msgstr "显示签名"
 
 #: models.py:277 templates/forum/profile/profile_display.html:39
-#, fuzzy
 msgid "Show smilies"
-msgstr "显示签名"
+msgstr ""
 
 #: models.py:278
 msgid "Privacy permission"
@@ -695,9 +697,7 @@ msgid "Write and submit your e-mail message"
 msgstr "书写并提交您的 E-mail"
 
 #: templates/forum/mail_to.html:21
-msgid ""
-"Please note that by using this form, your e-mail address will be disclosed "
-"to the recipient."
+msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
 msgstr "提示：接收者将会看到您的电子邮箱地址。"
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
@@ -793,13 +793,8 @@ msgid "Enter your search criteria"
 msgstr "输入您的搜索标准"
 
 #: templates/forum/search_form.html:18
-msgid ""
-"To search by keyword, enter a term or terms to search for. Separate terms "
-"with spaces. To search by author enter the username of the author whose "
-"posts you wish to search for."
-msgstr ""
-"要根据关键字搜索，请输入一个或多个关键字搜索，关键字之间用空格分隔。要根据作"
-"者搜索，请输入作者的用户名。"
+msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
+msgstr "要根据关键字搜索，请输入一个或多个关键字搜索，关键字之间用空格分隔。要根据作者搜索，请输入作者的用户名。"
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
@@ -810,9 +805,7 @@ msgid "All forums"
 msgstr "所有论坛"
 
 #: templates/forum/search_form.html:44
-msgid ""
-"Choose in which forum you would like to search and if you want to search in "
-"topic subjects, message text or both."
+msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
 msgstr "选择您要搜索的论坛和搜索范围（标题或全文）。"
 
 #: templates/forum/search_form.html:51
@@ -943,10 +936,7 @@ msgstr "选择头像图标并上传"
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
-msgid ""
-"An avatar is a small image that will be displayed under your username in "
-"your posts. It must not be any bigger than %(avatar_width)s x %"
-"(avatar_height)s pixels "
+msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
 msgstr "头像文件大小不能超过 %(avatar_width)s x %(avatar_height)s 像素"
 
 #: templates/forum/upload_avatar.html:23
@@ -1057,10 +1047,7 @@ msgid "Find and sort users"
 msgstr "查找并排序用户"
 
 #: templates/forum/users.html:25
-msgid ""
-"Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
 msgstr "搜索用户名。用户名域可以为空。可以以名字、注册日期、或发文数量排序。"
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
@@ -1097,13 +1084,8 @@ msgid "Set moderator access"
 msgstr "设置版主权限"
 
 #: templates/forum/profile/profile_admin.html:26
-msgid ""
-"Choose what forums this user should be allowed to moderate. Note: This only "
-"applies to moderators. Administrators always have full permissions in all "
-"forums."
-msgstr ""
-"选择此用户可以管理的版块。注意：这仅对版主有效，管理员总是可以管理所有子论"
-"坛。"
+msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
+msgstr "选择此用户可以管理的版块。注意：这仅对版主有效，管理员总是可以管理所有子论坛。"
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
@@ -1162,14 +1144,11 @@ msgid "Set your localisation options"
 msgstr "设置您的区域选项"
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid ""
-"Timezone: For the forum to display times correctly you must select your "
-"local timezone."
+msgid "Timezone: For the forum to display times correctly you must select your local timezone."
 msgstr "时区：为了在论坛显示正确的时间，您必须设定您所在的时区。"
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid ""
-"Language: You can choose which language you wish to use to view the forum"
+msgid "Language: You can choose which language you wish to use to view the forum"
 msgstr "语言：您可以选择不同的语言查看论坛"
 
 #: templates/forum/profile/profile_menu.html:3
@@ -1194,13 +1173,8 @@ msgid "Set your avatar display options"
 msgstr "设置头像显示选项"
 
 #: templates/forum/profile/profile_personality.html:20
-msgid ""
-"An avatar is a small image that will be displayed with all your posts. You "
-"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
-"below must be checked in order for the avatar to be visible in your posts."
-msgstr ""
-"头像是一个小图标，它将显示于您所有的帖子中。通过点击下面的链接，您可以上传一"
-"个头像。为了使头像生效，‘使用头像’的选项必须选中。"
+msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
+msgstr "头像是一个小图标，它将显示于您所有的帖子中。通过点击下面的链接，您可以上传一个头像。为了使头像生效，‘使用头像’的选项必须选中。"
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
@@ -1215,16 +1189,8 @@ msgid "Compose your signature"
 msgstr "编辑您的签名档"
 
 #: templates/forum/profile/profile_personality.html:39
-msgid ""
-"A signature is a small piece of text that is attached to your posts. In it, "
-"you can enter just about anything you like. Perhaps you would like to enter "
-"your favourite quote or your star sign. It's up to you! In your signature "
-"you can use BBCode if it is allowed in this particular forum. You can see "
-"the features that are allowed/enabled listed below whenever you edit your "
-"signature."
-msgstr ""
-"签名档是一小段文字，它将附加到您发布的帖子后面。您可以添加任何喜欢的内容。比"
-"如可以是您喜欢的名言或者您的签名。"
+msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
+msgstr "签名档是一小段文字，它将附加到您发布的帖子后面。您可以添加任何喜欢的内容。比如可以是您喜欢的名言或者您的签名。"
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1235,58 +1201,5 @@ msgid "Set your privacy options"
 msgstr "设置您的隐私选项"
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
-msgstr ""
-"设置是否允许其他人看到您的电子邮箱地址以及是否允许其他人通过论坛给你发送电子"
-"邮件。"
-
-#~ msgid "Recipient"
-#~ msgstr "接收者"
-
-#~ msgid "Read"
-#~ msgstr "查看"
-
-#~ msgid "Text version"
-#~ msgstr "纯文本版本"
-
-#~ msgid "Private message"
-#~ msgstr "私人消息"
-
-#~ msgid "Private messages"
-#~ msgstr "私人消息"
-
-#~ msgid "Send a message"
-#~ msgstr "发送消息"
-
-#~ msgid "Send"
-#~ msgstr "发送"
-
-#~ msgid "Inbox"
-#~ msgstr "收件箱"
-
-#~ msgid "Sender"
-#~ msgstr "发送者"
-
-#~ msgid "No messages"
-#~ msgstr "没有消息"
-
-#~ msgid "Private Messages"
-#~ msgstr "私人消息"
-
-#~ msgid "Sent"
-#~ msgstr "发送"
-
-#~ msgid "Send new message"
-#~ msgstr "发送新消息"
-
-#~ msgid "Outbox"
-#~ msgstr "发件箱"
-
-#~ msgid "Receiver"
-#~ msgstr "收件人"
-
-#~ msgid "The reason of change of reputation:"
-#~ msgstr "改变声望的原因"
+msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
+msgstr "设置是否允许其他人看到您的电子邮箱地址以及是否允许其他人通过论坛给你发送电子邮件。"
