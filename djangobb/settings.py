@@ -45,6 +45,10 @@ LANGUAGES = (
     ('ru', 'Russian'),
     ('zh_CN', 'Chinese'),
     ('de', 'German'),
+    ('vi', 'Vietnamese'),
+    ('it', 'Italian'),
+    ('cs', 'Czech'),
+    ('ca', 'Catalan'),
 )
 
 SITE_ID = 1
