@@ -1,17 +1,21 @@
-# Polish translation for DjangoBB forum
-# This file is distributed under the same license as the djangobb package.
-# Jan Szejko <janek37@gmail.com>, 2010.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-02 11:17+0200\n"
-"PO-Revision-Date: 2010-03-02 14:36+0200\n"
-"Last-Translator: Jan Szejko <janek37@gmail.com>\n"
+"Project-Id-Version: DjangoBB\n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
+"POT-Creation-Date: 2010-12-02 12:37+0200\n"
+"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
+"Language-Team: Polish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
@@ -348,9 +352,8 @@ msgid "Show signatures"
 msgstr "Pokaż podpisy"
 
 #: models.py:277 templates/forum/profile/profile_display.html:39
-#, fuzzy
 msgid "Show smilies"
-msgstr "Pokaż podpisy"
+msgstr ""
 
 #: models.py:278
 msgid "Privacy permission"
@@ -694,11 +697,8 @@ msgid "Write and submit your e-mail message"
 msgstr "Napisz i wyślij wiadomość e-mail"
 
 #: templates/forum/mail_to.html:21
-msgid ""
-"Please note that by using this form, your e-mail address will be disclosed "
-"to the recipient."
-msgstr ""
-"Pamiętaj, że używając tego formularza ujawniasz swój adres e-mail adresatowi."
+msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
+msgstr "Pamiętaj, że używając tego formularza ujawniasz swój adres e-mail adresatowi."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
@@ -793,14 +793,8 @@ msgid "Enter your search criteria"
 msgstr "Wpisz kryteria wyszukiwania"
 
 #: templates/forum/search_form.html:18
-msgid ""
-"To search by keyword, enter a term or terms to search for. Separate terms "
-"with spaces. To search by author enter the username of the author whose "
-"posts you wish to search for."
-msgstr ""
-"Aby szukać wg słów kluczowych, wpisz odpowiednie wyrazy, oddzielając je "
-"spacjami. Aby szukać wg autora, wpisz nazwę użytkownika, którego wiadomości "
-"chcesz szukać."
+msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
+msgstr "Aby szukać wg słów kluczowych, wpisz odpowiednie wyrazy, oddzielając je spacjami. Aby szukać wg autora, wpisz nazwę użytkownika, którego wiadomości chcesz szukać."
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
@@ -811,12 +805,8 @@ msgid "All forums"
 msgstr "Wszystkie fora"
 
 #: templates/forum/search_form.html:44
-msgid ""
-"Choose in which forum you would like to search and if you want to search in "
-"topic subjects, message text or both."
-msgstr ""
-"Wybierz w którym forum chcesz szukać i czy chcesz szukać w tytułach tematów, "
-"wiadomościach, czy w obu."
+msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
+msgstr "Wybierz w którym forum chcesz szukać i czy chcesz szukać w tytułach tematów, wiadomościach, czy w obu."
 
 #: templates/forum/search_form.html:51
 msgid "Select how to view search results"
@@ -946,14 +936,8 @@ msgstr "Wprowadź plik z awatarem do wysłania"
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
-msgid ""
-"An avatar is a small image that will be displayed under your username in "
-"your posts. It must not be any bigger than %(avatar_width)s x %"
-"(avatar_height)s pixels "
-msgstr ""
-"Awatar to mały obrazek, który będzie wyświetlany pod Twoją nazwą użytkownika "
-"w Twoich wiadomościach. Nie może być większy niż %(avatar_width)s x %"
-"(avatar_height)s pikseli "
+msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
+msgstr "Awatar to mały obrazek, który będzie wyświetlany pod Twoją nazwą użytkownika w Twoich wiadomościach. Nie może być większy niż %(avatar_width)s x %(avatar_height)s pikseli "
 
 #: templates/forum/upload_avatar.html:23
 msgid "Upload"
@@ -1063,14 +1047,8 @@ msgid "Find and sort users"
 msgstr "Znajdź i sortuj użytkowników"
 
 #: templates/forum/users.html:25
-msgid ""
-"Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
-msgstr ""
-"Wpisz nazwię użytkownika do wyszukania. Pole z nazwą nie może pozostać "
-"puste. Sortuj użytkowników według nazwy, daty zarejestrowania lub liczby "
-"postów w kolejności rosnącej lub malejącej."
+msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
+msgstr "Wpisz nazwię użytkownika do wyszukania. Pole z nazwą nie może pozostać puste. Sortuj użytkowników według nazwy, daty zarejestrowania lub liczby postów w kolejności rosnącej lub malejącej."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
@@ -1106,14 +1084,8 @@ msgid "Set moderator access"
 msgstr "Ustaw dostęp moderatora"
 
 #: templates/forum/profile/profile_admin.html:26
-msgid ""
-"Choose what forums this user should be allowed to moderate. Note: This only "
-"applies to moderators. Administrators always have full permissions in all "
-"forums."
-msgstr ""
-"Wybierz, które forum użytkownik powinien móc moderować. Uwaga: To dotyczy "
-"tylko moderatorów. Administratorzy zawsze mają pełne uprawnienia na "
-"wszystkich forach."
+msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
+msgstr "Wybierz, które forum użytkownik powinien móc moderować. Uwaga: To dotyczy tylko moderatorów. Administratorzy zawsze mają pełne uprawnienia na wszystkich forach."
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
@@ -1147,8 +1119,7 @@ msgstr ""
 #: templates/forum/profile/profile_personality.html:53
 #: templates/forum/profile/profile_privacy.html:25
 msgid "When you update your profile, you will be redirected back to this page."
-msgstr ""
-"Kiedy zaktualizujesz profil, zostaniesz przekierowany z powrotem tutaj."
+msgstr "Kiedy zaktualizujesz profil, zostaniesz przekierowany z powrotem tutaj."
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
@@ -1173,16 +1144,11 @@ msgid "Set your localisation options"
 msgstr "Ustaw opcje lokalizacji"
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid ""
-"Timezone: For the forum to display times correctly you must select your "
-"local timezone."
-msgstr ""
-"Strefa czasowa: Aby forum poprawnie wyświetlało czas, musisz wybrać swoją "
-"lokalną strefę czasową."
+msgid "Timezone: For the forum to display times correctly you must select your local timezone."
+msgstr "Strefa czasowa: Aby forum poprawnie wyświetlało czas, musisz wybrać swoją lokalną strefę czasową."
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid ""
-"Language: You can choose which language you wish to use to view the forum"
+msgid "Language: You can choose which language you wish to use to view the forum"
 msgstr "Język: Możesz wybrać jakiego języka chcesz użyć do wyświetlania forum"
 
 #: templates/forum/profile/profile_menu.html:3
@@ -1207,13 +1173,8 @@ msgid "Set your avatar display options"
 msgstr "Ustaw opcje wyświetlania awatara"
 
 #: templates/forum/profile/profile_personality.html:20
-msgid ""
-"An avatar is a small image that will be displayed with all your posts. You "
-"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
-"below must be checked in order for the avatar to be visible in your posts."
-msgstr ""
-"Awatar to mały obrazek, który będzie wyświetlany w Twoich wiadomościach. "
-"Możesz wysłać awatar klikając w poniższy link. "
+msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
+msgstr "Awatar to mały obrazek, który będzie wyświetlany w Twoich wiadomościach. Możesz wysłać awatar klikając w poniższy link. "
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
@@ -1228,19 +1189,8 @@ msgid "Compose your signature"
 msgstr "Napisz swój podpis"
 
 #: templates/forum/profile/profile_personality.html:39
-msgid ""
-"A signature is a small piece of text that is attached to your posts. In it, "
-"you can enter just about anything you like. Perhaps you would like to enter "
-"your favourite quote or your star sign. It's up to you! In your signature "
-"you can use BBCode if it is allowed in this particular forum. You can see "
-"the features that are allowed/enabled listed below whenever you edit your "
-"signature."
-msgstr ""
-"Podpis to krótki tekst dołączany do Twoich wiadomoścu. Możesz w nim umieścić "
-"co tylko chcesz. Możliwe, że chcesz wpisać swój ulubiony cytat lub swój znak "
-"Zodiaku. To zależy od Ciebie! W podpisie możesz używać znaczników BBCode, "
-"jeśli są dozwolone na tym forum. Zawsze, kiedy edytujesz podpis, możesz "
-"poniżej zobaczyć listę dostępnych funkcji."
+msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
+msgstr "Podpis to krótki tekst dołączany do Twoich wiadomoścu. Możesz w nim umieścić co tylko chcesz. Możliwe, że chcesz wpisać swój ulubiony cytat lub swój znak Zodiaku. To zależy od Ciebie! W podpisie możesz używać znaczników BBCode, jeśli są dozwolone na tym forum. Zawsze, kiedy edytujesz podpis, możesz poniżej zobaczyć listę dostępnych funkcji."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1251,56 +1201,5 @@ msgid "Set your privacy options"
 msgstr "Ustaw opcje prywatności"
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
-msgstr ""
-"Wybierz, czy chcesz, aby Twój adres e-mail był widoczny dla innych "
-"użytkowników i czy chcesz, by inni użytkownicy mogli wysyłać Ci e-maile "
-"przez forum (formularz e-mail)."
-
-#~ msgid "Recipient"
-#~ msgstr "Adresat"
-
-#~ msgid "Read"
-#~ msgstr "Czytaj"
-
-#~ msgid "Text version"
-#~ msgstr "Wersja tekstowa"
-
-#~ msgid "Private message"
-#~ msgstr "Prywatna wiadomość"
-
-#~ msgid "Private messages"
-#~ msgstr "Prywatne wiadomości"
-
-#~ msgid "Send a message"
-#~ msgstr "Wyślij wiadomość"
-
-#~ msgid "Send"
-#~ msgstr "Wyślij"
-
-#~ msgid "Inbox"
-#~ msgstr "Skrzynka odbiorcza"
-
-#~ msgid "Sender"
-#~ msgstr "Nadawca"
-
-#~ msgid "No messages"
-#~ msgstr "Brak wiadomości"
-
-#~ msgid "Private Messages"
-#~ msgstr "Prywatna wiadomość"
-
-#~ msgid "Sent"
-#~ msgstr "Wysłane"
-
-#~ msgid "Send new message"
-#~ msgstr "Wyślij nową wiadomość"
-
-#~ msgid "Outbox"
-#~ msgstr "Skrzynka nadawcza"
-
-#~ msgid "Receiver"
-#~ msgstr "Adresat"
+msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
+msgstr "Wybierz, czy chcesz, aby Twój adres e-mail był widoczny dla innych użytkowników i czy chcesz, by inni użytkownicy mogli wysyłać Ci e-maile przez forum (formularz e-mail)."

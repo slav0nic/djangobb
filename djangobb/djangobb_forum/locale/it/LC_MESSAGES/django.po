@@ -1,19 +1,21 @@
-# Italian translation for DjangoBB forum
-# Copyright (C) 2010 Marco Minutoli
-# This file is distributed under the same license as the DjangoBB package.
-# Marco Minutoli <marcominutoli@gmail.com>, 2010.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-02 11:17+0200\n"
-"PO-Revision-Date: 2010-08-27 16:36-0300\n"
-"Last-Translator: Marco Minutoli <marcominutoli@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: DjangoBB\n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
+"POT-Creation-Date: 2010-12-02 12:37+0200\n"
+"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
+"Language-Team: Italian <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
@@ -350,9 +352,8 @@ msgid "Show signatures"
 msgstr "Mostra firme"
 
 #: models.py:277 templates/forum/profile/profile_display.html:39
-#, fuzzy
 msgid "Show smilies"
-msgstr "Mostra firme"
+msgstr ""
 
 #: models.py:278
 msgid "Privacy permission"
@@ -696,12 +697,8 @@ msgid "Write and submit your e-mail message"
 msgstr "Scrivi e invia il tuo messaggio e-mail"
 
 #: templates/forum/mail_to.html:21
-msgid ""
-"Please note that by using this form, your e-mail address will be disclosed "
-"to the recipient."
-msgstr ""
-"Attenzione, usando questo form il tuo indirizzo e-mail sara' visibile al "
-"destinatario."
+msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
+msgstr "Attenzione, usando questo form il tuo indirizzo e-mail sara' visibile al destinatario."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
@@ -741,8 +738,7 @@ msgstr "Segnala argomento"
 
 #: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
-msgstr ""
-"Prego, inserisci una breve descrizione del motivo della tua segnalazione"
+msgstr "Prego, inserisci una breve descrizione del motivo della tua segnalazione"
 
 #: templates/forum/reputation.html:16
 msgid "Reputation of the user"
@@ -797,14 +793,8 @@ msgid "Enter your search criteria"
 msgstr "Inserisci il tuo criterio di ricerca"
 
 #: templates/forum/search_form.html:18
-msgid ""
-"To search by keyword, enter a term or terms to search for. Separate terms "
-"with spaces. To search by author enter the username of the author whose "
-"posts you wish to search for."
-msgstr ""
-"Per cercare tramite parole chiave, inserisci uno o piu' termini di ricerca "
-"separati da spazi. Per cercare per autore inserisci lo username dell'autore "
-"dei messaggi che stai ricercando"
+msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
+msgstr "Per cercare tramite parole chiave, inserisci uno o piu' termini di ricerca separati da spazi. Per cercare per autore inserisci lo username dell'autore dei messaggi che stai ricercando"
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
@@ -815,12 +805,8 @@ msgid "All forums"
 msgstr "Tutti i forum"
 
 #: templates/forum/search_form.html:44
-msgid ""
-"Choose in which forum you would like to search and if you want to search in "
-"topic subjects, message text or both."
-msgstr ""
-"Seleziona in quale forum vuoi cercare e se vuoi ricercare negli oggetti "
-"degli argomenti, nei messaggi o in entrambi."
+msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
+msgstr "Seleziona in quale forum vuoi cercare e se vuoi ricercare negli oggetti degli argomenti, nei messaggi o in entrambi."
 
 #: templates/forum/search_form.html:51
 msgid "Select how to view search results"
@@ -950,14 +936,8 @@ msgstr "Inserisci il file con l'avatar che vuoi caricare"
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
-msgid ""
-"An avatar is a small image that will be displayed under your username in "
-"your posts. It must not be any bigger than %(avatar_width)s x %"
-"(avatar_height)s pixels "
-msgstr ""
-"Un avatar e' una piccola immagine che verra' visualizata sotto il tuo nome "
-"utente nei tuoi messaggi. Non deve essere piu' grande di %(avatar_width)s x %"
-"(avatar_height)s pixels "
+msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
+msgstr "Un avatar e' una piccola immagine che verra' visualizata sotto il tuo nome utente nei tuoi messaggi. Non deve essere piu' grande di %(avatar_width)s x %(avatar_height)s pixels "
 
 #: templates/forum/upload_avatar.html:23
 msgid "Upload"
@@ -1067,14 +1047,8 @@ msgid "Find and sort users"
 msgstr "Cerca e ordina utenti"
 
 #: templates/forum/users.html:25
-msgid ""
-"Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
-msgstr ""
-"Inserisci un nome utente da ricercare. Il campo nome utente puo' essere "
-"lasciato bianco. Ordina gli utenti per nome, data di registrazione o numero "
-"di messaggi e in ordine crescente/decrescente."
+msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
+msgstr "Inserisci un nome utente da ricercare. Il campo nome utente puo' essere lasciato bianco. Ordina gli utenti per nome, data di registrazione o numero di messaggi e in ordine crescente/decrescente."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
@@ -1110,13 +1084,8 @@ msgid "Set moderator access"
 msgstr "Configura gli accessi dei moderatori"
 
 #: templates/forum/profile/profile_admin.html:26
-msgid ""
-"Choose what forums this user should be allowed to moderate. Note: This only "
-"applies to moderators. Administrators always have full permissions in all "
-"forums."
-msgstr ""
-"Scegli quale forum questo utente puo' moderare. Nota: Si applica solo ai "
-"moderatori. Gli amministratori hanno sempre pieni permessi su tutti i forum."
+msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
+msgstr "Scegli quale forum questo utente puo' moderare. Nota: Si applica solo ai moderatori. Gli amministratori hanno sempre pieni permessi su tutti i forum."
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
@@ -1175,16 +1144,11 @@ msgid "Set your localisation options"
 msgstr "Imposta le tue opzioni di localizzazione"
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid ""
-"Timezone: For the forum to display times correctly you must select your "
-"local timezone."
-msgstr ""
-"Fuso orario: Per visualizzare l'ora corretta nel forum devi selezionare il "
-"tuo fuso orario."
+msgid "Timezone: For the forum to display times correctly you must select your local timezone."
+msgstr "Fuso orario: Per visualizzare l'ora corretta nel forum devi selezionare il tuo fuso orario."
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid ""
-"Language: You can choose which language you wish to use to view the forum"
+msgid "Language: You can choose which language you wish to use to view the forum"
 msgstr "Lingua: Puoi scegliere in quale lingua vuoi vedere i forum"
 
 #: templates/forum/profile/profile_menu.html:3
@@ -1209,15 +1173,8 @@ msgid "Set your avatar display options"
 msgstr "Imposta le opzioni di visualizzazione del tuo avatar"
 
 #: templates/forum/profile/profile_personality.html:20
-msgid ""
-"An avatar is a small image that will be displayed with all your posts. You "
-"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
-"below must be checked in order for the avatar to be visible in your posts."
-msgstr ""
-"Un avatar e' una piccola immagine che verra' visualizzata in tutti i tuoi "
-"messaggi. Puoi caricare un avatar cliccando sul link qua sotto. La casella "
-"'Usa avatar' qua sotto deve essere selezionata per fare in modo che l'avata "
-"venga visualizzato nei tuoi messaggi."
+msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
+msgstr "Un avatar e' una piccola immagine che verra' visualizzata in tutti i tuoi messaggi. Puoi caricare un avatar cliccando sul link qua sotto. La casella 'Usa avatar' qua sotto deve essere selezionata per fare in modo che l'avata venga visualizzato nei tuoi messaggi."
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
@@ -1232,20 +1189,8 @@ msgid "Compose your signature"
 msgstr "Crea la tua firma"
 
 #: templates/forum/profile/profile_personality.html:39
-msgid ""
-"A signature is a small piece of text that is attached to your posts. In it, "
-"you can enter just about anything you like. Perhaps you would like to enter "
-"your favourite quote or your star sign. It's up to you! In your signature "
-"you can use BBCode if it is allowed in this particular forum. You can see "
-"the features that are allowed/enabled listed below whenever you edit your "
-"signature."
-msgstr ""
-"Una firma e' una piccola porzione di testo che verra' aggiunta ai tuoi "
-"messaggi. In essa puoi inserire qualsiasi cosa tu voglia. Potresti, ad "
-"esempio, inserire la tua citazione favorita. Decidi tu! Nella firma puoi "
-"usare i BBcode se sono permessi in questo particolare forum. Puoi vedere le "
-"caratteristiche listate soto che sono abilitate/disabilitate quando "
-"modificherai la tua firma."
+msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
+msgstr "Una firma e' una piccola porzione di testo che verra' aggiunta ai tuoi messaggi. In essa puoi inserire qualsiasi cosa tu voglia. Potresti, ad esempio, inserire la tua citazione favorita. Decidi tu! Nella firma puoi usare i BBcode se sono permessi in questo particolare forum. Puoi vedere le caratteristiche listate soto che sono abilitate/disabilitate quando modificherai la tua firma."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1256,56 +1201,5 @@ msgid "Set your privacy options"
 msgstr "Imposta le tue opzioni sulla privacy"
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
-msgstr ""
-"Seleziona quando vuoi che il tuo indirizzo e-mail sia visibile o meno agli "
-"altri utenti e se vuoi che gli altri utenti ti possano inviare e-mail "
-"tramite il forum."
-
-#~ msgid "Recipient"
-#~ msgstr "Destinatario"
-
-#~ msgid "Read"
-#~ msgstr "Letto"
-
-#~ msgid "Text version"
-#~ msgstr "Versione del testo"
-
-#~ msgid "Private message"
-#~ msgstr "Messaggio privato"
-
-#~ msgid "Private messages"
-#~ msgstr "Messaggi privati"
-
-#~ msgid "Send a message"
-#~ msgstr "Invia un messaggio"
-
-#~ msgid "Send"
-#~ msgstr "Invia"
-
-#~ msgid "Inbox"
-#~ msgstr "Posta in arrivo"
-
-#~ msgid "Sender"
-#~ msgstr "Mittente"
-
-#~ msgid "No messages"
-#~ msgstr "Nessun messaggio"
-
-#~ msgid "Private Messages"
-#~ msgstr "Messaggi privati"
-
-#~ msgid "Sent"
-#~ msgstr "Inviato"
-
-#~ msgid "Send new message"
-#~ msgstr "Invia un nuovo messaggio"
-
-#~ msgid "Outbox"
-#~ msgstr "Posta in uscita"
-
-#~ msgid "Receiver"
-#~ msgstr "Destinatario"
+msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
+msgstr "Seleziona quando vuoi che il tuo indirizzo e-mail sia visibile o meno agli altri utenti e se vuoi che gli altri utenti ti possano inviare e-mail tramite il forum."

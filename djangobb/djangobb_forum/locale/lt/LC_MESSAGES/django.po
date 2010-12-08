@@ -1,19 +1,21 @@
-# Lithuanian translation for DjangoBB forum
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Arns Udovīčė <zordsdavini@gmail.com>, 2010.
-#
-#, fuzzy
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Djangobb dev\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-02 11:17+0200\n"
-"PO-Revision-Date: 2010-01-05 13:49+0200\n"
-"Last-Translator: Arns Udovīčė <zordsdavini@gmail.com>\n"
-"Language-Team:  <>\n"
+"Project-Id-Version: DjangoBB\n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
+"POT-Creation-Date: 2010-12-02 12:37+0200\n"
+"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
@@ -241,9 +243,8 @@ msgid "Topic"
 msgstr "Tema"
 
 #: models.py:181
-#, fuzzy
 msgid "Updated by"
-msgstr "Atnaujinta"
+msgstr ""
 
 #: models.py:182 templates/forum/profile/profile_display.html:24
 msgid "Markup"
@@ -351,9 +352,8 @@ msgid "Show signatures"
 msgstr "Rodyti parašą"
 
 #: models.py:277 templates/forum/profile/profile_display.html:39
-#, fuzzy
 msgid "Show smilies"
-msgstr "Rodyti parašą"
+msgstr ""
 
 #: models.py:278
 msgid "Privacy permission"
@@ -697,12 +697,8 @@ msgid "Write and submit your e-mail message"
 msgstr "Rašyti ir siųsti e-pašto žinutę"
 
 #: templates/forum/mail_to.html:21
-msgid ""
-"Please note that by using this form, your e-mail address will be disclosed "
-"to the recipient."
-msgstr ""
-"Prašau atminti, kad naudojant šią formą, jūsų e-pašto adresas bus atslėptas "
-"gavėjui."
+msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
+msgstr "Prašau atminti, kad naudojant šią formą, jūsų e-pašto adresas bus atslėptas gavėjui."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
@@ -742,8 +738,7 @@ msgstr "Pranešti apie įrašą"
 
 #: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
-msgstr ""
-"Prašom įvesti trumpą priežastį, kodėl jūs norite pranešti apie šį įrašą"
+msgstr "Prašom įvesti trumpą priežastį, kodėl jūs norite pranešti apie šį įrašą"
 
 #: templates/forum/reputation.html:16
 msgid "Reputation of the user"
@@ -754,9 +749,8 @@ msgid "From user"
 msgstr "Nuo vartotojo"
 
 #: templates/forum/reputation.html:23
-#, fuzzy
 msgid "For post in topic"
-msgstr "Temai"
+msgstr ""
 
 #: templates/forum/reputation.html:25
 msgid "Estimation"
@@ -799,14 +793,8 @@ msgid "Enter your search criteria"
 msgstr "Įveskite paieškos kriterijus"
 
 #: templates/forum/search_form.html:18
-msgid ""
-"To search by keyword, enter a term or terms to search for. Separate terms "
-"with spaces. To search by author enter the username of the author whose "
-"posts you wish to search for."
-msgstr ""
-"Ieškant pagal reikšminius žodžius, įveskite sąlygą arba sąlygas. Atskirkite "
-"sąlygas tarpais. Ieškant pagal autorių, įveskite autoriaus vartotojo vardą, "
-"kurio įrašų ieškote."
+msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
+msgstr "Ieškant pagal reikšminius žodžius, įveskite sąlygą arba sąlygas. Atskirkite sąlygas tarpais. Ieškant pagal autorių, įveskite autoriaus vartotojo vardą, kurio įrašų ieškote."
 
 #: templates/forum/search_form.html:24
 msgid "Select where to search"
@@ -817,12 +805,8 @@ msgid "All forums"
 msgstr "Visi forumai"
 
 #: templates/forum/search_form.html:44
-msgid ""
-"Choose in which forum you would like to search and if you want to search in "
-"topic subjects, message text or both."
-msgstr ""
-"Pasirinkite kuriame forume jūs norite ieškoti ir jei norite ieškoti temų "
-"pavadinimuose, įrašų tekstuose ar abu."
+msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
+msgstr "Pasirinkite kuriame forume jūs norite ieškoti ir jei norite ieškoti temų pavadinimuose, įrašų tekstuose ar abu."
 
 #: templates/forum/search_form.html:51
 msgid "Select how to view search results"
@@ -952,14 +936,8 @@ msgstr "Įkėlimui įveskite avataro failą"
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
-msgid ""
-"An avatar is a small image that will be displayed under your username in "
-"your posts. It must not be any bigger than %(avatar_width)s x %"
-"(avatar_height)s pixels "
-msgstr ""
-"Avataras yra mažas paveiksliukas, kuris bus rodomas po jūsų vartotojo vardo "
-"jūsų įrašuose. Jis negali būti didesnis nei %(avatar_width)s x %"
-"(avatar_height)s taškų"
+msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
+msgstr "Avataras yra mažas paveiksliukas, kuris bus rodomas po jūsų vartotojo vardo jūsų įrašuose. Jis negali būti didesnis nei %(avatar_width)s x %(avatar_height)s taškų"
 
 #: templates/forum/upload_avatar.html:23
 msgid "Upload"
@@ -1069,14 +1047,8 @@ msgid "Find and sort users"
 msgstr "Rasti ir rūšiuoti vartotojus"
 
 #: templates/forum/users.html:25
-msgid ""
-"Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
-msgstr ""
-"Įveskite ieškomo vartotojo vardą. Vartotojo vardas gali būti neįvestas. "
-"Rūšiuokite vartotojus pagal vardą, registracijos datą arba įrašų skaičių, "
-"taip pat didėjančia/mažėjančia tvarka."
+msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
+msgstr "Įveskite ieškomo vartotojo vardą. Vartotojo vardas gali būti neįvestas. Rūšiuokite vartotojus pagal vardą, registracijos datą arba įrašų skaičių, taip pat didėjančia/mažėjančia tvarka."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
@@ -1112,14 +1084,8 @@ msgid "Set moderator access"
 msgstr "Suteikti moderatoriaus prieigą"
 
 #: templates/forum/profile/profile_admin.html:26
-msgid ""
-"Choose what forums this user should be allowed to moderate. Note: This only "
-"applies to moderators. Administrators always have full permissions in all "
-"forums."
-msgstr ""
-"Parinkite, kuriuos forumus vartotojas galės moderuoti. Atminkite: tai "
-"galioja tik moderatoriams. Administratoriai turi visas teises visuose "
-"forumuose."
+msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
+msgstr "Parinkite, kuriuos forumus vartotojas galės moderuoti. Atminkite: tai galioja tik moderatoriams. Administratoriai turi visas teises visuose forumuose."
 
 #: templates/forum/profile/profile_admin.html:30
 msgid "Update forums"
@@ -1153,8 +1119,7 @@ msgstr ""
 #: templates/forum/profile/profile_personality.html:53
 #: templates/forum/profile/profile_privacy.html:25
 msgid "When you update your profile, you will be redirected back to this page."
-msgstr ""
-"Kai atnaujinsite savo profilį, jūs būsite nukreiptas atgal į šį puslapį."
+msgstr "Kai atnaujinsite savo profilį, jūs būsite nukreiptas atgal į šį puslapį."
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
@@ -1179,16 +1144,11 @@ msgid "Set your localisation options"
 msgstr "Keisti lokalizacijos nuostatas"
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid ""
-"Timezone: For the forum to display times correctly you must select your "
-"local timezone."
-msgstr ""
-"Laiko juosta: kad forumas atvaizduotų teisingai laiką, jūs turite pasirinkti "
-"laiko juostą. "
+msgid "Timezone: For the forum to display times correctly you must select your local timezone."
+msgstr "Laiko juosta: kad forumas atvaizduotų teisingai laiką, jūs turite pasirinkti laiko juostą. "
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid ""
-"Language: You can choose which language you wish to use to view the forum"
+msgid "Language: You can choose which language you wish to use to view the forum"
 msgstr "Kalba: Jūs galite pasirinkti kokia kalba norite matyti forumą"
 
 #: templates/forum/profile/profile_menu.html:3
@@ -1213,15 +1173,8 @@ msgid "Set your avatar display options"
 msgstr "Nustatykite avataro vaizdavimo nuostatas"
 
 #: templates/forum/profile/profile_personality.html:20
-msgid ""
-"An avatar is a small image that will be displayed with all your posts. You "
-"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
-"below must be checked in order for the avatar to be visible in your posts."
-msgstr ""
-"Avataras yra mažas paveiksliukas, kuris bus atvaizduotas visuose jūsų "
-"įrašuose. Jūs galite įkelti avatarą spausdami žemiau esančią nuorodą. "
-"Varnelė 'Vartotojo avataras' žemiau turi būti pažymėta, kad avataras būtų "
-"matomas."
+msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
+msgstr "Avataras yra mažas paveiksliukas, kuris bus atvaizduotas visuose jūsų įrašuose. Jūs galite įkelti avatarą spausdami žemiau esančią nuorodą. Varnelė 'Vartotojo avataras' žemiau turi būti pažymėta, kad avataras būtų matomas."
 
 #: templates/forum/profile/profile_personality.html:23
 msgid "Use avatar."
@@ -1236,18 +1189,8 @@ msgid "Compose your signature"
 msgstr "Sukurti parašą"
 
 #: templates/forum/profile/profile_personality.html:39
-msgid ""
-"A signature is a small piece of text that is attached to your posts. In it, "
-"you can enter just about anything you like. Perhaps you would like to enter "
-"your favourite quote or your star sign. It's up to you! In your signature "
-"you can use BBCode if it is allowed in this particular forum. You can see "
-"the features that are allowed/enabled listed below whenever you edit your "
-"signature."
-msgstr ""
-"Parašas yra trumpas tekstas, kuris pridedamas po jūsų įrašais. Jame jūs "
-"galite įvesti ką tik norite. Galbūt jūs norite įvesti savo mėgstamą citatą "
-"ar savo horoskopo ženklą. Taip priklauso nuo jūsų. Paraše galite naudoti "
-"BBKodą, jei jis aktyvuotas."
+msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
+msgstr "Parašas yra trumpas tekstas, kuris pridedamas po jūsų įrašais. Jame jūs galite įvesti ką tik norite. Galbūt jūs norite įvesti savo mėgstamą citatą ar savo horoskopo ženklą. Taip priklauso nuo jūsų. Paraše galite naudoti BBKodą, jei jis aktyvuotas."
 
 #: templates/forum/profile/profile_personality.html:48
 msgid "No signature currently stored in profile."
@@ -1258,59 +1201,5 @@ msgid "Set your privacy options"
 msgstr "Redaguoti privatumo nuostatas"
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
-msgstr ""
-"Pasirinkite, ar norite, kad jūsų e-pašto adresas būtų matomas kitiems "
-"vartotojams, ar ne. Taip pat pasirinkite, ar vartotojai galės jums siųsti "
-"forumo e-pašto forma, ar ne."
-
-#~ msgid "Recipient"
-#~ msgstr "Gavėjas"
-
-#~ msgid "Read"
-#~ msgstr "Perskaityta"
-
-#~ msgid "Text version"
-#~ msgstr "Tekstinė versija"
-
-#~ msgid "Private message"
-#~ msgstr "Asmeninė žinutė"
-
-#~ msgid "Private messages"
-#~ msgstr "Asmeninės žinutės"
-
-#~ msgid "Send a message"
-#~ msgstr "Siųsti žinutę"
-
-#~ msgid "Send"
-#~ msgstr "Siųsti"
-
-#~ msgid "Inbox"
-#~ msgstr "Gauta"
-
-#~ msgid "Sender"
-#~ msgstr "Siuntėjas"
-
-#~ msgid "No messages"
-#~ msgstr "Žinučių nėra"
-
-#~ msgid "Private Messages"
-#~ msgstr "Asmeninė žinutė"
-
-#~ msgid "Sent"
-#~ msgstr "Siųsta"
-
-#~ msgid "Send new message"
-#~ msgstr "Siųsti naują žinutę"
-
-#~ msgid "Outbox"
-#~ msgstr "Siunčiama"
-
-#~ msgid "Receiver"
-#~ msgstr "Gavėjas"
-
-#~ msgid "The reason of change of reputation:"
-#~ msgstr "Reputacijos keitimo priežastis:"
+msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
+msgstr "Pasirinkite, ar norite, kad jūsų e-pašto adresas būtų matomas kitiems vartotojams, ar ne. Taip pat pasirinkite, ar vartotojai galės jums siųsti forumo e-pašto forma, ar ne."

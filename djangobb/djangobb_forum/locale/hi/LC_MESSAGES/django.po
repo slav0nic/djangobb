@@ -2,19 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-02 11:17+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: DjangoBB\n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
+"POT-Creation-Date: 2010-12-02 12:37+0200\n"
+"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
+"Language-Team: Hindi <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
@@ -41,15 +42,15 @@ msgstr ""
 
 #: forms.py:21 forms.py:142 forms.py:251 templates/forum/users.html:45
 msgid "Username"
-msgstr ""
+msgstr "प्रयोक्तानाम"
 
 #: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
-msgstr ""
+msgstr "पंजीकृत"
 
 #: forms.py:23
 msgid "No. of posts"
-msgstr ""
+msgstr "पोस्टों की संख्या"
 
 #: forms.py:27
 msgid "Post time"
@@ -57,34 +58,34 @@ msgstr ""
 
 #: forms.py:28
 msgid "Author"
-msgstr ""
+msgstr "लेखक"
 
 #: forms.py:29 forms.py:51 forms.py:116 forms.py:338 models.py:121
 #: templates/forum/add_post.html:27 templates/forum/edit_post.html:24
 msgid "Subject"
-msgstr ""
+msgstr "विषय"
 
 #: forms.py:30 forms.py:286 models.py:104 models.py:120
 #: templates/forum/index.html:53 templates/forum/search_topics.html:22
 msgid "Forum"
-msgstr ""
+msgstr "फोरम"
 
 #: forms.py:34
 msgid "Ascending"
-msgstr ""
+msgstr "आरोह"
 
 #: forms.py:35
 msgid "Descending"
-msgstr ""
+msgstr "अवरोह"
 
 #: forms.py:39 models.py:135 templates/forum/index.html:54
 msgid "Topics"
-msgstr ""
+msgstr "प्रकरण"
 
 #: forms.py:40 models.py:192 templates/forum/index.html:55
 #: templates/forum/users.html:47
 msgid "Posts"
-msgstr ""
+msgstr "पोस्टें"
 
 #: forms.py:44
 msgid "Message text and topic subject"
@@ -108,7 +109,7 @@ msgstr ""
 
 #: forms.py:143 templates/forum/topic.html:67
 msgid "E-mail"
-msgstr ""
+msgstr "ई-मेल"
 
 #: forms.py:173
 msgid "Real name"
@@ -116,27 +117,27 @@ msgstr ""
 
 #: forms.py:253 forms.py:288
 msgid "Sort by"
-msgstr ""
+msgstr "छंटनी आधार"
 
 #: forms.py:254 forms.py:289
 msgid "Sort order"
-msgstr ""
+msgstr "छंटनी क्रम"
 
 #: forms.py:282
 msgid "Keyword search"
-msgstr ""
+msgstr "कीवर्ड खोज"
 
 #: forms.py:284
 msgid "Author search"
-msgstr ""
+msgstr "लेखक खोज"
 
 #: forms.py:287
 msgid "Search in"
-msgstr ""
+msgstr "यहां खोजें"
 
 #: forms.py:290
 msgid "Show results as"
-msgstr ""
+msgstr "परिणाम ऐसे दिखाएं"
 
 #: forms.py:315
 #, python-format
@@ -696,9 +697,7 @@ msgid "Write and submit your e-mail message"
 msgstr ""
 
 #: templates/forum/mail_to.html:21
-msgid ""
-"Please note that by using this form, your e-mail address will be disclosed "
-"to the recipient."
+msgid "Please note that by using this form, your e-mail address will be disclosed to the recipient."
 msgstr ""
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
@@ -794,10 +793,7 @@ msgid "Enter your search criteria"
 msgstr ""
 
 #: templates/forum/search_form.html:18
-msgid ""
-"To search by keyword, enter a term or terms to search for. Separate terms "
-"with spaces. To search by author enter the username of the author whose "
-"posts you wish to search for."
+msgid "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for."
 msgstr ""
 
 #: templates/forum/search_form.html:24
@@ -809,9 +805,7 @@ msgid "All forums"
 msgstr ""
 
 #: templates/forum/search_form.html:44
-msgid ""
-"Choose in which forum you would like to search and if you want to search in "
-"topic subjects, message text or both."
+msgid "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both."
 msgstr ""
 
 #: templates/forum/search_form.html:51
@@ -942,10 +936,7 @@ msgstr ""
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
-msgid ""
-"An avatar is a small image that will be displayed under your username in "
-"your posts. It must not be any bigger than %(avatar_width)s x %"
-"(avatar_height)s pixels "
+msgid "An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than %(avatar_width)s x %(avatar_height)s pixels "
 msgstr ""
 
 #: templates/forum/upload_avatar.html:23
@@ -1056,10 +1047,7 @@ msgid "Find and sort users"
 msgstr ""
 
 #: templates/forum/users.html:25
-msgid ""
-"Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+msgid "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order."
 msgstr ""
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
@@ -1096,10 +1084,7 @@ msgid "Set moderator access"
 msgstr ""
 
 #: templates/forum/profile/profile_admin.html:26
-msgid ""
-"Choose what forums this user should be allowed to moderate. Note: This only "
-"applies to moderators. Administrators always have full permissions in all "
-"forums."
+msgid "Choose what forums this user should be allowed to moderate. Note: This only applies to moderators. Administrators always have full permissions in all forums."
 msgstr ""
 
 #: templates/forum/profile/profile_admin.html:30
@@ -1159,14 +1144,11 @@ msgid "Set your localisation options"
 msgstr ""
 
 #: templates/forum/profile/profile_essentials.html:55
-msgid ""
-"Timezone: For the forum to display times correctly you must select your "
-"local timezone."
+msgid "Timezone: For the forum to display times correctly you must select your local timezone."
 msgstr ""
 
 #: templates/forum/profile/profile_essentials.html:61
-msgid ""
-"Language: You can choose which language you wish to use to view the forum"
+msgid "Language: You can choose which language you wish to use to view the forum"
 msgstr ""
 
 #: templates/forum/profile/profile_menu.html:3
@@ -1191,10 +1173,7 @@ msgid "Set your avatar display options"
 msgstr ""
 
 #: templates/forum/profile/profile_personality.html:20
-msgid ""
-"An avatar is a small image that will be displayed with all your posts. You "
-"can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
-"below must be checked in order for the avatar to be visible in your posts."
+msgid "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts."
 msgstr ""
 
 #: templates/forum/profile/profile_personality.html:23
@@ -1210,13 +1189,7 @@ msgid "Compose your signature"
 msgstr ""
 
 #: templates/forum/profile/profile_personality.html:39
-msgid ""
-"A signature is a small piece of text that is attached to your posts. In it, "
-"you can enter just about anything you like. Perhaps you would like to enter "
-"your favourite quote or your star sign. It's up to you! In your signature "
-"you can use BBCode if it is allowed in this particular forum. You can see "
-"the features that are allowed/enabled listed below whenever you edit your "
-"signature."
+msgid "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature."
 msgstr ""
 
 #: templates/forum/profile/profile_personality.html:48
@@ -1228,8 +1201,5 @@ msgid "Set your privacy options"
 msgstr ""
 
 #: templates/forum/profile/profile_privacy.html:18
-msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
+msgid "Select whether you want your e-mail address to be viewable to other users or not and if you want other users to be able to send you e-mail via the forum (form e-mail) or not."
 msgstr ""
