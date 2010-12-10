@@ -157,10 +157,10 @@ def search(request):
             query = SearchQuerySet().models(Post)
 
             if author:
-                query = query.filter(author__id=author.id)
+                query = query.filter(author__id=author)
 
             if forum != u'0':
-                query = query.filter(forum__id=forum.id)
+                query = query.filter(forum__id=forum)
 
             if keywords:
                 if search_in == 'all':
