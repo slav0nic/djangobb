@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: DjangoBB\n"
 "Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2010-12-02 12:37+0200\n"
-"PO-Revision-Date: 2010-12-13 08:25+0000\n"
+"PO-Revision-Date: 2010-12-13 08:32+0000\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "Пользователь"
 
 #: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
-msgstr "Заблокирован"
+msgstr "Дата регистрации"
 
 #: forms.py:23
 msgid "No. of posts"
