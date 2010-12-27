@@ -138,7 +138,7 @@ def search(request):
         elif action == 'show_unanswered':
             topics = topics.filter(post_count=1)
         elif action == 'show_subscriptions':
-            topics = topics.filter(subscribers__id=request.user_id)
+            topics = topics.filter(subscribers__id=request.user.id)
         elif action == 'show_user':
             user_id = request.GET['user_id']
             posts = Post.objects.filter(user__id=user_id)
