@@ -157,7 +157,7 @@ def search(request):
             query = SearchQuerySet().models(Post)
 
             if author:
-                query = query.filter(author__id=author)
+                query = query.filter(author__username=author)
 
             if forum != u'0':
                 query = query.filter(forum__id=forum)
