@@ -77,12 +77,10 @@ class Category(models.Model):
         return Post.objects.filter(topic__forum__category__id=self.id).select_related()
 
     def has_access(self, user):
-        if self.groups.count() > 0:
+        if self.groups.exists():
             if user.is_authenticated(): 
-                try:
-                    self.groups.get(user__pk=user.id)
-                except Group.DoesNotExist:
-                    return False
+                    if not self.groups.filter(user__pk=user.id).exists():
+                        return False
             else:
                 return False
         return True
