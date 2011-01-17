@@ -298,11 +298,10 @@ def show_topic(request, topic_id, full=True):
         post.user.forum_profile = profiles[post.user.id]
 
     if forum_settings.REPUTATION_SUPPORT:
-        replies_list = Reputation.objects.filter(to_user__pk__in=users).values('to_user_id').annotate(sign=Sum('sign')) #values_list buggy?
-
+        replies_list = Reputation.objects.filter(to_user__pk__in=users).values('to_user_id').annotate(Sum('sign'))
         replies = {}
         for r in replies_list:
-            replies[r['to_user_id']] = r['sign']
+            replies[r['to_user_id']] = r['sign__sum']
 
         for post in posts:
             post.user.forum_profile.reply_total = replies.get(post.user.id, 0)
