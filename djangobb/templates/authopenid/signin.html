@@ -14,6 +14,7 @@ $(document).ready(function() {
     <h2><span>{% trans "Login" %}</span></h2>
     <div class="box">
 		<form id="registration_form" action="." method="post">
+		{% csrf_token %}
 		<div class="inform">
 			{% if msg %}
 			<ul class="errorlist">

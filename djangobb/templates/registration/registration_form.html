@@ -6,7 +6,8 @@
 <div class="blockform">
 	<h2><span>{% trans "Register" %}</span></h2>
 	<div class="box">
-		<form method="post" action="">
+		<form method="post">
+			{% csrf_token %}
 			<div class="inform">
 				<div class="forminfo">
 					<h3>{% trans "Important information" %}</h3>

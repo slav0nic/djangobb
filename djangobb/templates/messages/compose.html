@@ -11,6 +11,7 @@
 
 
 	<form action="" method="post">
+		{% csrf_token %}
 		<div class="inform">
 		<fieldset>
 			<legend>{% trans "Write your message and submit" %}</legend>

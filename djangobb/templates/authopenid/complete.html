@@ -34,6 +34,7 @@
 			</div>
 			<div class="inform">
 				<form name="fverify" action="{% url user_register %}" method="POST">
+				{% csrf_token %}
 				<fieldset>
 					<legend>{% trans "An existing account" %}</legend>
 						<div class="infldset">

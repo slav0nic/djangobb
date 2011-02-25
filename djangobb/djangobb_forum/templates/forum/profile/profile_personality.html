@@ -9,6 +9,7 @@
 		<h2><span>{{ profile.username }} - {% trans "Personality" %}</span></h2>
 		<div class="box">
 			<form id="profile4" method="post">
+				{% csrf_token %}
 				<div class="inform">
 					<fieldset id="profileavatar">
 						<legend>{% trans "Set your avatar display options" %}</legend>
