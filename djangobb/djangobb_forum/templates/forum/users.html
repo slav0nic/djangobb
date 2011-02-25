@@ -6,13 +6,13 @@
 <div class="blockform">
 	<h2><span>{% trans "User search" %}</span></h2>
 	<div class="box">
-	<form method="get" id="userlist">
+	<form method="get" id="userlist" action="">
 		<div class="inform">
 			<fieldset>
 				<legend>{% trans "Find and sort users" %}</legend>
 				<div class="infldset">
 					<label class="conl">{{ form.username.label }}<br />{{ form.username }}<br /></label>
-					
+
 					<label class="conl">{{ form.sort_by.label }}
 					<br />
 					{{ form.sort_by }}
@@ -25,8 +25,8 @@
 					<p class="clearb">{% trans "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order." %}</p>
 				</div>
 			</fieldset>
+            <input type="submit" value="{% trans "Search" %}" />
 		</div>
-	<input type="submit" value="{% trans "Search" %}" />
 	</form>
 	</div>
 </div>

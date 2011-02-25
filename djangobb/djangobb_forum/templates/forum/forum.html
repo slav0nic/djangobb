@@ -72,16 +72,6 @@
 		<div class="clearer"></div>
 	</div>
 </div>
-{% if forum_settings.LOFI_SUPPORT %}
-	<div id="brdfooter" class="block">
-		<div class="box">
-			<div class="inbox" align="center">
-				<a href="{{ forum.get_absolute_url }}lofi/">Lo-Fi Version</a>
-				<div class="clearer"></div>
-			</div>
-		</div>
-	</div>
-{% endif %}
 {% endblock %}
 {% block controls %}
 <div class="conl">
@@ -104,4 +94,12 @@
 		<p id="modcontrols"><a href="{% url djangobb:moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
 	{% endif %}
 </div>
+{% endblock %}
+
+{% block lofi %}
+{% if forum_settings.LOFI_SUPPORT %}
+    <p class="lofi">
+        <a href="{{ forum.get_absolute_url }}lofi/">Lo-Fi Version</a>
+    </p>
+{% endif %}
 {% endblock %}

@@ -54,14 +54,18 @@
 	{% block content %}{% endblock %}
 	<div id="brdfooter" class="block">
 	<h2><span>{% trans "Board footer" %}</span></h2>
-	<div class="box">
-		<div class="inbox">
-			{% block controls %}
-			{% endblock %}
-			<p class="conr">Powered by <a href="http://djangobb.org/">DjangoBB</a></p>
-			<div class="clearer"></div>
-		</div>
-	</div>
+        <div class="box">
+            <div class="inbox">
+                {% block controls %}
+                {% endblock %}
+                <p class="conr">Powered by <a href="http://djangobb.org/">DjangoBB</a></p>
+                <div class="clearer"></div>
+                {% block lofi %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>

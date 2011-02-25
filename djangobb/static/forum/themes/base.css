@@ -261,6 +261,7 @@ DIV.txtarea {WIDTH: 75%}
 /* 10.3 Other templates */
 
 #djangobbredirect DIV.block, #djangobbmaint DIV.block {MARGIN: 50px 20% 12px 20%}
+.lofi { text-align: center; }
 
 /****************************************************************/
 /* MOD QUICK QUOTE STYLE INDICATORS */

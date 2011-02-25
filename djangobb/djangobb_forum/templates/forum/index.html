@@ -5,17 +5,17 @@
 {% block extra_meta %}
 <script type="text/javascript" src="{{ MEDIA_URL }}forum/js/jquery.cookie.js"></script>
 <script type="text/javascript">
-	
+
 	function set_collapser(cat_id) {
 		category_body_id = "category_body_" + cat_id;
 		if($.cookie(category_body_id)){
-			item_id = "#" + category_body_id; 
+			item_id = "#" + category_body_id;
 			head_id = item_id.replace("body", "head");
 			$(head_id).addClass("collapsed");
 			$(item_id).hide()
 		}
 	}
-	$(document).ready(function(){	
+	$(document).ready(function(){
 		$("a.toggle").click(function(){
 			header_id = $(this).parent().attr('id');
 			body_id = header_id.replace("head", "body");
@@ -83,28 +83,17 @@
 				<dd>{% trans "Registered users online:" %} <strong>{{ online_count }}</strong></dd>
 				<dd>{% trans "Guests online:" %} <strong>{{ guest_count }}</strong></dd>
 			</dl>
-			<dl id="onlinelist" class= "clearb">
-				{% if online_count %}
-					<dt><strong>{% trans "Online:" %} </strong></dt>
-					{% for online in users_online %}
-						<dd>{{ online|profile_link }}</dd> 
-					{% endfor %}
-				{% endif %}
-			</dl>
+            {% if online_count %}
+                <dl id="onlinelist" class= "clearb">
+                    <dt><strong>{% trans "Online:" %} </strong></dt>
+                    {% for online in users_online %}
+                        <dd>{{ online|profile_link }}</dd>
+                    {% endfor %}
+                </dl>
+            {% endif %}
 		</div>
 	</div>
 </div>
-
-{% if forum_settings.LOFI_SUPPORT %}
-<div id="brdfooter" class="block">
-	<div class="box">
-		<div class="inbox" align="center">
-			<a href="{% url djangobb:lofi_index %}">Lo-Fi Version</a>
-			<div class="clearer"></div>
-		</div>
-	</div>
-</div>
-{% endif %}
 {% endblock %}
 
 {% block controls %}
@@ -117,4 +106,12 @@
 		<dd><a href="{% url djangobb:search %}?action=show_user&amp;user_id={{ request.user.id }}">{% trans "Show your posts" %}</a></dd>
 	{% endif %}
 </dl>
+{% endblock %}
+
+{% block lofi %}
+{% if forum_settings.LOFI_SUPPORT %}
+    <p class="lofi">
+        <a href="{% url djangobb:lofi_index %}">Lo-Fi Version</a>
+    </p>
+{% endif %}
 {% endblock %}

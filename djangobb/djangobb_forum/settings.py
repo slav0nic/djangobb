@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.conf import settings
 import re
 
@@ -61,18 +62,18 @@ ATTACHMENT_SIZE_LIMIT = get('DJANGOBB_ATTACHMENT_SIZE_LIMIT', 1024 * 1024)
 
 # SMILE Extension
 SMILES_SUPPORT = get('DJANGOBB_SMILES_SUPPORT', True)
-EMOTION_SMILE = get('DJANGOBB_EMOTION_SMILE', '<img src="%sforum/img/smilies/smile.png">' % settings.MEDIA_URL)
-EMOTION_NEUTRAL = get('DJANGOBB_EMOTION_NEUTRAL', '<img src="%sforum/img/smilies/neutral.png">' % settings.MEDIA_URL)
-EMOTION_SAD = get('DJANGOBB_EMOTION_SAD', '<img src="%sforum/img/smilies/sad.png">' % settings.MEDIA_URL)
-EMOTION_BIG_SMILE = get('DJANGOBB_EMOTION_BIG_SMILE', '<img src="%sforum/img/smilies/big_smile.png">' % settings.MEDIA_URL)
-EMOTION_YIKES = get('DJANGOBB_EMOTION_YIKES', '<img src="%sforum/img/smilies/yikes.png">' % settings.MEDIA_URL)
-EMOTION_WINK = get('DJANGOBB_EMOTION_WINK', '<img src="%sforum/img/smilies/wink.png">' % settings.MEDIA_URL)
-EMOTION_HMM = get('DJANGOBB_EMOTION_HMM', '<img src="%sforum/img/smilies/hmm.png">' % settings.MEDIA_URL)
-EMOTION_TONGUE = get('DJANGOBB_EMOTION_TONGUE', '<img src="%sforum/img/smilies/tongue.png">' % settings.MEDIA_URL)
-EMOTION_LOL = get('DJANGOBB_EMOTION_LOL', '<img src="%sforum/img/smilies/lol.png">' % settings.MEDIA_URL)
-EMOTION_MAD = get('DJANGOBB_EMOTION_MAD', '<img src="%sforum/img/smilies/mad.png">' % settings.MEDIA_URL)
-EMOTION_ROLL = get('DJANGOBB_EMOTION_ROLL', '<img src="%sforum/img/smilies/roll.png">' % settings.MEDIA_URL)
-EMOTION_COOL = get('DJANGOBB_EMOTION_COOL', '<img src="%sforum/img/smilies/cool.png">' % settings.MEDIA_URL)
+EMOTION_SMILE = get('DJANGOBB_EMOTION_SMILE', '<img src="%sforum/img/smilies/smile.png" />' % settings.MEDIA_URL)
+EMOTION_NEUTRAL = get('DJANGOBB_EMOTION_NEUTRAL', '<img src="%sforum/img/smilies/neutral.png" />' % settings.MEDIA_URL)
+EMOTION_SAD = get('DJANGOBB_EMOTION_SAD', '<img src="%sforum/img/smilies/sad.png" />' % settings.MEDIA_URL)
+EMOTION_BIG_SMILE = get('DJANGOBB_EMOTION_BIG_SMILE', '<img src="%sforum/img/smilies/big_smile.png" />' % settings.MEDIA_URL)
+EMOTION_YIKES = get('DJANGOBB_EMOTION_YIKES', '<img src="%sforum/img/smilies/yikes.png" />' % settings.MEDIA_URL)
+EMOTION_WINK = get('DJANGOBB_EMOTION_WINK', '<img src="%sforum/img/smilies/wink.png" />' % settings.MEDIA_URL)
+EMOTION_HMM = get('DJANGOBB_EMOTION_HMM', '<img src="%sforum/img/smilies/hmm.png" />' % settings.MEDIA_URL)
+EMOTION_TONGUE = get('DJANGOBB_EMOTION_TONGUE', '<img src="%sforum/img/smilies/tongue.png" />' % settings.MEDIA_URL)
+EMOTION_LOL = get('DJANGOBB_EMOTION_LOL', '<img src="%sforum/img/smilies/lol.png" />' % settings.MEDIA_URL)
+EMOTION_MAD = get('DJANGOBB_EMOTION_MAD', '<img src="%sforum/img/smilies/mad.png" />' % settings.MEDIA_URL)
+EMOTION_ROLL = get('DJANGOBB_EMOTION_ROLL', '<img src="%sforum/img/smilies/roll.png" />' % settings.MEDIA_URL)
+EMOTION_COOL = get('DJANGOBB_EMOTION_COOL', '<img src="%sforum/img/smilies/cool.png" />' % settings.MEDIA_URL)
 SMILES = ((r'(:|=)\)', EMOTION_SMILE), #:), =)
           (r'(:|=)\|',  EMOTION_NEUTRAL), #:|, =| 
           (r'(:|=)\(', EMOTION_SAD), #:(, =(
