@@ -105,7 +105,7 @@
 								<dd>{{ profile.forum_profile.signature|safe }}</dd>
 							{% else %}
 								<dd>{% trans "(Unknown)" %}</dd>
-							{% endif %}</dd>
+							{% endif %}
 						</dl>
 						<div class="clearer"></div>
 					</div>
@@ -117,7 +117,7 @@
 					<div class="infldset">
 						<dl>
 							<dt>{% trans "Posts:" %} </dt>
-							<dd>{{ profile.forum_profile.post_count }} - <a href="{% url djangobb:search %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></dd>
+							<dd>{{ profile.forum_profile.post_count }} - <a href="{% url djangobb:search %}?action=show_user&amp;user_id={{ profile.id }}">{% trans "Show all posts" %}</a></dd>
 							<dt>{% trans "Last post:" %} </dt>
 							{% if profile.forum_profile.last_post %}
 								<dd>{{ profile.forum_profile.last_post }}</dd>

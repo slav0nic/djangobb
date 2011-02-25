@@ -37,14 +37,16 @@ $(document).ready(function() {
 					</div>
 			</fieldset>
 		</div>
-		<input type="hidden" name="next" value="{{ next }}" />
-		<p><input type="submit" value="{% trans "Login" %}" /></p>
+		<p>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <input type="submit" value="{% trans "Login" %}" />
+        </p>
 		</form>
 
-		<form id="openid_form" name="openid_form" action="." method="post">
-		<input type="hidden" name="action" value="verify" />
-		<input type="hidden" name="next" value="{{ next }}" />
+		<form id="openid_form" action="." method="post">
 		<fieldset>
+        <input type="hidden" name="action" value="verify" />
+        <input type="hidden" name="next" value="{{ next }}" />
 		<legend>{% trans "Sign In Using Your OpenID URL" %}</legend>
 			<div id="openid_choice">
 				<p>{% trans "Please click your account provider:" %}</p>
