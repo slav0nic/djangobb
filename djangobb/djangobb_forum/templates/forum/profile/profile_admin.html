@@ -9,6 +9,7 @@
 		<h2><span>{{ profile.username }} - {% trans "Administration" %}</span></h2>
 		<div class="box">
 			<form id="profile7" method="post">
+				{% csrf_token %}
 				<div class="inform">
 
 					<fieldset>

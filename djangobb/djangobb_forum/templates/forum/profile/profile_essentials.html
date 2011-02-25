@@ -9,7 +9,7 @@
 		<h2><span>{{ profile.username }} - {% trans "Essentials" %}</span></h2>
 		<div class="box">
 			<form id="profile1" method="post">
-
+				{% csrf_token %}
 				<div class="inform">
 					<fieldset>
 						<legend>{% trans "Enter your username and password" %}</legend>
