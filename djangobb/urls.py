@@ -33,8 +33,8 @@ urlpatterns = patterns('',
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     
     # Apps
-    (r'^forum/account/', include(authopenid_urlpatterns)),
-    (r'^forum/', include('djangobb_forum.urls', namespace='djangobb')),
+    (r'^account/', include(authopenid_urlpatterns)),
+    (r'', include('djangobb_forum.urls', namespace='djangobb')),
 )
 
 # PM Extension
