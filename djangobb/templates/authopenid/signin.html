@@ -1,11 +1,16 @@
 {% extends "forum/base.html" %}
 {% load i18n %}
 {% block extra_meta %}
-<link rel="stylesheet" href="{{ MEDIA_URL }}openid/css/openid.css" />
+<link rel="stylesheet" href="{{ MEDIA_URL }}openid/css/openid-shadow.css" />
 <script type="text/javascript" src="{{ MEDIA_URL }}openid/js/openid-jquery.js"></script>
+{% if LANGUAGE_CODE in 'de,en,jp,ru,uk' %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}openid/js/openid-{{ LANGUAGE_CODE }}.js"></script>
+{% else %}
+	<script type="text/javascript" src="{{ MEDIA_URL }}openid/js/openid-en.js"></script>
+{% endif %}
 <script type="text/javascript">
 $(document).ready(function() {
-    openid.init('id_openid_url');
+    openid.init('openid_url');
 });
 </script>
 {% endblock %}
@@ -44,7 +49,8 @@ $(document).ready(function() {
         </p>
 		</form>
 
-		<form id="openid_form" action="." method="post">
+		<form id="openid_form" name="openid_form" action="." method="post">
+		{% csrf_token %}
 		<fieldset>
         <input type="hidden" name="action" value="verify" />
         <input type="hidden" name="next" value="{{ next }}" />
