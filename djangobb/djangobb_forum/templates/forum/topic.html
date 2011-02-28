@@ -44,7 +44,7 @@
 							{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
 								<img src="{{ post.user.forum_profile.avatar.url }}" />
 							{% else %}
-								{% if settings.GRAVATAR_SUPPORT %}
+								{% if forum_settings.GRAVATAR_SUPPORT %}
 									<img src="{% gravatar post.user.email %}" />
 								{% endif %}
 							{% endif %}
