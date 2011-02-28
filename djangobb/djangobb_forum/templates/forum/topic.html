@@ -40,11 +40,15 @@
 								{{ post.user|forum_authority }}
 							</dd>
 						{% endif %}
-						{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
-							<dd class="postavatar"><img src="{{ post.user.forum_profile.avatar.url }}" /></dd>
-						{% else %}
-							<dd class="postavatar"><img src="{% gravatar post.user.email %}" /></dd>
-						{% endif %}
+						<dd class="postavatar">
+							{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
+								<img src="{{ post.user.forum_profile.avatar.url }}" />
+							{% else %}
+								{% if settings.GRAVATAR_SUPPORT %}
+									<img src="{% gravatar post.user.email %}" />
+								{% endif %}
+							{% endif %}
+						</dd>
 						{% if post.user.forum_profile.location %}
 							<dd>{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
 						{% endif %}

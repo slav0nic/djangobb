@@ -265,9 +265,8 @@ def new_reports():
 def gravatar(email):
     if forum_settings.GRAVATAR_SUPPORT:
         size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
-        url = "http://www.gravatar.com/avatar.php?"
+        url = "http://www.gravatar.com/avatar/%s?" % md5_constructor(email.lower()).hexdigest()
         url += urllib.urlencode({
-            'gravatar_id': md5_constructor(email.lower()).hexdigest(),
             'size': size,
             'default': forum_settings.GRAVATAR_DEFAULT,
         })

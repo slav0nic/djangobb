@@ -292,7 +292,7 @@ def set_language(request, language):
 def convert_text_to_html(text, markup):
     if markup == 'bbcode':
         text = bbmarkup.bbcode(text)
-    elif markup == 'markdown':            
+    elif markup == 'markdown':
         text = markdown.markdown(text, safe_mode='escape')
     else:
         raise Exception('Invalid markup property: %s' % markup)
