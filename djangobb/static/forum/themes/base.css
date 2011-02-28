@@ -25,7 +25,7 @@
 	WIDTH: 0;
 	LINE-HEIGHT: 0;
 	FONT-SIZE: 0;
-	OVERFLOW: hidden
+	OVERFLOW: hidden;
 }
 
 .djangobb .clearer, .djangobb .clearb {CLEAR: both}
@@ -381,6 +381,7 @@ width:88px;
 
 #registration_form {
 	float: left;
+	width: 550px;
 }
 
 div.box {
