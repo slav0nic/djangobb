@@ -8,6 +8,7 @@
 	<div class="box">
 			<div class="inform">
 				<form name="fregister" action="{% url user_register %}" method="POST">
+				{% csrf_token %}
 				<div class="forminfo">
 					<h3>{% trans "Your OpenID is verified! " %}</h3>
 					{% blocktrans %}
