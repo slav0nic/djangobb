@@ -58,25 +58,25 @@
 							<dd>{% trans "IP:" %} {{ post.user_ip }}</dd>
 						{% endif %}
 						{% if forum_settings.REPUTATION_SUPPORT %}
-								<dd><a href="{% url djangobb:reputation post.user %}">{% trans "Reputation" %}</a>:
+								<dd><a href="{% url djangobb:reputation post.user.username %}">{% trans "Reputation" %}</a>:
 								{% if request.user != post.user %} {# TODO: and user.is_authenticated #}
-									<a href="{% url djangobb:reputation post.user %}?action=plus&amp;post_id={{ post.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" /></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url djangobb:reputation post.user %}?action=minus&amp;post_id={{ post.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" /></a>
+									<a href="{% url djangobb:reputation post.user.username %}?action=plus&amp;post_id={{ post.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" /></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url djangobb:reputation post.user.username %}?action=minus&amp;post_id={{ post.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" /></a>
 								{% else %}
 									<strong>{{ post.user.forum_profile.reply_total }}</strong>
 								{% endif %}
 								</dd>
 						{% endif %}
-						<dd class="usercontacts"><a href="{% url djangobb:forum_profile post.user %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
+						<dd class="usercontacts"><a href="{% url djangobb:forum_profile post.user.username %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
 						{% if post.user.forum_profile.privacy_permission == 0 %}
 							<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
 						{% else %}
 							{% if post.user.forum_profile.privacy_permission == 1 %}
-									<a href="{% url djangobb:misc %}?mail_to={{ post.user }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
+								<a href="{% url djangobb:misc %}?mail_to={{ post.user.username }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
 							{% endif %}
 						{% endif %}
 						{% if forum_settings.PM_SUPPORT %}
 							{% if user.is_authenticated %}
-								<a href="{% url messages_compose_to post.user %}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
+								<a href="{% url messages_compose_to post.user.username %}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
 							{% endif %}
 						{% endif %}
 				</dl>
@@ -94,7 +94,7 @@
 						{% endif %}
 					{% endif %}
 					{% if post.updated %}
-						<p class="postedit"><em>{% trans "Edited" %} {{ post.updated_by }} ({% forum_time post.updated %})</em></p>
+						<p class="postedit"><em>{% trans "Edited" %} {{ post.updated_by.username }} ({% forum_time post.updated %})</em></p>
 					{% endif %}
 					{% if post.attachments.all %}
 						{% for attach in post.attachments.all %}
@@ -124,7 +124,7 @@
 					{% endif %}
 					<li class="postquote">| <a href="{% url djangobb:add_post topic.id %}?post_id={{ post.id }}">{% trans "Reply" %}</a> </li>
 					{% if user.is_authenticated %}
-						<li class="postquote">| <a onmouseover="copyQ('{{ post.user }}');" href="javascript:pasteQ();">{% trans "Quote" %}</a></li>
+						<li class="postquote">| <a onmouseover="copyQ('{{ post.user.username }}');" href="javascript:pasteQ();">{% trans "Quote" %}</a></li>
 					{% endif %}
 				</ul>
 			</div>

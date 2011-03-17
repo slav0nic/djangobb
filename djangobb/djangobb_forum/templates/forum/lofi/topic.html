@@ -16,7 +16,7 @@
 {% for post in posts %}
 		<div class='postwrapper'>
 			<div class='posttopbar'>
-			  <div class='postname'>{{ post.user }}</div>
+			  <div class='postname'>{{ post.user.username }}</div>
 			  <div class='postdate'>{% forum_time post.created %}</div>
 		 	</div>
 			<div class='postcontent'>
