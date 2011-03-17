@@ -57,7 +57,7 @@
 		<div class="inbox">
 			<div class="postleft">
 				<dl>
-					<dt><strong><a href="javascript:pasteN('{{ post.user }}');">{{ post.user }}</a></strong></dt>
+					<dt><strong><a href="javascript:pasteN('{{ post.user.username }}');">{{ post.user.username }}</a></strong></dt>
 					<dd>{% forum_time post.created %}</dd>
 				</dl>
 			</div>
@@ -67,7 +67,7 @@
 				</div>
 			</div>
 			<div class="clearer"></div>
-						<div class="postfootright"><ul><li class="postquote"><a onmouseover="copyQ('{{ post.user }}');" href="javascript:pasteQ();">{% trans "Quote" %}</a></li></ul></div>
+						<div class="postfootright"><ul><li class="postquote"><a onmouseover="copyQ('{{ post.user.username }}');" href="javascript:pasteQ();">{% trans "Quote" %}</a></li></ul></div>
 		</div>
 	</div>
 	{% endfor %}
