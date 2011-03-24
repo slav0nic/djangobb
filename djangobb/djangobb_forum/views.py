@@ -15,6 +15,7 @@ from django.utils import translation
 from django.utils.encoding import smart_str
 from django.views.decorators.http import require_POST
 from django.db import transaction
+from django.views.decorators.csrf import csrf_exempt
 
 from djangobb_forum.util import render_to, paged, build_form, paginate, set_language
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
@@ -753,7 +754,7 @@ def show_attachment(request, hash):
 
 
 @login_required
-#@require_POST
+@csrf_exempt
 @render_to('forum/post_preview.html')
 def post_preview(request):
     '''Preview for markitup'''
