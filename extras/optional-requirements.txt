@@ -2,4 +2,5 @@ Markdown==2.0
 django-messages==0.4.4
 whoosh
 south>=0.7.2
+pygments
 -e git://github.com/jtauber/django-mailer.git#egg=django-mailer
