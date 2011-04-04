@@ -15,14 +15,15 @@ mySettings = {
 		{name:'Bold', key:'B', openWith:'[b]', closeWith:'[/b]'},
 		{name:'Italic', key:'I', openWith:'[i]', closeWith:'[/i]'},
 		{name:'Underline', key:'U', openWith:'[u]', closeWith:'[/u]'},
+		{name:'Stroke', key:'S', openWith:'[s]', closeWith:'[/s]' },
 		{separator:'---------------' },
 		{name:'Picture', key:'P', replaceWith:'[img][![Url]!][/img]'},
 		{name:'Link', key:'L', openWith:'[url=[![Url]!]]', closeWith:'[/url]', placeHolder:'Your text to link here...'},
 		{separator:'---------------' },
 		{name:'Size', key:'S', openWith:'', closeWith:'',
 		dropMenu :[
-			{name:'Big', openWith:'[big]', closeWith:'[/big]' },
-			{name:'Small', openWith:'[small]', closeWith:'[/small]' }
+			{name:'Big', openWith:'[size 32]', closeWith:'[/size]' },
+			{name:'Small', openWith:'[size 10]', closeWith:'[/size]' }
 		]},
 		{separator:'---------------' },
 		{name:'Bulleted list', openWith:'[list]\n', closeWith:'\n[/list]'},
@@ -45,6 +46,7 @@ mySettings = {
             {name:'Roll', openWith:':rolleyes:'}, 
             {name:'Cool', openWith:':cool:'},
         ]},
+	{separator:'---------------' },
 		{name:'Clean', className:"clean", replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
 		{name:'Preview', className:"preview", call:'preview' }
 	]
