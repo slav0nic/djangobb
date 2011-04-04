@@ -10,7 +10,7 @@ body{text-align:center;background : url(../img/back.gif);}
 
 
 DIV.box, #adminconsole FIELDSET TH, .rowodd, .roweven {BACKGROUND-COLOR: #f8f8f8}
-.djangobb BLOCKQUOTE, DIV.codebox {BACKGROUND-COLOR: #f1f1f1}
+.djangobb BLOCKQUOTE, DIV.code {BACKGROUND-COLOR: #f1f1f1}
 #adminconsole TD, #adminconsole TH {BORDER-COLOR: #eeeeee} /*<<<<<<<<<<<neizvestno*/
 
 /* 1. 2 Darker background colours */
@@ -92,7 +92,7 @@ DIV.blockpost DIV.box {BORDER: 1px solid  #46586a;BORDER-TOP: 1px solid #46586a;
 
 /* 3.4 Creates the inset border for quote boxes, code boxes and form info boxes */
 
-.djangobb BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #46586a #46586a #46586a #46586a}
+.djangobb BLOCKQUOTE, DIV.code, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #46586a #46586a #46586a #46586a}
 
 /* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour
 without interferring with IE's rather nice default */

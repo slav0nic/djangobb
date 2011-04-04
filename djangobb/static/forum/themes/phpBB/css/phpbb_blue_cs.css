@@ -27,7 +27,7 @@ text-decoration : none;
 .djangobb {
 color : #000000; 
 } 
-.djangobb BLOCKQUOTE , DIV.codebox , DIV.box , adminconsole FIELDSET TH , .rowodd , .roweven {
+.djangobb BLOCKQUOTE , DIV.code , DIV.box , adminconsole FIELDSET TH , .rowodd , .roweven {
 background-color : #EFEFEF; 
 } 
 #adminconsole TD , #adminconsole TH {
@@ -132,7 +132,7 @@ border-color : #d9e0e4;
 background-color : #dfe6ef; 
 color : #000000; 
 } 
-.djangobb BLOCKQUOTE , DIV.codebox , DIV.forminfo , DIV.blockpost LABEL {
+.djangobb BLOCKQUOTE , DIV.code , DIV.forminfo , DIV.blockpost LABEL {
 border-color : #bec8ce; 
 } 
 FIELDSET {
@@ -217,7 +217,7 @@ text-decoration : none;
 #brdmenu A:hover , .blockpost H2 A:hover {
 text-decoration : underline; 
 } 
-DIV.box , .djangobb TD , .djangobb TH , .djangobb BLOCKQUOTE , DIV.codebox , DIV.forminfo , DIV.blockpost LABEL {
+DIV.box , .djangobb TD , .djangobb TH , .djangobb BLOCKQUOTE , DIV.code , DIV.forminfo , DIV.blockpost LABEL {
 border-style : solid; 
 border-width : 1px; 
 } 
@@ -312,7 +312,7 @@ padding-top : 15px;
 DIV.postmsg H4 {
 margin-bottom : 10px; 
 } 
-.djangobb BLOCKQUOTE , DIV.codebox {
+.djangobb BLOCKQUOTE , DIV.code {
 margin : 5px 15px 15px; 
 padding : 8px; 
 } 
