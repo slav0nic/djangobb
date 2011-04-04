@@ -2,21 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2010-12-08 13:58+0000\n"
-"Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"Last-Translator: Kudlaty <kfuks2@o2.pl>\n"
 "Language-Team: Polish <>\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2)\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
@@ -354,7 +353,7 @@ msgstr "Pokaż podpisy"
 
 #: models.py:275 templates/forum/profile/profile_display.html:40
 msgid "Show smilies"
-msgstr ""
+msgstr "Pokaż emotikony"
 
 #: models.py:276
 msgid "Privacy permission"
@@ -441,7 +440,7 @@ msgstr "Hasz"
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
-msgstr "Korzeń"
+msgstr "Indeks"
 
 #: templates/forum/add_post.html:18 templates/forum/forum.html:11
 #: templates/forum/forum.html.py:69
@@ -479,7 +478,7 @@ msgstr "Powrót"
 
 #: templates/forum/add_post.html:54
 msgid "Topic review (newest first)"
-msgstr "Podgląd tematu (najnowsze najpierw)"
+msgstr "Podgląd tematu (najpierw najnowsze)"
 
 #: templates/forum/add_post.html:70 templates/forum/topic.html:123
 msgid "Quote"
@@ -702,7 +701,8 @@ msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
 msgstr ""
-"Pamiętaj, że używając tego formularza ujawniasz swój adres e-mail adresatowi."
+"Pamiętaj, że używając tego formularza ujawniasz swój adres e-mail "
+"adresatowi."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
@@ -808,7 +808,7 @@ msgstr ""
 
 #: templates/forum/search_form.html:23
 msgid "Select where to search"
-msgstr "Wybierz, gdzie szukasz"
+msgstr "Wybierz, gdzie szukać"
 
 #: templates/forum/search_form.html:29
 msgid "All forums"
@@ -819,8 +819,8 @@ msgid ""
 "Choose in which forum you would like to search and if you want to search in "
 "topic subjects, message text or both."
 msgstr ""
-"Wybierz w którym forum chcesz szukać i czy chcesz szukać w tytułach tematów, "
-"wiadomościach, czy w obu."
+"Wybierz w którym forum chcesz szukać i czy chcesz szukać w tytułach tematów,"
+" wiadomościach, czy w obu."
 
 #: templates/forum/search_form.html:50
 msgid "Select how to view search results"
@@ -836,7 +836,7 @@ msgstr "Odpowiedzi:"
 
 #: templates/forum/search_posts.html:28
 msgid "Go to post"
-msgstr "Idź do wiadomośc"
+msgstr "Idź do wiadomości"
 
 #: templates/forum/search_posts.html:44 templates/forum/search_topics.html:55
 msgid "Info"
@@ -916,7 +916,7 @@ msgstr "Skocz do "
 
 #: templates/forum/topic.html:198
 msgid "Moderator control"
-msgstr "Narzędnia moderatora"
+msgstr "Narzędzia moderatora"
 
 #: templates/forum/topic.html:200
 msgid "Delete multiple posts"
@@ -955,8 +955,8 @@ msgid ""
 "your posts. It must not be any bigger than %(avatar_width)s x "
 "%(avatar_height)s pixels "
 msgstr ""
-"Awatar to mały obrazek, który będzie wyświetlany pod Twoją nazwą użytkownika "
-"w Twoich wiadomościach. Nie może być większy niż %(avatar_width)s x "
+"Awatar to mały obrazek, który będzie wyświetlany pod Twoją nazwą użytkownika"
+" w Twoich wiadomościach. Nie może być większy niż %(avatar_width)s x "
 "%(avatar_height)s pikseli "
 
 #: templates/forum/upload_avatar.html:23
@@ -1069,12 +1069,12 @@ msgstr "Znajdź i sortuj użytkowników"
 #: templates/forum/users.html:25
 msgid ""
 "Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+"users by name, date registered or number of posts and in "
+"ascending/descending order."
 msgstr ""
-"Wpisz nazwię użytkownika do wyszukania. Pole z nazwą nie może pozostać "
-"puste. Sortuj użytkowników według nazwy, daty zarejestrowania lub liczby "
-"postów w kolejności rosnącej lub malejącej."
+"Wpisz nazwę użytkownika do wyszukania. Pole z nazwą nie może pozostać puste."
+" Sortuj użytkowników według nazwy, daty zarejestrowania lub liczby postów w "
+"kolejności rosnącej lub malejącej."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
@@ -1107,7 +1107,7 @@ msgstr "Zablokuj użytkownika"
 
 #: templates/forum/profile/profile_admin.html:25
 msgid "Set moderator access"
-msgstr "Ustaw dostęp moderatora"
+msgstr "Ustaw zezwolenia moderatora"
 
 #: templates/forum/profile/profile_admin.html:27
 msgid ""
@@ -1115,9 +1115,9 @@ msgid ""
 "applies to moderators. Administrators always have full permissions in all "
 "forums."
 msgstr ""
-"Wybierz, które forum użytkownik powinien móc moderować. Uwaga: To dotyczy "
-"tylko moderatorów. Administratorzy zawsze mają pełne uprawnienia na "
-"wszystkich forach."
+"Wybierz, które forum użytkownik może moderować. Uwaga: Dotyczy tylko "
+"moderatorów. Administratorzy zawsze mają pełne uprawnienia na wszystkich "
+"forach."
 
 #: templates/forum/profile/profile_admin.html:31
 msgid "Update forums"
@@ -1138,11 +1138,11 @@ msgstr "Jeśli chcesz, możesz użyć innego stylu wizualnego dla tego forum."
 
 #: templates/forum/profile/profile_display.html:35
 msgid "Post display legend"
-msgstr ""
+msgstr "Ustawienia wyświetlania wiadomości"
 
 #: templates/forum/profile/profile_display.html:37
 msgid "Post display info"
-msgstr ""
+msgstr "Informacje wyświetlane w wiadomościach"
 
 #: templates/forum/profile/profile_display.html:45
 #: templates/forum/profile/profile_essentials.html:81
@@ -1150,7 +1150,8 @@ msgstr ""
 #: templates/forum/profile/profile_personal.html:31
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
-msgid "When you update your profile, you will be redirected back to this page."
+msgid ""
+"When you update your profile, you will be redirected back to this page."
 msgstr ""
 "Kiedy zaktualizujesz profil, zostaniesz przekierowany z powrotem tutaj."
 
@@ -1240,11 +1241,11 @@ msgid ""
 "the features that are allowed/enabled listed below whenever you edit your "
 "signature."
 msgstr ""
-"Podpis to krótki tekst dołączany do Twoich wiadomoścu. Możesz w nim umieścić "
-"co tylko chcesz. Możliwe, że chcesz wpisać swój ulubiony cytat lub swój znak "
-"Zodiaku. To zależy od Ciebie! W podpisie możesz używać znaczników BBCode, "
-"jeśli są dozwolone na tym forum. Zawsze, kiedy edytujesz podpis, możesz "
-"poniżej zobaczyć listę dostępnych funkcji."
+"Podpis to krótki tekst dołączany do Twoich wiadomości. Możesz w nim umieścić"
+" co tylko chcesz. Możesz wpisać swój ulubiony cytat lub znak Zodiaku. To "
+"zależy od Ciebie! W podpisie możesz używać znaczników BBCode, jeśli są "
+"dozwolone na tym forum. Zawsze, kiedy edytujesz podpis, możesz poniżej "
+"zobaczyć listę dostępnych funkcji."
 
 #: templates/forum/profile/profile_personality.html:49
 msgid "No signature currently stored in profile."
@@ -1256,9 +1257,9 @@ msgstr "Ustaw opcje prywatności"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
+"Select whether you want your e-mail address to be viewable to other users or"
+" not and if you want other users to be able to send you e-mail via the forum"
+" (form e-mail) or not."
 msgstr ""
 "Wybierz, czy chcesz, aby Twój adres e-mail był widoczny dla innych "
 "użytkowników i czy chcesz, by inni użytkownicy mogli wysyłać Ci e-maile "

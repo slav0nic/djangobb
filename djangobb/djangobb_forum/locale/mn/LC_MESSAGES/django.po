@@ -8,429 +8,429 @@ msgstr ""
 "Project-Id-Version: DjangoBB\n"
 "Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2011-04-04 11:10+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Portuguese (Brazilian) <None>\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"Last-Translator: Ankhbayar <l.ankhbayar@gmail.com>\n"
+"Language-Team: Mongolian <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Language: mn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
-msgstr ""
+msgstr "Энэ хэлэлцүүлэгийн сүүлийн бичлэгүүд"
 
 #: feeds.py:45 feeds.py:46 templates/forum/base.html:15
 msgid "Latest topics on forum"
-msgstr ""
+msgstr "Хэлэлцүүлэгийн сүүлийн сэдэвүүд"
 
 #: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s topic"
-msgstr ""
+msgstr " %s сэдэвийн сүүлийн  бичлэгүүд"
 
 #: feeds.py:103 feeds.py:111
 #, python-format
 msgid "Latest posts on %s forum"
-msgstr ""
+msgstr "%s хэрэлцүүлгийн сүүлийн бичлэгүүд "
 
 #: feeds.py:130 feeds.py:133
 #, python-format
 msgid "Latest posts on %s category"
-msgstr ""
+msgstr "%s ангилалийн сүүлийн бичлэгүүд"
 
 #: forms.py:21 forms.py:142 forms.py:251 templates/forum/users.html:45
 msgid "Username"
-msgstr ""
+msgstr "Хэрэглэгчийн нэр"
 
 #: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
-msgstr ""
+msgstr "Бүртгэгдсэн"
 
 #: forms.py:23
 msgid "No. of posts"
-msgstr ""
+msgstr "Бичлэг алга."
 
 #: forms.py:27
 msgid "Post time"
-msgstr ""
+msgstr "Оруулсан цаг"
 
 #: forms.py:28
 msgid "Author"
-msgstr ""
+msgstr "Зохиогч"
 
 #: forms.py:29 forms.py:51 forms.py:116 forms.py:338 models.py:119
 #: templates/forum/add_post.html:27 templates/forum/edit_post.html:24
 msgid "Subject"
-msgstr ""
+msgstr "Гарчиг"
 
 #: forms.py:30 forms.py:286 models.py:102 models.py:118
 #: templates/forum/index.html:53 templates/forum/search_topics.html:22
 msgid "Forum"
-msgstr ""
+msgstr "Хэлэлцүүлэг"
 
 #: forms.py:34
 msgid "Ascending"
-msgstr ""
+msgstr "Өсөхөөр"
 
 #: forms.py:35
 msgid "Descending"
-msgstr ""
+msgstr "Буурхаар"
 
 #: forms.py:39 models.py:133 templates/forum/index.html:54
 msgid "Topics"
-msgstr ""
+msgstr "Сэдэвүүд"
 
 #: forms.py:40 models.py:190 templates/forum/index.html:55
 #: templates/forum/users.html:47
 msgid "Posts"
-msgstr ""
+msgstr "Бичлэгүүд"
 
 #: forms.py:44
 msgid "Message text and topic subject"
-msgstr ""
+msgstr "Мессеж текст ба сэдэвийн гарчиг"
 
 #: forms.py:45
 msgid "Message text only"
-msgstr ""
+msgstr "Зөвхөн мессеж текст"
 
 #: forms.py:46
 msgid "Topic subject only"
-msgstr ""
+msgstr "Зөвхөн сэдвийн гарчиг"
 
 #: forms.py:53 templates/forum/add_post.html:36 templates/forum/topic.html:165
 msgid "Attachment"
-msgstr ""
+msgstr "Хавсралт"
 
 #: forms.py:80
 msgid "Attachment is too big"
-msgstr ""
+msgstr "Хавсралт хэт том байна"
 
 #: forms.py:143 templates/forum/topic.html:67
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: forms.py:173
 msgid "Real name"
-msgstr ""
+msgstr "Жинхэнэ нэр"
 
 #: forms.py:253 forms.py:288
 msgid "Sort by"
-msgstr ""
+msgstr "Эрэмблэлт"
 
 #: forms.py:254 forms.py:289
 msgid "Sort order"
-msgstr ""
+msgstr "Эрэмблэх дараалал"
 
 #: forms.py:282
 msgid "Keyword search"
-msgstr ""
+msgstr "Түлхүүрээр хайх"
 
 #: forms.py:284
 msgid "Author search"
-msgstr ""
+msgstr "Зохиогчоор хайх"
 
 #: forms.py:287
 msgid "Search in"
-msgstr ""
+msgstr "Дотроос хайх"
 
 #: forms.py:290
 msgid "Show results as"
-msgstr ""
+msgstr "Үр дүнгүүдийг үзэх"
 
 #: forms.py:315
 #, python-format
 msgid "User with login %s does not exist"
-msgstr ""
+msgstr "%s нэвтрэх нэртэй хэрэглэгч байхгүй байна."
 
 #: forms.py:325
 msgid "You already voted for this post"
-msgstr ""
+msgstr "Та энэ бичлэгийг өмнө нь үнэлчихсэн"
 
 #: forms.py:340 models.py:181 templates/forum/add_post.html:29
 #: templates/forum/edit_post.html:27
 msgid "Message"
-msgstr ""
+msgstr "Мессеж"
 
 #: models.py:39
 msgid "Display your e-mail address."
-msgstr ""
+msgstr "Өөрийн e-mail хаягаа харуулах."
 
 #: models.py:40
 msgid "Hide your e-mail address but allow form e-mail."
-msgstr ""
+msgstr "Өөрийн e-mail хаягаа нуух гэхдээ захиа хүлээн авахыг зөвшөөрнө."
 
 #: models.py:41
 msgid "Hide your e-mail address and disallow form e-mail."
-msgstr ""
+msgstr "Өөрийн e-mail хаягаа нуух бас захиа хүлээн авахгүй."
 
 #: models.py:56 models.py:91 models.py:360
 msgid "Name"
-msgstr ""
+msgstr "Нэр"
 
 #: models.py:57
 msgid "Groups"
-msgstr ""
+msgstr "Бүлгүүд"
 
 #: models.py:57
 msgid "Only users from these groups can see this category"
-msgstr ""
+msgstr "Энэ ангилалыг энэ бүлгийн хэрэглэгчид үзэх эрхтэй."
 
 #: models.py:58 models.py:92
 msgid "Position"
-msgstr ""
+msgstr "Байрлал"
 
 #: models.py:62 models.py:90
 msgid "Category"
-msgstr ""
+msgstr "Ангилал"
 
 #: models.py:63
 msgid "Categories"
-msgstr ""
+msgstr "Ангилалууд"
 
 #: models.py:93
 msgid "Description"
-msgstr ""
+msgstr "Тайлбар"
 
 #: models.py:94
 msgid "Moderators"
-msgstr ""
+msgstr "Зохицуулагчид"
 
 #: models.py:95 models.py:121 models.py:178
 msgid "Updated"
-msgstr ""
+msgstr "Шинэчлэгдсэн"
 
 #: models.py:96 models.py:127 models.py:278
 msgid "Post count"
-msgstr ""
+msgstr "Бичлэгийн тоо"
 
 #: models.py:97
 msgid "Topic count"
-msgstr ""
+msgstr "Сэдвийн тоо"
 
 #: models.py:103
 msgid "Forums"
-msgstr ""
+msgstr "Хэлэлцүүлэгүүд"
 
 #: models.py:120 models.py:177 models.py:321
 msgid "Created"
-msgstr ""
+msgstr "Үүсгэсэн"
 
 #: models.py:122 models.py:176 models.py:259
 msgid "User"
-msgstr ""
+msgstr "Хэрэглэгч"
 
 #: models.py:123
 msgid "Views count"
-msgstr ""
+msgstr "Уншсан тоо"
 
 #: models.py:124
 msgid "Sticky"
-msgstr ""
+msgstr "Наалттай"
 
 #: models.py:125
 msgid "Closed"
-msgstr ""
+msgstr "Хаагдсан"
 
 #: models.py:126
 msgid "Subscribers"
-msgstr ""
+msgstr "Захиалагчид"
 
 #: models.py:132 models.py:175 templates/forum/forum.html:27
 #: templates/forum/moderate.html:23 templates/forum/search_topics.html:21
 msgid "Topic"
-msgstr ""
+msgstr "Сэдэв"
 
 #: models.py:179
 msgid "Updated by"
-msgstr ""
+msgstr "Шинэчилсэн"
 
 #: models.py:180 templates/forum/profile/profile_display.html:25
 msgid "Markup"
-msgstr ""
+msgstr "Markup"
 
 #: models.py:182
 msgid "HTML version"
-msgstr ""
+msgstr "HTML хувилбар"
 
 #: models.py:183
 msgid "User IP"
-msgstr ""
+msgstr "Хэрэглэгчийн IP"
 
 #: models.py:189 models.py:244 models.py:318 models.py:356
 msgid "Post"
-msgstr ""
+msgstr "Бичлэг"
 
 #: models.py:242
 msgid "From"
-msgstr ""
+msgstr "Хэнээс"
 
 #: models.py:243
 msgid "To"
-msgstr ""
+msgstr "Хэнд"
 
 #: models.py:245
 msgid "Time"
-msgstr ""
+msgstr "Цаг"
 
 #: models.py:246
 msgid "Sign"
-msgstr ""
+msgstr "Нэвтрэх"
 
 #: models.py:247 models.py:322 models.py:335 templates/forum/report.html:16
 #: templates/forum/reputation.html:24
 msgid "Reason"
-msgstr ""
+msgstr "Шалтгаан"
 
 #: models.py:250 templates/forum/topic.html:57
 msgid "Reputation"
-msgstr ""
+msgstr "Цол"
 
 #: models.py:251
 msgid "Reputations"
-msgstr ""
+msgstr "Цолнууд"
 
 #: models.py:260
 msgid "Status"
-msgstr ""
+msgstr "Төлөв"
 
 #: models.py:261
 msgid "Site"
-msgstr ""
+msgstr "Вэб"
 
 #: models.py:262
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: models.py:263
 msgid "ICQ"
-msgstr ""
+msgstr "ICQ"
 
 #: models.py:264
 msgid "MSN"
-msgstr ""
+msgstr "MSN"
 
 #: models.py:265
 msgid "AIM"
-msgstr ""
+msgstr "AIM"
 
 #: models.py:266
 msgid "Yahoo"
-msgstr ""
+msgstr "Yahoo"
 
 #: models.py:267 templates/forum/user.html:25
 msgid "Location"
-msgstr ""
+msgstr "Байрлал"
 
 #: models.py:268
 msgid "Signature"
-msgstr ""
+msgstr "Гарын үсэг"
 
 #: models.py:269
 msgid "Time zone"
-msgstr ""
+msgstr "Цагийн бүс"
 
 #: models.py:270
 msgid "Language"
-msgstr ""
+msgstr "Хэл"
 
 #: models.py:271
 msgid "Avatar"
-msgstr ""
+msgstr "Хөрөг"
 
 #: models.py:272
 msgid "Theme"
-msgstr ""
+msgstr "Загвар"
 
 #: models.py:273
 msgid "Show avatar"
-msgstr ""
+msgstr "Хөргийг үзэх"
 
 #: models.py:274
 msgid "Show signatures"
-msgstr ""
+msgstr "Гарын үсгүүдийг харах"
 
 #: models.py:275 templates/forum/profile/profile_display.html:40
 msgid "Show smilies"
-msgstr ""
+msgstr "Инээмсэглэлүүдийг харах"
 
 #: models.py:276
 msgid "Privacy permission"
-msgstr ""
+msgstr "Хувийн хандах эрх"
 
 #: models.py:277
 msgid "Default markup"
-msgstr ""
+msgstr "Анхдагч markup"
 
 #: models.py:281 templates/forum/header.html:23 templates/forum/topic.html:65
 #: templates/forum/user.html:7
 msgid "Profile"
-msgstr ""
+msgstr "Танилцуулга"
 
 #: models.py:282
 msgid "Profiles"
-msgstr ""
+msgstr "Танилцуулгууд"
 
 #: models.py:309 models.py:310
 msgid "Post tracking"
-msgstr ""
+msgstr "Бичлэг мөрдөх"
 
 #: models.py:317
 msgid "Reported by"
-msgstr ""
+msgstr "Мэдээлсэн "
 
 #: models.py:319
 msgid "Zapped"
-msgstr ""
+msgstr "шийтгэгдсэн"
 
 #: models.py:320
 msgid "Zapped by"
-msgstr ""
+msgstr "Шийтгэсэн"
 
 #: models.py:325 templates/forum/topic.html:112
 msgid "Report"
-msgstr ""
+msgstr "Мэдэгдэх"
 
 #: models.py:326
 msgid "Reports"
-msgstr ""
+msgstr "Мэдэгдэлүүд"
 
 #: models.py:332
 msgid "Banned user"
-msgstr ""
+msgstr "Хориотой хэрэглэгч"
 
 #: models.py:333
 msgid "Ban start"
-msgstr ""
+msgstr "Хорио эхлэх"
 
 #: models.py:334
 msgid "Ban end"
-msgstr ""
+msgstr "Хорио дуусах"
 
 #: models.py:338
 msgid "Ban"
-msgstr ""
+msgstr "Хорио"
 
 #: models.py:339
 msgid "Bans"
-msgstr ""
+msgstr "Хорионууд"
 
 #: models.py:357
 msgid "Size"
-msgstr ""
+msgstr "Хэмжээ"
 
 #: models.py:358
 msgid "Content type"
-msgstr ""
+msgstr "Контентийн төрөл"
 
 #: models.py:359
 msgid "Path"
-msgstr ""
+msgstr "Зам"
 
 #: models.py:361
 msgid "Hash"
-msgstr ""
+msgstr "Hash"
 
 #: templates/forum/add_post.html:9 templates/forum/add_post.html.py:11
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
@@ -440,20 +440,20 @@ msgstr ""
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
-msgstr ""
+msgstr "Үндэс"
 
 #: templates/forum/add_post.html:18 templates/forum/forum.html:11
 #: templates/forum/forum.html.py:69
 msgid "New topic"
-msgstr ""
+msgstr "Шинэ сэдэв"
 
 #: templates/forum/add_post.html:18
 msgid "New reply"
-msgstr ""
+msgstr "Шинэ хариулт"
 
 #: templates/forum/add_post.html:24 templates/forum/topic.html:156
 msgid "Write your message and submit"
-msgstr ""
+msgstr "Өөрийн мессэж-ийг бичээд илгээх"
 
 #: templates/forum/add_post.html:46 templates/forum/mail_to.html:25
 #: templates/forum/report.html:22 templates/forum/reputation_form.html:41
@@ -465,7 +465,7 @@ msgstr ""
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
 msgid "Submit"
-msgstr ""
+msgstr "Оруулах"
 
 #: templates/forum/add_post.html:46 templates/forum/edit_post.html:34
 #: templates/forum/mail_to.html:25 templates/forum/move_topic.html:34
@@ -474,62 +474,62 @@ msgstr ""
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
 #: templates/forum/upload_avatar.html:23
 msgid "Go back"
-msgstr ""
+msgstr "Буцах"
 
 #: templates/forum/add_post.html:54
 msgid "Topic review (newest first)"
-msgstr ""
+msgstr "Сэдэв хянах (Шинэ нь эхэндээ)"
 
 #: templates/forum/add_post.html:70 templates/forum/topic.html:123
 msgid "Quote"
-msgstr ""
+msgstr "Санаа авах"
 
 #: templates/forum/base.html:56
 msgid "Board footer"
-msgstr ""
+msgstr "Самбарын хөл"
 
 #: templates/forum/delete_posts.html:35 templates/forum/topic.html:93
 msgid "Edited"
-msgstr ""
+msgstr "Засагдсан"
 
 #: templates/forum/delete_posts.html:39 templates/forum/moderate.html:27
 msgid "Select"
-msgstr ""
+msgstr "Сонго"
 
 #: templates/forum/delete_posts.html:51 templates/forum/moderate.html:68
 #: templates/forum/reputation.html:28 templates/forum/topic.html:115
 msgid "Delete"
-msgstr ""
+msgstr "Устга"
 
 #: templates/forum/edit_post.html:14
 msgid "Edit post"
-msgstr ""
+msgstr "Бичлэг зас"
 
 #: templates/forum/edit_post.html:21
 msgid "Edit the post and submit changes"
-msgstr ""
+msgstr "Бичлэгийг засаад өөрчлөлтийг хадгал"
 
 #: templates/forum/edit_post.html:34
 msgid "Save"
-msgstr ""
+msgstr "Хадгал"
 
 #: templates/forum/forum.html:28 templates/forum/moderate.html:24
 #: templates/forum/search_topics.html:23
 msgid "Replies"
-msgstr ""
+msgstr "Хариултууд"
 
 #: templates/forum/forum.html:29 templates/forum/moderate.html:25
 msgid "Views"
-msgstr ""
+msgstr "Уншсан"
 
 #: templates/forum/forum.html:30 templates/forum/index.html:56
 #: templates/forum/moderate.html:26 templates/forum/search_topics.html:24
 msgid "Last post"
-msgstr ""
+msgstr "Сүүлийн бичлэг"
 
 #: templates/forum/forum.html:42 templates/forum/moderate.html:39
 msgid "Sticky:"
-msgstr ""
+msgstr "Наалттай"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
 #: templates/forum/forum.html:54 templates/forum/forum_row.html:34
@@ -537,262 +537,263 @@ msgstr ""
 #: templates/forum/moderate.html:51 templates/forum/search_topics.html:35
 #: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
-msgstr ""
+msgstr "by"
 
 #: templates/forum/forum.html:58 templates/forum/moderate.html:56
 msgid "Forum is empty."
-msgstr ""
+msgstr "Хэлэлцүүлэг хоосон."
 
 #: templates/forum/forum.html:79
 msgid "Jump to"
-msgstr ""
+msgstr "Үсрэх"
 
 #: templates/forum/forum.html:90 templates/forum/topic.html:195
 msgid "Go"
-msgstr ""
+msgstr "Яв"
 
 #: templates/forum/forum.html:94
 msgid "Moderate forum"
-msgstr ""
+msgstr "Хэлэлцүүлэгийг удирдах"
 
 #: templates/forum/header.html:16
 msgid "Index"
-msgstr ""
+msgstr "Индекс"
 
 #: templates/forum/header.html:17 templates/forum/users.html:39
 #: templates/forum/lofi/header.html:5
 msgid "User list"
-msgstr ""
+msgstr "Хэрэглэгчийн жагсаалт"
 
 #: templates/forum/header.html:18 templates/forum/search_form.html:7
 #: templates/forum/users.html:28 templates/forum/lofi/header.html:4
 msgid "Search"
-msgstr ""
+msgstr "Хайлт"
 
 #: templates/forum/header.html:20 templates/forum/profile/profile_admin.html:9
 #: templates/forum/profile/profile_menu.html:14
 msgid "Administration"
-msgstr ""
+msgstr "Админ"
 
 #: templates/forum/header.html:25 templates/forum/topic.html:75
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: templates/forum/header.html:27
 msgid "Log out"
-msgstr ""
+msgstr "Гарах"
 
 #: templates/forum/header.html:29
 msgid "Log in"
-msgstr ""
+msgstr "Нэвтрэх"
 
 #: templates/forum/header.html:30
 msgid "Sign up"
-msgstr ""
+msgstr "Бүртгүүлэх"
 
 #: templates/forum/header.html:37
 msgid "Logged in as"
-msgstr ""
+msgstr "Нэвтэрсэн хэрэглэгч "
 
 #: templates/forum/header.html:38
 msgid "Last visit:"
-msgstr ""
+msgstr "Сүүлд зочилсон:"
 
 #: templates/forum/header.html:40
 #, python-format
 msgid " There are new messages (%(new_msg)s)"
-msgstr ""
+msgstr "Шинээр ирсэн мессэжүүд (%(new_msg)s)"
 
 #: templates/forum/header.html:43
 msgid "You are not logged in."
-msgstr ""
+msgstr "Та нэвтэрч ороогүй байна."
 
 #: templates/forum/header.html:46
 msgid "There are new reports"
-msgstr ""
+msgstr "Шинэ мэдэгдэлүүд"
 
 #: templates/forum/header.html:51
 msgid "Show new posts since last visit"
-msgstr ""
+msgstr "Сүүлд зочилсноос хойших шинэ бичлэгүүд"
 
 #: templates/forum/header.html:52
 msgid "Mark all topics as read"
-msgstr ""
+msgstr "Бүх сэдвийг уншсанаар тэмдэглэ"
 
 #: templates/forum/header.html:62
 msgid "Notice"
-msgstr ""
+msgstr "Мэдэгдэл"
 
 #: templates/forum/index.html:71
 msgid "Board information"
-msgstr ""
+msgstr "Самбарын мэдээлэл"
 
 #: templates/forum/index.html:75
 msgid "Board statistics"
-msgstr ""
+msgstr "Самбарын үзүүлэлт"
 
 #: templates/forum/index.html:76
 msgid "Total number of registered users:"
-msgstr ""
+msgstr "Нийт бүртгэлтэй хэрэглэгчийн тоо:"
 
 #: templates/forum/index.html:77
 msgid "Total number of topics:"
-msgstr ""
+msgstr "Нийт сэдэвийн тоо:"
 
 #: templates/forum/index.html:78
 msgid "Total number of posts:"
-msgstr ""
+msgstr "Нийт бичлэгийн тоо:"
 
 #: templates/forum/index.html:81
 msgid "User information"
-msgstr ""
+msgstr "Хэрэглэгчийн мэдээлэл"
 
 #: templates/forum/index.html:82
 msgid "Newest registered user:"
-msgstr ""
+msgstr "Шинэ бүртгүүлсэн хэрэглэгчид"
 
 #: templates/forum/index.html:83
 msgid "Registered users online:"
-msgstr ""
+msgstr "Онлайн хэрэглэгчид"
 
 #: templates/forum/index.html:84
 msgid "Guests online:"
-msgstr ""
+msgstr "Онлайн зочид:"
 
 #: templates/forum/index.html:88
 msgid "Online:"
-msgstr ""
+msgstr "Онлайн:"
 
 #: templates/forum/index.html:101 templates/forum/search_posts.html:67
 #: templates/forum/search_topics.html:76
 msgid "Search links"
-msgstr ""
+msgstr "Хаяг хайх"
 
 #: templates/forum/index.html:102 templates/forum/search_posts.html:68
 #: templates/forum/search_topics.html:77
 msgid "Show recent posts"
-msgstr ""
+msgstr "Сүүлийн бичлэгүүдийг үзэх"
 
 #: templates/forum/index.html:103 templates/forum/search_posts.html:69
 #: templates/forum/search_topics.html:78
 msgid "Show unanswered posts"
-msgstr ""
+msgstr "Хариулаагүй бичлэгүүд үзэх"
 
 #: templates/forum/index.html:105 templates/forum/search_posts.html:71
 #: templates/forum/search_topics.html:80
 msgid "Show your subscribed topics"
-msgstr ""
+msgstr "Өөрийн захиалсан сэдвүүдийг үзэх"
 
 #: templates/forum/index.html:106 templates/forum/search_posts.html:72
 #: templates/forum/search_topics.html:81
 msgid "Show your posts"
-msgstr ""
+msgstr "Өөрийн бичлэгээ үзэх"
 
 #: templates/forum/mail_to.html:7
 msgid "Send e-mail to"
-msgstr ""
+msgstr "Э-мэйл илгээх"
 
 #: templates/forum/mail_to.html:13
 msgid "Write and submit your e-mail message"
-msgstr ""
+msgstr "Э-мэйл бичих болон илгээх"
 
 #: templates/forum/mail_to.html:21
 msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
 msgstr ""
+"Анхаар: Энэ формыг хэрэглэсэнээр таны e-mail хаяг хүлээг авагчид харагдана"
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
-msgstr ""
+msgstr "Зөөх"
 
 #: templates/forum/moderate.html:69
 msgid "Open"
-msgstr ""
+msgstr "Нээх"
 
 #: templates/forum/moderate.html:70
 msgid "Close"
-msgstr ""
+msgstr "Хаах"
 
 #: templates/forum/moderators.html:3
 msgid "Moderated by"
-msgstr ""
+msgstr "Удирдагч"
 
 #: templates/forum/move_topic.html:7 templates/forum/topic.html:201
 msgid "Move topic"
-msgstr ""
+msgstr "Сэдэв зөөх"
 
 #: templates/forum/move_topic.html:16
 msgid "Select destination of move"
-msgstr ""
+msgstr "Шилжих хэсгийг сонго"
 
 #: templates/forum/move_topic.html:18
 msgid "Move to"
-msgstr ""
+msgstr "Шилжүүл"
 
 #: templates/forum/pagination.html:3
 msgid "Pages"
-msgstr ""
+msgstr "Хуудсууд"
 
 #: templates/forum/report.html:7
 msgid "Report post"
-msgstr ""
+msgstr "Бичлэг мэдэгдэх"
 
 #: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
-msgstr ""
+msgstr "Энэ бичлэгийг мэдээлэх болсон шалтгаанаа товчхон оруулна уу"
 
 #: templates/forum/reputation.html:16
 msgid "Reputation of the user"
-msgstr ""
+msgstr "Хэрэглэгчийн цолууд"
 
 #: templates/forum/reputation.html:22
 msgid "From user"
-msgstr ""
+msgstr "Илгээсэн хэрэглэгч"
 
 #: templates/forum/reputation.html:23
 msgid "For post in topic"
-msgstr ""
+msgstr "Сэдэв доторх бичлэгүүдэд"
 
 #: templates/forum/reputation.html:25
 msgid "Estimation"
-msgstr ""
+msgstr "Хэмжилт"
 
 #: templates/forum/reputation.html:26
 msgid "Date"
-msgstr ""
+msgstr "Огноо"
 
 #: templates/forum/reputation.html:63
 msgid "Are you sure"
-msgstr ""
+msgstr "Та итгэлтэй байна уу"
 
 #: templates/forum/reputation_form.html:7
 msgid "Please, fill the form"
-msgstr ""
+msgstr "Энэ формийг бөглөнө үү"
 
 #: templates/forum/reputation_form.html:17
 msgid "Your name:"
-msgstr ""
+msgstr "Таны нэр"
 
 #: templates/forum/reputation_form.html:21
 msgid "To whom we change a reputation:"
-msgstr ""
+msgstr "Түүний нэр хүндийг бид өөрчлөж чадна:"
 
 #: templates/forum/reputation_form.html:29
 msgid "Method:"
-msgstr ""
+msgstr "Арга"
 
 #: templates/forum/reputation_form.html:32
 msgid "Add of a reputation"
-msgstr ""
+msgstr "Шагнал нэмэх"
 
 #: templates/forum/reputation_form.html:34
 msgid "Reduction of a reputation"
-msgstr ""
+msgstr "Цол бууруулах"
 
 #: templates/forum/search_form.html:13
 msgid "Enter your search criteria"
-msgstr ""
+msgstr "Хайх нөхцөлөө оруулна уу"
 
 #: templates/forum/search_form.html:17
 msgid ""
@@ -800,146 +801,151 @@ msgid ""
 "with spaces. To search by author enter the username of the author whose "
 "posts you wish to search for."
 msgstr ""
+"Түлхүүр үгээр хайхдаа нэг болон хэд хэдэн үгээр хайж болно. Үгүүдийг хооронд"
+" нь зайгаар(space) тусгаарлана. Зохиогчийг бүх бичлэгүүдийг хайхыг хүсвэл "
+"зохиогчийн нэрийг оруулан хайна. "
 
 #: templates/forum/search_form.html:23
 msgid "Select where to search"
-msgstr ""
+msgstr "Хаанаас хайхыг сонгох"
 
 #: templates/forum/search_form.html:29
 msgid "All forums"
-msgstr ""
+msgstr "Бүх хэлэлцүүлэгүүд"
 
 #: templates/forum/search_form.html:43
 msgid ""
 "Choose in which forum you would like to search and if you want to search in "
 "topic subjects, message text or both."
 msgstr ""
+"Аль хэлэлцүүлэгээс хайх  мөн сэдвийн нэр болон текстээс нь сонгож хайх "
+"боломжтой."
 
 #: templates/forum/search_form.html:50
 msgid "Select how to view search results"
-msgstr ""
+msgstr "Хайлын үр дүнг хэрхэн үзэхээ сонгох"
 
 #: templates/forum/search_form.html:65
 msgid "You can choose how you wish to sort and show your results."
-msgstr ""
+msgstr "Хайлтын үр дүнг хүссэнээрээ эрэмбэлж сонгож болно."
 
 #: templates/forum/search_posts.html:24
 msgid "Replies:"
-msgstr ""
+msgstr "Хариултууд"
 
 #: templates/forum/search_posts.html:28
 msgid "Go to post"
-msgstr ""
+msgstr "Бичлэгрүү очих"
 
 #: templates/forum/search_posts.html:44 templates/forum/search_topics.html:55
 msgid "Info"
-msgstr ""
+msgstr "Мэдээлэл"
 
 #: templates/forum/search_posts.html:48 templates/forum/search_topics.html:59
 msgid "Your search returned no hits."
-msgstr ""
+msgstr "Таны хайлтанд юм олдсонгүй."
 
 #: templates/forum/search_topics.html:15
 msgid "Search results"
-msgstr ""
+msgstr "Хайлтын үр дүнгүүд"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:121
 #: templates/forum/topic.html:134
 msgid "Reply"
-msgstr ""
+msgstr "Хариулах"
 
 #: templates/forum/topic.html:49
 msgid "From:"
-msgstr ""
+msgstr "Илгээсэн:"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
-msgstr ""
+msgstr "Бүртгэгдсэн:"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
-msgstr ""
+msgstr "Бичлэгүүд:"
 
 #: templates/forum/topic.html:54
 msgid "IP:"
-msgstr ""
+msgstr "IP:"
 
 #: templates/forum/topic.html:70 templates/forum/user.html:42
 #: templates/forum/profile/profile_essentials.html:43
 msgid "Send e-mail"
-msgstr ""
+msgstr "Э-мэйл илгээх"
 
 #: templates/forum/topic.html:97
 msgid "Attachments:"
-msgstr ""
+msgstr "Хавсралтууд"
 
 #: templates/forum/topic.html:105
 msgid "Online"
-msgstr ""
+msgstr "Онлайн"
 
 #: templates/forum/topic.html:107
 msgid "Offline"
-msgstr ""
+msgstr "Оффлайн"
 
 #: templates/forum/topic.html:115
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Та энэ бичлэгийг устгахдаа итгэлтэй байна уу?"
 
 #: templates/forum/topic.html:119
 msgid "Edit"
-msgstr ""
+msgstr "Засах"
 
 #: templates/forum/topic.html:140
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Захиалага цуцлах"
 
 #: templates/forum/topic.html:142
 msgid "Subscribe"
-msgstr ""
+msgstr "Захиалах"
 
 #: templates/forum/topic.html:150
 msgid "Quick post"
-msgstr ""
+msgstr "Хурдаг бичлэг"
 
 #: templates/forum/topic.html:184
 msgid "Jump to "
-msgstr ""
+msgstr "Үсрэх "
 
 #: templates/forum/topic.html:198
 msgid "Moderator control"
-msgstr ""
+msgstr "Удирдагчийн хяналт"
 
 #: templates/forum/topic.html:200
 msgid "Delete multiple posts"
-msgstr ""
+msgstr "Олон бичлэг устгах"
 
 #: templates/forum/topic.html:203
 msgid "Open topic"
-msgstr ""
+msgstr "Сэдэв нээх"
 
 #: templates/forum/topic.html:205
 msgid "Close topic"
-msgstr ""
+msgstr "Сэдэв хаах"
 
 #: templates/forum/topic.html:208
 msgid "Unstick topic"
-msgstr ""
+msgstr "Сэдэв хуулах"
 
 #: templates/forum/topic.html:210
 msgid "Stick topic"
-msgstr ""
+msgstr "Сэдэв наах"
 
 #: templates/forum/upload_avatar.html:7
 #: templates/forum/profile/profile_personality.html:27
 #: templates/forum/profile/profile_personality.html:30
 msgid "Upload avatar"
-msgstr ""
+msgstr "Хөрөг хуулах"
 
 #: templates/forum/upload_avatar.html:13
 msgid "Enter an avatar file to upload"
-msgstr ""
+msgstr "Хуулаг хөргийн файлаа оруулна уу"
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
@@ -948,28 +954,31 @@ msgid ""
 "your posts. It must not be any bigger than %(avatar_width)s x "
 "%(avatar_height)s pixels "
 msgstr ""
+"Хөрөг нь жижигхэн зураг бөгөөд таны бичлэгүүдийн хэрэглэгчийн нэрийн доод "
+"хэсэгт харагдана. Энэ зураг нь %(avatar_width)s х %(avatar_height)s "
+"хэмжээнээс ихгүй байх хэрэгтэй. "
 
 #: templates/forum/upload_avatar.html:23
 msgid "Upload"
-msgstr ""
+msgstr "Хуулах"
 
 #: templates/forum/user.html:12 templates/forum/profile/profile_menu.html:8
 #: templates/forum/profile/profile_messaging.html:15
 #: templates/forum/profile/profile_personal.html:9
 msgid "Personal"
-msgstr ""
+msgstr "Хувийн"
 
 #: templates/forum/user.html:15
 msgid "Username:"
-msgstr ""
+msgstr "Хэрэглэгчийн нэр:"
 
 #: templates/forum/user.html:17 templates/forum/users.html:46
 msgid "Title"
-msgstr ""
+msgstr "Гарчиг"
 
 #: templates/forum/user.html:19
 msgid "Real name:"
-msgstr ""
+msgstr "Жинхэн нэр:"
 
 #: templates/forum/user.html:23 templates/forum/user.html.py:29
 #: templates/forum/user.html:35 templates/forum/user.html.py:61
@@ -977,84 +986,84 @@ msgstr ""
 #: templates/forum/user.html:79 templates/forum/user.html.py:85
 #: templates/forum/user.html:107 templates/forum/user.html.py:125
 msgid "(Unknown)"
-msgstr ""
+msgstr "(Үл мэдэгдэх)"
 
 #: templates/forum/user.html:31
 msgid "Website:"
-msgstr ""
+msgstr "Вэб хаяг:"
 
 #: templates/forum/user.html:37
 msgid "E-mail:"
-msgstr ""
+msgstr "E-mail:"
 
 #: templates/forum/user.html:44
 msgid "(Hidden)"
-msgstr ""
+msgstr "(Нууц)"
 
 #: templates/forum/user.html:54 templates/forum/profile/profile_menu.html:9
 #: templates/forum/profile/profile_messaging.html:9
 msgid "Messaging"
-msgstr ""
+msgstr "Мессенжер"
 
 #: templates/forum/user.html:57
 msgid "Jabber:"
-msgstr ""
+msgstr "Jabber:"
 
 #: templates/forum/user.html:63
 msgid "ICQ:"
-msgstr ""
+msgstr "ICQ:"
 
 #: templates/forum/user.html:69
 msgid "MSN Messenger:"
-msgstr ""
+msgstr "MSN Messenger:"
 
 #: templates/forum/user.html:75
 msgid "AOL IM:"
-msgstr ""
+msgstr "AOL IM:"
 
 #: templates/forum/user.html:81
 msgid "Yahoo! Messenger:"
-msgstr ""
+msgstr "Yahoo! Messenger:"
 
 #: templates/forum/user.html:94 templates/forum/profile/profile_menu.html:10
 #: templates/forum/profile/profile_personality.html:9
 msgid "Personality"
-msgstr ""
+msgstr "Хувь хүн"
 
 #: templates/forum/user.html:97
 msgid "Avatar:"
-msgstr ""
+msgstr "Хөрөг:"
 
 #: templates/forum/user.html:101
 msgid "(No avatar)"
-msgstr ""
+msgstr "(Хөрөг байхгүй)"
 
 #: templates/forum/user.html:103
 msgid "Signature:"
-msgstr ""
+msgstr "Гарын үсэг:"
 
 #: templates/forum/user.html:116
 #: templates/forum/profile/profile_essentials.html:71
 msgid "User activity"
-msgstr ""
+msgstr "Хэрэглэгчийн үйлдэлүүд"
 
 #: templates/forum/user.html:120
 #: templates/forum/profile/profile_essentials.html:76
 msgid "Show all posts"
-msgstr ""
+msgstr "Бүх бичлэгийг үзэх"
 
 #: templates/forum/user.html:121
 #: templates/forum/profile/profile_essentials.html:74
 msgid "Last post:"
-msgstr ""
+msgstr "Сүүлийн бичлэг"
 
 #: templates/forum/users.html:7
 msgid "User search"
-msgstr ""
+msgstr "Хэрэглэгч хайх"
 
 #: templates/forum/users.html:12
 msgid "Find and sort users"
-msgstr ""
+msgstr "Хэрэглэгчидээс хайх ба эрэмблэх"
 
 #: templates/forum/users.html:25
 msgid ""
@@ -1062,39 +1071,42 @@ msgid ""
 "users by name, date registered or number of posts and in "
 "ascending/descending order."
 msgstr ""
+"Хэрэглэгчийн нэрээр хайх. Хэрэглэгчийн нэрийг нь хоосон орхиж болно. "
+"Хэрэглэгчдийг нэр , бүртгэсэн огноо, оруулсан бичлэгийн тоогоор эрэмблэх "
+"боломжтой."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
 msgid "Full Version:"
-msgstr ""
+msgstr "Бүтэн хувилбар:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "IMPORTANT:"
-msgstr ""
+msgstr "ЯАРАЛТАЙ:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "replies"
-msgstr ""
+msgstr "хариултууд"
 
 #: templates/forum/lofi/index.html:18
 msgid "posts"
-msgstr ""
+msgstr "бичлэгүүд"
 
 #: templates/forum/profile/profile_admin.html:16
 msgid "Delete (administrators only) or ban user"
-msgstr ""
+msgstr "Устгах (Завхан админ) эсвэл хорих"
 
 #: templates/forum/profile/profile_admin.html:18
 msgid "Delete user"
-msgstr ""
+msgstr "Хэрэглэгч утсгах"
 
 #: templates/forum/profile/profile_admin.html:18
 msgid "Ban user"
-msgstr ""
+msgstr "Хорьсон хэлэглэгч"
 
 #: templates/forum/profile/profile_admin.html:25
 msgid "Set moderator access"
-msgstr ""
+msgstr "Удирдах эрх өгөх"
 
 #: templates/forum/profile/profile_admin.html:27
 msgid ""
@@ -1102,31 +1114,33 @@ msgid ""
 "applies to moderators. Administrators always have full permissions in all "
 "forums."
 msgstr ""
+"Энэ хэрэглэгч аль хэлэлцүүлэгийг удирдахыг сонго. Тэмдэглэл: Энэ зөвхөн "
+"зохицуулагчидад хамаатай. Админууд бүх хэлэлцүүлэгт бүрэн эрхтэй."
 
 #: templates/forum/profile/profile_admin.html:31
 msgid "Update forums"
-msgstr ""
+msgstr "Хэлэлцүүлэгүүдийг шинэчил"
 
 #: templates/forum/profile/profile_display.html:9
 #: templates/forum/profile/profile_menu.html:11
 msgid "Display"
-msgstr ""
+msgstr "Харах"
 
 #: templates/forum/profile/profile_display.html:15
 msgid "Select your preferred style"
-msgstr ""
+msgstr "Өөрийн загвараа сонгоно уу"
 
 #: templates/forum/profile/profile_display.html:18
 msgid "If you like you can use a different visual style for this forum."
-msgstr ""
+msgstr "Хэрвээ та хүсвэл энэ хэлэлцүүлэгт өөр загвар хэрэглэж болно. "
 
 #: templates/forum/profile/profile_display.html:35
 msgid "Post display legend"
-msgstr ""
+msgstr "Бичлэгийн тэмдэг харуулах"
 
 #: templates/forum/profile/profile_display.html:37
 msgid "Post display info"
-msgstr ""
+msgstr "Бичлэгийн мэдээлэл харах"
 
 #: templates/forum/profile/profile_display.html:45
 #: templates/forum/profile/profile_essentials.html:81
@@ -1136,61 +1150,63 @@ msgstr ""
 #: templates/forum/profile/profile_privacy.html:25
 msgid ""
 "When you update your profile, you will be redirected back to this page."
-msgstr ""
+msgstr "Та өөрийн хувийн мэдээлэлээ өөрчлөвөл энэ хуудасанд буцаж ирнэ."
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
 msgid "Essentials"
-msgstr ""
+msgstr "Үндсэн мэдээлэл"
 
 #: templates/forum/profile/profile_essentials.html:15
 msgid "Enter your username and password"
-msgstr ""
+msgstr "Хэрэглэгчийн нэр нууц үгээ оруулана уу"
 
 #: templates/forum/profile/profile_essentials.html:26
 #: templates/forum/profile/profile_essentials.html:28
 msgid "Change password"
-msgstr ""
+msgstr "Нууц үг солих"
 
 #: templates/forum/profile/profile_essentials.html:37
 msgid "Enter a valid e-mail address"
-msgstr ""
+msgstr "Зөв e-mail хаяг оруулана уу."
 
 #: templates/forum/profile/profile_essentials.html:51
 msgid "Set your localisation options"
-msgstr ""
+msgstr "Өөрийн нутагшуулалтыг сонгох"
 
 #: templates/forum/profile/profile_essentials.html:55
 msgid ""
 "Timezone: For the forum to display times correctly you must select your "
 "local timezone."
 msgstr ""
+"Цагийн бүс: Хэлэлцүүлэгийг харах бүрд цагуудыг таны орон нугийн цагийн бүсэд"
+" тохируулан харуулна."
 
 #: templates/forum/profile/profile_essentials.html:61
 msgid ""
 "Language: You can choose which language you wish to use to view the forum"
-msgstr ""
+msgstr "Хэл : Та өөрийн харах хэлээ сонгох боломжтой."
 
 #: templates/forum/profile/profile_menu.html:3
 msgid "Profile menu"
-msgstr ""
+msgstr "Танилцуулга меню"
 
 #: templates/forum/profile/profile_menu.html:12
 #: templates/forum/profile/profile_privacy.html:9
 msgid "Privacy"
-msgstr ""
+msgstr "Нууцлал"
 
 #: templates/forum/profile/profile_personal.html:15
 msgid "Enter your personal details"
-msgstr ""
+msgstr "Хэвийн дэлгэрэнгүй мэдээлэл оруулана уу"
 
 #: templates/forum/profile/profile_personal.html:21
 msgid "Leave blank to use forum default."
-msgstr ""
+msgstr "Хоосон орхивол хэлэлцүүлэгийн анхдагч тохируулагыг ашиглана."
 
 #: templates/forum/profile/profile_personality.html:15
 msgid "Set your avatar display options"
-msgstr ""
+msgstr "Өөрийн хөргийг тохируулах"
 
 #: templates/forum/profile/profile_personality.html:21
 msgid ""
@@ -1198,18 +1214,21 @@ msgid ""
 "can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
 "below must be checked in order for the avatar to be visible in your posts."
 msgstr ""
+"Хөрөг зураг нь жижиг зураг бөгөөд таны бүх бичлэг  дээр харагдана. Энэ "
+"холбоос дээр дарж өөрийн хөргийг оруулах боломжтой. 'Хөрөг хэрэглэх' ийг "
+"сонгож байж хөрөг зураг харагдана."
 
 #: templates/forum/profile/profile_personality.html:24
 msgid "Use avatar."
-msgstr ""
+msgstr "Хөрөг хэрэглэх"
 
 #: templates/forum/profile/profile_personality.html:28
 msgid "Delete avatar"
-msgstr ""
+msgstr "Хөрөг устгах"
 
 #: templates/forum/profile/profile_personality.html:37
 msgid "Compose your signature"
-msgstr ""
+msgstr "Гарын үсгээ зохиох"
 
 #: templates/forum/profile/profile_personality.html:40
 msgid ""
@@ -1220,14 +1239,19 @@ msgid ""
 "the features that are allowed/enabled listed below whenever you edit your "
 "signature."
 msgstr ""
+"Гарын үсэг нь таны бичлэгүүдэд хавсаргагдах жижиг хэсэг. Та энэ хэсэгт "
+"хүссэн зүйлээ оруулаж болно. Магадгүй та өөрийн хэлэх дуртай үгээ эсвэл зүйл"
+" үг байж болно. Энэ хэлэлцүүлэгт гарын үсэгтээ  BBCode хэрэглэхийн "
+"зөвшөөрсөн бол үүнийг хэрэглэх боломжтой. Мөн та энэ боломжийг "
+"ашиглах/ашиглахгүй байж болно. Хэзээ ч хамаагүй гарын үсгээ засах боломтой. "
 
 #: templates/forum/profile/profile_personality.html:49
 msgid "No signature currently stored in profile."
-msgstr ""
+msgstr "Одоогоор танилцуулагт гарын үсэг хадгалагдаагүй байна. "
 
 #: templates/forum/profile/profile_privacy.html:15
 msgid "Set your privacy options"
-msgstr ""
+msgstr "Өөрийн нууцлалыг тохируулах"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
@@ -1235,3 +1259,5 @@ msgid ""
 " not and if you want other users to be able to send you e-mail via the forum"
 " (form e-mail) or not."
 msgstr ""
+"Та бусад хэрэглэгчидэд өөрийн e-mail хаягаа харуулах эсвэл майл хүлээн авах "
+"эсвэл хүлээн авахгүй бол доорхи хэсгээс сонгоно уу."

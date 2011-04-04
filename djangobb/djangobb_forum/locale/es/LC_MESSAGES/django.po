@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: Spanish (Castilian) <None>\n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
@@ -808,8 +808,8 @@ msgid ""
 "posts you wish to search for."
 msgstr ""
 "Para buscar por palabra clave, introducir un término o términos a buscar. "
-"Separar términos con espacios. PAra buscar por autor introducir el nombre de "
-"usuario del autor cuyos mensajes desea buscar."
+"Separar términos con espacios. PAra buscar por autor introducir el nombre de"
+" usuario del autor cuyos mensajes desea buscar."
 
 #: templates/forum/search_form.html:23
 msgid "Select where to search"
@@ -1074,8 +1074,8 @@ msgstr "Encontrar y ordenar usuarios"
 #: templates/forum/users.html:25
 msgid ""
 "Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+"users by name, date registered or number of posts and in "
+"ascending/descending order."
 msgstr ""
 "Introducir nombre de usuario a buscar. El campo nombre de usuario puede ser "
 "dejado vacío. Ordene usuarios por nombre, fecha de registro o número de "
@@ -1155,7 +1155,8 @@ msgstr ""
 #: templates/forum/profile/profile_personal.html:31
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
-msgid "When you update your profile, you will be redirected back to this page."
+msgid ""
+"When you update your profile, you will be redirected back to this page."
 msgstr "Cuando actualice su perfil, será redirigido de vuelta a esta página."
 
 #: templates/forum/profile/profile_essentials.html:9
@@ -1248,9 +1249,9 @@ msgid ""
 msgstr ""
 "Una firma es un texto corto que se agrega a sus mensajes. En ella puede "
 "poner lo que guste. Quizás quiera escribir su cita favorita o su signo del "
-"zodíaco. ¡Es su elección! En su firma puede usar BBCode si esta permitido en "
-"este foro en particular. Puede ver las opciones permitidas/habilitadas en la "
-"lista debajo siempre que cambie su firma."
+"zodíaco. ¡Es su elección! En su firma puede usar BBCode si esta permitido en"
+" este foro en particular. Puede ver las opciones permitidas/habilitadas en "
+"la lista debajo siempre que cambie su firma."
 
 #: templates/forum/profile/profile_personality.html:49
 msgid "No signature currently stored in profile."
@@ -1262,9 +1263,9 @@ msgstr "Establecer opciones de privacidad"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
+"Select whether you want your e-mail address to be viewable to other users or"
+" not and if you want other users to be able to send you e-mail via the forum"
+" (form e-mail) or not."
 msgstr ""
 "Seleccione si quiere que su dirección de e-mail sea visible por otros "
 "usuarios o no, y si quiere que otros usuarios puedan enviarle e-mail a "

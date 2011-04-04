@@ -37,18 +37,21 @@ TIME_ZONE = 'Europe/Kiev'
 LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = (
+    ('ca', 'Catalan'),
+    ('cs', 'Czech'),
+    ('de', 'German'),
     ('en', 'English'),
     ('es', 'Spanish'),
+    ('fo', 'Faroese'),
     ('fr', 'France'),
+    ('it', 'Italian'),
     ('lt', 'Lithuanian'),
+    ('mn', 'Mongolian'),
     ('pl', 'Polish'),
     ('ru', 'Russian'),
-    ('zh_CN', 'Chinese'),
-    ('de', 'German'),
+    ('uk_UA', 'Ukrainian'),
     ('vi', 'Vietnamese'),
-    ('it', 'Italian'),
-    ('cs', 'Czech'),
-    ('ca', 'Catalan'),
+    ('zh_CN', 'Chinese'),
 )
 
 SITE_ID = 1

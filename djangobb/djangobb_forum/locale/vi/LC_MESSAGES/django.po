@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
 "Last-Translator: minhlong139 <minhlong139@gmail.com>\n"
 "Language-Team: Vietnamese <None>\n"
-"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
@@ -701,8 +701,8 @@ msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
 msgstr ""
-"Xin lưu ý rằng bằng cách sử dụng mẫu đơn này, địa chỉ thư điện tử của bạn sẽ "
-"được tiết lộ cho người nhận."
+"Xin lưu ý rằng bằng cách sử dụng mẫu đơn này, địa chỉ thư điện tử của bạn sẽ"
+" được tiết lộ cho người nhận."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
@@ -804,9 +804,9 @@ msgid ""
 "with spaces. To search by author enter the username of the author whose "
 "posts you wish to search for."
 msgstr ""
-"Để tìm kiếm bằng từ khoá, hãy nhập một cụm từ hoặc nhiều cụm từ để tìm kiếm. "
-"Phân cách cụm từ bằng dấu cách. Để tìm kiếm theo tác giả, hãy nhập tên người "
-"dùng của tác giả có bài viết mà bạn muốn tìm kiếm."
+"Để tìm kiếm bằng từ khoá, hãy nhập một cụm từ hoặc nhiều cụm từ để tìm kiếm."
+" Phân cách cụm từ bằng dấu cách. Để tìm kiếm theo tác giả, hãy nhập tên "
+"người dùng của tác giả có bài viết mà bạn muốn tìm kiếm."
 
 #: templates/forum/search_form.html:23
 msgid "Select where to search"
@@ -957,9 +957,9 @@ msgid ""
 "your posts. It must not be any bigger than %(avatar_width)s x "
 "%(avatar_height)s pixels "
 msgstr ""
-"Hình đại diện là một hình ảnh nhỏ sẽ được hiển thị dưới tên người dùng trong "
-"bài viết của bạn. Nó không được lớn hơn %(avatar_width)s x %(avatar_height)s "
-"px"
+"Hình đại diện là một hình ảnh nhỏ sẽ được hiển thị dưới tên người dùng trong"
+" bài viết của bạn. Nó không được lớn hơn %(avatar_width)s x "
+"%(avatar_height)s px"
 
 #: templates/forum/upload_avatar.html:23
 msgid "Upload"
@@ -1071,12 +1071,12 @@ msgstr "Tìm và sắp xếp thành viên"
 #: templates/forum/users.html:25
 msgid ""
 "Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+"users by name, date registered or number of posts and in "
+"ascending/descending order."
 msgstr ""
-"Nhập tên thành viên để tìm kiếm. Trường tên thành viên có thể được để trống. "
-"Sắp xếp thành viên theo tên, ngày đăng ký hoặc số lượng bài viết và theo thứ "
-"tự tăng hoặc giảm dần"
+"Nhập tên thành viên để tìm kiếm. Trường tên thành viên có thể được để trống."
+" Sắp xếp thành viên theo tên, ngày đăng ký hoặc số lượng bài viết và theo "
+"thứ tự tăng hoặc giảm dần"
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
@@ -1137,8 +1137,8 @@ msgstr "Chọn phong cách ưa thích của bạn"
 #: templates/forum/profile/profile_display.html:18
 msgid "If you like you can use a different visual style for this forum."
 msgstr ""
-"Nếu bạn thích, bạn có thể sử dụng một phong cách khác nhau hình ảnh cho diễn "
-"đàn này."
+"Nếu bạn thích, bạn có thể sử dụng một phong cách khác nhau hình ảnh cho diễn"
+" đàn này."
 
 #: templates/forum/profile/profile_display.html:35
 msgid "Post display legend"
@@ -1154,7 +1154,8 @@ msgstr "Hiển thị thông tin bài"
 #: templates/forum/profile/profile_personal.html:31
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
-msgid "When you update your profile, you will be redirected back to this page."
+msgid ""
+"When you update your profile, you will be redirected back to this page."
 msgstr "Khi bạn cập nhật hồ sơ, bạn sẽ được chuyển trở lại vào trang này."
 
 #: templates/forum/profile/profile_essentials.html:9
@@ -1220,8 +1221,8 @@ msgid ""
 "can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
 "below must be checked in order for the avatar to be visible in your posts."
 msgstr ""
-"Hình đại diện là một hình ảnh nhỏ sẽ được hiển thị trong tất cả các bài viết "
-"của bạn. Bạn có thể tải lên hình đại diện bằng cách nhấp vào liên kết dưới "
+"Hình đại diện là một hình ảnh nhỏ sẽ được hiển thị trong tất cả các bài viết"
+" của bạn. Bạn có thể tải lên hình đại diện bằng cách nhấp vào liên kết dưới "
 "đây. Phải chọn ô 'Sử dụng hình đại diện' để hình đại diện được nhìn thấy "
 "trong bài viết của bạn."
 
@@ -1263,9 +1264,9 @@ msgstr "Thiết lập các tùy chọn riêng tư của bạn"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
+"Select whether you want your e-mail address to be viewable to other users or"
+" not and if you want other users to be able to send you e-mail via the forum"
+" (form e-mail) or not."
 msgstr ""
 "Chọn nếu bạn muốn địa chỉ thư điện tử của bạn để có thể xem được cho người "
 "dùng khác hay không và nếu bạn muốn người dùng khác để có thể gửi e-mail "

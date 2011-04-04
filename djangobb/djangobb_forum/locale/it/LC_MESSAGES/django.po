@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: Italian <None>\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
@@ -163,7 +163,8 @@ msgstr "Nascondi l'indirizzo mail ma consenti l'invio via email del form."
 
 #: models.py:41
 msgid "Hide your e-mail address and disallow form e-mail."
-msgstr "Nascondi l'indirizzo mail e non consentire l'invio via email del form."
+msgstr ""
+"Nascondi l'indirizzo mail e non consentire l'invio via email del form."
 
 #: models.py:56 models.py:91 models.py:360
 msgid "Name"
@@ -1070,8 +1071,8 @@ msgstr "Cerca e ordina utenti"
 #: templates/forum/users.html:25
 msgid ""
 "Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+"users by name, date registered or number of posts and in "
+"ascending/descending order."
 msgstr ""
 "Inserisci un nome utente da ricercare. Il campo nome utente puo' essere "
 "lasciato bianco. Ordina gli utenti per nome, data di registrazione o numero "
@@ -1150,7 +1151,8 @@ msgstr ""
 #: templates/forum/profile/profile_personal.html:31
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
-msgid "When you update your profile, you will be redirected back to this page."
+msgid ""
+"When you update your profile, you will be redirected back to this page."
 msgstr "Quando aggiorni il tuo profilo, sarai reindirizzato a questa pagina."
 
 #: templates/forum/profile/profile_essentials.html:9
@@ -1258,9 +1260,9 @@ msgstr "Imposta le tue opzioni sulla privacy"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
+"Select whether you want your e-mail address to be viewable to other users or"
+" not and if you want other users to be able to send you e-mail via the forum"
+" (form e-mail) or not."
 msgstr ""
 "Seleziona quando vuoi che il tuo indirizzo e-mail sia visibile o meno agli "
 "altri utenti e se vuoi che gli altri utenti ti possano inviare e-mail "
