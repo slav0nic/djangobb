@@ -8,377 +8,377 @@ msgstr ""
 "Project-Id-Version: DjangoBB\n"
 "Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2011-04-04 11:10+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Portuguese (Brazilian) <None>\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"Last-Translator: Gunleif <fo.umseting@gmail.com>\n"
+"Language-Team: Faroese <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Language: fo\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
-msgstr ""
+msgstr "Seinastu postirnir á torginum"
 
 #: feeds.py:45 feeds.py:46 templates/forum/base.html:15
 msgid "Latest topics on forum"
-msgstr ""
+msgstr "Seinastu evnini á torginum"
 
 #: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s topic"
-msgstr ""
+msgstr "Seinastu postirnir á %s evninum"
 
 #: feeds.py:103 feeds.py:111
 #, python-format
 msgid "Latest posts on %s forum"
-msgstr ""
+msgstr "Seinastu postirnir á %s torginum"
 
 #: feeds.py:130 feeds.py:133
 #, python-format
 msgid "Latest posts on %s category"
-msgstr ""
+msgstr "Seinastu postirnir í %s flokkinum"
 
 #: forms.py:21 forms.py:142 forms.py:251 templates/forum/users.html:45
 msgid "Username"
-msgstr ""
+msgstr "Brúkaranavn"
 
 #: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
-msgstr ""
+msgstr "Skrásettir"
 
 #: forms.py:23
 msgid "No. of posts"
-msgstr ""
+msgstr "Tal av postum"
 
 #: forms.py:27
 msgid "Post time"
-msgstr ""
+msgstr "Post tíðarfesting"
 
 #: forms.py:28
 msgid "Author"
-msgstr ""
+msgstr "Høvundi"
 
 #: forms.py:29 forms.py:51 forms.py:116 forms.py:338 models.py:119
 #: templates/forum/add_post.html:27 templates/forum/edit_post.html:24
 msgid "Subject"
-msgstr ""
+msgstr "Evni"
 
 #: forms.py:30 forms.py:286 models.py:102 models.py:118
 #: templates/forum/index.html:53 templates/forum/search_topics.html:22
 msgid "Forum"
-msgstr ""
+msgstr "Torg"
 
 #: forms.py:34
 msgid "Ascending"
-msgstr ""
+msgstr "Vaksandi"
 
 #: forms.py:35
 msgid "Descending"
-msgstr ""
+msgstr "Minkandi"
 
 #: forms.py:39 models.py:133 templates/forum/index.html:54
 msgid "Topics"
-msgstr ""
+msgstr "Evni"
 
 #: forms.py:40 models.py:190 templates/forum/index.html:55
 #: templates/forum/users.html:47
 msgid "Posts"
-msgstr ""
+msgstr "Postar"
 
 #: forms.py:44
 msgid "Message text and topic subject"
-msgstr ""
+msgstr "Boðtekstur og evni"
 
 #: forms.py:45
 msgid "Message text only"
-msgstr ""
+msgstr "Einans boðtekstur"
 
 #: forms.py:46
 msgid "Topic subject only"
-msgstr ""
+msgstr "Einans evni"
 
 #: forms.py:53 templates/forum/add_post.html:36 templates/forum/topic.html:165
 msgid "Attachment"
-msgstr ""
+msgstr "Viðfesti"
 
 #: forms.py:80
 msgid "Attachment is too big"
-msgstr ""
+msgstr "Viðfestið er ov stórt"
 
 #: forms.py:143 templates/forum/topic.html:67
 msgid "E-mail"
-msgstr ""
+msgstr "T-postur"
 
 #: forms.py:173
 msgid "Real name"
-msgstr ""
+msgstr "Veruliga navn"
 
 #: forms.py:253 forms.py:288
 msgid "Sort by"
-msgstr ""
+msgstr "Raða eftir"
 
 #: forms.py:254 forms.py:289
 msgid "Sort order"
-msgstr ""
+msgstr "Raðfylgi"
 
 #: forms.py:282
 msgid "Keyword search"
-msgstr ""
+msgstr "Lykilorð leitan"
 
 #: forms.py:284
 msgid "Author search"
-msgstr ""
+msgstr "Høvundaleitan"
 
 #: forms.py:287
 msgid "Search in"
-msgstr ""
+msgstr "Leita í"
 
 #: forms.py:290
 msgid "Show results as"
-msgstr ""
+msgstr "Sýn úrslit sum"
 
 #: forms.py:315
 #, python-format
 msgid "User with login %s does not exist"
-msgstr ""
+msgstr "Brúkarin við innritinum %s finst ikki"
 
 #: forms.py:325
 msgid "You already voted for this post"
-msgstr ""
+msgstr "Tú hevur longu atkvøtt fyri hesum posti "
 
 #: forms.py:340 models.py:181 templates/forum/add_post.html:29
 #: templates/forum/edit_post.html:27
 msgid "Message"
-msgstr ""
+msgstr "Boð"
 
 #: models.py:39
 msgid "Display your e-mail address."
-msgstr ""
+msgstr "Sýnsa tína t-post adressu."
 
 #: models.py:40
 msgid "Hide your e-mail address but allow form e-mail."
-msgstr ""
+msgstr "Fjal tína t-postadressu, men loyv oyðublað t-post."
 
 #: models.py:41
 msgid "Hide your e-mail address and disallow form e-mail."
-msgstr ""
+msgstr "Fjal tína t-postadressu, og loyv ikki oyðublað t-post."
 
 #: models.py:56 models.py:91 models.py:360
 msgid "Name"
-msgstr ""
+msgstr "Navn"
 
 #: models.py:57
 msgid "Groups"
-msgstr ""
+msgstr "Bólkar"
 
 #: models.py:57
 msgid "Only users from these groups can see this category"
-msgstr ""
+msgstr "Einans brúkarir úr hesum bólkunum, kunna síggja hendan flokkin"
 
 #: models.py:58 models.py:92
 msgid "Position"
-msgstr ""
+msgstr "Sæti"
 
 #: models.py:62 models.py:90
 msgid "Category"
-msgstr ""
+msgstr "Flokkur"
 
 #: models.py:63
 msgid "Categories"
-msgstr ""
+msgstr "Flokkar"
 
 #: models.py:93
 msgid "Description"
-msgstr ""
+msgstr "Frágreiðing"
 
 #: models.py:94
 msgid "Moderators"
-msgstr ""
+msgstr "Kjakleiðarir"
 
 #: models.py:95 models.py:121 models.py:178
 msgid "Updated"
-msgstr ""
+msgstr "Dagført"
 
 #: models.py:96 models.py:127 models.py:278
 msgid "Post count"
-msgstr ""
+msgstr "Post tal"
 
 #: models.py:97
 msgid "Topic count"
-msgstr ""
+msgstr "Evni tal"
 
 #: models.py:103
 msgid "Forums"
-msgstr ""
+msgstr "Torg"
 
 #: models.py:120 models.py:177 models.py:321
 msgid "Created"
-msgstr ""
+msgstr "Stovnað"
 
 #: models.py:122 models.py:176 models.py:259
 msgid "User"
-msgstr ""
+msgstr "Brúkari"
 
 #: models.py:123
 msgid "Views count"
-msgstr ""
+msgstr "Sýningar tal"
 
 #: models.py:124
 msgid "Sticky"
-msgstr ""
+msgstr "Fest"
 
 #: models.py:125
 msgid "Closed"
-msgstr ""
+msgstr "Afturlatið"
 
 #: models.py:126
 msgid "Subscribers"
-msgstr ""
+msgstr "Haldarir"
 
 #: models.py:132 models.py:175 templates/forum/forum.html:27
 #: templates/forum/moderate.html:23 templates/forum/search_topics.html:21
 msgid "Topic"
-msgstr ""
+msgstr "Evni"
 
 #: models.py:179
 msgid "Updated by"
-msgstr ""
+msgstr "Dagført av"
 
 #: models.py:180 templates/forum/profile/profile_display.html:25
 msgid "Markup"
-msgstr ""
+msgstr "Markup"
 
 #: models.py:182
 msgid "HTML version"
-msgstr ""
+msgstr "HTML útgáva"
 
 #: models.py:183
 msgid "User IP"
-msgstr ""
+msgstr "Brúkara IP"
 
 #: models.py:189 models.py:244 models.py:318 models.py:356
 msgid "Post"
-msgstr ""
+msgstr "Posta"
 
 #: models.py:242
 msgid "From"
-msgstr ""
+msgstr "Frá"
 
 #: models.py:243
 msgid "To"
-msgstr ""
+msgstr "Til"
 
 #: models.py:245
 msgid "Time"
-msgstr ""
+msgstr "Tíð"
 
 #: models.py:246
 msgid "Sign"
-msgstr ""
+msgstr "Skriva undir"
 
 #: models.py:247 models.py:322 models.py:335 templates/forum/report.html:16
 #: templates/forum/reputation.html:24
 msgid "Reason"
-msgstr ""
+msgstr "Orsøk"
 
 #: models.py:250 templates/forum/topic.html:57
 msgid "Reputation"
-msgstr ""
+msgstr "Virðing"
 
 #: models.py:251
 msgid "Reputations"
-msgstr ""
+msgstr "Virðingar"
 
 #: models.py:260
 msgid "Status"
-msgstr ""
+msgstr "Standur"
 
 #: models.py:261
 msgid "Site"
-msgstr ""
+msgstr "Stað"
 
 #: models.py:262
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: models.py:263
 msgid "ICQ"
-msgstr ""
+msgstr "ICQ"
 
 #: models.py:264
 msgid "MSN"
-msgstr ""
+msgstr "MSN"
 
 #: models.py:265
 msgid "AIM"
-msgstr ""
+msgstr "AIM"
 
 #: models.py:266
 msgid "Yahoo"
-msgstr ""
+msgstr "Yahoo"
 
 #: models.py:267 templates/forum/user.html:25
 msgid "Location"
-msgstr ""
+msgstr "Stað"
 
 #: models.py:268
 msgid "Signature"
-msgstr ""
+msgstr "Undirskrift"
 
 #: models.py:269
 msgid "Time zone"
-msgstr ""
+msgstr "Tíðarøki"
 
 #: models.py:270
 msgid "Language"
-msgstr ""
+msgstr "Mál"
 
 #: models.py:271
 msgid "Avatar"
-msgstr ""
+msgstr "Avatar"
 
 #: models.py:272
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: models.py:273
 msgid "Show avatar"
-msgstr ""
+msgstr "Sýn avatar"
 
 #: models.py:274
 msgid "Show signatures"
-msgstr ""
+msgstr "Sýn undirskriftir"
 
 #: models.py:275 templates/forum/profile/profile_display.html:40
 msgid "Show smilies"
-msgstr ""
+msgstr "Sýn brostekn"
 
 #: models.py:276
 msgid "Privacy permission"
-msgstr ""
+msgstr "Privatlívs loyvi"
 
 #: models.py:277
 msgid "Default markup"
-msgstr ""
+msgstr "Forsett markup"
 
 #: models.py:281 templates/forum/header.html:23 templates/forum/topic.html:65
 #: templates/forum/user.html:7
 msgid "Profile"
-msgstr ""
+msgstr "Umhvarv"
 
 #: models.py:282
 msgid "Profiles"
-msgstr ""
+msgstr "Umhvørv"
 
 #: models.py:309 models.py:310
 msgid "Post tracking"
-msgstr ""
+msgstr "Post sporing"
 
 #: models.py:317
 msgid "Reported by"
-msgstr ""
+msgstr "Meldað av"
 
 #: models.py:319
 msgid "Zapped"
@@ -390,47 +390,47 @@ msgstr ""
 
 #: models.py:325 templates/forum/topic.html:112
 msgid "Report"
-msgstr ""
+msgstr "Frásøgn"
 
 #: models.py:326
 msgid "Reports"
-msgstr ""
+msgstr "Frásagnir"
 
 #: models.py:332
 msgid "Banned user"
-msgstr ""
+msgstr "Bannlýstur brúkari"
 
 #: models.py:333
 msgid "Ban start"
-msgstr ""
+msgstr "Bannlýsing byrjar"
 
 #: models.py:334
 msgid "Ban end"
-msgstr ""
+msgstr "Bannlýsing endar"
 
 #: models.py:338
 msgid "Ban"
-msgstr ""
+msgstr "Bannlýs"
 
 #: models.py:339
 msgid "Bans"
-msgstr ""
+msgstr "Bannlýsingar"
 
 #: models.py:357
 msgid "Size"
-msgstr ""
+msgstr "Stødd"
 
 #: models.py:358
 msgid "Content type"
-msgstr ""
+msgstr "Innihalds slag"
 
 #: models.py:359
 msgid "Path"
-msgstr ""
+msgstr "Leið"
 
 #: models.py:361
 msgid "Hash"
-msgstr ""
+msgstr "Brongl"
 
 #: templates/forum/add_post.html:9 templates/forum/add_post.html.py:11
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
@@ -440,20 +440,20 @@ msgstr ""
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
-msgstr ""
+msgstr "Rót"
 
 #: templates/forum/add_post.html:18 templates/forum/forum.html:11
 #: templates/forum/forum.html.py:69
 msgid "New topic"
-msgstr ""
+msgstr "Nýtt evni"
 
 #: templates/forum/add_post.html:18
 msgid "New reply"
-msgstr ""
+msgstr "Nýtt aftursvar"
 
 #: templates/forum/add_post.html:24 templates/forum/topic.html:156
 msgid "Write your message and submit"
-msgstr ""
+msgstr "Skriva tíni boð og send inn"
 
 #: templates/forum/add_post.html:46 templates/forum/mail_to.html:25
 #: templates/forum/report.html:22 templates/forum/reputation_form.html:41
@@ -465,7 +465,7 @@ msgstr ""
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
 msgid "Submit"
-msgstr ""
+msgstr "Send inn"
 
 #: templates/forum/add_post.html:46 templates/forum/edit_post.html:34
 #: templates/forum/mail_to.html:25 templates/forum/move_topic.html:34
@@ -474,7 +474,7 @@ msgstr ""
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
 #: templates/forum/upload_avatar.html:23
 msgid "Go back"
-msgstr ""
+msgstr "Far aftur"
 
 #: templates/forum/add_post.html:54
 msgid "Topic review (newest first)"
@@ -482,7 +482,7 @@ msgstr ""
 
 #: templates/forum/add_post.html:70 templates/forum/topic.html:123
 msgid "Quote"
-msgstr ""
+msgstr "Sitat"
 
 #: templates/forum/base.html:56
 msgid "Board footer"
@@ -490,46 +490,46 @@ msgstr ""
 
 #: templates/forum/delete_posts.html:35 templates/forum/topic.html:93
 msgid "Edited"
-msgstr ""
+msgstr "Ritstjórnað"
 
 #: templates/forum/delete_posts.html:39 templates/forum/moderate.html:27
 msgid "Select"
-msgstr ""
+msgstr "Vel"
 
 #: templates/forum/delete_posts.html:51 templates/forum/moderate.html:68
 #: templates/forum/reputation.html:28 templates/forum/topic.html:115
 msgid "Delete"
-msgstr ""
+msgstr "Strika"
 
 #: templates/forum/edit_post.html:14
 msgid "Edit post"
-msgstr ""
+msgstr "Ritstjórna post"
 
 #: templates/forum/edit_post.html:21
 msgid "Edit the post and submit changes"
-msgstr ""
+msgstr "Ritstjórna postin, og send broytingar inn"
 
 #: templates/forum/edit_post.html:34
 msgid "Save"
-msgstr ""
+msgstr "Goym"
 
 #: templates/forum/forum.html:28 templates/forum/moderate.html:24
 #: templates/forum/search_topics.html:23
 msgid "Replies"
-msgstr ""
+msgstr "Aftursvar"
 
 #: templates/forum/forum.html:29 templates/forum/moderate.html:25
 msgid "Views"
-msgstr ""
+msgstr "Sýni"
 
 #: templates/forum/forum.html:30 templates/forum/index.html:56
 #: templates/forum/moderate.html:26 templates/forum/search_topics.html:24
 msgid "Last post"
-msgstr ""
+msgstr "Nýggjasti postur"
 
 #: templates/forum/forum.html:42 templates/forum/moderate.html:39
 msgid "Sticky:"
-msgstr ""
+msgstr "Fest:"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
 #: templates/forum/forum.html:54 templates/forum/forum_row.html:34
@@ -537,42 +537,42 @@ msgstr ""
 #: templates/forum/moderate.html:51 templates/forum/search_topics.html:35
 #: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
-msgstr ""
+msgstr "av"
 
 #: templates/forum/forum.html:58 templates/forum/moderate.html:56
 msgid "Forum is empty."
-msgstr ""
+msgstr "Torgið er tómt."
 
 #: templates/forum/forum.html:79
 msgid "Jump to"
-msgstr ""
+msgstr "Leyp til"
 
 #: templates/forum/forum.html:90 templates/forum/topic.html:195
 msgid "Go"
-msgstr ""
+msgstr "Far"
 
 #: templates/forum/forum.html:94
 msgid "Moderate forum"
-msgstr ""
+msgstr "Kjakleiða torg"
 
 #: templates/forum/header.html:16
 msgid "Index"
-msgstr ""
+msgstr "Evnisyvirlit"
 
 #: templates/forum/header.html:17 templates/forum/users.html:39
 #: templates/forum/lofi/header.html:5
 msgid "User list"
-msgstr ""
+msgstr "Brúkaralisti"
 
 #: templates/forum/header.html:18 templates/forum/search_form.html:7
 #: templates/forum/users.html:28 templates/forum/lofi/header.html:4
 msgid "Search"
-msgstr ""
+msgstr "Leita"
 
 #: templates/forum/header.html:20 templates/forum/profile/profile_admin.html:9
 #: templates/forum/profile/profile_menu.html:14
 msgid "Administration"
-msgstr ""
+msgstr "Fyrisiting"
 
 #: templates/forum/header.html:25 templates/forum/topic.html:75
 msgid "PM"
@@ -580,48 +580,48 @@ msgstr ""
 
 #: templates/forum/header.html:27
 msgid "Log out"
-msgstr ""
+msgstr "Útrita"
 
 #: templates/forum/header.html:29
 msgid "Log in"
-msgstr ""
+msgstr "Innrita"
 
 #: templates/forum/header.html:30
 msgid "Sign up"
-msgstr ""
+msgstr "Gerst limur"
 
 #: templates/forum/header.html:37
 msgid "Logged in as"
-msgstr ""
+msgstr "Innritað(ur) sum"
 
 #: templates/forum/header.html:38
 msgid "Last visit:"
-msgstr ""
+msgstr "Seinasta vitjan:"
 
 #: templates/forum/header.html:40
 #, python-format
 msgid " There are new messages (%(new_msg)s)"
-msgstr ""
+msgstr " Har eru nýggj boð (%(new_msg)s)"
 
 #: templates/forum/header.html:43
 msgid "You are not logged in."
-msgstr ""
+msgstr "Tú ert ikki ritað(ur) inn."
 
 #: templates/forum/header.html:46
 msgid "There are new reports"
-msgstr ""
+msgstr "Har eru nýggjar frásagnir"
 
 #: templates/forum/header.html:51
 msgid "Show new posts since last visit"
-msgstr ""
+msgstr "Sýn nýggju postirnir síðani seinasta vitjan"
 
 #: templates/forum/header.html:52
 msgid "Mark all topics as read"
-msgstr ""
+msgstr "Merk øll evni sum lisin"
 
 #: templates/forum/header.html:62
 msgid "Notice"
-msgstr ""
+msgstr "Boð"
 
 #: templates/forum/index.html:71
 msgid "Board information"
@@ -629,90 +629,92 @@ msgstr ""
 
 #: templates/forum/index.html:75
 msgid "Board statistics"
-msgstr ""
+msgstr "Talvu hagfrøði"
 
 #: templates/forum/index.html:76
 msgid "Total number of registered users:"
-msgstr ""
+msgstr "Skrásettir brúkarar í alt:"
 
 #: templates/forum/index.html:77
 msgid "Total number of topics:"
-msgstr ""
+msgstr "Samanlagt tal av evnum:"
 
 #: templates/forum/index.html:78
 msgid "Total number of posts:"
-msgstr ""
+msgstr "Samanlagt tal av postum:"
 
 #: templates/forum/index.html:81
 msgid "User information"
-msgstr ""
+msgstr "Brúkara upplýsing"
 
 #: templates/forum/index.html:82
 msgid "Newest registered user:"
-msgstr ""
+msgstr "Seinast skrásetti brúkarin:"
 
 #: templates/forum/index.html:83
 msgid "Registered users online:"
-msgstr ""
+msgstr "Skrásettir brúkarar álínu:"
 
 #: templates/forum/index.html:84
 msgid "Guests online:"
-msgstr ""
+msgstr "Gestir álínu:"
 
 #: templates/forum/index.html:88
 msgid "Online:"
-msgstr ""
+msgstr "Álínu:"
 
 #: templates/forum/index.html:101 templates/forum/search_posts.html:67
 #: templates/forum/search_topics.html:76
 msgid "Search links"
-msgstr ""
+msgstr "Leita í leinkjum"
 
 #: templates/forum/index.html:102 templates/forum/search_posts.html:68
 #: templates/forum/search_topics.html:77
 msgid "Show recent posts"
-msgstr ""
+msgstr "Sýn nýligar postar"
 
 #: templates/forum/index.html:103 templates/forum/search_posts.html:69
 #: templates/forum/search_topics.html:78
 msgid "Show unanswered posts"
-msgstr ""
+msgstr "Sýn ósvaraðir postir"
 
 #: templates/forum/index.html:105 templates/forum/search_posts.html:71
 #: templates/forum/search_topics.html:80
 msgid "Show your subscribed topics"
-msgstr ""
+msgstr "Sýn tey evni tú ert haldari av"
 
 #: templates/forum/index.html:106 templates/forum/search_posts.html:72
 #: templates/forum/search_topics.html:81
 msgid "Show your posts"
-msgstr ""
+msgstr "Sýn tínir postir"
 
 #: templates/forum/mail_to.html:7
 msgid "Send e-mail to"
-msgstr ""
+msgstr "Send t-post til"
 
 #: templates/forum/mail_to.html:13
 msgid "Write and submit your e-mail message"
-msgstr ""
+msgstr "Skriva og send tíni t-post boð inn"
 
 #: templates/forum/mail_to.html:21
 msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
 msgstr ""
+"Vinarliga hav fyri eygað, við at nýta hetta útfyllingarblað, verður tín "
+"t-post adressa avdúka fyri móttakaranum."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
-msgstr ""
+msgstr "Flyt"
 
 #: templates/forum/moderate.html:69
 msgid "Open"
-msgstr ""
+msgstr "Opna"
 
 #: templates/forum/moderate.html:70
 msgid "Close"
-msgstr ""
+msgstr "Lat aftur"
 
 #: templates/forum/moderators.html:3
 msgid "Moderated by"
@@ -720,35 +722,35 @@ msgstr ""
 
 #: templates/forum/move_topic.html:7 templates/forum/topic.html:201
 msgid "Move topic"
-msgstr ""
+msgstr "Flyt evni"
 
 #: templates/forum/move_topic.html:16
 msgid "Select destination of move"
-msgstr ""
+msgstr "Vel hvar tað skal flytast til"
 
 #: templates/forum/move_topic.html:18
 msgid "Move to"
-msgstr ""
+msgstr "Flyt til"
 
 #: templates/forum/pagination.html:3
 msgid "Pages"
-msgstr ""
+msgstr "Síður"
 
 #: templates/forum/report.html:7
 msgid "Report post"
-msgstr ""
+msgstr "Melda postin"
 
 #: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
-msgstr ""
+msgstr "Vinarliga skriva eina stutta orsøk, um hví tú meldar hendan postin"
 
 #: templates/forum/reputation.html:16
 msgid "Reputation of the user"
-msgstr ""
+msgstr "Virðing hjá brúkaranum"
 
 #: templates/forum/reputation.html:22
 msgid "From user"
-msgstr ""
+msgstr "Frá brúkara"
 
 #: templates/forum/reputation.html:23
 msgid "For post in topic"
@@ -756,43 +758,43 @@ msgstr ""
 
 #: templates/forum/reputation.html:25
 msgid "Estimation"
-msgstr ""
+msgstr "Virðing"
 
 #: templates/forum/reputation.html:26
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: templates/forum/reputation.html:63
 msgid "Are you sure"
-msgstr ""
+msgstr "Er tú viss(ur)"
 
 #: templates/forum/reputation_form.html:7
 msgid "Please, fill the form"
-msgstr ""
+msgstr "Vinarliga, fyll útfyllingarblaðið"
 
 #: templates/forum/reputation_form.html:17
 msgid "Your name:"
-msgstr ""
+msgstr "Títt navn:"
 
 #: templates/forum/reputation_form.html:21
 msgid "To whom we change a reputation:"
-msgstr ""
+msgstr "Til tann ið vit broyta virðing á:"
 
 #: templates/forum/reputation_form.html:29
 msgid "Method:"
-msgstr ""
+msgstr "Háttur:"
 
 #: templates/forum/reputation_form.html:32
 msgid "Add of a reputation"
-msgstr ""
+msgstr "Økja eina virðing"
 
 #: templates/forum/reputation_form.html:34
 msgid "Reduction of a reputation"
-msgstr ""
+msgstr "Minka eina virðing"
 
 #: templates/forum/search_form.html:13
 msgid "Enter your search criteria"
-msgstr ""
+msgstr "Skriva tíni leiti sermerki"
 
 #: templates/forum/search_form.html:17
 msgid ""
@@ -800,104 +802,109 @@ msgid ""
 "with spaces. To search by author enter the username of the author whose "
 "posts you wish to search for."
 msgstr ""
+"Til at leita við lyklaorði, skriva eina orðing ella orðingar at leita eftir."
+" Sundurskil orðingarnar við gloppum. Til at leita eftir høvunda, skriva "
+"brúkaranavnið á høvundanum, hvørs postar tú ynskir at finna."
 
 #: templates/forum/search_form.html:23
 msgid "Select where to search"
-msgstr ""
+msgstr "Vel hvar tað skal leitast"
 
 #: templates/forum/search_form.html:29
 msgid "All forums"
-msgstr ""
+msgstr "Øll torg"
 
 #: templates/forum/search_form.html:43
 msgid ""
 "Choose in which forum you would like to search and if you want to search in "
 "topic subjects, message text or both."
 msgstr ""
+"Vel í hvørjum torgi tú vil leita, og um tú vil leita í evnum, boðtekstum "
+"ella báðum."
 
 #: templates/forum/search_form.html:50
 msgid "Select how to view search results"
-msgstr ""
+msgstr "Vel hvussu leitingarúrslit skullu sýnast"
 
 #: templates/forum/search_form.html:65
 msgid "You can choose how you wish to sort and show your results."
-msgstr ""
+msgstr "Tú kann velja hvussu tú vil raða og sýna tíni úrslit."
 
 #: templates/forum/search_posts.html:24
 msgid "Replies:"
-msgstr ""
+msgstr "Aftursvar:"
 
 #: templates/forum/search_posts.html:28
 msgid "Go to post"
-msgstr ""
+msgstr "Far til post"
 
 #: templates/forum/search_posts.html:44 templates/forum/search_topics.html:55
 msgid "Info"
-msgstr ""
+msgstr "Kunning"
 
 #: templates/forum/search_posts.html:48 templates/forum/search_topics.html:59
 msgid "Your search returned no hits."
-msgstr ""
+msgstr "Har kom einki burturúr leitingini."
 
 #: templates/forum/search_topics.html:15
 msgid "Search results"
-msgstr ""
+msgstr "Leitingarúrslit"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:121
 #: templates/forum/topic.html:134
 msgid "Reply"
-msgstr ""
+msgstr "Svara aftur"
 
 #: templates/forum/topic.html:49
 msgid "From:"
-msgstr ""
+msgstr "Frá:"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
-msgstr ""
+msgstr "Skrásettur:"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
-msgstr ""
+msgstr "Postar:"
 
 #: templates/forum/topic.html:54
 msgid "IP:"
-msgstr ""
+msgstr "IP:"
 
 #: templates/forum/topic.html:70 templates/forum/user.html:42
 #: templates/forum/profile/profile_essentials.html:43
 msgid "Send e-mail"
-msgstr ""
+msgstr "Send t-post"
 
 #: templates/forum/topic.html:97
 msgid "Attachments:"
-msgstr ""
+msgstr "Viðfesti:"
 
 #: templates/forum/topic.html:105
 msgid "Online"
-msgstr ""
+msgstr "Álínu"
 
 #: templates/forum/topic.html:107
 msgid "Offline"
-msgstr ""
+msgstr "Avlínu"
 
 #: templates/forum/topic.html:115
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Er tú viss(ur) í at strika hendan postin?"
 
 #: templates/forum/topic.html:119
 msgid "Edit"
-msgstr ""
+msgstr "Ritstjórna"
 
 #: templates/forum/topic.html:140
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Gevst við halda"
 
 #: templates/forum/topic.html:142
 msgid "Subscribe"
-msgstr ""
+msgstr "Gerst haldari"
 
 #: templates/forum/topic.html:150
 msgid "Quick post"
@@ -905,41 +912,41 @@ msgstr ""
 
 #: templates/forum/topic.html:184
 msgid "Jump to "
-msgstr ""
+msgstr "Leyp til"
 
 #: templates/forum/topic.html:198
 msgid "Moderator control"
-msgstr ""
+msgstr "Kjakleiðara stýring"
 
 #: templates/forum/topic.html:200
 msgid "Delete multiple posts"
-msgstr ""
+msgstr "Strika fleiri postar"
 
 #: templates/forum/topic.html:203
 msgid "Open topic"
-msgstr ""
+msgstr "Lat evni upp"
 
 #: templates/forum/topic.html:205
 msgid "Close topic"
-msgstr ""
+msgstr "Lat evni aftur"
 
 #: templates/forum/topic.html:208
 msgid "Unstick topic"
-msgstr ""
+msgstr "Loys festi á evninum"
 
 #: templates/forum/topic.html:210
 msgid "Stick topic"
-msgstr ""
+msgstr "Fest evnið"
 
 #: templates/forum/upload_avatar.html:7
 #: templates/forum/profile/profile_personality.html:27
 #: templates/forum/profile/profile_personality.html:30
 msgid "Upload avatar"
-msgstr ""
+msgstr "Uppsenda avatar"
 
 #: templates/forum/upload_avatar.html:13
 msgid "Enter an avatar file to upload"
-msgstr ""
+msgstr "Set eina avatar-fílu inn til at uppsenda"
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
@@ -948,28 +955,31 @@ msgid ""
 "your posts. It must not be any bigger than %(avatar_width)s x "
 "%(avatar_height)s pixels "
 msgstr ""
+"Ein avatar er ein lítil mynd, ið verður sýnd undir tínum brúkaranavni í "
+"tínum postum. Hon má ikki vera størri enn %(avatar_width)s x "
+"%(avatar_height)s skíggjadeplar"
 
 #: templates/forum/upload_avatar.html:23
 msgid "Upload"
-msgstr ""
+msgstr "Send upp"
 
 #: templates/forum/user.html:12 templates/forum/profile/profile_menu.html:8
 #: templates/forum/profile/profile_messaging.html:15
 #: templates/forum/profile/profile_personal.html:9
 msgid "Personal"
-msgstr ""
+msgstr "Persónligt"
 
 #: templates/forum/user.html:15
 msgid "Username:"
-msgstr ""
+msgstr "Brúkaranavn:"
 
 #: templates/forum/user.html:17 templates/forum/users.html:46
 msgid "Title"
-msgstr ""
+msgstr "Heiti"
 
 #: templates/forum/user.html:19
 msgid "Real name:"
-msgstr ""
+msgstr "Veruliga navn:"
 
 #: templates/forum/user.html:23 templates/forum/user.html.py:29
 #: templates/forum/user.html:35 templates/forum/user.html.py:61
@@ -977,19 +987,19 @@ msgstr ""
 #: templates/forum/user.html:79 templates/forum/user.html.py:85
 #: templates/forum/user.html:107 templates/forum/user.html.py:125
 msgid "(Unknown)"
-msgstr ""
+msgstr "(Ókent)"
 
 #: templates/forum/user.html:31
 msgid "Website:"
-msgstr ""
+msgstr "Heimasíða:"
 
 #: templates/forum/user.html:37
 msgid "E-mail:"
-msgstr ""
+msgstr "T-postur:"
 
 #: templates/forum/user.html:44
 msgid "(Hidden)"
-msgstr ""
+msgstr "(Fjalt)"
 
 #: templates/forum/user.html:54 templates/forum/profile/profile_menu.html:9
 #: templates/forum/profile/profile_messaging.html:9
@@ -998,63 +1008,63 @@ msgstr ""
 
 #: templates/forum/user.html:57
 msgid "Jabber:"
-msgstr ""
+msgstr "Jabber:"
 
 #: templates/forum/user.html:63
 msgid "ICQ:"
-msgstr ""
+msgstr "ICQ:"
 
 #: templates/forum/user.html:69
 msgid "MSN Messenger:"
-msgstr ""
+msgstr "MSN Messenger:"
 
 #: templates/forum/user.html:75
 msgid "AOL IM:"
-msgstr ""
+msgstr "AOL IM:"
 
 #: templates/forum/user.html:81
 msgid "Yahoo! Messenger:"
-msgstr ""
+msgstr "Yahoo! Messenger:"
 
 #: templates/forum/user.html:94 templates/forum/profile/profile_menu.html:10
 #: templates/forum/profile/profile_personality.html:9
 msgid "Personality"
-msgstr ""
+msgstr "Persónligheit"
 
 #: templates/forum/user.html:97
 msgid "Avatar:"
-msgstr ""
+msgstr "Avatar:"
 
 #: templates/forum/user.html:101
 msgid "(No avatar)"
-msgstr ""
+msgstr "(Eingin avatar)"
 
 #: templates/forum/user.html:103
 msgid "Signature:"
-msgstr ""
+msgstr "Undirskrift:"
 
 #: templates/forum/user.html:116
 #: templates/forum/profile/profile_essentials.html:71
 msgid "User activity"
-msgstr ""
+msgstr "Brúkara virksemi"
 
 #: templates/forum/user.html:120
 #: templates/forum/profile/profile_essentials.html:76
 msgid "Show all posts"
-msgstr ""
+msgstr "Sýn allar postar"
 
 #: templates/forum/user.html:121
 #: templates/forum/profile/profile_essentials.html:74
 msgid "Last post:"
-msgstr ""
+msgstr "Síðsti postur:"
 
 #: templates/forum/users.html:7
 msgid "User search"
-msgstr ""
+msgstr "Leita eftir brúkara"
 
 #: templates/forum/users.html:12
 msgid "Find and sort users"
-msgstr ""
+msgstr "Finn og raða brúkarar"
 
 #: templates/forum/users.html:25
 msgid ""
@@ -1062,39 +1072,42 @@ msgid ""
 "users by name, date registered or number of posts and in "
 "ascending/descending order."
 msgstr ""
+"Skriva eitt brúkaranavn at leita eftir. Brúkaranavns-teigurin kann latast "
+"vera blankan. Raða brúkarar eftir navni, skrásetingar dato ella tal av "
+"postum og í hækkandi/lækkandi raðfylgi."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
 msgid "Full Version:"
-msgstr ""
+msgstr "Full útgáva:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "IMPORTANT:"
-msgstr ""
+msgstr "TÝDNINGARMIKIÐ:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "replies"
-msgstr ""
+msgstr "Aftursvar"
 
 #: templates/forum/lofi/index.html:18
 msgid "posts"
-msgstr ""
+msgstr "postar"
 
 #: templates/forum/profile/profile_admin.html:16
 msgid "Delete (administrators only) or ban user"
-msgstr ""
+msgstr "Strika (einans fyrisitarir) ella bannlýs ein brúkara"
 
 #: templates/forum/profile/profile_admin.html:18
 msgid "Delete user"
-msgstr ""
+msgstr "Strika brúkara"
 
 #: templates/forum/profile/profile_admin.html:18
 msgid "Ban user"
-msgstr ""
+msgstr "Bannlýs brúkara"
 
 #: templates/forum/profile/profile_admin.html:25
 msgid "Set moderator access"
-msgstr ""
+msgstr "Stilla kjakleiðara atgongd"
 
 #: templates/forum/profile/profile_admin.html:27
 msgid ""
@@ -1102,23 +1115,27 @@ msgid ""
 "applies to moderators. Administrators always have full permissions in all "
 "forums."
 msgstr ""
+"Vel hvørji torg hesin brúkarin er loyvdur at leiða kjak. Viðmerking: Hettar "
+"umfatar einans kjakleiðarar. Fyrisitarir hava altíð fult loyvi á øllum "
+"torgum."
 
 #: templates/forum/profile/profile_admin.html:31
 msgid "Update forums"
-msgstr ""
+msgstr "Dagfør torg"
 
 #: templates/forum/profile/profile_display.html:9
 #: templates/forum/profile/profile_menu.html:11
 msgid "Display"
-msgstr ""
+msgstr "Sýn"
 
 #: templates/forum/profile/profile_display.html:15
 msgid "Select your preferred style"
-msgstr ""
+msgstr "Vel hvat snið tú heldur best um"
 
 #: templates/forum/profile/profile_display.html:18
 msgid "If you like you can use a different visual style for this forum."
 msgstr ""
+"Um tú hevur hug, kanst tú nýta ein øðrvísi sjónligan stíl til hetta torgið."
 
 #: templates/forum/profile/profile_display.html:35
 msgid "Post display legend"
@@ -1137,6 +1154,7 @@ msgstr ""
 msgid ""
 "When you update your profile, you will be redirected back to this page."
 msgstr ""
+"Tá tú dagførir títt umhvarv, verður tú leidd(ur) aftur á hesa síðuna. "
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
@@ -1145,52 +1163,54 @@ msgstr ""
 
 #: templates/forum/profile/profile_essentials.html:15
 msgid "Enter your username and password"
-msgstr ""
+msgstr "Skriva títt brúkaranavn og atlát"
 
 #: templates/forum/profile/profile_essentials.html:26
 #: templates/forum/profile/profile_essentials.html:28
 msgid "Change password"
-msgstr ""
+msgstr "Broyt atlát"
 
 #: templates/forum/profile/profile_essentials.html:37
 msgid "Enter a valid e-mail address"
-msgstr ""
+msgstr "Skriva eina gilda t-post adressu"
 
 #: templates/forum/profile/profile_essentials.html:51
 msgid "Set your localisation options"
-msgstr ""
+msgstr "Stilla tínar staðbundnu kostir"
 
 #: templates/forum/profile/profile_essentials.html:55
 msgid ""
 "Timezone: For the forum to display times correctly you must select your "
 "local timezone."
 msgstr ""
+"Tíðarøki: Fyri at torgið kann sýna tíðir rætt, mást tú velja títt staðbundna"
+" tíðarøkim"
 
 #: templates/forum/profile/profile_essentials.html:61
 msgid ""
 "Language: You can choose which language you wish to use to view the forum"
-msgstr ""
+msgstr "Mál: Tú kann velja á hvørjum máli, tú ynskir at torgið skal sýnast"
 
 #: templates/forum/profile/profile_menu.html:3
 msgid "Profile menu"
-msgstr ""
+msgstr "Umhvarvsvalmynd"
 
 #: templates/forum/profile/profile_menu.html:12
 #: templates/forum/profile/profile_privacy.html:9
 msgid "Privacy"
-msgstr ""
+msgstr "Privatlív"
 
 #: templates/forum/profile/profile_personal.html:15
 msgid "Enter your personal details"
-msgstr ""
+msgstr "Skriva tínar persónligu upplýsingar"
 
 #: templates/forum/profile/profile_personal.html:21
 msgid "Leave blank to use forum default."
-msgstr ""
+msgstr "Lat vera blankt, til at nýta torg forsettur."
 
 #: templates/forum/profile/profile_personality.html:15
 msgid "Set your avatar display options"
-msgstr ""
+msgstr "Stilla tínar avatar sýnis kostir"
 
 #: templates/forum/profile/profile_personality.html:21
 msgid ""
@@ -1198,18 +1218,22 @@ msgid ""
 "can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
 "below must be checked in order for the avatar to be visible in your posts."
 msgstr ""
+"Ein avatar er ein lítil mynd, ið verður sýnd saman við øllum tínum postum. "
+"Tú kann uppsenda ein avatar, við at trýsta á leinkjuna niðanfyri. "
+"Avkrossingar-kassin má vera merktur, um avatarurin skal vera sjónligur í "
+"tínum postum."
 
 #: templates/forum/profile/profile_personality.html:24
 msgid "Use avatar."
-msgstr ""
+msgstr "Nýt avatar."
 
 #: templates/forum/profile/profile_personality.html:28
 msgid "Delete avatar"
-msgstr ""
+msgstr "Strika avatar"
 
 #: templates/forum/profile/profile_personality.html:37
 msgid "Compose your signature"
-msgstr ""
+msgstr "Samanset tína undirskrift"
 
 #: templates/forum/profile/profile_personality.html:40
 msgid ""
@@ -1220,14 +1244,20 @@ msgid ""
 "the features that are allowed/enabled listed below whenever you edit your "
 "signature."
 msgstr ""
+"Eitt eyðkenniskriv er ein stuttur tekstur, ið er viðfestur tínum posti. Í "
+"honum kann tú skriva, hvat ið tær hugar. Kanska tú vil hava eitt yndis sitat"
+" ella stjørnutekn. Tað er upp til tín! Á tínum eyðkenniskrivi kanst tú nýta "
+"BBCode, um tað er loyvt á hesum torginum. Tú kann síggja teir eginleikar ið "
+"eru loyvdir/virkjaðir á listanum niðanfyri, tá tú ritstjórnar títt "
+"eyðkenniskriv."
 
 #: templates/forum/profile/profile_personality.html:49
 msgid "No signature currently stored in profile."
-msgstr ""
+msgstr "Einki eyðkenniskriv er í løtuni goymt á tínum umhvarvi."
 
 #: templates/forum/profile/profile_privacy.html:15
 msgid "Set your privacy options"
-msgstr ""
+msgstr "Still tínar privatlívskostir"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
@@ -1235,3 +1265,6 @@ msgid ""
 " not and if you want other users to be able to send you e-mail via the forum"
 " (form e-mail) or not."
 msgstr ""
+"Vel um tú vil at tín t-postadressa skal vera sjónlig fyri øðrum ella ikki, "
+"og um tú vil at aðrir brúkarir kunna senda tær t-post um torgið "
+"(útfyllingarblað t-post) ella ikki."

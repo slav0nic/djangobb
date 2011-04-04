@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: Chinese (China) <None>\n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
@@ -799,9 +799,7 @@ msgid ""
 "To search by keyword, enter a term or terms to search for. Separate terms "
 "with spaces. To search by author enter the username of the author whose "
 "posts you wish to search for."
-msgstr ""
-"要根据关键字搜索，请输入一个或多个关键字搜索，关键字之间用空格分隔。要根据作"
-"者搜索，请输入作者的用户名。"
+msgstr "要根据关键字搜索，请输入一个或多个关键字搜索，关键字之间用空格分隔。要根据作者搜索，请输入作者的用户名。"
 
 #: templates/forum/search_form.html:23
 msgid "Select where to search"
@@ -1061,8 +1059,8 @@ msgstr "查找并排序用户"
 #: templates/forum/users.html:25
 msgid ""
 "Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+"users by name, date registered or number of posts and in "
+"ascending/descending order."
 msgstr "搜索用户名。用户名域可以为空。可以以名字、注册日期、或发文数量排序。"
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
@@ -1103,9 +1101,7 @@ msgid ""
 "Choose what forums this user should be allowed to moderate. Note: This only "
 "applies to moderators. Administrators always have full permissions in all "
 "forums."
-msgstr ""
-"选择此用户可以管理的版块。注意：这仅对版主有效，管理员总是可以管理所有子论"
-"坛。"
+msgstr "选择此用户可以管理的版块。注意：这仅对版主有效，管理员总是可以管理所有子论坛。"
 
 #: templates/forum/profile/profile_admin.html:31
 msgid "Update forums"
@@ -1138,7 +1134,8 @@ msgstr ""
 #: templates/forum/profile/profile_personal.html:31
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
-msgid "When you update your profile, you will be redirected back to this page."
+msgid ""
+"When you update your profile, you will be redirected back to this page."
 msgstr "当您更改个人信息后，将会跳转到此页面。"
 
 #: templates/forum/profile/profile_essentials.html:9
@@ -1200,9 +1197,7 @@ msgid ""
 "An avatar is a small image that will be displayed with all your posts. You "
 "can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
 "below must be checked in order for the avatar to be visible in your posts."
-msgstr ""
-"头像是一个小图标，它将显示于您所有的帖子中。通过点击下面的链接，您可以上传一"
-"个头像。为了使头像生效，‘使用头像’的选项必须选中。"
+msgstr "头像是一个小图标，它将显示于您所有的帖子中。通过点击下面的链接，您可以上传一个头像。为了使头像生效，‘使用头像’的选项必须选中。"
 
 #: templates/forum/profile/profile_personality.html:24
 msgid "Use avatar."
@@ -1224,9 +1219,7 @@ msgid ""
 "you can use BBCode if it is allowed in this particular forum. You can see "
 "the features that are allowed/enabled listed below whenever you edit your "
 "signature."
-msgstr ""
-"签名档是一小段文字，它将附加到您发布的帖子后面。您可以添加任何喜欢的内容。比"
-"如可以是您喜欢的名言或者您的签名。"
+msgstr "签名档是一小段文字，它将附加到您发布的帖子后面。您可以添加任何喜欢的内容。比如可以是您喜欢的名言或者您的签名。"
 
 #: templates/forum/profile/profile_personality.html:49
 msgid "No signature currently stored in profile."
@@ -1238,9 +1231,7 @@ msgstr "设置您的隐私选项"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
-msgstr ""
-"设置是否允许其他人看到您的电子邮箱地址以及是否允许其他人通过论坛给你发送电子"
-"邮件。"
+"Select whether you want your e-mail address to be viewable to other users or"
+" not and if you want other users to be able to send you e-mail via the forum"
+" (form e-mail) or not."
+msgstr "设置是否允许其他人看到您的电子邮箱地址以及是否允许其他人通过论坛给你发送电子邮件。"

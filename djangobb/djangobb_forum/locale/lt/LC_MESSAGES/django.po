@@ -2,21 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2010-12-08 13:58+0000\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
 "Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2)\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
@@ -1071,8 +1070,8 @@ msgstr "Rasti ir rūšiuoti vartotojus"
 #: templates/forum/users.html:25
 msgid ""
 "Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+"users by name, date registered or number of posts and in "
+"ascending/descending order."
 msgstr ""
 "Įveskite ieškomo vartotojo vardą. Vartotojo vardas gali būti neįvestas. "
 "Rūšiuokite vartotojus pagal vardą, registracijos datą arba įrašų skaičių, "
@@ -1152,7 +1151,8 @@ msgstr ""
 #: templates/forum/profile/profile_personal.html:31
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
-msgid "When you update your profile, you will be redirected back to this page."
+msgid ""
+"When you update your profile, you will be redirected back to this page."
 msgstr ""
 "Kai atnaujinsite savo profilį, jūs būsite nukreiptas atgal į šį puslapį."
 
@@ -1183,8 +1183,8 @@ msgid ""
 "Timezone: For the forum to display times correctly you must select your "
 "local timezone."
 msgstr ""
-"Laiko juosta: kad forumas atvaizduotų teisingai laiką, jūs turite pasirinkti "
-"laiko juostą. "
+"Laiko juosta: kad forumas atvaizduotų teisingai laiką, jūs turite pasirinkti"
+" laiko juostą. "
 
 #: templates/forum/profile/profile_essentials.html:61
 msgid ""
@@ -1259,9 +1259,9 @@ msgstr "Redaguoti privatumo nuostatas"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
+"Select whether you want your e-mail address to be viewable to other users or"
+" not and if you want other users to be able to send you e-mail via the forum"
+" (form e-mail) or not."
 msgstr ""
 "Pasirinkite, ar norite, kad jūsų e-pašto adresas būtų matomas kitiems "
 "vartotojams, ar ne. Taip pat pasirinkite, ar vartotojai galės jums siųsti "

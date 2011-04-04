@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: DjangoBB\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2010-12-08 13:58+0000\n"
-"Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"Last-Translator: Mokona <mokona@puupuu.org>\n"
 "Language-Team: French <None>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
@@ -353,7 +353,7 @@ msgstr "Montrer la signature"
 
 #: models.py:275 templates/forum/profile/profile_display.html:40
 msgid "Show smilies"
-msgstr ""
+msgstr "Montrer les frimousses"
 
 #: models.py:276
 msgid "Privacy permission"
@@ -701,8 +701,8 @@ msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
 msgstr ""
-"Veuillez noter qu'en utilisant ce formulaire, votre adresse de courriel sera "
-"divulguée au destinataire."
+"Veuillez noter qu'en utilisant ce formulaire, votre adresse de courriel sera"
+" divulguée au destinataire."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
@@ -1071,8 +1071,8 @@ msgstr "Trouver et trier les utilisateurs"
 #: templates/forum/users.html:25
 msgid ""
 "Enter a username to search for. The username field can be left blank. Sort "
-"users by name, date registered or number of posts and in ascending/"
-"descending order."
+"users by name, date registered or number of posts and in "
+"ascending/descending order."
 msgstr ""
 "Entrez un nom d'utilisateur à chercher. Le champ du nom d'utilisateur peut "
 "être laissé vide. Triez les utilisateurs par nom, date d'inscription ou "
@@ -1118,8 +1118,8 @@ msgid ""
 "forums."
 msgstr ""
 "Choisir quels forums cet utilisateur pourra être autorisé à modérer. Note : "
-"ceci s'applique uniquement aux modérateurs. Les administrateurs ont toujours "
-"tous droits dans tous les forums."
+"ceci s'applique uniquement aux modérateurs. Les administrateurs ont toujours"
+" tous droits dans tous les forums."
 
 #: templates/forum/profile/profile_admin.html:31
 msgid "Update forums"
@@ -1141,11 +1141,11 @@ msgstr ""
 
 #: templates/forum/profile/profile_display.html:35
 msgid "Post display legend"
-msgstr ""
+msgstr "Légende après l'affichage"
 
 #: templates/forum/profile/profile_display.html:37
 msgid "Post display info"
-msgstr ""
+msgstr "Information après l'affichage"
 
 #: templates/forum/profile/profile_display.html:45
 #: templates/forum/profile/profile_essentials.html:81
@@ -1153,7 +1153,8 @@ msgstr ""
 #: templates/forum/profile/profile_personal.html:31
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
-msgid "When you update your profile, you will be redirected back to this page."
+msgid ""
+"When you update your profile, you will be redirected back to this page."
 msgstr ""
 "Lorsque vous mettrez à jour votre profil, vous serez redirigé vers cette "
 "page."
@@ -1221,9 +1222,9 @@ msgid ""
 "below must be checked in order for the avatar to be visible in your posts."
 msgstr ""
 "Un avatar est une petite image qui sera affichée avec tous vos messages. "
-"Vous pouvez charger un avatar en cliquant sur le lien ci-dessous. La case de "
-"vérification 'Utiliser l'avatar' ci-dessous doit être cochée pour que votre "
-"avatar soit visible dans vos messages."
+"Vous pouvez charger un avatar en cliquant sur le lien ci-dessous. La case de"
+" vérification 'Utiliser l'avatar' ci-dessous doit être cochée pour que votre"
+" avatar soit visible dans vos messages."
 
 #: templates/forum/profile/profile_personality.html:24
 msgid "Use avatar."
@@ -1264,10 +1265,10 @@ msgstr "Sélectionnez vos options de confidentialité"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
-"Select whether you want your e-mail address to be viewable to other users or "
-"not and if you want other users to be able to send you e-mail via the forum "
-"(form e-mail) or not."
+"Select whether you want your e-mail address to be viewable to other users or"
+" not and if you want other users to be able to send you e-mail via the forum"
+" (form e-mail) or not."
 msgstr ""
-"Sélectionnez si vous désirez rendre visible ou non votre adresse de courriel "
-"aux autres utilisateurs et si vous acceptez de recevoir des courriels "
+"Sélectionnez si vous désirez rendre visible ou non votre adresse de courriel"
+" aux autres utilisateurs et si vous acceptez de recevoir des courriels "
 "d'autres utilisateurs via le forum "

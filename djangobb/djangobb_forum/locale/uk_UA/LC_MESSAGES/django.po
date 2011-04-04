@@ -8,429 +8,433 @@ msgstr ""
 "Project-Id-Version: DjangoBB\n"
 "Report-Msgid-Bugs-To: http://djangobb.org/report/1\n"
 "POT-Creation-Date: 2011-02-25 17:16+0200\n"
-"PO-Revision-Date: 2011-04-04 11:10+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Portuguese (Brazilian) <None>\n"
+"PO-Revision-Date: 2011-03-22 15:09+0000\n"
+"Last-Translator: scream4ik <scream4ik@root.ua>\n"
+"Language-Team: Ukrainian (Ukraine) <None>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: feeds.py:26 feeds.py:27 templates/forum/base.html:14
 msgid "Latest posts on forum"
-msgstr ""
+msgstr "Останні повідомлення на форумі"
 
 #: feeds.py:45 feeds.py:46 templates/forum/base.html:15
 msgid "Latest topics on forum"
-msgstr ""
+msgstr "Останні теми на форумі"
 
 #: feeds.py:76 feeds.py:84
 #, python-format
 msgid "Latest posts on %s topic"
-msgstr ""
+msgstr "Останні повідомлення в %s темі"
 
 #: feeds.py:103 feeds.py:111
 #, python-format
 msgid "Latest posts on %s forum"
-msgstr ""
+msgstr "Останні повідомлення на %s форумі"
 
 #: feeds.py:130 feeds.py:133
 #, python-format
 msgid "Latest posts on %s category"
-msgstr ""
+msgstr "Останні повідомлення в %s категорії"
 
 #: forms.py:21 forms.py:142 forms.py:251 templates/forum/users.html:45
 msgid "Username"
-msgstr ""
+msgstr "Користувач"
 
 #: forms.py:22 templates/forum/users.html:48
 msgid "Registered"
-msgstr ""
+msgstr "Дата реєстрації"
 
 #: forms.py:23
 msgid "No. of posts"
-msgstr ""
+msgstr "К-ть повідомлень"
 
 #: forms.py:27
 msgid "Post time"
-msgstr ""
+msgstr "Час повідомлення"
 
 #: forms.py:28
 msgid "Author"
-msgstr ""
+msgstr "Автор"
 
 #: forms.py:29 forms.py:51 forms.py:116 forms.py:338 models.py:119
 #: templates/forum/add_post.html:27 templates/forum/edit_post.html:24
 msgid "Subject"
-msgstr ""
+msgstr "Заголовок"
 
 #: forms.py:30 forms.py:286 models.py:102 models.py:118
 #: templates/forum/index.html:53 templates/forum/search_topics.html:22
 msgid "Forum"
-msgstr ""
+msgstr "Форум"
 
 #: forms.py:34
 msgid "Ascending"
-msgstr ""
+msgstr "Зростанню"
 
 #: forms.py:35
 msgid "Descending"
-msgstr ""
+msgstr "Убуванню"
 
 #: forms.py:39 models.py:133 templates/forum/index.html:54
 msgid "Topics"
-msgstr ""
+msgstr "Теми"
 
 #: forms.py:40 models.py:190 templates/forum/index.html:55
 #: templates/forum/users.html:47
 msgid "Posts"
-msgstr ""
+msgstr "Повідомлення"
 
 #: forms.py:44
 msgid "Message text and topic subject"
-msgstr ""
+msgstr "Текстах повідомлень і заголовках тем"
 
 #: forms.py:45
 msgid "Message text only"
-msgstr ""
+msgstr "Лише у текстах повідомлень"
 
 #: forms.py:46
 msgid "Topic subject only"
-msgstr ""
+msgstr "Лише у заголовках тем"
 
 #: forms.py:53 templates/forum/add_post.html:36 templates/forum/topic.html:165
 msgid "Attachment"
-msgstr ""
+msgstr "Прикріплені файли"
 
 #: forms.py:80
 msgid "Attachment is too big"
-msgstr ""
+msgstr "Прикріплений файл дуже великий"
 
 #: forms.py:143 templates/forum/topic.html:67
 msgid "E-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: forms.py:173
 msgid "Real name"
-msgstr ""
+msgstr "Справжнє ім'я"
 
 #: forms.py:253 forms.py:288
 msgid "Sort by"
-msgstr ""
+msgstr "Сортувати по"
 
 #: forms.py:254 forms.py:289
 msgid "Sort order"
-msgstr ""
+msgstr "Упорядкувати по"
 
 #: forms.py:282
 msgid "Keyword search"
-msgstr ""
+msgstr "Ключові слова"
 
 #: forms.py:284
 msgid "Author search"
-msgstr ""
+msgstr "Пошук автора"
 
 #: forms.py:287
 msgid "Search in"
-msgstr ""
+msgstr "Пошук в"
 
 #: forms.py:290
 msgid "Show results as"
-msgstr ""
+msgstr "Показати результат як"
 
 #: forms.py:315
 #, python-format
 msgid "User with login %s does not exist"
-msgstr ""
+msgstr "Користувач з логіном %s не існує"
 
 #: forms.py:325
 msgid "You already voted for this post"
-msgstr ""
+msgstr "Ви вже голосували за це повідомлення"
 
 #: forms.py:340 models.py:181 templates/forum/add_post.html:29
 #: templates/forum/edit_post.html:27
 msgid "Message"
-msgstr ""
+msgstr "Повідомлення"
 
 #: models.py:39
 msgid "Display your e-mail address."
-msgstr ""
+msgstr "Показувати вашу e-mail адресу"
 
 #: models.py:40
 msgid "Hide your e-mail address but allow form e-mail."
 msgstr ""
+"Приховати вашу e-mail адресу, але дозволити слати вам повідомлення через "
+"форум."
 
 #: models.py:41
 msgid "Hide your e-mail address and disallow form e-mail."
 msgstr ""
+"Приховати вашу e-mail адресу і заборонити слати вам повідомлення через "
+"форум."
 
 #: models.py:56 models.py:91 models.py:360
 msgid "Name"
-msgstr ""
+msgstr "Iм’я"
 
 #: models.py:57
 msgid "Groups"
-msgstr ""
+msgstr "Групи"
 
 #: models.py:57
 msgid "Only users from these groups can see this category"
-msgstr ""
+msgstr "Лише користувачі з вказаної групи можуть бачити цю категорію"
 
 #: models.py:58 models.py:92
 msgid "Position"
-msgstr ""
+msgstr "Позиція"
 
 #: models.py:62 models.py:90
 msgid "Category"
-msgstr ""
+msgstr "Категорія"
 
 #: models.py:63
 msgid "Categories"
-msgstr ""
+msgstr "Категорії"
 
 #: models.py:93
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #: models.py:94
 msgid "Moderators"
-msgstr ""
+msgstr "Модератори"
 
 #: models.py:95 models.py:121 models.py:178
 msgid "Updated"
-msgstr ""
+msgstr "Дата оновлення"
 
 #: models.py:96 models.py:127 models.py:278
 msgid "Post count"
-msgstr ""
+msgstr "Кількість повідомлень"
 
 #: models.py:97
 msgid "Topic count"
-msgstr ""
+msgstr "Кількість тем"
 
 #: models.py:103
 msgid "Forums"
-msgstr ""
+msgstr "Форуми"
 
 #: models.py:120 models.py:177 models.py:321
 msgid "Created"
-msgstr ""
+msgstr "Дата створення"
 
 #: models.py:122 models.py:176 models.py:259
 msgid "User"
-msgstr ""
+msgstr "Користувач"
 
 #: models.py:123
 msgid "Views count"
-msgstr ""
+msgstr "Кількість переглядів"
 
 #: models.py:124
 msgid "Sticky"
-msgstr ""
+msgstr "Виділено"
 
 #: models.py:125
 msgid "Closed"
-msgstr ""
+msgstr "Закрито"
 
 #: models.py:126
 msgid "Subscribers"
-msgstr ""
+msgstr "Підписчики"
 
 #: models.py:132 models.py:175 templates/forum/forum.html:27
 #: templates/forum/moderate.html:23 templates/forum/search_topics.html:21
 msgid "Topic"
-msgstr ""
+msgstr "Тема"
 
 #: models.py:179
 msgid "Updated by"
-msgstr ""
+msgstr "Оновлено "
 
 #: models.py:180 templates/forum/profile/profile_display.html:25
 msgid "Markup"
-msgstr ""
+msgstr "Розмітка"
 
 #: models.py:182
 msgid "HTML version"
-msgstr ""
+msgstr "HTML версія"
 
 #: models.py:183
 msgid "User IP"
-msgstr ""
+msgstr "IP автора"
 
 #: models.py:189 models.py:244 models.py:318 models.py:356
 msgid "Post"
-msgstr ""
+msgstr "Повідомлення"
 
 #: models.py:242
 msgid "From"
-msgstr ""
+msgstr "Від"
 
 #: models.py:243
 msgid "To"
-msgstr ""
+msgstr "К"
 
 #: models.py:245
 msgid "Time"
-msgstr ""
+msgstr "Час"
 
 #: models.py:246
 msgid "Sign"
-msgstr ""
+msgstr "Увійти"
 
 #: models.py:247 models.py:322 models.py:335 templates/forum/report.html:16
 #: templates/forum/reputation.html:24
 msgid "Reason"
-msgstr ""
+msgstr "Причина"
 
 #: models.py:250 templates/forum/topic.html:57
 msgid "Reputation"
-msgstr ""
+msgstr "Репутація"
 
 #: models.py:251
 msgid "Reputations"
-msgstr ""
+msgstr "Репутація"
 
 #: models.py:260
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: models.py:261
 msgid "Site"
-msgstr ""
+msgstr "Вебсторінка"
 
 #: models.py:262
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: models.py:263
 msgid "ICQ"
-msgstr ""
+msgstr "ICQ"
 
 #: models.py:264
 msgid "MSN"
-msgstr ""
+msgstr "MSN"
 
 #: models.py:265
 msgid "AIM"
-msgstr ""
+msgstr "AIM"
 
 #: models.py:266
 msgid "Yahoo"
-msgstr ""
+msgstr "Yahoo"
 
 #: models.py:267 templates/forum/user.html:25
 msgid "Location"
-msgstr ""
+msgstr "Місцезнаходження"
 
 #: models.py:268
 msgid "Signature"
-msgstr ""
+msgstr "Підпис"
 
 #: models.py:269
 msgid "Time zone"
-msgstr ""
+msgstr "Часова зона"
 
 #: models.py:270
 msgid "Language"
-msgstr ""
+msgstr "Мова"
 
 #: models.py:271
 msgid "Avatar"
-msgstr ""
+msgstr "Аватар"
 
 #: models.py:272
 msgid "Theme"
-msgstr ""
+msgstr "Тема"
 
 #: models.py:273
 msgid "Show avatar"
-msgstr ""
+msgstr "Показувати аватар"
 
 #: models.py:274
 msgid "Show signatures"
-msgstr ""
+msgstr "Показувати підписи"
 
 #: models.py:275 templates/forum/profile/profile_display.html:40
 msgid "Show smilies"
-msgstr ""
+msgstr "Показати смайли"
 
 #: models.py:276
 msgid "Privacy permission"
-msgstr ""
+msgstr "Конфіденційність"
 
 #: models.py:277
 msgid "Default markup"
-msgstr ""
+msgstr "Розмітка за умовчанням"
 
 #: models.py:281 templates/forum/header.html:23 templates/forum/topic.html:65
 #: templates/forum/user.html:7
 msgid "Profile"
-msgstr ""
+msgstr "Профіль"
 
 #: models.py:282
 msgid "Profiles"
-msgstr ""
+msgstr "Профіль"
 
 #: models.py:309 models.py:310
 msgid "Post tracking"
-msgstr ""
+msgstr "Відстежування повідомлень"
 
 #: models.py:317
 msgid "Reported by"
-msgstr ""
+msgstr "Скарга від"
 
 #: models.py:319
 msgid "Zapped"
-msgstr ""
+msgstr "Розглянута"
 
 #: models.py:320
 msgid "Zapped by"
-msgstr ""
+msgstr "Розглянув"
 
 #: models.py:325 templates/forum/topic.html:112
 msgid "Report"
-msgstr ""
+msgstr "Поскаржитися"
 
 #: models.py:326
 msgid "Reports"
-msgstr ""
+msgstr "Скарги"
 
 #: models.py:332
 msgid "Banned user"
-msgstr ""
+msgstr "Заблокований користувач"
 
 #: models.py:333
 msgid "Ban start"
-msgstr ""
+msgstr "Початок блокування"
 
 #: models.py:334
 msgid "Ban end"
-msgstr ""
+msgstr "Кінець блокування"
 
 #: models.py:338
 msgid "Ban"
-msgstr ""
+msgstr "Блокування"
 
 #: models.py:339
 msgid "Bans"
-msgstr ""
+msgstr "Блокування"
 
 #: models.py:357
 msgid "Size"
-msgstr ""
+msgstr "Розмір"
 
 #: models.py:358
 msgid "Content type"
-msgstr ""
+msgstr "Тип вмісту"
 
 #: models.py:359
 msgid "Path"
-msgstr ""
+msgstr "Шлях"
 
 #: models.py:361
 msgid "Hash"
-msgstr ""
+msgstr "Хеш"
 
 #: templates/forum/add_post.html:9 templates/forum/add_post.html.py:11
 #: templates/forum/delete_posts.html:9 templates/forum/edit_post.html:8
@@ -440,20 +444,20 @@ msgstr ""
 #: templates/forum/lofi/index.html:6 templates/forum/lofi/index.html.py:8
 #: templates/forum/lofi/topic.html:8
 msgid "Root"
-msgstr ""
+msgstr "Початок"
 
 #: templates/forum/add_post.html:18 templates/forum/forum.html:11
 #: templates/forum/forum.html.py:69
 msgid "New topic"
-msgstr ""
+msgstr "Створити нову тему"
 
 #: templates/forum/add_post.html:18
 msgid "New reply"
-msgstr ""
+msgstr "Нова відповідь"
 
 #: templates/forum/add_post.html:24 templates/forum/topic.html:156
 msgid "Write your message and submit"
-msgstr ""
+msgstr "Написати і відправити повідомлення"
 
 #: templates/forum/add_post.html:46 templates/forum/mail_to.html:25
 #: templates/forum/report.html:22 templates/forum/reputation_form.html:41
@@ -465,7 +469,7 @@ msgstr ""
 #: templates/forum/profile/profile_personality.html:54
 #: templates/forum/profile/profile_privacy.html:25
 msgid "Submit"
-msgstr ""
+msgstr "Відправити"
 
 #: templates/forum/add_post.html:46 templates/forum/edit_post.html:34
 #: templates/forum/mail_to.html:25 templates/forum/move_topic.html:34
@@ -474,7 +478,7 @@ msgstr ""
 #: templates/forum/search_posts.html:49 templates/forum/search_topics.html:60
 #: templates/forum/upload_avatar.html:23
 msgid "Go back"
-msgstr ""
+msgstr "Назад"
 
 #: templates/forum/add_post.html:54
 msgid "Topic review (newest first)"
@@ -482,7 +486,7 @@ msgstr ""
 
 #: templates/forum/add_post.html:70 templates/forum/topic.html:123
 msgid "Quote"
-msgstr ""
+msgstr "Цитувати"
 
 #: templates/forum/base.html:56
 msgid "Board footer"
@@ -490,46 +494,46 @@ msgstr ""
 
 #: templates/forum/delete_posts.html:35 templates/forum/topic.html:93
 msgid "Edited"
-msgstr ""
+msgstr "Відредаговано"
 
 #: templates/forum/delete_posts.html:39 templates/forum/moderate.html:27
 msgid "Select"
-msgstr ""
+msgstr "Вибрати"
 
 #: templates/forum/delete_posts.html:51 templates/forum/moderate.html:68
 #: templates/forum/reputation.html:28 templates/forum/topic.html:115
 msgid "Delete"
-msgstr ""
+msgstr "Видалити"
 
 #: templates/forum/edit_post.html:14
 msgid "Edit post"
-msgstr ""
+msgstr "Редагувати пост"
 
 #: templates/forum/edit_post.html:21
 msgid "Edit the post and submit changes"
-msgstr ""
+msgstr "Відредагувати пост і відправити зміни"
 
 #: templates/forum/edit_post.html:34
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
 #: templates/forum/forum.html:28 templates/forum/moderate.html:24
 #: templates/forum/search_topics.html:23
 msgid "Replies"
-msgstr ""
+msgstr "Відповідей"
 
 #: templates/forum/forum.html:29 templates/forum/moderate.html:25
 msgid "Views"
-msgstr ""
+msgstr "Переглядів"
 
 #: templates/forum/forum.html:30 templates/forum/index.html:56
 #: templates/forum/moderate.html:26 templates/forum/search_topics.html:24
 msgid "Last post"
-msgstr ""
+msgstr "Останнє повідомлення"
 
 #: templates/forum/forum.html:42 templates/forum/moderate.html:39
 msgid "Sticky:"
-msgstr ""
+msgstr "Важливо:"
 
 #: templates/forum/forum.html:45 templates/forum/forum.html.py:47
 #: templates/forum/forum.html:54 templates/forum/forum_row.html:34
@@ -537,91 +541,91 @@ msgstr ""
 #: templates/forum/moderate.html:51 templates/forum/search_topics.html:35
 #: templates/forum/search_topics.html:37 templates/forum/search_topics.html:44
 msgid "by"
-msgstr ""
+msgstr "залишив"
 
 #: templates/forum/forum.html:58 templates/forum/moderate.html:56
 msgid "Forum is empty."
-msgstr ""
+msgstr "Форум порожній."
 
 #: templates/forum/forum.html:79
 msgid "Jump to"
-msgstr ""
+msgstr "Перейти"
 
 #: templates/forum/forum.html:90 templates/forum/topic.html:195
 msgid "Go"
-msgstr ""
+msgstr "Перейти"
 
 #: templates/forum/forum.html:94
 msgid "Moderate forum"
-msgstr ""
+msgstr "Модеріровать форум"
 
 #: templates/forum/header.html:16
 msgid "Index"
-msgstr ""
+msgstr "Головна"
 
 #: templates/forum/header.html:17 templates/forum/users.html:39
 #: templates/forum/lofi/header.html:5
 msgid "User list"
-msgstr ""
+msgstr "Користувачі"
 
 #: templates/forum/header.html:18 templates/forum/search_form.html:7
 #: templates/forum/users.html:28 templates/forum/lofi/header.html:4
 msgid "Search"
-msgstr ""
+msgstr "Пошук"
 
 #: templates/forum/header.html:20 templates/forum/profile/profile_admin.html:9
 #: templates/forum/profile/profile_menu.html:14
 msgid "Administration"
-msgstr ""
+msgstr "Адміністрування"
 
 #: templates/forum/header.html:25 templates/forum/topic.html:75
 msgid "PM"
-msgstr ""
+msgstr "ЛП"
 
 #: templates/forum/header.html:27
 msgid "Log out"
-msgstr ""
+msgstr "Вийти"
 
 #: templates/forum/header.html:29
 msgid "Log in"
-msgstr ""
+msgstr "Увійти"
 
 #: templates/forum/header.html:30
 msgid "Sign up"
-msgstr ""
+msgstr "Реєстрація"
 
 #: templates/forum/header.html:37
 msgid "Logged in as"
-msgstr ""
+msgstr "Ви зайшли як"
 
 #: templates/forum/header.html:38
 msgid "Last visit:"
-msgstr ""
+msgstr "Останній візит:"
 
 #: templates/forum/header.html:40
 #, python-format
 msgid " There are new messages (%(new_msg)s)"
-msgstr ""
+msgstr "Нове повідомлення (%(new_msg)s)"
 
 #: templates/forum/header.html:43
 msgid "You are not logged in."
-msgstr ""
+msgstr "Ви не увійшли."
 
 #: templates/forum/header.html:46
 msgid "There are new reports"
-msgstr ""
+msgstr "Нові скарги"
 
 #: templates/forum/header.html:51
 msgid "Show new posts since last visit"
-msgstr ""
+msgstr "Показати нові повідомлення, з моменту Вашого останнього візиту"
 
 #: templates/forum/header.html:52
 msgid "Mark all topics as read"
-msgstr ""
+msgstr "Помітити всі форуми як прочитані"
 
 #: templates/forum/header.html:62
 msgid "Notice"
-msgstr ""
+msgstr "Повідомлення"
 
 #: templates/forum/index.html:71
 msgid "Board information"
@@ -629,170 +633,174 @@ msgstr ""
 
 #: templates/forum/index.html:75
 msgid "Board statistics"
-msgstr ""
+msgstr "Статистика форуму"
 
 #: templates/forum/index.html:76
 msgid "Total number of registered users:"
-msgstr ""
+msgstr "Всього зареєстрованих користувачів:"
 
 #: templates/forum/index.html:77
 msgid "Total number of topics:"
-msgstr ""
+msgstr "Всього тем:"
 
 #: templates/forum/index.html:78
 msgid "Total number of posts:"
-msgstr ""
+msgstr "Всього повідомлень:"
 
 #: templates/forum/index.html:81
 msgid "User information"
-msgstr ""
+msgstr "Інформація користувача"
 
 #: templates/forum/index.html:82
 msgid "Newest registered user:"
-msgstr ""
+msgstr "Останній зареєстрований користувач:"
 
 #: templates/forum/index.html:83
 msgid "Registered users online:"
-msgstr ""
+msgstr "Зараз зареєстрованих відвідувачів:"
 
 #: templates/forum/index.html:84
 msgid "Guests online:"
-msgstr ""
+msgstr "Зараз гостей:"
 
 #: templates/forum/index.html:88
 msgid "Online:"
-msgstr ""
+msgstr "Користувачі онлайн:"
 
 #: templates/forum/index.html:101 templates/forum/search_posts.html:67
 #: templates/forum/search_topics.html:76
 msgid "Search links"
-msgstr ""
+msgstr "Cсилки пошуку"
 
 #: templates/forum/index.html:102 templates/forum/search_posts.html:68
 #: templates/forum/search_topics.html:77
 msgid "Show recent posts"
-msgstr ""
+msgstr "Показати останні повідомлення"
 
 #: templates/forum/index.html:103 templates/forum/search_posts.html:69
 #: templates/forum/search_topics.html:78
 msgid "Show unanswered posts"
-msgstr ""
+msgstr "Показати повідомлення, що не мають відповідей"
 
 #: templates/forum/index.html:105 templates/forum/search_posts.html:71
 #: templates/forum/search_topics.html:80
 msgid "Show your subscribed topics"
-msgstr ""
+msgstr "Показати повідомлення на яких Ви підписані"
 
 #: templates/forum/index.html:106 templates/forum/search_posts.html:72
 #: templates/forum/search_topics.html:81
 msgid "Show your posts"
-msgstr ""
+msgstr "Показати ваші повідомлення"
 
 #: templates/forum/mail_to.html:7
 msgid "Send e-mail to"
-msgstr ""
+msgstr "Відправити e-mail"
 
 #: templates/forum/mail_to.html:13
 msgid "Write and submit your e-mail message"
-msgstr ""
+msgstr "Напишіть і відправте ваше повідомлення"
 
 #: templates/forum/mail_to.html:21
 msgid ""
 "Please note that by using this form, your e-mail address will be disclosed "
 "to the recipient."
 msgstr ""
+"Будь ласка, звернете увагу, що при використанні цієї форми, ваша електронна "
+"адреса стане відома одержувачеві."
 
 #: templates/forum/moderate.html:67 templates/forum/move_topic.html:34
 msgid "Move"
-msgstr ""
+msgstr "Перенести"
 
 #: templates/forum/moderate.html:69
 msgid "Open"
-msgstr ""
+msgstr "Відкрити"
 
 #: templates/forum/moderate.html:70
 msgid "Close"
-msgstr ""
+msgstr "Закрити"
 
 #: templates/forum/moderators.html:3
 msgid "Moderated by"
-msgstr ""
+msgstr "Модератори"
 
 #: templates/forum/move_topic.html:7 templates/forum/topic.html:201
 msgid "Move topic"
-msgstr ""
+msgstr "Перенести тему"
 
 #: templates/forum/move_topic.html:16
 msgid "Select destination of move"
-msgstr ""
+msgstr "Виберіть призначення для перенесення"
 
 #: templates/forum/move_topic.html:18
 msgid "Move to"
-msgstr ""
+msgstr "Перенести в"
 
 #: templates/forum/pagination.html:3
 msgid "Pages"
-msgstr ""
+msgstr "Сторінки"
 
 #: templates/forum/report.html:7
 msgid "Report post"
-msgstr ""
+msgstr "Скарга на повідомлення"
 
 #: templates/forum/report.html:13
 msgid "Please enter a short reason why you are reporting this post"
 msgstr ""
+"Будь ласка, зробіть короткий опис причини, по якій ви звертаєте увагу "
+"модератора на це повідомлення"
 
 #: templates/forum/reputation.html:16
 msgid "Reputation of the user"
-msgstr ""
+msgstr "Репутація користувача"
 
 #: templates/forum/reputation.html:22
 msgid "From user"
-msgstr ""
+msgstr "Від користувача"
 
 #: templates/forum/reputation.html:23
 msgid "For post in topic"
-msgstr ""
+msgstr "За повідомлення в темі"
 
 #: templates/forum/reputation.html:25
 msgid "Estimation"
-msgstr ""
+msgstr "Оцінка"
 
 #: templates/forum/reputation.html:26
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: templates/forum/reputation.html:63
 msgid "Are you sure"
-msgstr ""
+msgstr "Ви упевнені"
 
 #: templates/forum/reputation_form.html:7
 msgid "Please, fill the form"
-msgstr ""
+msgstr "Будь ласка, заповните форму"
 
 #: templates/forum/reputation_form.html:17
 msgid "Your name:"
-msgstr ""
+msgstr "Ваше iм’я:"
 
 #: templates/forum/reputation_form.html:21
 msgid "To whom we change a reputation:"
-msgstr ""
+msgstr "Кому ви міняєте репутацію:"
 
 #: templates/forum/reputation_form.html:29
 msgid "Method:"
-msgstr ""
+msgstr "Метод:"
 
 #: templates/forum/reputation_form.html:32
 msgid "Add of a reputation"
-msgstr ""
+msgstr "Підняти репутацію"
 
 #: templates/forum/reputation_form.html:34
 msgid "Reduction of a reputation"
-msgstr ""
+msgstr "Знизити репутацію"
 
 #: templates/forum/search_form.html:13
 msgid "Enter your search criteria"
-msgstr ""
+msgstr "Введіть критерії пошуку"
 
 #: templates/forum/search_form.html:17
 msgid ""
@@ -800,146 +808,150 @@ msgid ""
 "with spaces. To search by author enter the username of the author whose "
 "posts you wish to search for."
 msgstr ""
+"Для пошуку по ключовому слову, введіть одне або декілька. Розділяйте слова "
+"пропуском. Для пошуку по авторові, введіть ім'я користувача, повідомлення "
+"якого ви бажаєте знайти."
 
 #: templates/forum/search_form.html:23
 msgid "Select where to search"
-msgstr ""
+msgstr "Виберіть де шукати"
 
 #: templates/forum/search_form.html:29
 msgid "All forums"
-msgstr ""
+msgstr "Усі форуми"
 
 #: templates/forum/search_form.html:43
 msgid ""
 "Choose in which forum you would like to search and if you want to search in "
 "topic subjects, message text or both."
-msgstr ""
+msgstr "Виберіть в якому форумі ви бажаєте шукати і місце пошуку."
 
 #: templates/forum/search_form.html:50
 msgid "Select how to view search results"
-msgstr ""
+msgstr "Виберіть як відображувати результати пошуку"
 
 #: templates/forum/search_form.html:65
 msgid "You can choose how you wish to sort and show your results."
 msgstr ""
+"Ви можете вибрати, як сортувати і відображувати результат вашого пошуку."
 
 #: templates/forum/search_posts.html:24
 msgid "Replies:"
-msgstr ""
+msgstr "Відповіді"
 
 #: templates/forum/search_posts.html:28
 msgid "Go to post"
-msgstr ""
+msgstr "Перейти до повідомлення"
 
 #: templates/forum/search_posts.html:44 templates/forum/search_topics.html:55
 msgid "Info"
-msgstr ""
+msgstr "Інформація"
 
 #: templates/forum/search_posts.html:48 templates/forum/search_topics.html:59
 msgid "Your search returned no hits."
-msgstr ""
+msgstr "Нічого не знайдено."
 
 #: templates/forum/search_topics.html:15
 msgid "Search results"
-msgstr ""
+msgstr "Результати пошуку"
 
 #: templates/forum/topic.html:11 templates/forum/topic.html.py:121
 #: templates/forum/topic.html:134
 msgid "Reply"
-msgstr ""
+msgstr "Відповісти"
 
 #: templates/forum/topic.html:49
 msgid "From:"
-msgstr ""
+msgstr "Від:"
 
 #: templates/forum/topic.html:51 templates/forum/user.html:127
 #: templates/forum/profile/profile_essentials.html:73
 msgid "Registered:"
-msgstr ""
+msgstr "Зареєстрований:"
 
 #: templates/forum/topic.html:52 templates/forum/user.html:119
 #: templates/forum/profile/profile_essentials.html:75
 msgid "Posts:"
-msgstr ""
+msgstr "Повідомлення:"
 
 #: templates/forum/topic.html:54
 msgid "IP:"
-msgstr ""
+msgstr "IP:"
 
 #: templates/forum/topic.html:70 templates/forum/user.html:42
 #: templates/forum/profile/profile_essentials.html:43
 msgid "Send e-mail"
-msgstr ""
+msgstr "Відправити e-mail"
 
 #: templates/forum/topic.html:97
 msgid "Attachments:"
-msgstr ""
+msgstr "Прикріплений файли:"
 
 #: templates/forum/topic.html:105
 msgid "Online"
-msgstr ""
+msgstr "Онлайн"
 
 #: templates/forum/topic.html:107
 msgid "Offline"
-msgstr ""
+msgstr "Офлайн"
 
 #: templates/forum/topic.html:115
 msgid "Are you sure you want to delete this post?"
-msgstr ""
+msgstr "Ви упевнені, що хочете видалити це повідомлення?"
 
 #: templates/forum/topic.html:119
 msgid "Edit"
-msgstr ""
+msgstr "Редагувати"
 
 #: templates/forum/topic.html:140
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Заборонити повідомлення"
 
 #: templates/forum/topic.html:142
 msgid "Subscribe"
-msgstr ""
+msgstr "Отримувати повідомлення"
 
 #: templates/forum/topic.html:150
 msgid "Quick post"
-msgstr ""
+msgstr "Швидка відповідь"
 
 #: templates/forum/topic.html:184
 msgid "Jump to "
-msgstr ""
+msgstr "Перейти"
 
 #: templates/forum/topic.html:198
 msgid "Moderator control"
-msgstr ""
+msgstr "Модераторіровати"
 
 #: templates/forum/topic.html:200
 msgid "Delete multiple posts"
-msgstr ""
+msgstr "Видалити повідомлення"
 
 #: templates/forum/topic.html:203
 msgid "Open topic"
-msgstr ""
+msgstr "Відкрити тему"
 
 #: templates/forum/topic.html:205
 msgid "Close topic"
-msgstr ""
+msgstr "Закрити тему"
 
 #: templates/forum/topic.html:208
 msgid "Unstick topic"
-msgstr ""
+msgstr "Прибрати виділення"
 
 #: templates/forum/topic.html:210
 msgid "Stick topic"
-msgstr ""
+msgstr "Виділити тему"
 
 #: templates/forum/upload_avatar.html:7
 #: templates/forum/profile/profile_personality.html:27
 #: templates/forum/profile/profile_personality.html:30
 msgid "Upload avatar"
-msgstr ""
+msgstr "Змінити аватар"
 
 #: templates/forum/upload_avatar.html:13
 msgid "Enter an avatar file to upload"
-msgstr ""
+msgstr "Вкажіть файл з аватаром для завантаження"
 
 #: templates/forum/upload_avatar.html:19
 #, python-format
@@ -948,28 +960,31 @@ msgid ""
 "your posts. It must not be any bigger than %(avatar_width)s x "
 "%(avatar_height)s pixels "
 msgstr ""
+"Аватар - це маленьке зображення, яке відображуватиметься під Вашим ім'ям в "
+"повідомленнях на форумі. Воно не може бути більш ніж %(avatar_width)s  x "
+"%(avatar_height)s  пікселів "
 
 #: templates/forum/upload_avatar.html:23
 msgid "Upload"
-msgstr ""
+msgstr "Завантажити"
 
 #: templates/forum/user.html:12 templates/forum/profile/profile_menu.html:8
 #: templates/forum/profile/profile_messaging.html:15
 #: templates/forum/profile/profile_personal.html:9
 msgid "Personal"
-msgstr ""
+msgstr "Персональний"
 
 #: templates/forum/user.html:15
 msgid "Username:"
-msgstr ""
+msgstr "Користувач:"
 
 #: templates/forum/user.html:17 templates/forum/users.html:46
 msgid "Title"
-msgstr ""
+msgstr "Статус"
 
 #: templates/forum/user.html:19
 msgid "Real name:"
-msgstr ""
+msgstr "Справжнє им’я:"
 
 #: templates/forum/user.html:23 templates/forum/user.html.py:29
 #: templates/forum/user.html:35 templates/forum/user.html.py:61
@@ -977,84 +992,84 @@ msgstr ""
 #: templates/forum/user.html:79 templates/forum/user.html.py:85
 #: templates/forum/user.html:107 templates/forum/user.html.py:125
 msgid "(Unknown)"
-msgstr ""
+msgstr "(Невідомо)"
 
 #: templates/forum/user.html:31
 msgid "Website:"
-msgstr ""
+msgstr "Сайт:"
 
 #: templates/forum/user.html:37
 msgid "E-mail:"
-msgstr ""
+msgstr "E-mail:"
 
 #: templates/forum/user.html:44
 msgid "(Hidden)"
-msgstr ""
+msgstr "(Приховано)"
 
 #: templates/forum/user.html:54 templates/forum/profile/profile_menu.html:9
 #: templates/forum/profile/profile_messaging.html:9
 msgid "Messaging"
-msgstr ""
+msgstr "Спілкування"
 
 #: templates/forum/user.html:57
 msgid "Jabber:"
-msgstr ""
+msgstr "Jabber:"
 
 #: templates/forum/user.html:63
 msgid "ICQ:"
-msgstr ""
+msgstr "ICQ:"
 
 #: templates/forum/user.html:69
 msgid "MSN Messenger:"
-msgstr ""
+msgstr "MSN Messenger:"
 
 #: templates/forum/user.html:75
 msgid "AOL IM:"
-msgstr ""
+msgstr "AOL IM:"
 
 #: templates/forum/user.html:81
 msgid "Yahoo! Messenger:"
-msgstr ""
+msgstr "Yahoo! Messenger:"
 
 #: templates/forum/user.html:94 templates/forum/profile/profile_menu.html:10
 #: templates/forum/profile/profile_personality.html:9
 msgid "Personality"
-msgstr ""
+msgstr "Індивідуальний"
 
 #: templates/forum/user.html:97
 msgid "Avatar:"
-msgstr ""
+msgstr "Аватар:"
 
 #: templates/forum/user.html:101
 msgid "(No avatar)"
-msgstr ""
+msgstr "(Аватар відсутній)"
 
 #: templates/forum/user.html:103
 msgid "Signature:"
-msgstr ""
+msgstr "Підпис:"
 
 #: templates/forum/user.html:116
 #: templates/forum/profile/profile_essentials.html:71
 msgid "User activity"
-msgstr ""
+msgstr "Активність користувача"
 
 #: templates/forum/user.html:120
 #: templates/forum/profile/profile_essentials.html:76
 msgid "Show all posts"
-msgstr ""
+msgstr "Показати всі повідомлення"
 
 #: templates/forum/user.html:121
 #: templates/forum/profile/profile_essentials.html:74
 msgid "Last post:"
-msgstr ""
+msgstr "Останнє повідомлення:"
 
 #: templates/forum/users.html:7
 msgid "User search"
-msgstr ""
+msgstr "Пошук користувача"
 
 #: templates/forum/users.html:12
 msgid "Find and sort users"
-msgstr ""
+msgstr "Пошук і сортування користувачів"
 
 #: templates/forum/users.html:25
 msgid ""
@@ -1062,39 +1077,42 @@ msgid ""
 "users by name, date registered or number of posts and in "
 "ascending/descending order."
 msgstr ""
+"Введіть ім'я користувача для пошуку . Ім'я користувача може бути порожнім. "
+"Відсортуйте користувачів по імені, даті реєстрації або кількості переданих "
+"повідомлень і упорядкуєте по зростанню/убуванню."
 
 #: templates/forum/lofi/forum.html:6 templates/forum/lofi/index.html:6
 #: templates/forum/lofi/topic.html:6
 msgid "Full Version:"
-msgstr ""
+msgstr "Повна версія:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "IMPORTANT:"
-msgstr ""
+msgstr "ВАЖЛИВО:"
 
 #: templates/forum/lofi/forum.html:19
 msgid "replies"
-msgstr ""
+msgstr "відповідей"
 
 #: templates/forum/lofi/index.html:18
 msgid "posts"
-msgstr ""
+msgstr "повідомлень"
 
 #: templates/forum/profile/profile_admin.html:16
 msgid "Delete (administrators only) or ban user"
-msgstr ""
+msgstr "Видалити (лише для адміністратора) або заблокувати користувача"
 
 #: templates/forum/profile/profile_admin.html:18
 msgid "Delete user"
-msgstr ""
+msgstr "Видалити користувача"
 
 #: templates/forum/profile/profile_admin.html:18
 msgid "Ban user"
-msgstr ""
+msgstr "Заблокований"
 
 #: templates/forum/profile/profile_admin.html:25
 msgid "Set moderator access"
-msgstr ""
+msgstr "Встановити права модератора"
 
 #: templates/forum/profile/profile_admin.html:27
 msgid ""
@@ -1102,6 +1120,9 @@ msgid ""
 "applies to moderators. Administrators always have full permissions in all "
 "forums."
 msgstr ""
+"Вибери форуми в яких даний користувач буде модератором. Примітка: це "
+"стосується лише модераторів. Адміністратори мають повні права доступу у всіх"
+" форумах."
 
 #: templates/forum/profile/profile_admin.html:31
 msgid "Update forums"
@@ -1110,15 +1131,17 @@ msgstr ""
 #: templates/forum/profile/profile_display.html:9
 #: templates/forum/profile/profile_menu.html:11
 msgid "Display"
-msgstr ""
+msgstr "Відображення"
 
 #: templates/forum/profile/profile_display.html:15
 msgid "Select your preferred style"
-msgstr ""
+msgstr "Виберіть стиль відображення"
 
 #: templates/forum/profile/profile_display.html:18
 msgid "If you like you can use a different visual style for this forum."
 msgstr ""
+"За бажання, ви можете використовувати інший візуальний стиль для цього "
+"форуму."
 
 #: templates/forum/profile/profile_display.html:35
 msgid "Post display legend"
@@ -1137,60 +1160,64 @@ msgstr ""
 msgid ""
 "When you update your profile, you will be redirected back to this page."
 msgstr ""
+"Після оновлення профілю, ви будете перенаправлені назад на цю сторінку."
 
 #: templates/forum/profile/profile_essentials.html:9
 #: templates/forum/profile/profile_menu.html:7
 msgid "Essentials"
-msgstr ""
+msgstr "Основний"
 
 #: templates/forum/profile/profile_essentials.html:15
 msgid "Enter your username and password"
-msgstr ""
+msgstr "Им’я та пароль"
 
 #: templates/forum/profile/profile_essentials.html:26
 #: templates/forum/profile/profile_essentials.html:28
 msgid "Change password"
-msgstr ""
+msgstr "Змінити пароль"
 
 #: templates/forum/profile/profile_essentials.html:37
 msgid "Enter a valid e-mail address"
-msgstr ""
+msgstr "Введіть існуючу e-mail адресу"
 
 #: templates/forum/profile/profile_essentials.html:51
 msgid "Set your localisation options"
-msgstr ""
+msgstr "Виберіть свої регіональні налаштування"
 
 #: templates/forum/profile/profile_essentials.html:55
 msgid ""
 "Timezone: For the forum to display times correctly you must select your "
 "local timezone."
 msgstr ""
+"Часовий пояс: Для того, щоб час відображувався правильно, ви повинні вибрати"
+" часовий пояс для місцевості, звідки ви відвідуєте форум."
 
 #: templates/forum/profile/profile_essentials.html:61
 msgid ""
 "Language: You can choose which language you wish to use to view the forum"
-msgstr ""
+msgstr "Мова: Ви можете вибрати мову для відображення форуму"
 
 #: templates/forum/profile/profile_menu.html:3
 msgid "Profile menu"
-msgstr ""
+msgstr "Профіль"
 
 #: templates/forum/profile/profile_menu.html:12
 #: templates/forum/profile/profile_privacy.html:9
 msgid "Privacy"
-msgstr ""
+msgstr "Особистий"
 
 #: templates/forum/profile/profile_personal.html:15
 msgid "Enter your personal details"
-msgstr ""
+msgstr "Ваші персональні дані"
 
 #: templates/forum/profile/profile_personal.html:21
 msgid "Leave blank to use forum default."
 msgstr ""
+"Залиште поле порожнім, для використання налаштувань форуму, за умовчанням."
 
 #: templates/forum/profile/profile_personality.html:15
 msgid "Set your avatar display options"
-msgstr ""
+msgstr "Налаштування відображення аватара"
 
 #: templates/forum/profile/profile_personality.html:21
 msgid ""
@@ -1198,18 +1225,22 @@ msgid ""
 "can upload an avatar by clicking the link below. The checkbox 'Use avatar' "
 "below must be checked in order for the avatar to be visible in your posts."
 msgstr ""
+"Аватар - це маленьке зображення, яке відображається під Вашим ім'ям в "
+"повідомленнях на форумі. Ви можете завантажити аватар, натискує на заслання "
+"нижче. Для того, щоб аватар був видний у ваших повідомленнях, відзначте "
+"галочкою поле ''Використовувати аватар''."
 
 #: templates/forum/profile/profile_personality.html:24
 msgid "Use avatar."
-msgstr ""
+msgstr "Використовувати аватар."
 
 #: templates/forum/profile/profile_personality.html:28
 msgid "Delete avatar"
-msgstr ""
+msgstr "Видалити аватар"
 
 #: templates/forum/profile/profile_personality.html:37
 msgid "Compose your signature"
-msgstr ""
+msgstr "Составте ваш підпис"
 
 #: templates/forum/profile/profile_personality.html:40
 msgid ""
@@ -1220,14 +1251,19 @@ msgid ""
 "the features that are allowed/enabled listed below whenever you edit your "
 "signature."
 msgstr ""
+"Підпис - це невелика приписка, що додається до ваших повідомлень. Це може "
+"бути все, що вам подобається. Наприклад, ваша улюблена цитата. У підписі "
+"можна використовувати вбудовані теги Bbcode, якщо це дозволено "
+"адміністратором. Що дозволене, можна побачити зліва, при редагуванні "
+"підпису."
 
 #: templates/forum/profile/profile_personality.html:49
 msgid "No signature currently stored in profile."
-msgstr ""
+msgstr "Немає підпису."
 
 #: templates/forum/profile/profile_privacy.html:15
 msgid "Set your privacy options"
-msgstr ""
+msgstr "Виберіть свої особисті налаштування"
 
 #: templates/forum/profile/profile_privacy.html:18
 msgid ""
@@ -1235,3 +1271,6 @@ msgid ""
 " not and if you want other users to be able to send you e-mail via the forum"
 " (form e-mail) or not."
 msgstr ""
+"Виберете, яким чином ви хочете, щоб ваша e-mail адреса відобразилася на "
+"форумі, і чи хочете ви, щоб інші користувачі мали можливість слати вам "
+"e-mail повідомлення через форум чи ні."
