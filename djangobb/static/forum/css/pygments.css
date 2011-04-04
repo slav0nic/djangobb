@@ -1,3 +1,13 @@
+div .code {
+    font: 12px "Monospaced", monospace;
+    display: block;
+    color: #000;
+    background: #fff;
+    border: solid #000000 1px;
+    padding: 5px;
+    max-height: 450px;
+    overflow: auto;
+}
 .hll { background-color: #ffffcc }
 .c { color: #408080; font-style: italic } /* Comment */
 .err { border: 1px solid #FF0000 } /* Error */

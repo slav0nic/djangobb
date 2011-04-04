@@ -69,7 +69,7 @@ DIV.linksb LI, DIV.postlinksb LI, .blockmenu LI, #brdtitle H1, .djangobb SPAN.wa
 
 /* 4.1 By default borders are 1px solid */
 
-DIV.box, .djangobb TD, .djangobb TH, .djangobb BLOCKQUOTE, DIV.codebox, DIV.forminfo, DIV.blockpost LABEL {
+DIV.box, .djangobb TD, .djangobb TH, .djangobb BLOCKQUOTE, DIV.code, DIV.forminfo, DIV.blockpost LABEL {
 	BORDER-STYLE: solid;
 	BORDER-WIDTH: 1px
 }
@@ -173,7 +173,7 @@ DIV.postsignature, DIV.postmsg P.postedit {PADDING-TOP: 15px}
 /* 8.4 Spacing for code and quote boxes */
 
 DIV.postmsg H4 {MARGIN-BOTTOM: 10px}
-.djangobb BLOCKQUOTE, DIV.codebox {MARGIN: 5px 15px 15px 15px; PADDING: 8px}
+.djangobb BLOCKQUOTE, DIV.code {MARGIN: 5px 15px 15px 15px; PADDING: 8px}
 
 /* 8.5 Padding for the action links and online indicator in viewtopic */
 
