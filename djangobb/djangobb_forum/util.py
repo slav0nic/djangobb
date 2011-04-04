@@ -3,6 +3,7 @@ import os.path
 import random
 import re
 from HTMLParser import HTMLParser
+from postmarkup import render_bbcode
 try:
     import markdown
 except ImportError:
@@ -21,7 +22,6 @@ from django.contrib.sites.models import Site
 from django.conf import settings
 
 from djangobb_forum import settings as forum_settings
-from djangobb_forum.markups import bbmarkup
 
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
@@ -190,7 +190,7 @@ class ExcludeTagsHTMLParser(HTMLParser):
         Class for html parsing with excluding specified tags.
         """
 
-        def __init__(self, func, tags=('a', 'code')):
+        def __init__(self, func, tags=('a', 'pre', 'span')):
             HTMLParser.__init__(self)
             self.func = func
             self.is_ignored = False
@@ -291,7 +291,7 @@ def set_language(request, language):
 
 def convert_text_to_html(text, markup):
     if markup == 'bbcode':
-        text = bbmarkup.bbcode(text)
+        text = render_bbcode(text)
     elif markup == 'markdown':
         text = markdown.markdown(text, safe_mode='escape')
     else:

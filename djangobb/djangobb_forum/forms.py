@@ -9,9 +9,10 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
+from postmarkup import render_bbcode
+
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Forum, Attachment, TZ_CHOICES, PRIVACY_CHOICES
-from djangobb_forum.markups import bbmarkup
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import convert_text_to_html
 

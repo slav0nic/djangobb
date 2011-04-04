@@ -34,11 +34,7 @@
 	{% endif %}
 
     <!-- Highlightjs goodies -->
-	<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/highlight.pack.js"></script>
-	<script type="text/javascript">
-		hljs.initHighlightingOnLoad();
-	</script>
-	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}forum/css/hljs_styles/djangobb.css" />
+	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}forum/css/pygments.css" />
 	{% if highlight_word %}
 		<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/jquery.highlight-3.pack.js"></script>
 		<script type="text/javascript">
