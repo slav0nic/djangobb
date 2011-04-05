@@ -64,10 +64,8 @@ class LastPostsOnTopic(ForumFeed):
     title_template = 'forum/feeds/posts_title.html'
     description_template = 'forum/feeds/posts_description.html'
     
-    def get_object(self, request, topics):
-        if len(topics) != 1:
-            raise ObjectDoesNotExist
-        topic = Topic.objects.get(id=topics[0])
+    def get_object(self, request, topic_id):
+        topic = Topic.objects.get(id=topic_id)
         if not topic.forum.category.has_access(request.user):
             raise Http404
         return topic
@@ -91,10 +89,8 @@ class LastPostsOnForum(ForumFeed):
     title_template = 'forum/feeds/posts_title.html'
     description_template = 'forum/feeds/posts_description.html'
 
-    def get_object(self, request, forums):
-        if len(forums) != 1:
-            raise ObjectDoesNotExist
-        forum = Forum.objects.get(id=forums[0])
+    def get_object(self, request, forum_id):
+        forum = Forum.objects.get(id=forum_id)
         if not forum.category.has_access(request.user):
             raise Http404
         return forum
@@ -118,10 +114,8 @@ class LastPostsOnCategory(ForumFeed):
     title_template = 'forum/feeds/posts_title.html'
     description_template = 'forum/feeds/posts_description.html'
     
-    def get_object(self, request, categories):
-        if len(categories) != 1:
-            raise ObjectDoesNotExist
-        category = Category.objects.get(id=categories[0])
+    def get_object(self, request, category_id):
+        category = Category.objects.get(id=category_id)
         if not category.has_access(request.user):
             raise Http404
         return category
