@@ -238,10 +238,10 @@ def misc(request):
             return HttpResponseRedirect(reverse('djangobb:index'))
 
     elif 'mail_to' in request.GET:
-        user = get_object_or_404(User, username=request.GET['mail_to'])
+        mailto = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
         return {'form':form,
-                'user': user,
+                'mailto': mailto,
                'TEMPLATE': 'forum/mail_to.html'
                }
 
