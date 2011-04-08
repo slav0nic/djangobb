@@ -4,20 +4,18 @@
 
 {% block content %}
 <div class="blockform">
-	<h2><span>{% trans "Send e-mail to" %} {{ user }}</span></h2>
+	<h2><span>{% trans "Send e-mail to" %} {{ mailto }}</span></h2>
 	<div class="box">
 		<form id="email" method="post">
 			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
 					<legend>{% trans "Write and submit your e-mail message" %}</legend>
-
 					<div class="infldset txtarea">
 						<label><strong>{{ form.subject.label }}</strong><br />
 						{{ form.subject }}<br /></label>
 						<label><strong>{{ form.body.label }}</strong><br />
 						{{ form.body }}<br /></label>
-
 						<p>{% trans "Please note that by using this form, your e-mail address will be disclosed to the recipient." %}</p>
 					</div>
 				</fieldset>
