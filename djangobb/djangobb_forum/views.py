@@ -277,7 +277,6 @@ def show_forum(request, forum_id, full=True):
 
 @transaction.commit_on_success
 @render_to('forum/topic.html')
-@paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def show_topic(request, topic_id, full=True):
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
@@ -288,9 +287,18 @@ def show_topic(request, topic_id, full=True):
 
     if request.user.is_authenticated():
         topic.update_read(request.user)
-
-    posts = topic.posts.all().select_related()
-
+    #@paged can't be used in this view. (ticket #180)
+    #TODO: must be refactored (ticket #39)
+    from django.core.paginator import Paginator, EmptyPage, InvalidPage
+    try:
+        page = int(request.GET.get('page', 1))
+    except ValueError:
+        page = 1
+    paginator = Paginator(topic.posts.all().select_related(), forum_settings.TOPIC_PAGE_SIZE)
+    try:
+        posts = paginator.page(page).object_list
+    except (InvalidPage, EmptyPage):
+        raise Http404
     users = set(post.user.id for post in posts)
     profiles = Profile.objects.filter(user__pk__in=users)
     profiles = dict((profile.user_id, profile) for profile in profiles)
@@ -327,8 +335,12 @@ def show_topic(request, topic_id, full=True):
                 'form': form,
                 'moderator': moderator,
                 'subscribed': subscribed,
-                'paged_qs': posts,
+                'posts': posts,
                 'highlight_word': highlight_word,
+                
+                'page': page,
+                'pages': paginator.num_pages,
+                'per_page': forum_settings.TOPIC_PAGE_SIZE
                 }
     else:
         pages, paginator, paged_list_name = paginate(posts, request, forum_settings.TOPIC_PAGE_SIZE)
