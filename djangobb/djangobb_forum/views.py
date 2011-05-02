@@ -343,12 +343,11 @@ def show_topic(request, topic_id, full=True):
                 'per_page': forum_settings.TOPIC_PAGE_SIZE
                 }
     else:
-        pages, paginator, paged_list_name = paginate(posts, request, forum_settings.TOPIC_PAGE_SIZE)
         return {'categories': Category.objects.all(),
                 'topic': topic,
-                'pages': pages,
+                'pages': paginator.num_pages,
                 'paginator': paginator,
-                'posts': paged_list_name,
+                'posts': posts,
                 'TEMPLATE': 'forum/lofi/topic.html'
                 }
 
