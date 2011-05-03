@@ -60,28 +60,27 @@ def pagination(context, adjacent_pages=1):
     """
     Return the list of A tags with links to pages.
     """
-
-    page_list = range(
+    page_range = range(
         max(1, context['page'] - adjacent_pages),
         min(context['pages'], context['page'] + adjacent_pages) + 1)
-    lower_page = None
-    higher_page = None
+    previous = None
+    next = None
 
     if not 1 == context['page']:
-        lower_page = context['page'] - 1
+        previous = context['page'] - 1
 
-    if not 1 in page_list:
-        page_list.insert(0,1)
-        if not 2 in page_list:
-            page_list.insert(1,'.')
+    if not 1 in page_range:
+        page_range.insert(0,1)
+        if not 2 in page_range:
+            page_range.insert(1,'.')
 
     if not context['pages'] == context['page']:
-        higher_page = context['page'] + 1
+        next = context['page'] + 1
 
-    if not context['pages'] in page_list:
-        if not context['pages'] - 1 in page_list:
-            page_list.append('.')
-        page_list.append(context['pages'])
+    if not context['pages'] in page_range:
+        if not context['pages'] - 1 in page_range:
+            page_range.append('.')
+        page_range.append(context['pages'])
     get_params = '&'.join(['%s=%s' % (x[0], x[1]) for x in
         context['request'].GET.iteritems() if (x[0] != 'page' and x[0] != 'per_page')])
     if get_params:
@@ -91,18 +90,19 @@ def pagination(context, adjacent_pages=1):
 
     return {
         'get_params': get_params,
-        'lower_page': lower_page,
-        'higher_page': higher_page,
+        'previous': previous,
+        'next': next,
         'page': context['page'],
         'pages': context['pages'],
-        'page_list': page_list,
-        'per_page': context['per_page'],
+        'page_range': page_range,
+        'results_per_page': context['results_per_page'],
+        'is_paginated': context['is_paginated'],
         }
 
 
 @register.inclusion_tag('forum/lofi/pagination.html',takes_context=True)
 def lofi_pagination(context):
-    page_list = range(1, context['pages'] + 1)
+    page_range = range(1, context['pages'] + 1)
     paginator = context['paginator']
     
     get_params = '&'.join(['%s=%s' % (x[0],','.join(x[1])) for x in
@@ -114,7 +114,7 @@ def lofi_pagination(context):
         
     return {
             'get_params': get_params,
-            'page_list': page_list,
+            'page_range': page_range,
             'paginator': paginator,
             } 
 

@@ -340,7 +340,8 @@ def show_topic(request, topic_id, full=True):
                 
                 'page': page,
                 'pages': paginator.num_pages,
-                'per_page': forum_settings.TOPIC_PAGE_SIZE
+                'results_per_page': forum_settings.TOPIC_PAGE_SIZE,
+                'is_paginated': paginator.page(page).has_other_pages(),
                 }
     else:
         return {'categories': Category.objects.all(),
