@@ -113,13 +113,16 @@ def paged(paged_list_name, per_page):
             from django.core.paginator import Paginator
             paginator = Paginator(result['paged_qs'], real_per_page)
             try:
-                result[paged_list_name] = paginator.page(page).object_list
+                page_obj = paginator.page(page)
             except (InvalidPage, EmptyPage):
                 raise Http404
+            result[paged_list_name] = page_obj.object_list
+            result['is_paginated'] = page_obj.has_other_pages(),
+            result['page_obj'] = page_obj,
             result['page'] = page
-            result['page_list'] = range(1, paginator.num_pages + 1)
+            result['page_range'] = paginator.page_range,
             result['pages'] = paginator.num_pages
-            result['per_page'] = real_per_page
+            result['results_per_page'] = paginator.per_page,
             result['request'] = request
             return result
         return wrapper
