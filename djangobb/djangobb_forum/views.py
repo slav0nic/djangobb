@@ -296,9 +296,10 @@ def show_topic(request, topic_id, full=True):
         page = 1
     paginator = Paginator(topic.posts.all().select_related(), forum_settings.TOPIC_PAGE_SIZE)
     try:
-        posts = paginator.page(page).object_list
+        page_obj = paginator.page(page)
     except (InvalidPage, EmptyPage):
         raise Http404
+    posts = page_obj.object_list
     users = set(post.user.id for post in posts)
     profiles = Profile.objects.filter(user__pk__in=users)
     profiles = dict((profile.user_id, profile) for profile in profiles)
@@ -339,9 +340,10 @@ def show_topic(request, topic_id, full=True):
                 'highlight_word': highlight_word,
                 
                 'page': page,
+                'page_obj': page_obj,
                 'pages': paginator.num_pages,
-                'results_per_page': forum_settings.TOPIC_PAGE_SIZE,
-                'is_paginated': paginator.page(page).has_other_pages(),
+                'results_per_page': paginator.per_page,
+                'is_paginated': page_obj.has_other_pages(),
                 }
     else:
         return {'categories': Category.objects.all(),
