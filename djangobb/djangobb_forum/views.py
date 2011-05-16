@@ -747,7 +747,7 @@ def delete_subscription(request, topic_id):
     if 'from_topic' in request.GET:
         return HttpResponseRedirect(reverse('djangobb:topic', args=[topic.id]))
     else:
-        return HttpResponseRedirect(reverse('djangobb:forum_profile'))
+        return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[request.user.username]))
 
 
 @login_required
