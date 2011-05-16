@@ -129,11 +129,25 @@ class Topic(models.Model):
 
     class Meta:
         ordering = ['-updated']
+        get_latest_by = 'updated'
         verbose_name = _('Topic')
         verbose_name_plural = _('Topics')
 
     def __unicode__(self):
         return self.name
+
+    def delete(self, *args, **kwargs):
+        last_post = self.posts.latest()
+        last_post.last_forum_post.clear()
+        forum = self.forum
+        super(Topic, self).delete(*args, **kwargs)
+        try:
+            forum.last_post = Topic.objects.filter(forum__id=forum.id).latest().last_post
+        except Topic.DoesNotExist:
+            forum.last_post = None
+        forum.topic_count = Topic.objects.filter(forum__id=forum.id).count()
+        forum.post_count = Post.objects.filter(topic__forum__id=forum.id).count()
+        forum.save()
 
     @property
     def head(self):
