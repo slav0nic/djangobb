@@ -24,9 +24,9 @@
 					<legend>{% trans "Write your message and submit" %}</legend>
 					<div class="infldset txtarea">
 						{% if forum %}
-						<label><strong>{% trans "Subject" %}</strong><br />{{ form.name }}<br /></label>
+							<label><strong>{% trans "Subject" %}</strong><br />{{ form.name.errors }}{{ form.name }}<br /></label>
 						{% endif %}
-						<label><strong>{% trans "Message" %}</strong><br />{{ form.body }}<br /></label>
+						<label><strong>{% trans "Message" %}</strong><br />{{ form.body.errors }}{{ form.body }}<br /></label>
 					</div>
 				</fieldset>
 			</div>
@@ -35,6 +35,7 @@
 				<fieldset>
 					<legend>{% trans "Attachment" %}</legend>
 					<div class="infldset">
+						{{ form.attachment.errors }}
 						<div class="rbox">
 							{{ form.attachment }}
 						</div>
