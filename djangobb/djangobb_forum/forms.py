@@ -82,10 +82,11 @@ class AddPostForm(forms.ModelForm):
         cleaned_data = self.cleaned_data
         body = cleaned_data.get('body')
         subject = cleaned_data.get('name')
-        if subject and body:
+        if subject:
             if not subject.strip():
                 self._errors['name'] = self.error_class([errmsg])
                 del cleaned_data['name']
+        if body:
             if not body.strip():
                 self._errors['body'] = self.error_class([errmsg])
                 del cleaned_data['body']
