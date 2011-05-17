@@ -286,11 +286,9 @@ def set_language(request, language):
     Change the language of session of authenticated user.
     """
 
-    if language and check_for_language(language):
-        if hasattr(request, 'session'):
-            request.session['django_language'] = language
-        else:
-            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, language) 
+    if check_for_language(language):
+        request.session['django_language'] = language
+
 
 def convert_text_to_html(text, markup):
     if markup == 'bbcode':
