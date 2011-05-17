@@ -136,9 +136,9 @@ def lofi_link(object, anchor=u''):
     Return A tag with lofi_link to object.
     """
 
-    url = hasattr(object,'get_absolute_url') and object.get_absolute_url() or None   
+    url = hasattr(object,'get_absolute_url') and object.get_absolute_url() or None
     anchor = anchor or smart_unicode(object)
-    return mark_safe('<a href="%slofi">%s</a>' % (url, escape(anchor)))
+    return mark_safe('<a href="%slofi/">%s</a>' % (url, escape(anchor)))
 
 
 @register.filter
