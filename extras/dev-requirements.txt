@@ -1,0 +1,4 @@
+pep8
+pyflakes
+django-debug-toolbar
+django-devserver
