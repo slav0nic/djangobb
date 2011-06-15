@@ -160,6 +160,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.request',
     'django_authopenid.context_processors.authopenid',
+    'messages.context_processors.inbox',
     'djangobb_forum.context_processors.forum_settings',
 )
 

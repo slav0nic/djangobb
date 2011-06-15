@@ -232,13 +232,6 @@ def forum_authority(user):
 def online(user):
     return cache.get(str(user.id))
 
-
-@register.filter
-def pm_unreads(user):
-    if forum_settings.PM_SUPPORT:
-        return inbox_count_for(user)
-    return None
-
 @register.filter
 def attachment_link(attach):
     from django.template.defaultfilters import filesizeformat
