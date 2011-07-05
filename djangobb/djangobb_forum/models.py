@@ -137,8 +137,13 @@ class Topic(models.Model):
         return self.name
 
     def delete(self, *args, **kwargs):
-        last_post = self.posts.latest()
-        last_post.last_forum_post.clear()
+        try:
+            last_post = self.posts.latest()
+            last_post.last_forum_post.clear()
+        except Post.DoesNotExist:
+            pass
+        else:
+            last_post.last_forum_post.clear()
         forum = self.forum
         super(Topic, self).delete(*args, **kwargs)
         try:
