@@ -1,25 +1,19 @@
 # -*- coding: utf-8
-from datetime import datetime, timedelta
 import urllib
 
 from django import template
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
-from django.template import RequestContext
 from django.utils.encoding import smart_unicode
 from django.db import settings
 from django.utils.html import escape
-from django.utils.translation import ugettext as _
-from django.utils import dateformat
 from django.utils.hashcompat import md5_constructor
 from django.contrib.humanize.templatetags.humanize import naturalday
 
-from djangobb_forum.models import Forum, Topic, Post, PostTracking, Report
+from djangobb_forum.models import Report
 from djangobb_forum import settings as forum_settings
 
-if forum_settings.PM_SUPPORT:
-    from messages.models import inbox_count_for
 
 register = template.Library()
 

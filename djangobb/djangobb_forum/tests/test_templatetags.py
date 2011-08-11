@@ -3,8 +3,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 
 from djangobb_forum.models import Post
-from djangobb_forum.templatetags.forum_extras import profile_link, link, lofi_link, \
-     attachment_link
+from djangobb_forum.templatetags.forum_extras import profile_link, link, lofi_link
 
 
 class TestLinkTags(TestCase):
@@ -25,4 +24,3 @@ class TestLinkTags(TestCase):
     def test_lofi_link(self):
         l = lofi_link(self.post)
         self.assertEqual(l, "<a href=\"/forum/post/1/lofi/\">Test Body</a>")
-    

@@ -1,6 +1,3 @@
-from datetime import datetime
-import os.path
-import random
 import re
 from HTMLParser import HTMLParser
 from postmarkup import render_bbcode
@@ -15,13 +12,12 @@ from django.http import HttpResponse, Http404
 from django.utils.functional import Promise
 from django.utils.translation import force_unicode, check_for_language
 from django.utils.simplejson import JSONEncoder
-from django import forms
 from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.sites.models import Site
-from django.conf import settings
 
 from djangobb_forum import settings as forum_settings
+
 
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
@@ -128,27 +124,6 @@ def paged(paged_list_name, per_page):
         return wrapper
 
     return decorator
-
-
-def ajax(func):
-    """
-    Checks request.method is POST. Return error in JSON in other case.
-
-    If view returned dict, returns JsonResponse with this dict as content.
-    """
-    def wrapper(request, *args, **kwargs):
-        if request.method == 'POST':
-            try:
-                response = func(request, *args, **kwargs)
-            except Exception, ex:
-                response = {'error': traceback.format_exc()}
-        else:
-            response = {'error': {'type': 403, 'message': 'Accepts only POST request'}}
-        if isinstance(response, dict):
-            return JsonResponse(response)
-        else:
-            return response
-    return wrapper
 
 
 class LazyJSONEncoder(JSONEncoder):
