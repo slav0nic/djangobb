@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
-import re
 
 def get(key, default):
     return getattr(settings, key, default)

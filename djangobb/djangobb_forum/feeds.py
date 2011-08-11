@@ -1,9 +1,7 @@
 from django.contrib.syndication.views import Feed, FeedDoesNotExist
-from django.core.exceptions import ObjectDoesNotExist
 from django.utils.feedgenerator import Atom1Feed
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import Http404
 

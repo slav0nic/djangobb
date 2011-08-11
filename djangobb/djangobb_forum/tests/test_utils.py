@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.test import TestCase, Client, RequestFactory
-from django.contrib.auth.models import User
+from django.test import TestCase, RequestFactory
 
 from djangobb_forum.models import Post
-from djangobb_forum.util import urlize, smiles, convert_text_to_html, paginate, set_language\
+from djangobb_forum.util import urlize, smiles, convert_text_to_html, paginate
 
 
 class TestParsers(TestCase):

@@ -1,5 +1,4 @@
 import re
-from django import forms
 from registration.forms import RegistrationFormUniqueEmail
 
 

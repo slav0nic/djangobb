@@ -6,20 +6,16 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpRespons
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import Site
-from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.db import connection
 from django.db.models import Q, F, Sum
-from django.utils import translation
 from django.utils.encoding import smart_str
-from django.views.decorators.http import require_POST
 from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
 
 from djangobb_forum.util import render_to, paged, build_form, paginate, set_language
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
-    Report, Attachment, PostTracking
+    Attachment, PostTracking
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
     PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
@@ -520,7 +516,6 @@ def reputation(request, username):
             return HttpResponseForbidden(u'You can not change the reputation of yourself')
 
         if 'post_id' in request.GET:
-            sign = 0
             post_id = request.GET['post_id']
             form.fields['post'].initial = post_id
             if request.GET['action'] == 'plus':

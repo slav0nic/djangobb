@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import os.path
-import sys
-import re
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 

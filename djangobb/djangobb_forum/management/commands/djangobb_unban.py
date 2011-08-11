@@ -20,12 +20,12 @@ class Command(BaseCommand):
         if options['all']:
             bans = Ban.objects.all()
             user_ids = bans.values_list('user', flat=True)
-            users = User.objects.filter(id__in=user_ids).update(is_active=True)
+            User.objects.filter(id__in=user_ids).update(is_active=True)
             bans.delete()
         elif options['by-time']:
             bans = Ban.objects.filter(ban_end__lte=datetime.now())
             user_ids = bans.values_list('user', flat=True)
-            users = User.objects.filter(id__in=user_ids).update(is_active=True)
+            User.objects.filter(id__in=user_ids).update(is_active=True)
             bans.delete()
         else:
-            print 'Invalid options'
+            raise CommandError('Invalid options')

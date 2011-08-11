@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
-import re
 import os.path
 from datetime import datetime
 
 from django import forms
 from django.conf import settings
-from django.db.models import Q
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 
-from postmarkup import render_bbcode
-
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
-    Forum, Attachment, TZ_CHOICES, PRIVACY_CHOICES
+    Attachment
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import convert_text_to_html
-
 
 
 SORT_USER_BY_CHOICES = (
