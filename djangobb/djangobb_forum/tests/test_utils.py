@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from djangobb_forum.models import Post
 from djangobb_forum.util import urlize, smiles, convert_text_to_html, paginate, set_language\
-     
+
 
 class TestParsers(TestCase):
     def setUp(self):
@@ -40,3 +40,13 @@ class TestPaginators(TestCase):
         request = self.factory.get('/?page=1')
         _, _, paged_list_name = paginate(self.posts, request, 3)
         self.assertEqual(paged_list_name.count(), 3)
+
+
+class TestVersion(TestCase):
+    def test_get_version(self):
+        import djangobb_forum
+
+        djangobb_forum.version_info = (0, 2, 1, 'f', 0)
+        self.assertEqual(djangobb_forum.get_version(), '0.2.1')
+        djangobb_forum.version_info = (2, 3, 1, 'a', 5)
+        self.assertIn('2.3.1a5.dev', djangobb_forum.get_version())

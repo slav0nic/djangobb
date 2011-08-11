@@ -1,5 +1,5 @@
-from test_forum import TestForum
-from test_reputation import TestReputation
-from test_profile import TestProfile
-from test_utils import TestParsers, TestPaginators
-from test_templatetags import TestLinkTags
+from test_forum import *
+from test_reputation import *
+from test_profile import *
+from test_utils import *
+from test_templatetags import *
