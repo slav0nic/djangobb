@@ -1,2 +1,0 @@
-{% load i18n %}
-[Djangobb] {{ site }}. {% trans "Confirm your registration" %}
