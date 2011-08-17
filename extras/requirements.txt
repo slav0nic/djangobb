@@ -2,7 +2,7 @@ Django>=1.2
 PIL>=1.1.7
 django-registration==0.7
 django-haystack>=1.1.0
-souch
+south
 django-messages==0.4.4
 pygments
 -e hg+http://bitbucket.org/benoitc/django-authopenid#egg=django-authopenid
