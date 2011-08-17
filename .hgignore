@@ -2,6 +2,7 @@ syntax: glob
 *.pyc
 *.pyo
 *.orig
+*.egg-info
 .pydevproject
 .project
 *.db
@@ -13,8 +14,6 @@ syntax: glob
 *.wpr
 .coverage
 local_settings.py
-djangobb/basic_project/static/forum/avatars/
-djangobb/basic_project/static/forum/attachments/
-djangobb/basic_project/secret.txt
-djangobb/basic_project/djangobb_index/
-djangobb/venv/
+.env
+build/
+dist/
