@@ -1,9 +1,0 @@
-{% load i18n %}
-
-{% blocktrans %}
-Hi,
-
-Thank you for your registration. To activate your account click on the link below :
-{% endblocktrans %}
-
-http://{{ site.domain }}{% url registration_activate activation_key %}
