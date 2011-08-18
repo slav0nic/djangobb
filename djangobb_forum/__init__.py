@@ -14,16 +14,20 @@ def get_version():
 
         version = '%d.%d.%d%s%d' % version_info
         dir = os.path.abspath(os.path.dirname(__file__))
-        hg_dir = os.path.normpath(os.path.join(dir, '../../'))
+        hg_dir = os.path.normpath(os.path.join(dir, '../'))
         if os.path.isdir(os.path.join(hg_dir, '.hg')):
             hg_rev = 'dev0'  # unknown version
             try:
                 from mercurial import ui, hg, error
-                repo = hg.repository(ui.ui(), hg_dir)
-                c = repo['tip']
-                hg_rev = 'dev%s' % (c.rev())
-            except (ImportError, error.RepoError):
+            except ImportError:
                 pass
+            else:
+                try:
+                    repo = hg.repository(ui.ui(), hg_dir)
+                    c = repo['tip']
+                    hg_rev = 'dev%s' % (c.rev())
+                except error.RepoError:
+                    pass
             version = '%s.%s' % (version, hg_rev)
     return version
 
