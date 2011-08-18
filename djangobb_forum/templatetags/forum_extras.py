@@ -49,7 +49,7 @@ class ForumTimeNode(template.Node):
 
 
 # TODO: this old code requires refactoring
-@register.inclusion_tag('djangobb_forumpagination.html',takes_context=True)
+@register.inclusion_tag('djangobb_forum/pagination.html',takes_context=True)
 def pagination(context, adjacent_pages=1):
     """
     Return the list of A tags with links to pages.
@@ -94,7 +94,7 @@ def pagination(context, adjacent_pages=1):
         }
 
 
-@register.inclusion_tag('djangobb_forumlofi/pagination.html',takes_context=True)
+@register.inclusion_tag('djangobb_forum/lofi/pagination.html',takes_context=True)
 def lofi_pagination(context):
     page_range = range(1, context['pages'] + 1)
     paginator = context['paginator']

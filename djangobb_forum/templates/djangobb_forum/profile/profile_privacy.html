@@ -1,10 +1,10 @@
-{% extends 'forum/base.html' %}
+{% extends 'djangobb_forum/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
 
 {% block content %}
 <div id="profile" class="block2col">
-	{% include 'forum/profile/profile_menu.html' %}
+	{% include 'djangobb_forum/profile/profile_menu.html' %}
 	<div class="blockform">
 		<h2><span>{{ profile.username }} - {% trans "Privacy" %}</span></h2>
 		<div class="box">
