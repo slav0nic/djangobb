@@ -18,7 +18,7 @@
 				<p>
 				{% cache 6000 moderators forum.id %}
 					{% if forum.moderator.exist %}
-						{% include 'forum/moderators.html' %}
+						{% include 'djangobb_forum/moderators.html' %}
 					{% endif %}
 				{% endcache %}
 				</p>

@@ -23,7 +23,7 @@ class ForumFeed(Feed):
 class LastPosts(ForumFeed):
     title = _('Latest posts on forum')
     description = _('Latest posts on forum')
-    title_template = 'djangobb_forumfeeds/posts_title.html'
+    title_template = 'djangobb_forum/feeds/posts_title.html'
     description_template = 'djangobb_forumfeeds/posts_description.html'
 
     def get_object(self, request):
@@ -42,8 +42,8 @@ class LastPosts(ForumFeed):
 class LastTopics(ForumFeed):
     title = _('Latest topics on forum')
     description = _('Latest topics on forum')
-    title_template = 'djangobb_forumfeeds/topics_title.html'
-    description_template = 'djangobb_forumfeeds/topics_description.html'
+    title_template = 'djangobb_forum/feeds/topics_title.html'
+    description_template = 'djangobb_forum/feeds/topics_description.html'
 
     def get_object(self, request):
         user_groups = request.user.groups.all()
@@ -59,8 +59,8 @@ class LastTopics(ForumFeed):
 
 
 class LastPostsOnTopic(ForumFeed):
-    title_template = 'djangobb_forumfeeds/posts_title.html'
-    description_template = 'djangobb_forumfeeds/posts_description.html'
+    title_template = 'djangobb_forum/feeds/posts_title.html'
+    description_template = 'djangobb_forum/feeds/posts_description.html'
     
     def get_object(self, request, topic_id):
         topic = Topic.objects.get(id=topic_id)
@@ -84,8 +84,8 @@ class LastPostsOnTopic(ForumFeed):
 
 
 class LastPostsOnForum(ForumFeed):
-    title_template = 'djangobb_forumfeeds/posts_title.html'
-    description_template = 'djangobb_forumfeeds/posts_description.html'
+    title_template = 'djangobb_forum/feeds/posts_title.html'
+    description_template = 'djangobb_forum/feeds/posts_description.html'
 
     def get_object(self, request, forum_id):
         forum = Forum.objects.get(id=forum_id)
@@ -109,8 +109,8 @@ class LastPostsOnForum(ForumFeed):
 
 
 class LastPostsOnCategory(ForumFeed):
-    title_template = 'djangobb_forumfeeds/posts_title.html'
-    description_template = 'djangobb_forumfeeds/posts_description.html'
+    title_template = 'djangobb_forum/feeds/posts_title.html'
+    description_template = 'djangobb_forum/feeds/posts_description.html'
     
     def get_object(self, request, category_id):
         category = Category.objects.get(id=category_id)
