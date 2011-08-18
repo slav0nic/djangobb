@@ -1,6 +1,5 @@
-import signals
-
 __all__ = ['__version__', 'get_version']
+
 version_info = (0, 0, 1, 'a', 0)
 # format: ('major', 'minor', 'micro', 'releaselevel', 'serial')
 # __version__ format compatible with ditutils2.version.NormalizedVersion
