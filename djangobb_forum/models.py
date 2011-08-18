@@ -7,6 +7,7 @@ from django.contrib.auth.models import User, Group
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.utils.hashcompat import sha_constructor
+from django.db.models.signals import post_save
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import smiles, convert_text_to_html
@@ -394,3 +395,9 @@ class Attachment(models.Model):
     def get_absolute_path(self):
         return os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO,
                             self.path)
+
+
+from .signals import post_saved, topic_saved
+
+post_save.connect(post_saved, sender=Post, dispatch_uid='djangobb_post_save')
+post_save.connect(topic_saved, sender=Topic, dispatch_uid='djangobb_topic_save')
