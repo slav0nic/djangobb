@@ -93,11 +93,11 @@ def moderate(request, forum_id):
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'open_topics' in request.POST:
             for topic_id in topic_ids:
-                open_close_topic(request, topic_id)
+                open_close_topic(request, topic_id, 'o')
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'close_topics' in request.POST:
             for topic_id in topic_ids:
-                open_close_topic(request, topic_id)
+                open_close_topic(request, topic_id, 'c')
             return HttpResponseRedirect(reverse('djangobb:index'))
 
         return {'forum': forum,
@@ -674,11 +674,14 @@ def move_topic(request):
 
 @login_required
 @transaction.commit_on_success
-def stick_unstick_topic(request, topic_id):
+def stick_unstick_topic(request, topic_id, action):
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
-        topic.sticky = not topic.sticky
+        if action == 's':
+            topic.sticky = True
+        elif action == 'u':
+            topic.sticky = False
         topic.save()
     return HttpResponseRedirect(topic.get_absolute_url())
 
@@ -714,11 +717,14 @@ def delete_post(request, post_id):
 
 @login_required
 @transaction.commit_on_success
-def open_close_topic(request, topic_id):
+def open_close_topic(request, topic_id, action):
 
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
-        topic.closed = not topic.closed
+        if action == 'c':
+            topic.closed = True
+        elif action == 'o':
+            topic.closed = False
         topic.save()
     return HttpResponseRedirect(topic.get_absolute_url())
 
