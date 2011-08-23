@@ -764,7 +764,7 @@ def show_attachment(request, hash):
     attachment = get_object_or_404(Attachment, hash=hash)
     file_data = file(attachment.get_absolute_path(), 'rb').read()
     response = HttpResponse(file_data, mimetype=attachment.content_type)
-    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(attachment.name)
+    response['Content-Disposition'] = 'attachment; filename="%s"' % smart_str(attachment.name)
     return response
 
 
