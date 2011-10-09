@@ -1,0 +1,6 @@
+.djangobb-venv
+*.swp
+*.pyc
+djangobb/secret.txt
+djangobb/settings.py
+djangobb/djangobb.db
