@@ -178,7 +178,7 @@ def search(request):
 
             if 'topics' in request.GET['show_as']:
                 topics = []
-                topics_to_exclude = []
+                topics_to_exclude = SQ()
                 for post in posts:
                     if post.object.topic not in topics:
                         if post.object.topic.forum.category.has_access(request.user):

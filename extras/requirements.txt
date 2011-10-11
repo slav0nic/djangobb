@@ -1,6 +1,6 @@
 Django>=1.2
 PIL>=1.1.7
-django-haystack>=1.1.0
+django-haystack>=1.2.5
 south
 django-messages==0.4.4
 pygments
