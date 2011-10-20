@@ -168,7 +168,7 @@ def search(request):
                     query = query.filter(topic=keywords)
 
             order = {'0': 'created',
-                     '1': 'user',
+                     '1': 'author',
                      '2': 'topic',
                      '3': 'forum'}.get(sort_by, 'created')
             if sort_dir == 'DESC':
