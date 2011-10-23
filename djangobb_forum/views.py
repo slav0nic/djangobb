@@ -162,7 +162,7 @@ def search(request):
             if keywords:
                 if search_in == 'all':
                     query = query.filter(SQ(topic=keywords) | SQ(text=keywords))
-                elif search_in == 'messsage':
+                elif search_in == 'message':
                     query = query.filter(text=keywords)
                 elif search_in == 'topic':
                     query = query.filter(topic=keywords)
