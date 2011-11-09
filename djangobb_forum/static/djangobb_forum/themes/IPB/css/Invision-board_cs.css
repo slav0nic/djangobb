@@ -1,0 +1,255 @@
+/****************************************************************/
+/* 1. BACKGROUND AND TEXT COLOURS */
+/****************************************************************/
+
+/* 1.1 Default background colour and text colour */
+
+HTML, BODY { MARGIN: 10px; PADDING: 0; 
+BACKGROUND-COLOR: #ececec; 
+}
+
+.djangobb {COLOR: #333}
+
+A:link, .djangobb A:visited {COLOR: #1064B0}
+A:hover {COLOR: #000}
+
+.djangobb DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #000}
+
+H2 A:link, .djangobb H2 A:visited, #brdmenu A:link, #brdmenu A:visited {COLOR: #fff}
+H2 A:hover, #brdmenu A:hover {COLOR: #fff}
+
+.postleft A:link, .postleft A:visited { color:#1064B0; }
+.postleft A:hover {COLOR: #1064B0; }
+.postleft A { color: #1064B0; }
+
+DIV.blockpost H2 A:link, DIV.blockpost h2 A:visited{COLOR: #fff}
+DIV.blockpost h2 A:hover {COLOR: #fff}
+
+
+BODY #djangobbwrap {
+BACKGROUND-COLOR: #FDFDFD;
+margin:auto; width: 98%; 
+padding:10px; 
+border:1px solid #072A66;
+}
+
+/* 3.1 All external borders */
+DIV.box {BORDER-COLOR: #072A66}
+DIV.blockpost DIV.box {BORDER-COLOR: #072A66 #072A66 #072A66}
+.djangobb TD {BORDER-COLOR: #fff}
+.djangobb TH {BORDER-COLOR: #fff}
+
+
+#brdheader DIV.box {BORDER-TOP: 1px solid #072A66;}
+
+.djangobb #brdmenu { /*BACKGROUND-COLOR: #1064B0;*/ 
+background-image: url(../img/title_cat.gif);  
+border-top: 0px solid #072A66; 
+border-bottom: 1px solid #fff;
+padding: 3px 6px; 
+margin:0; 
+}
+
+.djangobb H2, DIV.blockpost H2{ /*BACKGROUND-COLOR: #1064B0;*/
+padding: 5px 3px;
+color:#fff;
+background-image: url(../img/title_cat.gif); 
+border-top:  1px solid #072A66; 
+border-left: 1px solid #072A66;
+border-right:1px solid #072A66;  
+border-bottom: 0px solid #fff;
+}
+
+.djangobb h2 span{ /*text-indent:10px;*/}
+
+DIV.blockpost H2 SPAN.conr {background-image:none;  }
+
+
+.djangobb #brdtitle { margin:0; padding:0;}
+
+.djangobb #brdtitle h1 {padding:0; margin:0;
+height: 67px;  
+background-image : url(../img/title_back.gif);
+/*
+background-repeat: no-repeat;
+background-position: center;
+*/
+}
+
+.djangobb #brdtitle h1 span { font-size: 0; text-indent: -100px;
+position:relative; 
+color:#fff;
+
+background-image : url(../img/logo.gif);
+background-repeat: no-repeat;
+display:block;
+height:65px; 
+padding:0; margin:0;
+}
+
+
+.djangobb #brdtitle p { padding: 6px;}
+
+div.newsfoot {
+padding:1px;
+text-align: right;
+}
+
+/* general color */
+DIV.box,  #adminconsole FIELDSET TH, .rowodd, .roweven {BACKGROUND-COLOR: #DEDFDF}
+#adminconsole TD, #adminconsole TH {BORDER-COLOR:#DEDFDF}
+
+/* 1. 2 Darker background colours */
+
+.djangobb BLOCKQUOTE, DIV.code, DIV.forminfo { BACKGROUND-COLOR: #eee}
+
+TD.tc2, TD.tc3, TD.tcmod, #postpreview, #viewprofile DD, 
+#adminconsole FIELDSET TD, DIV.blockmenu DIV.box, #adstats DD {BACKGROUND-COLOR: #DEDFDF}
+
+
+/* sub title */
+.djangobb TH.tcl ,.djangobb TH.tc2 ,.djangobb TH.tc3 ,.djangobb TH.tc4 ,.djangobb TH.tc5 ,.djangobb TH.tcr ,.djangobb TH.tcmod {
+background-color : #ddd; 
+color: #3A4F6C;
+background-image : url(../img/title_sub.gif);
+} 
+
+/* center color */
+TD.tc2 , TD.tc3 , TD.tc4 , TD.tc5 , TD.tcmod , #postpreview , #viewprofile DD {
+background-color : #f1f1f1; 
+color: #333;
+} 
+
+.djangobb div.infldset TH.tcl , div.infldset TH.tc2 , div.infldset TH.tc3 , div.infldset TH.tcr {
+background-image : url(../img/pix.gif); 
+} 
+.djangobb div.infldset th.hidehead {
+background-image : url(../img/pix.gif); 
+} 
+
+
+/* 1.3 Main headers and navigation bar background and text colour */
+
+/* 1.4 Table header rows */
+
+.djangobb TH {BACKGROUND-COLOR: #BFCCDE}
+
+/* 1.5 Fieldset legend text colour */
+
+.djangobb LEGEND {COLOR: #333}
+
+
+/****************************************************************/
+/* 2. POST BACKGROUNDS AND TEXT */
+/****************************************************************/
+
+/* 2.1 This is the setup for posts. */
+
+DIV.blockpost DIV.box, DIV.postright, DIV.postfootright {BACKGROUND-COLOR: #ECECEC}
+DIV.postright, DIV.postfootright {BORDER-LEFT-COLOR: #DEDFDF}
+DIV.postleft, DIV.postfootleft, DIV.blockpost LABEL {BACKGROUND-COLOR: #DEDFDF}
+	
+}
+
+
+/* 2.3 This is the line above the signature in posts. Colour and background should be the same */
+
+hr {BACKGROUND-COLOR: #333; COLOR: #333; }
+.djangobb hr {BACKGROUND-COLOR: #333; COLOR: #333; }
+
+/****************************************************************/
+/* 3. BORDER COLOURS */
+/****************************************************************/
+
+/* 3.4 Creates the inset border for quote boxes, code boxes and form info boxes */
+
+.djangobb BLOCKQUOTE, DIV.code, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #ACA899 #FFF #FFF #ACA899}
+
+/* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour
+without interferring with IE's rather nice default */
+
+.djangobb DIV>FIELDSET {BORDER-COLOR: #ACA899}
+
+/****************************************************************/
+/* 4. LINK COLOURS */
+/****************************************************************/
+
+/* 4.3 This is for closed topics and "hot" links */
+
+LI.postreport A:link, LI.postreport A:visited, TR.iclosed TD.tcl A:link, TR.iclosed TD.tcl A:visited {COLOR: #444; }
+LI.postreport A:hover, TR.iclosed TD.tcl A:hover {COLOR:  #1064B0; }
+LI.maintenancelink A:link, LI.maintenancelink A:visited {COLOR: #B42000; }
+LI.maintenancelink A:hover {COLOR: #B42000}
+
+/****************************************************************/
+/* 5. POST STATUS INDICATORS */
+/****************************************************************/
+
+/* These are the post status indicators which appear at the left of some tables. 
+.inew = new posts, .iredirect = redirect forums, .iclosed = closed topics and
+.isticky = sticky topics. The default is "icon". By default only .inew is different.*/
+/*
+DIV.icon {BORDER-COLOR: #fafafa #ccc #bbb #ccc}
+TR.iredirect DIV.icon {BORDER-COLOR: #f1f1f1 #f1f1f1 #f1f1f1 #f1f1f1}
+DIV.inew {BORDER-COLOR: #73C800 #51A600 #409500 #51A600}
+*/
+
+TR.iclosed Div.icon {
+background-image : url(../img/f_closed.gif); 
+} 
+Div.icon {
+background-image : url(../img/f_norm.gif); 
+} 
+TR.iredirect Div.icon {
+background-image : url(../img/pix.gif); 
+} 
+TR.inew Div.icon {
+background-image : url(../img/f_new.gif); 
+} 
+TR.isticky DIV.icon {
+background-image : url(../img/f_stiky.gif);
+}
+TR.istickynew DIV.icon {
+background-image : url(../img/f_stikynew.gif);
+}
+TR.imoved DIV.icon {
+background-image : url(../img/f_moved.gif);
+}
+
+/* forum cat */
+.djangobb H2 span {
+background-position : 0% 50%; 
+background-repeat : no-repeat; 
+background-image : url(../img/nav_m.gif); 
+padding : 10px; 
+} 
+.djangobb H2 span.conr {
+background-image : none; 
+color : #fff; 
+padding : 0; 
+}
+
+/* board stats icon */
+#djangobbindex #brdstats div.box div.inbox dl.conl,
+#djangobbforum #brdstats div.box div.inbox dl.conl
+{
+background: transparent url(../img/stats.gif) no-repeat 0% 50%;
+padding-left: 32px;
+}
+
+/* offline */
+.djangobb DIV.postfootleft p {
+/*display: block;
+height : 21px;
+position: relative; 
+margin:0; padding:0;
+margin-left: 3px;
+text-indent: 33px;*/
+} 
+
+/* online */
+.djangobb DIV.postfootleft p strong {
+/*display: block;
+height : 21px;
+position: relative;*/
+} 

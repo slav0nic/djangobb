@@ -14,9 +14,9 @@
 	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_posts_feed %}" title="{% trans "Latest posts on forum" %}" />
 	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_topics_feed %}" title="{% trans "Latest topics on forum" %}" />
 
-	<link rel="shortcut icon" href="{{ MEDIA_URL }}forum/favicon.png" type="image/png" />
+	<link rel="shortcut icon" href="{{ STATIC_URL }}djangobb_forum/favicon.png" type="image/png" />
 	<script type="text/javascript">
-		var MEDIA_URL = "{{ MEDIA_URL }}";
+		var STATIC_URL = "{{ STATIC_URL }}";
 		var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
 	</script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
@@ -34,9 +34,9 @@
 	{% endif %}
 
     <!-- Highlightjs goodies -->
-	<link type="text/css" rel="stylesheet" href="{{ MEDIA_URL }}forum/css/pygments.css" />
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}djangobb_forum/css/pygments.css" />
 	{% if highlight_word %}
-		<script type="text/javascript" src="{{ MEDIA_URL }}forum/js/jquery.highlight-3.pack.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}djangobb_forum/js/jquery.highlight-3.pack.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$("div.postmsg").highlight("{{ highlight_word }}");
