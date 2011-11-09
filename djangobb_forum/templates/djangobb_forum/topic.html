@@ -13,7 +13,7 @@
 		<ul>
 			<li>
 			<a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
-			<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ MEDIA_URL }}forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+			<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 			</li>
 		</ul>
 		<div class="clearer"></div>
@@ -60,7 +60,7 @@
 						{% if forum_settings.REPUTATION_SUPPORT %}
 								<dd><a href="{% url djangobb:reputation post.user.username %}">{% trans "Reputation" %}</a>:
 								{% if request.user != post.user %} {# TODO: and user.is_authenticated #}
-									<a href="{% url djangobb:reputation post.user.username %}?action=plus&amp;post_id={{ post.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_add.gif" alt="+" /></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url djangobb:reputation post.user.username %}?action=minus&amp;post_id={{ post.id }}"><img src="{{ MEDIA_URL }}forum/img/reputation/warn_minus.gif" alt="-" /></a>
+									<a href="{% url djangobb:reputation post.user.username %}?action=plus&amp;post_id={{ post.id }}"><img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_add.gif" alt="+" /></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url djangobb:reputation post.user.username %}?action=minus&amp;post_id={{ post.id }}"><img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_minus.gif" alt="-" /></a>
 								{% else %}
 									<strong>{{ post.user.forum_profile.reply_total }}</strong>
 								{% endif %}
@@ -137,7 +137,7 @@
 		<p class="pagelink conl">{% pagination %}</p>
 		<p class="postlink conr"><a href="{% url djangobb:add_post topic.id %}">{% trans "Reply" %}</a></p>
 				<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }}
-				<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ MEDIA_URL }}/forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+				<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 				</li></ul>
 		{% if user.is_authenticated %}
 			{% if subscribed %}

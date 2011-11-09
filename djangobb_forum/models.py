@@ -48,9 +48,13 @@ try:
 except ImportError:
     pass
 
-path = os.path.join(settings.MEDIA_ROOT, 'forum', 'themes')
-THEME_CHOICES = [(theme, theme) for theme in os.listdir(path) 
-                 if os.path.isdir(os.path.join(path, theme))]
+path = os.path.join(settings.STATIC_ROOT, 'forum', 'themes')
+if os.path.exists(path):
+    # fix for collectstatic
+    THEME_CHOICES = [(theme, theme) for theme in os.listdir(path) 
+                     if os.path.isdir(os.path.join(path, theme))]
+else:
+    THEME_CHOICES = []
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
@@ -251,7 +255,7 @@ class Post(models.Model):
 
     def summary(self):
         LIMIT = 50
-        tail = len(self.body) > LIMIT and '...' or '' 
+        tail = len(self.body) > LIMIT and '...' or ''
         return self.body[:LIMIT] + tail
 
     __unicode__ = summary

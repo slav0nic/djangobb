@@ -1,0 +1,92 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markItUp .markItUpButton1 a {
+	background-image:url(images/bold.png); 
+}
+.markItUp .markItUpButton2 a {
+	background-image:url(images/italic.png);
+}
+.markItUp .markItUpButton3 a {
+	background-image:url(images/picture.png); 
+}
+.markItUp .markItUpButton4 a {
+	background-image:url(images/link.png);
+}
+.markItUp .markItUpButton5 a {
+	background-image:url(images/list-bullet.png);
+}
+.markItUp .markItUpButton6 a {
+	background-image:url(images/list-numeric.png);
+}
+
+.markItUp .markItUpButton7 a {
+	background-image:url(images/quotes.png);
+}
+.markItUp .markItUpButton8 a {
+	background-image:url(images/code.png);
+}
+
+.markItUp .markItUpButton9 a	{
+	background-image:url(../../../../img/smilies/smile.png);
+}
+.markItUp .markItUpButton9-1 a	{
+	background-image:url(../../../../img/smilies/smile.png);
+}
+.markItUp .markItUpButton9-2 a	{
+	background-image:url(../../../../img/smilies/neutral.png);
+}
+.markItUp .markItUpButton9-3 a	{
+	background-image:url(../../../../img/smilies/sad.png);
+}
+.markItUp .markItUpButton9-4 a	{
+	background-image:url(../../../../img/smilies/big_smile.png);
+}
+.markItUp .markItUpButton9-5 a	{
+	background-image:url(../../../../img/smilies/yikes.png);
+}
+.markItUp .markItUpButton9-6 a	{
+	background-image:url(../../../../img/smilies/wink.png);
+}
+.markItUp .markItUpButton9-7 a	{
+	background-image:url(../../../../img/smilies/hmm.png);
+}
+.markItUp .markItUpButton9-8 a	{
+	background-image:url(../../../../img/smilies/tongue.png);
+}
+.markItUp .markItUpButton9-9 a	{
+	background-image:url(../../../../img/smilies/lol.png);
+}
+.markItUp .markItUpButton9-10 a	{
+	background-image:url(../../../../img/smilies/mad.png);
+}
+.markItUp .markItUpButton9-11 a	{
+	background-image:url(../../../../img/smilies/roll.png);
+}
+.markItUp .markItUpButton9-12 a	{
+	background-image:url(../../../../img/smilies/cool.png);
+}
+
+.markItUp .markItUpButton10 a {
+	background-image:url(images/preview.png);
+}
+
+
+.markItUp .markItUpButton11 a {
+	background-image:url(images/picture.png); 
+}
+.markItUp .markItUpButton12 a {
+	background-image:url(images/link.png);
+}
+
+.markItUp .markItUpButton13 a	{
+	background-image:url(images/quotes.png);
+}
+.markItUp .markItUpButton14 a	{
+	background-image:url(images/code.png);
+}
+
+.markItUp .preview a {
+	background-image:url(images/preview.png);
+}

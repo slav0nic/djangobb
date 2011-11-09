@@ -1,0 +1,208 @@
+/*=============================================*/
+/* LO-FI SCREEN CSS FILE                       */
+/* (c) 2004 Invision Power Services, Inc.      */
+/* This CSS by: Matthew Mecham                 */
+/*=============================================*/
+
+BODY
+{ 
+	background-color: #FFF;
+	color: #000;
+	font-family: Verdana, Tahoma, Arial, "Trebuchet MS", Sans-Serif, Georgia, Courier, "Times New Roman", Serif;
+	font-size: 1em;
+	margin: 20px;
+	padding: 0px;
+}
+
+.djangobbnav
+{
+	font-size: 11px;
+	font-weight: bold;
+	border:1px solid gray;
+	padding:10px;
+}
+
+.djangobbpagespan
+{
+	font-size: 11px;
+	font-weight: bold;
+	border:1px solid gray;
+	padding:10px;
+	margin-top: 10px;
+}
+
+.djangobbnavsmall
+{
+	font-size: 10px;
+	font-weight: bold;
+	border:1px dotted lightgray;
+	padding:8px 8px 8px 8px;
+	text-align:center;
+	width:350px;
+	float:right;
+}
+
+#largetext
+{
+	font-size: 1.0em;
+	font-weight: bold;
+	margin-bottom: 10px;
+	padding-top: 3px;
+	width:auto;
+}
+
+#djangobbwrapper
+{
+
+}
+
+#djangobbcopyright
+{
+	margin-top: 10px;
+	font-size: 10px;
+	text-align:center;
+}
+
+#djangobbcontent
+{
+	padding: 10px;
+	margin-top:10px;
+	border:1px solid gray;
+}
+
+
+
+.topicwrap,
+.forumwrap
+{
+	line-height:130%;
+}
+
+.topicwrap ul,
+.forumwrap ul
+{
+	list-style-type: none;
+}
+
+.topicwrap li,
+.forumwrap li
+{
+	font-size: 1em;
+}
+
+.forumwrap strong
+{
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.desc
+{
+	color: gray;
+	font-size: 10px;
+}
+
+.smalltext
+{
+	color: gray;
+	font-size: 10px;
+	text-align:center;
+	padding:10px;
+}
+
+/*---------------------------------------*/
+/* Post view */
+/*---------------------------------------*/
+
+
+.postwrapper
+{
+	border:1px solid #E6E3E4;
+	padding:1px;
+	margin-bottom: 15px;
+}
+
+.posttopbar
+{
+	background-color: #E6E3E4;
+	padding: 6px;
+}
+
+.postname
+{
+	font-weight: bold;
+	font-size: 0.8em;
+	width: auto;
+	float:left;
+}
+
+.postdate
+{
+	width:auto;
+	font-size: 0.8em;
+	color: gray;
+	text-align:right;
+}
+
+.postcontent
+{
+	padding: 6px;
+	font-size: 0.8em;
+}
+
+/*---------------------------------------*/
+/* NEW QUOTE / CODE WRAPPERS             */
+/*---------------------------------------*/
+
+.quotetop
+{
+	color: #000;
+	margin: 8px auto 0px auto;
+	font-weight:bold;
+	font-size:10px;
+	padding: 8px;
+	background-color:#E4EAF2;
+	border-left: 4px solid #8394B2;
+	border-top: 1px dotted #000;
+	border-right: 1px dotted #000;
+}
+.quotemain
+{
+	color: #465584;
+	background-color: #FAFCFE;
+	border-left: 4px solid #8394B2;
+	border-right: 1px dotted #000;
+	/*border-top: 1px dotted #000;*/
+	border-bottom: 1px dotted #000;
+	padding: 4px;
+	margin: 0px auto 8px auto;
+}
+
+.codetop,
+.sqltop,
+.htmltop
+{
+	width:98%;
+	color: #000;
+	margin: 0px auto 0px auto;
+	font-weight:bold;
+	padding: 3px;
+	background-color:#FDDBCC;
+	background-repeat: no-repeat;
+}
+.codemain,
+.sqlmain,
+.htmlmain
+{
+	font-family: Courier, "Courier New", Verdana, Arial;
+	color: #465584;
+	background-color: #FAFCFE;
+	border: 1px dotted #000;
+	padding: 2px;
+	width:98%;
+	margin: 0px auto 0px auto;
+	/*overflow: auto;
+	height: 200px;*/
+}
+
+

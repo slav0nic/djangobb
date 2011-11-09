@@ -1,0 +1,149 @@
+/****************************************************************/
+/* 1. BACKGROUND AND TEXT COLOURS */
+/****************************************************************/
+
+/* 1.1 Default background colour and text colour */
+
+body{text-align:center;background : url(../img/back.gif);}
+/* �������� ����� */
+.djangobb {COLOR: #333}
+
+
+DIV.box, #adminconsole FIELDSET TH, .rowodd, .roweven {BACKGROUND-COLOR: #f8f8f8}
+.djangobb BLOCKQUOTE, DIV.code {BACKGROUND-COLOR: #f1f1f1}
+#adminconsole TD, #adminconsole TH {BORDER-COLOR: #eeeeee} /*<<<<<<<<<<<neizvestno*/
+
+/* 1. 2 Darker background colours */
+
+TD.tc2, TD.tc3, TD.tcmod, #postpreview, #viewprofile DD, DIV.forminfo,
+#adminconsole FIELDSET TD, DIV.blockmenu DIV.box, #adstats DD {BACKGROUND-COLOR: #f5f5f5}
+
+TH.tc3 {width: 70px}
+
+/* 1.3 Main headers and navigation bar background and text colour */
+
+.djangobb H2, #brdmenu {BACKGROUND: url(../img/fon111.gif); COLOR: #FFF; font-weight: bold; height: 16px;}
+.djangobb H2 {font-weight: bold;BACKGROUND: #092E20 url(../img/fon111.gif);border-top: 1px solid #092E20;border-left: 1px solid #092E20;border-right: 1px solid #092E20; height: 16px;}
+
+/* 1.4 Table header rows */
+
+.djangobb TH {BACKGROUND-COLOR: #eeeeee;}
+
+/* 1.5 Fieldset legend text colour */
+
+.djangobb LEGEND {COLOR: #5A799D}
+
+/* 1.6 Highlighted text for various items */
+
+.djangobb DIV.blockmenu LI.isactive A, #posterror LI STRONG {COLOR: #7897BB}
+
+/****************************************************************/
+/* 2. POST BACKGROUNDS AND TEXT */
+/****************************************************************/
+
+/* 2.1 This is the setup for posts. */
+
+DIV.blockpost DIV.box, DIV.postright, DIV.postfootright {BACKGROUND-COLOR: #f8f8f8}
+DIV.postright, DIV.postfootright {BORDER-LEFT-COLOR: #f1f1f1}
+DIV.postleft, DIV.postfootleft, DIV.blockpost LABEL {BACKGROUND-COLOR: #f1f1f1}
+
+/* 2.2 Background for post headers and text colour for post numbers in viewtopic */
+
+DIV.blockpost H2 {BACKGROUND-COLOR: #7897bb}
+DIV.blockpost H2 SPAN.conr {COLOR: #CCC}
+
+/* 2.3 This is the line above the signature in posts. Colour and background should be the same */
+
+.djangobb HR {BACKGROUND-COLOR: #35567C; COLOR: #35567C}
+
+/****************************************************************/
+/* 3. BORDER COLOURS */
+/****************************************************************/
+
+/* 3.1 All external borders */
+
+DIV.box {BORDER-COLOR: #092E20}
+
+/* 3.2 Makes the top border of posts match the colour used for post headers */
+
+/*DIV.blockpost DIV.box {BORDER-COLOR: #686E80 #686E80 #686E80}*/
+DIV.blockpost DIV.box {BORDER: 1px solid  #7897BB;BORDER-TOP: 1px solid #7897BB;}
+
+/* 3.3 Table internal borders. By default TH is same as background so border is invisible */
+
+.djangobb TD {BORDER-COLOR: #d6e1f1}
+.djangobb TH {BORDER-COLOR: #d6e1f1}
+
+/* 3.4 Creates the inset border for quote boxes, code boxes and form info boxes */
+
+.djangobb BLOCKQUOTE, DIV.code, DIV.forminfo, DIV.blockpost LABEL {BORDER-COLOR: #7897BB #7897BB #7897BB #7897BB}
+
+/* 3.5 Gecko's default fieldset borders are really nasty so this gives them a colour
+without interferring with IE's rather nice default */
+
+.djangobb DIV>FIELDSET {BORDER-COLOR: #7897BB} /*>>> neizvestno shto*/
+
+/****************************************************************/
+/* 4. LINK COLOURS */
+/****************************************************************/
+
+/* 4.1 This is the default for all links */
+
+.djangobb A:link, .djangobb A:visited {COLOR: #092E20;}
+.djangobb A:hover {COLOR: #B42000; }
+
+/* 4.2 This is the colour for links in header rows and the navigation bar */
+
+.djangobb H2 A:link, .djangobb H2 A:visited, #brdmenu A:link, #brdmenu A:visited {COLOR: #FFF;text-decoration : underline; }
+.djangobb H2 A:hover, #brdmenu A:hover {COLOR: #35567C;}
+
+/* 4.3 This is for closed topics and "hot" links */
+
+LI.postreport A:link, LI.postreport A:visited, TR.iclosed TD.tcl A:link, TR.iclosed TD.tcl A:visited {COLOR: #888}
+LI.postreport A:hover, TR.iclosed TD.tcl A:hover {COLOR: #AAA}
+LI.maintenancelink A:link, LI.maintenancelink A:visited {COLOR: #B42000}
+LI.maintenancelink A:hover {COLOR: #B42000}
+
+/****************************************************************/
+/* 5. POST STATUS INDICATORS */
+/****************************************************************/
+
+/* These are the post status indicators which appear at the left of some tables. 
+.inew = new posts, .iredirect = redirect forums, .iclosed = closed topics and
+.isticky = sticky topics. The default is "icon". By default only .inew is different.*/
+
+DIV.icon {background:url(../img/inactive_topic.gif)}
+DIV.inew {background:url(../img/active_topic.gif)}
+TR.inew DIV.icon {background:url(../img/active_topic.gif)} 
+TR.isticky DIV.inew {background:url(../img/active_topic.gif)}
+TR.iclosed DIV.icon {background:url(../img/closed.png)}
+DIV.iredirect {background:url(../img/link.png)}
+/****************************************************************/
+/* 6. EXTRAS */
+/****************************************************************/
+#brdmenu {BACKGROUND: url(../img/fon111.gif); border-top: 1px solid #092E20;border-bottom: 1px solid #092E20; BACKGROUND-COLOR: #092E20;}
+/* header logo */
+ 
+.djangobb H1 span
+{
+color: #3A3B3C;
+font-size: 16px; /*bylo 12*/
+font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
+.djangobb h2 span {
+background:transparent url(../img/category.gif) no-repeat scroll left center;
+}
+
+.djangobb h2 span.conr {
+background-image:none;
+}
+
+/* board stats icon */
+#djangobbindex #brdstats div.box div.inbox dl.conl,
+#djangobbforum #brdstats div.box div.inbox dl.conl
+{
+background: transparent url(../img/stats.gif) no-repeat 0% 50%;
+padding-left: 38px;
+}
+
