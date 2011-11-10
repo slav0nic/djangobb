@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase, RequestFactory
+from django.conf import settings
 
 from djangobb_forum.models import Post
 from djangobb_forum.util import urlize, smiles, convert_text_to_html, paginate
@@ -18,8 +19,8 @@ class TestParsers(TestCase):
 
     def test_smiles(self):
         smiled_data = smiles(self.data_smiles)
-        self.assertEqual(smiled_data, u"Lorem ipsum dolor <img src=\"/static/forum/img/smilies/neutral.png\" /> sit amet <img src=\"/static/forum/img/smilies/smile.png\" /> <a href=\"http://djangobb.org/\">http://djangobb.org/</a>")
-    
+        self.assertEqual(smiled_data, u"Lorem ipsum dolor <img src=\"{0}djangobb_forum/img/smilies/neutral.png\" /> sit amet <img src=\"{0}djangobb_forum/img/smilies/smile.png\" /> <a href=\"http://djangobb.org/\">http://djangobb.org/</a>".format(settings.STATIC_URL))
+
     def test_convert_text_to_html(self):
         bb_data = convert_text_to_html(self.bbcode, 'bbcode')
         self.assertEqual(bb_data, "<strong>Lorem</strong> <div class=\"code\"><pre>ipsum :)</pre></div>=)")
