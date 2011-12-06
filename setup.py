@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from setuptools import setup
+from setuptools import setup, find_packages
 from djangobb_forum import get_version
-
 
 setup(name='djangobb_forum',
     version=get_version(),
@@ -10,28 +9,16 @@ setup(name='djangobb_forum',
     url='http://djangobb.org/',
     author='Alexey Afinogenov, Maranchuk Sergey',
     author_email='Maranchuk Sergey <slav0nic0@gmail.com>',
-    package_dir = {'djangobb_forum': 'djangobb_forum'},
-    packages=['djangobb_forum'],
-    package_data = {
-        'djangobb_forum': [
-            'locale/*/LC_MESSAGES/*',
-            'fixtures/*',
-            'management/*/*.py',
-            'markups/*',
-            'migrations/*',
-            'templates/djangobb_forum/*.html',
-            'templates/djangobb_forum/*/*.html',
-            'templates/search/indexes/djangobb_forum/*.txt',
-            'templatetags/*',
-            'tests/*',
-        ]
-    },    
-    install_requires=['django>=1.2',
-              'pil>=1.1.7',
-              'django-messages==0.4.4',
-              'django-haystack',
-              'south',
-              'postmarkup'
-              ],
+    packages=find_packages(),
+    include_package_data=True,
+    install_requires=[
+            'django>=1.2',
+            'pil>=1.1.7',
+            'django-messages==0.4.4',
+            'django-haystack',
+            'south',
+            'postmarkup',
+            'setuptools'
+            ],
     keywords="django forum bb",
 )
