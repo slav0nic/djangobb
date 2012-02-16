@@ -101,8 +101,8 @@
 								<dd>{% trans "(No avatar)" %}</dd>
 							{% endif %}
 							<dt>{% trans "Signature:" %} </dt>
-							{% if profile.forum_profile.signature %}
-								<dd>{{ profile.forum_profile.signature|safe }}</dd>
+							{% if profile.forum_profile.signature_html %}
+								<dd>{{ profile.forum_profile.signature_html|safe }}</dd>
 							{% else %}
 								<dd>{% trans "(Unknown)" %}</dd>
 							{% endif %}

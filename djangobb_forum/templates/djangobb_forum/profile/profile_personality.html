@@ -43,8 +43,8 @@
 								{{ form.signature }}
 								<br></label>
 							</div>
-							{% if profile.forum_profile.signature %}
-								<p>{{ profile.forum_profile.signature|safe }}</p>
+							{% if profile.forum_profile.signature_html %}
+								<p>{{ profile.forum_profile.signature_html|safe }}</p>
 							{% else %}
 								<p>{% trans "No signature currently stored in profile." %}</p>
 							{% endif %}

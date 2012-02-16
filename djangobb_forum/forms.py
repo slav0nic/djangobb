@@ -230,7 +230,7 @@ class PersonalityProfileForm(forms.ModelForm):
 
     def save(self, commit=True):
         profile = super(PersonalityProfileForm, self).save(commit=False)
-        profile.signature = convert_text_to_html(profile.signature, self.markup)
+        profile.signature_html = convert_text_to_html(profile.signature, self.markup)
         if commit:
             profile.save()
         return profile
