@@ -146,7 +146,7 @@ def has_unreads(topic, user):
             return False
     else:
         if isinstance(user.posttracking.topics, dict):
-            if topic.last_post.id > user.posttracking.topics.get(str(topic.id), 0):
+            if topic.last_post_id > user.posttracking.topics.get(str(topic.id), 0):
                 return True
             else:
                 return False
