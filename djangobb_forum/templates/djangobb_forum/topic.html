@@ -86,10 +86,10 @@
 				<div class="postmsg">
 					{{ post.body_html|safe }}
 					{% if not user.is_authenticated or user.forum_profile.show_signatures %}
-						{% if post.user.forum_profile.signature %}
+						{% if post.user.forum_profile.signature_html %}
 						<div class="postsignature">
 							<br /><br/ >
-							{{ post.user.forum_profile.signature|safe }}
+							{{ post.user.forum_profile.signature_html|safe }}
 						</div>
 						{% endif %}
 					{% endif %}
