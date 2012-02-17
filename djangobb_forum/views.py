@@ -1,7 +1,7 @@
 import math
 from datetime import datetime, timedelta 
 
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,7 @@ from django.utils.encoding import smart_str
 from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
 
-from djangobb_forum.util import render_to, paged, build_form, paginate, set_language
+from djangobb_forum.util import paged, build_form, paginate, set_language
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
     Attachment, PostTracking
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
@@ -28,7 +28,6 @@ from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from haystack.query import SearchQuerySet, SQ
 
 
-@render_to('djangobb_forum/index.html')
 def index(request, full=True):
     users_cached = cache.get('users_online', {})
     users_online = users_cached and User.objects.filter(id__in = users_cached.keys()) or []
@@ -65,14 +64,12 @@ def index(request, full=True):
                 'last_user': User.objects.latest('date_joined'),
                 }
     if full:
-        return to_return
+        return render(request, 'djangobb_forum/index.html', to_return)
     else:
-        to_return['TEMPLATE'] = 'djangobb_forum/lofi/index.html'
-        return to_return
+        return render(request, 'djangobb_forum/lofi/index.html', to_return)
 
 
 @transaction.commit_on_success
-@render_to('djangobb_forum/moderate.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def moderate(request, forum_id):
     forum = get_object_or_404(Forum, pk=forum_id)
@@ -80,12 +77,11 @@ def moderate(request, forum_id):
     if request.user.is_superuser or request.user in forum.moderators.all():
         topic_ids = request.POST.getlist('topic_id')
         if 'move_topics' in request.POST:
-            return {
+            return render(request,  'djangobb_forum/move_topic.html', {
                 'categories': Category.objects.all(),
                 'topic_ids': topic_ids,
                 'exclude_forum': forum,
-                'TEMPLATE': 'djangobb_forum/move_topic.html'
-            }
+            })
         elif 'delete_topics' in request.POST:
             for topic_id in topic_ids:
                 topic = get_object_or_404(Topic, pk=topic_id)
@@ -100,17 +96,16 @@ def moderate(request, forum_id):
                 open_close_topic(request, topic_id, 'c')
             return HttpResponseRedirect(reverse('djangobb:index'))
 
-        return {'forum': forum,
+        return render(request, 'djangobb_forum/moderate.html', {'forum': forum,
                 'topics': topics,
                 #'sticky_topics': forum.topics.filter(sticky=True),
                 'paged_qs': topics,
                 'posts': forum.posts.count(),
-                }
+                })
     else:
         raise Http404
 
 
-@render_to('djangobb_forum/search_topics.html')
 @paged('results', forum_settings.SEARCH_PAGE_SIZE)
 def search(request):
     # TODO: move to form
@@ -188,22 +183,18 @@ def search(request):
 
                 if topics_to_exclude:
                     posts = posts.exclude(topics_to_exclude)
-                return {'paged_qs': topics}
+                return render(request, 'djangobb_forum/search_topics.html', {'paged_qs': topics})
             elif 'posts' in request.GET['show_as']:
-                return {'paged_qs': posts,
-                        'TEMPLATE': 'djangobb_forum/search_posts.html'
-                        }
-        return {'paged_qs': topics}
+                return render(request, 'djangobb_forum/search_posts.html', {'paged_qs': topics})
+        return render(request, 'djangobb_forum/search_topics.html', {'paged_qs': topics})
     else:
         form = PostSearchForm()
-        return {'categories': Category.objects.all(),
+        return render(request, 'djangobb_forum/search_form.html', {'categories': Category.objects.all(),
                 'form': form,
-                'TEMPLATE': 'djangobb_forum/search_form.html'
-                }
+                })
 
 
 @login_required
-@render_to('djangobb_forum/report.html')
 def misc(request):
     if 'action' in request.GET:
         action = request.GET['action']
@@ -220,7 +211,7 @@ def misc(request):
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(post.get_absolute_url())
-                return {'form':form}
+                return (request, 'djangobb_forum/report.html', {'form':form})
 
     elif 'submit' in request.POST and 'mail_to' in request.GET:
         form = MailToForm(request.POST)
@@ -236,13 +227,11 @@ def misc(request):
     elif 'mail_to' in request.GET:
         mailto = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
-        return {'form':form,
+        return (request, 'djangobb_forum/mail_to.html', {'form':form,
                 'mailto': mailto,
-               'TEMPLATE': 'djangobb_forum/mail_to.html'
-               }
+               })
 
 
-@render_to('djangobb_forum/forum.html')
 @paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def show_forum(request, forum_id, full=True):
     forum = get_object_or_404(Forum, pk=forum_id)
@@ -259,20 +248,18 @@ def show_forum(request, forum_id, full=True):
                 'moderator': moderator,
                 }
     if full:
-        return to_return
+        return render(request, 'djangobb_forum/forum.html', to_return)
     else:
         pages, paginator, paged_list_name = paginate(topics, request, forum_settings.FORUM_PAGE_SIZE)
         to_return.update({'pages': pages,
                         'paginator': paginator,
                         'topics': paged_list_name,
-                        'TEMPLATE': 'djangobb_forum/lofi/forum.html'
                         })
         del to_return['paged_qs']
-        return to_return
+        return render(request, 'djangobb_forum/lofi/forum.html', to_return)
 
 
 @transaction.commit_on_success
-@render_to('djangobb_forum/topic.html')
 def show_topic(request, topic_id, full=True):
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
@@ -326,7 +313,7 @@ def show_topic(request, topic_id, full=True):
 
     highlight_word = request.GET.get('hl', '')
     if full:
-        return {'categories': Category.objects.all(),
+        return render(request, 'djangobb_forum/topic.html', {'categories': Category.objects.all(),
                 'topic': topic,
                 'last_post': last_post,
                 'form': form,
@@ -340,20 +327,18 @@ def show_topic(request, topic_id, full=True):
                 'pages': paginator.num_pages,
                 'results_per_page': paginator.per_page,
                 'is_paginated': page_obj.has_other_pages(),
-                }
+                })
     else:
-        return {'categories': Category.objects.all(),
+        return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
                 'topic': topic,
                 'pages': paginator.num_pages,
                 'paginator': paginator,
                 'posts': posts,
-                'TEMPLATE': 'djangobb_forum/lofi/topic.html'
-                }
+                })
 
 
 @login_required
 @transaction.commit_on_success
-@render_to('djangobb_forum/add_post.html')
 def add_post(request, forum_id, topic_id):
     forum = None
     topic = None
@@ -385,15 +370,14 @@ def add_post(request, forum_id, topic_id):
         post = form.save();
         return HttpResponseRedirect(post.get_absolute_url())
 
-    return {'form': form,
+    return render(request, 'djangobb_forum/add_post.html', {'form': form,
             'posts': posts,
             'topic': topic,
             'forum': forum,
-            }
+            })
 
 
 @transaction.commit_on_success
-@render_to('djangobb_forum/user.html')
 def user(request, username):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
@@ -405,51 +389,46 @@ def user(request, username):
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(profile_url)
-                return {'active_menu':'privacy',
+                return render(request, 'djangobb_forum/profile/profile_privacy.html', {'active_menu':'privacy',
                         'profile': user,
                         'form': form,
-                        'TEMPLATE': 'djangobb_forum/profile/profile_privacy.html'
-                       }
+                       })
             elif section == 'display':
                 form = build_form(DisplayProfileForm, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(profile_url)
-                return {'active_menu':'display',
+                return render(request, 'djangobb_forum/profile/profile_display.html', {'active_menu':'display',
                         'profile': user,
                         'form': form,
-                        'TEMPLATE': 'djangobb_forum/profile/profile_display.html'
-                       }
+                       })
             elif section == 'personality':
                 form = build_form(PersonalityProfileForm, request, markup=user.forum_profile.markup, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(profile_url)
-                return {'active_menu':'personality',
+                return render(request, 'djangobb_forum/profile/profile_personality.html', {'active_menu':'personality',
                         'profile': user,
                         'form': form,
-                        'TEMPLATE': 'djangobb_forum/profile/profile_personality.html'
-                        }
+                        })
             elif section == 'messaging':
                 form = build_form(MessagingProfileForm, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(profile_url)
-                return {'active_menu':'messaging',
+                return render(request, 'djangobb_forum/profile/profile_messaging.html', {'active_menu':'messaging',
                         'profile': user,
                         'form': form,
-                        'TEMPLATE': 'djangobb_forum/profile/profile_messaging.html'
-                       }
+                       })
             elif section == 'personal':
                 form = build_form(PersonalProfileForm, request, instance=user.forum_profile, user=user)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(profile_url)
-                return {'active_menu':'personal',
+                return render(request, 'djangobb_forum/profile/profile_personal.html', {'active_menu':'personal',
                         'profile': user,
                         'form': form,
-                        'TEMPLATE': 'djangobb_forum/profile/profile_personal.html'
-                       }
+                       })
             elif section == 'essentials':
                 form = build_form(EssentialsProfileForm, request, instance=user.forum_profile,
                                   user_view=user, user_request=request.user)
@@ -458,11 +437,10 @@ def user(request, username):
                     set_language(request, profile.language)
                     return HttpResponseRedirect(profile_url)
 
-                return {'active_menu':'essentials',
+                return render(request, 'djangobb_forum/profile/profile_essentials.html', {'active_menu':'essentials',
                         'profile': user,
                         'form': form,
-                        'TEMPLATE': 'djangobb_forum/profile/profile_essentials.html'
-                        }
+                        })
 
         elif 'action' in request.GET:
             action = request.GET['action']
@@ -471,11 +449,10 @@ def user(request, username):
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-                return {'form': form,
+                return render(request, 'djangobb_forum/upload_avatar.html', {'form': form,
                         'avatar_width': forum_settings.AVATAR_WIDTH,
                         'avatar_height': forum_settings.AVATAR_HEIGHT,
-                        'TEMPLATE': 'djangobb_forum/upload_avatar.html'
-                       }
+                       })
             elif action == 'delete_avatar':
                 profile = get_object_or_404(Profile, user=request.user)
                 profile.avatar = None
@@ -489,24 +466,22 @@ def user(request, username):
                 profile = form.save()
                 set_language(request, profile.language)
                 return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-            return {'active_menu':'essentials',
+            return render(request, 'djangobb_forum/profile/profile_essentials.html', {'active_menu':'essentials',
                     'profile': user,
                     'form': form,
-                    'TEMPLATE': 'djangobb_forum/profile/profile_essentials.html'
-                   }
+                   })
         raise Http404
     else:
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
-        return {'profile': user,
+        return render(request, 'djangobb_forum/user.html', {'profile': user,
                 'topic_count': topic_count,
-               }
+               })
 
 
 @login_required
 @transaction.commit_on_success
-@render_to('djangobb_forum/reputation.html')
 def reputation(request, username):
     user = get_object_or_404(User, username=username)
     form = build_form(ReputationForm, request, from_user=request.user, to_user=user)
@@ -522,9 +497,7 @@ def reputation(request, username):
                 form.fields['sign'].initial = 1
             elif request.GET['action'] == 'minus':
                 form.fields['sign'].initial = -1
-            return {'form': form,
-                    'TEMPLATE': 'djangobb_forum/reputation_form.html'
-                    }
+            return render(request, 'djangobb_forum/reputation_form.html', {'form': form})
         else:
             raise Http404
 
@@ -541,14 +514,12 @@ def reputation(request, username):
             post = get_object_or_404(Post, id=post_id)
             return HttpResponseRedirect(post.get_absolute_url())
         else:
-            return {'form': form,
-                    'TEMPLATE': 'djangobb_forum/reputation_form.html'
-                    }
+            return render(request, 'djangobb_forum/reputation_form.html', {'form': form})
     else:
         reputations = Reputation.objects.filter(to_user__id=user.id).order_by('-time').select_related()
-        return {'reputations': reputations,
+        return render(request, 'djangobb_forum/reputation.html', {'reputations': reputations,
                 'profile': user.forum_profile,
-               }
+               })
 
 
 def show_post(request, post_id):
@@ -561,7 +532,6 @@ def show_post(request, post_id):
 
 @login_required
 @transaction.commit_on_success
-@render_to('djangobb_forum/edit_post.html')
 def edit_post(request, post_id):
     from djangobb_forum.templatetags.forum_extras import forum_editable_by
 
@@ -576,14 +546,13 @@ def edit_post(request, post_id):
         post.save()
         return HttpResponseRedirect(post.get_absolute_url())
 
-    return {'form': form,
+    return render(request, 'djangobb_forum/edit_post.html', {'form': form,
             'post': post,
-            }
+            })
 
 
 @login_required
 @transaction.commit_on_success
-@render_to('djangobb_forum/delete_posts.html')
 @paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def delete_posts(request, topic_id):
 
@@ -623,19 +592,18 @@ def delete_posts(request, topic_id):
         subscribed = True
     else:
         subscribed = False
-    return {
+    return render(request, 'djangobb_forum/delete_posts.html', {
             'topic': topic,
             'last_post': last_post,
             'form': form,
             'moderator': moderator,
             'subscribed': subscribed,
             'paged_qs': posts,
-            }
+            })
 
 
 @login_required
 @transaction.commit_on_success
-@render_to('djangobb_forum/move_topic.html')
 def move_topic(request):
     if 'topic_id' in request.GET:
         #if move only 1 topic
@@ -666,10 +634,10 @@ def move_topic(request):
         from_forum.save()
         return HttpResponseRedirect(to_forum.get_absolute_url())
 
-    return {'categories': Category.objects.all(),
+    return render(request, 'djangobb_forum/move_topic.html', {'categories': Category.objects.all(),
             'topic_ids': topic_ids,
             'exclude_forum': from_forum,
-            }
+            })
 
 
 @login_required
@@ -688,7 +656,6 @@ def stick_unstick_topic(request, topic_id, action):
 
 @login_required
 @transaction.commit_on_success
-@render_to('djangobb_forum/delete_post.html')
 def delete_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     last_post = post.topic.last_post
@@ -729,15 +696,14 @@ def open_close_topic(request, topic_id, action):
     return HttpResponseRedirect(topic.get_absolute_url())
 
 
-@render_to('djangobb_forum/users.html')
 @paged('users', forum_settings.USERS_PAGE_SIZE)
 def users(request):
     users = User.objects.filter(forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('username')
     form = UserSearchForm(request.GET)
     users = form.filter(users)
-    return {'paged_qs': users,
+    return render(request, 'djangobb_forum/users.html', {'paged_qs': users,
             'form': form,
-            }
+            })
 
 
 @login_required
@@ -770,7 +736,6 @@ def show_attachment(request, hash):
 
 @login_required
 @csrf_exempt
-@render_to('djangobb_forum/post_preview.html')
 def post_preview(request):
     '''Preview for markitup'''
     markup = request.user.forum_profile.markup
@@ -779,4 +744,4 @@ def post_preview(request):
     data = convert_text_to_html(data, markup)
     if forum_settings.SMILES_SUPPORT:
         data = smiles(data)
-    return {'data': data}
+    return render(request, 'djangobb_forum/post_preview.html', {'data': data})
