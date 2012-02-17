@@ -13,7 +13,7 @@ from django.utils.encoding import smart_str
 from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
 
-from djangobb_forum.util import paged, build_form, paginate, set_language
+from djangobb_forum.util import build_form, paginate, set_language
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
     Attachment, PostTracking
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
@@ -70,7 +70,6 @@ def index(request, full=True):
 
 
 @transaction.commit_on_success
-@paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def moderate(request, forum_id):
     forum = get_object_or_404(Forum, pk=forum_id)
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
@@ -99,14 +98,12 @@ def moderate(request, forum_id):
         return render(request, 'djangobb_forum/moderate.html', {'forum': forum,
                 'topics': topics,
                 #'sticky_topics': forum.topics.filter(sticky=True),
-                'paged_qs': topics,
                 'posts': forum.posts.count(),
                 })
     else:
         raise Http404
 
 
-@paged('results', forum_settings.SEARCH_PAGE_SIZE)
 def search(request):
     # TODO: move to form
     if 'action' in request.GET:
@@ -183,10 +180,10 @@ def search(request):
 
                 if topics_to_exclude:
                     posts = posts.exclude(topics_to_exclude)
-                return render(request, 'djangobb_forum/search_topics.html', {'paged_qs': topics})
+                return render(request, 'djangobb_forum/search_topics.html', {'results': topics})
             elif 'posts' in request.GET['show_as']:
-                return render(request, 'djangobb_forum/search_posts.html', {'paged_qs': topics})
-        return render(request, 'djangobb_forum/search_topics.html', {'paged_qs': topics})
+                return render(request, 'djangobb_forum/search_posts.html', {'results': topics})
+        return render(request, 'djangobb_forum/search_topics.html', {'results': topics})
     else:
         form = PostSearchForm()
         return render(request, 'djangobb_forum/search_form.html', {'categories': Category.objects.all(),
@@ -232,7 +229,6 @@ def misc(request):
                })
 
 
-@paged('topics', forum_settings.FORUM_PAGE_SIZE)
 def show_forum(request, forum_id, full=True):
     forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
@@ -242,20 +238,13 @@ def show_forum(request, forum_id, full=True):
         request.user in forum.moderators.all()
     to_return = {'categories': Category.objects.all(),
                 'forum': forum,
-                'paged_qs': topics,
                 'posts': forum.post_count,
-                'topics': forum.topic_count,
+                'topics': topics,
                 'moderator': moderator,
                 }
     if full:
         return render(request, 'djangobb_forum/forum.html', to_return)
     else:
-        pages, paginator, paged_list_name = paginate(topics, request, forum_settings.FORUM_PAGE_SIZE)
-        to_return.update({'pages': pages,
-                        'paginator': paginator,
-                        'topics': paged_list_name,
-                        })
-        del to_return['paged_qs']
         return render(request, 'djangobb_forum/lofi/forum.html', to_return)
 
 
@@ -553,7 +542,6 @@ def edit_post(request, post_id):
 
 @login_required
 @transaction.commit_on_success
-@paged('posts', forum_settings.TOPIC_PAGE_SIZE)
 def delete_posts(request, topic_id):
 
     topic = Topic.objects.select_related().get(pk=topic_id)
@@ -598,7 +586,7 @@ def delete_posts(request, topic_id):
             'form': form,
             'moderator': moderator,
             'subscribed': subscribed,
-            'paged_qs': posts,
+            'posts': posts,
             })
 
 
@@ -696,12 +684,11 @@ def open_close_topic(request, topic_id, action):
     return HttpResponseRedirect(topic.get_absolute_url())
 
 
-@paged('users', forum_settings.USERS_PAGE_SIZE)
 def users(request):
     users = User.objects.filter(forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('username')
     form = UserSearchForm(request.GET)
     users = form.filter(users)
-    return render(request, 'djangobb_forum/users.html', {'paged_qs': users,
+    return render(request, 'djangobb_forum/users.html', {'users': users,
             'form': form,
             })
 
