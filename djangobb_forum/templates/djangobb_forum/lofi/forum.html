@@ -1,4 +1,5 @@
 {% extends 'djangobb_forum/lofi/base.html' %}
+{% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
 
@@ -8,8 +9,9 @@
 	<a href="{% url djangobb:lofi_index %}">{% trans "Root" %}</a> &raquo; {% lofi_link forum %}
 </div>
 
+{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
 <div class="djangobbpagespan">
-	{% lofi_pagination %}
+	{% paginate %}
 </div>
 
   <div id="djangobbcontent">

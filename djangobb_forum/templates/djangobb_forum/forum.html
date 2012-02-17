@@ -1,12 +1,14 @@
 {% extends 'djangobb_forum/base.html' %}
 {% load forum_extras %}
+{% load pagination_tags %}
 {% load i18n %}
 
 {% block title %} / {{ forum.name }}{% endblock %}
 {% block content %}
+{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
-		<p class="pagelink conl">{% pagination %}</p>
+		<p class="pagelink conl">{% paginate %}</p>
 		{% if user.is_authenticated %}
 			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
@@ -64,7 +66,7 @@
 </div>
 <div class="linkst">
 	<div class="inbox">
-		<p class="pagelink conl">{% pagination %}</p>
+		<p class="pagelink conl">{% paginate %}</p>
 		{% if user.is_authenticated %}
 			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
