@@ -208,7 +208,7 @@ def misc(request):
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(post.get_absolute_url())
-                return (request, 'djangobb_forum/report.html', {'form':form})
+                return render(request, 'djangobb_forum/report.html', {'form':form})
 
     elif 'submit' in request.POST and 'mail_to' in request.GET:
         form = MailToForm(request.POST)
@@ -259,27 +259,10 @@ def show_topic(request, topic_id, full=True):
 
     if request.user.is_authenticated():
         topic.update_read(request.user)
-    #@paged can't be used in this view. (ticket #180)
-    #TODO: must be refactored (ticket #39)
-    from django.core.paginator import Paginator, EmptyPage, InvalidPage
-    try:
-        page = int(request.GET.get('page', 1))
-    except ValueError:
-        page = 1
-    paginator = Paginator(topic.posts.all().select_related(), forum_settings.TOPIC_PAGE_SIZE)
-    try:
-        page_obj = paginator.page(page)
-    except (InvalidPage, EmptyPage):
-        raise Http404
-    posts = page_obj.object_list
-    users = set(post.user.id for post in posts)
-    profiles = Profile.objects.filter(user__pk__in=users)
-    profiles = dict((profile.user_id, profile) for profile in profiles)
-
-    for post in posts:
-        post.user.forum_profile = profiles[post.user.id]
-
-    if forum_settings.REPUTATION_SUPPORT:
+    posts = topic.posts.all().select_related()
+    #TODO rewrite
+    fixed = False
+    if fixed and forum_settings.REPUTATION_SUPPORT:
         replies_list = Reputation.objects.filter(to_user__pk__in=users).values('to_user_id').annotate(Sum('sign'))
         replies = {}
         for r in replies_list:
@@ -310,12 +293,6 @@ def show_topic(request, topic_id, full=True):
                 'subscribed': subscribed,
                 'posts': posts,
                 'highlight_word': highlight_word,
-                
-                'page': page,
-                'page_obj': page_obj,
-                'pages': paginator.num_pages,
-                'results_per_page': paginator.per_page,
-                'is_paginated': page_obj.has_other_pages(),
                 })
     else:
         return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
