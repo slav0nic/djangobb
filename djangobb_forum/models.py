@@ -65,6 +65,13 @@ class Category(models.Model):
         ordering = ['position']
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
+        permissions = (
+            ('add_category', 'can add new categories'),
+            ('del_category', 'can delete categories'),
+            ('edit_category', 'can edit categories'),
+            ('view_category', 'can see available categories'),
+            ('moderate_category', 'can moderate category'),
+        )
 
     def __unicode__(self):
         return self.name
@@ -105,6 +112,13 @@ class Forum(models.Model):
         ordering = ['position']
         verbose_name = _('Forum')
         verbose_name_plural = _('Forums')
+        permissions = (
+            ('add_forum', 'can add new forums'),
+            ('del_forum', 'can delete forums'),
+            ('edit_forum', 'can edit forums'),
+            ('view_forum', 'can see available forums'),
+            ('moderate_forum', 'can moderate forums'),
+        )
 
     def __unicode__(self):
         return self.name
@@ -136,6 +150,16 @@ class Topic(models.Model):
         get_latest_by = 'updated'
         verbose_name = _('Topic')
         verbose_name_plural = _('Topics')
+        permissions = (
+            ('add_topic', 'can add new topics'),
+            ('del_topic', 'can delete topics'),
+            ('edit_topic', 'can edit topics'),
+            ('move_topic', 'can move topics'),
+            ('close_topic', 'can close topics'),
+            ('sticky_topic', 'can sticky topics'),
+            ('view_topic', 'can see available topics'),
+            ('moderate_topic', 'can moderate topics'),
+        )
 
     def __unicode__(self):
         return self.name
@@ -211,6 +235,12 @@ class Post(models.Model):
         get_latest_by = 'created'
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
+        permissions = (
+            ('add_post', 'can add new posts'),
+            ('del_post', 'can remove posts'),
+            ('edit_post', 'can edit posts'),
+            ('view_post', 'can see available posts'),
+        )
 
     def save(self, *args, **kwargs):
         self.body_html = convert_text_to_html(self.body, self.markup) 
@@ -273,6 +303,12 @@ class Reputation(models.Model):
         verbose_name = _('Reputation')
         verbose_name_plural = _('Reputations')
         unique_together = (('from_user', 'post'),)
+        permissions = (
+            ('add_vote', 'can vote'),
+            ('del_vote', 'can remove votes'),
+            ('edit_vote', 'can edit votes'),
+            ('view_vote', 'can see available votes'),
+        )
 
     def __unicode__(self):
         return u'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(self.time))
@@ -304,6 +340,12 @@ class Profile(models.Model):
     class Meta:
         verbose_name = _('Profile')
         verbose_name_plural = _('Profiles')
+        permissions = (
+            ('add_profile', 'can add new profiles'),
+            ('del_profile', 'can remove profiles'),
+            ('edit_profile', 'can edit profiles'),
+            ('view_profile', 'can see available profiles'),
+        )
 
     def last_post(self):
         posts = Post.objects.filter(user__id=self.user_id).order_by('-created')
@@ -332,6 +374,12 @@ class PostTracking(models.Model):
     class Meta:
         verbose_name = _('Post tracking')
         verbose_name_plural = _('Post tracking')
+        permissions = (
+            ('add_posttracking', 'can add new post tracking'),
+            ('del_posttracking', 'can remove post trackings'),
+            ('edit_posttracking', 'can edit posttrackings'),
+            ('view_posttracking', 'can see available posttrackings'),
+        )
 
     def __unicode__(self):
         return self.user.username
@@ -348,6 +396,12 @@ class Report(models.Model):
     class Meta:
         verbose_name = _('Report')
         verbose_name_plural = _('Reports')
+        permissions = (
+            ('add_report', 'can send reports'),
+            ('del_report', 'can remove reports'),
+            ('edit_report', 'can edit reports'),
+            ('view_report', 'can see reports'),
+        )
 
     def __unicode__(self):
         return u'%s %s' % (self.reported_by ,self.zapped)
@@ -361,6 +415,12 @@ class Ban(models.Model):
     class Meta:
         verbose_name = _('Ban')
         verbose_name_plural = _('Bans')
+        permissions = (
+            ('add_ban', 'can ban users'),
+            ('del_ban', 'can remove users ban'),
+            ('edit_ban', 'can edit users ban'),
+            ('view_ban', 'can see banned users'),
+        )
 
     def __unicode__(self):
         return self.user.username
@@ -383,6 +443,14 @@ class Attachment(models.Model):
     path = models.CharField(_('Path'), max_length=255)
     name = models.TextField(_('Name'))
     hash = models.CharField(_('Hash'), max_length=40, blank=True, default='', db_index=True)
+
+    class Meta:
+        permissions = (
+            ('add_attachment', 'can upload attachments'),
+            ('del_attachment', 'can remove attachments'),
+            ('edit_attachment', 'can edit attachments'),
+            ('view_attachment', 'can download attachments'),
+        )
 
     def __unicode__(self):
         return self.name
