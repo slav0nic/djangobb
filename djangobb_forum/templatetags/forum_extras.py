@@ -152,6 +152,21 @@ def has_unreads(topic, user):
                 return False
         return True
 
+@register.filter
+def forum_unreads(forum, user):
+    """
+    Check if forum has topic which user didn't read.
+    """
+    if not user.is_authenticated() or\
+         (user.posttracking.last_read is not None):
+            return False
+    else:
+        if isinstance(user.posttracking.topics, dict):
+            for topic in forum.topics.all():
+                if topic.last_post_id > user.posttracking.topics.get(str(topic.id), 0):
+                    return True
+        return False
+
 
 @register.filter
 def forum_moderated_by(topic, user):
