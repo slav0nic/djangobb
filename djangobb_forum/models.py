@@ -318,7 +318,7 @@ class ProfileManager(models.Manager):
     def get_query_set(self):
         qs = super(ProfileManager, self).get_query_set()
         if forum_settings.REPUTATION_SUPPORT:
-            qs = qs.extra(select={'reply_total':'Select sum(sign) from djangobb_forum_reputation group by to_user_id'})
+            qs = qs.extra(select={'reply_total':'Select sum(sign) from djangobb_forum_reputation where to_user_id = djangobb_forum_profile.user_id group by to_user_id'})
         return qs
 
 class Profile(models.Model):
