@@ -314,6 +314,13 @@ class Reputation(models.Model):
         return u'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(self.time))
 
 
+class ProfileManager(models.Manager):
+    def get_query_set(self):
+        qs = super(ProfileManager, self).get_query_set()
+        if forum_settings.REPUTATION_SUPPORT:
+            qs = qs.extra(select={'reply_total':'Select sum(sign) from djangobb_forum_reputation group by to_user_id'})
+        return qs
+
 class Profile(models.Model):
     user = AutoOneToOneField(User, related_name='forum_profile', verbose_name=_('User'))
     status = models.CharField(_('Status'), max_length=30, blank=True)
@@ -336,6 +343,8 @@ class Profile(models.Model):
     privacy_permission = models.IntegerField(_('Privacy permission'), choices=PRIVACY_CHOICES, default=1)
     markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
+
+    objects = ProfileManager()
 
     class Meta:
         verbose_name = _('Profile')

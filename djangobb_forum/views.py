@@ -260,16 +260,6 @@ def show_topic(request, topic_id, full=True):
     if request.user.is_authenticated():
         topic.update_read(request.user)
     posts = topic.posts.all().select_related()
-    #TODO rewrite
-    fixed = False
-    if fixed and forum_settings.REPUTATION_SUPPORT:
-        replies_list = Reputation.objects.filter(to_user__pk__in=users).values('to_user_id').annotate(Sum('sign'))
-        replies = {}
-        for r in replies_list:
-            replies[r['to_user_id']] = r['sign__sum']
-
-        for post in posts:
-            post.user.forum_profile.reply_total = replies.get(post.user.id, 0)
 
     initial = {}
     if request.user.is_authenticated():
@@ -539,12 +529,6 @@ def delete_posts(request, topic_id):
         topic.update_read(request.user)
 
     posts = topic.posts.all().select_related()
-
-    profiles = Profile.objects.filter(user__pk__in=set(x.user.id for x in posts))
-    profiles = dict((x.user_id, x) for x in profiles)
-
-    for post in posts:
-        post.user.forum_profile = profiles[post.user.id]
 
     initial = {}
     if request.user.is_authenticated():
