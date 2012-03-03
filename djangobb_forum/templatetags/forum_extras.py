@@ -162,7 +162,7 @@ def forum_unreads(forum, user):
             return False
     else:
         if isinstance(user.posttracking.topics, dict):
-            for topic in forum.topics.all():
+            for topic in forum.topics.all().only('last_post'):
                 if topic.last_post_id > user.posttracking.topics.get(str(topic.id), 0):
                     return True
         return False
