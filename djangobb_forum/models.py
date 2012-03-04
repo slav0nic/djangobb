@@ -320,9 +320,9 @@ class ProfileManager(models.Manager):
         qs = super(ProfileManager, self).get_query_set()
         if forum_settings.REPUTATION_SUPPORT:
             qs = qs.extra(select={
-                'reply_total':'Select sum(sign) from djangobb_forum_reputation where to_user_id = djangobb_forum_profile.user_id group by to_user_id',
-                'reply_count_minus':"Select sum(sign) from djangobb_forum_reputation where to_user_id = djangobb_forum_profile.user_id and sign = '-1' group by to_user_id",
-                'reply_count_plus':"Select sum(sign) from djangobb_forum_reputation where to_user_id = djangobb_forum_profile.user_id and sign = '1' group by to_user_id",
+                'reply_total': 'SELECT SUM(sign) FROM djangobb_forum_reputation WHERE to_user_id = djangobb_forum_profile.user_id GROUP BY to_user_id',
+                'reply_count_minus': "SELECT SUM(sign) FROM djangobb_forum_reputation WHERE to_user_id = djangobb_forum_profile.user_id AND sign = '-1' GROUP BY to_user_id",
+                'reply_count_plus': "SELECT SUM(sign) FROM djangobb_forum_reputation WHERE to_user_id = djangobb_forum_profile.user_id AND sign = '1' GROUP BY to_user_id",
                 })
         return qs
 
