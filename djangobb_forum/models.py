@@ -315,10 +315,15 @@ class Reputation(models.Model):
 
 
 class ProfileManager(models.Manager):
+    use_for_related_fields = True
     def get_query_set(self):
         qs = super(ProfileManager, self).get_query_set()
         if forum_settings.REPUTATION_SUPPORT:
-            qs = qs.extra(select={'reply_total':'Select sum(sign) from djangobb_forum_reputation where to_user_id = djangobb_forum_profile.user_id group by to_user_id'})
+            qs = qs.extra(select={
+                'reply_total':'Select sum(sign) from djangobb_forum_reputation where to_user_id = djangobb_forum_profile.user_id group by to_user_id',
+                'reply_count_minus':"Select sum(sign) from djangobb_forum_reputation where to_user_id = djangobb_forum_profile.user_id and sign = '-1' group by to_user_id",
+                'reply_count_plus':"Select sum(sign) from djangobb_forum_reputation where to_user_id = djangobb_forum_profile.user_id and sign = '1' group by to_user_id",
+                })
         return qs
 
 class Profile(models.Model):
@@ -362,13 +367,6 @@ class Profile(models.Model):
             return posts[0].created
         else:
             return  None
-
-    def reply_count_minus(self):
-        return Reputation.objects.filter(to_user__id=self.user_id, sign=-1).count()
-
-    def reply_count_plus(self):
-        return Reputation.objects.filter(to_user__id=self.user_id, sign=1).count()
-
 
 class PostTracking(models.Model):
     """
