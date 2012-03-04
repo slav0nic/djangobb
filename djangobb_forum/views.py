@@ -334,78 +334,34 @@ def add_post(request, forum_id, topic_id):
 
 
 @transaction.commit_on_success
-def user(request, username):
+def user(request, username, section=None, action=None, template=None, form_class=None):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
-        if 'section' in request.GET:
-            section = request.GET['section']
-            profile_url = reverse('djangobb:forum_profile', args=[user.username]) + '?section=' + section  
-            if section == 'privacy':
-                form = build_form(PrivacyProfileForm, request, instance=user.forum_profile)
-                if request.method == 'POST' and form.is_valid():
-                    form.save()
-                    return HttpResponseRedirect(profile_url)
-                return render(request, 'djangobb_forum/profile/profile_privacy.html', {'active_menu':'privacy',
-                        'profile': user,
-                        'form': form,
-                       })
-            elif section == 'display':
-                form = build_form(DisplayProfileForm, request, instance=user.forum_profile)
-                if request.method == 'POST' and form.is_valid():
-                    form.save()
-                    return HttpResponseRedirect(profile_url)
-                return render(request, 'djangobb_forum/profile/profile_display.html', {'active_menu':'display',
-                        'profile': user,
-                        'form': form,
-                       })
-            elif section == 'personality':
-                form = build_form(PersonalityProfileForm, request, markup=user.forum_profile.markup, instance=user.forum_profile)
-                if request.method == 'POST' and form.is_valid():
-                    form.save()
-                    return HttpResponseRedirect(profile_url)
-                return render(request, 'djangobb_forum/profile/profile_personality.html', {'active_menu':'personality',
-                        'profile': user,
-                        'form': form,
+        if section:
+            profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
+            form = build_form(form_class, request, instance=user.forum_profile,
+                    extra_args={
+                        'user_view': user,
+                        'user_request': request.user,
+                        'markup': user.forum_profile.markup,
                         })
-            elif section == 'messaging':
-                form = build_form(MessagingProfileForm, request, instance=user.forum_profile)
-                if request.method == 'POST' and form.is_valid():
-                    form.save()
-                    return HttpResponseRedirect(profile_url)
-                return render(request, 'djangobb_forum/profile/profile_messaging.html', {'active_menu':'messaging',
-                        'profile': user,
-                        'form': form,
-                       })
-            elif section == 'personal':
-                form = build_form(PersonalProfileForm, request, instance=user.forum_profile, user=user)
-                if request.method == 'POST' and form.is_valid():
-                    form.save()
-                    return HttpResponseRedirect(profile_url)
-                return render(request, 'djangobb_forum/profile/profile_personal.html', {'active_menu':'personal',
-                        'profile': user,
-                        'form': form,
-                       })
-            elif section == 'essentials':
-                form = build_form(EssentialsProfileForm, request, instance=user.forum_profile,
-                                  user_view=user, user_request=request.user)
-                if request.method == 'POST' and form.is_valid():
-                    profile = form.save()
+            if request.method == 'POST' and form.is_valid():
+                form.save()
+                #TODO any way to remove next two lines?
+                if section=='essentials':
                     set_language(request, profile.language)
-                    return HttpResponseRedirect(profile_url)
-
-                return render(request, 'djangobb_forum/profile/profile_essentials.html', {'active_menu':'essentials',
-                        'profile': user,
-                        'form': form,
-                        })
-
-        elif 'action' in request.GET:
-            action = request.GET['action']
+                return HttpResponseRedirect(profile_url)
+            return render(request, template, {'active_menu': section,
+                    'profile': user,
+                    'form': form,
+                   })
+        elif action:
             if action == 'upload_avatar':
-                form = build_form(UploadAvatarForm, request, instance=user.forum_profile)
+                form = build_form(form_class, request, instance=user.forum_profile)
                 if request.method == 'POST' and form.is_valid():
                     form.save()
                     return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-                return render(request, 'djangobb_forum/upload_avatar.html', {'form': form,
+                return render(request, template, {'form': form,
                         'avatar_width': forum_settings.AVATAR_WIDTH,
                         'avatar_height': forum_settings.AVATAR_HEIGHT,
                        })
@@ -414,24 +370,11 @@ def user(request, username):
                 profile.avatar = None
                 profile.save()
                 return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-
-        else:
-            form = build_form(EssentialsProfileForm, request, instance=user.forum_profile,
-                                  user_view=user, user_request=request.user)
-            if request.method == 'POST' and form.is_valid():
-                profile = form.save()
-                set_language(request, profile.language)
-                return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-            return render(request, 'djangobb_forum/profile/profile_essentials.html', {'active_menu':'essentials',
-                    'profile': user,
-                    'form': form,
-                   })
-        raise Http404
     else:
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
-        return render(request, 'djangobb_forum/user.html', {'profile': user,
+        return render(request, template, {'profile': user,
                 'topic_count': topic_count,
                })
 
