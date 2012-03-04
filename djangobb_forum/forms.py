@@ -160,8 +160,9 @@ class EssentialsProfileForm(forms.ModelForm):
         fields = ['time_zone', 'language']
 
     def __init__(self, *args, **kwargs):
-        self.user_view = kwargs.pop('user_view', None)
-        self.user_request = kwargs.pop('user_request', None)
+        extra_args = kwargs.pop('extra_args', {})
+        self.user_view = extra_args.pop('user_view', None)
+        self.user_request = extra_args.pop('user_request', None)
         self.profile = kwargs['instance']
         super(EssentialsProfileForm, self).__init__(*args, **kwargs)
         self.fields['username'].initial = self.user_view.username
@@ -190,7 +191,8 @@ class PersonalProfileForm(forms.ModelForm):
         fields = ['status', 'location', 'site']
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
+        extra_args = kwargs.pop('extra_args', {})
+        self.user = extra_args.pop('user_view', None)
         self.profile = kwargs['instance']
         super(PersonalProfileForm, self).__init__(*args, **kwargs)
         self.fields['name'].initial = "%s %s" % (self.user.first_name, self.user.last_name)
@@ -217,6 +219,10 @@ class MessagingProfileForm(forms.ModelForm):
         model = Profile
         fields = ['jabber', 'icq', 'msn', 'aim', 'yahoo']
 
+    def __init__(self, *args, **kwargs):
+        extra_args = kwargs.pop('extra_args', {})
+        super(MessagingProfileForm, self).__init__(*args, **kwargs)
+
 
 class PersonalityProfileForm(forms.ModelForm):
     class Meta:
@@ -224,7 +230,8 @@ class PersonalityProfileForm(forms.ModelForm):
         fields = ['show_avatar', 'signature']
         
     def __init__(self, *args, **kwargs):
-        self.markup = kwargs.pop('markup', None)
+        extra_args = kwargs.pop('extra_args', {})
+        self.markup = extra_args.pop('markup', None)
         super(PersonalityProfileForm, self).__init__(*args, **kwargs)
         self.fields['signature'].widget = forms.Textarea(attrs={'class':'markup', 'rows':'10', 'cols':'75'})
 
@@ -241,6 +248,10 @@ class DisplayProfileForm(forms.ModelForm):
         model = Profile
         fields = ['theme', 'markup', 'show_smilies']
 
+    def __init__(self, *args, **kwargs):
+        extra_args = kwargs.pop('extra_args', {})
+        super(DisplayProfileForm, self).__init__(*args, **kwargs)
+
 
 class PrivacyProfileForm(forms.ModelForm):
     class Meta:
@@ -248,6 +259,7 @@ class PrivacyProfileForm(forms.ModelForm):
         fields = ['privacy_permission']
 
     def __init__(self, *args, **kwargs):
+        extra_args = kwargs.pop('extra_args', {})
         super(PrivacyProfileForm, self).__init__(*args, **kwargs)
         self.fields['privacy_permission'].widget = forms.RadioSelect(  
                                                     choices=self.fields['privacy_permission'].choices
@@ -258,6 +270,10 @@ class UploadAvatarForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['avatar']
+
+    def __init__(self, *args, **kwargs):
+        extra_args = kwargs.pop('extra_args', {})
+        super(UploadAvatarForm, self).__init__(*args, **kwargs)
 
 
 class UserSearchForm(forms.Form):

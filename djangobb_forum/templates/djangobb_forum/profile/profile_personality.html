@@ -24,10 +24,10 @@
 								<label>{{ form.show_avatar }}{% trans "Use avatar." %}<br></label>
 							</div>
 							{% if profile.forum_profile.avatar %}
-								<p class="clearb"><a href="{% url djangobb:forum_profile profile.username %}?action=upload_avatar">{% trans "Upload avatar" %}</a>
-								&nbsp;&nbsp;&nbsp;<a href="{% url djangobb:forum_profile profile.username %}?action=delete_avatar">{% trans "Delete avatar" %}</a></p>
+								<p class="clearb"><a href="{% url djangobb:forum_profile_upload_avatar profile.username %}">{% trans "Upload avatar" %}</a>
+								&nbsp;&nbsp;&nbsp;<a href="{% url djangobb:forum_profile_delete_avatar profile.username %}">{% trans "Delete avatar" %}</a></p>
 							{% else %}
-								<p class="clearb"><a href="{% url djangobb:forum_profile profile.username %}?action=upload_avatar">{% trans "Upload avatar" %}</a>
+								<p class="clearb"><a href="{% url djangobb:forum_profile_upload_avatar profile.username %}">{% trans "Upload avatar" %}</a>
 							{% endif %}
 						</div>
 					</fieldset>
