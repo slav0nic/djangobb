@@ -161,25 +161,25 @@ class EssentialsProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         extra_args = kwargs.pop('extra_args', {})
-        self.user_view = extra_args.pop('user_view', None)
-        self.user_request = extra_args.pop('user_request', None)
+        self.request = extra_args.pop('request', None)
         self.profile = kwargs['instance']
         super(EssentialsProfileForm, self).__init__(*args, **kwargs)
-        self.fields['username'].initial = self.user_view.username
-        if not self.user_request.is_superuser:
+        self.fields['username'].initial = self.profile.user.username
+        if not self.request.user.is_superuser:
             self.fields['username'].widget = forms.HiddenInput()
-        self.fields['email'].initial = self.user_view.email
+        self.fields['email'].initial = self.profile.user.email
 
     def save(self, commit=True):
         if self.cleaned_data:
-            if self.user_request.is_superuser:
-                self.user_view.username = self.cleaned_data['username']
-            self.user_view.email = self.cleaned_data['email']
+            if self.request.user.is_superuser:
+                self.profile.user.username = self.cleaned_data['username']
+            self.profile.user.email = self.cleaned_data['email']
             self.profile.time_zone = self.cleaned_data['time_zone']
             self.profile.language = self.cleaned_data['language']
-            self.user_view.save()
+            self.profile.user.save()
             if commit:
                 self.profile.save()
+        set_language(self.request, self.profile.language)
         return self.profile
 
 
@@ -192,10 +192,9 @@ class PersonalProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         extra_args = kwargs.pop('extra_args', {})
-        self.user = extra_args.pop('user_view', None)
         self.profile = kwargs['instance']
         super(PersonalProfileForm, self).__init__(*args, **kwargs)
-        self.fields['name'].initial = "%s %s" % (self.user.first_name, self.user.last_name)
+        self.fields['name'].initial = "%s %s" % (self.profile.user.first_name, self.profile.user.last_name)
 
     def save(self, commit=True):
         self.profile.status = self.cleaned_data['status']
@@ -204,11 +203,11 @@ class PersonalProfileForm(forms.ModelForm):
         if self.cleaned_data['name']:
             cleaned_name = self.cleaned_data['name'].strip()
             if  ' ' in cleaned_name:
-                self.user.first_name, self.user.last_name = cleaned_name.split(None, 1)
+                self.profile.user.first_name, self.profile.user.last_name = cleaned_name.split(None, 1)
             else:
-                self.user.first_name = cleaned_name
-                self.user.last_name = ''
-            self.user.save()
+                self.profile.user.first_name = cleaned_name
+                self.profile.user.last_name = ''
+            self.profile.user.save()
             if commit:
                 self.profile.save()
         return self.profile
@@ -231,13 +230,13 @@ class PersonalityProfileForm(forms.ModelForm):
         
     def __init__(self, *args, **kwargs):
         extra_args = kwargs.pop('extra_args', {})
-        self.markup = extra_args.pop('markup', None)
+        self.profile = kwargs['instance']
         super(PersonalityProfileForm, self).__init__(*args, **kwargs)
         self.fields['signature'].widget = forms.Textarea(attrs={'class':'markup', 'rows':'10', 'cols':'75'})
 
     def save(self, commit=True):
         profile = super(PersonalityProfileForm, self).save(commit=False)
-        profile.signature_html = convert_text_to_html(profile.signature, self.markup)
+        profile.signature_html = convert_text_to_html(profile.signature, self.profile.markup)
         if commit:
             profile.save()
         return profile
