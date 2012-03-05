@@ -334,42 +334,64 @@ def add_post(request, forum_id, topic_id):
 
 
 @transaction.commit_on_success
-def user(request, username, section=None, action=None, template=None, form_class=None):
+def upload_avatar(request, username, template=None, form_class=None):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
-        if section:
-            profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
-            form = build_form(form_class, request, instance=user.forum_profile,
-                    extra_args={
-                        'user_view': user,
-                        'user_request': request.user,
-                        'markup': user.forum_profile.markup,
-                        })
-            if request.method == 'POST' and form.is_valid():
-                form.save()
-                #TODO any way to remove next two lines?
-                if section=='essentials':
-                    set_language(request, profile.language)
-                return HttpResponseRedirect(profile_url)
-            return render(request, template, {'active_menu': section,
-                    'profile': user,
-                    'form': form,
-                   })
-        elif action:
-            if action == 'upload_avatar':
-                form = build_form(form_class, request, instance=user.forum_profile)
-                if request.method == 'POST' and form.is_valid():
-                    form.save()
-                    return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-                return render(request, template, {'form': form,
-                        'avatar_width': forum_settings.AVATAR_WIDTH,
-                        'avatar_height': forum_settings.AVATAR_HEIGHT,
-                       })
-            elif action == 'delete_avatar':
-                profile = get_object_or_404(Profile, user=request.user)
-                profile.avatar = None
-                profile.save()
-                return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
+        form = build_form(form_class, request, instance=user.forum_profile)
+        if request.method == 'POST' and form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
+        return render(request, template, {'form': form,
+                'avatar_width': forum_settings.AVATAR_WIDTH,
+                'avatar_height': forum_settings.AVATAR_HEIGHT,
+               })
+    else:
+        topic_count = Topic.objects.filter(user__id=user.id).count()
+        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
+        return render(request, template, {'profile': user,
+                'topic_count': topic_count,
+               })
+
+
+@transaction.commit_on_success
+def delete_avatar(request, username, section=None, action=None, template=None, form_class=None):
+    user = get_object_or_404(User, username=username)
+    if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
+        profile = get_object_or_404(Profile, user=request.user)
+        profile.avatar = None
+        profile.save()
+        return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
+    else:
+        topic_count = Topic.objects.filter(user__id=user.id).count()
+        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
+        return render(request, template, {'profile': user,
+                'topic_count': topic_count,
+               })
+
+
+@transaction.commit_on_success
+def user(request, username, section='essentials', action=None, template='djangobb_forum/profile/profile_essentials.html', form_class=EssentialsProfileForm):
+    user = get_object_or_404(User, username=username)
+    if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
+        profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
+        form = build_form(form_class, request, instance=user.forum_profile,
+                extra_args={
+                    'user_view': user,
+                    'user_request': request.user,
+                    'markup': user.forum_profile.markup,
+                    })
+        if request.method == 'POST' and form.is_valid():
+            form.save()
+            #TODO any way to remove next two lines?
+            if section=='essentials':
+                set_language(request, profile.language)
+            return HttpResponseRedirect(profile_url)
+        return render(request, template, {'active_menu': section,
+                'profile': user,
+                'form': form,
+               })
     else:
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
