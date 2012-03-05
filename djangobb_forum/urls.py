@@ -19,14 +19,8 @@ urlpatterns = patterns('',
     url('^misc/$', forum_views.misc, name='misc'),
 
     # User
-    url('^user/(?P<username>.*)/delete_avatar/$', forum_views.user,{
-        'action': 'delete_avatar'
-        }, name='forum_profile_delete_avatar'),
-    url('^user/(?P<username>.*)/upload_avatar/$', forum_views.user, {
-        'action': 'upload_avatar',
-        'form_class': UploadAvatarForm,
-        'template': 'djangobb_forum/upload_avatar.html'
-        }, name='forum_profile_upload_avatar'),
+    url('^user/(?P<username>.*)/delete_avatar/$', forum_views.delete_avatar, name='forum_profile_delete_avatar'),
+    url('^user/(?P<username>.*)/upload_avatar/$', forum_views.upload_avatar, name='forum_profile_upload_avatar'),
     url('^user/(?P<username>.*)/privacy/$', forum_views.user, {
         'section': 'privacy',
         'form_class': PrivacyProfileForm,
@@ -52,16 +46,8 @@ urlpatterns = patterns('',
         'form_class': PersonalProfileForm,
         'template': 'djangobb_forum/profile/profile_personal.html'
         }, name='forum_profile_personal'),
-    url('^user/(?P<username>.*)/essentials/$', forum_views.user, {
-        'section': 'essentials',
-        'form_class': EssentialsProfileForm,
-        'template': 'djangobb_forum/profile/profile_essentials.html'
-        }, name='forum_profile_essentials'),
-    url('^user/(?P<username>.*)/$', forum_views.user, {
-        'section': 'essentials',
-        'form_class': EssentialsProfileForm,
-        'template': 'djangobb_forum/profile/profile_essentials.html'
-        }, name='forum_profile'),
+    url('^user/(?P<username>.*)/essentials/$', forum_views.user, name='forum_profile_essentials'),
+    url('^user/(?P<username>.*)/$', forum_views.user, name='forum_profile'),
     url('^users/$', forum_views.users, name='forum_users'),
 
     # Topic
