@@ -23,12 +23,11 @@
 								{{ form.show_avatar.errors }}
 								<label>{{ form.show_avatar }}{% trans "Use avatar." %}<br></label>
 							</div>
-							{% if profile.forum_profile.avatar %}
-								<p class="clearb"><a href="{% url djangobb:forum_profile_upload_avatar profile.username %}">{% trans "Upload avatar" %}</a>
-								&nbsp;&nbsp;&nbsp;<a href="{% url djangobb:forum_profile_delete_avatar profile.username %}">{% trans "Delete avatar" %}</a></p>
-							{% else %}
-								<p class="clearb"><a href="{% url djangobb:forum_profile_upload_avatar profile.username %}">{% trans "Upload avatar" %}</a>
-							{% endif %}
+                            <p class="clearb"><a href="{% url djangobb:forum_profile_upload_avatar profile.username %}">{% trans "Upload avatar" %}</a>
+                                {% if profile.forum_profile.avatar %}
+                                &nbsp;&nbsp;&nbsp;<form action="{% url djangobb:forum_profile_delete_avatar profile.username %}" mothod="post"><button type="submit">{% trans "Delete avatar" %}</button></form></p>
+                                {% endif %}
+                            </p>
 						</div>
 					</fieldset>
 				</div>

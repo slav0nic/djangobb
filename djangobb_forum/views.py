@@ -358,9 +358,10 @@ def upload_avatar(request, username, template=None, form_class=None):
 def delete_avatar(request, username, section=None, action=None, template=None, form_class=None):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
-        profile = get_object_or_404(Profile, user=request.user)
-        profile.avatar = None
-        profile.save()
+        if request.method == 'POST':
+            profile = user.forum_profile
+            profile.avatar = None
+            profile.save()
         return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
     else:
         topic_count = Topic.objects.filter(user__id=user.id).count()
