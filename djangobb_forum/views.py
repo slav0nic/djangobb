@@ -376,17 +376,9 @@ def user(request, username, section='essentials', action=None, template='djangob
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
         profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
-        form = build_form(form_class, request, instance=user.forum_profile,
-                extra_args={
-                    'user_view': user,
-                    'user_request': request.user,
-                    'markup': user.forum_profile.markup,
-                    })
+        form = build_form(form_class, request, instance=user.forum_profile, extra_args={'request': request})
         if request.method == 'POST' and form.is_valid():
             form.save()
-            #TODO any way to remove next two lines?
-            if section=='essentials':
-                set_language(request, profile.language)
             return HttpResponseRedirect(profile_url)
         return render(request, template, {'active_menu': section,
                 'profile': user,
