@@ -142,7 +142,7 @@ def has_unreads(topic, user):
     """
     if not user.is_authenticated() or\
         (user.posttracking.last_read is not None and\
-         user.posttracking.last_read > topic.last_post.created):
+         user.posttracking.last_read > topic.updated):
             return False
     else:
         if isinstance(user.posttracking.topics, dict):
@@ -157,12 +157,14 @@ def forum_unreads(forum, user):
     """
     Check if forum has topic which user didn't read.
     """
-    if not user.is_authenticated() or\
-         (user.posttracking.last_read is not None):
-            return False
+    if not user.is_authenticated():
+        return False
     else:
         if isinstance(user.posttracking.topics, dict):
-            for topic in forum.topics.all().only('last_post'):
+            topics = forum.topics.all().only('last_post')
+            if user.posttracking.last_read:
+                topics = topics.filter(updated__gte=user.posttracking.last_read)
+            for topic in topics:
                 if topic.last_post_id > user.posttracking.topics.get(str(topic.id), 0):
                     return True
         return False
