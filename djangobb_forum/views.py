@@ -287,8 +287,6 @@ def show_topic(request, topic_id, full=True):
     else:
         return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
                 'topic': topic,
-                'pages': paginator.num_pages,
-                'paginator': paginator,
                 'posts': posts,
                 })
 
