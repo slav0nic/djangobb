@@ -11,6 +11,8 @@ from django.utils.html import escape
 from django.utils.hashcompat import md5_constructor
 from django.contrib.humanize.templatetags.humanize import naturalday
 
+from pagination.templatetags.pagination_tags import paginate, DEFAULT_WINDOW
+
 from djangobb_forum.models import Report
 from djangobb_forum import settings as forum_settings
 
@@ -95,23 +97,8 @@ def pagination(context, adjacent_pages=1):
 
 
 @register.inclusion_tag('djangobb_forum/lofi/pagination.html',takes_context=True)
-def lofi_pagination(context):
-    page_range = range(1, context['pages'] + 1)
-    paginator = context['paginator']
-    
-    get_params = '&'.join(['%s=%s' % (x[0],','.join(x[1])) for x in
-        context['request'].GET.iteritems() if (not x[0] == 'page' and not x[0] == 'per_page')])
-    if get_params:
-        get_params = '?%s&' % get_params
-    else:
-        get_params = '?'
-        
-    return {
-            'get_params': get_params,
-            'page_range': page_range,
-            'paginator': paginator,
-            } 
-
+def lofi_pagination(context, window=DEFAULT_WINDOW, hashtag=''):
+    return paginate(context, window, hashtag)
 
 @register.simple_tag
 def link(object, anchor=u''):
