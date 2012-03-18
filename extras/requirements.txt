@@ -4,4 +4,5 @@ django-haystack>=1.2.5
 south
 django-messages==0.4.4
 pygments
--e svn+http://postmarkup.googlecode.com/svn/trunk/#egg=postmarkup
+postmarkup
+django-pagination
