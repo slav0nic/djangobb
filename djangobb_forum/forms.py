@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment
 from djangobb_forum import settings as forum_settings
-from djangobb_forum.util import convert_text_to_html
+from djangobb_forum.util import convert_text_to_html, set_language
 
 
 SORT_USER_BY_CHOICES = (
