@@ -17,9 +17,11 @@
 				{{ forum.description|safe }}
 				<p>
 				{% cache 6000 moderators forum.id %}
-					{% if forum.moderator.exist %}
-						{% include 'djangobb_forum/moderators.html' %}
-					{% endif %}
+					{% with forum.moderators.all as moderators %}
+						{% if moderators %}
+							{% include 'djangobb_forum/moderators.html' %}
+						{% endif %}
+					{% endwith %}
 				{% endcache %}
 				</p>
 			</div>

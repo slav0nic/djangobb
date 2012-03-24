@@ -98,11 +98,13 @@
 					{% if post.updated %}
 						<p class="postedit"><em>{% trans "Edited" %} {{ post.updated_by.username }} ({% forum_time post.updated %})</em></p>
 					{% endif %}
-					{% if post.attachments.exists %}
-						{% for attach in post.attachments.all %}
-							<p class="postedit"><em>{% trans "Attachments:" %} <br />{{ attach|attachment_link }}</em></p>
-						{% endfor %}
-					{% endif %}
+					{% with post.attachments.all as attachments %}
+						{% if attachments %}
+							{% for attach in attachments %}
+								<p class="postedit"><em>{% trans "Attachments:" %} <br />{{ attach|attachment_link }}</em></p>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
 				</div>
 			</div>
 			<div class="clearer"></div>
