@@ -64,7 +64,7 @@
 								{% if request.user != post.user %} {# TODO: and user.is_authenticated #}
 									<a href="{% url djangobb:reputation post.user.username %}?action=plus&amp;post_id={{ post.id }}"><img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_add.gif" alt="+" /></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total }}&nbsp;&nbsp;</strong><a href="{% url djangobb:reputation post.user.username %}?action=minus&amp;post_id={{ post.id }}"><img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_minus.gif" alt="-" /></a>
 								{% else %}
-									<strong>{{ post.user.forum_profile.reply_total }}</strong>
+									<strong>{{ post.user.forum_profile.reply_total|default_if_none:"0" }}</strong>
 								{% endif %}
 								</dd>
 						{% endif %}
@@ -98,11 +98,13 @@
 					{% if post.updated %}
 						<p class="postedit"><em>{% trans "Edited" %} {{ post.updated_by.username }} ({% forum_time post.updated %})</em></p>
 					{% endif %}
-					{% if post.attachments.exists %}
-						{% for attach in post.attachments.all %}
-							<p class="postedit"><em>{% trans "Attachments:" %} <br />{{ attach|attachment_link }}</em></p>
-						{% endfor %}
-					{% endif %}
+					{% with post.attachments.all as attachments %}
+						{% if attachments %}
+							{% for attach in attachments %}
+								<p class="postedit"><em>{% trans "Attachments:" %} <br />{{ attach|attachment_link }}</em></p>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
 				</div>
 			</div>
 			<div class="clearer"></div>
