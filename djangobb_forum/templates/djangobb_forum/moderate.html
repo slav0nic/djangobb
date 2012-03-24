@@ -7,7 +7,7 @@
 {% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
-		<p class="pagelink conl">{% paginate %}</p>
+		<div class="pagelink conl">{% paginate %}</div>
 		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
 		<div class="clearer"></div>
 	</div>
@@ -64,7 +64,7 @@
 </div>
 <div class="linksb">
 	<div class="inbox">
-		<p class="pagelink conl">{% paginate %}</p>
+		<div class="pagelink conl">{% paginate %}</div>
 		<p class="conr">
 			<input type="submit" name="move_topics" value="{% trans "Move" %}" />&nbsp;&nbsp;
 			<input type="submit" name="delete_topics" value="{% trans "Delete" %}" />&nbsp;&nbsp;
