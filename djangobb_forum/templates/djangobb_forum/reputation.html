@@ -13,7 +13,7 @@
 <form method="POST">
 {% csrf_token %}
 <div class="blockform">
-	<h2><span>{% trans "Reputation of the user" %} {{ profile.user }}&nbsp;&nbsp;<strong>[+{{ profile.reply_count_plus }} / -{{ profile.reply_count_minus }}] &nbsp;</strong></span></h2>
+	<h2><span>{% trans "Reputation of the user" %} {{ profile.user }}&nbsp;&nbsp;<strong>[+{{ profile.reply_count_plus|default_if_none:"0" }} / -{{ profile.reply_count_minus|default_if_none:"0" }}] &nbsp;</strong></span></h2>
 	<div class="box">
 		<div class="inbox">
 			<table cellspacing="0">
