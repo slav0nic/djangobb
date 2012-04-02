@@ -118,7 +118,10 @@ def search(request):
             date = datetime.today() - timedelta(1)
             topics = topics.filter(created__gte=date)
         elif action == 'show_new':
-            last_read = PostTracking.objects.get(user=request.user).last_read
+            try:
+                last_read = PostTracking.objects.get(user=request.user).last_read
+            except PostTracking.DoesNotExist:
+                last_read = None
             if last_read:
                 topics = topics.filter(last_post__updated__gte=last_read).all()
             else:
