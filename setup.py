@@ -16,6 +16,7 @@ setup(name='djangobb_forum',
             'pil>=1.1.7',
             'django-messages==0.4.4',
             'django-haystack',
+            'django-pagination',
             'south',
             'postmarkup',
             'setuptools'
