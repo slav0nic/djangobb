@@ -227,9 +227,9 @@ def misc(request):
     elif 'mail_to' in request.GET:
         mailto = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
-        return (request, 'djangobb_forum/mail_to.html', {'form':form,
-                'mailto': mailto,
-               })
+        return render(request, 'djangobb_forum/mail_to.html', {'form':form,
+                'mailto': mailto}
+                )
 
 
 def show_forum(request, forum_id, full=True):
