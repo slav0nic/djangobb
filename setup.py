@@ -12,7 +12,7 @@ setup(name='djangobb_forum',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-            'django>=1.2',
+            'django>=1.3.1',
             'pil>=1.1.7',
             'django-messages==0.4.4',
             'django-haystack',
