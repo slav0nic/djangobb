@@ -118,7 +118,10 @@ def search(request):
             date = datetime.today() - timedelta(1)
             topics = topics.filter(created__gte=date)
         elif action == 'show_new':
-            last_read = PostTracking.objects.get(user=request.user).last_read
+            try:
+                last_read = PostTracking.objects.get(user=request.user).last_read
+            except PostTracking.DoesNotExist:
+                last_read = None
             if last_read:
                 topics = topics.filter(last_post__updated__gte=last_read).all()
             else:
@@ -224,9 +227,9 @@ def misc(request):
     elif 'mail_to' in request.GET:
         mailto = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
-        return (request, 'djangobb_forum/mail_to.html', {'form':form,
-                'mailto': mailto,
-               })
+        return render(request, 'djangobb_forum/mail_to.html', {'form':form,
+                'mailto': mailto}
+                )
 
 
 def show_forum(request, forum_id, full=True):
