@@ -25,9 +25,7 @@
 							{% if request.user.is_superuser %}
 								<a href="{% url admin:user_change_password profile.id %}">{% trans "Change password" %}</a>
 							{% else %}
-								{% if request.user == user %}
-									<a href="{% url auth_password_change %}">{% trans "Change password" %}</a>
-								{% endif %}
+								<a href="{% url auth_password_change %}">{% trans "Change password" %}</a>
 							{% endif %}
 							</p>
 					</div>
