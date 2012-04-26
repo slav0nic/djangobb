@@ -321,7 +321,7 @@ def add_post(request, forum_id, topic_id):
     if 'post_id' in request.GET:
         post_id = request.GET['post_id']
         post = get_object_or_404(Post, pk=post_id)
-        form.fields['body'].initial = "[quote=%s]%s[/quote]" % (post.user, post.body)
+        form.fields['body'].initial = u"[quote=%s]%s[/quote]" % (post.user, post.body)
 
     if form.is_valid():
         post = form.save();
