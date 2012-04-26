@@ -29,7 +29,7 @@ class ForumMiddleware(object):
 class UsersOnline(object):
     def process_request(self, request):
         now = datetime.now()
-        delta = now - timedelta(minutes=forum_settings.USER_ONLINE_TIMEOUT)
+        delta = now - timedelta(seconds=forum_settings.USER_ONLINE_TIMEOUT)
         users_online = cache.get('djangobb_users_online', {})
         guests_online = cache.get('djangobb_guests_online', {})
 
