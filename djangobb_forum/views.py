@@ -29,9 +29,9 @@ from haystack.query import SearchQuerySet, SQ
 
 
 def index(request, full=True):
-    users_cached = cache.get('users_online', {})
+    users_cached = cache.get('djangobb_users_online', {})
     users_online = users_cached and User.objects.filter(id__in = users_cached.keys()) or []
-    guests_cached = cache.get('guests_online', {})
+    guests_cached = cache.get('djangobb_guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
 
