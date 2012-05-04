@@ -29,9 +29,9 @@ from haystack.query import SearchQuerySet, SQ
 
 
 def index(request, full=True):
-    users_cached = cache.get('users_online', {})
+    users_cached = cache.get('djangobb_users_online', {})
     users_online = users_cached and User.objects.filter(id__in = users_cached.keys()) or []
-    guests_cached = cache.get('guests_online', {})
+    guests_cached = cache.get('djangobb_guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
 
@@ -321,7 +321,7 @@ def add_post(request, forum_id, topic_id):
     if 'post_id' in request.GET:
         post_id = request.GET['post_id']
         post = get_object_or_404(Post, pk=post_id)
-        form.fields['body'].initial = "[quote=%s]%s[/quote]" % (post.user, post.body)
+        form.fields['body'].initial = u"[quote=%s]%s[/quote]" % (post.user, post.body)
 
     if form.is_valid():
         post = form.save();
