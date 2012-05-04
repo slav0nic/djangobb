@@ -34,7 +34,10 @@ GRAVATAR_DEFAULT = get('DJANGOBB_GRAVATAR_DEFAULT', 'identicon')
 LOFI_SUPPORT = get('DJANGOBB_LOFI_SUPPORT', True)
 
 # PM Extension
-PM_SUPPORT = get('DJANGOBB_PM_SUPPORT', True)
+if 'django_messages' not in settings.INSTALLED_APPS:
+    PM_SUPPORT = False
+else:
+    PM_SUPPORT = get('DJANGOBB_PM_SUPPORT', True)
 
 # AUTHORITY Extension
 AUTHORITY_SUPPORT = get('DJANGOBB_AUTHORITY_SUPPORT', True)
