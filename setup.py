@@ -14,7 +14,6 @@ setup(name='djangobb_forum',
     install_requires=[
             'django>=1.3.1',
             'pil>=1.1.7',
-            'django-messages==0.4.4',
             'django-haystack',
             'django-pagination',
             'south',

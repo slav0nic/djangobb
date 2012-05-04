@@ -2,7 +2,7 @@ Django>=1.2
 PIL>=1.1.7
 django-haystack>=1.2.5
 south
-django-messages==0.4.4
 pygments
 postmarkup
 django-pagination
+https://github.com/arneb/django-messages/tarball/master#egg=django-messages
