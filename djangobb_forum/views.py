@@ -174,6 +174,7 @@ def search(request):
             if 'topics' in request.GET['show_as']:
                 topics = []
                 topics_to_exclude = SQ()
+                #TODO: rewrite
                 for post in posts:
                     if post.object.topic not in topics:
                         if post.object.topic.forum.category.has_access(request.user):
@@ -185,7 +186,7 @@ def search(request):
                     posts = posts.exclude(topics_to_exclude)
                 return render(request, 'djangobb_forum/search_topics.html', {'results': topics})
             elif 'posts' in request.GET['show_as']:
-                return render(request, 'djangobb_forum/search_posts.html', {'results': topics})
+                return render(request, 'djangobb_forum/search_posts.html', {'results': posts})
         return render(request, 'djangobb_forum/search_topics.html', {'results': topics})
     else:
         form = PostSearchForm()
