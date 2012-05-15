@@ -287,21 +287,22 @@ class UserSearchForm(forms.Form):
             #show_group = self.cleaned_data['show_group']
             sort_by = self.cleaned_data['sort_by']
             sort_dir = self.cleaned_data['sort_dir']
+            qs = qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH)
             if sort_by=='username':
                 if sort_dir=='ASC':
-                    return qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('username')
+                    return qs.order_by('username')
                 elif sort_dir=='DESC':
-                    return qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('-username')
+                    return qs.order_by('-username')
             elif sort_by=='registered':
                 if sort_dir=='ASC':
-                    return qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('date_joined')
+                    return qs.order_by('date_joined')
                 elif sort_dir=='DESC':
-                    return qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('-date_joined')
+                    return qs.order_by('-date_joined')
             elif sort_by=='num_posts':
                 if sort_dir=='ASC':
-                    return qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('forum_profile__post_count')
+                    return qs.order_by('forum_profile__post_count')
                 elif sort_dir=='DESC':
-                    return qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('-forum_profile__post_count')
+                    return qs.order_by('-forum_profile__post_count')
         else:
             return qs
 

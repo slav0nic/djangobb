@@ -9,7 +9,7 @@ from djangobb_forum import settings as forum_settings
 class LastLoginMiddleware(object):
     def process_request(self, request):
         if request.user.is_authenticated():
-            cache.set(str(request.user.id), True, forum_settings.USER_ONLINE_TIMEOUT)
+            cache.set('djangobb_user%d' % request.user.id, True, forum_settings.USER_ONLINE_TIMEOUT)
 
 class ForumMiddleware(object):
     def process_request(self, request):
@@ -29,9 +29,9 @@ class ForumMiddleware(object):
 class UsersOnline(object):
     def process_request(self, request):
         now = datetime.now()
-        delta = now - timedelta(minutes=forum_settings.USER_ONLINE_TIMEOUT)
-        users_online = cache.get('users_online', {})
-        guests_online = cache.get('guests_online', {})
+        delta = now - timedelta(seconds=forum_settings.USER_ONLINE_TIMEOUT)
+        users_online = cache.get('djangobb_users_online', {})
+        guests_online = cache.get('djangobb_guests_online', {})
 
         if request.user.is_authenticated():
             users_online[request.user.id] = now
@@ -47,5 +47,5 @@ class UsersOnline(object):
             if guests_online[guest_id] < delta:
                 del guests_online[guest_id]
 
-        cache.set('users_online', users_online, 60*60*24)
-        cache.set('guests_online', guests_online, 60*60*24)
+        cache.set('djangobb_users_online', users_online, 60*60*24)
+        cache.set('djangobb_guests_online', guests_online, 60*60*24)
