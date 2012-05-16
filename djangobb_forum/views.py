@@ -357,24 +357,6 @@ def upload_avatar(request, username, template=None, form_class=None):
 
 
 @transaction.commit_on_success
-def delete_avatar(request, username, section=None, action=None, template=None, form_class=None):
-    user = get_object_or_404(User, username=username)
-    if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
-        if request.method == 'POST':
-            profile = user.forum_profile
-            profile.avatar = None
-            profile.save()
-        return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
-    else:
-        topic_count = Topic.objects.filter(user__id=user.id).count()
-        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
-        return render(request, template, {'profile': user,
-                'topic_count': topic_count,
-               })
-
-
-@transaction.commit_on_success
 def user(request, username, section='essentials', action=None, template='djangobb_forum/profile/profile_essentials.html', form_class=EssentialsProfileForm):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
