@@ -12,7 +12,7 @@
 		{% if user.is_authenticated %}
 			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
+        <ul class="breadcrumb"><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a><span class="divider"> &raquo;</span> </li><li>{{ forum.name }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -26,10 +26,10 @@
 			<table class="table table-striped">
 			<thead>
 				<tr>
-					<th class="tcl" scope="col">{% trans "Topic" %}</th>
-					<th class="tc2" scope="col">{% trans "Replies" %}</th>
-					<th class="tc3" scope="col">{% trans "Views" %}</th>
-					<th class="tcr" scope="col">{% trans "Last post" %}</th>
+					<th class="span6">{% trans "Topic" %}</th>
+					<th class="span2">{% trans "Replies" %}</th>
+					<th class="span2">{% trans "Views" %}</th>
+					<th class="span2">{% trans "Last post" %}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -70,7 +70,7 @@
 		{% if user.is_authenticated %}
 			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
+        <ul class="breadcrumb"><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a><span class="divider"> &raquo;</span> </li><li>{{ forum.name }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>

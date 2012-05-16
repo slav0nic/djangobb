@@ -67,7 +67,41 @@
 
   <body>
 
-    {% include 'djangobb_forum/header.html' %}
+
+<div id="djangobbwrap">
+<div id="djangobbindex" class="djangobb">
+<div id="brdheader" class="block">
+	<div class="box">
+		<div id="brdtitle" class="inbox">
+			<p><span>{{ forum_settings.TAGLINE|safe }}</span></p>
+		</div>
+		<div id="brdwelcome" class="inbox">
+			<ul class="conl">
+				{% if user.is_authenticated %}
+					<li>{% trans "Logged in as" %} <strong>{{ user.username }}</strong></li>
+					<li>{% trans "Last visit:" %} {% forum_time user.last_login %}</li>
+					{% if forum_settings.PM_SUPPORT and messages_inbox_count > 0 %}
+						<ul><li class="pmlink"><strong><a href="{% url messages_inbox %}">{% trans "There are new messages" %} ({{ messages_inbox_count }})</a></strong></li></ul>
+					{% endif %}
+				{% else %}
+					<li>{% trans "You are not logged in." %}</li>
+				{% endif %}
+				{% if user.is_superuser and reports %}
+					<li class="reportlink"><strong><a href="{% url admin:index %}">{% trans "There are new reports" %} ({% new_reports %})</a></strong></li>
+				{% endif %}
+			</ul>
+			{% if user.is_authenticated %}
+				<ul class="conr">
+					<li><a href="{% url djangobb:search %}?action=show_new">{% trans "Show new posts since last visit" %}</a></li>
+					<li><a href="{% url djangobb:misc %}?action=markread">{% trans "Mark all topics as read" %}</a></li>
+				</ul>
+			{% endif %}
+			<div class="clearer"></div>
+		</div>
+	</div>
+</div>
+
+
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -76,12 +110,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="{% url djangobb:index %}">{{ forum_settings.HEADER|safe }}</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+            {% block menu %}
+			  <li class="active"><a href="{% url djangobb:index %}">{% trans "Home" %}</a></li>
+			  <li><a href="{% url djangobb:forum_users %}">{% trans "User list" %}</a></li>
+			  <li><a href="{% url djangobb:search %}">{% trans "Search" %}</a></li>
+			  {% if user.is_superuser %}
+			  	<li><a href="{% url admin:index %}">{% trans "Administration" %}</a></li>
+			  {% endif %}
+			  {% if user.is_authenticated %}
+			  	<li><a href="{% url djangobb:forum_profile request.user %}">{% trans "Profile" %}</a></li>
+			  	{% if forum_settings.PM_SUPPORT %}
+			  		<li><a href="{% url messages_inbox %}">{% trans "PM" %}</a></li> 
+			  	{% endif %}
+			  {% endif %}
+			{% endblock %}
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -89,6 +134,14 @@
     </div>
 
     <div class="container">
+
+    {% if forum_settings.NOTICE %}
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert" href="#">×</a>
+            <h4 class="alert-heading">{% trans "Notice" %}</h4>
+            {{ forum_settings.NOTICE }}
+        </div>
+    {% endif %}
 
         {% block content %}{% endblock %}
         <div id="brdfooter" class="block">

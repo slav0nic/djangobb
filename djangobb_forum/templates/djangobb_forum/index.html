@@ -40,20 +40,19 @@
 <div id="idx1" class="blocktable">
 {% for iter in cats %}
 	<h2 id="category_head_{{ iter.id }}">
-		<a class="toggle" href="#">Toggle shoutbox</a>
 		<span>
 			{{ iter.cat }}
 		</span>
 	</h2>
 	<div class="box" id="category_body_{{ iter.id }}">
 		<div class="inbox">
-			<table cellspacing="0">
+			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th class="tcl" scope="col">{% trans "Forum" %}</th>
-						<th class="tc2" scope="col">{% trans "Topics" %}</th>
-						<th class="tc3" scope="col">{% trans "Posts" %}</th>
-						<th class="tcr" scope="col">{% trans "Last post" %}</th>
+						<th class="span6">{% trans "Forum" %}</th>
+						<th class="span2">{% trans "Topics" %}</th>
+						<th class="span2">{% trans "Posts" %}</th>
+						<th class="span2">{% trans "Last post" %}</th>
 					</tr>
 				</thead>
 				<tbody>
