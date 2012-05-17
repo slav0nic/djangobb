@@ -26,23 +26,23 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% for topic in results %}
-				<tr {% if topic|has_unreads:user %}class="inew"{% endif %} {% if topic.closed %}class="iclosed"{% endif %}>
+			{% for post in results %}
+				<tr {% if post.object.topic|has_unreads:user %}class="inew"{% endif %} {% if post.object.topic.closed %}class="iclosed"{% endif %}>
 					<td class="tcl">
 						<div class="intd">
 							<div class="icon"><div class="nosize"><!-- --></div></div>
 							<div class="tclcon">
-								{% if topic|has_unreads:user %}
-									<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
+								{% if post.object.topic|has_unreads:user %}
+									<strong>{% link post.object.topic %} <span class="byuser">{% trans "by" %} {{ post.object.topic.user }}</span></strong>
 								{% else %}
-									{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span>
+									{% link post.object.topic %} <span class="byuser">{% trans "by" %} {{ post.object.topic.user }}</span>
 								{% endif %}
 							</div>
 						</div>
 					</td>
-					<td class="tc2">{% link topic.forum %}</td>
-					<td class="tc3">{{ topic.reply_count }}</td>
-					<td class="tcr"><a href="{{ topic.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+					<td class="tc2">{% link post.object.topic.forum %}</td>
+					<td class="tc3">{{ post.object.topic.reply_count }}</td>
+					<td class="tcr"><a href="{{ post.object.topic.get_absolute_url }}">{% forum_time post.object.topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ post.object.topic.last_post.user.username }}</span></td>
 				</tr>
 			{% endfor %}
 			</tbody>
