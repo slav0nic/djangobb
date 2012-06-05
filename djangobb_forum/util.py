@@ -221,3 +221,28 @@ def convert_text_to_html(text, markup):
     else:
         raise Exception('Invalid markup property: %s' % markup)
     return urlize(text)
+
+
+class TopicFromPostResult(object):
+    """
+    Custom Result object to return topics from a post search.
+
+    This function uses a generator to return topic objects from
+    results given by haystack on a post query. This eliminates
+    loading a large array of topic objects into memory.
+    """
+
+    def __init__(self, posts):
+        self.posts = posts
+
+    def __len__(self):
+        return len(self.posts)
+
+    def __getitem__(self, key):
+        if isinstance(key, slice):
+            return (self.posts[i].object.topic
+                        for i in xrange(*key.indices(len(self))))
+        elif isinstance(key, int):
+            return self.posts[key].object.topic
+
+        raise TypeError('unknown type in key for __getitem__')
