@@ -22,7 +22,7 @@ from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
     DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum import settings as forum_settings
-from djangobb_forum.util import smiles, convert_text_to_html
+from djangobb_forum.util import smiles, convert_text_to_html, TopicFromPostResult
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 
 from haystack.query import SearchQuerySet, SQ
@@ -162,6 +162,11 @@ def search(request):
                 elif search_in == 'topic':
                     query = query.filter(topic=keywords)
 
+            # add exlusions for categories user does not have access too
+            for category in Category.objects.all():
+                if not category.has_access(request.user):
+                    query = query.exclude(category=category)
+
             order = {'0': 'created',
                      '1': 'author',
                      '2': 'topic',
@@ -172,21 +177,12 @@ def search(request):
             posts = query.order_by(order)
 
             if 'topics' in request.GET['show_as']:
-                topics = []
-                topics_to_exclude = SQ()
-                #TODO: rewrite
-                for post in posts:
-                    if post.object.topic not in topics:
-                        if post.object.topic.forum.category.has_access(request.user):
-                            topics.append(post.object.topic)
-                        else:
-                            topics_to_exclude |= SQ(topic=post.object.topic)
-
-                if topics_to_exclude:
-                    posts = posts.exclude(topics_to_exclude)
-                return render(request, 'djangobb_forum/search_topics.html', {'results': topics})
+                return render(request, 'djangobb_forum/search_topics.html', {
+                    'results': TopicFromPostResult(posts)
+                })
             elif 'posts' in request.GET['show_as']:
                 return render(request, 'djangobb_forum/search_posts.html', {'results': posts})
+
         return render(request, 'djangobb_forum/search_topics.html', {'results': topics})
     else:
         form = PostSearchForm()
