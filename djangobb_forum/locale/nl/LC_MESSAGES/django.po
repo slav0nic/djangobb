@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: djangobb 0.0.1a0.dev382\n"
+"Project-Id-Version: DjangoBB\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-16 12:56+0100\n"
-"PO-Revision-Date: 2011-11-05 19:02+0100\n"
-"Last-Translator: Breanndán Ó Nualláin <bon@science.uva.nl>\n"
-"Language-Team: Dutch <None>\n"
-"Language: Dutch\n"
+"POT-Creation-Date: 2012-06-07 12:24+0300\n"
+"PO-Revision-Date: 2012-02-14 08:21+0000\n"
+"Last-Translator: slav0nic <slav0nic0@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: feeds.py:24 feeds.py:25 templates/djangobb_forum/base.html:14
 msgid "Latest posts on forum"
@@ -40,12 +40,12 @@ msgstr "Laatste berichten op forum %s"
 msgid "Latest posts on %s category"
 msgstr "Laatste berichten op categorie %s"
 
-#: forms.py:17 forms.py:155 forms.py:264
-#: templates/djangobb_forum/users.html:45
+#: forms.py:17 forms.py:155 forms.py:279
+#: templates/djangobb_forum/users.html:47
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: forms.py:18 templates/djangobb_forum/users.html:48
+#: forms.py:18 templates/djangobb_forum/users.html:50
 msgid "Registered"
 msgstr "Ingeschreven"
 
@@ -61,15 +61,15 @@ msgstr "Bericht verzonden op"
 msgid "Author"
 msgstr "Auteur"
 
-#: forms.py:25 forms.py:47 forms.py:129 forms.py:351 models.py:123
+#: forms.py:25 forms.py:47 forms.py:129 forms.py:367 models.py:123
 #: templates/djangobb_forum/add_post.html:27
 #: templates/djangobb_forum/edit_post.html:24
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: forms.py:26 forms.py:299 models.py:106 models.py:122
+#: forms.py:26 forms.py:315 models.py:106 models.py:122
 #: templates/djangobb_forum/index.html:53
-#: templates/djangobb_forum/search_topics.html:22
+#: templates/djangobb_forum/search_topics.html:23
 msgid "Forum"
 msgstr "Forum"
 
@@ -86,7 +86,7 @@ msgid "Topics"
 msgstr "Onderwerpen"
 
 #: forms.py:36 models.py:213 templates/djangobb_forum/index.html:55
-#: templates/djangobb_forum/users.html:47
+#: templates/djangobb_forum/users.html:49
 msgid "Posts"
 msgstr "Berichten"
 
@@ -103,60 +103,60 @@ msgid "Topic subject only"
 msgstr "Alleen het onderwerp"
 
 #: forms.py:49 templates/djangobb_forum/add_post.html:36
-#: templates/djangobb_forum/topic.html:169
+#: templates/djangobb_forum/topic.html:173
 msgid "Attachment"
 msgstr "Bijlage"
 
 #: forms.py:76
 msgid "Can't be empty nor contain only whitespace characters"
-msgstr "Mag niet leeg zijn nog alleen uit spaties"
+msgstr ""
 
 #: forms.py:94
 msgid "Attachment is too big"
 msgstr "Bijlage te groot"
 
-#: forms.py:156 templates/djangobb_forum/topic.html:71
+#: forms.py:156 templates/djangobb_forum/topic.html:73
 msgid "E-mail"
 msgstr "E-mail"
 
-#: forms.py:186
+#: forms.py:187
 msgid "Real name"
 msgstr "Echte naam"
 
-#: forms.py:266 forms.py:301
+#: forms.py:281 forms.py:317
 msgid "Sort by"
 msgstr "Sorteren op"
 
-#: forms.py:267 forms.py:302
+#: forms.py:282 forms.py:318
 msgid "Sort order"
 msgstr "Sorteervolgorde"
 
-#: forms.py:295
+#: forms.py:311
 msgid "Keyword search"
 msgstr "Zoek op trefwoord"
 
-#: forms.py:297
+#: forms.py:313
 msgid "Author search"
 msgstr "Zoek op auteur"
 
-#: forms.py:300
+#: forms.py:316
 msgid "Search in"
 msgstr "Zoek in"
 
-#: forms.py:303
+#: forms.py:319
 msgid "Show results as"
 msgstr "Toon resultaten als"
 
-#: forms.py:328
+#: forms.py:344
 #, python-format
 msgid "User with login %s does not exist"
 msgstr "Gebruiker met loginnaam %s bestaat niet"
 
-#: forms.py:338
+#: forms.py:354
 msgid "You already voted for this post"
 msgstr "U heeft al gestemd op dit bericht"
 
-#: forms.py:353 models.py:204 templates/djangobb_forum/add_post.html:29
+#: forms.py:369 models.py:204 templates/djangobb_forum/add_post.html:29
 #: templates/djangobb_forum/edit_post.html:27
 msgid "Message"
 msgstr "Bericht"
@@ -173,7 +173,7 @@ msgstr "Houd uw e-mailadres verborgen maar sta e-mail via vensters toe"
 msgid "Hide your e-mail address and disallow form e-mail."
 msgstr "Houd uw e-mailadres verborgen en sta e-mail via vensters niet toe"
 
-#: models.py:60 models.py:95 models.py:383
+#: models.py:60 models.py:95 models.py:391
 msgid "Name"
 msgstr "Naam"
 
@@ -209,7 +209,7 @@ msgstr "Moderatoren"
 msgid "Updated"
 msgstr "Bijgewerkt"
 
-#: models.py:100 models.py:131 models.py:301
+#: models.py:100 models.py:131 models.py:314
 msgid "Post count"
 msgstr "Aantal berichten"
 
@@ -221,11 +221,11 @@ msgstr "Aantal onderwerpen"
 msgid "Forums"
 msgstr "Fora"
 
-#: models.py:124 models.py:200 models.py:344
+#: models.py:124 models.py:200 models.py:352
 msgid "Created"
 msgstr "Gecreëerd"
 
-#: models.py:126 models.py:199 models.py:282
+#: models.py:126 models.py:199 models.py:294
 msgid "User"
 msgstr "Gebruiker"
 
@@ -245,9 +245,9 @@ msgstr "Gesloten"
 msgid "Subscribers"
 msgstr "Ingeschrevenen"
 
-#: models.py:137 models.py:198 templates/djangobb_forum/forum.html:27
-#: templates/djangobb_forum/moderate.html:23
-#: templates/djangobb_forum/search_topics.html:21
+#: models.py:137 models.py:198 templates/djangobb_forum/forum.html:29
+#: templates/djangobb_forum/moderate.html:25
+#: templates/djangobb_forum/search_topics.html:22
 msgid "Topic"
 msgstr "Onderwerp"
 
@@ -267,7 +267,7 @@ msgstr "HTML versie"
 msgid "User IP"
 msgstr "Gebruikers IP"
 
-#: models.py:212 models.py:267 models.py:341 models.py:379
+#: models.py:212 models.py:267 models.py:349 models.py:387
 msgid "Post"
 msgstr "Bericht"
 
@@ -287,13 +287,13 @@ msgstr "Tijd"
 msgid "Sign"
 msgstr "Plus/Min"
 
-#: models.py:270 models.py:345 models.py:358
+#: models.py:270 models.py:353 models.py:366
 #: templates/djangobb_forum/report.html:16
 #: templates/djangobb_forum/reputation.html:24
 msgid "Reason"
 msgstr "Reden"
 
-#: models.py:273 templates/djangobb_forum/topic.html:61
+#: models.py:273 templates/djangobb_forum/topic.html:63
 msgid "Reputation"
 msgstr "Reputatie"
 
@@ -301,166 +301,166 @@ msgstr "Reputatie"
 msgid "Reputations"
 msgstr "Reputaties"
 
-#: models.py:283
+#: models.py:295
 msgid "Status"
 msgstr "Status"
 
-#: models.py:284
+#: models.py:296
 msgid "Site"
 msgstr "Site"
 
-#: models.py:285
+#: models.py:297
 msgid "Jabber"
 msgstr "Jabber"
 
-#: models.py:286
+#: models.py:298
 msgid "ICQ"
 msgstr "ICQ"
 
-#: models.py:287
+#: models.py:299
 msgid "MSN"
 msgstr "MSN"
 
-#: models.py:288
+#: models.py:300
 msgid "AIM"
 msgstr "AIM"
 
-#: models.py:289
+#: models.py:301
 msgid "Yahoo"
 msgstr "Yahoo"
 
-#: models.py:290 templates/djangobb_forum/user.html:25
+#: models.py:302 templates/djangobb_forum/user.html:25
 msgid "Location"
 msgstr "Locatie"
 
-#: models.py:291
+#: models.py:303 models.py:304
 msgid "Signature"
 msgstr "E-mailhandtekening"
 
-#: models.py:292
+#: models.py:305
 msgid "Time zone"
 msgstr "Tijdzone"
 
-#: models.py:293
+#: models.py:306
 msgid "Language"
 msgstr "Taal"
 
-#: models.py:294
+#: models.py:307
 msgid "Avatar"
 msgstr "Avatar"
 
-#: models.py:295
+#: models.py:308
 msgid "Theme"
 msgstr "Thema"
 
-#: models.py:296
+#: models.py:309
 msgid "Show avatar"
 msgstr "Toon avatar"
 
-#: models.py:297
+#: models.py:310
 msgid "Show signatures"
 msgstr "Toon e-mailhandtekeningen"
 
-#: models.py:298 templates/djangobb_forum/profile/profile_display.html:40
+#: models.py:311 templates/djangobb_forum/profile/profile_display.html:40
 msgid "Show smilies"
 msgstr "Laat smilies zien"
 
-#: models.py:299
+#: models.py:312
 msgid "Privacy permission"
 msgstr "Privacy toestemming"
 
-#: models.py:300
+#: models.py:313
 msgid "Default markup"
 msgstr "Standaard markering"
 
-#: models.py:304 templates/djangobb_forum/header.html:22
-#: templates/djangobb_forum/topic.html:69 templates/djangobb_forum/user.html:7
+#: models.py:319 templates/djangobb_forum/header.html:22
+#: templates/djangobb_forum/topic.html:71 templates/djangobb_forum/user.html:7
 msgid "Profile"
 msgstr "Profiel"
 
-#: models.py:305
+#: models.py:320
 msgid "Profiles"
 msgstr "Profielen"
 
-#: models.py:332 models.py:333
+#: models.py:340 models.py:341
 msgid "Post tracking"
 msgstr "Bericht tracking"
 
-#: models.py:340
+#: models.py:348
 msgid "Reported by"
 msgstr "Gemeld door"
 
-#: models.py:342
+#: models.py:350
 msgid "Zapped"
 msgstr "Gezapt"
 
-#: models.py:343
+#: models.py:351
 msgid "Zapped by"
 msgstr "Gezapt door"
 
-#: models.py:348 templates/djangobb_forum/topic.html:116
+#: models.py:356 templates/djangobb_forum/topic.html:120
 msgid "Report"
 msgstr "Aanmelding"
 
-#: models.py:349
+#: models.py:357
 msgid "Reports"
 msgstr "Aanmeldingen"
 
-#: models.py:355
+#: models.py:363
 msgid "Banned user"
 msgstr "Verbannen gebruiker"
 
-#: models.py:356
+#: models.py:364
 msgid "Ban start"
 msgstr "Begin verbanning"
 
-#: models.py:357
+#: models.py:365
 msgid "Ban end"
 msgstr "Eind verbanning"
 
-#: models.py:361
+#: models.py:369
 msgid "Ban"
 msgstr "Verbanning"
 
-#: models.py:362
+#: models.py:370
 msgid "Bans"
 msgstr "Verbanningen"
 
-#: models.py:380
+#: models.py:388
 msgid "Size"
 msgstr "Omvang"
 
-#: models.py:381
+#: models.py:389
 msgid "Content type"
 msgstr "Type inhoud"
 
-#: models.py:382
+#: models.py:390
 msgid "Path"
 msgstr "Pad"
 
-#: models.py:384
+#: models.py:392
 msgid "Hash"
 msgstr "Hash"
 
 #: templates/djangobb_forum/add_post.html:9
 #: templates/djangobb_forum/add_post.html:11
-#: templates/djangobb_forum/delete_posts.html:9
+#: templates/djangobb_forum/delete_posts.html:11
 #: templates/djangobb_forum/edit_post.html:8
-#: templates/djangobb_forum/forum.html:13
-#: templates/djangobb_forum/forum.html:71
-#: templates/djangobb_forum/moderate.html:9
-#: templates/djangobb_forum/topic.html:15
-#: templates/djangobb_forum/topic.html:139
-#: templates/djangobb_forum/lofi/forum.html:8
+#: templates/djangobb_forum/forum.html:15
+#: templates/djangobb_forum/forum.html:73
+#: templates/djangobb_forum/moderate.html:11
+#: templates/djangobb_forum/topic.html:17
+#: templates/djangobb_forum/topic.html:143
+#: templates/djangobb_forum/lofi/forum.html:9
 #: templates/djangobb_forum/lofi/index.html:6
 #: templates/djangobb_forum/lofi/index.html:8
-#: templates/djangobb_forum/lofi/topic.html:8
+#: templates/djangobb_forum/lofi/topic.html:9
 msgid "Root"
 msgstr "Wortel"
 
 #: templates/djangobb_forum/add_post.html:18
-#: templates/djangobb_forum/forum.html:11
-#: templates/djangobb_forum/forum.html:69
+#: templates/djangobb_forum/forum.html:13
+#: templates/djangobb_forum/forum.html:71
 msgid "New topic"
 msgstr "Nieuw onderwerp"
 
@@ -469,7 +469,7 @@ msgid "New reply"
 msgstr "Nieuwe reactie"
 
 #: templates/djangobb_forum/add_post.html:24
-#: templates/djangobb_forum/topic.html:160
+#: templates/djangobb_forum/topic.html:164
 msgid "Write your message and submit"
 msgstr "Schrijf uw bericht en stuur het op"
 
@@ -478,12 +478,12 @@ msgstr "Schrijf uw bericht en stuur het op"
 #: templates/djangobb_forum/report.html:22
 #: templates/djangobb_forum/reputation_form.html:41
 #: templates/djangobb_forum/search_form.html:70
-#: templates/djangobb_forum/topic.html:178
+#: templates/djangobb_forum/topic.html:182
 #: templates/djangobb_forum/profile/profile_display.html:45
 #: templates/djangobb_forum/profile/profile_essentials.html:81
 #: templates/djangobb_forum/profile/profile_messaging.html:30
-#: templates/djangobb_forum/profile/profile_personal.html:31
-#: templates/djangobb_forum/profile/profile_personality.html:54
+#: templates/djangobb_forum/profile/profile_personal.html:30
+#: templates/djangobb_forum/profile/profile_personality.html:49
 #: templates/djangobb_forum/profile/profile_privacy.html:25
 msgid "Submit"
 msgstr "Opsturen"
@@ -495,7 +495,7 @@ msgstr "Opsturen"
 #: templates/djangobb_forum/report.html:22
 #: templates/djangobb_forum/reputation.html:65
 #: templates/djangobb_forum/reputation_form.html:41
-#: templates/djangobb_forum/search_posts.html:49
+#: templates/djangobb_forum/search_posts.html:46
 #: templates/djangobb_forum/search_topics.html:60
 #: templates/djangobb_forum/upload_avatar.html:23
 msgid "Go back"
@@ -506,7 +506,7 @@ msgid "Topic review (newest first)"
 msgstr "Onderwerp overzien (beginnend met het nieuwste)"
 
 #: templates/djangobb_forum/add_post.html:71
-#: templates/djangobb_forum/topic.html:127
+#: templates/djangobb_forum/topic.html:131
 msgid "Quote"
 msgstr "Citeer"
 
@@ -514,20 +514,20 @@ msgstr "Citeer"
 msgid "Board footer"
 msgstr "Forum voet"
 
-#: templates/djangobb_forum/delete_posts.html:35
-#: templates/djangobb_forum/topic.html:97
+#: templates/djangobb_forum/delete_posts.html:37
+#: templates/djangobb_forum/topic.html:99
 msgid "Edited"
 msgstr "Bijgewerkt"
 
-#: templates/djangobb_forum/delete_posts.html:39
-#: templates/djangobb_forum/moderate.html:27
+#: templates/djangobb_forum/delete_posts.html:41
+#: templates/djangobb_forum/moderate.html:29
 msgid "Select"
 msgstr "Selecteer"
 
-#: templates/djangobb_forum/delete_posts.html:51
-#: templates/djangobb_forum/moderate.html:68
+#: templates/djangobb_forum/delete_posts.html:53
+#: templates/djangobb_forum/moderate.html:70
 #: templates/djangobb_forum/reputation.html:28
-#: templates/djangobb_forum/topic.html:119
+#: templates/djangobb_forum/topic.html:123
 msgid "Delete"
 msgstr "Wis"
 
@@ -543,57 +543,57 @@ msgstr "Bericht bijwerken en nieuwe versie opsturen"
 msgid "Save"
 msgstr "Opslaan"
 
-#: templates/djangobb_forum/forum.html:28
-#: templates/djangobb_forum/moderate.html:24
-#: templates/djangobb_forum/search_topics.html:23
+#: templates/djangobb_forum/forum.html:30
+#: templates/djangobb_forum/moderate.html:26
+#: templates/djangobb_forum/search_topics.html:24
 msgid "Replies"
 msgstr "Reacties"
 
-#: templates/djangobb_forum/forum.html:29
-#: templates/djangobb_forum/moderate.html:25
+#: templates/djangobb_forum/forum.html:31
+#: templates/djangobb_forum/moderate.html:27
 msgid "Views"
 msgstr "Aantal beschouwingen"
 
-#: templates/djangobb_forum/forum.html:30
+#: templates/djangobb_forum/forum.html:32
 #: templates/djangobb_forum/index.html:56
-#: templates/djangobb_forum/moderate.html:26
-#: templates/djangobb_forum/search_topics.html:24
+#: templates/djangobb_forum/moderate.html:28
+#: templates/djangobb_forum/search_topics.html:25
 msgid "Last post"
 msgstr "Laatste bericht"
 
-#: templates/djangobb_forum/forum.html:42
-#: templates/djangobb_forum/moderate.html:39
+#: templates/djangobb_forum/forum.html:44
+#: templates/djangobb_forum/moderate.html:41
 msgid "Sticky:"
 msgstr "Vastklevend:"
 
-#: templates/djangobb_forum/forum.html:45
 #: templates/djangobb_forum/forum.html:47
-#: templates/djangobb_forum/forum.html:54
-#: templates/djangobb_forum/forum_row.html:34
-#: templates/djangobb_forum/moderate.html:42
+#: templates/djangobb_forum/forum.html:49
+#: templates/djangobb_forum/forum.html:56
+#: templates/djangobb_forum/forum_row.html:36
 #: templates/djangobb_forum/moderate.html:44
-#: templates/djangobb_forum/moderate.html:51
-#: templates/djangobb_forum/search_topics.html:35
-#: templates/djangobb_forum/search_topics.html:37
-#: templates/djangobb_forum/search_topics.html:44
+#: templates/djangobb_forum/moderate.html:46
+#: templates/djangobb_forum/moderate.html:53
+#: templates/djangobb_forum/search_topics.html:36
+#: templates/djangobb_forum/search_topics.html:38
+#: templates/djangobb_forum/search_topics.html:45
 msgid "by"
 msgstr "door"
 
-#: templates/djangobb_forum/forum.html:58
-#: templates/djangobb_forum/moderate.html:56
+#: templates/djangobb_forum/forum.html:60
+#: templates/djangobb_forum/moderate.html:58
 msgid "Forum is empty."
 msgstr "Forum is leeg"
 
-#: templates/djangobb_forum/forum.html:79
+#: templates/djangobb_forum/forum.html:81
 msgid "Jump to"
 msgstr "Ga naar"
 
-#: templates/djangobb_forum/forum.html:90
-#: templates/djangobb_forum/topic.html:199
+#: templates/djangobb_forum/forum.html:92
+#: templates/djangobb_forum/topic.html:203
 msgid "Go"
 msgstr "Ga"
 
-#: templates/djangobb_forum/forum.html:94
+#: templates/djangobb_forum/forum.html:96
 msgid "Moderate forum"
 msgstr "Modereer forum"
 
@@ -602,14 +602,14 @@ msgid "Index"
 msgstr "Index"
 
 #: templates/djangobb_forum/header.html:16
-#: templates/djangobb_forum/users.html:39
+#: templates/djangobb_forum/users.html:41
 #: templates/djangobb_forum/lofi/header.html:5
 msgid "User list"
 msgstr "Gebruikerslijst"
 
 #: templates/djangobb_forum/header.html:17
 #: templates/djangobb_forum/search_form.html:7
-#: templates/djangobb_forum/users.html:28
+#: templates/djangobb_forum/users.html:30
 #: templates/djangobb_forum/lofi/header.html:4
 msgid "Search"
 msgstr "Zoek"
@@ -621,7 +621,7 @@ msgid "Administration"
 msgstr "Administratie"
 
 #: templates/djangobb_forum/header.html:24
-#: templates/djangobb_forum/topic.html:79
+#: templates/djangobb_forum/topic.html:81
 msgid "PM"
 msgstr "PM"
 
@@ -636,7 +636,7 @@ msgstr "Laatste bezoek:"
 #: templates/djangobb_forum/header.html:36
 #, fuzzy
 msgid "There are new messages"
-msgstr "Er zijn %(new_msg)s nieuwe berichten"
+msgstr "Er zijn nieuwe rapporten"
 
 #: templates/djangobb_forum/header.html:39
 msgid "You are not logged in."
@@ -699,32 +699,32 @@ msgid "Online:"
 msgstr "Aangemeld:"
 
 #: templates/djangobb_forum/index.html:101
-#: templates/djangobb_forum/search_posts.html:67
-#: templates/djangobb_forum/search_topics.html:76
+#: templates/djangobb_forum/search_posts.html:63
+#: templates/djangobb_forum/search_topics.html:75
 msgid "Search links"
 msgstr "Zoek links"
 
 #: templates/djangobb_forum/index.html:102
-#: templates/djangobb_forum/search_posts.html:68
-#: templates/djangobb_forum/search_topics.html:77
+#: templates/djangobb_forum/search_posts.html:64
+#: templates/djangobb_forum/search_topics.html:76
 msgid "Show recent posts"
 msgstr "Toon recente berichten"
 
 #: templates/djangobb_forum/index.html:103
-#: templates/djangobb_forum/search_posts.html:69
-#: templates/djangobb_forum/search_topics.html:78
+#: templates/djangobb_forum/search_posts.html:65
+#: templates/djangobb_forum/search_topics.html:77
 msgid "Show unanswered posts"
 msgstr "Toon berichten zonder reacties"
 
 #: templates/djangobb_forum/index.html:105
-#: templates/djangobb_forum/search_posts.html:71
-#: templates/djangobb_forum/search_topics.html:80
+#: templates/djangobb_forum/search_posts.html:67
+#: templates/djangobb_forum/search_topics.html:79
 msgid "Show your subscribed topics"
 msgstr "Toon onderwerpen waarop U geaboneerd bent"
 
 #: templates/djangobb_forum/index.html:106
-#: templates/djangobb_forum/search_posts.html:72
-#: templates/djangobb_forum/search_topics.html:81
+#: templates/djangobb_forum/search_posts.html:68
+#: templates/djangobb_forum/search_topics.html:80
 msgid "Show your posts"
 msgstr "Toon uw berichten"
 
@@ -744,16 +744,16 @@ msgstr ""
 "Let wel dat de ontvanger uw e-mailadres krijgt te zien als U gebruikmaakt "
 "van dit formulier"
 
-#: templates/djangobb_forum/moderate.html:67
+#: templates/djangobb_forum/moderate.html:69
 #: templates/djangobb_forum/move_topic.html:34
 msgid "Move"
 msgstr "Verplaats"
 
-#: templates/djangobb_forum/moderate.html:69
+#: templates/djangobb_forum/moderate.html:71
 msgid "Open"
 msgstr "Open"
 
-#: templates/djangobb_forum/moderate.html:70
+#: templates/djangobb_forum/moderate.html:72
 msgid "Close"
 msgstr "Sluit"
 
@@ -762,7 +762,7 @@ msgid "Moderated by"
 msgstr "Gemodereerd door"
 
 #: templates/djangobb_forum/move_topic.html:7
-#: templates/djangobb_forum/topic.html:205
+#: templates/djangobb_forum/topic.html:209
 msgid "Move topic"
 msgstr "Onderwerp verplaatsen"
 
@@ -872,123 +872,122 @@ msgstr "Selecteer hoe U de zoekresultaten wil zien"
 msgid "You can choose how you wish to sort and show your results."
 msgstr "U kunt kiezen hoe U de zoekresultaten wilt sorteren en zien"
 
-#: templates/djangobb_forum/search_posts.html:24
+#: templates/djangobb_forum/search_posts.html:25
 msgid "Replies:"
 msgstr "Reacties:"
 
-#: templates/djangobb_forum/search_posts.html:28
+#: templates/djangobb_forum/search_posts.html:27
 msgid "Go to post"
 msgstr "Ga naar bericht"
 
-#: templates/djangobb_forum/search_posts.html:44
-#: templates/djangobb_forum/search_topics.html:55
+#: templates/djangobb_forum/search_posts.html:42
+#: templates/djangobb_forum/search_topics.html:56
 msgid "Info"
 msgstr "Info"
 
-#: templates/djangobb_forum/search_posts.html:48
+#: templates/djangobb_forum/search_posts.html:45
 #: templates/djangobb_forum/search_topics.html:59
 msgid "Your search returned no hits."
 msgstr "Uw zoekopdracht leverde niets op."
 
-#: templates/djangobb_forum/search_topics.html:15
+#: templates/djangobb_forum/search_topics.html:16
 msgid "Search results"
 msgstr "Zoekresultaten"
 
-#: templates/djangobb_forum/topic.html:11
-#: templates/djangobb_forum/topic.html:125
-#: templates/djangobb_forum/topic.html:138
+#: templates/djangobb_forum/topic.html:13
+#: templates/djangobb_forum/topic.html:129
+#: templates/djangobb_forum/topic.html:142
 msgid "Reply"
 msgstr "Reactie"
 
-#: templates/djangobb_forum/topic.html:53
+#: templates/djangobb_forum/topic.html:55
 msgid "From:"
 msgstr "Van:"
 
-#: templates/djangobb_forum/topic.html:55
+#: templates/djangobb_forum/topic.html:57
 #: templates/djangobb_forum/user.html:127
 #: templates/djangobb_forum/profile/profile_essentials.html:73
 msgid "Registered:"
 msgstr "Ingeschreven:"
 
-#: templates/djangobb_forum/topic.html:56
+#: templates/djangobb_forum/topic.html:58
 #: templates/djangobb_forum/user.html:119
 #: templates/djangobb_forum/profile/profile_essentials.html:75
 msgid "Posts:"
 msgstr "Berichten:"
 
-#: templates/djangobb_forum/topic.html:58
+#: templates/djangobb_forum/topic.html:60
 msgid "IP:"
 msgstr "IP:"
 
-#: templates/djangobb_forum/topic.html:74
+#: templates/djangobb_forum/topic.html:76
 #: templates/djangobb_forum/user.html:42
 #: templates/djangobb_forum/profile/profile_essentials.html:43
 msgid "Send e-mail"
 msgstr "Stuur e-mail"
 
-#: templates/djangobb_forum/topic.html:101
+#: templates/djangobb_forum/topic.html:104
 msgid "Attachments:"
 msgstr "Bijlagen:"
 
-#: templates/djangobb_forum/topic.html:109
+#: templates/djangobb_forum/topic.html:113
 msgid "Online"
 msgstr "Aangemeld"
 
-#: templates/djangobb_forum/topic.html:111
+#: templates/djangobb_forum/topic.html:115
 msgid "Offline"
 msgstr "Niet aangemeld"
 
-#: templates/djangobb_forum/topic.html:119
+#: templates/djangobb_forum/topic.html:123
 msgid "Are you sure you want to delete this post?"
 msgstr "Weet U zeker dat U dit bericht wil wissen?"
 
-#: templates/djangobb_forum/topic.html:123
+#: templates/djangobb_forum/topic.html:127
 msgid "Edit"
 msgstr "Werk bij"
 
-#: templates/djangobb_forum/topic.html:144
+#: templates/djangobb_forum/topic.html:148
 msgid "Unsubscribe"
 msgstr "Abonnement opzeggen"
 
-#: templates/djangobb_forum/topic.html:146
+#: templates/djangobb_forum/topic.html:150
 msgid "Subscribe"
 msgstr "Aboneren"
 
-#: templates/djangobb_forum/topic.html:154
+#: templates/djangobb_forum/topic.html:158
 msgid "Quick post"
 msgstr "Snel bericht"
 
-#: templates/djangobb_forum/topic.html:188
+#: templates/djangobb_forum/topic.html:192
 msgid "Jump to "
 msgstr "Ga naar"
 
-#: templates/djangobb_forum/topic.html:202
+#: templates/djangobb_forum/topic.html:206
 msgid "Moderator control"
 msgstr "Moderator controle"
 
-#: templates/djangobb_forum/topic.html:204
+#: templates/djangobb_forum/topic.html:208
 msgid "Delete multiple posts"
 msgstr "Meerdere berichten wissen"
 
-#: templates/djangobb_forum/topic.html:207
+#: templates/djangobb_forum/topic.html:211
 msgid "Open topic"
 msgstr "Nieuw onderwerp"
 
-#: templates/djangobb_forum/topic.html:209
+#: templates/djangobb_forum/topic.html:213
 msgid "Close topic"
 msgstr "Onderwerp sluiten"
 
-#: templates/djangobb_forum/topic.html:212
+#: templates/djangobb_forum/topic.html:216
 msgid "Unstick topic"
 msgstr "Onderwerp vrijmaken (niet meer vastklevend)"
 
-#: templates/djangobb_forum/topic.html:214
+#: templates/djangobb_forum/topic.html:218
 msgid "Stick topic"
 msgstr "Onderwerp vastklevend maken"
 
 #: templates/djangobb_forum/upload_avatar.html:7
-#: templates/djangobb_forum/profile/profile_personality.html:27
-#: templates/djangobb_forum/profile/profile_personality.html:30
+#: templates/djangobb_forum/profile/profile_personality.html:26
 msgid "Upload avatar"
 msgstr "Avatar uploaden"
 
@@ -1023,7 +1022,7 @@ msgid "Username:"
 msgstr "Gebruikersnaam:"
 
 #: templates/djangobb_forum/user.html:17
-#: templates/djangobb_forum/users.html:46
+#: templates/djangobb_forum/users.html:48
 msgid "Title"
 msgstr "Titel"
 
@@ -1111,15 +1110,15 @@ msgstr "Toon alle berichten"
 msgid "Last post:"
 msgstr "Laatste bericht:"
 
-#: templates/djangobb_forum/users.html:7
+#: templates/djangobb_forum/users.html:9
 msgid "User search"
 msgstr "Zoek gebruiker"
 
-#: templates/djangobb_forum/users.html:12
+#: templates/djangobb_forum/users.html:14
 msgid "Find and sort users"
 msgstr "Zoek en sorteer gebruikers"
 
-#: templates/djangobb_forum/users.html:25
+#: templates/djangobb_forum/users.html:27
 msgid ""
 "Enter a username to search for. The username field can be left blank. Sort "
 "users by name, date registered or number of posts and in ascending/"
@@ -1129,17 +1128,17 @@ msgstr ""
 "gebruikers op naam, op inschrijvingsdatum of aantal berichten in oplopende "
 "of aflopende orde."
 
-#: templates/djangobb_forum/lofi/forum.html:6
+#: templates/djangobb_forum/lofi/forum.html:7
 #: templates/djangobb_forum/lofi/index.html:6
-#: templates/djangobb_forum/lofi/topic.html:6
+#: templates/djangobb_forum/lofi/topic.html:7
 msgid "Full Version:"
 msgstr "Volledige versie:"
 
-#: templates/djangobb_forum/lofi/forum.html:19
+#: templates/djangobb_forum/lofi/forum.html:21
 msgid "IMPORTANT:"
 msgstr "BELANGRIJK:"
 
-#: templates/djangobb_forum/lofi/forum.html:19
+#: templates/djangobb_forum/lofi/forum.html:21
 msgid "replies"
 msgstr "reacties"
 
@@ -1200,8 +1199,8 @@ msgstr "Informatie bericht weergave"
 #: templates/djangobb_forum/profile/profile_display.html:45
 #: templates/djangobb_forum/profile/profile_essentials.html:81
 #: templates/djangobb_forum/profile/profile_messaging.html:30
-#: templates/djangobb_forum/profile/profile_personal.html:31
-#: templates/djangobb_forum/profile/profile_personality.html:54
+#: templates/djangobb_forum/profile/profile_personal.html:30
+#: templates/djangobb_forum/profile/profile_personality.html:49
 #: templates/djangobb_forum/profile/profile_privacy.html:25
 msgid "When you update your profile, you will be redirected back to this page."
 msgstr ""
@@ -1277,15 +1276,11 @@ msgstr ""
 msgid "Use avatar."
 msgstr "Avatar gebruiken"
 
-#: templates/djangobb_forum/profile/profile_personality.html:28
-msgid "Delete avatar"
-msgstr "Avatar wissen"
-
-#: templates/djangobb_forum/profile/profile_personality.html:37
+#: templates/djangobb_forum/profile/profile_personality.html:32
 msgid "Compose your signature"
 msgstr "Uw e-mailhandtekenging componeren"
 
-#: templates/djangobb_forum/profile/profile_personality.html:40
+#: templates/djangobb_forum/profile/profile_personality.html:35
 msgid ""
 "A signature is a small piece of text that is attached to your posts. In it, "
 "you can enter just about anything you like. Perhaps you would like to enter "
@@ -1300,7 +1295,7 @@ msgstr ""
 "uw e-mailhandtekening kunt U BBCode schrijven mits het toegestaan is in dit "
 "forum. U kunt zien welke functies toegestaan zijn hieronder."
 
-#: templates/djangobb_forum/profile/profile_personality.html:49
+#: templates/djangobb_forum/profile/profile_personality.html:44
 msgid "No signature currently stored in profile."
 msgstr "Geen e-mailhandtekening momenteel in uw profiel."
 
@@ -1308,8 +1303,6 @@ msgstr "Geen e-mailhandtekening momenteel in uw profiel."
 msgid "Set your privacy options"
 msgstr "Uw privacyopties instellen"
 
-# Kies of U uw e-mailadres zichtbaar wilt maken voor andere gebruikers en of U
-# anderen wil toestaan U te e-mailen via het forum.
 #: templates/djangobb_forum/profile/profile_privacy.html:18
 msgid ""
 "Select whether you want your e-mail address to be viewable to other users or "
@@ -1319,11 +1312,5 @@ msgstr ""
 "Selecteer of u uw e-mailadres zichtbaar voor anderen wilt maken en of u "
 "anderen u wil laten e-maien vanuit het forum."
 
-#~ msgid "Log out"
-#~ msgstr "Afmelden"
-
-#~ msgid "Log in"
-#~ msgstr "Aanmelden"
-
-#~ msgid "Sign up"
-#~ msgstr "Inschrijven"
+#~ msgid "Delete avatar"
+#~ msgstr "Avatar wissen"
