@@ -351,6 +351,11 @@ class ReputationForm(forms.ModelForm):
             pass
         else:
             raise forms.ValidationError(_('You already voted for this post'))
+        
+        # check if this post really belong to `from_user`
+        if not Post.objects.filter(pk=self.cleaned_data['post'].id, user=self.to_user).exists():
+            raise forms.ValidationError(_('This post does\'t belong to this user'))
+
         return self.cleaned_data
 
 
