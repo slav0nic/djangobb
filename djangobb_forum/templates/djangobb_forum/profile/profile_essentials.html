@@ -40,7 +40,7 @@
 							<label><strong>{{ form.email.label }}</strong><br>
 							{{ form.email }}<br></label>
 							{% if request.user.is_superuser %}
-							<p><a href="{% url djangobb:misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
+								<p><a href="{% url djangobb:misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
 							{% endif %}
 
 						</div>

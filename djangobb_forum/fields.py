@@ -7,6 +7,7 @@ try:
 except ImportError:
     from StringIO import StringIO
 import random
+from hashlib import sha1
 
 from django.db.models import OneToOneField
 from django.db.models.fields.related import SingleRelatedObjectDescriptor 
@@ -14,7 +15,6 @@ from django.db import models
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils import simplejson as json
-from django.utils.hashcompat import sha_constructor
 from django.conf import settings
 
 
@@ -53,8 +53,8 @@ class ExtendedImageField(models.ImageField):
     def save_form_data(self, instance, data):
         if data and self.width and self.height:
             content = self.resize_image(data.read(), width=self.width, height=self.height)
-            salt = sha_constructor(str(random.random())).hexdigest()[:5]
-            fname =  sha_constructor(salt + settings.SECRET_KEY).hexdigest() + '.png'
+            salt = sha1(str(random.random())).hexdigest()[:5]
+            fname =  sha1(salt + settings.SECRET_KEY).hexdigest() + '.png'
             data = SimpleUploadedFile(fname, content, data.content_type)
         super(ExtendedImageField, self).save_form_data(instance, data)
 
