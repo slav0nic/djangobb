@@ -19,7 +19,6 @@ urlpatterns = patterns('',
     url('^misc/$', forum_views.misc, name='misc'),
 
     # User
-    url('^user/(?P<username>.*)/delete_avatar/$', forum_views.delete_avatar, name='forum_profile_delete_avatar'),
     url('^user/(?P<username>.*)/upload_avatar/$', forum_views.upload_avatar, {
         'form_class': UploadAvatarForm,
         'template': 'djangobb_forum/upload_avatar.html'
