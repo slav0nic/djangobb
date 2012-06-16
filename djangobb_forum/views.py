@@ -29,9 +29,9 @@ from haystack.query import SearchQuerySet, SQ
 
 
 def index(request, full=True):
-    users_cached = cache.get('users_online', {})
+    users_cached = cache.get('djangobb_users_online', {})
     users_online = users_cached and User.objects.filter(id__in = users_cached.keys()) or []
-    guests_cached = cache.get('guests_online', {})
+    guests_cached = cache.get('djangobb_guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
 
@@ -118,7 +118,10 @@ def search(request):
             date = datetime.today() - timedelta(1)
             topics = topics.filter(created__gte=date)
         elif action == 'show_new':
-            last_read = PostTracking.objects.get(user=request.user).last_read
+            try:
+                last_read = PostTracking.objects.get(user=request.user).last_read
+            except PostTracking.DoesNotExist:
+                last_read = None
             if last_read:
                 topics = topics.filter(last_post__updated__gte=last_read).all()
             else:
@@ -171,6 +174,7 @@ def search(request):
             if 'topics' in request.GET['show_as']:
                 topics = []
                 topics_to_exclude = SQ()
+                #TODO: rewrite
                 for post in posts:
                     if post.object.topic not in topics:
                         if post.object.topic.forum.category.has_access(request.user):
@@ -182,7 +186,7 @@ def search(request):
                     posts = posts.exclude(topics_to_exclude)
                 return render(request, 'djangobb_forum/search_topics.html', {'results': topics})
             elif 'posts' in request.GET['show_as']:
-                return render(request, 'djangobb_forum/search_posts.html', {'results': topics})
+                return render(request, 'djangobb_forum/search_posts.html', {'results': posts})
         return render(request, 'djangobb_forum/search_topics.html', {'results': topics})
     else:
         form = PostSearchForm()
@@ -224,9 +228,9 @@ def misc(request):
     elif 'mail_to' in request.GET:
         mailto = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
-        return (request, 'djangobb_forum/mail_to.html', {'form':form,
-                'mailto': mailto,
-               })
+        return render(request, 'djangobb_forum/mail_to.html', {'form':form,
+                'mailto': mailto}
+                )
 
 
 def show_forum(request, forum_id, full=True):
@@ -318,7 +322,7 @@ def add_post(request, forum_id, topic_id):
     if 'post_id' in request.GET:
         post_id = request.GET['post_id']
         post = get_object_or_404(Post, pk=post_id)
-        form.fields['body'].initial = "[quote=%s]%s[/quote]" % (post.user, post.body)
+        form.fields['body'].initial = u"[quote=%s]%s[/quote]" % (post.user, post.body)
 
     if form.is_valid():
         post = form.save();
@@ -384,6 +388,7 @@ def user(request, username, section='essentials', action=None, template='djangob
                 'form': form,
                })
     else:
+        template = 'djangobb_forum/user.html'
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)

@@ -228,7 +228,7 @@ def forum_authority(user):
     
 @register.filter
 def online(user):
-    return cache.get(str(user.id))
+    return cache.get('djangobb_user%d' % user.id)
 
 @register.filter
 def attachment_link(attach):

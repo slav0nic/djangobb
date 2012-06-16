@@ -1,12 +1,12 @@
 from datetime import datetime
 import os
 import os.path
+from hashlib import sha1
 
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.utils.hashcompat import sha_constructor
 from django.db.models.signals import post_save
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
@@ -397,7 +397,7 @@ class Attachment(models.Model):
     def save(self, *args, **kwargs):
         super(Attachment, self).save(*args, **kwargs)
         if not self.hash:
-            self.hash = sha_constructor(str(self.id) + settings.SECRET_KEY).hexdigest()
+            self.hash = sha1(str(self.id) + settings.SECRET_KEY).hexdigest()
         super(Attachment, self).save(*args, **kwargs)
 
     @models.permalink
