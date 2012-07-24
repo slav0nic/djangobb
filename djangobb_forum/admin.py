@@ -3,8 +3,8 @@ from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django.contrib.auth.models import User
 
-from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
-    Report, Ban
+from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
+    Report, Ban, Attachment
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -49,6 +49,12 @@ class UserAdmin(auth_admin.UserAdmin):
                         url(r'^(\d+)/password/$', self.admin_site.admin_view(self.user_change_password), name='user_change_password'),
                         ) + super(auth_admin.UserAdmin, self).get_urls()
 
+class AttachmentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'size', 'path', 'hash', ]
+    search_fields = ['name']
+    list_display_links = ('name',)
+    list_filter = ("content_type",)
+
 
 admin.site.unregister(User)
 
@@ -61,5 +67,6 @@ admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Reputation, ReputationAdmin)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(Ban, BanAdmin)
+admin.site.register(Attachment, AttachmentAdmin)
 
 admin.site.disable_action('delete_selected')  #disabled, because delete_selected ignoring delete model method
