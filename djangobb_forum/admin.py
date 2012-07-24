@@ -2,9 +2,10 @@
 from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
-from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
-    Report, Ban
+from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
+    Report, Ban, Attachment
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -15,7 +16,11 @@ class ForumAdmin(admin.ModelAdmin):
     raw_id_fields = ['moderators', 'last_post']
 
 class TopicAdmin(admin.ModelAdmin):
-    list_display = ['name', 'forum', 'created', 'head', 'post_count']
+    def subscribers2(self, obj):
+        return ", ".join([user.username for user in obj.subscribers.all()])
+    subscribers2.short_description = _("subscribers")
+
+    list_display = ['name', 'forum', 'created', 'head', 'post_count', 'subscribers2']
     search_fields = ['name']
     raw_id_fields = ['user', 'subscribers', 'last_post']
 
@@ -49,6 +54,12 @@ class UserAdmin(auth_admin.UserAdmin):
                         url(r'^(\d+)/password/$', self.admin_site.admin_view(self.user_change_password), name='user_change_password'),
                         ) + super(auth_admin.UserAdmin, self).get_urls()
 
+class AttachmentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'size', 'path', 'hash', ]
+    search_fields = ['name']
+    list_display_links = ('name',)
+    list_filter = ("content_type",)
+
 
 admin.site.unregister(User)
 
@@ -61,5 +72,6 @@ admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Reputation, ReputationAdmin)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(Ban, BanAdmin)
+admin.site.register(Attachment, AttachmentAdmin)
 
 admin.site.disable_action('delete_selected')  #disabled, because delete_selected ignoring delete model method
