@@ -1,13 +1,15 @@
-from django.conf.urls.defaults import *
+# coding: utf-8
+
+from django.conf.urls import patterns, url
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum import views as forum_views
-from djangobb_forum.feeds import LastPosts, LastTopics, LastPostsOnForum,\
+from djangobb_forum.feeds import LastPosts, LastTopics, LastPostsOnForum, \
      LastPostsOnCategory, LastPostsOnTopic
-from djangobb_forum.forms import EssentialsProfileForm,\
-    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
+from djangobb_forum.forms import EssentialsProfileForm, \
+    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, \
     DisplayProfileForm, PrivacyProfileForm, UploadAvatarForm
-     
+
 
 urlpatterns = patterns('',
 
@@ -74,7 +76,7 @@ urlpatterns = patterns('',
     # Subscription
     url('^subscription/topic/(?P<topic_id>\d+)/delete/$', forum_views.delete_subscription, name='forum_delete_subscription'),
     url('^subscription/topic/(?P<topic_id>\d+)/add/$', forum_views.add_subscription, name='forum_add_subscription'),
-    
+
     # Feeds
     url(r'^feeds/posts/$', LastPosts(), name='forum_posts_feed'),
     url(r'^feeds/topics/$', LastTopics(), name='forum_topics_feed'),
