@@ -1,13 +1,16 @@
+# coding: utf-8
+
 from datetime import datetime
+from hashlib import sha1
 import os
 import os.path
-from hashlib import sha1
 
-from django.db import models
-from django.contrib.auth.models import User, Group
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User, Group
+from django.db import models
 from django.db.models.signals import post_save
+from django.template.defaultfilters import slugify
+from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import smiles, convert_text_to_html
@@ -51,14 +54,14 @@ except ImportError:
 path = os.path.join(settings.STATIC_ROOT, 'djangobb_forum', 'themes')
 if os.path.exists(path):
     # fix for collectstatic
-    THEME_CHOICES = [(theme, theme) for theme in os.listdir(path) 
+    THEME_CHOICES = [(theme, theme) for theme in os.listdir(path)
                      if os.path.isdir(os.path.join(path, theme))]
 else:
     THEME_CHOICES = []
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
-    groups = models.ManyToManyField(Group,blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
+    groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
     position = models.IntegerField(_('Position'), blank=True, default=0)
 
     class Meta:
@@ -82,7 +85,7 @@ class Category(models.Model):
 
     def has_access(self, user):
         if self.groups.exists():
-            if user.is_authenticated(): 
+            if user.is_authenticated():
                     if not self.groups.filter(user__pk=user.id).exists():
                         return False
             else:
@@ -109,9 +112,16 @@ class Forum(models.Model):
     def __unicode__(self):
         return self.name
 
+    @property
+    def slug(self):
+        return slugify(self.name)
+
     @models.permalink
-    def get_absolute_url(self):
-        return ('djangobb:forum', [self.id])
+    def get_absolute_url(self, lofi=False):
+        if lofi:
+            return ('djangobb:lofi_forum', [self.id])
+        else:
+            return ('djangobb:forum', [self.id, self.slug])
 
     @property
     def posts(self):
@@ -169,9 +179,16 @@ class Topic(models.Model):
     def reply_count(self):
         return self.post_count - 1
 
+    @property
+    def slug(self):
+        return slugify(self.name)
+
     @models.permalink
-    def get_absolute_url(self):
-        return ('djangobb:topic', [self.id])
+    def get_absolute_url(self, lofi=False):
+        if lofi:
+            return ('djangobb:lofi_topic', [self.id])
+        else:
+            return ('djangobb:topic', [self.id, self.slug])
 
     def update_read(self, user):
         tracking = user.posttracking
@@ -213,11 +230,10 @@ class Post(models.Model):
         verbose_name_plural = _('Posts')
 
     def save(self, *args, **kwargs):
-        self.body_html = convert_text_to_html(self.body, self.markup) 
+        self.body_html = convert_text_to_html(self.body, self.markup)
         if forum_settings.SMILES_SUPPORT and self.user.forum_profile.show_smilies:
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)
-
 
     def delete(self, *args, **kwargs):
         self_id = self.id
@@ -250,8 +266,12 @@ class Post(models.Model):
         profile.save()
 
     @models.permalink
-    def get_absolute_url(self):
-        return ('djangobb:post', [self.id])
+    def get_absolute_url(self, lofi=False):
+        if lofi:
+            url_name = 'djangobb:lofi_post'
+        else:
+            url_name = 'djangobb:post'
+        return (url_name, [self.id])
 
     def summary(self):
         LIMIT = 50
@@ -348,7 +368,7 @@ class Report(models.Model):
     reported_by = models.ForeignKey(User, related_name='reported_by', verbose_name=_('Reported by'))
     post = models.ForeignKey(Post, verbose_name=_('Post'))
     zapped = models.BooleanField(_('Zapped'), blank=True, default=False)
-    zapped_by = models.ForeignKey(User, related_name='zapped_by', blank=True, null=True,  verbose_name=_('Zapped by'))
+    zapped_by = models.ForeignKey(User, related_name='zapped_by', blank=True, null=True, verbose_name=_('Zapped by'))
     created = models.DateTimeField(_('Created'), blank=True)
     reason = models.TextField(_('Reason'), blank=True, default='', max_length='1000')
 
@@ -357,7 +377,7 @@ class Report(models.Model):
         verbose_name_plural = _('Reports')
 
     def __unicode__(self):
-        return u'%s %s' % (self.reported_by ,self.zapped)
+        return u'%s %s' % (self.reported_by , self.zapped)
 
 class Ban(models.Model):
     user = models.OneToOneField(User, verbose_name=_('Banned user'), related_name='ban_users')

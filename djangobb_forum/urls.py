@@ -13,7 +13,8 @@ urlpatterns = patterns('',
 
     # Forum
     url('^$', forum_views.index, name='index'),
-    url('^(?P<forum_id>\d+)/$', forum_views.show_forum, name='forum'),
+    url('^(?P<forum_id>\d+)/$', forum_views.redirect_to_forum, name='redirect_to_forum'),
+    url('^(?P<forum_id>\d+)/(?P<slug>.*)/$', forum_views.show_forum, name='forum'),
     url('^moderate/(?P<forum_id>\d+)/$', forum_views.moderate, name='moderate'),
     url('^search/$', forum_views.search, name='search'),
     url('^misc/$', forum_views.misc, name='misc'),
@@ -53,13 +54,13 @@ urlpatterns = patterns('',
     url('^users/$', forum_views.users, name='forum_users'),
 
     # Topic
-    url('^topic/(?P<topic_id>\d+)/$', forum_views.show_topic, name='topic'),
-    url('^(?P<forum_id>\d+)/topic/add/$', forum_views.add_post,
-        {'topic_id': None}, name='add_topic'),
-    url('^topic/(?P<topic_id>\d+)/delete_posts/$', forum_views.delete_posts, name='delete_posts'),
+    url('^topic/(?P<topic_id>\d+)/$', forum_views.redirect_to_topic, name='redirect_to_topic'),
+    url('^topic/(?P<topic_id>\d+)/(?P<slug>.*)/$', forum_views.show_topic, name='topic'),
+    url('^(?P<forum_id>\d+)/topic/add/$', forum_views.add_post, {'topic_id': None}, name='add_topic'),
+    url('^topic/delete_posts/(?P<topic_id>\d+)/$', forum_views.delete_posts, name='delete_posts'),
     url('^topic/move/$', forum_views.move_topic, name='move_topic'),
-    url('^topic/(?P<topic_id>\d+)/stick_unstick/(?P<action>[s|u])/$', forum_views.stick_unstick_topic, name='stick_unstick_topic'),
-    url('^topic/(?P<topic_id>\d+)/open_close/(?P<action>[c|o])/$', forum_views.open_close_topic, name='open_close_topic'),
+    url('^topic/stick_unstick/(?P<topic_id>\d+)/(?P<action>[s|u])/$', forum_views.stick_unstick_topic, name='stick_unstick_topic'),
+    url('^topic/open_close/(?P<topic_id>\d+)/(?P<action>[c|o])/$', forum_views.open_close_topic, name='open_close_topic'),
 
     # Post
     url('^topic/(?P<topic_id>\d+)/post/add/$', forum_views.add_post,
@@ -88,8 +89,8 @@ urlpatterns = patterns('',
 if (forum_settings.LOFI_SUPPORT):
     urlpatterns += patterns('',
         url('^lofi/$', forum_views.index, {'full':False}, name='lofi_index'),
-        url('^(?P<forum_id>\d+)/lofi/$', forum_views.show_forum, {'full':False}, name='lofi_forum'),
-        url('^topic/(?P<topic_id>\d+)/lofi/$', forum_views.show_topic, {'full':False}, name='lofi_topic'),
+        url('^lofi/(?P<forum_id>\d+)/$', forum_views.show_forum, {'full':False}, name='lofi_forum'),
+        url('^lofi/topic/(?P<topic_id>\d+)/$', forum_views.show_topic, {'full':False}, name='lofi_topic'),
     )
 
 # REPUTATION Extension
