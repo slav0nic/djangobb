@@ -252,11 +252,18 @@ def new_reports():
     return Report.objects.filter(zapped=False).count()
 
 
+@register.simple_tag(takes_context=True)
 @register.simple_tag
-def gravatar(email):
+def gravatar(context, email):
     if forum_settings.GRAVATAR_SUPPORT:
+        if 'request' in context:
+            is_secure = context['request'].is_secure(); print is_secure
+        else:
+            is_secure = False
         size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
-        url = "http://www.gravatar.com/avatar/%s?" % md5_constructor(email.lower()).hexdigest()
+        url = 'https://secure.gravatar.com/avatar/%s?' if is_secure \
+            else 'http://www.gravatar.com/avatar/%s?'
+        url = url % md5_constructor(email.lower()).hexdigest()
         url += urllib.urlencode({
             'size': size,
             'default': forum_settings.GRAVATAR_DEFAULT,
