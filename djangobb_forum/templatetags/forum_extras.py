@@ -253,7 +253,6 @@ def new_reports():
 
 
 @register.simple_tag(takes_context=True)
-@register.simple_tag
 def gravatar(context, email):
     if forum_settings.GRAVATAR_SUPPORT:
         if 'request' in context:
