@@ -46,7 +46,25 @@
 	{% block extra_meta %}{% endblock %}
 </head>
 <body>
-	{% include 'djangobb_forum/header.html' %}
+    {% include 'djangobb_forum/header.html' %}
+
+    {% block messages %}
+        {% if messages %}
+        <div id="messages" class="block">
+            <h2><span>{% trans "Notice" %}</span></h2>
+            <div class="box">
+                <div class="inbox">
+                    <ul class="messagelist">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endblock messages %}
+
 	{% block content %}{% endblock %}
 	<div id="brdfooter" class="block">
 	<h2><span>{% trans "Board footer" %}</span></h2>
