@@ -13,6 +13,9 @@ pending modification:
 * **[[https://github.com/jedie/DjangoBB/compare/master...django-messages|django-messages]]** use django.contrib.messages for feedback: http://support.djangobb.org/topic/315/
 * **[[https://github.com/jedie/DjangoBB/compare/master...disable_admin_action|disable_admin_action]]** http://support.djangobb.org/topic/323/
 
+A up-to-date forum which used these modifications exists here:
+* http://www.pylucid.org/forum/
+
 == use in PyLucid ==
 
 You can install DjangoBB in PyLucid CMS as a plugin.
