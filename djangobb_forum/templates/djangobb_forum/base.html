@@ -19,18 +19,22 @@
 		var STATIC_URL = "{{ STATIC_URL }}";
 		var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
 	</script>
-	{% if post %}
-		{% set_markup_editor request.user post.markup %}
-	{% else %}
-		{% set_markup_editor request.user %}
-	{% endif %}
 	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.min.js" onerror="JavaScript:alert('Error loading file [{{ STATIC_URL }}admin/js/jquery.min.js] !');" ></script>
 	{% if user.is_authenticated %}
-		<script type="text/javascript" >
-		   $(document).ready(function() {
-			$(".markup").markItUp(mySettings);
-		   });
-		</script>
+    	{% if post %}
+            {% with markup=post.markup %}
+                {% include "djangobb_forum/includes/markup_editor.html" %}
+            {% endwith %}
+        {% else %}
+            {% with markup=user.forum_profile.markup %}
+                {% include "djangobb_forum/includes/markup_editor.html" %}
+            {% endwith %}
+        {% endif %}
+    	<script type="text/javascript">
+    	   $(document).ready(function() {
+    		$(".markup").markItUp(mySettings);
+    	   });
+    	</script>
 	{% endif %}
 
     <!-- Highlightjs goodies -->
