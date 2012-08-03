@@ -258,12 +258,6 @@ def show_forum(request, forum_id, full=True):
 
 @transaction.commit_on_success
 def show_topic(request, topic_id, full=True):
-#    messages.debug(request, "test debug.")
-#    messages.info(request, "test info.")
-#    messages.success(request, "test success.")
-#    messages.warning(request, "test warning.")
-#    messages.error(request, "test error.")
-
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
