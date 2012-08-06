@@ -10,6 +10,8 @@ Information of [[https://github.com/jedie/DjangoBB/branches|all own branches]]:
 
 pending modification:
 * **[[https://github.com/jedie/DjangoBB/compare/master...post_form|post_form]]** [[http://support.djangobb.org/topic/316/|merge quote, replay and quick post]] + http://support.djangobb.org/topic/303/?page=1#post-1317
+** **[[https://github.com/jedie/DjangoBB/compare/master...subscribe|subscribe]]** [[http://djangobb.org/ticket/175|auto subscripe to topics]]
+* **[[https://github.com/jedie/DjangoBB/compare/master...post_form|post_form]]** [[http://support.djangobb.org/topic/316/|merge quote, replay and quick post]] + http://support.djangobb.org/topic/303/?page=1#post-1317
 * **[[https://github.com/jedie/DjangoBB/compare/master...disable_admin_action|disable_admin_action]]** http://support.djangobb.org/topic/323/
 
 A up-to-date forum which used these modifications exists here:
