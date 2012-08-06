@@ -256,7 +256,7 @@ def new_reports():
 def gravatar(context, email):
     if forum_settings.GRAVATAR_SUPPORT:
         if 'request' in context:
-            is_secure = context['request'].is_secure(); print is_secure
+            is_secure = context['request'].is_secure()
         else:
             is_secure = False
         size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
