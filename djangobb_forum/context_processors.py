@@ -1,4 +1,13 @@
-from djangobb_forum import settings
+# coding: utf-8
 
-def forum_settings(context):
-    return {'forum_settings': settings}
+
+from django.conf import settings
+
+from djangobb_forum import settings as djangobb_settings
+
+
+def forum_settings(request):
+    return {
+        'forum_settings': djangobb_settings,
+        'DEBUG': settings.DEBUG,
+    }
