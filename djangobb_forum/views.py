@@ -1,33 +1,35 @@
+# coding: utf-8
+
 import math
 from datetime import datetime, timedelta
 
-from django.shortcuts import get_object_or_404, render
-from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from django.contrib.auth.models import User
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.db.models import Q, F, Sum
-from django.utils.encoding import smart_str
+from django.core.urlresolvers import reverse
 from django.db import transaction
-from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q, F
+from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, render
+from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
+from django.views.decorators.csrf import csrf_exempt
+
+from haystack.query import SearchQuerySet, SQ
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
-    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, \
-    DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm
-from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
+    VotePollForm, ReportForm, VotePollForm, PollForm
+from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
 
-from haystack.query import SearchQuerySet, SQ
-from django.contrib import messages
-from django.core.exceptions import SuspiciousOperation
+
 
 
 def index(request, full=True):
@@ -312,6 +314,19 @@ def show_forum(request, forum_id, full=True):
 
 @transaction.commit_on_success
 def show_topic(request, topic_id, full=True):
+    """
+    * Display a topic
+    * save a reply
+    * save a poll vote
+    
+    TODO: Add reply in lofi mode
+    """
+    post_request = request.method == "POST"
+    user_is_authenticated = request.user.is_authenticated()
+    if post_request and not user_is_authenticated:
+        # Info: only user that are logged in should get forms in the page.
+        return HttpResponseForbidden()
+
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
@@ -323,82 +338,147 @@ def show_topic(request, topic_id, full=True):
         topic.update_read(request.user)
     posts = topic.posts.all().select_related()
 
-    initial = {}
-    if request.user.is_authenticated():
-        initial = {
-            'markup': request.user.forum_profile.markup,
-            'subscribe': request.user.forum_profile.auto_subscribe,
-        }
-    form = AddPostForm(topic=topic, initial=initial)
-
-    moderator = request.user.is_superuser or\
-        request.user in topic.forum.moderators.all()
-    if request.user.is_authenticated() and request.user in topic.subscribers.all():
+    moderator = request.user.is_superuser or request.user in topic.forum.moderators.all()
+    if user_is_authenticated and request.user in topic.subscribers.all():
         subscribed = True
     else:
         subscribed = False
+
+    # reply form
+    reply_form = None
+    form_url = None
+    back_url = None
+    if user_is_authenticated and not topic.closed:
+        form_url = request.path + "#reply" # if form validation failed: browser should scroll down to reply form ;)
+        back_url = request.path
+        ip = request.META.get('REMOTE_ADDR', None)
+        post_form_kwargs = {"topic":topic, "user":request.user, "ip":ip}
+        if post_request and AddPostForm.FORM_NAME in request.POST:
+            reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
+            if reply_form.is_valid():
+                post = reply_form.save()
+                messages.success(request, _("Your reply saved."))
+                return HttpResponseRedirect(post.get_absolute_url())
+        else:
+            reply_form = AddPostForm(
+                initial={
+                    'markup': request.user.forum_profile.markup,
+                    'subscribe': request.user.forum_profile.auto_subscribe,
+                },
+                **post_form_kwargs
+            )
+
+    # handle poll, if exists
+    poll_form = None
+    polls = topic.poll_set.all()
+    if not polls:
+        poll = None
+    else:
+        poll = polls[0]
+        if user_is_authenticated: # Only logged in users can vote
+            poll.auto_deactivate()
+            has_voted = request.user in poll.users.all()
+            if not post_request or not VotePollForm.FORM_NAME in request.POST:
+                # It's not a POST request or: The reply form was send and not a poll vote
+                if poll.active and not has_voted:
+                    poll_form = VotePollForm(poll)
+            else:
+                if not poll.active:
+                    messages.error(request, _("This poll is not active!"))
+                    return HttpResponseRedirect(topic.get_absolute_url())
+                elif has_voted:
+                    messages.error(request, _("You have already vote to this poll in the past!"))
+                    return HttpResponseRedirect(topic.get_absolute_url())
+
+                poll_form = VotePollForm(poll, request.POST)
+                if poll_form.is_valid():
+                    ids = poll_form.cleaned_data["choice"]
+                    queryset = poll.choices.filter(id__in=ids)
+                    queryset.update(votes=F('votes') + 1)
+                    poll.users.add(request.user) # save that this user has vote
+                    messages.success(request, _("Your votes are saved."))
+                    return HttpResponseRedirect(topic.get_absolute_url())
 
     highlight_word = request.GET.get('hl', '')
     if full:
         return render(request, 'djangobb_forum/topic.html', {'categories': Category.objects.all(),
                 'topic': topic,
                 'last_post': last_post,
-                'form': form,
+                'form_url': form_url,
+                'reply_form': reply_form,
+                'back_url': back_url,
                 'moderator': moderator,
                 'subscribed': subscribed,
                 'posts': posts,
                 'highlight_word': highlight_word,
+                'poll': poll,
+                'poll_form': poll_form,
                 })
     else:
         return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
                 'topic': topic,
                 'posts': posts,
+                'poll': poll,
+                'poll_form': poll_form,
                 })
 
 
 @login_required
 @transaction.commit_on_success
-def add_post(request, forum_id, topic_id):
-    forum = None
-    topic = None
-    posts = None
-
-    if forum_id:
-        forum = get_object_or_404(Forum, pk=forum_id)
-        if not forum.category.has_access(request.user):
-            return HttpResponseForbidden()
-    elif topic_id:
-        topic = get_object_or_404(Topic, pk=topic_id)
-        posts = topic.posts.all().select_related()
-        if not topic.forum.category.has_access(request.user):
-            return HttpResponseForbidden()
-    if topic and topic.closed:
-        messages.error(request, _("This topic is closed."))
-        return HttpResponseRedirect(topic.get_absolute_url())
+def add_topic(request, forum_id):
+    """
+    create a new topic, with or without poll
+    """
+    forum = get_object_or_404(Forum, pk=forum_id)
+    if not forum.category.has_access(request.user):
+        return HttpResponseForbidden()
 
     ip = request.META.get('REMOTE_ADDR', None)
-    form = build_form(AddPostForm, request, topic=topic, forum=forum,
-                      user=request.user, ip=ip,
-                      initial={
-                          'markup': request.user.forum_profile.markup,
-                          'subscribe': request.user.forum_profile.auto_subscribe,
-                          })
+    post_form_kwargs = {"forum":forum, "user":request.user, "ip":ip, }
 
-    if 'post_id' in request.GET:
-        post_id = request.GET['post_id']
-        post = get_object_or_404(Post, pk=post_id)
-        form.fields['body'].initial = u"[quote=%s]%s[/quote]" % (post.user, post.body)
+    if request.method == 'POST':
+        form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
+        if form.is_valid():
+            all_valid = True
+        else:
+            all_valid = False
 
-    if form.is_valid():
-        post = form.save();
-        messages.success(request, _("Topic saved."))
-        return HttpResponseRedirect(post.get_absolute_url())
+        poll_form = PollForm(request.POST)
+        create_poll = poll_form.create_poll()
+        if not create_poll:
+            # All poll fields are empty: User didn't want to create a poll
+            # Don't run validation and remove all form error messages
+            poll_form = PollForm() # create clean form without form errors
+        elif not poll_form.is_valid():
+            all_valid = False
 
-    return render(request, 'djangobb_forum/add_post.html', {'form': form,
-            'posts': posts,
-            'topic': topic,
-            'forum': forum,
-            })
+        if all_valid:
+            post = form.save()
+            if create_poll:
+                poll_form.save(post)
+                messages.success(request, _("Topic with poll saved."))
+            else:
+                messages.success(request, _("Topic saved."))
+            return HttpResponseRedirect(post.get_absolute_url())
+    else:
+        form = AddPostForm(
+            initial={
+                'markup': request.user.forum_profile.markup,
+                'subscribe': request.user.forum_profile.auto_subscribe,
+            },
+            **post_form_kwargs
+        )
+        if forum_id: # Create a new topic
+            poll_form = PollForm()
+
+    context = {
+        'forum': forum,
+        'create_poll_form': poll_form,
+        'form': form,
+        'form_url': request.path,
+        'back_url': forum.get_absolute_url(),
+    }
+    return render(request, 'djangobb_forum/add_topic.html', context)
 
 
 @transaction.commit_on_success

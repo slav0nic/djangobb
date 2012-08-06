@@ -73,4 +73,24 @@ $(document).ready(function() {
         paste("[b]"+nick+"[/b]\n");
     });
     $(".username").attr('title', 'Click to paste nick name in reply form.');
+    
+    window.onbeforeunload = function() {
+        var obj = $("textarea#id_body");
+        if (obj.length != 1) {
+            // object not found in page -> do nothing
+            return
+        }
+        var text = obj.val().trim();
+        //log("onbeforeunload text:" + text);
+        if (text.length > 3) {
+            // Firefox will not use the string. IE use it
+            // TODO: Translate string
+            return "Leave page with unsaved content?";
+        }
+        // if nothing returned, browser leave the page without any message
+    };
+    $("form#post").bind("submit", function() {
+        //log("unbind onbeforeunload");
+        window.onbeforeunload = null;
+    });
 });

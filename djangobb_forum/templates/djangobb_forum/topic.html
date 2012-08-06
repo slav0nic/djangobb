@@ -18,6 +18,37 @@
 		<div class="clearer"></div>
 	</div>
 </div>
+
+{% if poll %}
+<div id="poll" class="block">
+    <h2><span>{% trans "Poll" %}</span></h2>
+    <div class="box">
+        <div class="inbox"><p><strong>{{ poll.question }}</strong></p>
+        {% if poll_form %}       
+            <form action="." method="post">{% csrf_token %}
+            {{ poll_form }}
+            {% if poll.choice_count > 1 %}
+            <p>
+                {% blocktrans with count=poll.choice_count %}({{ count }} answers allows.){% endblocktrans %}
+            </p>
+            {% endif %}
+            <input type="submit" name="{{ poll_form.FORM_NAME }}" value="{% trans "Vote" %}" />
+            </form>
+        {% else %}
+            <ul>               
+            {% for choice in poll.choices.all %}
+                <li>
+                    <div class="bar" style="width:{{ choice.percent }}%;" title="{{ choice.choice }}">&nbsp;</div>
+                    {{ choice.votes }} vote{{ choice.votes|pluralize }} ({{ choice.percent|floatformat:1 }}%) for: {{ choice.choice }}
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% for post in posts %}
 	<div id="p{{ post.id }}" class="blockpost roweven firstpost">
 		<a name="post-{{ post.id }}"></a>
@@ -152,10 +183,14 @@
 		<div class="clearer"></div>
 	</div>
 </div>
-{% if not topic.closed and user.is_authenticated %}
-    {% include "djangobb_forum/includes/post_form.html" %}
+
+{% if reply_form %}
+    {% with form=reply_form %}
+        {% include "djangobb_forum/includes/post_form.html" %}
+    {% endwith %}
 {% endif %}
-{% endblock %}
+
+{% endblock content%}
 
 {% block controls %}
 <div class="conl">
