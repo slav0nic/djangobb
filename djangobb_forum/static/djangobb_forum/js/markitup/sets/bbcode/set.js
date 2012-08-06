@@ -31,7 +31,20 @@ mySettings = {
 		{name:'List item', openWith:'[*] '},
 		{separator:'---------------' },
 		{name:'Quotes', openWith:'[quote]', closeWith:'[/quote]'},
-		{name:'Code', openWith:'[code]', closeWith:'[/code]'}, 
+		{name:'Code', openWith:'[code]', closeWith:'[/code]', dropMenu:[
+		    // here we can list all languages which pygments support
+		    // see 'short name' here: http://pygments.org/docs/lexers/
+            {name:'Python', openWith:'[code python]', closeWith:'[/code]'}, 
+            {name:'html', openWith:'[code html]', closeWith:'[/code]'}, 
+            {name:'html+django', openWith:'[code html+django]', closeWith:'[/code]'}, 
+            {name:'JavaScript', openWith:'[code javascript]', closeWith:'[/code]'}, 
+            {name:'css', openWith:'[code css]', closeWith:'[/code]'}, 
+            {name:'Bash', openWith:'[code bash]', closeWith:'[/code]'}, 
+            {name:'MySQL', openWith:'[code mysql]', closeWith:'[/code]'}, 
+            {name:'PostgreSQL', openWith:'[code postgres]', closeWith:'[/code]'}, 
+            {name:'Apache config', openWith:'[code apacheconf]', closeWith:'[/code]'}, 
+            {name:'INI files', openWith:'[code ini]', closeWith:'[/code]'}, 
+        ]}, 
         {name:'Smiles', openWith:'', closeWith:'', dropMenu:[
             {name:'Smile', openWith:':)'}, 
             {name:'Neutral', openWith:':|'}, 
