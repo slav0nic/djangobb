@@ -47,6 +47,7 @@ class AddPostForm(forms.ModelForm):
     name = forms.CharField(label=_('Subject'), max_length=255,
                            widget=forms.TextInput(attrs={'size':'115'}))
     attachment = forms.FileField(label=_('Attachment'), required=False)
+    subscribe = forms.BooleanField(label=_('Subscribe'), help_text=_("Subscribe this topic."), required=False)
 
     class Meta:
         model = Post
@@ -103,6 +104,10 @@ class AddPostForm(forms.ModelForm):
         else:
             topic = self.topic
 
+        if self.cleaned_data['subscribe']:
+            # User would like to subscripe to this topic
+            topic.subscribers.add(self.user)
+
         post = Post(topic=topic, user=self.user, user_ip=self.ip,
                     markup=self.user.forum_profile.markup,
                     body=self.cleaned_data['body'])
@@ -157,7 +162,7 @@ class EssentialsProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['time_zone', 'language']
+        fields = ['auto_subscribe', 'time_zone', 'language']
 
     def __init__(self, *args, **kwargs):
         extra_args = kwargs.pop('extra_args', {})

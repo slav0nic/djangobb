@@ -14,40 +14,7 @@
 	</div>
 </div>
 
-<div class="blockform">
-	<h2><span>{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}</span></h2>
-	<div class="box">
-		<form id="post" action="{% if forum %}{% url djangobb:add_topic forum.id %}{% else %}{% url djangobb:add_post topic.id %}{% endif %}" method="post" enctype="multipart/form-data">
-			{% csrf_token %}
-			<div class="inform">
-				<fieldset>
-					<legend>{% trans "Write your message and submit" %}</legend>
-					<div class="infldset txtarea">
-						{% if forum %}
-							<label><strong>{% trans "Subject" %}</strong><br />{{ form.name.errors }}{{ form.name }}<br /></label>
-						{% endif %}
-						<label><strong>{% trans "Message" %}</strong><br />{{ form.body.errors }}{{ form.body }}<br /></label>
-					</div>
-				</fieldset>
-			</div>
-			{% if forum_settings.ATTACHMENT_SUPPORT %}
-			<div class="inform">
-				<fieldset>
-					<legend>{% trans "Attachment" %}</legend>
-					<div class="infldset">
-						{{ form.attachment.errors }}
-						<div class="rbox">
-							{{ form.attachment }}
-						</div>
-					</div>
-				</fieldset>
-			</div>
-			{% endif %}
-
-			<p><input type="submit" value="{% trans "Submit" %}" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
-		</form>
-	</div>
-</div>
+{% include "djangobb_forum/includes/post_form.html" %}
 
 {% if not forum %}
 <div id="postreview" class="blockpost">
