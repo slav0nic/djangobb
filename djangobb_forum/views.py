@@ -1,5 +1,5 @@
 import math
-from datetime import datetime, timedelta 
+from datetime import datetime, timedelta
 
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -14,11 +14,11 @@ from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
 
 from djangobb_forum.util import build_form, paginate, set_language
-from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation,\
+from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
     Attachment, PostTracking
-from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm,\
-    PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm,\
-    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
+from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
+    PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
+    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, \
     DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum import settings as forum_settings
@@ -30,7 +30,7 @@ from haystack.query import SearchQuerySet, SQ
 
 def index(request, full=True):
     users_cached = cache.get('djangobb_users_online', {})
-    users_online = users_cached and User.objects.filter(id__in = users_cached.keys()) or []
+    users_online = users_cached and User.objects.filter(id__in=users_cached.keys()) or []
     guests_cached = cache.get('djangobb_guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
@@ -76,7 +76,7 @@ def moderate(request, forum_id):
     if request.user.is_superuser or request.user in forum.moderators.all():
         topic_ids = request.POST.getlist('topic_id')
         if 'move_topics' in request.POST:
-            return render(request,  'djangobb_forum/move_topic.html', {
+            return render(request, 'djangobb_forum/move_topic.html', {
                 'categories': Category.objects.all(),
                 'topic_ids': topic_ids,
                 'exclude_forum': forum,
@@ -195,7 +195,7 @@ def search(request):
 def misc(request):
     if 'action' in request.GET:
         action = request.GET['action']
-        if action =='markread':
+        if action == 'markread':
             user = request.user
             PostTracking.objects.filter(user__id=user.id).update(last_read=datetime.now(), topics=None)
             return HttpResponseRedirect(reverse('djangobb:index'))
@@ -228,8 +228,21 @@ def misc(request):
                 'mailto': mailto}
                 )
 
+def redirect_to_forum(request, forum_id):
+    """
+    redirect a old url without slug to the new urls with slug.
+    This is needed to avoid a lower rating cause of "duplicate content".
+    TODO: remove it in the future
+    """
+    forum = get_object_or_404(Forum, pk=forum_id)
+    url = reverse('djangobb:forum', kwargs={"forum_id":forum.id, "slug":forum.slug})
+    return HttpResponseRedirect(url)
 
-def show_forum(request, forum_id, full=True):
+def show_forum(request, forum_id, slug=None, full=True):
+    """
+    display a forum.
+    Note: we ignore the slug, yet.
+    """
     forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
         return HttpResponseForbidden()
@@ -248,8 +261,22 @@ def show_forum(request, forum_id, full=True):
         return render(request, 'djangobb_forum/lofi/forum.html', to_return)
 
 
+def redirect_to_topic(request, topic_id):
+    """
+    redirect a old url without slug to the new urls with slug.
+    This is needed to avoid a lower rating cause of "duplicate content".
+    TODO: remove it in the future
+    """
+    topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
+    url = reverse('djangobb:topic', kwargs={"topic_id":topic.id, "slug":topic.slug})
+    return HttpResponseRedirect(url)
+
 @transaction.commit_on_success
-def show_topic(request, topic_id, full=True):
+def show_topic(request, topic_id, slug=None, full=True):
+    """
+    display a topic.
+    Note: we ignore the slug, yet.
+    """
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
@@ -421,7 +448,9 @@ def show_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     count = post.topic.posts.filter(created__lt=post.created).count() + 1
     page = math.ceil(count / float(forum_settings.TOPIC_PAGE_SIZE))
-    url = '%s?page=%d#post-%d' % (reverse('djangobb:topic', args=[post.topic.id]), page, post.id)
+    url = '%s?page=%d#post-%d' % (
+        reverse('djangobb:topic', kwargs={"topic_id":post.topic.id, "slug":post.topic.slug}), page, post.id
+    )
     return HttpResponseRedirect(url)
 
 
@@ -573,7 +602,6 @@ def delete_post(request, post_id):
 @login_required
 @transaction.commit_on_success
 def open_close_topic(request, topic_id, action):
-
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
         if action == 'c':
