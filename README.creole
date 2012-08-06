@@ -16,7 +16,9 @@ A up-to-date forum which used these modifications exists here:
 * http://www.pylucid.org/forum/
 
 merged mofigications:
-* --**[[https://github.com/jedie/DjangoBB/compare/master...django-messages|django-messages]]** use django.contrib.messages for feedback: http://support.djangobb.org/topic/315/-- - merged with https://bitbucket.org/slav0nic/djangobb/changeset/537f5c18c691ef43052e6f292153e5a46475b843
+* **[[https://github.com/jedie/DjangoBB/compare/master...django-messages|django-messages]]** use django.contrib.messages for feedback: http://support.djangobb.org/topic/315/ - merged with https://bitbucket.org/slav0nic/djangobb/changeset/537f5c18c691ef43052e6f292153e5a46475b843
+* see subscribers usernames in TopicAdmin  - https://github.com/slav0nic/DjangoBB/commit/b9b232784e7795efe4b085fc6acfac578f5ae57e
+* add admin class for Attachment model - https://github.com/slav0nic/DjangoBB/commit/69463855d1bf5119ad1cf73e7e6c3334dfbb7416
 
 == use in PyLucid ==
 
