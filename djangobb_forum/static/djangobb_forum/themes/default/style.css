@@ -278,3 +278,40 @@ TD DIV.tclcon {MARGIN-LEFT: 2.3em}
 	background-repeat:  no-repeat;
 	background-position: bottom left;
 }
+
+/****************************************************************/
+/* for django messages                                          */
+/* https://docs.djangoproject.com/en/1.4/ref/contrib/messages/  */
+/****************************************************************/
+
+#messages .debug, #messages .info, #messages .success, #messages .warning, #messages .error {
+    border: 2px solid #DDDDDD;
+    margin-bottom: 1em;
+    padding: 0.8em;
+}
+#messages .debug {
+    background-color: #FFF6BF;
+    border-color: #FFD324;
+    color: #514721;
+}
+#messages .info {
+    background-color: #D5EDF8;
+    border-color: #92CAE4;
+    color: #205791;
+}
+#messages .success {
+    background-color: #E6EFC2;
+    border-color: #C6D880;
+    color: #264409;
+}
+#messages .warning {
+    background-color: #faf0f0;
+    border-color: #fbd5d6;
+    color: #000000;
+}
+#messages .error {
+    background-color: #FBE3E4;
+    border-color: #FBC2C4;
+    color: #8A1F11;
+}
+
