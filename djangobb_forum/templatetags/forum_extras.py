@@ -286,18 +286,3 @@ def set_theme_style(user):
         theme=selected_theme
     )
 
-@register.simple_tag
-def set_markup_editor(user, markup=None):
-    markup_style = '' 
-    if user.is_authenticated():
-        markup_style = '''
-            <link rel="stylesheet" type="text/css" href="%(static_url)sdjangobb_forum/js/markitup/skins/markitup/style.css" />
-            <link rel="stylesheet" type="text/css" href="%(static_url)sdjangobb_forum/js/markitup/sets/%(markup)s/style.css" />
-            <script type="text/javascript" src="%(static_url)sdjangobb_forum/js/markitup/jquery.markitup.pack.js"></script>
-            <script type="text/javascript" src="%(static_url)sdjangobb_forum/js/markitup/sets/%(markup)s/set.js"></script>
-            <script type="text/javascript" src="%(static_url)sdjangobb_forum/js/markup/%(markup)s/board.js"></script>
-        ''' % dict(
-            static_url=settings.STATIC_URL,
-            markup=markup if markup else user.forum_profile.markup
-        )
-    return markup_style
