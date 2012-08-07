@@ -1,10 +1,13 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
+
 import os.path
 from datetime import datetime
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.db.models.expressions import F
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
@@ -232,7 +235,7 @@ class PersonalityProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['show_avatar', 'signature']
-        
+
     def __init__(self, *args, **kwargs):
         extra_args = kwargs.pop('extra_args', {})
         self.profile = kwargs['instance']
@@ -265,7 +268,7 @@ class PrivacyProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         extra_args = kwargs.pop('extra_args', {})
         super(PrivacyProfileForm, self).__init__(*args, **kwargs)
-        self.fields['privacy_permission'].widget = forms.RadioSelect(  
+        self.fields['privacy_permission'].widget = forms.RadioSelect(
                                                     choices=self.fields['privacy_permission'].choices
                                                     )
 
@@ -293,27 +296,27 @@ class UserSearchForm(forms.Form):
             sort_by = self.cleaned_data['sort_by']
             sort_dir = self.cleaned_data['sort_dir']
             qs = qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH)
-            if sort_by=='username':
-                if sort_dir=='ASC':
+            if sort_by == 'username':
+                if sort_dir == 'ASC':
                     return qs.order_by('username')
-                elif sort_dir=='DESC':
+                elif sort_dir == 'DESC':
                     return qs.order_by('-username')
-            elif sort_by=='registered':
-                if sort_dir=='ASC':
+            elif sort_by == 'registered':
+                if sort_dir == 'ASC':
                     return qs.order_by('date_joined')
-                elif sort_dir=='DESC':
+                elif sort_dir == 'DESC':
                     return qs.order_by('-date_joined')
-            elif sort_by=='num_posts':
-                if sort_dir=='ASC':
+            elif sort_by == 'num_posts':
+                if sort_dir == 'ASC':
                     return qs.order_by('forum_profile__post_count')
-                elif sort_dir=='DESC':
+                elif sort_dir == 'DESC':
                     return qs.order_by('-forum_profile__post_count')
         else:
             return qs
 
 
 class PostSearchForm(forms.Form):
-    keywords = forms.CharField(required=False, label=_('Keyword search'), 
+    keywords = forms.CharField(required=False, label=_('Keyword search'),
                                widget=forms.TextInput(attrs={'size':'40', 'maxlength':'100'}))
     author = forms.CharField(required=False, label=_('Author search'),
                              widget=forms.TextInput(attrs={'size':'25', 'maxlength':'25'}))
@@ -357,7 +360,7 @@ class ReputationForm(forms.ModelForm):
             pass
         else:
             raise forms.ValidationError(_('You already voted for this post'))
-        
+
         # check if this post really belong to `from_user`
         if not Post.objects.filter(pk=self.cleaned_data['post'].id, user=self.to_user).exists():
             raise forms.ValidationError(_('This post does\'t belong to this user'))
@@ -376,7 +379,7 @@ class ReputationForm(forms.ModelForm):
 class MailToForm(forms.Form):
     subject = forms.CharField(label=_('Subject'),
                               widget=forms.TextInput(attrs={'size':'75', 'maxlength':'70', 'class':'longinput'}))
-    body = forms.CharField(required=False, label=_('Message'), 
+    body = forms.CharField(required=False, label=_('Message'),
                                widget=forms.Textarea(attrs={'rows':'10', 'cols':'75'}))
 
 
@@ -401,3 +404,32 @@ class ReportForm(forms.ModelForm):
         if commit:
             report.save()
         return report
+
+
+class VotePollForm(forms.Form):
+    """
+    Dynamic form for the poll.
+    """
+    choice = forms.MultipleChoiceField()
+    def __init__(self, poll, *args, **kwargs):
+        self.poll = poll
+        super(VotePollForm, self).__init__(*args, **kwargs)
+
+        choices = self.poll.choices.all().values_list("id", "choice")
+        if self.poll.choice_count == 1:
+            self.fields["choice"] = forms.ChoiceField(
+                choices=choices, widget=forms.RadioSelect
+            )
+        else:
+            self.fields["choice"] = forms.MultipleChoiceField(
+                choices=choices, widget=forms.CheckboxSelectMultiple
+            )
+
+    def clean_choice(self):
+        ids = self.cleaned_data["choice"]
+        count = len(ids)
+        if count > self.poll.choice_count:
+            raise ValidationError(
+                _(u'You have selected too many choices! (Only %i allowed.)') % self.poll.choice_count
+            )
+        return ids

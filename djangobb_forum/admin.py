@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
-    Report, Ban, Attachment
+    Report, Ban, Attachment, Poll, PollChoice
 
 
 class BaseModelAdmin(admin.ModelAdmin):
@@ -71,9 +71,21 @@ class AttachmentAdmin(BaseModelAdmin):
     list_filter = ("content_type",)
 
 
-admin.site.unregister(User)
+class PollChoiceInline(admin.TabularInline):
+    model = PollChoice
+    extra = 3
 
+class PollAdmin(admin.ModelAdmin):
+    list_display = ("question", "active",)
+    list_display_links = ("question",)
+    list_editable = ("active",)
+    list_filter = ("active",)
+    inlines = [PollChoiceInline]
+
+
+admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Forum, ForumAdmin)
 admin.site.register(Topic, TopicAdmin)
@@ -83,4 +95,5 @@ admin.site.register(Reputation, ReputationAdmin)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(Ban, BanAdmin)
 admin.site.register(Attachment, AttachmentAdmin)
+admin.site.register(Poll, PollAdmin)
 

@@ -1,33 +1,35 @@
+# coding: utf-8
+
 import math
 from datetime import datetime, timedelta
 
-from django.shortcuts import get_object_or_404, render
-from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from django.contrib.auth.models import User
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from django.core.urlresolvers import reverse
 from django.core.cache import cache
-from django.db.models import Q, F, Sum
-from django.utils.encoding import smart_str
+from django.core.urlresolvers import reverse
 from django.db import transaction
-from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q, F
+from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, render
+from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
+from django.views.decorators.csrf import csrf_exempt
+
+from haystack.query import SearchQuerySet, SQ
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
-    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, \
-    DisplayProfileForm, PrivacyProfileForm, ReportForm, UploadAvatarForm
-from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
+    VotePollForm, ReportForm, VotePollForm
+from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
 
-from haystack.query import SearchQuerySet, SQ
-from django.contrib import messages
-from django.core.exceptions import SuspiciousOperation
+
 
 
 def index(request, full=True):
@@ -338,6 +340,34 @@ def show_topic(request, topic_id, full=True):
     else:
         subscribed = False
 
+    poll_form = None
+    polls = topic.poll_set.all()
+    if not polls:
+        poll = None
+    else:
+        poll = polls[0]
+        poll.auto_deactivate()
+        has_voted = request.user in poll.users.all()
+        if request.method != 'POST':
+            if poll.active and not has_voted:
+                poll_form = VotePollForm(poll)
+        else:
+            if not poll.active:
+                messages.error(request, _("This poll is not active!"))
+                return HttpResponseRedirect(topic.get_absolute_url())
+            elif has_voted:
+                messages.error(request, _("You have already vote to this poll in the past!"))
+                return HttpResponseRedirect(topic.get_absolute_url())
+
+            poll_form = VotePollForm(poll, request.POST)
+            if poll_form.is_valid():
+                ids = poll_form.cleaned_data["choice"]
+                queryset = poll.choices.filter(id__in=ids)
+                queryset.update(votes=F('votes') + 1)
+                poll.users.add(request.user) # save that this user has vote
+                messages.success(request, _("Your votes are saved."))
+                return HttpResponseRedirect(topic.get_absolute_url())
+
     highlight_word = request.GET.get('hl', '')
     if full:
         return render(request, 'djangobb_forum/topic.html', {'categories': Category.objects.all(),
@@ -348,11 +378,15 @@ def show_topic(request, topic_id, full=True):
                 'subscribed': subscribed,
                 'posts': posts,
                 'highlight_word': highlight_word,
+                'poll': poll,
+                'poll_form': poll_form,
                 })
     else:
         return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
                 'topic': topic,
                 'posts': posts,
+                'poll': poll,
+                'poll_form': poll_form,
                 })
 
 
