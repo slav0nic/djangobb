@@ -21,9 +21,9 @@ function copy_paste(post_id) {
     if (txt == '') {
         // quote the complete post content
         // FIXME: We should get the markup here (Ajax view?)
-        txt = post_div.find("div.postmsg").text();
+        txt = post_div.find("p.post_body_html").text();
+        txt = $.trim(txt);
     }
-    txt = $.trim(txt);
     txt = '[quote=' + nick + ']' + txt + '[/quote]\n';
     //textarea = $("#id_body");
     textarea = document.forms['post']['body'];

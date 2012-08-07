@@ -83,7 +83,7 @@
 			<div class="postright">
 				<h3>{{ post.topic.name }}</h3>
 				<div class="postmsg">
-					{{ post.body_html|safe }}
+					<p class="post_body_html">{{ post.body_html|safe }}</p>
 					{% if not user.is_authenticated or user.forum_profile.show_signatures %}
 						{% if post.user.forum_profile.signature_html %}
 						<div class="postsignature">
