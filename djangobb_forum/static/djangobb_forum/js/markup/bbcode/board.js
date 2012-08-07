@@ -1,17 +1,37 @@
-var txt = ''
+console.log("board.js loaded");
 
-function copyQ(nick) { 
-	txt = '' 
-	if (document.getSelection) {
-		txt = document.getSelection()
-	} else 
-	if (document.selection) {
-		txt = document.selection.createRange().text;
-	} 
-	txt = '[quote=' + nick + ']' + txt + '[/quote]\n'
+function get_selection() {
+    var txt = ''; 
+    if (document.getSelection) {
+        txt = document.getSelection();
+    } else 
+    if (document.selection) {
+        txt = document.selection.createRange().text;
+    }
+    return txt
 }
 
-function insertAtCaret (textObj, textFieldValue) { 
+function copy_paste(post_id) {
+    console.log("copy_paste()");
+    
+    post_div = $("div#"+post_id);
+    nick = post_div.find(".username").text();
+    
+    txt = get_selection(); // quote selection
+    if (txt == '') {
+        // quote the complete post content
+        // FIXME: We should get the markup here (Ajax view?)
+        txt = post_div.find("div.postmsg").text();
+    }
+    txt = $.trim(txt);
+    txt = '[quote=' + nick + ']' + txt + '[/quote]\n';
+    //textarea = $("#id_body");
+    textarea = document.forms['post']['body'];
+    insertAtCaret(textarea, txt);
+}
+
+function insertAtCaret (textObj, textFieldValue) {
+    console.log("insertAtCaret(" + textObj + "," + textFieldValue + ")");
 	if (document.all) { 
 		if (textObj.createTextRange && textObj.caretPos && !window.opera) { 
 			var caretPos = textObj.caretPos; 
@@ -32,14 +52,3 @@ function insertAtCaret (textObj, textFieldValue) {
 		} 
 	} 
 }
-
-function pasteQ() {
-	if (txt!='' && document.forms['post']['body']) 
-	insertAtCaret(document.forms['post']['body'], txt); 
-} 
-
-function pasteN(text) { 
-	if (text != '' && document.forms['post']['body'])
-	insertAtCaret(document.forms['post']['body'], "[b]" + text + "[/b]\n");
-}
-
