@@ -1,0 +1,24 @@
+{% load forum_extras %}
+
+<div class="blockpost searchposts roweven">
+    <h2>{% link post.topic.forum %}&nbsp;&raquo;&nbsp;{% link post.topic %}&nbsp;&raquo;&nbsp;<a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></h2>
+
+    <div class="box">
+        <div class="inbox">
+            <div class="postleft">
+                <dl>
+                    <dt><strong><a href="{% url djangobb:forum_profile post.user %}">{{ post.user }}</a></strong></dt>
+                    <dd>{% trans "Replies:" %} {{ post.topic.post_count }}</dd>
+                    <dd><div class="icon"><div class="nosize"><!-- --></div></div></dd>
+                    <dd><p class="clearb"><a href="{{ post.get_absolute_url }}">{% trans "Go to post" %}</a></p></dd>
+                </dl>
+            </div>
+            <div class="postright">
+                <div class="postmsg">
+                    {{ post.body_html|safe }}
+                </div>
+            </div>
+            <div class="clearer"></div>
+        </div>
+    </div>
+</div>
