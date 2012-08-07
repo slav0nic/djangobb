@@ -153,37 +153,7 @@
 	</div>
 </div>
 {% if not topic.closed and user.is_authenticated %}
-<div class="blockform" id="reply">
-	<h2><span>{% trans "Reply" %}</span></h2>
-	<div class="box">
-		<form id="post" action="{% url djangobb:add_post topic.id %}" method="post" enctype="multipart/form-data">		    
-			{% csrf_token %}
-			<div class="inform">
-				<fieldset>
-					<legend>{% trans "Write your message and submit" %}</legend>
-                    <noscript><h1>Please enable JavaScript!</h1></noscript>
-					<div class="infldset txtarea">
-						{{ form.body }}
-					</div>
-                    <p>Note: A list of all supported source code highlighter for [code <strong>XXX</strong>]...[/code] can be found here: <a href="http://pygments.org/docs/lexers/">pygments.org</a> (Use 'Short name')</p>
-				</fieldset>
-			</div>
-			{% if forum_settings.ATTACHMENT_SUPPORT %}
-				<div class="inform">
-					<fieldset>
-						<legend>{% trans "Attachment" %}</legend>
-						<div class="infldset">
-							<div class="rbox">
-								{{ form.attachment }}
-							</div>
-						</div>
-					</fieldset>
-				</div>
-			{% endif %}
-			<p><input type="submit" value="{% trans "Submit" %}" /></p>
-		</form>
-	</div>
-</div>
+    {% include "djangobb_forum/includes/post_form.html" %}
 {% endif %}
 {% endblock %}
 
