@@ -19,12 +19,12 @@
 		var STATIC_URL = "{{ STATIC_URL }}";
 		var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
 	</script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 	{% if post %}
 		{% set_markup_editor request.user post.markup %}
 	{% else %}
 		{% set_markup_editor request.user %}
 	{% endif %}
+	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.min.js" onerror="JavaScript:alert('Error loading file [{{ STATIC_URL }}admin/js/jquery.min.js] !');" ></script>
 	{% if user.is_authenticated %}
 		<script type="text/javascript" >
 		   $(document).ready(function() {
