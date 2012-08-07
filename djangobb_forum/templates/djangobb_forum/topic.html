@@ -9,9 +9,6 @@
 <div class="linkst">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-		{% if not topic.closed and user.is_authenticated %}
-			<p class="postlink conr"><a href="{% url djangobb:add_post topic.id %}">{% trans "Reply" %}</a></p>
-		{% endif %}
 		<ul>
 			<li>
 			<a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
@@ -29,7 +26,7 @@
 			<div class="inbox">
 				<div class="postleft">
 					<dl>
-						<dt><strong><a href="javascript:pasteN('{{ post.user.username }}');">{{ post.user.username }}</a></strong></dt>
+						<dt><strong class="username">{{ post.user.username }}</strong></dt>
 						<dd class="usertitle">
 							{% if post.user.forum_profile.status %}
 								<strong>{{ post.user.forum_profile.status }}</strong>
@@ -126,9 +123,8 @@
 					{% if moderator or post|forum_posted_by:user %}
 						<li class="postedit">| <a href="{% url djangobb:edit_post post.id %}">{% trans "Edit" %}</a> </li>
 					{% endif %}
-					<li class="postquote">| <a href="{% url djangobb:add_post topic.id %}?post_id={{ post.id }}">{% trans "Reply" %}</a> </li>
 					{% if user.is_authenticated %}
-						<li class="postquote">| <a onmouseover="copyQ('{{ post.user.username }}');" href="javascript:pasteQ();">{% trans "Quote" %}</a></li>
+						<li class="postquote">| <a onclick="copy_paste('p{{ post.id }}');" href="#reply" title="{% trans "Full quote or quote selected text form this post." %}">{% trans "Quote" %}</a></li>
 					{% endif %}
 				</ul>
 			</div>
@@ -139,10 +135,13 @@
 <div class="postlinksb">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-		<p class="postlink conr"><a href="{% url djangobb:add_post topic.id %}">{% trans "Reply" %}</a></p>
-				<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }}
-				<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
-				</li></ul>
+			<ul>
+			    <li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li>
+			    <li>&raquo; {% link topic.forum %} </li>
+			    <li>
+			        &raquo; {{ topic }}<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+			    </li>
+            </ul>
 		{% if user.is_authenticated %}
 			{% if subscribed %}
 				<a class="subscribelink clearb" href="{% url djangobb:forum_delete_subscription topic.id %}?from_topic">{% trans "Unsubscribe" %}</a>
@@ -154,10 +153,10 @@
 	</div>
 </div>
 {% if not topic.closed and user.is_authenticated %}
-<div class="blockform">
-	<h2><span>{% trans "Quick post" %}</span></h2>
+<div class="blockform" id="reply">
+	<h2><span>{% trans "Reply" %}</span></h2>
 	<div class="box">
-		<form id="post" action="{% url djangobb:add_post topic.id %}" method="post" enctype="multipart/form-data">
+		<form id="post" action="{% url djangobb:add_post topic.id %}" method="post" enctype="multipart/form-data">		    
 			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
