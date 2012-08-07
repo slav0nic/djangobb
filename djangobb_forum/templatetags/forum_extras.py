@@ -51,7 +51,7 @@ class ForumTimeNode(template.Node):
 
 
 # TODO: this old code requires refactoring
-@register.inclusion_tag('djangobb_forum/pagination.html',takes_context=True)
+@register.inclusion_tag('djangobb_forum/pagination.html', takes_context=True)
 def pagination(context, adjacent_pages=1):
     """
     Return the list of A tags with links to pages.
@@ -66,9 +66,9 @@ def pagination(context, adjacent_pages=1):
         previous = context['page'] - 1
 
     if not 1 in page_range:
-        page_range.insert(0,1)
+        page_range.insert(0, 1)
         if not 2 in page_range:
-            page_range.insert(1,'.')
+            page_range.insert(1, '.')
 
     if not context['pages'] == context['page']:
         next = context['page'] + 1
@@ -96,7 +96,7 @@ def pagination(context, adjacent_pages=1):
         }
 
 
-@register.inclusion_tag('djangobb_forum/lofi/pagination.html',takes_context=True)
+@register.inclusion_tag('djangobb_forum/lofi/pagination.html', takes_context=True)
 def lofi_pagination(context):
     return paginate(context)
 
@@ -106,7 +106,7 @@ def link(object, anchor=u''):
     Return A tag with link to object.
     """
 
-    url = hasattr(object,'get_absolute_url') and object.get_absolute_url() or None
+    url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
     anchor = anchor or smart_unicode(object)
     return mark_safe('<a href="%s">%s</a>' % (url, escape(anchor)))
 
@@ -117,7 +117,7 @@ def lofi_link(object, anchor=u''):
     Return A tag with lofi_link to object.
     """
 
-    url = hasattr(object,'get_absolute_url') and object.get_absolute_url() or None
+    url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
     anchor = anchor or smart_unicode(object)
     return mark_safe('<a href="%slofi/">%s</a>' % (url, escape(anchor)))
 
@@ -202,30 +202,30 @@ def forum_equal_to(obj1, obj2):
 @register.filter
 def forum_authority(user):
     posts = user.forum_profile.post_count
-    if posts >= forum_settings.AUTHORITY_STEP_10: 
+    if posts >= forum_settings.AUTHORITY_STEP_10:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote10.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_9: 
+    elif posts >= forum_settings.AUTHORITY_STEP_9:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote9.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_8: 
+    elif posts >= forum_settings.AUTHORITY_STEP_8:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote8.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_7: 
+    elif posts >= forum_settings.AUTHORITY_STEP_7:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote7.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_6: 
+    elif posts >= forum_settings.AUTHORITY_STEP_6:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote6.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_5: 
+    elif posts >= forum_settings.AUTHORITY_STEP_5:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote5.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_4: 
+    elif posts >= forum_settings.AUTHORITY_STEP_4:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote4.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_3: 
+    elif posts >= forum_settings.AUTHORITY_STEP_3:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote3.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_2: 
+    elif posts >= forum_settings.AUTHORITY_STEP_2:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote2.gif" alt="" />' % (settings.STATIC_URL))
-    elif posts >= forum_settings.AUTHORITY_STEP_1: 
+    elif posts >= forum_settings.AUTHORITY_STEP_1:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote1.gif" alt="" />' % (settings.STATIC_URL))
     else:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote0.gif" alt="" />' % (settings.STATIC_URL))
 
-    
+
 @register.filter
 def online(user):
     return cache.get('djangobb_user%d' % user.id)
@@ -274,13 +274,13 @@ def gravatar(context, email):
 @register.simple_tag
 def set_theme_style(user):
     theme_style = ''
-    selected_theme = '' 
+    selected_theme = ''
     if user.is_authenticated():
         selected_theme = user.forum_profile.theme
-        theme_style = '<link rel="stylesheet" type="text/css" href="%(static_url)sdjangobb_forum/themes/%(theme)s/style.css" />' 
+        theme_style = '<link rel="stylesheet" type="text/css" href="%(static_url)sdjangobb_forum/themes/%(theme)s/style.css" />'
     else:
         theme_style = '<link rel="stylesheet" type="text/css" href="%(static_url)sdjangobb_forum/themes/default/style.css" />'
-        
+
     return theme_style % dict(
         static_url=settings.STATIC_URL,
         theme=selected_theme
