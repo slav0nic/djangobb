@@ -310,6 +310,7 @@ class Profile(models.Model):
     show_signatures = models.BooleanField(_('Show signatures'), blank=True, default=True)
     show_smilies = models.BooleanField(_('Show smilies'), blank=True, default=True)
     privacy_permission = models.IntegerField(_('Privacy permission'), choices=PRIVACY_CHOICES, default=1)
+    auto_subscribe = models.BooleanField(_('Auto subscribe'), help_text=_("Auto subscribe all topics you have created or reply."), blank=True, default=False)
     markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
 

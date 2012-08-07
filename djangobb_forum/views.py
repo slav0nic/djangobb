@@ -271,7 +271,10 @@ def show_topic(request, topic_id, full=True):
 
     initial = {}
     if request.user.is_authenticated():
-        initial = {'markup': request.user.forum_profile.markup}
+        initial = {
+            'markup': request.user.forum_profile.markup,
+            'subscribe': request.user.forum_profile.auto_subscribe,
+        }
     form = AddPostForm(topic=topic, initial=initial)
 
     moderator = request.user.is_superuser or\
@@ -322,7 +325,10 @@ def add_post(request, forum_id, topic_id):
     ip = request.META.get('REMOTE_ADDR', None)
     form = build_form(AddPostForm, request, topic=topic, forum=forum,
                       user=request.user, ip=ip,
-                      initial={'markup': request.user.forum_profile.markup})
+                      initial={
+                          'markup': request.user.forum_profile.markup,
+                          'subscribe': request.user.forum_profile.auto_subscribe,
+                          })
 
     if 'post_id' in request.GET:
         post_id = request.GET['post_id']

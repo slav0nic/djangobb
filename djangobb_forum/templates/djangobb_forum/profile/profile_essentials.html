@@ -29,7 +29,6 @@
 							{% endif %}
 							</p>
 					</div>
-
 					</fieldset>
 				</div>
 				<div class="inform">
@@ -46,6 +45,15 @@
 						</div>
 					</fieldset>
 				</div>
+                <div class="inform">
+                    <fieldset>
+                        <legend>{{ form.auto_subscribe.label }}</legend>
+                        <div class="infldset">
+                            {{ form.auto_subscribe.errors }}
+                            {{ form.auto_subscribe }} <label for="id_auto_subscribe">{{ form.auto_subscribe.help_text }}</label>
+                        </div>
+                    </fieldset>
+                </div>
 				<div class="inform">
 					<fieldset>
 						<legend>{% trans "Set your localisation options" %}</legend>
