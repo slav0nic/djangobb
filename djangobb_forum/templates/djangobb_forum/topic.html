@@ -124,7 +124,7 @@
 						<li class="postedit">| <a href="{% url djangobb:edit_post post.id %}">{% trans "Edit" %}</a> </li>
 					{% endif %}
 					{% if user.is_authenticated %}
-						<li class="postquote">| <a onclick="copy_paste('p{{ post.id }}');" href="#reply" title="{% trans "Full quote or quote selected text form this post." %}">{% trans "Quote" %}</a></li>
+						<li class="postquote">| <a onclick="return copy_paste('p{{ post.id }}');" href="#reply" title="{% trans "Full quote or quote selected text form this post." %}">{% trans "Quote" %}</a></li>
 					{% endif %}
 				</ul>
 			</div>
