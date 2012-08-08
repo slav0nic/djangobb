@@ -4,14 +4,23 @@
 {% load i18n %}
 
 {% block content %}
-{% autopaginate results forum_settings.SEARCH_PAGE_SIZE %}
+{% autopaginate topics forum_settings.SEARCH_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
 		<p class="pagelink">{% paginate %}</p>
 		<div class="clearer"></div>
 	</div>
 </div>
-{% if results %}
+
+<div id="messages" class="block">
+    <h2><span>{% trans "Search type" %}</span></h2>
+    <div class="box">
+        <div class="inbox">
+            <a href="{{ as_post_url }}">{% trans "Show results as post list." %}</a>
+        </div>
+    </div>
+</div>
+
 <div id="vf" class="blocktable">
 	<h2><span>{% trans "Search results" %}</span></h2>
 	<div class="box">
@@ -26,7 +35,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% for topic in results %}
+			{% for topic in topics %}
 				<tr {% if topic|has_unreads:user %}class="inew"{% endif %} {% if topic.closed %}class="iclosed"{% endif %}>
 					<td class="tcl">
 						<div class="intd">
@@ -44,6 +53,10 @@
 					<td class="tc3">{{ topic.reply_count }}</td>
 					<td class="tcr"><a href="{{ topic.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
 				</tr>
+			{% empty %}
+			     <tr>
+			         <td colspan="4"><p>{% trans "Your search returned no hits." %}</p></td>
+			     </tr>
 			{% endfor %}
 			</tbody>
 			</table>
@@ -51,33 +64,10 @@
 	</div>
 </div>
 
-{% else %}
-<div id="msg" class="block">
-	<h2><span>{% trans "Info" %}</span></h2>
-	<div class="box">
-		<div class="inbox">
-		<p>{% trans "Your search returned no hits." %}</p>
-		<p><a href="javascript: history.go(-1)">{% trans "Go back" %}</a></p>
-		</div>
-	</div>
-</div>
-{% endif %}
 <div class="linksb">
 	<div class="inbox">
 		<p class="pagelink">{% paginate %}</p>
 		<div class="clearer"></div>
 	</div>
 </div>
-{% endblock %}
-
-{% block controls %}
-				<dl id="searchlinks" class="conl">
-					<dt><strong>{% trans "Search links" %}</strong></dt>
-					<dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
-					<dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
-					{% if user.is_authenticated %}
-					<dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
-					<dd><a href="{% url djangobb:search %}?action=show_user&amp;user_id={{ request.user.id }}">{% trans "Show your posts" %}</a></dd>
-					{% endif %}
-				</dl>
 {% endblock %}
