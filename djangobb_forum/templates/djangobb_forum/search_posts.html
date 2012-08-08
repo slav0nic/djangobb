@@ -4,7 +4,7 @@
 {% load pagination_tags %}
 
 {% block content %}
-{% autopaginate results forum_settings.FORUM_PAGE_SIZE %}
+{% autopaginate posts forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
 		<p class="pagelink">{% paginate %}</p>
@@ -12,32 +12,24 @@
 	</div>
 </div>
 
-{% if results %}
-{% for post in results %}
-<div class="blockpost searchposts roweven">
-	<h2>{% link post.object.topic.forum %}&nbsp;&raquo;&nbsp;{% link post.object.topic %}&nbsp;&raquo;&nbsp;<a href="{{ post.object.get_absolute_url }}">{% forum_time post.created %}</a></h2>
-
-	<div class="box">
-		<div class="inbox">
-			<div class="postleft">
-				<dl>
-					<dt><strong><a href="{% url djangobb:forum_profile post.object.user %}">{{ post.object.user }}</a></strong></dt>
-					<dd>{% trans "Replies:" %} {{ post.object.topic.post_count }}</dd>
-					<dd><div class="icon"><div class="nosize"><!-- --></div></div></dd>
-					<dd><p class="clearb"><a href="{{ post.object.get_absolute_url }}">{% trans "Go to post" %}</a></p></dd>
-				</dl>
-			</div>
-			<div class="postright">
-				<div class="postmsg">
-					{{ post.object.body_html|safe }}
-				</div>
-			</div>
-			<div class="clearer"></div>
-		</div>
-	</div>
+<div id="messages" class="block">
+    <h2><span>{% trans "Search type" %}</span></h2>
+    <div class="box">
+        <div class="inbox">
+            <a href="{{ as_topic_url }}">{% trans "Show results as topic list." %}</a>
+        </div>
+    </div>
 </div>
-{% endfor %}
+
+{% for post in posts %}
+{% if post.object %}
+    {% with post=post.object %}
+        {% include "djangobb_forum/include/post_in_search_page.html" %}
+    {% endwith %}
 {% else %}
+    {% include "djangobb_forum/include/post_in_search_page.html" %}
+{% endif %}
+{% empty %}
 <div id="msg" class="block">
 	<h2><span>{% trans "Info" %}</span></h2>
 	<div class="box">
@@ -47,7 +39,7 @@
 		</div>
 	</div>
 </div>
-{% endif %}
+{% endfor %}
 
 
 <div class="postlinksb">
@@ -59,13 +51,13 @@
 {% endblock %}
 
 {% block controls %}
-				<dl id="searchlinks" class="conl">
-					<dt><strong>{% trans "Search links" %}</strong></dt>
-					<dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
-					<dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
-					{% if user.is_authenticated %}
-					<dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
-					<dd><a href="{% url djangobb:search %}?action=show_user&amp;user_id={{ request.user.id }}">{% trans "Show your posts" %}</a></dd>
-					{% endif %}
-				</dl>
+<dl id="searchlinks" class="conl">
+	<dt><strong>{% trans "Search links" %}</strong></dt>
+	<dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
+	<dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
+	{% if user.is_authenticated %}
+	<dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
+	<dd><a href="{% url djangobb:search %}?action=show_user">{% trans "Show your topics" %}</a></dd>
+	{% endif %}
+</dl>
 {% endblock %}
