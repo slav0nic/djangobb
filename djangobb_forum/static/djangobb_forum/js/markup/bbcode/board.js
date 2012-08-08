@@ -8,7 +8,7 @@ function log() {
         }
     }
 }
-log("board.js loaded");
+//log("board.js loaded");
 
 function get_selection() {
     var txt = ''; 
@@ -21,9 +21,7 @@ function get_selection() {
     return txt
 }
 
-function copy_paste(post_id) {
-    log("copy_paste()");
-    
+function copy_paste(post_id) {   
     post_div = $("div#"+post_id);
     nick = post_div.find(".username").text();
     
@@ -47,7 +45,7 @@ function paste(txt) {
 }
 
 function insertAtCaret (textObj, textFieldValue) {
-    log("insertAtCaret(" + textObj + "," + textFieldValue + ")");
+    // log("insertAtCaret(" + textObj + "," + textFieldValue + ")");
 	if (document.all) { 
 		if (textObj.createTextRange && textObj.caretPos && !window.opera) { 
 			var caretPos = textObj.caretPos; 
@@ -71,7 +69,6 @@ function insertAtCaret (textObj, textFieldValue) {
 
 $(document).ready(function() {
     $(".username").click(function() {
-        log("paste nickname");
         var nick = $(this).text();
         paste("[b]"+nick+"[/b]\n");
     });
