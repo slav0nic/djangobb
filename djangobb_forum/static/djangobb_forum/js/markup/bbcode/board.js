@@ -1,4 +1,14 @@
-console.log("board.js loaded");
+// helper function for console logging
+function log() {
+    if (window.console && window.console.log) {
+        try {
+            window.console.log(Array.prototype.join.call(arguments,''));
+        } catch (e) {
+            log("Error:" + e);
+        }
+    }
+}
+log("board.js loaded");
 
 function get_selection() {
     var txt = ''; 
@@ -12,7 +22,7 @@ function get_selection() {
 }
 
 function copy_paste(post_id) {
-    console.log("copy_paste()");
+    log("copy_paste()");
     
     post_div = $("div#"+post_id);
     nick = post_div.find(".username").text();
@@ -25,13 +35,19 @@ function copy_paste(post_id) {
         txt = $.trim(txt);
     }
     txt = '[quote=' + nick + ']' + txt + '[/quote]\n';
+    paste(txt);
+    return false
+}
+
+function paste(txt) {
     //textarea = $("#id_body");
     textarea = document.forms['post']['body'];
     insertAtCaret(textarea, txt);
+    $("#id_body").focus();
 }
 
 function insertAtCaret (textObj, textFieldValue) {
-    console.log("insertAtCaret(" + textObj + "," + textFieldValue + ")");
+    log("insertAtCaret(" + textObj + "," + textFieldValue + ")");
 	if (document.all) { 
 		if (textObj.createTextRange && textObj.caretPos && !window.opera) { 
 			var caretPos = textObj.caretPos; 
@@ -52,3 +68,12 @@ function insertAtCaret (textObj, textFieldValue) {
 		} 
 	} 
 }
+
+$(document).ready(function() {
+    $(".username").click(function() {
+        log("paste nickname");
+        var nick = $(this).text();
+        paste("[b]"+nick+"[/b]\n");
+    });
+    $(".username").attr('title', 'Click to paste nick name in reply form.');
+});
