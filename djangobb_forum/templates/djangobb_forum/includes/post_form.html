@@ -55,7 +55,7 @@
                 </fieldset>
             </div>
             {% endif %}
-            <p><input type="submit" value="{% trans "Submit" %}" /><a href="{{ back_url|default_if_none:"javascript:history.go(-1)" }}">{% trans "Go back" %}</a></p>
+            <p><input type="submit" name="{{ form.FORM_NAME }}" value="{% trans "Submit" %}" /><a href="{{ back_url|default_if_none:"javascript:history.go(-1)" }}">{% trans "Go back" %}</a></p>
         </form>
     </div>
 </div>

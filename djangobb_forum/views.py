@@ -353,7 +353,7 @@ def show_topic(request, topic_id, full=True):
         back_url = request.path
         ip = request.META.get('REMOTE_ADDR', None)
         post_form_kwargs = {"topic":topic, "user":request.user, "ip":ip}
-        if request.method == 'POST':
+        if post_request and AddPostForm.FORM_NAME in request.POST:
             reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
             if reply_form.is_valid():
                 post = reply_form.save()
@@ -377,7 +377,8 @@ def show_topic(request, topic_id, full=True):
         poll = polls[0]
         poll.auto_deactivate()
         has_voted = request.user in poll.users.all()
-        if not post_request:
+        if not post_request or not VotePollForm.FORM_NAME in request.POST:
+            # It's not a POST request or: The reply form was send and not a poll vote
             if poll.active and not has_voted:
                 poll_form = VotePollForm(poll)
         else:

@@ -46,6 +46,8 @@ SEARCH_IN_CHOICES = (
 
 
 class AddPostForm(forms.ModelForm):
+    FORM_NAME = "AddPostForm" # used in view and template submit button
+
     name = forms.CharField(label=_('Subject'), max_length=255,
                            widget=forms.TextInput(attrs={'size':'115'}))
     attachment = forms.FileField(label=_('Attachment'), required=False)
@@ -409,6 +411,8 @@ class VotePollForm(forms.Form):
     """
     Dynamic form for the poll.
     """
+    FORM_NAME = "VotePollForm" # used in view and template submit button
+
     choice = forms.MultipleChoiceField()
     def __init__(self, poll, *args, **kwargs):
         self.poll = poll

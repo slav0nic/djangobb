@@ -32,7 +32,7 @@
                 {% blocktrans with count=poll.choice_count %}({{ count }} answers allows.){% endblocktrans %}
             </p>
             {% endif %}
-            <input type="submit" value="Vote" />
+            <input type="submit" name="{{ poll_form.FORM_NAME }}" value="{% trans "Vote" %}" />
             </form>
         {% else %}
             <ul>               
