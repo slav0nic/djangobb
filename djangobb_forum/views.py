@@ -314,6 +314,19 @@ def show_forum(request, forum_id, full=True):
 
 @transaction.commit_on_success
 def show_topic(request, topic_id, full=True):
+    """
+    * Display a topic
+    * save a reply
+    * save a poll vote
+    
+    TODO: Add reply in lofi mode
+    """
+    post_request = request.method == "POST"
+    user_is_authenticated = request.user.is_authenticated()
+    if post_request and not user_is_authenticated:
+        # Info: only user that are logged in should get forms in the page.
+        return HttpResponseForbidden()
+
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
@@ -325,21 +338,37 @@ def show_topic(request, topic_id, full=True):
         topic.update_read(request.user)
     posts = topic.posts.all().select_related()
 
-    initial = {}
-    if request.user.is_authenticated():
-        initial = {
-            'markup': request.user.forum_profile.markup,
-            'subscribe': request.user.forum_profile.auto_subscribe,
-        }
-    form = AddPostForm(topic=topic, initial=initial)
-
-    moderator = request.user.is_superuser or\
-        request.user in topic.forum.moderators.all()
-    if request.user.is_authenticated() and request.user in topic.subscribers.all():
+    moderator = request.user.is_superuser or request.user in topic.forum.moderators.all()
+    if user_is_authenticated and request.user in topic.subscribers.all():
         subscribed = True
     else:
         subscribed = False
 
+    # reply form
+    reply_form = None
+    form_url = None
+    back_url = None
+    if user_is_authenticated and not topic.closed:
+        form_url = request.path + "#reply" # if form validation failed: browser should scroll down to reply form ;)
+        back_url = request.path
+        ip = request.META.get('REMOTE_ADDR', None)
+        post_form_kwargs = {"topic":topic, "user":request.user, "ip":ip}
+        if request.method == 'POST':
+            reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
+            if reply_form.is_valid():
+                post = reply_form.save()
+                messages.success(request, _("Your reply saved."))
+                return HttpResponseRedirect(post.get_absolute_url())
+        else:
+            reply_form = AddPostForm(
+                initial={
+                    'markup': request.user.forum_profile.markup,
+                    'subscribe': request.user.forum_profile.auto_subscribe,
+                },
+                **post_form_kwargs
+            )
+
+    # handle poll, if exists
     poll_form = None
     polls = topic.poll_set.all()
     if not polls:
@@ -348,7 +377,7 @@ def show_topic(request, topic_id, full=True):
         poll = polls[0]
         poll.auto_deactivate()
         has_voted = request.user in poll.users.all()
-        if request.method != 'POST':
+        if not post_request:
             if poll.active and not has_voted:
                 poll_form = VotePollForm(poll)
         else:
@@ -373,7 +402,9 @@ def show_topic(request, topic_id, full=True):
         return render(request, 'djangobb_forum/topic.html', {'categories': Category.objects.all(),
                 'topic': topic,
                 'last_post': last_post,
-                'form': form,
+                'form_url': form_url,
+                'reply_form': reply_form,
+                'back_url': back_url,
                 'moderator': moderator,
                 'subscribed': subscribed,
                 'posts': posts,
@@ -438,45 +469,14 @@ def add_topic(request, forum_id):
         if forum_id: # Create a new topic
             poll_form = PollForm()
 
-    return render(request, 'djangobb_forum/add_post.html',
-        {'form': form, 'forum': forum, 'create_poll_form': poll_form})
-
-
-@login_required
-@transaction.commit_on_success
-def add_post(request, topic_id):
-    """
-    add a new reply in a existing topic
-    """
-    topic = get_object_or_404(Topic, pk=topic_id)
-    posts = topic.posts.all().select_related()
-    if not topic.forum.category.has_access(request.user):
-        return HttpResponseForbidden()
-    if topic.closed:
-        messages.error(request, _("This topic is closed."))
-        return HttpResponseRedirect(topic.get_absolute_url())
-
-    ip = request.META.get('REMOTE_ADDR', None)
-    post_form_kwargs = {"topic":topic, "user":request.user, "ip":ip, }
-
-    if request.method == 'POST':
-        form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
-        if form.is_valid():
-            post = form.save()
-            messages.success(request, _("Topic saved."))
-            return HttpResponseRedirect(post.get_absolute_url())
-    else:
-        form = AddPostForm(
-            initial={
-                'markup': request.user.forum_profile.markup,
-                'subscribe': request.user.forum_profile.auto_subscribe,
-            },
-            **post_form_kwargs
-        )
-
-    return render(request, 'djangobb_forum/add_post.html',
-        {'form': form, 'posts': posts, 'topic': topic}
-    )
+    context = {
+        'forum': forum,
+        'create_poll_form': poll_form,
+        'form': form,
+        'form_url': request.path,
+        'back_url': forum.get_absolute_url(),
+    }
+    return render(request, 'djangobb_forum/add_topic.html', context)
 
 
 @transaction.commit_on_success

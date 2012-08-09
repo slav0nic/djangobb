@@ -183,10 +183,14 @@
 		<div class="clearer"></div>
 	</div>
 </div>
-{% if not topic.closed and user.is_authenticated %}
-    {% include "djangobb_forum/includes/post_form.html" %}
+
+{% if reply_form %}
+    {% with form=reply_form %}
+        {% include "djangobb_forum/includes/post_form.html" %}
+    {% endwith %}
 {% endif %}
-{% endblock %}
+
+{% endblock content%}
 
 {% block controls %}
 <div class="conl">
