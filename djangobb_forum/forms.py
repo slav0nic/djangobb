@@ -1,17 +1,16 @@
 # coding: utf-8
 
 import os.path
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 from django.db.models.expressions import F
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
-    Attachment
+    Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import convert_text_to_html, set_language
 
@@ -429,7 +428,61 @@ class VotePollForm(forms.Form):
         ids = self.cleaned_data["choice"]
         count = len(ids)
         if count > self.poll.choice_count:
-            raise ValidationError(
+            raise forms.ValidationError(
                 _(u'You have selected too many choices! (Only %i allowed.)') % self.poll.choice_count
             )
         return ids
+
+
+class PollForm(forms.ModelForm):
+    answers = forms.CharField(min_length=2, widget=forms.Textarea,
+        help_text=_("Write each answer on a new line.")
+    )
+    days = forms.IntegerField(required=False, min_value=1,
+        help_text=_("Number of days for this poll to run. Leave empty for never ending poll.")
+    )
+    class Meta:
+        model = Poll
+        fields = ['question', 'choice_count']
+
+    def create_poll(self):
+        """
+        return True if one field filled with data -> the user wants to create a poll
+        """
+        question = self.data.get("question")
+        answers = self.data.get("answers")
+        days = self.data.get("days")
+        if question or answers or days:
+            return True
+        return False
+
+    def clean_answers(self):
+        # validate if there is more than whitespaces ;)
+        raw_answers = self.cleaned_data["answers"]
+        answers = [answer.strip() for answer in raw_answers.split() if answer.strip()]
+        if len(answers) == 0:
+            raise forms.ValidationError(_(u"There is no valid answer!"))
+
+        # validate length of all answers
+        is_max_length = max([len(answer) for answer in answers])
+        should_max_length = PollChoice._meta.get_field("choice").max_length
+        if is_max_length > should_max_length:
+            raise forms.ValidationError(_(u"One of this answers are too long!"))
+
+        return answers
+
+    def save(self, post):
+        """
+        Create poll and all answers in PollChoice model.
+        """
+        poll = super(PollForm, self).save(commit=False)
+        poll.topic = post.topic
+        days = self.cleaned_data["days"]
+        if days:
+            now = datetime.now()
+            poll.deactivate_date = now + timedelta(days=days)
+        poll.save()
+        answers = self.cleaned_data["answers"]
+        for answer in answers:
+            PollChoice.objects.create(poll=poll, choice=answer)
+

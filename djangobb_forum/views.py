@@ -22,7 +22,7 @@ from haystack.query import SearchQuerySet, SQ
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
-    VotePollForm, ReportForm, VotePollForm
+    VotePollForm, ReportForm, VotePollForm, PollForm
 from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
@@ -393,15 +393,21 @@ def show_topic(request, topic_id, full=True):
 @login_required
 @transaction.commit_on_success
 def add_post(request, forum_id, topic_id):
+    """
+    view for:
+        * create a new topic, with or without poll
+        * add a new reply in a existing topic
+    """
     forum = None
     topic = None
     posts = None
+    poll_form = None
 
-    if forum_id:
+    if forum_id: # Create a new topic
         forum = get_object_or_404(Forum, pk=forum_id)
         if not forum.category.has_access(request.user):
             return HttpResponseForbidden()
-    elif topic_id:
+    elif topic_id: # new reply in a existing topic
         topic = get_object_or_404(Topic, pk=topic_id)
         posts = topic.posts.all().select_related()
         if not topic.forum.category.has_access(request.user):
@@ -411,27 +417,54 @@ def add_post(request, forum_id, topic_id):
         return HttpResponseRedirect(topic.get_absolute_url())
 
     ip = request.META.get('REMOTE_ADDR', None)
-    form = build_form(AddPostForm, request, topic=topic, forum=forum,
-                      user=request.user, ip=ip,
-                      initial={
-                          'markup': request.user.forum_profile.markup,
-                          'subscribe': request.user.forum_profile.auto_subscribe,
-                          })
+    post_form_kwargs = {"topic":topic, "forum":forum, "user":request.user, "ip":ip, }
+
+    if request.method == 'POST':
+        all_valid = False
+        form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
+        if form.is_valid():
+            all_valid = True
+
+        if forum_id: # Create a new topic
+            poll_form = PollForm(request.POST)
+            create_poll = poll_form.create_poll()
+            if not create_poll:
+                # All poll fields are empty: User didn't want to create a poll
+                # Don't run validation and remove all form error messages
+                poll_form = PollForm() # create clean form without form errors
+            elif not poll_form.is_valid():
+                all_valid = False
+
+        if all_valid:
+            post = form.save()
+            if create_poll:
+                poll_form.save(post)
+                messages.success(request, _("Topic with poll saved."))
+            else:
+                messages.success(request, _("Topic saved."))
+            return HttpResponseRedirect(post.get_absolute_url())
+    else:
+        form = AddPostForm(
+            initial={
+                'markup': request.user.forum_profile.markup,
+                'subscribe': request.user.forum_profile.auto_subscribe,
+            },
+            **post_form_kwargs
+        )
+        if forum_id: # Create a new topic
+            poll_form = PollForm()
+
 
     if 'post_id' in request.GET:
         post_id = request.GET['post_id']
         post = get_object_or_404(Post, pk=post_id)
         form.fields['body'].initial = u"[quote=%s]%s[/quote]" % (post.user, post.body)
 
-    if form.is_valid():
-        post = form.save();
-        messages.success(request, _("Topic saved."))
-        return HttpResponseRedirect(post.get_absolute_url())
-
     return render(request, 'djangobb_forum/add_post.html', {'form': form,
             'posts': posts,
             'topic': topic,
             'forum': forum,
+            'create_poll_form': poll_form,
             })
 
 

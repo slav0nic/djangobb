@@ -4,6 +4,28 @@
     <div class="box">
         <form id="post" action="{% if forum %}{% url djangobb:add_topic forum.id %}{% else %}{% url djangobb:add_post topic.id %}{% endif %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            
+            {% if create_poll_form %}
+            <script>{# TODO: move to html head! #}
+                $(document).ready(function() {
+                    $('.poll .infldset').hide();
+                    $(".poll").click(function() {
+                        $('.poll .infldset').slideDown();
+                    });
+                });
+            </script>
+            <div class="inform poll">
+                <fieldset>
+                    <legend>{% trans "Create a poll" %}</legend>
+                    <div class="infldset">
+                        <div class="rbox">
+                            {{ create_poll_form }}
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            {% endif %}
+            
             <div class="inform">
                 <fieldset>
                     <legend>{% trans "Write your message and submit" %}</legend>
