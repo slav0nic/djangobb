@@ -453,12 +453,7 @@ class PollForm(forms.ModelForm):
         """
         return True if one field filled with data -> the user wants to create a poll
         """
-        question = self.data.get("question")
-        answers = self.data.get("answers")
-        days = self.data.get("days")
-        if question or answers or days:
-            return True
-        return False
+        return any(self.data.get(key) for key in ('question', 'answers', 'days'))
 
     def clean_answers(self):
         # validate if there is more than whitespaces ;)
