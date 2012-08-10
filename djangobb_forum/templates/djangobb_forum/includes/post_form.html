@@ -2,8 +2,30 @@
 <div class="blockform" id="reply">
     <h2><span>{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}</span></h2>
     <div class="box">
-        <form id="post" action="{% if forum %}{% url djangobb:add_topic forum.id %}{% else %}{% url djangobb:add_post topic.id %}{% endif %}" method="post" enctype="multipart/form-data">
+        <form id="post" action="{{ form_url|default_if_none:"." }}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            
+            {% if create_poll_form %}
+            <script>{# TODO: move to html head! #}
+                $(document).ready(function() {
+                    $('.poll .infldset').hide();
+                    $(".poll").click(function() {
+                        $('.poll .infldset').slideDown();
+                    });
+                });
+            </script>
+            <div class="inform poll">
+                <fieldset>
+                    <legend>{% trans "Create a poll" %}</legend>
+                    <div class="infldset">
+                        <div class="rbox">
+                            {{ create_poll_form }}
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            {% endif %}
+            
             <div class="inform">
                 <fieldset>
                     <legend>{% trans "Write your message and submit" %}</legend>
@@ -33,7 +55,7 @@
                 </fieldset>
             </div>
             {% endif %}
-            <p><input type="submit" value="{% trans "Submit" %}" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
+            <p><input type="submit" name="{{ form.FORM_NAME }}" value="{% trans "Submit" %}" /><a href="{{ back_url|default_if_none:"javascript:history.go(-1)" }}">{% trans "Go back" %}</a></p>
         </form>
     </div>
 </div>

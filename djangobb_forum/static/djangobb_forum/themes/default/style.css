@@ -315,3 +315,13 @@ TD DIV.tclcon {MARGIN-LEFT: 2.3em}
     color: #8A1F11;
 }
 
+/****************************************************************/
+/* for poll results                                             */
+/****************************************************************/
+#poll .bar {
+    height: 4px;
+    background-color: #46586A;
+}
+#poll li {
+    height: 2.5em;
+}

@@ -1,0 +1,17 @@
+{% extends 'djangobb_forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div class="linkst">
+	<div class="inbox">
+		{% if forum %}
+		<ul class="start"><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link forum %}</li></ul>
+		{% else %}
+			<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link topic.forum %}</li><li>&raquo; {{ topic }}</li></ul>
+		{% endif %}
+		<div class="clearer"></div>
+	</div>
+</div>
+{% include "djangobb_forum/includes/post_form.html" %}
+{% endblock %}
