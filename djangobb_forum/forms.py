@@ -1,14 +1,16 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
+
 import os.path
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.db.models.expressions import F
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
-    Attachment
+    Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import convert_text_to_html, set_language
 
@@ -44,6 +46,8 @@ SEARCH_IN_CHOICES = (
 
 
 class AddPostForm(forms.ModelForm):
+    FORM_NAME = "AddPostForm" # used in view and template submit button
+
     name = forms.CharField(label=_('Subject'), max_length=255,
                            widget=forms.TextInput(attrs={'size':'115'}))
     attachment = forms.FileField(label=_('Attachment'), required=False)
@@ -232,7 +236,7 @@ class PersonalityProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['show_avatar', 'signature']
-        
+
     def __init__(self, *args, **kwargs):
         extra_args = kwargs.pop('extra_args', {})
         self.profile = kwargs['instance']
@@ -265,7 +269,7 @@ class PrivacyProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         extra_args = kwargs.pop('extra_args', {})
         super(PrivacyProfileForm, self).__init__(*args, **kwargs)
-        self.fields['privacy_permission'].widget = forms.RadioSelect(  
+        self.fields['privacy_permission'].widget = forms.RadioSelect(
                                                     choices=self.fields['privacy_permission'].choices
                                                     )
 
@@ -293,27 +297,27 @@ class UserSearchForm(forms.Form):
             sort_by = self.cleaned_data['sort_by']
             sort_dir = self.cleaned_data['sort_dir']
             qs = qs.filter(username__contains=username, forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH)
-            if sort_by=='username':
-                if sort_dir=='ASC':
+            if sort_by == 'username':
+                if sort_dir == 'ASC':
                     return qs.order_by('username')
-                elif sort_dir=='DESC':
+                elif sort_dir == 'DESC':
                     return qs.order_by('-username')
-            elif sort_by=='registered':
-                if sort_dir=='ASC':
+            elif sort_by == 'registered':
+                if sort_dir == 'ASC':
                     return qs.order_by('date_joined')
-                elif sort_dir=='DESC':
+                elif sort_dir == 'DESC':
                     return qs.order_by('-date_joined')
-            elif sort_by=='num_posts':
-                if sort_dir=='ASC':
+            elif sort_by == 'num_posts':
+                if sort_dir == 'ASC':
                     return qs.order_by('forum_profile__post_count')
-                elif sort_dir=='DESC':
+                elif sort_dir == 'DESC':
                     return qs.order_by('-forum_profile__post_count')
         else:
             return qs
 
 
 class PostSearchForm(forms.Form):
-    keywords = forms.CharField(required=False, label=_('Keyword search'), 
+    keywords = forms.CharField(required=False, label=_('Keyword search'),
                                widget=forms.TextInput(attrs={'size':'40', 'maxlength':'100'}))
     author = forms.CharField(required=False, label=_('Author search'),
                              widget=forms.TextInput(attrs={'size':'25', 'maxlength':'25'}))
@@ -357,7 +361,7 @@ class ReputationForm(forms.ModelForm):
             pass
         else:
             raise forms.ValidationError(_('You already voted for this post'))
-        
+
         # check if this post really belong to `from_user`
         if not Post.objects.filter(pk=self.cleaned_data['post'].id, user=self.to_user).exists():
             raise forms.ValidationError(_('This post does\'t belong to this user'))
@@ -376,7 +380,7 @@ class ReputationForm(forms.ModelForm):
 class MailToForm(forms.Form):
     subject = forms.CharField(label=_('Subject'),
                               widget=forms.TextInput(attrs={'size':'75', 'maxlength':'70', 'class':'longinput'}))
-    body = forms.CharField(required=False, label=_('Message'), 
+    body = forms.CharField(required=False, label=_('Message'),
                                widget=forms.Textarea(attrs={'rows':'10', 'cols':'75'}))
 
 
@@ -401,3 +405,83 @@ class ReportForm(forms.ModelForm):
         if commit:
             report.save()
         return report
+
+
+class VotePollForm(forms.Form):
+    """
+    Dynamic form for the poll.
+    """
+    FORM_NAME = "VotePollForm" # used in view and template submit button
+
+    choice = forms.MultipleChoiceField()
+    def __init__(self, poll, *args, **kwargs):
+        self.poll = poll
+        super(VotePollForm, self).__init__(*args, **kwargs)
+
+        choices = self.poll.choices.all().values_list("id", "choice")
+        if self.poll.choice_count == 1:
+            self.fields["choice"] = forms.ChoiceField(
+                choices=choices, widget=forms.RadioSelect
+            )
+        else:
+            self.fields["choice"] = forms.MultipleChoiceField(
+                choices=choices, widget=forms.CheckboxSelectMultiple
+            )
+
+    def clean_choice(self):
+        ids = self.cleaned_data["choice"]
+        count = len(ids)
+        if count > self.poll.choice_count:
+            raise forms.ValidationError(
+                _(u'You have selected too many choices! (Only %i allowed.)') % self.poll.choice_count
+            )
+        return ids
+
+
+class PollForm(forms.ModelForm):
+    answers = forms.CharField(min_length=2, widget=forms.Textarea,
+        help_text=_("Write each answer on a new line.")
+    )
+    days = forms.IntegerField(required=False, min_value=1,
+        help_text=_("Number of days for this poll to run. Leave empty for never ending poll.")
+    )
+    class Meta:
+        model = Poll
+        fields = ['question', 'choice_count']
+
+    def create_poll(self):
+        """
+        return True if one field filled with data -> the user wants to create a poll
+        """
+        return any(self.data.get(key) for key in ('question', 'answers', 'days'))
+
+    def clean_answers(self):
+        # validate if there is more than whitespaces ;)
+        raw_answers = self.cleaned_data["answers"]
+        answers = [answer.strip() for answer in raw_answers.splitlines() if answer.strip()]
+        if len(answers) == 0:
+            raise forms.ValidationError(_(u"There is no valid answer!"))
+
+        # validate length of all answers
+        is_max_length = max([len(answer) for answer in answers])
+        should_max_length = PollChoice._meta.get_field("choice").max_length
+        if is_max_length > should_max_length:
+            raise forms.ValidationError(_(u"One of this answers are too long!"))
+
+        return answers
+
+    def save(self, post):
+        """
+        Create poll and all answers in PollChoice model.
+        """
+        poll = super(PollForm, self).save(commit=False)
+        poll.topic = post.topic
+        days = self.cleaned_data["days"]
+        if days:
+            now = datetime.now()
+            poll.deactivate_date = now + timedelta(days=days)
+        poll.save()
+        answers = self.cleaned_data["answers"]
+        for answer in answers:
+            PollChoice.objects.create(poll=poll, choice=answer)
+

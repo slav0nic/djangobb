@@ -2,12 +2,12 @@ from django.conf.urls.defaults import *
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum import views as forum_views
-from djangobb_forum.feeds import LastPosts, LastTopics, LastPostsOnForum,\
+from djangobb_forum.feeds import LastPosts, LastTopics, LastPostsOnForum, \
      LastPostsOnCategory, LastPostsOnTopic
-from djangobb_forum.forms import EssentialsProfileForm,\
-    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm,\
+from djangobb_forum.forms import EssentialsProfileForm, \
+    PersonalProfileForm, MessagingProfileForm, PersonalityProfileForm, \
     DisplayProfileForm, PrivacyProfileForm, UploadAvatarForm
-     
+
 
 urlpatterns = patterns('',
 
@@ -54,16 +54,13 @@ urlpatterns = patterns('',
 
     # Topic
     url('^topic/(?P<topic_id>\d+)/$', forum_views.show_topic, name='topic'),
-    url('^(?P<forum_id>\d+)/topic/add/$', forum_views.add_post,
-        {'topic_id': None}, name='add_topic'),
+    url('^(?P<forum_id>\d+)/topic/add/$', forum_views.add_topic, name='add_topic'),
     url('^topic/(?P<topic_id>\d+)/delete_posts/$', forum_views.delete_posts, name='delete_posts'),
     url('^topic/move/$', forum_views.move_topic, name='move_topic'),
     url('^topic/(?P<topic_id>\d+)/stick_unstick/(?P<action>[s|u])/$', forum_views.stick_unstick_topic, name='stick_unstick_topic'),
     url('^topic/(?P<topic_id>\d+)/open_close/(?P<action>[c|o])/$', forum_views.open_close_topic, name='open_close_topic'),
 
     # Post
-    url('^topic/(?P<topic_id>\d+)/post/add/$', forum_views.add_post,
-        {'forum_id': None}, name='add_post'),
     url('^post/(?P<post_id>\d+)/$', forum_views.show_post, name='post'),
     url('^post/(?P<post_id>\d+)/edit/$', forum_views.edit_post, name='edit_post'),
     url('^post/(?P<post_id>\d+)/delete/$', forum_views.delete_post, name='delete_post'),
@@ -73,7 +70,7 @@ urlpatterns = patterns('',
     # Subscription
     url('^subscription/topic/(?P<topic_id>\d+)/delete/$', forum_views.delete_subscription, name='forum_delete_subscription'),
     url('^subscription/topic/(?P<topic_id>\d+)/add/$', forum_views.add_subscription, name='forum_add_subscription'),
-    
+
     # Feeds
     url(r'^feeds/posts/$', LastPosts(), name='forum_posts_feed'),
     url(r'^feeds/topics/$', LastTopics(), name='forum_topics_feed'),
