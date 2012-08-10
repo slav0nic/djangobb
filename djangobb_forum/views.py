@@ -375,28 +375,29 @@ def show_topic(request, topic_id, full=True):
         poll = None
     else:
         poll = polls[0]
-        poll.auto_deactivate()
-        has_voted = request.user in poll.users.all()
-        if not post_request or not VotePollForm.FORM_NAME in request.POST:
-            # It's not a POST request or: The reply form was send and not a poll vote
-            if poll.active and not has_voted:
-                poll_form = VotePollForm(poll)
-        else:
-            if not poll.active:
-                messages.error(request, _("This poll is not active!"))
-                return HttpResponseRedirect(topic.get_absolute_url())
-            elif has_voted:
-                messages.error(request, _("You have already vote to this poll in the past!"))
-                return HttpResponseRedirect(topic.get_absolute_url())
+        if user_is_authenticated: # Only logged in users can vote
+            poll.auto_deactivate()
+            has_voted = request.user in poll.users.all()
+            if not post_request or not VotePollForm.FORM_NAME in request.POST:
+                # It's not a POST request or: The reply form was send and not a poll vote
+                if poll.active and not has_voted:
+                    poll_form = VotePollForm(poll)
+            else:
+                if not poll.active:
+                    messages.error(request, _("This poll is not active!"))
+                    return HttpResponseRedirect(topic.get_absolute_url())
+                elif has_voted:
+                    messages.error(request, _("You have already vote to this poll in the past!"))
+                    return HttpResponseRedirect(topic.get_absolute_url())
 
-            poll_form = VotePollForm(poll, request.POST)
-            if poll_form.is_valid():
-                ids = poll_form.cleaned_data["choice"]
-                queryset = poll.choices.filter(id__in=ids)
-                queryset.update(votes=F('votes') + 1)
-                poll.users.add(request.user) # save that this user has vote
-                messages.success(request, _("Your votes are saved."))
-                return HttpResponseRedirect(topic.get_absolute_url())
+                poll_form = VotePollForm(poll, request.POST)
+                if poll_form.is_valid():
+                    ids = poll_form.cleaned_data["choice"]
+                    queryset = poll.choices.filter(id__in=ids)
+                    queryset.update(votes=F('votes') + 1)
+                    poll.users.add(request.user) # save that this user has vote
+                    messages.success(request, _("Your votes are saved."))
+                    return HttpResponseRedirect(topic.get_absolute_url())
 
     highlight_word = request.GET.get('hl', '')
     if full:
