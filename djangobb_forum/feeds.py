@@ -19,12 +19,15 @@ class ForumFeed(Feed):
     def item_pubdate(self, obj):
         return obj.created
 
+    def item_author_name(self, item):
+        return item.user.username
+
 
 class LastPosts(ForumFeed):
     title = _('Latest posts on forum')
     description = _('Latest posts on forum')
     title_template = 'djangobb_forum/feeds/posts_title.html'
-    description_template = 'djangobb_forumfeeds/posts_description.html'
+    description_template = 'djangobb_forum/feeds/posts_description.html'
 
     def get_object(self, request):
         user_groups = request.user.groups.all()
