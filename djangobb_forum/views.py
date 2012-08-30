@@ -281,8 +281,11 @@ def misc(request):
             body = form.cleaned_data['body'] + u'\n %s %s [%s]' % (Site.objects.get_current().domain,
                                                                   request.user.username,
                                                                   request.user.email)
-            user.email_user(subject, body, request.user.email)
-            messages.success(request, _("Email send."))
+            try:
+                user.email_user(subject, body, request.user.email)
+                messages.success(request, _("Email send."))
+            except Exception:
+                messages.error(request, _("Email could not be sent."))
             return HttpResponseRedirect(reverse('djangobb:index'))
 
     elif 'mail_to' in request.GET:
