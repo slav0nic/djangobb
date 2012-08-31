@@ -11,8 +11,10 @@
 	
 	{% set_theme_style request.user %}
 
+    {% block header_feed_links %}
 	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_posts_feed %}" title="{% trans "Latest posts on forum" %}" />
 	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_topics_feed %}" title="{% trans "Latest topics on forum" %}" />
+	{% endblock header_feed_links %}
 
 	<link rel="shortcut icon" href="{{ STATIC_URL }}djangobb_forum/favicon.png" type="image/png" />
 	<script type="text/javascript">
@@ -72,6 +74,27 @@
         </div>
         {% endif %}
     {% endblock messages %}
+
+    <div class="linkst">
+        <div class="inbox">
+            {% block paginate %}{% endblock %}
+            <ul>
+                <li><a href="{% url djangobb:index %}">{% trans "Root" %}</a></li>
+                {% block breadcrumb %}{% endblock %}
+                <li>
+                    {% block rss_feed %}                
+                        <a href="{% url djangobb:forum_posts_feed %}">
+                            <img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" class="rss" title="{% trans "Latest posts on forum" %}" />
+                        </a>
+                        <a href="{% url djangobb:forum_topics_feed %}">
+                            <img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" class="rss" title="{% trans "Latest topics on forum" %}" />
+                        </a>
+                    {% endblock rss_feed %}
+                </li>
+            </ul>
+            <div class="clearer"></div>
+        </div>
+    </div>
 
 	{% block content %}{% endblock %}
 	<div id="brdfooter" class="block">
