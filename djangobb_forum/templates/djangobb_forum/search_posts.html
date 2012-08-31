@@ -3,6 +3,16 @@
 {% load i18n %}
 {% load pagination_tags %}
 
+{% block title %} / {% trans "Search posts" %}{% endblock %}
+
+{% block header_feed_links %}{% endblock header_feed_links %}{# remove feed links in header #}
+
+{% block breadcrumb %}{{ block.super }}
+    <li>&raquo; <a href=".">{% trans "Search posts" %}</a></li>
+{% endblock breadcrumb %}
+
+{% block rss_feed %}{% endblock rss_feed %}{# remove feed icons in content #}
+
 {% block content %}
 {% autopaginate posts forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">
