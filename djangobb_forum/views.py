@@ -143,8 +143,8 @@ def search(request):
 
     action = request.GET['action']
     if action == 'show_24h':
-        date = datetime.today() - timedelta(1)
-        topics = topics.filter(created__gte=date)
+        date = datetime.now() - timedelta(days=1)
+        topics = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
     elif action == 'show_new':
         try:
             last_read = PostTracking.objects.get(user=request.user).last_read
