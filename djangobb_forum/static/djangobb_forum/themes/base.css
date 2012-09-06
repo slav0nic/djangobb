@@ -35,6 +35,11 @@
 
 DIV.blockpost DIV.box, DIV.postleft, DIV.postsignature, DIV.postmsg {OVERFLOW: hidden}
 
+div.searchposts div.postmsg {
+    /* add scoll bars on small postmsg in search results */
+    overflow:auto;
+}
+
 /****************************************************************/
 /* 3. BUG FIXES - VERY IMPORTANT - DO NOT CHANGE */
 /****************************************************************/
