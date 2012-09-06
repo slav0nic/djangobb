@@ -336,8 +336,8 @@ class PostTracking(models.Model):
     """
 
     user = AutoOneToOneField(User)
-    topics = JSONField(null=True)
-    last_read = models.DateTimeField(null=True)
+    topics = JSONField(null=True, blank=True)
+    last_read = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = _('Post tracking')
