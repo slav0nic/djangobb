@@ -144,7 +144,12 @@ def search(request):
     action = request.GET['action']
     if action == 'show_24h':
         date = datetime.now() - timedelta(days=1)
-        topics = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
+        if show_as_posts:
+            posts = Post.objects.filter(topic__in=topics).order_by('-created')
+            context["posts"] = posts.filter(Q(created__gte=date) | Q(updated__gte=date))
+        else:
+            context["topics"] = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
+        _generic_context = False
     elif action == 'show_new':
         try:
             last_read = PostTracking.objects.get(user=request.user).last_read
@@ -152,7 +157,12 @@ def search(request):
             last_read = None
 
         if last_read:
-            topics = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
+            if show_as_posts:
+                posts = Post.objects.filter(topic__in=topics).order_by('-created')
+                context["posts"] = posts.filter(Q(created__gte=last_read) | Q(updated__gte=last_read))
+            else:
+                context["topics"] = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
+            _generic_context = False
         else:
             #searching more than forum_settings.SEARCH_PAGE_SIZE in this way - not good idea :]
             topics = [topic for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, request.user)]
