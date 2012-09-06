@@ -151,8 +151,11 @@ def search(request):
             context["topics"] = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
         _generic_context = False
     elif action == 'show_new':
+        user = request.user
+        if not user.is_authenticated():
+            raise Http404("Search 'show_new' not available for anonymous user.")
         try:
-            last_read = PostTracking.objects.get(user=request.user).last_read
+            last_read = PostTracking.objects.get(user=user).last_read
         except PostTracking.DoesNotExist:
             last_read = None
 
