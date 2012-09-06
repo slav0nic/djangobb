@@ -75,28 +75,11 @@
         {% endif %}
     {% endblock messages %}
 
-    <div class="linkst">
-        <div class="inbox">
-            {% block paginate %}{% endblock %}
-            <ul>
-                <li><a href="{% url djangobb:index %}">{% trans "Root" %}</a></li>
-                {% block breadcrumb %}{% endblock %}
-                <li>
-                    {% block rss_feed %}
-                        <a href="{% url djangobb:forum_posts_feed %}">
-                            <img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" class="rss" title="{% trans "Latest posts on forum" %}" />
-                        </a>
-                        <a href="{% url djangobb:forum_topics_feed %}">
-                            <img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" class="rss" title="{% trans "Latest topics on forum" %}" />
-                        </a>
-                    {% endblock rss_feed %}
-                </li>
-            </ul>
-            <div class="clearer"></div>
-        </div>
-    </div>
-
+    {% block breadcrumb_header %}{% include 'djangobb_forum/includes/breadcrumb_base.html' %}{% endblock %}
 	{% block content %}{% endblock %}
+    {% block below_content %}{% endblock %}
+    {% block breadcrumb_footer %}{% include 'djangobb_forum/includes/breadcrumb_base.html' %}{% endblock %}	
+	
 	<div id="brdfooter" class="block">
 	<h2><span>{% trans "Board footer" %}</span></h2>
         <div class="box">
