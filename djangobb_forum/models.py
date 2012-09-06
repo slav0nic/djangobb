@@ -53,14 +53,14 @@ except ImportError:
 path = os.path.join(settings.STATIC_ROOT, 'djangobb_forum', 'themes')
 if os.path.exists(path):
     # fix for collectstatic
-    THEME_CHOICES = [(theme, theme) for theme in os.listdir(path) 
+    THEME_CHOICES = [(theme, theme) for theme in os.listdir(path)
                      if os.path.isdir(os.path.join(path, theme))]
 else:
     THEME_CHOICES = []
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
-    groups = models.ManyToManyField(Group,blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
+    groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
     position = models.IntegerField(_('Position'), blank=True, default=0)
 
     class Meta:
@@ -84,7 +84,7 @@ class Category(models.Model):
 
     def has_access(self, user):
         if self.groups.exists():
-            if user.is_authenticated(): 
+            if user.is_authenticated():
                     if not self.groups.filter(user__pk=user.id).exists():
                         return False
             else:
@@ -215,7 +215,7 @@ class Post(models.Model):
         verbose_name_plural = _('Posts')
 
     def save(self, *args, **kwargs):
-        self.body_html = convert_text_to_html(self.body, self.markup) 
+        self.body_html = convert_text_to_html(self.body, self.markup)
         if forum_settings.SMILES_SUPPORT and self.user.forum_profile.show_smilies:
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)
@@ -351,7 +351,7 @@ class Report(models.Model):
     reported_by = models.ForeignKey(User, related_name='reported_by', verbose_name=_('Reported by'))
     post = models.ForeignKey(Post, verbose_name=_('Post'))
     zapped = models.BooleanField(_('Zapped'), blank=True, default=False)
-    zapped_by = models.ForeignKey(User, related_name='zapped_by', blank=True, null=True,  verbose_name=_('Zapped by'))
+    zapped_by = models.ForeignKey(User, related_name='zapped_by', blank=True, null=True, verbose_name=_('Zapped by'))
     created = models.DateTimeField(_('Created'), blank=True)
     reason = models.TextField(_('Reason'), blank=True, default='', max_length='1000')
 
@@ -360,7 +360,7 @@ class Report(models.Model):
         verbose_name_plural = _('Reports')
 
     def __unicode__(self):
-        return u'%s %s' % (self.reported_by ,self.zapped)
+        return u'%s %s' % (self.reported_by , self.zapped)
 
 class Ban(models.Model):
     user = models.OneToOneField(User, verbose_name=_('Banned user'), related_name='ban_users')
