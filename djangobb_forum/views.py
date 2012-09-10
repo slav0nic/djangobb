@@ -138,6 +138,7 @@ def search(request):
                Q(forum__category__groups__in=groups) | \
                Q(forum__category__groups__isnull=True))
 
+    user = request.user
     base_url = None
     _generic_context = True
 
@@ -151,7 +152,6 @@ def search(request):
             context["topics"] = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
         _generic_context = False
     elif action == 'show_new':
-        user = request.user
         if not user.is_authenticated():
             raise Http404("Search 'show_new' not available for anonymous user.")
         try:
@@ -168,11 +168,11 @@ def search(request):
             _generic_context = False
         else:
             #searching more than forum_settings.SEARCH_PAGE_SIZE in this way - not good idea :]
-            topics = [topic for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, request.user)]
+            topics = [topic for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, user)]
     elif action == 'show_unanswered':
         topics = topics.filter(post_count=1)
     elif action == 'show_subscriptions':
-        topics = topics.filter(subscribers__id=request.user.id)
+        topics = topics.filter(subscribers__id=user.id)
     elif action == 'show_user':
         # Show all posts from user or topics started by user
         user_id = request.GET.get("user_id", request.user.id)
@@ -214,7 +214,7 @@ def search(request):
 
         # add exlusions for categories user does not have access too
         for category in Category.objects.all():
-            if not category.has_access(request.user):
+            if not category.has_access(user):
                 query = query.exclude(category=category)
 
         order = {'0': 'created',
