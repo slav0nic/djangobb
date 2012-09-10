@@ -39,16 +39,16 @@ def index(request, full=True):
     guest_count = len(guests_cached)
     users_count = len(users_online)
 
+    _forums = Forum.objects.all()
+    user = request.user
+    if not user.is_superuser:
+        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
+        _forums = _forums.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True))
+
+    _forums = _forums.select_related('last_post__topic', 'last_post__user', 'category')
+
     cats = {}
     forums = {}
-    user_groups = request.user.groups.all()
-    if request.user.is_anonymous():  # in django 1.1 EmptyQuerySet raise exception
-        user_groups = []
-    _forums = Forum.objects.filter(
-            Q(category__groups__in=user_groups) | \
-            Q(category__groups__isnull=True)).select_related('last_post__topic',
-                                                            'last_post__user',
-                                                            'category')
     for forum in _forums:
         cat = cats.setdefault(forum.category.id,
             {'id': forum.category.id, 'cat': forum.category, 'forums': []})
@@ -131,50 +131,71 @@ def search(request):
 
     context = {}
 
-    #FIXME: show_user for anonymous raise exception, 
-    #django bug http://code.djangoproject.com/changeset/14087 :|
-    groups = request.user.groups.all() or [] #removed after django > 1.2.3 release
-    topics = Topic.objects.filter(
-               Q(forum__category__groups__in=groups) | \
-               Q(forum__category__groups__isnull=True))
+    # Create 'user viewable' pre-filtered topics/posts querysets
+    viewable_category = Category.objects.all()
+    topics = Topic.objects.all().order_by("-last_post__created")
+    posts = Post.objects.all().order_by('-created')
+    user = request.user
+    if not user.is_superuser:
+        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable 
+        viewable_category = viewable_category.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
+
+        topics = Topic.objects.filter(forum__category__in=viewable_category)
+        posts = Post.objects.filter(topic__forum__category__in=viewable_category)
 
     base_url = None
     _generic_context = True
 
     action = request.GET['action']
     if action == 'show_24h':
-        date = datetime.today() - timedelta(1)
-        topics = topics.filter(created__gte=date)
+        date = datetime.now() - timedelta(days=1)
+        if show_as_posts:
+            context["posts"] = posts.filter(Q(created__gte=date) | Q(updated__gte=date))
+        else:
+            context["topics"] = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
+        _generic_context = False
     elif action == 'show_new':
+        if not user.is_authenticated():
+            raise Http404("Search 'show_new' not available for anonymous user.")
         try:
-            last_read = PostTracking.objects.get(user=request.user).last_read
+            last_read = PostTracking.objects.get(user=user).last_read
         except PostTracking.DoesNotExist:
             last_read = None
+
         if last_read:
-            topics = topics.filter(last_post__updated__gte=last_read).all()
+            if show_as_posts:
+                context["posts"] = posts.filter(Q(created__gte=last_read) | Q(updated__gte=last_read))
+            else:
+                context["topics"] = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
+            _generic_context = False
         else:
             #searching more than forum_settings.SEARCH_PAGE_SIZE in this way - not good idea :]
-            topics = [topic for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, request.user)]
-
+            topics = [topic for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, user)]
     elif action == 'show_unanswered':
         topics = topics.filter(post_count=1)
     elif action == 'show_subscriptions':
-        topics = topics.filter(subscribers__id=request.user.id)
+        topics = topics.filter(subscribers__id=user.id)
     elif action == 'show_user':
         # Show all posts from user or topics started by user
-        user_id = request.GET.get("user_id", request.user.id)
-        user_id = int(user_id)
-        posts = Post.objects.filter(user__id=user_id)
-        base_url = "?action=show_user&user_id=%s&show_as=" % user_id
-        if not show_as_posts:
+        if not user.is_authenticated():
+            raise Http404("Search 'show_user' not available for anonymous user.")
+
+        if user.is_staff:
+            user_id = request.GET.get("user_id", user.id)
+            user_id = int(user_id)
+            if user_id != user.id:
+                search_user = User.objects.get(id=user_id)
+                messages.info(request, "Filter by user '%s'." % search_user.username)
+        else:
+            user_id = user.id
+
+        if show_as_posts:
+            posts = posts.filter(user__id=user_id)
+        else:
             # show as topic
-            # FIXME: This should be speed up. This is not lazy:
-            user_topics = []
-            for post in posts:
-                topic = post.topic
-                if topic in topics and topic not in user_topics:
-                    user_topics.append(topic)
-            topics = user_topics
+            topics = topics.filter(posts__user__id=user_id).order_by("-last_post__created").distinct()
+
+        base_url = "?action=show_user&user_id=%s&show_as=" % user_id
     elif action == 'search':
         form = PostSearchForm(request.GET)
         if not form.is_valid():
@@ -203,11 +224,6 @@ def search(request):
             elif search_in == 'topic':
                 query = query.filter(topic=keywords)
 
-        # add exlusions for categories user does not have access too
-        for category in Category.objects.all():
-            if not category.has_access(request.user):
-                query = query.exclude(category=category)
-
         order = {'0': 'created',
                  '1': 'author',
                  '2': 'topic',
@@ -224,8 +240,10 @@ def search(request):
             # Info: If whoosh backend used, setup HAYSTACK_ITERATOR_LOAD_PER_QUERY
             #    to a higher number to speed up
             post_pks = posts.values_list("pk", flat=True)
-            context["topics"] = Topic.objects.filter(posts__in=post_pks).distinct()
+            context["topics"] = topics.filter(posts__in=post_pks).distinct()
         else:
+            # FIXME: How to use the pre-filtered query from above?
+            posts = posts.filter(topic__forum__category__in=viewable_category)
             context["posts"] = posts
 
         get_query_dict = request.GET.copy()
@@ -235,7 +253,7 @@ def search(request):
 
     if _generic_context:
         if show_as_posts:
-            context["posts"] = Post.objects.filter(topic__in=topics).order_by('-created')
+            context["posts"] = posts.filter(topic__in=topics).order_by('-created')
         else:
             context["topics"] = topics
 
@@ -244,8 +262,12 @@ def search(request):
 
     if show_as_posts:
         context["as_topic_url"] = base_url + "topics"
+        post_count = context["posts"].count()
+        messages.success(request, _("Found %i posts.") % post_count)
     else:
         context["as_post_url"] = base_url + "posts"
+        topic_count = context["topics"].count()
+        messages.success(request, _("Found %i topics.") % topic_count)
 
     return render(request, template_name, context)
 
