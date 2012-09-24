@@ -177,17 +177,13 @@ def search(request):
         # Show all posts from user or topics started by user
         user_id = request.GET.get("user_id", request.user.id)
         user_id = int(user_id)
-        posts = Post.objects.filter(user__id=user_id)
-        base_url = "?action=show_user&user_id=%s&show_as=" % user_id
-        if not show_as_posts:
+        if show_as_posts:
+            posts = Post.objects.filter(user__id=user_id)
+        else:
             # show as topic
-            # FIXME: This should be speed up. This is not lazy:
-            user_topics = []
-            for post in posts:
-                topic = post.topic
-                if topic in topics and topic not in user_topics:
-                    user_topics.append(topic)
-            topics = user_topics
+            topics = Topic.objects.filter(posts__user__id=user_id).order_by("-last_post__created").distinct()
+
+        base_url = "?action=show_user&user_id=%s&show_as=" % user_id
     elif action == 'search':
         form = PostSearchForm(request.GET)
         if not form.is_valid():
