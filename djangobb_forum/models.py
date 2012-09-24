@@ -83,10 +83,12 @@ class Category(models.Model):
         return Post.objects.filter(topic__forum__category__id=self.id).select_related()
 
     def has_access(self, user):
+        if user.is_superuser:
+            return True
         if self.groups.exists():
             if user.is_authenticated():
-                    if not self.groups.filter(user__pk=user.id).exists():
-                        return False
+                if not self.groups.filter(user__pk=user.id).exists():
+                    return False
             else:
                 return False
         return True
