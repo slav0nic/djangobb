@@ -175,8 +175,18 @@ def search(request):
         topics = topics.filter(subscribers__id=user.id)
     elif action == 'show_user':
         # Show all posts from user or topics started by user
-        user_id = request.GET.get("user_id", request.user.id)
-        user_id = int(user_id)
+        if not user.is_authenticated():
+            raise Http404("Search 'show_user' not available for anonymous user.")
+
+        if user.is_staff:
+            user_id = request.GET.get("user_id", user.id)
+            user_id = int(user_id)
+            if user_id != user.id:
+                search_user = User.objects.get(id=user_id)
+                messages.info(request, "Filter by user '%s'." % search_user.username)
+        else:
+            user_id = user.id
+
         if show_as_posts:
             posts = Post.objects.filter(user__id=user_id)
         else:
