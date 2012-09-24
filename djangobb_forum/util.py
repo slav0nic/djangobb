@@ -1,11 +1,14 @@
+# coding: utf-8
+
 import re
-from HTMLParser import HTMLParser
+from HTMLParser import HTMLParser, HTMLParseError
 from postmarkup import render_bbcode
 try:
     import markdown
 except ImportError:
     pass
 
+from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse, Http404
@@ -161,17 +164,23 @@ class ExcludeTagsHTMLParser(HTMLParser):
             self.html = ''.join(self.html)
 
 
-def urlize(data):
+def urlize(html):
     """
     Urlize plain text links in the HTML contents.
    
     Do not urlize content of A and CODE tags.
     """
-
-    parser = ExcludeTagsHTMLParser(django_urlize)
-    parser.feed(data)
-    urlized_html = parser.html
-    parser.close()
+    try:
+        parser = ExcludeTagsHTMLParser(django_urlize)
+        parser.feed(html)
+        urlized_html = parser.html
+        parser.close()
+    except HTMLParseError:
+        # HTMLParser from Python <2.7.3 is not robust
+        # see: http://support.djangobb.org/topic/349/
+        if settings.DEBUG:
+            raise
+        return html
     return urlized_html
 
 def _smile_replacer(data):
@@ -179,15 +188,21 @@ def _smile_replacer(data):
         data = smile.sub(path, data)
     return data
 
-def smiles(data):
+def smiles(html):
     """
     Replace text smiles.
     """
-
-    parser = ExcludeTagsHTMLParser(_smile_replacer)
-    parser.feed(data)
-    smiled_html = parser.html
-    parser.close()
+    try:
+        parser = ExcludeTagsHTMLParser(_smile_replacer)
+        parser.feed(html)
+        smiled_html = parser.html
+        parser.close()
+    except HTMLParseError:
+        # HTMLParser from Python <2.7.3 is not robust
+        # see: http://support.djangobb.org/topic/349/
+        if settings.DEBUG:
+            raise
+        return html
     return smiled_html
 
 def paginate(items, request, per_page, total_count=None):
