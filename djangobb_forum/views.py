@@ -39,16 +39,16 @@ def index(request, full=True):
     guest_count = len(guests_cached)
     users_count = len(users_online)
 
+    _forums = Forum.objects.all()
+    user = request.user
+    if not user.is_superuser:
+        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
+        _forums = _forums.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True))
+
+    _forums = _forums.select_related('last_post__topic', 'last_post__user', 'category')
+
     cats = {}
     forums = {}
-    user_groups = request.user.groups.all()
-    if request.user.is_anonymous():  # in django 1.1 EmptyQuerySet raise exception
-        user_groups = []
-    _forums = Forum.objects.filter(
-            Q(category__groups__in=user_groups) | \
-            Q(category__groups__isnull=True)).select_related('last_post__topic',
-                                                            'last_post__user',
-                                                            'category')
     for forum in _forums:
         cat = cats.setdefault(forum.category.id,
             {'id': forum.category.id, 'cat': forum.category, 'forums': []})
