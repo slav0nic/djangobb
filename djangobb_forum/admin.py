@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
-    Report, Ban, Attachment, Poll, PollChoice
+    Report, Ban, Attachment, Poll, PollChoice, PostTracking
 
 
 class BaseModelAdmin(admin.ModelAdmin):
@@ -41,6 +41,10 @@ class PostAdmin(BaseModelAdmin):
 
 class ProfileAdmin(BaseModelAdmin):
     list_display = ['user', 'status', 'time_zone', 'location', 'language']
+    raw_id_fields = ['user']
+
+class PostTrackingAdmin(BaseModelAdmin):
+    list_display = ['user', 'last_read', 'topics']
     raw_id_fields = ['user']
 
 class ReputationAdmin(BaseModelAdmin):
@@ -91,6 +95,7 @@ admin.site.register(Forum, ForumAdmin)
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Profile, ProfileAdmin)
+admin.site.register(PostTracking, PostTrackingAdmin)
 admin.site.register(Reputation, ReputationAdmin)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(Ban, BanAdmin)
