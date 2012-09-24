@@ -40,6 +40,12 @@ div.searchposts div.postmsg {
     overflow:auto;
 }
 
+div.postmsg ul li {
+    /* make list bullets visible, see: http://djangobb.org/ticket/235 */
+    list-style: disc;
+    margin-left: 2em;
+}
+
 /****************************************************************/
 /* 3. BUG FIXES - VERY IMPORTANT - DO NOT CHANGE */
 /****************************************************************/
