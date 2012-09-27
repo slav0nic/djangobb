@@ -17,7 +17,7 @@
 							{{ form.name.errors }}
 							<label>{{ form.name.label }}<br>{{ form.name }}<br></label>
 							{% if request.user.is_superuser %}
-								{{ form.status.errros }}
+								{{ form.status.errors }}
 								<label>{{ form.status.label }}&nbsp;&nbsp;(<em>{% trans "Leave blank to use forum default." %}</em>)<br>{{ form.status }}<br></label>
 							{% endif %}
 							{{ form.location.errors }}
