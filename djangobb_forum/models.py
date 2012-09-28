@@ -334,11 +334,16 @@ class Profile(models.Model):
 class PostTracking(models.Model):
     """
     Model for tracking read/unread posts.
-    In topics stored ids of topics and last_posts as dict.
+    
+    The 'topics' JSONField stored ids of topics (as dict) that are readed by user
+    
+    The 'last_read' timestamp exist only when user use "mark all topics as readed"
+    
+    Note: If 'last_read' timestamp would be set, the 'topics' JSONField should be
+    set to None!
     """
-
     user = AutoOneToOneField(User)
-    topics = JSONField(null=True, blank=True)
+    topics = JSONField(null=True, blank=True) # TODO: Change the way the ID would be stored!
     last_read = models.DateTimeField(null=True, blank=True)
 
     class Meta:
