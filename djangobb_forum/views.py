@@ -163,17 +163,16 @@ def search(request):
         user_posttracking, created = PostTracking.objects.get_or_create(user=user)
 
         last_read = user_posttracking.last_read
-        readed_topics_dict = user.posttracking.topics
+        readed_topics_ids = user.posttracking.topics
         _generic_context = True
 
         if last_read:
             # Exclude all topics after timestamp from "mark all topics as read"
             topics = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
 
-        if readed_topics_dict:
+        if readed_topics_ids:
             # Exclude all topics by PostTracking ID
-            topics_id = readed_topics_dict.values()
-            topics = topics.exclude(id__in=topics_id)
+            topics = topics.exclude(id__in=readed_topics_ids)
 
         # If last_read==None and readed_topics_dict==None: Display all topics/posts as not read
 
