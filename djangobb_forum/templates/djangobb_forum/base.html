@@ -1,10 +1,12 @@
+{% extends "base.html" %}
 {% load forum_extras %}
 {% load i18n %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+{% block page-category %}Scratch Forums{% endblock page-category %}
+
 	<title>{{ forum_settings.FORUM_BASE_TITLE }} {% block title %}{% endblock %}</title>
+
+	{% block extra_meta %}
 	<meta name="description" content="{{ forum_settings.FORUM_META_DESCRIPTION }} " />
 	<meta name="keywords" content="{{ forum_settings.FORUM_META_KEYWORDS }}" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -15,8 +17,25 @@
 	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_topics_feed %}" title="{% trans "Latest topics on forum" %}" />
 
 	<link rel="shortcut icon" href="{{ STATIC_URL }}djangobb_forum/favicon.png" type="image/png" />
+{% endblock %}
+
+{% block css %}
+
+  <!-- base forum css styles -->
+  <link href="{{ STATIC_URL }}/djangobb_forum/themes/base.css" rel="stylesheet">
+  <!-- Forum theme colour scheme -->
+  <link href="{{ STATIC_URL }}/djangobb_forum/themes/scratch_default_theme_copy/css/default_cs.css" rel="stylesheet">
+  <!-- forum customizations -->
+  <link href="{{ STATIC_URL }}/css/pages/forums.css" rel="stylesheet">
+  <!-- Highlightjs goodies -->
+  <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}/css/lib/pygments.css" />
+
+{% endblock css %}
+
+{% block js %}
 	<script type="text/javascript">
 		var STATIC_URL = "{{ STATIC_URL }}";
+		var MEDIA_URL = "{{ MEDIA_URL }}";
 		var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
 	</script>
 	{% if DEBUG %}
@@ -42,7 +61,7 @@
 	{% endif %}
 
     <!-- Highlightjs goodies -->
-	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}djangobb_forum/css/pygments.css" />
+
 	{% if highlight_word %}
 		<script type="text/javascript" src="{{ STATIC_URL }}djangobb_forum/js/jquery.highlight-3.pack.js"></script>
 		<script type="text/javascript">
@@ -51,9 +70,15 @@
 			});
 		</script>
 	{% endif %}
-	{% block extra_meta %}{% endblock %}
-</head>
-<body>
+
+  <script type="text/javascript" src="{{ STATIC_URL }}/js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}/js/forums.js"></script>
+
+{% endblock js %}
+
+
+{% block main-content %}
+
     {% include 'djangobb_forum/header.html' %}
 
     {% block messages %}
@@ -77,7 +102,7 @@
 	<div id="brdfooter" class="block">
 	<h2><span>{% trans "Board footer" %}</span></h2>
         <div class="box">
-            <div class="inbox">
+            <div class="inbox box-content">
                 {% block controls %}
                     <dl id="searchlinks" class="conl">
                         <dt><strong>{% trans "Search links" %}</strong></dt>
@@ -98,5 +123,6 @@
     </div>
 </div>
 </div>
-</body>
-</html>
+{% endblock main-content %}
+
+

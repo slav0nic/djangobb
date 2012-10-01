@@ -17,12 +17,13 @@
 	</div>
 </div>
 <div id="vf" class="blocktable">
+  <div class = "box">
 	<h2>
 		<a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
-		<b><span>{{ forum.name }}</span></b>
+		<span>{{ forum.name }}</span>
 	</h2>
-	<div class="box">
-		<div class="inbox">
+
+		<div class="inbox box-content">
 			<table cellspacing="0">
 			<thead>
 				<tr>
@@ -38,16 +39,17 @@
 					<tr>
 						<td class="tcl">
 							<div class="intd">
-								<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
+							    <div class="nosize"><!-- --></div>
+							    </div>
+
+								<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
 								<div class="tclcon">
 									{% if topic.sticky %}
 										{% trans "Sticky:" %}
 									{% endif %}
-									{% if topic|has_unreads:user %}
-										<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span></strong>
-									{% else %}
-										{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
-									{% endif %}
+									<h3 {% if not topic|has_unreads:user %}class="topic_isread"{% endif %}>{% link topic %}</h3>
+                  <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
+
 								</div>
 							</div>
 						</td>
@@ -74,9 +76,12 @@
 		<div class="clearer"></div>
 	</div>
 </div>
+<!-- end forum code -->
 {% endblock %}
 {% block controls %}
 <div class="conl">
+  {% comment %}
+    {% if forum_settings.USE_JUMP_TO_MENU %}
 	<form id="qjump" method="get" action="forum">
 		<div><label>{% trans "Jump to" %}
 		<br />
@@ -89,14 +94,16 @@
 				</optgroup>
 			{% endfor %}
 		</select>
-		<input type="button" onclick="window.location=('{% url djangobb:index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
 		</label></div>
 	</form>
+    {% endif %}
+  {% endcomment %}
 	{% if moderator %}
-		<p id="modcontrols"><a href="{% url djangobb:moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
+		<p id="modcontrols"><a class="moderator-only" href="{% url djangobb:moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
 	{% endif %}
 </div>
 {% endblock %}
+
 
 {% block lofi %}
 {% if forum_settings.LOFI_SUPPORT %}

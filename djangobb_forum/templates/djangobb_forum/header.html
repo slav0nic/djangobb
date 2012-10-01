@@ -6,20 +6,25 @@
 <div id="brdheader" class="block">
 	<div class="box">
 		<div id="brdtitle" class="inbox">
-			<h1><span><a href="{% url djangobb:index %}">{{ forum_settings.HEADER|safe }}</a></span></h1>
+			<h2><!--<span><a href="{% url djangobb:index %}">-->{{ forum_settings.HEADER|safe }}</a><!--</span>--></h2>
 			<p><span>{{ forum_settings.TAGLINE|safe }}</span></p>
 		</div>
-		<div id="brdmenu" class="inbox">
+		<div id="brdmenu" class="inbox box-content">
 			<ul>
 			{% block menu %}
 				<li id="navindex"><a href="{% url djangobb:index %}">{% trans "Index" %}</a></li>
-				<li id="navuserlist"><a href="{% url djangobb:forum_users %}">{% trans "User list" %}</a></li>
+				{% if moderator %}
+				<li id="navuserlist" class="moderator-only"><a href="{% url djangobb:forum_users %}">{% trans "User list" %}</a></li>
+				{% endif %}
 				<li id="navsearch"><a href="{% url djangobb:search %}">{% trans "Search" %}</a></li>
 				{% if user.is_superuser %}
-					<li id="navadmin"><a href="{% url admin:index %}">{% trans "Administration" %}</a></li>
+					<li id="navadmin" class="admin-only"><a href="{% url admin:index %}">{% trans "Administration" %}</a></li>
 				{% endif %}
 				{% if user.is_authenticated %}
+			                <li id="navprofile"><a href="{% url djangobb:forum_profile request.user %}personality/">{% trans "Settings" %}</a></li>
+				{% comment %}
 					<li id="navprofile"><a href="{% url djangobb:forum_profile request.user %}">{% trans "Profile" %}</a></li>
+				{% endcomment %}
 					{% if forum_settings.PM_SUPPORT %}
 						<li id="navpm"><a href="{% url messages_inbox %}">{% trans "PM" %}</a></li> 
 					{% endif %}
@@ -27,7 +32,7 @@
 			{% endblock %}
 			</ul>
 		</div>
-		<div id="brdwelcome" class="inbox">
+		<div id="brdwelcome" class="inbox box-content">
 			<ul class="conl">
 				{% if user.is_authenticated %}
 					<li>{% trans "Logged in as" %} <strong>{{ user.username }}</strong></li>
@@ -57,7 +62,7 @@
 	<div id="announce" class="block">
 		<h2><span>{% trans "Notice" %}</span></h2>
 		<div class="box">
-			<div class="inbox">
+			<div class="inbox box-content">
 				<div>{{ forum_settings.NOTICE }}</div>
 			</div>
 		</div>

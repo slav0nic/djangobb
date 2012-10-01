@@ -9,13 +9,18 @@
 {% endif %}
 	<td class="tcl">
 		<div class="intd">
-			<div class="icon">
+			<div class="forumicon">
 				<div class="nosize"><!-- --></div>
 			</div>
 			<div class="tclcon">
-				<h3>{% link forum %} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a></h3>
+				<h3>{% link forum %}
+				  {% if forum_settings.RSS %} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
+				  {% endif %}
+				</h3>
 				{{ forum.description|safe }}
+				{% comment %} don't show mods for each forum %}
 				<p>
+
 				{% cache 6000 moderators forum.id %}
 					{% with forum.moderators.all as moderators %}
 						{% if moderators %}
@@ -24,6 +29,7 @@
 					{% endwith %}
 				{% endcache %}
 				</p>
+				{% endcomment %}
 			</div>
 		</div>
 	</td>

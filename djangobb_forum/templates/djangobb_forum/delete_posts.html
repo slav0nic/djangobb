@@ -22,10 +22,10 @@
 	<a name="post-{{ post.id }}"></a>
 	<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
 	<div class="box">
-		<div class="inbox">
+		<div class="inbox box-content">
 			<div class="postleft">
 				<dl>
-					<dt><strong><a href="{% url djangobb:forum_profile post.user.username %}">{{ post.user.username }}</a></strong></dt>
+					<dt><strong><a href="{% url profile_detail post.user.username %}">{{ post.user.username }}</a></strong></dt>
 					<dd class="usertitle"><strong>{{ post.user.forum_profile.status }}</strong></dd>
 				</dl>
 			</div>
@@ -50,7 +50,7 @@
 <div class="postlinksb">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-		<p class="conr"><input type="submit" value="{% trans "Delete" %}" /></p>
+		<p class="conr"><input type="submit" value="{% trans "Delete" %}" class="small grey button" /></p>
 		<div class="clearer"></div>
 	</div>
 </div>

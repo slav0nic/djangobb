@@ -3,7 +3,6 @@
 {% load i18n %}
 
 {% block extra_meta %}
-<script type="text/javascript" src="{{ STATIC_URL }}djangobb_forum/js/jquery.cookie.js"></script>
 <script type="text/javascript">
 
 	function set_collapser(cat_id) {
@@ -39,14 +38,14 @@
 {% block content %}
 <div id="idx1" class="blocktable">
 {% for iter in cats %}
+	<div class="box" id="category_body_{{ iter.id }}">
 	<h2 id="category_head_{{ iter.id }}">
 		<a class="toggle" href="#">Toggle shoutbox</a>
 		<span>
 			{{ iter.cat }}
 		</span>
 	</h2>
-	<div class="box" id="category_body_{{ iter.id }}">
-		<div class="inbox">
+		<div class="inbox box-content">
 			<table cellspacing="0">
 				<thead>
 					<tr>
@@ -70,7 +69,7 @@
 <div id="brdstats" class="block">
 	<h2><span>{% trans "Board information" %}</span></h2>
 	<div class="box">
-		<div class="inbox">
+		<div class="inbox box-content">
 			<dl class="conr">
 				<dt><strong>{% trans "Board statistics" %}</strong></dt>
 				<dd>{% trans "Total number of registered users:" %} <strong>{{ users }}</strong></dd>

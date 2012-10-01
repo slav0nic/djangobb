@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="blockform" id="reply">
     <h2><span>{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}</span></h2>
-    <div class="box">
+    <div class="box-content">
         <form id="post" action="{{ form_url|default_if_none:"." }}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             

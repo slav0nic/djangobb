@@ -13,9 +13,9 @@
 </div>
 
 <div id="messages" class="block">
-    <h2><span>{% trans "Search type" %}</span></h2>
     <div class="box">
-        <div class="inbox">
+    <h2><span>{% trans "Search type" %}</span></h2>
+        <div class="inbox box-content">
             <a href="{{ as_post_url }}">{% trans "Show results as post list." %}</a>
         </div>
     </div>
@@ -39,13 +39,10 @@
 				<tr {% if topic|has_unreads:user %}class="inew"{% endif %} {% if topic.closed %}class="iclosed"{% endif %}>
 					<td class="tcl">
 						<div class="intd">
-							<div class="icon"><div class="nosize"><!-- --></div></div>
+							<div class="forumicon"><div class="nosize"><!-- --></div></div>
 							<div class="tclcon">
-								{% if topic|has_unreads:user %}
-									<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span></strong>
-								{% else %}
-									{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user }}</span>
-								{% endif %}
+							  <h3 {% if not topic|has_unreads:user %}class="topic_isread"{% endif %}>{% link topic %}</h3>
+							  <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
 							</div>
 						</div>
 					</td>
