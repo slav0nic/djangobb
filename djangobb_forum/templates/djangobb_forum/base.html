@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{a% extends "base.html" %}
 {% load forum_extras %}
 {% load i18n %}
 
@@ -34,7 +34,6 @@
 
 {% block js %}
 	<script type="text/javascript">
-		var STATIC_URL = "{{ STATIC_URL }}";
 		var MEDIA_URL = "{{ MEDIA_URL }}";
 		var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
 	</script>
