@@ -38,7 +38,7 @@
             <ul>               
             {% for choice in poll.choices.all %}
                 <li>
-                    <div class="bar" style="width:{{ choice.percent }}%;" title="{{ choice.choice }}">&nbsp;</div>
+                    <div class="bar" style="width:{{ choice.percent|floatformat:0 }}%;" title="{{ choice.choice }}">&nbsp;</div>
                     {{ choice.votes }} vote{{ choice.votes|pluralize }} ({{ choice.percent|floatformat:1 }}%) for: {{ choice.choice }}
                 </li>
             {% endfor %}
