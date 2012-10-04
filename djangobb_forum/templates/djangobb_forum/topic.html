@@ -52,12 +52,14 @@
 {% for post in posts %}
 	<div id="p{{ post.id }}" class="blockpost roweven firstpost">
 		<a name="post-{{ post.id }}"></a>
-		<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
+
 		<div class="box">
-			<div class="inbox">
+		  <h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
+			<div class="inbox box-content">
 				<div class="postleft">
 					<dl>
 						<dt><strong class="username">{{ post.user.username }}</strong></dt>
+{% comment %}
 						<dd class="usertitle">
 							{% if post.user.forum_profile.status %}
 								<strong>{{ post.user.forum_profile.status }}</strong>
@@ -70,6 +72,7 @@
 								{{ post.user|forum_authority }}
 							</dd>
 						{% endif %}
+{% endcomment %}
 						<dd class="postavatar">
 							{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
 								<img src="{{ post.user.forum_profile.avatar.url }}" />
@@ -79,14 +82,15 @@
 								{% endif %}
 							{% endif %}
 						</dd>
-						{% if post.user.forum_profile.location %}
-							<dd>{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
-						{% endif %}
-						<dd>{% trans "Registered:" %} {{ post.user.date_joined|date:"Y-m-d" }}</dd>
-						<dd>{% trans "Posts:" %} {{ post.user.forum_profile.post_count }}</dd>
 						{% if moderator %}
-							<dd>{% trans "IP:" %} {{ post.user_ip }}</dd>
+						{% if post.user.forum_profile.location %}
+							<dd class="moderator-only">{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
 						{% endif %}
+						<dd class="moderator-only">{% trans "Registered:" %} {{ post.user.date_joined|date:"Y-m-d" }}</dd>
+						<dd class="moderator-only">{% trans "Posts:" %} {{ post.user.forum_profile.post_count }}</dd>
+							<dd class="moderator-only">{% trans "IP:" %} {{ post.user_ip }}</dd>
+						{% endif %}
+{% comment %}
 						{% if forum_settings.REPUTATION_SUPPORT %}
 								<dd><a href="{% url djangobb:reputation post.user.username %}">{% trans "Reputation" %}</a>:
 								{% if request.user != post.user %} {# TODO: and user.is_authenticated #}
@@ -109,6 +113,7 @@
 								<a href="{% url messages_compose_to post.user.username %}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
 							{% endif %}
 						{% endif %}
+{% endcomment %}
 				</dl>
 			</div>
 			<div class="postright">
@@ -118,7 +123,7 @@
 					{% if not user.is_authenticated or user.forum_profile.show_signatures %}
 						{% if post.user.forum_profile.signature_html %}
 						<div class="postsignature">
-							<br /><br/ >
+							<hr>
 							{{ post.user.forum_profile.signature_html|safe }}
 						</div>
 						{% endif %}
@@ -137,14 +142,17 @@
 			</div>
 			<div class="clearer"></div>
 			<div class="postfootleft">
+			  {% comment %}
 				{% if post.user|online %}
 					<p><strong>{% trans "Online" %}</strong></p>
 				{% else %}
 					<p>{% trans "Offline" %}</p>
 				{% endif %}
+			  {% endcomment %}
 			</div>
 			<div class="postfootright">
 				<ul>
+				  {% if user.is_authenticated %}
 					<li class="postreport"><a href="{% url djangobb:misc %}?action=report&amp;post_id={{ post.id }}">{% trans "Report" %}</a> </li>
 					{% if moderator or post|forum_equal_to:last_post %}
 						{% if moderator or post.user|forum_equal_to:user %}
@@ -154,7 +162,6 @@
 					{% if moderator or post|forum_posted_by:user %}
 						<li class="postedit">| <a href="{% url djangobb:edit_post post.id %}">{% trans "Edit" %}</a> </li>
 					{% endif %}
-					{% if user.is_authenticated %}
 						<li class="postquote">| <a onclick="return copy_paste('p{{ post.id }}');" href="#reply" title="{% trans "Full quote or quote selected text form this post." %}">{% trans "Quote" %}</a></li>
 					{% endif %}
 				</ul>
@@ -170,7 +177,7 @@
 			    <li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li>
 			    <li>&raquo; {% link topic.forum %} </li>
 			    <li>
-			        &raquo; {{ topic }}<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+			        &raquo; {{ topic }}<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 			    </li>
             </ul>
 		{% if user.is_authenticated %}
@@ -194,6 +201,7 @@
 
 {% block controls %}
 <div class="conl">
+  {% if forum_settings.USE_JUMP_TO_MENU %}
 	<form id="qjump" method="get" action="forum">
 		<div><label>{% trans "Jump to " %}
 		<br />
@@ -206,22 +214,24 @@
 				</optgroup>
 			{% endfor %}
 		</select>
+		{% comment %}
 		<input type="button" onclick="window.location=('{% url djangobb:index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
+		{% endcomment %}
 		</label></div>
 	</form>
-	<dl id="modcontrols"><dt><strong>{% trans "Moderator control" %}</strong></dt>
 	{% if moderator %}
-		<dd><a href="{% url djangobb:delete_posts topic.id %}">{% trans "Delete multiple posts" %}</a></dd>
-		<dd><a href="{% url djangobb:move_topic %}?topic_id={{ topic.id }}">{% trans "Move topic" %}</a></dd>
+	<dl id="modcontrols"><dt><strong>{% trans "Moderator control" %}</strong></dt>	  
+		<dd><a class="moderator-only" href="{% url djangobb:delete_posts topic.id %}">{% trans "Delete multiple posts" %}</a></dd>
+		<dd><a class="moderator-only" href="{% url djangobb:move_topic %}?topic_id={{ topic.id }}">{% trans "Move topic" %}</a></dd>
 		{% if topic.closed %}
-			<dd><a href="{% url djangobb:open_close_topic topic.id 'o' %}">{% trans "Open topic" %}</a></dd>
+			<dd><a class="moderator-only" href="{% url djangobb:open_close_topic topic.id 'o' %}">{% trans "Open topic" %}</a></dd>
 		{% else %}
-			<dd><a href="{% url djangobb:open_close_topic topic.id 'c' %}">{% trans "Close topic" %}</a></dd>
+			<dd><a class="moderator-only" href="{% url djangobb:open_close_topic topic.id 'c' %}">{% trans "Close topic" %}</a></dd>
 		{% endif %}
 		{% if topic.sticky %}
-			<dd><a href="{% url djangobb:stick_unstick_topic topic.id 'u' %}">{% trans "Unstick topic" %}</a></dd></dl>
+			<dd><a class="moderator-only" href="{% url djangobb:stick_unstick_topic topic.id 'u' %}">{% trans "Unstick topic" %}</a></dd></dl>
 		{% else %}
-			<dd><a href="{% url djangobb:stick_unstick_topic topic.id 's' %}">{% trans "Stick topic" %}</a></dd></dl>
+			<dd><a class="moderator-only" href="{% url djangobb:stick_unstick_topic topic.id 's' %}">{% trans "Stick topic" %}</a></dd></dl>
 		{% endif %}
 	{% endif %}
     </dl>
