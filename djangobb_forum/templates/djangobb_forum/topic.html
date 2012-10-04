@@ -4,6 +4,7 @@
 {% load i18n %}
 
 {% block title %} / {{ topic.forum.name }} / {{ topic.name }}{% endblock %}
+
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">
