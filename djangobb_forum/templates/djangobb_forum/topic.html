@@ -13,7 +13,7 @@
 		<ul>
 			<li>
 			<a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
-			<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+			<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 			</li>
 		</ul>
 		<div class="clearer"></div>
@@ -60,7 +60,7 @@
 				<div class="postleft">
 					<dl>
 						<dt><strong class="username">{{ post.user.username }}</strong></dt>
-{% comment %}
+{% if forum_settings.DISPLAY_USERTITLE %}
 						<dd class="usertitle">
 							{% if post.user.forum_profile.status %}
 								<strong>{{ post.user.forum_profile.status }}</strong>
@@ -73,8 +73,9 @@
 								{{ post.user|forum_authority }}
 							</dd>
 						{% endif %}
-{% endcomment %}
+{% endif %}
 						<dd class="postavatar">
+{% comment %}
 							{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
 								<img src="{{ post.user.forum_profile.avatar.url }}" />
 							{% else %}
@@ -82,6 +83,8 @@
 									<img src="{% gravatar post.user.email %}" />
 								{% endif %}
 							{% endif %}
+{% endcomment %}
+							<a href="{% url profile_detail post.user.username %}"><img src="http://scratch.mit.edu/static/icons/buddy/{{ post.user.id }}_med.png" width="90" height = "90"></a>
 						</dd>
 						{% if moderator %}
 						{% if post.user.forum_profile.location %}
