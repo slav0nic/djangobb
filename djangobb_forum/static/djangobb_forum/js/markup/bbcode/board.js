@@ -89,7 +89,7 @@ $(document).ready(function() {
         }
         // if nothing returned, browser leave the page without any message
     };
-    $("form#post").bind("submit", function() {
+    $("form input[type=submit]").click(function() {
         //log("unbind onbeforeunload");
         window.onbeforeunload = null;
     });
