@@ -2,17 +2,11 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div class="linkst">
-	<div class="inbox">
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link post.topic.forum %}</li><li>&raquo; {{ post.topic }}</li></ul>
-		<div class="clearer"></div>
-	</div>
-</div>
+{% block breadcrumb_header %}{% include 'djangobb_forum/includes/breadcrumb_post.html' %}{% endblock breadcrumb_header %}
 
+{% block content %}
 <div class="blockform">
 	<h2>{% trans "Edit post" %}</h2>
-
 	<div class="box">
 		<form method="post">
 			{% csrf_token %}
