@@ -38,11 +38,13 @@
                 var MEDIA_URL = "{{ MEDIA_URL }}";
                 var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
 	</script>
+{% comment %}
 	{% if DEBUG %}
 	   <script type="text/javascript" src="{{ STATIC_URL }}/admin/js/jquery.js" onerror="JavaScript:alert('Error loading file [' + this.src + '] !');" ></script>
 	{% else %}
     	<script type="text/javascript" src="{{ STATIC_URL }}/admin/js/jquery.min.js" onerror="JavaScript:alert('Error loading file [' + this.src + '] !');" ></script>
 	{% endif %}
+{% endcomment %}
 	{% if user.is_authenticated %}
     	{% if post %}
             {% with markup=post.markup %}

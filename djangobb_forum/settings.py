@@ -78,13 +78,13 @@ EMOTION_LOL = get('DJANGOBB_EMOTION_LOL', '<img src="%sdjangobb_forum/img/smilie
 EMOTION_MAD = get('DJANGOBB_EMOTION_MAD', '<img src="%sdjangobb_forum/img/smilies/mad.png" />' % settings.STATIC_URL)
 EMOTION_ROLL = get('DJANGOBB_EMOTION_ROLL', '<img src="%sdjangobb_forum/img/smilies/roll.png" />' % settings.STATIC_URL)
 EMOTION_COOL = get('DJANGOBB_EMOTION_COOL', '<img src="%sdjangobb_forum/img/smilies/cool.png" />' % settings.STATIC_URL)
-SMILES = ((r'(:|=)\)', EMOTION_SMILE), #:), =)
+SMILES = ((r':/', EMOTION_HMM), #:/
+          (r'(:|=)\)', EMOTION_SMILE), #:), =)
           (r'(:|=)\|',  EMOTION_NEUTRAL), #:|, =| 
           (r'(:|=)\(', EMOTION_SAD), #:(, =(
           (r'(:|=)D', EMOTION_BIG_SMILE), #:D, =D
           (r':o', EMOTION_YIKES), # :o, :O
           (r';\)', EMOTION_WINK), # ;\ 
-          (r':/', EMOTION_HMM), #:/
           (r':P', EMOTION_TONGUE), # :P
           (r':lol:', EMOTION_LOL),
           (r':mad:', EMOTION_MAD),
