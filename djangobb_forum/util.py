@@ -239,7 +239,7 @@ def convert_text_to_html(text, markup):
         raise Exception('Invalid markup property: %s' % markup)
     return urlize(text)
 
-
+# This allows us to control the bb tags
 def customize_postmarkup():
     custom_postmarkup = postmarkup.PostMarkup()
     add_tag = custom_postmarkup.tag_factory.add_tag
@@ -268,6 +268,7 @@ def customize_postmarkup():
     add_tag(postmarkup.ListTag, u'list')
     add_tag(postmarkup.ListItemTag, u'*')
 
+    # removed 'size' and replaced it with 'big' and 'small'
     add_tag(postmarkup.SimpleTag, 'big','span style="font-size:32px"')
     add_tag(postmarkup.SimpleTag, 'small','span style="font-size:10px"')
     add_tag(postmarkup.ColorTag, u"color")
