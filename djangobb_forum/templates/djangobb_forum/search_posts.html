@@ -24,10 +24,10 @@
 {% for post in posts %}
 {% if post.object %}
     {% with post=post.object %}
-        {% include "djangobb_forum/include/post_in_search_page.html" %}
+        {% include "djangobb_forum/includes/post_in_search_page.html" %}
     {% endwith %}
 {% else %}
-    {% include "djangobb_forum/include/post_in_search_page.html" %}
+    {% include "djangobb_forum/includes/post_in_search_page.html" %}
 {% endif %}
 {% empty %}
 <div id="msg" class="block">
