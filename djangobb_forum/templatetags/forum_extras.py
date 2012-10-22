@@ -126,6 +126,8 @@ def lofi_link(object, anchor=u''):
 def has_unreads(topic, user):
     """
     Check if topic has messages which user didn't read.
+    
+    Used only as filter in templates.
     """
     if not user.is_authenticated() or\
         (user.posttracking.last_read is not None and\

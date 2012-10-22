@@ -11,9 +11,10 @@ from django.db.models import aggregates
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 
-from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
-from djangobb_forum.util import smiles, convert_text_to_html
 from djangobb_forum import settings as forum_settings
+from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField
+from djangobb_forum.util import smiles, convert_text_to_html
+from djangobb_forum.utils.comma_seperated_field import CommaSeperatedIntegersField
 
 if 'south' in settings.INSTALLED_APPS:
     from south.modelsinspector import add_introspection_rules
@@ -179,22 +180,25 @@ class Topic(models.Model):
 
     def update_read(self, user):
         tracking = user.posttracking
-        #if last_read > last_read - don't check topics
         if tracking.last_read and (tracking.last_read > self.last_post.created):
+            # don't check topics because tracking.last_read newer than the last post in this topic
             return
-        if isinstance(tracking.topics, dict):
-            #clear topics if len > 5Kb and set last_read to current time
-            if len(tracking.topics) > 5120:
+
+        if isinstance(tracking.topics, list):
+            if len(tracking.topics) > 1000:
+                # too much topics IDs -> clear it and set last_read to current time
                 tracking.topics = None
                 tracking.last_read = datetime.now()
                 tracking.save()
+                return
+
             #update topics if exist new post or does't exist in dict
-            if self.last_post_id > tracking.topics.get(str(self.id), 0):
-                tracking.topics[str(self.id)] = self.last_post_id
+            if self.id not in tracking.topics:
+                tracking.topics.append(self.id)
                 tracking.save()
         else:
-            #initialize topic tracking dict
-            tracking.topics = {self.id: self.last_post_id}
+            # initialize topic tracking list
+            tracking.topics = [self.id]
             tracking.save()
 
 
@@ -331,14 +335,19 @@ class Profile(models.Model):
         else:
             return  None
 
+
 class PostTracking(models.Model):
     """
     Model for tracking read/unread posts.
-    In topics stored ids of topics and last_posts as dict.
+    
+    The 'topics' stores the ids of topics that are read by user
+    
+    The 'last_read' timestamp exist only when user use "mark all topics as read"
+    
+    Note: If 'last_read' timestamp would be set, the 'topics' field should be set to None!
     """
-
     user = AutoOneToOneField(User)
-    topics = JSONField(null=True, blank=True)
+    topics = CommaSeperatedIntegersField(null=True, blank=True)
     last_read = models.DateTimeField(null=True, blank=True)
 
     class Meta:

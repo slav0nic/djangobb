@@ -155,22 +155,27 @@ def search(request):
             context["topics"] = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
         _generic_context = False
     elif action == 'show_new':
+        # Display all unread topics/posts
+
         if not user.is_authenticated():
             raise Http404("Search 'show_new' not available for anonymous user.")
-        try:
-            last_read = PostTracking.objects.get(user=user).last_read
-        except PostTracking.DoesNotExist:
-            last_read = None
+
+        user_posttracking, created = PostTracking.objects.get_or_create(user=user)
+
+        last_read = user_posttracking.last_read
+        readed_topics_ids = user.posttracking.topics
+        _generic_context = True
 
         if last_read:
-            if show_as_posts:
-                context["posts"] = posts.filter(Q(created__gte=last_read) | Q(updated__gte=last_read))
-            else:
-                context["topics"] = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
-            _generic_context = False
-        else:
-            #searching more than forum_settings.SEARCH_PAGE_SIZE in this way - not good idea :]
-            topics = [topic for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, user)]
+            # Exclude all topics after timestamp from "mark all topics as read"
+            topics = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
+
+        if readed_topics_ids:
+            # Exclude all topics by PostTracking ID
+            topics = topics.exclude(id__in=readed_topics_ids)
+
+        # If last_read==None and readed_topics_dict==None: Display all topics/posts as not read
+
     elif action == 'show_unanswered':
         topics = topics.filter(post_count=1)
     elif action == 'show_subscriptions':
@@ -266,7 +271,8 @@ def search(request):
         messages.success(request, _("Found %i posts.") % post_count)
     else:
         context["as_post_url"] = base_url + "posts"
-        topic_count = context["topics"].count()
+        topics = context["topics"]
+        topic_count = topics.count()
         messages.success(request, _("Found %i topics.") % topic_count)
 
     return render(request, template_name, context)
