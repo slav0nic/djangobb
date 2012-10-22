@@ -35,10 +35,8 @@
                             <label><strong>{% trans "Subject" %}</strong><br />{{ form.name.errors }}{{ form.name }}<br /></label>
                         {% endif %}
                         <label><strong>{% trans "Message" %}</strong><br />{{ form.body.errors }}{{ form.body }}</label>
-                        <p>
-                            Note: A list of all supported source code highlighter for [code <strong>XXX</strong>]...[/code] can be found here: <a href="http://pygments.org/docs/lexers/">pygments.org</a> (Use 'Short name')
-                        </p>
-                        <label>{{ form.subscribe }}<strong>{% trans "Subscribe this topic" %}</strong>{{ form.subscribe.errors }}<br /></label>
+                  <!--      <label>{{ form.subscribe }}<strong>{% trans "Subscribe this topic" %}</strong>{{ form.subscribe.errors }}<br /></label>
+                  -->
                     </div>
                 </fieldset>
             </div>
