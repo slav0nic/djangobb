@@ -1,6 +1,6 @@
 import re
 from HTMLParser import HTMLParser
-from postmarkup import render_bbcode
+import postmarkup
 try:
     import markdown
 except ImportError:
@@ -215,10 +215,50 @@ def set_language(request, language):
 
 def convert_text_to_html(text, markup):
     if markup == 'bbcode':
-        text = render_bbcode(text)
+        renderbb = customize_postmarkup()
+        
+        text =  renderbb(text)
     elif markup == 'markdown':
         text = markdown.markdown(text, safe_mode='escape')
     else:
         raise Exception('Invalid markup property: %s' % markup)
     return urlize(text)
 
+
+def customize_postmarkup():
+    custom_postmarkup = postmarkup.PostMarkup()
+    add_tag = custom_postmarkup.tag_factory.add_tag
+    custom_postmarkup.tag_factory.set_default_tag(postmarkup.DefaultTag)
+
+    add_tag(postmarkup.SimpleTag, 'b', 'strong')
+    add_tag(postmarkup.SimpleTag, 'i', 'em')
+    add_tag(postmarkup.SimpleTag, 'u', 'u')
+    add_tag(postmarkup.SimpleTag, 's', 'strike')
+
+    add_tag(postmarkup.LinkTag, 'link', None)
+    add_tag(postmarkup.LinkTag, 'url', None)
+
+    add_tag(postmarkup.QuoteTag, 'quote')
+
+    add_tag(postmarkup.SearchTag, u'wiki',
+            u"http://en.wikipedia.org/wiki/Special:Search?search=%s", u'wikipedia.com', None)
+    add_tag(postmarkup.SearchTag, u'google',
+            u"http://www.google.com/search?hl=en&q=%s&btnG=Google+Search", u'google.com', None)
+    add_tag(postmarkup.SearchTag, u'dictionary',
+            u"http://dictionary.reference.com/browse/%s", u'dictionary.com', None)
+    add_tag(postmarkup.SearchTag, u'dict',
+            u"http://dictionary.reference.com/browse/%s", u'dictionary.com', None)
+
+    add_tag(postmarkup.ImgTag, u'img')
+    add_tag(postmarkup.ListTag, u'list')
+    add_tag(postmarkup.ListItemTag, u'*')
+
+    add_tag(postmarkup.SimpleTag, 'big','span style="font-size:32px"')
+    add_tag(postmarkup.SimpleTag, 'small','span style="font-size:10px"')
+    add_tag(postmarkup.ColorTag, u"color")
+    add_tag(postmarkup.CenterTag, u"center")
+    add_tag(postmarkup.PygmentsCodeTag, u'code', None)
+
+    add_tag(postmarkup.SimpleTag, u"p", 'p')
+
+    return custom_postmarkup

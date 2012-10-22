@@ -22,8 +22,8 @@ mySettings = {
 		{separator:'---------------' },
 		{name:'Size', key:'S', openWith:'', closeWith:'',
 		dropMenu :[
-			{name:'Big', openWith:'[size 32]', closeWith:'[/size]' },
-			{name:'Small', openWith:'[size 10]', closeWith:'[/size]' }
+			{name:'Big', openWith:'[big]', closeWith:'[/big]' },
+			{name:'Small', openWith:'[small]', closeWith:'[/small]' }
 		]},
 		{separator:'---------------' },
 		{name:'Bulleted list', openWith:'[list]\n', closeWith:'\n[/list]'},
