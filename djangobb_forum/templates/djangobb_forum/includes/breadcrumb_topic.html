@@ -1,0 +1,21 @@
+{% extends 'djangobb_forum/includes/breadcrumb_base.html' %}
+{% load forum_extras %}
+{% load pagination_tags %}
+{% load i18n %}
+
+{% block breadcrumb %}{{ block.super }}
+    <li>&raquo; {{ topic.forum.category }}</li>
+    <li>&raquo; {% link topic.forum %}</li>
+    <li>&raquo; {% link topic %}</li>
+{% endblock breadcrumb %}
+
+{% block rss_feed %}
+    <a href="{% url djangobb:forum_topic_feed topic.id %}">
+        <img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" title="{% blocktrans %}Latest posts on {{ topic }} topic{% endblocktrans %}" />
+    </a>
+{% endblock rss_feed %}
+
+{% block paginate %}   
+    {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
+    <div class="pagelink conr">{% paginate %}</div>
+{% endblock paginate %}

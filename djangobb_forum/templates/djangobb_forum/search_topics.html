@@ -3,15 +3,22 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-{% autopaginate topics forum_settings.SEARCH_PAGE_SIZE %}
-<div class="linkst">
-	<div class="inbox">
-		<p class="pagelink">{% paginate %}</p>
-		<div class="clearer"></div>
-	</div>
-</div>
+{% block title %} / {% trans "Search topics" %}{% endblock %}
 
+{% block header_feed_links %}{% endblock header_feed_links %}{# remove feed links in header #}
+
+{% block paginate %}
+    {% autopaginate topics forum_settings.SEARCH_PAGE_SIZE %}
+    <div class="pagelink conl">{% paginate %}</div>
+{% endblock paginate %}
+
+{% block breadcrumb %}{{ block.super }}
+    <li>&raquo; <a href=".">{% trans "Search topics" %}</a></li>
+{% endblock breadcrumb %}
+
+{% block rss_feed %}{% endblock rss_feed %}{# remove feed icons in content #}
+
+{% block content %}
 <div id="messages" class="block">
     <h2><span>{% trans "Search type" %}</span></h2>
     <div class="box">

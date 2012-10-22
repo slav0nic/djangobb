@@ -4,21 +4,16 @@
 {% load i18n %}
 
 {% block title %} / {{ forum.name }}{% endblock %}
+
+{% block header_feed_links %}{{ block.super }}
+    <link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_forum_feed forum.id %}" title="{% blocktrans %}Latest posts on {{ forum }} forum{% endblocktrans %}" />
+{% endblock header_feed_links %}
+
+{% block breadcrumb_header %}{% include 'djangobb_forum/includes/breadcrumb_forum.html' %}{% endblock breadcrumb_header %}
+
 {% block content %}
-{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
-<div class="linkst">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-		{% if user.is_authenticated %}
-			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
-		{% endif %}
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
-		<div class="clearer"></div>
-	</div>
-</div>
 <div id="vf" class="blocktable">
 	<h2>
-		<a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
 		<b><span>{{ forum.name }}</span></b>
 	</h2>
 	<div class="box">
@@ -33,48 +28,40 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% if topics %}
-				{% for topic in topics %}
-					<tr>
-						<td class="tcl">
-							<div class="intd">
-								<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
-								<div class="tclcon">
-									{% if topic.sticky %}
-										{% trans "Sticky:" %}
-									{% endif %}
-									{% if topic|has_unreads:user %}
-										<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span></strong>
-									{% else %}
-										{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
-									{% endif %}
-								</div>
+		    {% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
+			{% for topic in topics %}
+				<tr>
+					<td class="tcl">
+						<div class="intd">
+							<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
+							<div class="tclcon">
+								{% if topic.sticky %}
+									{% trans "Sticky:" %}
+								{% endif %}
+								{% if topic|has_unreads:user %}
+									<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span></strong>
+								{% else %}
+									{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
+								{% endif %}
 							</div>
-						</td>
-						<td class="tc2">{{ topic.reply_count }}</td>
-						<td class="tc3">{{ topic.views }}</td>
-						<td class="tcr"><a href="{{ topic.last_post.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
-					</tr>
-				{% endfor %}
-			{% else %}
+						</div>
+					</td>
+					<td class="tc2">{{ topic.reply_count }}</td>
+					<td class="tc3">{{ topic.views }}</td>
+					<td class="tcr"><a href="{{ topic.last_post.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+				</tr>
+			{% empty %}
 				<tr><td class="djangobbcon1" colspan="4">{% trans "Forum is empty." %}</td></tr>
-			{% endif %}
+			{% endfor %}			
 			</tbody>
 			</table>
 		</div>
 	</div>
 </div>
-<div class="linkst">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-		{% if user.is_authenticated %}
-			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
-		{% endif %}
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
-		<div class="clearer"></div>
-	</div>
-</div>
-{% endblock %}
+{% endblock content %}
+
+{% block breadcrumb_footer %}{% include 'djangobb_forum/includes/breadcrumb_forum.html' %}{% endblock breadcrumb_footer %}
+
 {% block controls %}
 <div class="conl">
 	<form id="qjump" method="get" action="forum">

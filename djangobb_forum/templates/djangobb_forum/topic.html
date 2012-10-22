@@ -4,21 +4,14 @@
 {% load i18n %}
 
 {% block title %} / {{ topic.forum.name }} / {{ topic.name }}{% endblock %}
-{% block content %}
-{% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
-<div class="linkst">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-		<ul>
-			<li>
-			<a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
-			<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
-			</li>
-		</ul>
-		<div class="clearer"></div>
-	</div>
-</div>
 
+{% block header_feed_links %}{{ block.super }}
+    <link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_topic_feed topic.id %}" title="{% blocktrans %}Latest posts on {{ topic }} topic{% endblocktrans %}" />
+{% endblock header_feed_links %}
+
+{% block breadcrumb_header %}{% include 'djangobb_forum/includes/breadcrumb_topic.html' %}{% endblock breadcrumb_header %}
+
+{% block content %}
 {% if poll %}
 <div id="poll" class="block">
     <h2><span>{% trans "Poll" %}</span></h2>
@@ -165,14 +158,6 @@
 {% endfor %}
 <div class="postlinksb">
 	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-			<ul>
-			    <li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li>
-			    <li>&raquo; {% link topic.forum %} </li>
-			    <li>
-			        &raquo; {{ topic }}<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
-			    </li>
-            </ul>
 		{% if user.is_authenticated %}
 			{% if subscribed %}
 				<a class="subscribelink clearb" href="{% url djangobb:forum_delete_subscription topic.id %}?from_topic">{% trans "Unsubscribe" %}</a>
@@ -183,14 +168,17 @@
 		<div class="clearer"></div>
 	</div>
 </div>
+{% endblock content%}
 
+{% block breadcrumb_footer %}{% include 'djangobb_forum/includes/breadcrumb_topic.html' %}{% endblock breadcrumb_footer %}
+
+{% block below_content %}
 {% if reply_form %}
     {% with form=reply_form %}
         {% include "djangobb_forum/includes/post_form.html" %}
     {% endwith %}
 {% endif %}
-
-{% endblock content%}
+{% endblock %}
 
 {% block controls %}
 <div class="conl">

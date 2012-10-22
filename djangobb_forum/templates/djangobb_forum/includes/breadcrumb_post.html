@@ -1,0 +1,22 @@
+{% extends 'djangobb_forum/includes/breadcrumb_base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block breadcrumb %}{{ block.super }}  
+{% if post %}
+    <li>&raquo; {{ post.topic.forum.category }}</li>
+    <li>&raquo; {% link post.topic.forum %}</li>
+    <li>&raquo; {% link post.topic %}</li>
+{% elif forum %}
+    <li>&raquo; {{ forum.category }}</li>
+    <li>&raquo; {% link forum %}</li>
+{% else %}
+    <li>&raquo; {{ topic.forum.category }}</li>
+    <li>&raquo; {% link topic.forum %}</li>
+    <li>&raquo; {% link topic %}</li>
+{% endif %}
+{% endblock breadcrumb %}
+
+{% block rss_feed %}{% endblock rss_feed %}
+
+{% block paginate %}{% endblock paginate %}

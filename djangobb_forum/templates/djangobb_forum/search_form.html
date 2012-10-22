@@ -2,6 +2,16 @@
 {% load forum_extras %}
 {% load i18n %}
 
+{% block title %} / {% trans "Search" %}{% endblock %}
+
+{% block header_feed_links %}{% endblock header_feed_links %}{# remove feed links in header #}
+
+{% block breadcrumb %}{{ block.super }}
+    <li>&raquo; <a href=".">{% trans "Search" %}</a></li>
+{% endblock breadcrumb %}
+
+{% block rss_feed %}{% endblock rss_feed %}{# remove feed icons in content #}
+
 {% block content %}
 <div id="searchform" class="blockform">
 	<h2><span>{% trans "Search" %}</span></h2>

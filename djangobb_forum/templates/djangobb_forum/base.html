@@ -11,8 +11,10 @@
 	
 	{% set_theme_style request.user %}
 
+    {% block header_feed_links %}
 	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_posts_feed %}" title="{% trans "Latest posts on forum" %}" />
 	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_topics_feed %}" title="{% trans "Latest topics on forum" %}" />
+	{% endblock header_feed_links %}
 
 	<link rel="shortcut icon" href="{{ STATIC_URL }}djangobb_forum/favicon.png" type="image/png" />
 	<script type="text/javascript">
@@ -73,7 +75,11 @@
         {% endif %}
     {% endblock messages %}
 
+    {% block breadcrumb_header %}{% include 'djangobb_forum/includes/breadcrumb_base.html' %}{% endblock %}
 	{% block content %}{% endblock %}
+    {% block below_content %}{% endblock %}
+    {% block breadcrumb_footer %}{% include 'djangobb_forum/includes/breadcrumb_base.html' %}{% endblock %}	
+	
 	<div id="brdfooter" class="block">
 	<h2><span>{% trans "Board footer" %}</span></h2>
         <div class="box">

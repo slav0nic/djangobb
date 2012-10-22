@@ -1,0 +1,17 @@
+{% load i18n %}
+<div class="linkst">
+    <div class="inbox">
+        <ul>
+            <li><a href="{% url djangobb:index %}">{% trans "Root" %}</a></li>
+            {% block breadcrumb %}{% endblock %}
+            <li>
+                {% block rss_feed %}
+                    <a href="{% url djangobb:forum_posts_feed %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" title="{% trans "Latest posts on forum" %}" /></a>
+                    <a href="{% url djangobb:forum_topics_feed %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" title="{% trans "Latest topics on forum" %}" /></a>
+                {% endblock rss_feed %}
+            </li>
+        </ul>
+        {% block paginate %}{% endblock %}
+        <div class="clearer"></div>
+    </div>
+</div>
