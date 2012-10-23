@@ -493,12 +493,16 @@ def add_topic(request, forum_id):
             },
             **post_form_kwargs
         )
-        if forum_id: # Create a new topic
-            poll_form = PollForm()
+ 
+        # if creating a new topic and allowed
+        create_poll_form = forum_id and forum_settings.ALLOW_POLLS 
+        
+        poll_form = PollForm()
 
     context = {
         'forum': forum,
-        'create_poll_form': poll_form,
+        'create_poll_form': create_poll_form,
+        'poll_form': poll_form,
         'form': form,
         'form_url': request.path,
         'back_url': forum.get_absolute_url(),
