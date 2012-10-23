@@ -184,14 +184,15 @@
 			        &raquo; {{ topic }}<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 			    </li>
             </ul>
-		{% if user.is_authenticated %}
+{% comment %}   {% if user.is_authenticated %}
 			{% if subscribed %}
 				<a class="subscribelink clearb" href="{% url djangobb:forum_delete_subscription topic.id %}?from_topic">{% trans "Unsubscribe" %}</a>
 			{% else %}
 				<a class="subscribelink clearb" href="{% url djangobb:forum_add_subscription topic.id %}">{% trans "Subscribe" %}</a>
 			{% endif %}
 		{% endif %}
-		<div class="clearer"></div>
+{% endcomment %} 
+                <div class="clearer"></div>
 	</div>
 </div>
 
