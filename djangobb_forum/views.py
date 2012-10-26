@@ -536,7 +536,7 @@ def upload_avatar(request, username, template=None, form_class=None):
 @transaction.commit_on_success
 def user(request, username, section='essentials', action=None, template='djangobb_forum/profile/profile_essentials.html', form_class=EssentialsProfileForm):
     user = get_object_or_404(User, username=username)
-    if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
+    if request.user.is_authenticated() and request.user.is_superuser:
         profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
         form = build_form(form_class, request, instance=user.forum_profile, extra_args={'request': request})
         if request.method == 'POST' and form.is_valid():
@@ -547,6 +547,7 @@ def user(request, username, section='essentials', action=None, template='djangob
                 'profile': user,
                 'form': form,
                })
+
     else:
         template = 'djangobb_forum/user.html'
         topic_count = Topic.objects.filter(user__id=user.id).count()
@@ -773,7 +774,10 @@ def open_close_topic(request, topic_id, action):
     return HttpResponseRedirect(topic.get_absolute_url())
 
 
+@login_required
 def users(request):
+    if not (request.user.is_superuser):
+            raise Http404
     users = User.objects.filter(forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('username')
     form = UserSearchForm(request.GET)
     users = form.filter(users)
