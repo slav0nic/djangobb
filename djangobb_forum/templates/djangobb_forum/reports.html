@@ -17,7 +17,7 @@
 {% for report in new_reports %}
 <tr>
 <td>
-{{ report.reported_by }}
+<a href="{% url profile_detail report.reported_by %}"> {{ report.reported_by }} </a>
 <br>
 {{ report.created }}
 </td><td>
@@ -49,7 +49,7 @@ Posted By:<a href="{% url profile_detail report.post.user.username %}"> {{ repor
 {% for report in zapped_reports %}
 <tr>
 <td>
-{{ report.reported_by }}
+<a href="{% url profile_detail report.reported_by %}"> {{ report.reported_by }} </a>
 <br>
 {{ report.created }}
 </td><td>
