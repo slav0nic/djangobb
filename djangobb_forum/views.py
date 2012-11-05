@@ -66,6 +66,8 @@ def index(request, full=True):
                 'online_count': users_count,
                 'guest_count': guest_count,
                 'last_user': User.objects.latest('date_joined'),
+                'reports': True,
+                'can_view_reports': user.has_perm('djangobb_forum.change_report')
                 }
     if full:
         return render(request, 'djangobb_forum/index.html', to_return)
