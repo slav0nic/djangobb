@@ -17,7 +17,6 @@ urlpatterns = patterns('',
     url('^moderate/(?P<forum_id>\d+)/$', forum_views.moderate, name='moderate'),
     url('^search/$', forum_views.search, name='search'),
     url('^misc/$', forum_views.misc, name='misc'),
-
     # User
     url('^user/(?P<username>.*)/upload_avatar/$', forum_views.upload_avatar, {
         'form_class': UploadAvatarForm,
@@ -66,6 +65,9 @@ urlpatterns = patterns('',
     url('^post/(?P<post_id>\d+)/delete/$', forum_views.delete_post, name='delete_post'),
     # Post preview
     url(r'^preview/$', forum_views.post_preview, name='post_preview'),
+
+    # Reports
+    url(r'^reports/$', forum_views.reports, name='forum_reports'),
 
     # Subscription
     url('^subscription/topic/(?P<topic_id>\d+)/delete/$', forum_views.delete_subscription, name='forum_delete_subscription'),

@@ -1,0 +1,73 @@
+{% extends 'djangobb_forum/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block content %}
+<div class="box">
+<h2>New Reports</h2>
+<form method="post" action="?action=zap">
+{% csrf_token %}
+<table>
+<tr>
+<th scope="col" class="sortable" style="width:20%">Reported By</th>
+<th scope="col" class="sortable" style="width:40%">Reason</th>
+<th scope="col" class="sortable" style="width:30%">Post</th>
+<th scope="col" class="sortable" style="width:10%">Zap</th>
+</tr>
+{% for report in new_reports %}
+<tr>
+<td>
+{{ report.reported_by }}
+<br>
+{{ report.created }}
+</td><td>
+{{ report.reason }}
+</td><td>
+<a href="{{report.post.get_absolute_url}}"> {{ report.post }} </a>
+<br><br>
+Posted By:<a href="{% url profile_detail report.post.user.username %}"> {{ report.post.user }} </a>
+</td><td>
+   <input type="submit" name="zap_id[{{ report.id }}]" value=" Zap ">
+</td></tr>
+{% endfor %}
+</table>
+</form>
+</div>
+
+<br><br>
+<div class ="box">
+<h2>Recently Zapped Reports</h2>
+<form method="post" action="?action=zap">
+{% csrf_token %}
+<table>
+<tr>
+<th scope="col" class="sortable" style="width:20%">Reported By</th>
+<th scope="col" class="sortable" style="width:40%">Reason</th>
+<th scope="col" class="sortable" style="width:25%">Post</th>
+<th scope="col" class="sortable" style="width:15%">Zapped</th>
+</tr>
+{% for report in zapped_reports %}
+<tr>
+<td>
+{{ report.reported_by }}
+<br>
+{{ report.created }}
+</td><td>
+{{ report.reason }}
+</td><td>
+<a href="{{report.post.get_absolute_url}}"> {{ report.post }} </a>
+<br><br>
+Posted By:<a href="{% url profile_detail report.post.user.username %}"> {{ report.post.user }} </a>
+</td><td>
+<input type="submit" name="zap_id[{{ report.id }}]" value=" Unzap ">
+<br>
+Zapped By: {{ report.zapped_by }}
+</td></tr>
+{% endfor %}
+</table>
+</form>
+</div>
+{% endblock %}
+
+{% block controls %}
+{% endblock %}

@@ -24,7 +24,7 @@ from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
     VotePollForm, ReportForm, VotePollForm, PollForm
 from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
-    Attachment, PostTracking
+    Report, Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
@@ -110,6 +110,30 @@ def moderate(request, forum_id):
     else:
         raise Http404
 
+@transaction.commit_on_success
+def reports(request):
+    if request.user.is_superuser or request.user.has_perm('djangobb_forum.change_report'):
+        if 'action' in request.GET and request.GET['action'] == 'zap':
+                for post in request.POST.keys():
+                    if post.startswith('zap_id'):
+                        if request.POST[post] == ' Zap ':
+                            zap_report_id = int(post[7:-1])
+                            zap_report = get_object_or_404(Report, pk=zap_report_id)
+                            zap_report.zapped_by = request.user
+                            zap_report.zapped = True
+                            zap_report.save()
+                        elif request.POST[post] == ' Unzap ':
+                            zap_report_id = int(post[7:-1])
+                            zap_report = get_object_or_404(Report, pk=zap_report_id)
+                            zap_report.zapped_by = None
+                            zap_report.zapped = False
+                            zap_report.save()
+        new_reports = Report.objects.filter(zapped = False).order_by('-created')
+        zapped_reports = Report.objects.filter(zapped = True).order_by('-created')[:10]
+
+        return render(request, 'djangobb_forum/reports.html', {'new_reports' : new_reports, 'zapped_reports' : zapped_reports})        
+    else:
+        raise Http404
 
 def search(request):
     # TODO: used forms in every search type
