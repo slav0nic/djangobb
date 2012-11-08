@@ -396,7 +396,7 @@ class ReportForm(forms.ModelForm):
         super(ReportForm, self).__init__(*args, **kwargs)
         self.fields['post'].widget = forms.HiddenInput()
         self.fields['post'].initial = self.post
-        self.fields['reason'].widget = forms.Textarea(attrs={'rows':'10', 'cols':'75'})
+        self.fields['reason'].widget = forms.Textarea(attrs={'rows':'5', 'cols':'75'})
 
     def save(self, commit=True):
         report = super(ReportForm, self).save(commit=False)
