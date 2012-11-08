@@ -520,10 +520,10 @@ def add_topic(request, forum_id):
             **post_form_kwargs
         )
  
-        # if creating a new topic and allowed
-        create_poll_form = forum_id and forum_settings.ALLOW_POLLS 
+    # if creating a new topic and allowed
+    create_poll_form = forum_id and forum_settings.ALLOW_POLLS 
         
-        poll_form = PollForm()
+    poll_form = PollForm()
 
     context = {
         'forum': forum,
