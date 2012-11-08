@@ -562,28 +562,32 @@ def upload_avatar(request, username, template=None, form_class=None):
 @transaction.commit_on_success
 def user(request, username, section='essentials', action=None, template='djangobb_forum/profile/profile_essentials.html', form_class=EssentialsProfileForm):
     user = get_object_or_404(User, username=username)
-    if request.user.is_authenticated() and request.user.is_superuser:
-        profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
-        form = build_form(form_class, request, instance=user.forum_profile, extra_args={'request': request})
-        if request.method == 'POST' and form.is_valid():
-            form.save()
-            messages.success(request, _("User profile saved."))
-            return HttpResponseRedirect(profile_url)
-        return render(request, template, {'active_menu': section,
-                'profile': user,
-                'form': form,
-               })
+    if request.user.is_authenticated(): 
+        # looking at your own, you see the options that you can change
+        if request.user == user:
+            profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
+            form = build_form(form_class, request, instance=user.forum_profile, extra_args={'request': request})
+            if request.method == 'POST' and form.is_valid():
+                form.save()
+                messages.success(request, _("User profile saved."))
+                return HttpResponseRedirect(profile_url)
+            return render(request, template, {'active_menu': section,
+                                              'profile': user,
+                                              'form': form,
+                                              })
 
-    else:
-        template = 'djangobb_forum/user.html'
-        topic_count = Topic.objects.filter(user__id=user.id).count()
-        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
-            messages.error(request, _("Please sign in."))
-            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
-        return render(request, template, {'profile': user,
-                'topic_count': topic_count,
-               })
-
+        # admin looking at someone's sees more details
+        elif request.user.is_staff:
+            template = 'djangobb_forum/user.html'
+            topic_count = Topic.objects.filter(user__id=user.id).count()
+            if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
+                messages.error(request, _("Please sign in."))
+                return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
+            return render(request, template, {'profile': user,
+                                              'topic_count': topic_count,
+                                              })
+    # anyone else
+    raise Http404
 
 @login_required
 @transaction.commit_on_success
