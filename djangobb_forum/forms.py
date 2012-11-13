@@ -48,7 +48,7 @@ SEARCH_IN_CHOICES = (
 class AddPostForm(forms.ModelForm):
     FORM_NAME = "AddPostForm" # used in view and template submit button
 
-    name = forms.CharField(label=_('Subject'), max_length=255,
+    name = forms.CharField(label=_('Subject'), max_length=155,
                            widget=forms.TextInput(attrs={'size':'115'}))
     attachment = forms.FileField(label=_('Attachment'), required=False)
     subscribe = forms.BooleanField(label=_('Subscribe'), help_text=_("Subscribe this topic."), required=False)
@@ -396,7 +396,7 @@ class ReportForm(forms.ModelForm):
         super(ReportForm, self).__init__(*args, **kwargs)
         self.fields['post'].widget = forms.HiddenInput()
         self.fields['post'].initial = self.post
-        self.fields['reason'].widget = forms.Textarea(attrs={'rows':'5', 'cols':'75'})
+        self.fields['reason'].widget = forms.Textarea(attrs={'rows':'5', 'cols':'75', 'maxlength':'500'})
 
     def save(self, commit=True):
         report = super(ReportForm, self).save(commit=False)

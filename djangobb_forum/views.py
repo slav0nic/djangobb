@@ -776,8 +776,8 @@ def delete_post(request, post_id):
         (post.user == request.user and post == last_post)):
         messages.success(request, _("You haven't the permission to delete this post."))
         return HttpResponseRedirect(post.get_absolute_url())
-
-    post.delete()
+    delete_kwargs = {'staff':request.user.is_staff}
+    post.delete(**delete_kwargs)
     messages.success(request, _("Post deleted."))
 
     try:

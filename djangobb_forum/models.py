@@ -9,6 +9,7 @@ from django.contrib.auth.models import User, Group
 from django.db import models
 from django.db.models import aggregates
 from django.db.models.signals import post_save
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
@@ -231,7 +232,13 @@ class Post(models.Model):
         profile = self.user.forum_profile
         self.last_topic_post.clear()
         self.last_forum_post.clear()
-        super(Post, self).delete(*args, **kwargs)
+
+        # If we actually delete the post, we lose any reports that my have come from it. Also, there is no recovery (but I don't care about that as much right now)
+        if forum_settings.SOFT_DELETE_POSTS and (self.topic != get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS) or kwargs.get('staff', False)):
+                self.topic = get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS)
+                self.save()
+        else:
+            super(Post, self).delete(*args, **kwargs)
         #if post was last in topic - remove topic
         if self_id == head_post_id:
             topic.delete()
