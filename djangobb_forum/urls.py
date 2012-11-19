@@ -56,6 +56,7 @@ urlpatterns = patterns('',
     url('^(?P<forum_id>\d+)/topic/add/$', forum_views.add_topic, name='add_topic'),
     url('^topic/(?P<topic_id>\d+)/delete_posts/$', forum_views.delete_posts, name='delete_posts'),
     url('^topic/move/$', forum_views.move_topic, name='move_topic'),
+    url('^topic/(?P<topic_id>\d+)/move_posts/$', forum_views.move_posts, name='move_posts'),
     url('^topic/(?P<topic_id>\d+)/stick_unstick/(?P<action>[s|u])/$', forum_views.stick_unstick_topic, name='stick_unstick_topic'),
     url('^topic/(?P<topic_id>\d+)/open_close/(?P<action>[c|o])/$', forum_views.open_close_topic, name='open_close_topic'),
 

@@ -711,6 +711,94 @@ def delete_posts(request, topic_id):
 
 @login_required
 @transaction.commit_on_success
+def move_posts(request, topic_id):
+
+    topic = Topic.objects.select_related().get(pk=topic_id)
+    from_forum = topic.forum
+
+    if forum_moderated_by(topic, request.user):
+        moved = False
+        post_list = request.POST.getlist('post')
+        if 'to_topic' in request.POST:
+            try:
+                to_topic_id = int(request.POST['to_topic'])
+            except ValueError:
+                messages.error(request, _("The topic must be an integer."))
+            else:
+                try:
+                    to_topic = Topic.objects.select_related().get(pk=to_topic_id)
+                except Topic.DoesNotExist:
+                    messages.error(request, _("I cannot find that thread."))
+                else:
+                    for post_id in post_list:
+                        if not moved:
+                            moved = True
+                        post = get_object_or_404(Post, pk=post_id)
+                        if post.topic != to_topic:
+                            last = (topic.last_post == post)
+                            if forum_moderated_by(to_topic, request.user):
+                                post.topic = to_topic
+                                post.save()
+                    if Post.objects.filter(topic__id=topic.id).count() == 0:
+                        topic.delete()
+                        deleted = True
+                    else:
+                        deleted = False
+                        try:
+                            topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
+                        except Post.DoesNotExist:
+                            topic.last_post = None
+                        topic.post_count = Post.objects.filter(topic__id=topic.id).count()
+                        topic.save()
+                    try:
+                        from_forum.last_post = Post.objects.filter(topic__forum__id=from_forum.id).latest()
+                    except Post.DoesNotExist:
+                        from_forum.last_post = None
+                    from_forum.post_count = Post.objects.filter(topic__forum__id=from_forum.id).count()
+                    from_forum.topic_count = Topic.objects.filter(forum__id=from_forum.id).count()
+                    from_forum.save()
+
+                    to_topic.post_count = Post.objects.filter(topic__id=to_topic.id).count()
+                    to_topic.save()
+
+
+                    if moved:
+                        messages.success(request, _("Posts moved."))
+                        if not deleted:
+                            return HttpResponseRedirect(topic.get_absolute_url())
+                        else:
+                            return HttpResponseRedirect(from_forum.get_absolute_url())
+
+    last_post = topic.posts.latest()
+
+    if request.user.is_authenticated():
+        topic.update_read(request.user)
+
+    posts = topic.posts.all().select_related()
+
+    initial = {}
+    if request.user.is_authenticated():
+        initial = {'markup': request.user.forum_profile.markup}
+    form = AddPostForm(topic=topic, initial=initial)
+
+    moderator = request.user.is_superuser or\
+        request.user in topic.forum.moderators.all()
+    if request.user.is_authenticated() and request.user in topic.subscribers.all():
+        subscribed = True
+    else:
+        subscribed = False
+    return render(request, 'djangobb_forum/move_posts.html', {'categories': Category.objects.all(),
+            'exclude_topic': from_forum,
+            'topic': topic,
+            'last_post': last_post,
+            'form': form,
+            'moderator': moderator,
+            'subscribed': subscribed,
+            'posts': posts,
+            })
+
+@login_required
+@transaction.commit_on_success
 def move_topic(request):
     if 'topic_id' in request.GET:
         #if move only 1 topic
