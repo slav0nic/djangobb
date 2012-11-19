@@ -11,7 +11,10 @@ DJANGOBB_GRAVATAR_SUPPORT = False
 DJANGOBB_DISPLAY_PROFILE_MENU_OPTIONS = False
 DJANGOBB_DISPLAY_AVATAR_OPTIONS = False
 DJANGOBB_DISPLAY_USERTITLE = False
+# The value is the topic id where deleted posts should be sent
 DJANGOBB_SOFT_DELETE_POSTS = 324
+# The value is the forum id where deleted topics should be sent
+DJANGOBB_SOFT_DELETE_TOPICS = 2
 DJANGOBB_ALLOW_POLLS = False
 
 DJANGOBB_TOPIC_PAGE_SIZE = 20

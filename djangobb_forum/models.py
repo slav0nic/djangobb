@@ -154,7 +154,11 @@ class Topic(models.Model):
         else:
             last_post.last_forum_post.clear()
         forum = self.forum
-        super(Topic, self).delete(*args, **kwargs)
+        if forum_settings.SOFT_DELETE_TOPICS and (self.forum != get_object_or_404(Forum, pk=forum_settings.SOFT_DELETE_TOPICS) or kwargs.get('staff', False)):
+            self.forum = get_object_or_404(Forum, pk=forum_settings.SOFT_DELETE_TOPICS)
+            self.save()
+        else:
+            super(Topic, self).delete(*args, **kwargs)
         try:
             forum.last_post = Topic.objects.filter(forum__id=forum.id).latest().last_post
         except Topic.DoesNotExist:
