@@ -55,7 +55,7 @@
 		<a name="post-{{ post.id }}"></a>
 
 		<div class="box">
-		  <h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
+		  <h2><span><span class="conr">#{{ forloop.counter|add:first_post_number }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
 			<div class="inbox box-content">
 				<div class="postleft">
 					<dl>

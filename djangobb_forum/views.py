@@ -388,6 +388,7 @@ def show_topic(request, topic_id, full=True):
     if request.user.is_authenticated():
         topic.update_read(request.user)
     posts = topic.posts.all().select_related()
+    first_post_number = int(forum_settings.TOPIC_PAGE_SIZE) * (int(request.GET.get('page') or 1) - 1)
 
     moderator = request.user.is_superuser or request.user in topic.forum.moderators.all()
     if user_is_authenticated and request.user in topic.subscribers.all():
@@ -461,6 +462,7 @@ def show_topic(request, topic_id, full=True):
                 'moderator': moderator,
                 'subscribed': subscribed,
                 'posts': posts,
+                'first_post_number': first_post_number,
                 'highlight_word': highlight_word,
                 'poll': poll,
                 'poll_form': poll_form,
