@@ -181,7 +181,7 @@
 			    <li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li>
 			    <li>&raquo; {% link topic.forum %} </li>
 			    <li>
-			        &raquo; {{ topic }}<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+			        &raquo; {{ topic }} <a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 			    </li>
             </ul>
 {% comment %}   {% if user.is_authenticated %}
