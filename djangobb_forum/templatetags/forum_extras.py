@@ -25,7 +25,7 @@ register = template.Library()
 @register.filter
 def profile_link(user):
     data = u'<a href="%s">%s</a>' % (\
-        reverse('djangobb:forum_profile', args=[user.username]), user.username)
+        reverse('profile_detail', args=[user.username]), user.username)
     return mark_safe(data)
 
 
