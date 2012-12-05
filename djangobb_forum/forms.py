@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
-from djangobb_forum.util import convert_text_to_html, set_language
+from djangobb_forum.util import smiles, convert_text_to_html, set_language
 
 
 SORT_USER_BY_CHOICES = (
@@ -246,6 +246,8 @@ class PersonalityProfileForm(forms.ModelForm):
     def save(self, commit=True):
         profile = super(PersonalityProfileForm, self).save(commit=False)
         profile.signature_html = convert_text_to_html(profile.signature, self.profile.markup)
+        if forum_settings.SMILES_SUPPORT:
+            profile.signature_html = smiles(profile.signature_html)
         if commit:
             profile.save()
         return profile
