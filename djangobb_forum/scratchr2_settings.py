@@ -22,4 +22,4 @@ DJANGOBB_FORUM_PAGE_SIZE = 25
 DJANGOBB_SIGNATURE_MAX_LINES = 10
 DJANGOBB_SIGNATURE_MAX_LENGTH = 2000
 DJANGOBB_AUTHORITY_SUPPORT = False
-
+DJANGOBB_IMAGE_HOST_WHITELIST = r'(?:(?:tinypic|photobucket)\.com|imageshack\.us|modshare\.tk|(?:scratchr|wikipedia|wikimedia|modshare)\.org|\.edu)$'

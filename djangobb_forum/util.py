@@ -3,6 +3,8 @@
 import re
 from HTMLParser import HTMLParser, HTMLParseError
 import postmarkup
+from postmarkup.parser import strip_bbcode
+from urlparse import urlparse
 try:
     import markdown
 except ImportError:
@@ -15,6 +17,7 @@ from django.http import HttpResponse, Http404
 from django.utils.functional import Promise
 from django.utils.translation import force_unicode, check_for_language
 from django.utils.simplejson import JSONEncoder
+from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.sites.models import Site
@@ -24,7 +27,6 @@ from djangobb_forum import settings as forum_settings
 
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
-
 
 def absolute_url(path):
     return 'http://%s%s' % (Site.objects.get_current().domain, path)
@@ -239,6 +241,42 @@ def convert_text_to_html(text, markup):
         raise Exception('Invalid markup property: %s' % markup)
     return urlize(text)
 
+class WhitelistedImgTag(postmarkup.ImgTag):
+    def render_open(self, parser, node_index):
+        contents = self.get_contents(parser)
+        self.skip_contents(parser)
+
+        # Validate url to avoid any XSS attacks
+        if self.params:
+            url = self.params.strip()
+        else:
+            url = strip_bbcode(contents)
+
+        url = url.replace(u'"', u"%22").strip()
+        if not url:
+            return u''
+        try:
+            scheme, netloc, path, params, query, fragment = urlparse(url)
+            if not scheme:
+                url = u'http://' + url
+                scheme, netloc, path, params, query, fragment = urlparse(url)
+        except ValueError:
+            return u''
+        if scheme.lower() not in (u'http', u'https', u'ftp'):
+            return u''
+        if not re.search(forum_settings.IMAGE_HOST_WHITELIST, netloc, re.IGNORECASE):
+            raise UnapprovedImageError(url)
+
+        return u'<img src="%s"></img>' % postmarkup.PostMarkup.standard_replace_no_break(url)
+
+class UnapprovedImageError(Exception):
+    def __init__(self, url):
+        self.url = url
+    def user_error(self):
+        return _('Sorry, you need to host your images with a service like imageshack.com. Please update your image links or remove all BB code [img] tags. Bad image url: %s') % self.url
+    def __str__(self):
+        return repr(self.url)
+
 # This allows us to control the bb tags
 def customize_postmarkup():
     custom_postmarkup = postmarkup.PostMarkup()
@@ -264,7 +302,7 @@ def customize_postmarkup():
     add_tag(postmarkup.SearchTag, u'dict',
             u"http://dictionary.reference.com/browse/%s", u'dictionary.com', None)
 
-    add_tag(postmarkup.ImgTag, u'img')
+    add_tag(WhitelistedImgTag, u'img')
     add_tag(postmarkup.ListTag, u'list')
     add_tag(postmarkup.ListItemTag, u'*')
 

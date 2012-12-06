@@ -27,7 +27,7 @@ from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Report, Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
-from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
+from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html, UnapprovedImageError
 
 
 
@@ -943,7 +943,12 @@ def post_preview(request):
     markup = request.user.forum_profile.markup
     data = request.POST.get('data', '')
 
-    data = convert_text_to_html(data, markup)
+    try:
+        data = convert_text_to_html(data, markup)
+    except UnapprovedImageError as e:
+        return render(request, 'djangobb_forum/post_preview.html', {
+            'data': e.user_error()
+        })
     if forum_settings.SMILES_SUPPORT:
         data = smiles(data)
     return render(request, 'djangobb_forum/post_preview.html', {'data': data})

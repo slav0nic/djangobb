@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
-from djangobb_forum.util import smiles, convert_text_to_html, set_language
+from djangobb_forum.util import smiles, convert_text_to_html, set_language, UnapprovedImageError
 
 
 SORT_USER_BY_CHOICES = (
@@ -43,7 +43,6 @@ SEARCH_IN_CHOICES = (
     ('message', _(u'Message text only')),
     ('topic', _(u'Topic subject only')),
 )
-
 
 class AddPostForm(forms.ModelForm):
     FORM_NAME = "AddPostForm" # used in view and template submit button
@@ -89,6 +88,11 @@ class AddPostForm(forms.ModelForm):
         if body:
             if not body.strip():
                 self._errors['body'] = self.error_class([errmsg])
+                del cleaned_data['body']
+            try:
+                convert_text_to_html(body, self.user.forum_profile.markup)
+            except UnapprovedImageError as e:
+                self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
         return cleaned_data
 
@@ -147,6 +151,17 @@ class EditPostForm(forms.ModelForm):
         super(EditPostForm, self).__init__(*args, **kwargs)
         self.fields['name'].initial = self.topic
         self.fields['body'].widget = forms.Textarea(attrs={'class':'markup'})
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        body = cleaned_data.get('body')
+        if body:
+            try:
+                convert_text_to_html(body, self.instance.markup)
+            except UnapprovedImageError as e:
+                self._errors['body'] = self.error_class([e.user_error()])
+                del cleaned_data['body']
+        return cleaned_data
 
     def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
