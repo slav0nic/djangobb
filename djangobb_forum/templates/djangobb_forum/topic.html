@@ -55,7 +55,7 @@
 		<a name="post-{{ post.id }}"></a>
 
 		<div class="box">
-		  <h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
+		  <h2><span><span class="conr">#{{ forloop.counter|add:first_post_number }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
 			<div class="inbox box-content">
 				<div class="postleft">
 					<dl>
@@ -181,7 +181,7 @@
 			    <li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li>
 			    <li>&raquo; {% link topic.forum %} </li>
 			    <li>
-			        &raquo; {{ topic }}<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+			        &raquo; {{ topic }} <a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 			    </li>
             </ul>
 {% comment %}   {% if user.is_authenticated %}

@@ -27,7 +27,7 @@ from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Report, Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
-from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
+from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html, UnapprovedImageError
 
 
 
@@ -388,6 +388,7 @@ def show_topic(request, topic_id, full=True):
     if request.user.is_authenticated():
         topic.update_read(request.user)
     posts = topic.posts.all().select_related()
+    first_post_number = int(forum_settings.TOPIC_PAGE_SIZE) * (int(request.GET.get('page') or 1) - 1)
 
     moderator = request.user.is_superuser or request.user in topic.forum.moderators.all()
     if user_is_authenticated and request.user in topic.subscribers.all():
@@ -477,6 +478,7 @@ def show_topic(request, topic_id, full=True):
                 'moderator': moderator,
                 'subscribed': subscribed,
                 'posts': posts,
+                'first_post_number': first_post_number,
                 'highlight_word': highlight_word,
                 'poll': poll,
                 'poll_form': poll_form,
@@ -968,7 +970,12 @@ def post_preview(request):
     markup = request.user.forum_profile.markup
     data = request.POST.get('data', '')
 
-    data = convert_text_to_html(data, markup)
+    try:
+        data = convert_text_to_html(data, markup)
+    except UnapprovedImageError as e:
+        return render(request, 'djangobb_forum/post_preview.html', {
+            'data': e.user_error()
+        })
     if forum_settings.SMILES_SUPPORT:
         data = smiles(data)
     return render(request, 'djangobb_forum/post_preview.html', {'data': data})
