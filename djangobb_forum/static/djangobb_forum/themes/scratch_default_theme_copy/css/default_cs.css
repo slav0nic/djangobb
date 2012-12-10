@@ -42,6 +42,10 @@ TH.tc3 {width: 70px}
 	background-image:url(../img/cat_maximize.png);
 }
 
+#djangobbindex .blocktable .box-content {
+    width: 100%;
+}
+
 /* 1.4 Table header rows */
 
 .djangobb TH {BACKGROUND-COLOR: #eeeeee;}
