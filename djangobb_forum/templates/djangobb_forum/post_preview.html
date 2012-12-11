@@ -1,6 +1,21 @@
+<!doctype html>
 <head>
+<link href="{{ STATIC_URL }}/djangobb_forum/themes/base.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}/djangobb_forum/themes/scratch_default_theme_copy/css/default_cs.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}/css/pages/forums.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/djangobb_forum/css/pygments.css" />
+<style>
+body {
+    background: #f8f8f8;
+    color: #322f31;
+    text-shadow: 0 1px white;
+    font: 11px/1.4 Verdana, Arial, Helvetica, sans-serif;
+    margin: 6px;
+}
+</style>
 </head>
-<body>
-{{ data|safe }}
+<body class="djangobb">
+<div class="postmsg">
+<p class="post_body_html">{{ data|safe }}</p>
+</div>
 </body>
