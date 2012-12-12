@@ -526,11 +526,11 @@ def add_topic(request, forum_id):
             if request.user.has_perm('djangobb_forum.med_post'):
                 if lastpost_diff < timedelta(seconds=forum_settings.POST_FLOOD_MED):
                     all_valid = False
-                    messages.error(request, _("Sorry, you have to wait %d seconds between posts." % forum_settings.POST_FLOOD_MED))
+                    messages.error(request, _("Sorry, you have to wait %d seconds between posts.") % forum_settings.POST_FLOOD_MED)
             else:
                 if lastpost_diff < timedelta(seconds=forum_settings.POST_FLOOD_SLOW):
                     all_valid = False
-                    messages.error(request, _("Sorry, you have to wait %d seconds between posts." % forum_settings.POST_FLOOD_SLOW))
+                    messages.error(request, _("Sorry, you have to wait %d seconds between posts.") % forum_settings.POST_FLOOD_SLOW)
         if all_valid:
             post = form.save()
             if create_poll:
