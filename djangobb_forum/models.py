@@ -220,6 +220,10 @@ class Post(models.Model):
         get_latest_by = 'created'
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
+        permissions = (
+            ('fast_post', 'Can add posts without a time limit'),
+            ('med_post', 'Can add posts at medium speed'),
+            )
 
     def save(self, *args, **kwargs):
         self.body_html = convert_text_to_html(self.body, self.markup)
@@ -244,7 +248,7 @@ class Post(models.Model):
         else:
             super(Post, self).delete(*args, **kwargs)
         #if post was last in topic - remove topic
-        if self_id == head_post_id:
+        if self_id == head_post_id and not (forum_settings.SOFT_DELETE_POSTS and self.topic == get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS)):
             topic.delete()
         else:
             try:
