@@ -199,8 +199,15 @@ DIV.postmsg {WIDTH:100%}
 
 DIV.incqbox {WIDTH: 100%; OVERFLOW: hidden}
 DIV.scrollbox {WIDTH: 100%; OVERFLOW: auto}
-IMG.postimg {max-width: 100%}
-A .postimg {max-width: 100%}
+.postmsg img {
+    max-width: 100%;
+}
+.postsignature {
+    max-height: 168px;
+}
+.postsignature img {
+    max-height: 150px;
+}
 
 /* 7.5 Turn off the poster information column for preview */
 
