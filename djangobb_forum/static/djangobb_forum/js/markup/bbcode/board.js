@@ -10,31 +10,12 @@ function log() {
 }
 //log("board.js loaded");
 
-function get_selection() {
-    var txt = ''; 
-    if (document.getSelection) {
-        txt = document.getSelection();
-    } else 
-    if (document.selection) {
-        txt = document.selection.createRange().text;
-    }
-    return txt
-}
-
-function copy_paste(post_id) {   
-    post_div = $("div#"+post_id);
-    nick = post_div.find(".username").text();
-    
-    txt = get_selection(); // quote selection
-    if (txt == '') {
-        // quote the complete post content
-        // FIXME: We should get the markup here (Ajax view?)
-        txt = post_div.find("p.post_body_html").text();
-        txt = $.trim(txt);
-    }
-    txt = '[quote=' + nick + ']' + txt + '[/quote]\n';
-    paste(txt);
-    return false
+function copy_paste(id) {   
+    var post = $('#' + id);
+    var username = post.find(".username").text();
+    $.ajax('/forums/post/' + id.substr(1) + '/source/').done(function (data) {
+        paste('[quote=' + username + ']' + data + '[/quote]\n');
+    });
 }
 
 function paste(txt) {
