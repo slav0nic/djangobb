@@ -258,6 +258,17 @@ class PersonalityProfileForm(forms.ModelForm):
         super(PersonalityProfileForm, self).__init__(*args, **kwargs)
         self.fields['signature'].widget = forms.Textarea(attrs={'class':'markup', 'rows':'10', 'cols':'75'})
 
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        signature = cleaned_data.get('signature')
+        if signature:
+            try:
+                convert_text_to_html(signature, self.profile.markup)
+            except UnapprovedImageError as e:
+                self._errors['signature'] = self.error_class([e.user_error()])
+                del cleaned_data['signature']
+        return cleaned_data
+
     def save(self, commit=True):
         profile = super(PersonalityProfileForm, self).save(commit=False)
         profile.signature_html = convert_text_to_html(profile.signature, self.profile.markup)

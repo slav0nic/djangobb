@@ -64,6 +64,7 @@ urlpatterns = patterns('',
     url('^post/(?P<post_id>\d+)/$', forum_views.show_post, name='post'),
     url('^post/(?P<post_id>\d+)/edit/$', forum_views.edit_post, name='edit_post'),
     url('^post/(?P<post_id>\d+)/delete/$', forum_views.delete_post, name='delete_post'),
+    url('^post/(?P<post_id>\d+)/source/$', forum_views.get_post_source, name='post_source'),
     # Post preview
     url(r'^preview/$', forum_views.post_preview, name='post_preview'),
 

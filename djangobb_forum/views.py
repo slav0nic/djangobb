@@ -668,6 +668,11 @@ def show_post(request, post_id):
     url = '%s?page=%d#post-%d' % (reverse('djangobb:topic', args=[post.topic.id]), page, post.id)
     return HttpResponseRedirect(url)
 
+@csrf_exempt
+def get_post_source(request, post_id):
+    'Raw (plain text) post source for quoting'
+    post = get_object_or_404(Post, pk=post_id)
+    return HttpResponse(post.body, mimetype='text/plain')
 
 @login_required
 @transaction.commit_on_success
