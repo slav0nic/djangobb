@@ -13,7 +13,7 @@ from django.contrib.humanize.templatetags.humanize import naturalday
 
 from pagination.templatetags.pagination_tags import paginate
 
-from djangobb_forum.models import Report
+from djangobb_forum.models import Report, Post
 from djangobb_forum import settings as forum_settings
 
 
@@ -138,6 +138,16 @@ def has_unreads(topic, user):
             else:
                 return False
         return True
+
+@register.filter
+def forum_unread_link(topic, user):
+    """
+    Returns a link to the first unread post in a topic.
+    """
+    if not isinstance(user.posttracking.topics, dict):
+        return topic.get_absolute_url()
+    pk = user.posttracking.topics.get(str(topic.id), 0)
+    return Post.objects.filter(topic=topic).filter(pk__gt=pk).order_by('pk')[0].get_absolute_url()
 
 @register.filter
 def forum_unreads(forum, user):

@@ -2,14 +2,10 @@
 {% load cache %}
 {% load i18n %}
 
-{% if forum.last_post.topic %}
-	<tr {% if forum|forum_unreads:user %}class="inew"{% endif %}>
-{% else %}
-	<tr>
-{% endif %}
+<tr>
 	<td class="tcl">
 		<div class="intd">
-			<div class="forumicon">
+			<div class="{% if forum.last_post.topic and forum|forum_unreads:user %}inew{% else %}forumicon{% endif %}">
 				<div class="nosize"><!-- --></div>
 			</div>
 			<div class="tclcon">
