@@ -74,4 +74,14 @@ $(document).ready(function() {
         //log("unbind onbeforeunload");
         window.onbeforeunload = null;
     });
+    
+    !function () {
+        var submitted = false;
+        $('#post').submit(function (e) {
+            if (submitted) {
+                e.preventDefault();
+            }
+            submitted = true;
+        });
+    }();
 });
