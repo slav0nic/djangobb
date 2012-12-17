@@ -21,7 +21,7 @@
 					<li id="navadmin" class="admin-only"><a href="{% url admin:index %}">{% trans "Administration" %}</a></li>
 				{% endif %}
 				{% if user.is_authenticated %}
-			                <li id="navprofile"><a href="{% url djangobb:forum_profile request.user %}personality/">{% trans "Settings" %}</a></li>
+			                <li id="navprofile"><a href="{% url djangobb:forum_profile_personality request.user %}">{% trans "Settings" %}</a></li>
 				{% comment %}
 					<li id="navprofile"><a href="{% url djangobb:forum_profile request.user %}">{% trans "Profile" %}</a></li>
 				{% endcomment %}
