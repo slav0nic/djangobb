@@ -55,7 +55,13 @@
 		<a name="post-{{ post.id }}"></a>
 
 		<div class="box">
-		  <h2><span><span class="conr">#{{ forloop.counter|add:first_post_number }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
+			<h2><span>
+				<span class="conr">#{{ forloop.counter|add:first_post_number }}</span>
+				<a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a>
+				{% if post.updated %}
+					<span class="postedit">&mdash; {% blocktrans with user=post.updated_by.username time=post.updated|forum_time %}Last edited by {{ user }} ({{ time }}){% endblocktrans %}</span>
+				{% endif %}
+			</span></h2>
 			<div class="inbox box-content">
 				<div class="postleft">
 					<dl>
@@ -131,9 +137,6 @@
 							{{ post.user.forum_profile.signature_html|safe }}
 						</div>
 						{% endif %}
-					{% endif %}
-					{% if post.updated %}
-						<p class="postedit"><em>{% trans "Edited" %} {{ post.updated_by.username }} ({{ post.updated|forum_time }})</em></p>
 					{% endif %}
 					{% with post.attachments.all as attachments %}
 						{% if attachments %}
