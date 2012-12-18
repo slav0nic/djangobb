@@ -19,7 +19,7 @@
 		<div class='postwrapper'>
 			<div class='posttopbar'>
 			  <div class='postname'>{{ post.user.username }}</div>
-			  <div class='postdate'>{% forum_time post.created %}</div>
+			  <div class='postdate'>{{ post.created|forum_time }}</div>
 		 	</div>
 			<div class='postcontent'>
 				{{ post.body_html|safe }}
