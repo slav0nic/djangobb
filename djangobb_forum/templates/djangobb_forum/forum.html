@@ -42,8 +42,8 @@
 							    <div class="nosize"><!-- --></div>
 							    </div>
 
-								<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
-								<div class="tclcon">
+								<div {% if topic.sticky %}class="sticky{% if topic.closed %} closed{% endif %}"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
+								<div class="tclcon{% if topic.closed %} closed-topic{% endif %}">
 									{% if topic.sticky %}
 										{% trans "Sticky:" %}
 									{% endif %}
