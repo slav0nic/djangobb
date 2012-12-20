@@ -405,27 +405,12 @@ def show_topic(request, topic_id, full=True):
         ip = request.META.get('REMOTE_ADDR', None)
         post_form_kwargs = {"topic":topic, "user":request.user, "ip":ip}
         if post_request and AddPostForm.FORM_NAME in request.POST:
-            skip = False
-            try:
-                recent_post = Post.objects.filter(user=request.user).latest()
-                lastpost_diff = datetime.now() - recent_post.created
-            except Post.DoesNotExist:
-                lastpost_diff = timedelta(1) # one day if first post
-            if forum_settings.POST_FLOOD and not request.user.has_perm('djangobb_forum.fast_post'):
-                if request.user.has_perm('djangobb_forum.med_post'):
-                    if lastpost_diff.total_seconds() < forum_settings.POST_FLOOD_MED:
-                        skip = True
-                        messages.error(request, _("Sorry, you have to wait %d seconds between posts." % forum_settings.POST_FLOOD_MED))
-                else:
-                    if lastpost_diff.total_seconds() < forum_settings.POST_FLOOD_SLOW:
-                        skip = True
-                        messages.error(request, _("Sorry, you have to wait %d seconds between posts." % forum_settings.POST_FLOOD_SLOW))
+
             reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
-            if not skip:
-                if reply_form.is_valid():
-                    post = reply_form.save()
-                    messages.success(request, _("Your reply saved."))
-                    return HttpResponseRedirect(post.get_absolute_url())
+            if reply_form.is_valid():
+                post = reply_form.save()
+                messages.success(request, _("Your reply saved."))
+                return HttpResponseRedirect(post.get_absolute_url())
         else:
             reply_form = AddPostForm(
                 initial={
@@ -520,17 +505,6 @@ def add_topic(request, forum_id):
         elif not poll_form.is_valid():
             all_valid = False
 
-        if forum_settings.POST_FLOOD and not request.user.has_perm('djangobb_forum.fast_post'):
-            recent_post = Post.objects.filter(user=request.user).latest()
-            lastpost_diff = datetime.now() - recent_post.created
-            if request.user.has_perm('djangobb_forum.med_post'):
-                if lastpost_diff < timedelta(seconds=forum_settings.POST_FLOOD_MED):
-                    all_valid = False
-                    messages.error(request, _("Sorry, you have to wait %d seconds between posts.") % forum_settings.POST_FLOOD_MED)
-            else:
-                if lastpost_diff < timedelta(seconds=forum_settings.POST_FLOOD_SLOW):
-                    all_valid = False
-                    messages.error(request, _("Sorry, you have to wait %d seconds between posts.") % forum_settings.POST_FLOOD_SLOW)
         if all_valid:
             post = form.save()
             if create_poll:

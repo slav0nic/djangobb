@@ -94,6 +94,22 @@ class AddPostForm(forms.ModelForm):
             except UnapprovedImageError as e:
                 self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
+
+            try:
+                recent_post = Post.objects.filter(user=self.user).latest()
+                lastpost_diff = datetime.now() - recent_post.created
+            except Post.DoesNotExist:
+                lastpost_diff = timedelta(1) # one day if first post
+            if forum_settings.POST_FLOOD and not self.user.has_perm('djangobb_forum.fast_post'):
+                if self.user.has_perm('djangobb_forum.med_post'):
+                    if lastpost_diff.total_seconds() < forum_settings.POST_FLOOD_MED:
+                        self._errors['body'] = _("Sorry, you have to wait %d seconds between posts." % forum_settings.POST_FLOOD_MED)
+                        
+                else:
+                    if lastpost_diff.total_seconds() < forum_settings.POST_FLOOD_SLOW:
+                        self._errors['body'] = _("Sorry, you have to wait %d seconds between posts." % forum_settings.POST_FLOOD_SLOW)
+
+
         return cleaned_data
 
     def clean_attachment(self):

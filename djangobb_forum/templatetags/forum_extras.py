@@ -118,7 +118,8 @@ def has_unreads(topic, user):
             return False
     else:
         if isinstance(user.posttracking.topics, dict):
-            if topic.last_post_id > user.posttracking.topics.get(str(topic.id), 0):
+            posttracking =  user.posttracking.topics.get(str(topic.id), -1)
+            if topic.last_post_id > posttracking and posttracking > -1:
                 return True
             else:
                 return False
@@ -131,8 +132,11 @@ def forum_unread_link(topic, user):
     """
     if not isinstance(user.posttracking.topics, dict):
         return topic.get_absolute_url()
-    pk = user.posttracking.topics.get(str(topic.id), 0)
-    return Post.objects.filter(topic=topic).filter(pk__gt=pk).order_by('pk')[0].get_absolute_url()
+    pk = user.posttracking.topics.get(str(topic.id), -1)
+    if pk > -1:
+        return Post.objects.filter(topic=topic).filter(pk__gt=pk).order_by('pk')[0].get_absolute_url()
+    else:
+        return None
 
 @register.filter
 def forum_unreads(forum, user):
@@ -147,7 +151,8 @@ def forum_unreads(forum, user):
             if user.posttracking.last_read:
                 topics = topics.filter(updated__gte=user.posttracking.last_read)
             for topic in topics:
-                if topic.last_post_id > user.posttracking.topics.get(str(topic.id), 0):
+                posttracking =  user.posttracking.topics.get(str(topic.id), -1)
+                if topic.last_post_id > posttracking and posttracking > -1:
                     return True
         return False
 
