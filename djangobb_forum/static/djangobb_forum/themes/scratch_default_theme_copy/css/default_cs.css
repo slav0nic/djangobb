@@ -131,20 +131,34 @@ without interferring with IE's rather nice default */
 .inew = new posts, .iredirect = redirect forums, .iclosed = closed topics and
 .isticky = sticky topics. The default is "icon". By default only .inew is different.*/
 
-DIV.forum_icon {background:url(../img/active_forum.gif)}
-DIV.icon {background:url(../img/inactive_topic.gif)}
-DIV.inew {background:url(../img/active_topic.gif)}
-DIV.sticky {background:url(../img/sticky_topic.gif)}
-DIV.closed {background:url(../img/closed_topic.gif)}
-TR.inew DIV.icon {background:url(../img/active_topic.gif)} 
-TR.isticky DIV.inew {background:url(../img/active_topic.gif)}
-TR.iclosed DIV.icon {background:url(../img/closed.png)}
-DIV.iredirect {background:url(../img/link.png)}
+.closed {
+    background-image: url(../img/icon/closed.png);
+}
+.inew {
+    background-image: url(../img/icon/new.png);
+}
+.sticky {
+    background-image: url(../img/icon/sticky.png);
+}
+.sticky.closed {
+    background-image: url(../img/icon/sticky-closed.png);
+}
+.closed-topic a {
+    color: #aaa;
+}
+div.inew, div.sticky, div.closed {
+    margin-top: .7em !important;
+}
+
 /****************************************************************/
 /* 6. EXTRAS */
 /****************************************************************/
 /* #brdmenu {BACKGROUND: url(../img/fon111.gif); border-top: 1px solid #46586a;border-bottom: 1px solid #46586a; BACKGROUND-COLOR: #46586a;} */
 /* header logo */
+ 
+.posteditmessage {
+    color: #aaa;
+}
  
 .djangobb H1 span
 {

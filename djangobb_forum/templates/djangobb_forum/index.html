@@ -86,7 +86,7 @@
                 <dl id="onlinelist" class= "clearb">
                     <dt><strong>{% trans "Online:" %} </strong></dt>
                     {% for online in users_online %}
-                        <dd>{{ online|profile_link }}</dd>
+                        <dd>{{ online|profile_link }}{% if not forloop.last %},{% endif %}</dd>
                     {% endfor %}
                 </dl>
             {% endif %}

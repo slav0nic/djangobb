@@ -42,7 +42,7 @@
 							<img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_minus.gif" alt="+" border="0">
 						{% endif %}
 						</td>
-						<td>{% forum_time reputation.time %}</td>
+						<td>{{ reputation.time|forum_time }}</td>
 						{% if request.user.is_superuser %}
 							<td style="text-align: center;"><input type="checkbox" name="reputation_id" value="{{ reputation.id }}"></td>
 						{% endif %}

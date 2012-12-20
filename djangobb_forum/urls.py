@@ -18,36 +18,11 @@ urlpatterns = patterns('',
     url('^search/$', forum_views.search, name='search'),
     url('^misc/$', forum_views.misc, name='misc'),
     # User
-    url('^user/(?P<username>.*)/upload_avatar/$', forum_views.upload_avatar, {
-        'form_class': UploadAvatarForm,
-        'template': 'djangobb_forum/upload_avatar.html'
-        }, name='forum_profile_upload_avatar'),
-    url('^user/(?P<username>.*)/privacy/$', forum_views.user, {
-        'section': 'privacy',
-        'form_class': PrivacyProfileForm,
-        'template': 'djangobb_forum/profile/profile_privacy.html'
-        }, name='forum_profile_privacy'),
-    url('^user/(?P<username>.*)/display/$', forum_views.user, {
-        'section': 'display',
-        'form_class': DisplayProfileForm,
-        'template': 'djangobb_forum/profile/profile_display.html'
-        }, name='forum_profile_display'),
-    url('^user/(?P<username>.*)/personality/$', forum_views.user, {
+    url('^user/(?P<username>.*)/settings/$', forum_views.user, {
         'section': 'personality',
         'form_class': PersonalityProfileForm,
         'template': 'djangobb_forum/profile/profile_personality.html'
         }, name='forum_profile_personality'),
-    url('^user/(?P<username>.*)/messaging/$', forum_views.user, {
-        'section': 'messaging',
-        'form_class': MessagingProfileForm,
-        'template': 'djangobb_forum/profile/profile_messaging.html'
-        }, name='forum_profile_messaging'),
-    url('^user/(?P<username>.*)/personal/$', forum_views.user, {
-        'section': 'personal',
-        'form_class': PersonalProfileForm,
-        'template': 'djangobb_forum/profile/profile_personal.html'
-        }, name='forum_profile_personal'),
-    url('^user/(?P<username>.*)/essentials/$', forum_views.user, name='forum_profile_essentials'),
     url('^user/(?P<username>.*)/$', forum_views.user, name='forum_profile'),
     url('^users/$', forum_views.users, name='forum_users'),
 

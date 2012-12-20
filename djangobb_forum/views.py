@@ -21,7 +21,7 @@ from haystack.query import SearchQuerySet, SQ
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
-    PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
+    PostSearchForm, ReputationForm, MailToForm, PersonalityProfileForm, \
     VotePollForm, ReportForm, VotePollForm, PollForm
 from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Report, Attachment, PostTracking
@@ -562,7 +562,7 @@ def upload_avatar(request, username, template=None, form_class=None):
 
 
 @transaction.commit_on_success
-def user(request, username, section='essentials', action=None, template='djangobb_forum/profile/profile_essentials.html', form_class=EssentialsProfileForm):
+def user(request, username, section='personality', action=None, template='djangobb_forum/profile/profile_personality.html', form_class=PersonalityProfileForm):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated(): 
         # looking at your own, you see the options that you can change

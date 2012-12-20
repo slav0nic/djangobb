@@ -21,7 +21,7 @@
 					<li id="navadmin" class="admin-only"><a href="{% url admin:index %}">{% trans "Administration" %}</a></li>
 				{% endif %}
 				{% if user.is_authenticated %}
-			                <li id="navprofile"><a href="{% url djangobb:forum_profile request.user %}personality/">{% trans "Settings" %}</a></li>
+			                <li id="navprofile"><a href="{% url djangobb:forum_profile_personality request.user %}">{% trans "Settings" %}</a></li>
 				{% comment %}
 					<li id="navprofile"><a href="{% url djangobb:forum_profile request.user %}">{% trans "Profile" %}</a></li>
 				{% endcomment %}
@@ -36,7 +36,7 @@
 			<ul class="conl">
 				{% if user.is_authenticated %}
 					<li>{% trans "Logged in as" %} <strong>{{ user.username }}</strong></li>
-					<li>{% trans "Last visit:" %} {% forum_time user.last_login %}</li>
+					<li>{% trans "Last visit:" %} {{ user.last_login|forum_time }}</li>
 					{% if forum_settings.PM_SUPPORT and messages_inbox_count > 0 %}
 						<ul><li class="pmlink"><strong><a href="{% url messages_inbox %}">{% trans "There are new messages" %} ({{ messages_inbox_count }})</a></strong></li></ul>
 					{% endif %}
