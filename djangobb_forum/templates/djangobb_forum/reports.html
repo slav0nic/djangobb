@@ -27,7 +27,7 @@
 <br><br>
 Posted By:<a href="{% url profile_detail report.post.user.username %}"> {{ report.post.user }} </a>
 </td><td>
-   <input type="submit" name="zap_id[{{ report.id }}]" value=" Zap ">
+   <button type="submit" class="grey button" name="zap_id[{{ report.id }}]"><span>Zap</span></button>
 </td></tr>
 {% endfor %}
 </table>
@@ -59,7 +59,7 @@ Posted By:<a href="{% url profile_detail report.post.user.username %}"> {{ repor
 <br><br>
 Posted By:<a href="{% url profile_detail report.post.user.username %}"> {{ report.post.user }} </a>
 </td><td>
-<input type="submit" name="zap_id[{{ report.id }}]" value=" Unzap ">
+<button type="submit" class="grey button" name="zap_id[{{ report.id }}]"><span>Unzap</span></button>
 <br>
 Zapped By: {{ report.zapped_by }}
 </td></tr>
