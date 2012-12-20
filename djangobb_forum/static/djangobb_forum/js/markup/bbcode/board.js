@@ -70,7 +70,7 @@ $(document).ready(function() {
         }
         // if nothing returned, browser leave the page without any message
     };
-    $("form input[type=submit]").click(function() {
+    $("form [type=submit]").click(function() {
         //log("unbind onbeforeunload");
         window.onbeforeunload = null;
     });
