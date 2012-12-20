@@ -114,21 +114,16 @@ def moderate(request, forum_id):
 @transaction.commit_on_success
 def reports(request):
     if request.user.is_superuser or request.user.has_perm('djangobb_forum.change_report'):
-        if 'action' in request.GET and request.GET['action'] == 'zap':
-                for post in request.POST.keys():
-                    if post.startswith('zap_id'):
-                        if request.POST[post] == ' Zap ':
-                            zap_report_id = int(post[7:-1])
-                            zap_report = get_object_or_404(Report, pk=zap_report_id)
-                            zap_report.zapped_by = request.user
-                            zap_report.zapped = True
-                            zap_report.save()
-                        elif request.POST[post] == ' Unzap ':
-                            zap_report_id = int(post[7:-1])
-                            zap_report = get_object_or_404(Report, pk=zap_report_id)
-                            zap_report.zapped_by = None
-                            zap_report.zapped = False
-                            zap_report.save()
+        if 'action' in request.GET:
+            zap_report_id = int(request.POST['id'])
+            zap_report = get_object_or_404(Report, pk=zap_report_id)
+            if request.GET['action'] == 'zap':
+                zap_report.zapped_by = request.user
+                zap_report.zapped = True
+            elif request.GET['action'] == 'unzap':
+                zap_report.zapped_by = None
+                zap_report.zapped = False
+            zap_report.save()
         new_reports = Report.objects.filter(zapped = False).order_by('-created')
         zapped_reports = Report.objects.filter(zapped = True).order_by('-created')[:10]
 
