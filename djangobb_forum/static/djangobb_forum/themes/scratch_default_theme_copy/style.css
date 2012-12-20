@@ -3,10 +3,7 @@
 /****************************************************************/
 
 
-/* Import the basic setup styles */
-@import url(../base.css);
-/* Import the colour scheme */
-@import url(css/default_cs.css);
+
 
 /****************************************************************/
 /* 2. TEXT SETTINGS */
@@ -15,7 +12,7 @@
 /* 2.1 This sets the default Font Group */
 
 .djangobb, .djangobb INPUT, .djangobb SELECT, .djangobb TEXTAREA, .djangobb OPTGROUP {
-	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+  FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
 }
 
 .djangobb {FONT-SIZE: 11px; LINE-HEIGHT: normal}
@@ -33,12 +30,8 @@
 
 /* 2.3 Font size for headers */
 
-.djangobb H2, .djangobb H4 {FONT-SIZE: 1em}
+.djangobb H2, .djangobb H4 {}
 .djangobb H3 {FONT-SIZE: 1.1em}
-
-.djangobb h2 span {
-padding-left:9px;
-}
 
 /* 2.4 Larger text for particular items */
 DIV.postmsg P {LINE-HEIGHT: 1.4}
@@ -56,16 +49,16 @@ DIV.linksb LI, DIV.postlinksb LI, .blockmenu LI, #brdtitle H1, .djangobb SPAN.wa
 
 /* 3.1 Remove underlining for main menu, post header links, post links and vertical menus */
 
-#brdmenu A:link, #brdmenu A:visited, .blockpost DT A:link, .blockpost DT A:visited, .blockpost H2 A:link,
-.blockpost H2 A:visited, .postlink A:link, .postlink A:visited, .postfootright A:link, .postfootright A:visited,
-.blockmenu A:link, .blockmenu A:visited {
-	TEXT-DECORATION: none
-}
+/* #brdmenu A:link, #brdmenu A:visited, .blockpost DT A:link, .blockpost DT A:visited, .blockpost H2 A:link, */
+/* .blockpost H2 A:visited, .postlink A:link, .postlink A:visited, .postfootright A:link, .postfootright A:visited, */
+/* .blockmenu A:link, .blockmenu A:visited { */
+/*   TEXT-DECORATION: none */
+/* } */
 
 /* 3.2 Underline on hover for links in headers and main menu */
 
 #brdmenu .blockpost H2 A:hover {font-weight: bold;TEXT-DECORATION: none}
-#brdmenu A:hover {color: #FFFFFF; text-decoration:underline;}
+#brdmenu A:hover {/*color: #FFFFFF; text-decoration:underline;*/}
 
 /****************************************************************/
 /* 4. BORDER WIDTH AND STYLE */
@@ -74,8 +67,8 @@ DIV.linksb LI, DIV.postlinksb LI, .blockmenu LI, #brdtitle H1, .djangobb SPAN.wa
 /* 4.1 By default borders are 1px solid */
 
 DIV.box, .djangobb TD, .djangobb TH, .djangobb BLOCKQUOTE, DIV.code, DIV.forminfo, DIV.blockpost LABEL {
-	BORDER-STYLE: solid;
-	BORDER-WIDTH: 1px
+  BORDER-STYLE: solid;
+  BORDER-WIDTH: 1px
 }
 
 .djangobb TH {border-top: 0px}
@@ -87,8 +80,8 @@ DIV.box, .djangobb TD, .djangobb TH, .djangobb BLOCKQUOTE, DIV.code, DIV.forminf
 /* 4.3 Borders for table cells */
 
 .djangobb TD, .djangobb TH {
-	BORDER-BOTTOM: none;
-	BORDER-RIGHT: none
+  BORDER-BOTTOM: none;
+  BORDER-RIGHT: none
 }
 
 .djangobb .tcl {BORDER-LEFT: none}
@@ -96,8 +89,8 @@ DIV.box, .djangobb TD, .djangobb TH, .djangobb BLOCKQUOTE, DIV.code, DIV.forminf
 /* 4.4 Special setting for fieldsets to preserve IE defaults */
 
 DIV>FIELDSET {
-	BORDER-STYLE: solid;
-	BORDER-WIDTH: 1px
+  BORDER-STYLE: solid;
+  BORDER-WIDTH: 1px
 }
 
 /****************************************************************/
@@ -106,8 +99,8 @@ DIV>FIELDSET {
 
 /* 5.1 Page margins */
 
-HTML, BODY {MARGIN: 0;PADDING: 0; text-align: center;}
-#djangobbwrap {margin:10px 10px}
+/* HTML, BODY {MARGIN: 0;PADDING: 0; text-align: center;} */
+/* #djangobbwrap {margin:10px 10px} */
 
 /* 5.2 Creates vertical space between main board elements (Margins) */
 
@@ -131,9 +124,15 @@ have a 6px space beneath them */
 
 /* 6.1 Default padding for main items */
 
-DIV.block DIV.inbox, DIV.blockmenu DIV.inbox {PADDING: 3px 6px}
-.djangobb P, .djangobb UL, .djangobb DL, DIV.blockmenu LI, .djangobb LABEL, #announce DIV.inbox DIV {PADDING: 3px 0}
-.djangobb H2 {margin-top:5px; PADDING: 4px 6px}
+DIV.block DIV.inbox,
+DIV.blockmenu DIV.inbox,
+.djangobb P,
+.djangobb UL,
+.djangobb DL,
+DIV.blockmenu LI,
+.djangobb LABEL,
+#announce DIV.inbox DIV {PADDING: 3px 3px 3px 0}
+.djangobb H2 {margin:5px 0; PADDING: 4px 6px 4px 0}
 
 /* 6.2 Special spacing for various elements */
 
@@ -161,7 +160,8 @@ DIV.linksb, DIV.postlinksb {PADDING: 3px 6px 8px 6px}
 
 /* 8.1 Padding around left and right columns in viewtopic */
 
-DIV.postleft DL, DIV.postright {PADDING: 6px}
+/* DIV.postleft DL, */
+DIV.postright {PADDING: 6px}
 
 /* 8.2 Extra spacing for poster contact details and avatar */
 
@@ -179,23 +179,26 @@ DIV.postmsg H4 {MARGIN-BOTTOM: 10px}
 
 /* 8.5 Padding for the action links and online indicator in viewtopic */
 
-DIV.postfootleft P, DIV.postfootright UL, DIV.postfootright DIV {PADDING: 10px 6px 5px 6px}
+DIV.postfootleft P, DIV.postfootright UL, DIV.postfootright DIV {PADDING: 10px 6px 5px 20px}
 
 /* 8.6 This is the input on moderators multi-delete view */
 
 DIV.blockpost INPUT, DIV.blockpost LABEL {
-	PADDING: 3px;
-	DISPLAY: inline
+  PADDING: 3px;
+  DISPLAY: inline
 }
 
 P.multidelete {
-	PADDING-TOP: 15px;
-	PADDING-BOTTOM: 5px
+  PADDING-TOP: 15px;
+  PADDING-BOTTOM: 5px
 }
 
 /* 8.7 Make sure paragraphs in posts don't get any padding */
 
 DIV.postmsg P {PADDING: 0}
+
+/* 8.8 Avoid inheriting margin from main box.css */
+DIV.box {margin-bottom:0px;}
 
 /****************************************************************/
 /* 9. SPECIAL SPACING FOR FORMS */
@@ -215,8 +218,8 @@ DIV.infldset {PADDING: 9px 0px 12px 0}
 /* 9.3 The information box at the top of the registration form and elsewhere */
 
 DIV.forminfo {
-	MARGIN-BOTTOM: 12px;
-	PADDING: 9px 10px
+  MARGIN-BOTTOM: 12px;
+  PADDING: 9px 10px
 }
 
 /* 9.4 BBCode help links in post forms */
@@ -237,19 +240,21 @@ DIV.blockform P INPUT {MARGIN-LEFT: 12px}
 .inew = new posts, .iredirect = redirect forums, .iclosed = closed topics and
 .isticky = sticky topics. By default only .inew is different from the default.*/
 
-DIV.icon,DIV.inew, DIV.sticky, DIV.closed {
-	FLOAT: left;
-	MARGIN-TOP: 0.1em;
-	MARGIN-right: 0.4em;
-	DISPLAY: block;
-/*	BORDER-WIDTH: 0.6em 0.6em 0.6em 0.6em;
-	BORDER-STYLE: solid*/
-	HEIGHT: 16px;
-	WIDTH: 16px;
+DIV.forumicon,DIV.inew, DIV.sticky, DIV.closed {
+  FLOAT: left;
+  MARGIN-TOP: 0.8em;
+  MARGIN-right: 0.4em;
+  DISPLAY: block;
+/*  BORDER-WIDTH: 0.6em 0.6em 0.6em 0.6em;
+  BORDER-STYLE: solid*/
+  HEIGHT: 16px;
+  WIDTH: 16px;
 }
 
+.djangobb .tcl img.rss{margin-top:.8em;}
 
-DIV.searchposts DIV.icon {MARGIN-LEFT: 0}
+
+DIV.searchposts DIV.forumicon {MARGIN-LEFT: 0}
 
 /* 10.2 Class .tclcon is a div inside the first column of tables with post indicators. The
 margin creates space for the post status indicator */
@@ -262,20 +267,73 @@ TD DIV.tclcon {MARGIN-LEFT: 2.3em}
 
 #brdmenu {height:20px;padding-top:1px;padding-left:8px}
 #djangobbwrap {
-	width: auto;
-	margin-left: 25px;
-	margin-right: 25px;
-	text-align: left;
-	background-repeat: repeat-y;
+  width: auto;
+/*   margin-left: 25px; */
+/*   margin-right: 25px; */
+  text-align: left;
+  background-repeat: repeat-y;
 }
 .djangobb {
-	background-repeat: no-repeat;
+  background-repeat: no-repeat;
 }
 
 
 #brdfooter {
-	width: auto;
-	margin-bottom: 10px;
-	background-repeat:  no-repeat;
-	background-position: bottom left;
+  width: auto;
+  margin-bottom: 10px;
+  background-repeat:  no-repeat;
+  background-position: bottom left;
+}
+
+/*make listed topic H3s inline*/
+.box-content .tclcon > H3 {display:inline}
+
+/*when listing last post for each topic in the list, display the time and name inline */
+#djangobbindex td.tcr span.byuser {
+  DISPLAY: inline;
+}
+/* margin for all box headers to mimic margin on the rest of the site*/
+
+.djangobb .box h2,
+#brdheader .box .box-content,
+#msg .box .box-content,
+#brdfooter .box .box-content,
+#brdstats .box .box-content,
+.blocktable .box .box-content .tcl,
+.box .postleft > dl > *,
+.inbox .pagelink .pagination
+.postlinksb .subscribelink {
+  padding-left:20px;
+}
+
+
+
+/*Remove the fieldset border from static/css/forms.css on djangobb forms*/
+/* .djangobb div > fieldset {border:0} */
+
+/* change the box colors on individual posts */
+.djangobb div.blockpost div.box {background-color: #28A5DA; border-color: #91C4DA;}
+.djangobb div.blockpost h2,
+.djangobb div.blockpost h2 span.conr,
+.djangobb div.blockpost h2 a,
+.djangobb div.blockpost h2 a:link,
+.djangobb div.blockpost h2 a:active,
+.djangobb div.blockpost h2 a:hover,
+.djangobb div.blockpost h2 a:visited {background-color: transparent; color:#fff; text-shadow:none; font-size:1em}
+
+td.tcl H3.topic_isread{FONT-WEIGHT:normal}
+
+.djangobb input.small {margin:1em}
+
+/* distinguish moderator only features from others - for testing purposes, and maybe beyond? */
+.moderator-only {background-color:#FFB}
+.admin-only {background-color:#FC0}
+
+
+/* Remove the MARKIT UP! image from the markit up editor */
+textarea.markItUpEditor {
+		/*background-image: none;  remove the background pic */
+		background-position-x: -35px; /* see if we can keep the gradient background instead */
+		padding-left:5px; /* without the image, we can take the left side padding out */
+		width:673px; /*and extend the editor to use the extra space */
 }
