@@ -12,7 +12,7 @@
 		<div class="pagelink conl">{% paginate %}</div>
 		<ul>
 			<li>
-			<a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
+			<a href="{% url djangobb:index %}">{% trans "Root" %}</a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
 			<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
 			</li>
 		</ul>
@@ -124,6 +124,9 @@
 				<h3>{{ post.topic.name }}</h3>
 				<div class="postmsg">
 					<p class="post_body_html">{{ post.body_html|safe }}</p>
+                    {% if post.updated %}
+                        <p class="postedit"><em class="posteditmessage">{% blocktrans with user=post.updated_by.username time=post.updated|forum_time %}Last edited by {{ user }} ({{ time }}){% endblocktrans %}</em></p>
+                    {% endif %}
 					{% if not user.is_authenticated or user.forum_profile.show_signatures %}
 						{% if post.user.forum_profile.signature_html %}
 						<div class="postsignature">
@@ -131,9 +134,6 @@
 							{{ post.user.forum_profile.signature_html|safe }}
 						</div>
 						{% endif %}
-					{% endif %}
-					{% if post.updated %}
-						<p class="postedit"><em>{% trans "Edited" %} {{ post.updated_by.username }} ({{ post.updated|forum_time }})</em></p>
 					{% endif %}
 					{% with post.attachments.all as attachments %}
 						{% if attachments %}
