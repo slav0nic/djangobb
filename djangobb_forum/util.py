@@ -277,6 +277,17 @@ class UnapprovedImageError(Exception):
     def __str__(self):
         return repr(self.url)
 
+class InlineStyleTag(postmarkup.TagBase):
+    def __init__(self, name, style, **kwargs):
+        postmarkup.TagBase.__init__(self, name, inline=True)
+        self.style = style
+
+    def render_open(self, parser, node_index):
+        return u'<span style="%s">' % self.style
+
+    def render_close(self, parser, node_index):
+        return u'</span>'
+
 # This allows us to control the bb tags
 def customize_postmarkup():
     custom_postmarkup = postmarkup.PostMarkup()
@@ -307,8 +318,8 @@ def customize_postmarkup():
     add_tag(postmarkup.ListItemTag, u'*')
 
     # removed 'size' and replaced it with 'big' and 'small'
-    add_tag(postmarkup.SimpleTag, 'big','span style="font-size:32px"')
-    add_tag(postmarkup.SimpleTag, 'small','span style="font-size:10px"')
+    add_tag(InlineStyleTag, u'big', u'font-size: 15px')
+    add_tag(InlineStyleTag, u'small', u'font-size: 8px')
     add_tag(postmarkup.ColorTag, u"color")
     add_tag(postmarkup.CenterTag, u"center")
     add_tag(postmarkup.PygmentsCodeTag, u'code', None)
