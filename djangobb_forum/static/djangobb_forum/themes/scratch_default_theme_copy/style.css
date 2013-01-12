@@ -277,6 +277,12 @@ TD DIV.tclcon {MARGIN-LEFT: 2.3em}
   background-repeat: no-repeat;
 }
 
+.djangobb .new_topic {
+    float: right;
+    margin: 5px;
+    color: #fff;
+    text-decoration: none;
+}
 
 #brdfooter {
   width: auto;
