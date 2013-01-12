@@ -395,7 +395,7 @@ def show_topic(request, topic_id, full=True):
     form_url = None
     back_url = None
     if user_is_authenticated and not topic.closed:
-        form_url = request.path + "#reply" # if form validation failed: browser should scroll down to reply form ;)
+        form_url = request.path + '?' + request.META['QUERY_STRING'] + '#reply' # if form validation failed: browser should scroll down to reply form ;)
         back_url = request.path
         ip = request.META.get('REMOTE_ADDR', None)
         post_form_kwargs = {"topic":topic, "user":request.user, "ip":ip}
