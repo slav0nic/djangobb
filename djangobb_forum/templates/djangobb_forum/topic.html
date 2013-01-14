@@ -164,7 +164,9 @@
 						{% endif %}
 					{% endif %}
 					{% if moderator or post|forum_posted_by:user %}
+{% if post in editable or can_edit %}
 						<li class="postedit">| <a href="{% url djangobb:edit_post post.id %}">{% trans "Edit" %}</a> </li>
+						{% endif %}
 					{% endif %}
 						<li class="postquote">| <a onclick="return copy_paste('p{{ post.id }}');" href="#reply" title="{% trans "Full quote or quote selected text form this post." %}">{% trans "Quote" %}</a></li>
 					{% endif %}

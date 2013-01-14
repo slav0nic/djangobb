@@ -376,12 +376,15 @@ def show_topic(request, topic_id, full=True):
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
     Topic.objects.filter(pk=topic.id).update(views=F('views') + 1)
-
     last_post = topic.last_post
 
     if request.user.is_authenticated():
         topic.update_read(request.user)
     posts = topic.posts.all().select_related()
+    edit_start = datetime.now() - timedelta(minutes=1)
+    edit_end = datetime.now()
+    editable = posts.filter(created__range=(edit_start, edit_end)).filter(user_id=request.user.id)
+    can_edit = request.user.has_perm('djangobb_forum.change_post')
     first_post_number = int(forum_settings.TOPIC_PAGE_SIZE) * (int(request.GET.get('page') or 1) - 1)
 
     moderator = request.user.is_superuser or request.user in topic.forum.moderators.all()
@@ -461,6 +464,8 @@ def show_topic(request, topic_id, full=True):
                 'highlight_word': highlight_word,
                 'poll': poll,
                 'poll_form': poll_form,
+                'editable': editable,
+                'can_edit': can_edit,
                 })
     else:
         return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
