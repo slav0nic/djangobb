@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import math
+import re
 from datetime import datetime, timedelta
 
 from django.contrib import messages
@@ -648,6 +649,12 @@ def get_post_source(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     return HttpResponse(post.body, mimetype='text/plain')
 
+@csrf_exempt
+def get_topic_title(request, topic_id):
+    'Raw (plain text) topic title for move posts confirmation'
+    topic = get_object_or_404(Topic, pk=topic_id)
+    return HttpResponse(topic.name, mimetype='text/plain')
+
 @login_required
 @transaction.commit_on_success
 def edit_post(request, post_id):
@@ -727,11 +734,11 @@ def move_posts(request, topic_id):
         moved = False
         post_list = request.POST.getlist('post')
         if 'to_topic' in request.POST:
-            try:
-                to_topic_id = int(request.POST['to_topic'])
-            except ValueError:
+            match = re.match(r'.*?(\d+)', request.POST['to_topic'])
+            if match is None:
                 messages.error(request, _("The topic must be an integer."))
             else:
+                to_topic_id = int(match.group(1))
                 try:
                     to_topic = Topic.objects.select_related().get(pk=to_topic_id)
                 except Topic.DoesNotExist:
