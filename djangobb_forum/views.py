@@ -91,17 +91,17 @@ def moderate(request, forum_id):
             for topic_id in topic_ids:
                 topic = get_object_or_404(Topic, pk=topic_id)
                 topic.delete()
-            messages.success(request, _("Topics deleted"))
+            messages.success(request, _("Topics deleted."))
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'open_topics' in request.POST:
             for topic_id in topic_ids:
                 open_close_topic(request, topic_id, 'o')
-            messages.success(request, _("Topics opened"))
+            messages.success(request, _("Topics opened."))
             return HttpResponseRedirect(reverse('djangobb:index'))
         elif 'close_topics' in request.POST:
             for topic_id in topic_ids:
                 open_close_topic(request, topic_id, 'c')
-            messages.success(request, _("Topics closed"))
+            messages.success(request, _("Topics closed."))
             return HttpResponseRedirect(reverse('djangobb:index'))
 
         return render(request, 'djangobb_forum/moderate.html', {'forum': forum,
@@ -302,7 +302,7 @@ def misc(request):
         if action == 'markread':
             user = request.user
             PostTracking.objects.filter(user__id=user.id).update(last_read=datetime.now(), topics=None)
-            messages.info(request, _("All topics marked as read."))
+            messages.info(request, _("Marked all topics as read."))
             return HttpResponseRedirect(reverse('djangobb:index'))
 
         elif action == 'report':
@@ -326,7 +326,7 @@ def misc(request):
                                                                   request.user.email)
             try:
                 user.email_user(subject, body, request.user.email)
-                messages.success(request, _("Email send."))
+                messages.success(request, _("Email sent."))
             except Exception:
                 messages.error(request, _("Email could not be sent."))
             return HttpResponseRedirect(reverse('djangobb:index'))
@@ -408,7 +408,7 @@ def show_topic(request, topic_id, full=True):
             reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
             if reply_form.is_valid():
                 post = reply_form.save()
-                messages.success(request, _("Your reply saved."))
+                messages.success(request, _("Reply saved."))
                 return HttpResponseRedirect(post.get_absolute_url())
         else:
             reply_form = AddPostForm(
@@ -435,10 +435,10 @@ def show_topic(request, topic_id, full=True):
                     poll_form = VotePollForm(poll)
             else:
                 if not poll.active:
-                    messages.error(request, _("This poll is not active!"))
+                    messages.error(request, _("This poll is not active."))
                     return HttpResponseRedirect(topic.get_absolute_url())
                 elif has_voted:
-                    messages.error(request, _("You have already vote to this poll in the past!"))
+                    messages.error(request, _("You already voted on this poll."))
                     return HttpResponseRedirect(topic.get_absolute_url())
 
                 poll_form = VotePollForm(poll, request.POST)
@@ -447,7 +447,7 @@ def show_topic(request, topic_id, full=True):
                     queryset = poll.choices.filter(id__in=ids)
                     queryset.update(votes=F('votes') + 1)
                     poll.users.add(request.user) # save that this user has vote
-                    messages.success(request, _("Your votes are saved."))
+                    messages.success(request, _("Vote saved."))
                     return HttpResponseRedirect(topic.get_absolute_url())
 
     highlight_word = request.GET.get('hl', '')
@@ -546,7 +546,7 @@ def upload_avatar(request, username, template=None, form_class=None):
         form = build_form(form_class, request, instance=user.forum_profile)
         if request.method == 'POST' and form.is_valid():
             form.save()
-            messages.success(request, _("Your avatar uploaded."))
+            messages.success(request, _("Avatar uploaded."))
             return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
         return render(request, template, {'form': form,
                 'avatar_width': forum_settings.AVATAR_WIDTH,
@@ -572,7 +572,7 @@ def user(request, username, section='personality', action=None, template='django
             form = build_form(form_class, request, instance=user.forum_profile, extra_args={'request': request})
             if request.method == 'POST' and form.is_valid():
                 form.save()
-                messages.success(request, _("User profile saved."))
+                messages.success(request, _("Profile saved."))
                 return HttpResponseRedirect(profile_url)
             return render(request, template, {'active_menu': section,
                                               'profile': user,
@@ -663,7 +663,7 @@ def edit_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     topic = post.topic
     if not forum_editable_by(post, request.user):
-        messages.error(request, _("No permissions to edit this post."))
+        messages.error(request, _("You don't have permission to edit this post."))
         return HttpResponseRedirect(post.get_absolute_url())
     form = build_form(EditPostForm, request, topic=topic, instance=post)
     if form.is_valid():
@@ -736,13 +736,13 @@ def move_posts(request, topic_id):
         if 'to_topic' in request.POST:
             match = re.match(r'.*?(\d+)', request.POST['to_topic'])
             if match is None:
-                messages.error(request, _("The topic must be an integer."))
+                messages.error(request, _("The topic ID must be an integer."))
             else:
                 to_topic_id = int(match.group(1))
                 try:
                     to_topic = Topic.objects.select_related().get(pk=to_topic_id)
                 except Topic.DoesNotExist:
-                    messages.error(request, _("I cannot find that thread."))
+                    messages.error(request, _("That thread doesn't exist."))
                 else:
                     for post_id in post_list:
                         if not moved:
@@ -857,9 +857,9 @@ def stick_unstick_topic(request, topic_id, action):
     if forum_moderated_by(topic, request.user):
         if action == 's':
             topic.sticky = True
-            messages.success(request, _("Topic marked as sticky."))
+            messages.success(request, _("Topic stickied."))
         elif action == 'u':
-            messages.success(request, _("Sticky flag removed from topic."))
+            messages.success(request, _("Topic unstickied."))
             topic.sticky = False
         topic.save()
     return HttpResponseRedirect(topic.get_absolute_url())
@@ -876,7 +876,7 @@ def delete_post(request, post_id):
     if not (request.user.is_superuser or\
         request.user in post.topic.forum.moderators.all() or \
         (post.user == request.user and post == last_post)):
-        messages.success(request, _("You haven't the permission to delete this post."))
+        messages.success(request, _("You don't have permission to delete this post."))
         return HttpResponseRedirect(post.get_absolute_url())
     delete_kwargs = {'staff':request.user.is_staff}
     post.delete(**delete_kwargs)
@@ -923,7 +923,7 @@ def users(request):
 def delete_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.remove(request.user)
-    messages.info(request, _("Topic subscription removed."))
+    messages.info(request, _("Unsubscribed from topic."))
     if 'from_topic' in request.GET:
         return HttpResponseRedirect(reverse('djangobb:topic', args=[topic.id]))
     else:
@@ -935,7 +935,7 @@ def delete_subscription(request, topic_id):
 def add_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.add(request.user)
-    messages.success(request, _("Topic subscribed."))
+    messages.success(request, _("Subscribed to topic."))
     return HttpResponseRedirect(reverse('djangobb:topic', args=[topic.id]))
 
 

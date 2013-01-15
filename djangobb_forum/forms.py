@@ -18,7 +18,7 @@ from djangobb_forum.util import smiles, convert_text_to_html, set_language, Unap
 SORT_USER_BY_CHOICES = (
     ('username', _(u'Username')),
     ('registered', _(u'Registered')),
-    ('num_posts', _(u'No. of posts')),
+    ('num_posts', _(u'Number of posts')),
 )
 
 SORT_POST_BY_CHOICES = (
@@ -394,7 +394,7 @@ class ReputationForm(forms.ModelForm):
         try:
             user = User.objects.get(username=name)
         except User.DoesNotExist:
-            raise forms.ValidationError(_('User with login %s does not exist') % name)
+            raise forms.ValidationError(_('User "%s" does not exist') % name)
         else:
             return user
 
@@ -408,7 +408,7 @@ class ReputationForm(forms.ModelForm):
 
         # check if this post really belong to `from_user`
         if not Post.objects.filter(pk=self.cleaned_data['post'].id, user=self.to_user).exists():
-            raise forms.ValidationError(_('This post does\'t belong to this user'))
+            raise forms.ValidationError(_('This post does\'t belong to that user'))
 
         return self.cleaned_data
 
@@ -477,7 +477,7 @@ class VotePollForm(forms.Form):
         count = len(ids)
         if count > self.poll.choice_count:
             raise forms.ValidationError(
-                _(u'You have selected too many choices! (Only %i allowed.)') % self.poll.choice_count
+                _(u'You have selected too many choices. You may only select %i.') % self.poll.choice_count
             )
         return ids
 
@@ -487,7 +487,7 @@ class PollForm(forms.ModelForm):
         help_text=_("Write each answer on a new line.")
     )
     days = forms.IntegerField(required=False, min_value=1,
-        help_text=_("Number of days for this poll to run. Leave empty for never ending poll.")
+        help_text=_("Number of days for this poll to run. Leave empty for an indefinite poll.")
     )
     class Meta:
         model = Poll
@@ -504,13 +504,13 @@ class PollForm(forms.ModelForm):
         raw_answers = self.cleaned_data["answers"]
         answers = [answer.strip() for answer in raw_answers.splitlines() if answer.strip()]
         if len(answers) == 0:
-            raise forms.ValidationError(_(u"There is no valid answer!"))
+            raise forms.ValidationError(_(u"There is no valid answer."))
 
         # validate length of all answers
         is_max_length = max([len(answer) for answer in answers])
         should_max_length = PollChoice._meta.get_field("choice").max_length
         if is_max_length > should_max_length:
-            raise forms.ValidationError(_(u"One of this answers are too long!"))
+            raise forms.ValidationError(_(u"One of the answers is too long."))
 
         return answers
 

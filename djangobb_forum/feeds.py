@@ -72,7 +72,7 @@ class LastPostsOnTopic(ForumFeed):
         return topic
 
     def title(self, obj):
-        return _('Latest posts on %s topic' % obj.name)
+        return _('Latest posts on %s' % obj.name)
 
     def link(self, obj):
         if not obj:
@@ -80,7 +80,7 @@ class LastPostsOnTopic(ForumFeed):
         return obj.get_absolute_url()
 
     def description(self, obj):
-        return _('Latest posts on %s topic' % obj.name)
+        return _('Latest posts on the topic "%s"' % obj.name)
 
     def items(self, obj):
         return Post.objects.filter(topic__id=obj.id).order_by('-created')[:15]
@@ -97,7 +97,7 @@ class LastPostsOnForum(ForumFeed):
         return forum
 
     def title(self, obj):
-        return _('Latest posts on %s forum' % obj.name)
+        return _('Latest posts on %s' % obj.name)
 
     def link(self, obj):
         if not obj:
@@ -105,7 +105,7 @@ class LastPostsOnForum(ForumFeed):
         return obj.get_absolute_url()
 
     def description(self, obj):
-        return _('Latest posts on %s forum' % obj.name)
+        return _('Latest posts on the forum "%s"' % obj.name)
 
     def items(self, obj):
         return Post.objects.filter(topic__forum__id=obj.id).order_by('-created')[:15]
@@ -122,10 +122,10 @@ class LastPostsOnCategory(ForumFeed):
         return category
 
     def title(self, obj):
-        return _('Latest posts on %s category' % obj.name)
+        return _('Latest posts on %s' % obj.name)
 
     def description(self, obj):
-        return _('Latest posts on %s category' % obj.name)
+        return _('Latest posts on the category "%s"' % obj.name)
 
     def items(self, obj):
         return Post.objects.filter(topic__forum__category__id=obj.id).order_by('-created')[:15]

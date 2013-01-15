@@ -8,7 +8,7 @@
 <div class="linkst">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
+		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a></li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -16,8 +16,8 @@
 <form method="post">
 {% csrf_token %}
 <div id="vf" class="blocktable">
-	<h2><span>{{ forum }}</span></h2>
 	<div class="box">
+		<h2><span>{{ forum }}</span></h2>
 		<div class="inbox box-content">
 			<table cellspacing="0">
 			<thead>
@@ -25,7 +25,7 @@
 					<th class="tcl" scope="col">{% trans "Topic" %}</th>
 					<th class="tc2" scope="col">{% trans "Replies" %}</th>
 					<th class="tc3" scope="col">{% trans "Views" %}</th>
-					<th class="tcr">{% trans "Last post" %}</th>
+					<th class="tcr">{% trans "Last Post" %}</th>
 					<th class="tcmod" scope="col">{% trans "Select" %}</th>
 				</tr>
 			</thead>
@@ -63,10 +63,10 @@
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
 		<p class="conr">
-			<input type="submit" name="move_topics" value="{% trans "Move" %}" />&nbsp;&nbsp;
-			<input type="submit" name="delete_topics" value="{% trans "Delete" %}" />&nbsp;&nbsp;
-			<input type="submit" name="open_topics" value="{% trans "Open" %}" />&nbsp;&nbsp;
-			<input type="submit" name="close_topics" value="{% trans "Close" %}" />
+			<button class="grey button" type="submit" name="move_topics">{% trans "Move" %}</button>
+			<button class="grey button" type="submit" name="delete_topics">{% trans "Delete" %}</button>
+			<button class="grey button" type="submit" name="open_topics">{% trans "Open" %}</button>
+			<button class="grey button" type="submit" name="close_topics">{% trans "Close" %}</button>
 		</p>
 		<div class="clearer"></div>
 	</div>

@@ -20,8 +20,8 @@
 {% for post in posts %}
 <div id="p{{ post.id }}" class="blockpost roweven firstpost">
 	<a name="post-{{ post.id }}"></a>
-	<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
 	<div class="box">
+		<h2><span><span class="conr">#{{ forloop.counter }}</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
 		<div class="inbox box-content">
 			<div class="postleft">
 				<dl>
@@ -32,13 +32,16 @@
 			<div class="postright">
 				<h3>{{ post.topic.name }}</h3>
 				<div class="postmsg">
-					{{ post.body_html|safe }}
-			{% if post.updated %}
-				<p class="postedit"><em>{% trans "Edited" %} {{ post.user.username }} ({{ post.updated|forum_time }})</em></p>
-			{% endif %}
+					<p class="post_body_html">{{ post.body_html|safe }}</p>
+					{% if post.updated %}
+                        <p class="postedit"><em class="posteditmessage">{% blocktrans with user=post.updated_by.username time=post.updated|forum_time %}Last edited by {{ user }} ({{ time }}){% endblocktrans %}</em></p>
+                    {% endif %}
 				</div>
 				{% if not forloop.first %} 
-				<p class="multidelete"><label><strong>{% trans "Select" %}</strong>&nbsp;&nbsp;<input type="checkbox" name="post" value="{{ post.id }}" /></label></p>
+				<p class="multidelete"><label>
+					<strong>{% trans "Select" %}</strong>
+					<input type="checkbox" name="post" value="{{ post.id }}" />
+				</label></p>
 				{% endif %}
 			</div>
 			<div class="clearer"></div>
@@ -50,7 +53,13 @@
 <div class="postlinksb">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-		<p class="conr"><button type="submit" class="grey button"><span>{% trans "Delete" %}</span></button></p>
+	</div>
+</div>
+
+<div class="blockform">
+	<div class="box-content">
+		<div class="inform">
+		<p><button type="submit" class="grey button"><span>{% trans "Delete" %}</span></button> <a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
 		<div class="clearer"></div>
 	</div>
 </div>

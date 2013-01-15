@@ -26,7 +26,7 @@
 <div id="p{{ post.id }}" class="blockpost roweven firstpost">
 	<a name="post-{{ post.id }}"></a>
 	<div class="box">
-		<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
+		<h2><span><span class="conr">#{{ forloop.counter }}</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
 		<div class="inbox box-content">
 			<div class="postleft">
 				<dl>
@@ -39,8 +39,8 @@
 				<div class="postmsg">
 					<p class="post_body_html">{{ post.body_html|safe }}</p>
 					{% if post.updated %}
-						<p class="postedit"><em>{% trans "Edited" %} {{ post.user.username }} ({{ post.updated|forum_time }})</em></p>
-					{% endif %}
+                        <p class="postedit"><em class="posteditmessage">{% blocktrans with user=post.updated_by.username time=post.updated|forum_time %}Last edited by {{ user }} ({{ time }}){% endblocktrans %}</em></p>
+                    {% endif %}
 				</div>
 				<p class="multidelete"><label>
 					<strong>{% trans "Select" %}</strong>

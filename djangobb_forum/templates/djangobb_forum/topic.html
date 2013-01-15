@@ -55,7 +55,7 @@
 		<a name="post-{{ post.id }}"></a>
 
 		<div class="box">
-		  <h2><span><span class="conr">#{{ forloop.counter|add:first_post_number }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
+		  <h2><span><span class="conr">#{{ forloop.counter|add:first_post_number }}</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
 			<div class="inbox box-content">
 				<div class="postleft">
 					<dl>
@@ -168,7 +168,7 @@
 						<li class="postedit">| <a href="{% url djangobb:edit_post post.id %}">{% trans "Edit" %}</a> </li>
 						{% endif %}
 					{% endif %}
-						<li class="postquote">| <a onclick="return copy_paste('p{{ post.id }}');" href="#reply" title="{% trans "Full quote or quote selected text form this post." %}">{% trans "Quote" %}</a></li>
+						<li class="postquote">| <a onclick="return copy_paste('p{{ post.id }}');" href="#reply" title="{% trans "Insert a quotation of this post in your reply." %}">{% trans "Quote" %}</a></li>
 					{% endif %}
 				</ul>
 			</div>
@@ -210,7 +210,7 @@
 <div class="conl">
   {% if forum_settings.USE_JUMP_TO_MENU %}
 	<form id="qjump" method="get" action="forum">
-		<div><label>{% trans "Jump to " %}
+		<div><label>{% trans "Jump to" %}
 		<br />
 		<select name="id" id="forum_id" onchange="window.location=('{% url djangobb:index %}'+this.options[this.selectedIndex].value)">
 			{% for category in categories %}

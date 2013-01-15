@@ -104,7 +104,7 @@
                         <dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
                         {% if user.is_authenticated %}
                         <dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
-                        <dd>{% trans "Show your" %} <a href="{% url djangobb:search %}?action=show_user&show_as=topics">{% trans "topics" %}</a>/<a href="{% url djangobb:search %}?action=show_user&show_as=posts">{% trans "posts" %}</a></dd>
+                        <dd>{% trans "Show your" %} <a href="{% url djangobb:search %}?action=show_user&amp;show_as=topics">{% trans "topics" %}</a>/<a href="{% url djangobb:search %}?action=show_user&amp;show_as=posts">{% trans "posts" %}</a></dd>
                         {% endif %}
                     </dl>
                 {% endblock controls %}
