@@ -43,9 +43,11 @@
 				{% else %}
 					<li>{% trans "You are not logged in." %}</li>
 				{% endif %}
-				{% if user.is_superuser or can_view_reports %}
-					<li class="reportlink"><strong><a href="{% url djangobb:forum_reports %}">{% trans "There are new reports" %} ({% new_reports %})</a></strong></li>
-				{% endif %}
+				{% with user|forum_reports as report_count %}
+					{% if report_count %}
+						<li class="reportlink"><strong><a href="{% url djangobb:forum_reports %}">{% blocktrans %}There are new reports ({{ report_count }}){% endblocktrans %}</a></strong></li>
+					{% endif %}
+				{% endwith %}
 			</ul>
 			{% if user.is_authenticated %}
 				<ul class="conr">

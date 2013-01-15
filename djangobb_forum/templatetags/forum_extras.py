@@ -35,6 +35,11 @@ def forum_time(time):
     return u'%s %s' % (capfirst(naturalday(time)), time.strftime('%H:%M:%S'))
 
 
+@register.filter
+def forum_reports(user):
+    return Report.objects.filter(zapped=False).count() if user.is_superuser or user.has_perm('djangobb_forum.change_report') else 0
+
+
 # TODO: this old code requires refactoring
 @register.inclusion_tag('djangobb_forum/pagination.html', takes_context=True)
 def pagination(context, adjacent_pages=1):
@@ -240,11 +245,6 @@ def attachment_link(attach):
         img = '<img src="%sdjangobb_forum/img/attachment/unknown.png" alt="attachment" />' % (settings.STATIC_URL)
     attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     return mark_safe(attachment)
-
-
-@register.simple_tag
-def new_reports():
-    return Report.objects.filter(zapped=False).count()
 
 
 @register.simple_tag(takes_context=True)
