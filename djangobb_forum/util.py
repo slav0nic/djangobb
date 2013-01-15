@@ -185,6 +185,14 @@ def urlize(html):
         return html
     return urlized_html
 
+
+def filter_language(text):
+    """
+    Replaces filtered language in the given text with an asterisk.
+    """
+    return re.sub(forum_settings.LANGUAGE_FILTER, '*', text)
+
+
 def _smile_replacer(data):
     for smile, path in _SMILES:
         data = smile.sub(path, data)

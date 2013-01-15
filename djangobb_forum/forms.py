@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
-from djangobb_forum.util import smiles, convert_text_to_html, set_language, UnapprovedImageError
+from djangobb_forum.util import smiles, convert_text_to_html, filter_language, set_language, UnapprovedImageError
 
 
 SORT_USER_BY_CHOICES = (
@@ -85,6 +85,7 @@ class AddPostForm(forms.ModelForm):
             if not subject.strip():
                 self._errors['name'] = self.error_class([errmsg])
                 del cleaned_data['name']
+            cleaned_data['name'] = filter_language(subject)
         if body:
             if not body.strip():
                 self._errors['body'] = self.error_class([errmsg])
@@ -94,6 +95,7 @@ class AddPostForm(forms.ModelForm):
             except UnapprovedImageError as e:
                 self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
+            cleaned_data['body'] = filter_language(body)
 
             try:
                 recent_post = Post.objects.filter(user=self.user).latest()
@@ -170,6 +172,9 @@ class EditPostForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
+        subject = cleaned_data.get('name')
+        if subject:
+            cleaned_data['name'] = filter_language(subject)
         body = cleaned_data.get('body')
         if body:
             try:
@@ -177,6 +182,7 @@ class EditPostForm(forms.ModelForm):
             except UnapprovedImageError as e:
                 self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
+            cleaned_data['body'] = filter_language(body)
         return cleaned_data
 
     def save(self, commit=True):
