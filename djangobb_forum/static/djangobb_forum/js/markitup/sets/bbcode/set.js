@@ -43,7 +43,7 @@ mySettings = {
             {name:'Lol', openWith:':lol:'}, 
             {name:'Mad', openWith:':mad:'}, 
             {name:'Roll', openWith:':rolleyes:'}, 
-            {name:'Cool', openWith:':cool:'},
+            {name:'Cool', openWith:':cool:'}
         ]},
 	{separator:'---------------' },
 		{name:'Clean', className:"clean", replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
