@@ -338,8 +338,6 @@ td.tcl H3.topic_isread{FONT-WEIGHT:normal}
 
 /* Remove the MARKIT UP! image from the markit up editor */
 textarea.markItUpEditor {
-		/*background-image: none;  remove the background pic */
-		background-position-x: -35px; /* see if we can keep the gradient background instead */
 		padding-left:5px; /* without the image, we can take the left side padding out */
 		width:673px; /*and extend the editor to use the extra space */
 }
