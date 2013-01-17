@@ -190,7 +190,7 @@ def filter_language(text):
     """
     Replaces filtered language in the given text with an asterisk.
     """
-    return re.sub(forum_settings.LANGUAGE_FILTER, '*', text)
+    return re.sub(forum_settings.LANGUAGE_FILTER, '*', text) if forum_settings.LANGUAGE_FILTER else text
 
 
 def _smile_replacer(data):
