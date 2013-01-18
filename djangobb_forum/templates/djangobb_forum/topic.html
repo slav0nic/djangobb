@@ -242,6 +242,12 @@
 		{% else %}
 			<dd><a class="moderator-only" href="{% url djangobb:stick_unstick_topic topic.id 's' %}">{% trans "Stick topic" %}</a></dd></dl>
 		{% endif %}
+	{% elif can_close %}
+		{% if topic.closed %}
+			<dd><a href="{% url djangobb:open_close_topic topic.id 'o' %}">{% trans "Open topic" %}</a></dd>
+		{% else %}
+			<dd><a href="{% url djangobb:open_close_topic topic.id 'c' %}">{% trans "Close topic" %}</a></dd>
+		{% endif %}
 	{% endif %}
     </dl>
 </div>

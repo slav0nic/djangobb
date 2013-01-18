@@ -28,7 +28,7 @@ from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Report, Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
-from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html, UnapprovedImageError
+from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html, UnapprovedImageError, can_close_topic
 
 
 
@@ -386,6 +386,7 @@ def show_topic(request, topic_id, full=True):
     editable = posts.filter(created__range=(edit_start, edit_end)).filter(user_id=request.user.id)
     can_edit = request.user.has_perm('djangobb_forum.change_post')
     first_post_number = int(forum_settings.TOPIC_PAGE_SIZE) * (int(request.GET.get('page') or 1) - 1)
+    can_close = can_close_topic(request.user, topic)
 
     moderator = request.user.is_superuser or request.user in topic.forum.moderators.all()
     if user_is_authenticated and request.user in topic.subscribers.all():
@@ -466,6 +467,7 @@ def show_topic(request, topic_id, full=True):
                 'poll_form': poll_form,
                 'editable': editable,
                 'can_edit': can_edit,
+                'can_close': can_close
                 })
     else:
         return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
@@ -894,7 +896,7 @@ def delete_post(request, post_id):
 @transaction.commit_on_success
 def open_close_topic(request, topic_id, action):
     topic = get_object_or_404(Topic, pk=topic_id)
-    if forum_moderated_by(topic, request.user):
+    if forum_moderated_by(topic, request.user) or can_close_topic(request.user, topic):
         if action == 'c':
             topic.closed = True
             messages.success(request, _("Topic closed."))

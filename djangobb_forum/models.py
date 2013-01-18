@@ -141,6 +141,9 @@ class Topic(models.Model):
         get_latest_by = 'updated'
         verbose_name = _('Topic')
         verbose_name_plural = _('Topics')
+        permissions = (
+            ('delayed_close', 'Can close topics after an amount of time has passed'),
+            )
 
     def __unicode__(self):
         return self.name

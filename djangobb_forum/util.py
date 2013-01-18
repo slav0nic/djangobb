@@ -5,6 +5,7 @@ from HTMLParser import HTMLParser, HTMLParseError
 import postmarkup
 from postmarkup.parser import strip_bbcode
 from urlparse import urlparse
+from datetime import datetime
 try:
     import markdown
 except ImportError:
@@ -29,6 +30,10 @@ _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMI
 
 def absolute_url(path):
     return 'http://%s%s' % (Site.objects.get_current().domain, path)
+
+
+def can_close_topic(user, topic):
+    return user == topic.user and user.has_perm('djangobb_forum.delayed_close') and (datetime.now() - topic.created).total_seconds() >= forum_settings.TOPIC_CLOSE_DELAY
 
 
 def paged(paged_list_name, per_page):
