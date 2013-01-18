@@ -91,7 +91,7 @@ class AddPostForm(forms.ModelForm):
                 self._errors['body'] = self.error_class([errmsg])
                 del cleaned_data['body']
             try:
-                convert_text_to_html(body, self.user.forum_profile.markup)
+                convert_text_to_html(body, self.user.forum_profile)
             except UnapprovedImageError as e:
                 self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
@@ -178,7 +178,7 @@ class EditPostForm(forms.ModelForm):
         body = cleaned_data.get('body')
         if body:
             try:
-                convert_text_to_html(body, self.instance.markup)
+                convert_text_to_html(body, self.instance)
             except UnapprovedImageError as e:
                 self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
@@ -285,7 +285,7 @@ class PersonalityProfileForm(forms.ModelForm):
         signature = cleaned_data.get('signature')
         if signature:
             try:
-                convert_text_to_html(signature, self.profile.markup)
+                convert_text_to_html(signature, self.profile)
             except UnapprovedImageError as e:
                 self._errors['signature'] = self.error_class([e.user_error()])
                 del cleaned_data['signature']
@@ -293,7 +293,7 @@ class PersonalityProfileForm(forms.ModelForm):
 
     def save(self, commit=True):
         profile = super(PersonalityProfileForm, self).save(commit=False)
-        profile.signature_html = convert_text_to_html(profile.signature, self.profile.markup)
+        profile.signature_html = convert_text_to_html(profile.signature, self.profile)
         if forum_settings.SMILES_SUPPORT:
             profile.signature_html = smiles(profile.signature_html)
         if commit:

@@ -951,11 +951,10 @@ def show_attachment(request, hash):
 @csrf_exempt
 def post_preview(request):
     '''Preview for markitup'''
-    markup = request.user.forum_profile.markup
     data = request.POST.get('data', '')
 
     try:
-        data = convert_text_to_html(data, markup)
+        data = convert_text_to_html(data, request.user.forum_profile)
     except UnapprovedImageError as e:
         return render(request, 'djangobb_forum/post_preview.html', {
             'data': e.user_error()

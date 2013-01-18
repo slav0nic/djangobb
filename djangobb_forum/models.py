@@ -223,10 +223,11 @@ class Post(models.Model):
         permissions = (
             ('fast_post', 'Can add posts without a time limit'),
             ('med_post', 'Can add posts at medium speed'),
+            ('post_external_links', 'Can post external links'),
             )
 
     def save(self, *args, **kwargs):
-        self.body_html = convert_text_to_html(self.body, self.markup)
+        self.body_html = convert_text_to_html(self.body, self.user.forum_profile)
         if forum_settings.SMILES_SUPPORT and self.user.forum_profile.show_smilies:
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)

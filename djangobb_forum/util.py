@@ -18,7 +18,6 @@ from django.utils.functional import Promise
 from django.utils.translation import force_unicode, check_for_language
 from django.utils.simplejson import JSONEncoder
 from django.utils.translation import ugettext_lazy as _
-from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.sites.models import Site
 
@@ -166,26 +165,6 @@ class ExcludeTagsHTMLParser(HTMLParser):
             self.html = ''.join(self.html)
 
 
-def urlize(html):
-    """
-    Urlize plain text links in the HTML contents.
-   
-    Do not urlize content of A and CODE tags.
-    """
-    try:
-        parser = ExcludeTagsHTMLParser(django_urlize)
-        parser.feed(html)
-        urlized_html = parser.html
-        parser.close()
-    except HTMLParseError:
-        # HTMLParser from Python <2.7.3 is not robust
-        # see: http://support.djangobb.org/topic/349/
-        if settings.DEBUG:
-            raise
-        return html
-    return urlized_html
-
-
 def filter_language(text):
     """
     Replaces filtered language in the given text with an asterisk.
@@ -238,16 +217,17 @@ def set_language(request, language):
         request.session['django_language'] = language
 
 
-def convert_text_to_html(text, markup):
+def convert_text_to_html(text, profile):
+    markup = profile.markup
     if markup == 'bbcode':
-        renderbb = customize_postmarkup()
+        renderbb = customize_postmarkup(profile.user.has_perm('djangobb_forum.post_external_links'))
         
         text =  renderbb(text)
     elif markup == 'markdown':
         text = markdown.markdown(text, safe_mode='escape')
     else:
         raise Exception('Invalid markup property: %s' % markup)
-    return urlize(text)
+    return text
 
 class WhitelistedImgTag(postmarkup.ImgTag):
     def render_open(self, parser, node_index):
@@ -296,8 +276,66 @@ class InlineStyleTag(postmarkup.TagBase):
     def render_close(self, parser, node_index):
         return u'</span>'
 
+class RestrictedLinkTag(postmarkup.LinkTag):
+    _safe_chars = frozenset(u'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-=/&?:%&#')
+
+    _re_domain = re.compile(r"//([a-z0-9-\.]+\.)?scratch\.mit\.edu", re.UNICODE)
+
+    allowed = False
+
+    def __init__(self, name, annotate_links, **kwargs):
+        super(RestrictedLinkTag, self).__init__(name, inline=True)
+
+    def render_open(self, parser, node_index):
+
+        tag_data = parser.tag_data
+        nest_level = tag_data[u'link_nest_level'] = tag_data.setdefault(u'link_nest_level', 0) + 1
+
+        if nest_level > 1:
+            return u""
+
+        if self.params:
+            url = self.params.strip()
+        else:
+            url = self.get_contents_text(parser).strip()
+            url = postmarkup.PostMarkup.standard_unreplace(url)
+
+        if u':' not in url:
+            url = u'http://' + url
+
+        scheme, uri = url.split(u':', 1)
+
+        if scheme not in [u'http', u'https', u'data'] or self._re_domain.match(uri.lower()) is None:
+            return u'<span>' # Prevent smilies from the ":/" in "http://"
+
+        def percent_encode(s):
+            safe_chars = self._safe_chars
+            def replace(c):
+                if c not in safe_chars:
+                    return u"%%%02X" % ord(c)
+                else:
+                    return c
+            return u"".join([replace(c) for c in s])
+
+        self.allowed = True
+        return u'<a href="%s">' % postmarkup.PostMarkup.standard_replace_no_break(percent_encode(url))
+
+
+    def render_close(self, parser, node_index):
+
+        tag_data = parser.tag_data
+        tag_data[u'link_nest_level'] -= 1
+
+        if tag_data[u'link_nest_level'] > 0:
+            return u''
+
+        if self.allowed:
+            return u'</a>'
+        else:
+            return u'</span>'
+
 # This allows us to control the bb tags
-def customize_postmarkup():
+def customize_postmarkup(allow_external_links):
     custom_postmarkup = postmarkup.PostMarkup()
     add_tag = custom_postmarkup.tag_factory.add_tag
     custom_postmarkup.tag_factory.set_default_tag(postmarkup.DefaultTag)
@@ -307,8 +345,7 @@ def customize_postmarkup():
     add_tag(postmarkup.SimpleTag, 'u', 'u')
     add_tag(postmarkup.SimpleTag, 's', 'strike')
 
-    add_tag(postmarkup.LinkTag, 'link', None)
-    add_tag(postmarkup.LinkTag, 'url', None)
+    add_tag(postmarkup.LinkTag if allow_external_links else RestrictedLinkTag, 'url', False)
 
     add_tag(postmarkup.QuoteTag, 'quote')
 
