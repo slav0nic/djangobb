@@ -123,7 +123,7 @@
 			<div class="postright">
 				<h3>{{ post.topic.name }}</h3>
 				<div class="postmsg">
-					<p class="post_body_html">{{ post.body_html|safe }}</p>
+					<div class="post_body_html">{{ post.body_html|safe }}</div>
                     {% if post.updated %}
                         <p class="postedit"><em class="posteditmessage">{% blocktrans with user=post.updated_by.username time=post.updated|forum_time %}Last edited by {{ user }} ({{ time }}){% endblocktrans %}</em></p>
                     {% endif %}

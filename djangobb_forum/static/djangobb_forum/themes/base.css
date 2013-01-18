@@ -208,6 +208,10 @@ DIV.scrollbox {WIDTH: 100%; OVERFLOW: auto}
 .postsignature img {
     max-height: 150px;
 }
+.post_body_html {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
 
 /* 7.5 Turn off the poster information column for preview */
 
