@@ -8,9 +8,12 @@
 <div class="linkst">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-				<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
-				<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" style="vertical-align:middle;" /></a>
-				</li></ul>
+		<ul>
+			<li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li>
+			<li>&raquo; {% link topic.forum %}</li>
+			<li>&raquo; {% link topic %}</li>
+			<li>&raquo; {% trans "Delete Posts" %}</li>
+		</ul>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -21,8 +24,11 @@
 <div id="p{{ post.id }}" class="blockpost roweven firstpost">
 	<a name="post-{{ post.id }}"></a>
 	<div class="box">
-		<h2><span><span class="conr">#{{ forloop.counter }}</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
-		<div class="inbox box-content">
+		<div class="box-head">
+			<span class="conr">#{{ forloop.counter }}</span>
+			<a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a>
+		</div>
+		<div class="box-content">
 			<div class="postleft">
 				<dl>
 					<dt><strong><a href="{% url profile_detail post.user.username %}">{{ post.user.username }}</a></strong></dt>
@@ -39,7 +45,7 @@
 				</div>
 				{% if not forloop.first %} 
 				<p class="multidelete"><label>
-					<strong>{% trans "Select" %}</strong>
+					{% trans "Select" %}
 					<input type="checkbox" name="post" value="{{ post.id }}" />
 				</label></p>
 				{% endif %}
@@ -50,17 +56,19 @@
 </div>
 {% endfor %}
 
-<div class="postlinksb">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-	</div>
+<div class="linksb clearfix">
+	{% paginate %}
 </div>
 
-<div class="blockform">
+<div class="box">
+	<div class="box-head">
+		<h4>{% trans "Delete Posts" %}</h4>
+	</div>
 	<div class="box-content">
-		<div class="inform">
-		<p><button type="submit" class="grey button"><span>{% trans "Delete" %}</span></button> <a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
-		<div class="clearer"></div>
+		<p>
+			<button type="submit" class="grey button"><span>{% trans "Delete" %}</span></button>
+			<a href="javascript:history.go(-1)">{% trans "Go back" %}</a>
+		</p>
 	</div>
 </div>
 </form>

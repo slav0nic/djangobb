@@ -22,7 +22,7 @@
 			if ($(this).parent().attr('class')==''){
 				$(this).parent().addClass("collapsed");
 				$.cookie(body_id, 'collapsed');
-			}else {
+			} else {
 				$(this).parent().removeClass("collapsed");
 				$.cookie(body_id, '');
 			}
@@ -39,13 +39,13 @@
 <div id="idx1" class="blocktable">
 {% for iter in cats %}
 	<div class="box" id="category_body_{{ iter.id }}">
-	<h2 id="category_head_{{ iter.id }}">
-		<a class="toggle" href="#">Toggle shoutbox</a>
-		<span>
-			{{ iter.cat }}
-		</span>
-	</h2>
-		<div class="inbox box-content">
+		<div class="box-head">
+			<h4 id="category_head_{{ iter.id }}">
+				<a class="toggle" href="#">Toggle shoutbox</a>
+				{{ iter.cat }}
+			</h4>
+		</div>
+		<div class="box-content">
 			<table cellspacing="0">
 				<thead>
 					<tr>
@@ -67,9 +67,8 @@
 </div>
 
 <div id="brdstats" class="block">
-	<h2><span>{% trans "Board information" %}</span></h2>
 	<div class="box">
-		<div class="inbox box-content">
+		<div class="box-content">
 			<dl class="conr">
 				<dt><strong>{% trans "Board statistics" %}</strong></dt>
 				<dd>{% trans "Total number of registered users:" %} <strong>{{ users }}</strong></dd>

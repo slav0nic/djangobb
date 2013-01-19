@@ -6,70 +6,84 @@
 {% block content %}
 {% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a></li></ul>
-		<div class="clearer"></div>
-	</div>
+    {% paginate %}
+    <ul>
+        <li><a href="{% url djangobb:index %}">{% trans "Root" %}</a></li>
+        <li>&raquo; {% link forum %}</li>
+        <li>&raquo; {% trans "Moderate Forum" %}</li>
+    </ul>
 </div>
 
 <form method="post">
 {% csrf_token %}
 <div id="vf" class="blocktable">
-	<div class="box">
-		<h2><span>{{ forum }}</span></h2>
-		<div class="inbox box-content">
-			<table cellspacing="0">
-			<thead>
-				<tr>
-					<th class="tcl" scope="col">{% trans "Topic" %}</th>
-					<th class="tc2" scope="col">{% trans "Replies" %}</th>
-					<th class="tc3" scope="col">{% trans "Views" %}</th>
-					<th class="tcr">{% trans "Last Post" %}</th>
-					<th class="tcmod" scope="col">{% trans "Select" %}</th>
-				</tr>
-			</thead>
-			<tbody>
-			{% if topics %}
-				{% for topic in topics %}
-					<tr>
-						<td class="tcl">
-							<div class="intd">
-								<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
-								<div class="tclcon">
-									{% if topic.sticky %}
-										{% trans "Sticky:" %}
-									{% endif %}
-									<h3 {% if not topic|has_unreads:user %}class="topic_isread"{% endif %}>{% link topic %}</h3>
-									<span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
-								</div>
-							</div>
-						</td>
-						<td class="tc2">{{ topic.reply_count }}</td>
-						<td class="tc3">{{ topic.views }}</td>
-						<td class="tcr"><a href="{{ topic.get_absolute_url }}">{{ topic.updated|forum_time }}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
-						<td class="tcmod"><input type="checkbox" name="topic_id" value="{{ topic.id }}" /></td>
-					</tr>
-				{% endfor %}
-			{% else %}
-				<tr><td class="djangobbcon1" colspan="4">{% trans "Forum is empty." %}</td></tr>
-			{% endif %}
-			</tbody>
-			</table>
-		</div>
-	</div>
+    <div class="box">
+        <div class="box-head">
+            <h4>{{ forum }}</h4>
+        </div>
+        <div class="box-content">
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="tcl" scope="col">{% trans "Topic" %}</th>
+                        <th class="tc2" scope="col">{% trans "Replies" %}</th>
+                        <th class="tc3" scope="col">{% trans "Views" %}</th>
+                        <th class="tcr">{% trans "Last Post" %}</th>
+                        <th class="tcmod" scope="col">{% trans "Select" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if topics %}
+                    {% for topic in topics %}
+                        <tr>
+                            <td class="tcl">
+                                <div class="intd">
+                                    <div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
+                                    <div class="tclcon">
+                                        {% if topic.sticky %}
+                                            {% trans "Sticky:" %}
+                                        {% endif %}
+                                        <h3 {% if not topic|has_unreads:user %}class="topic_isread"{% endif %}>{% link topic %}</h3>
+                                        <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="tc2">{{ topic.reply_count }}</td>
+                            <td class="tc3">{{ topic.views }}</td>
+                            <td class="tcr"><a href="{{ topic.get_absolute_url }}">{{ topic.updated|forum_time }}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+                            <td class="tcmod"><input type="checkbox" name="topic_id" value="{{ topic.id }}" /></td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td class="djangobbcon1" colspan="4">{% trans "Forum is empty." %}</td></tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 <div class="linksb">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-		<p class="conr">
-			<button class="grey button" type="submit" name="move_topics">{% trans "Move" %}</button>
-			<button class="grey button" type="submit" name="delete_topics">{% trans "Delete" %}</button>
-			<button class="grey button" type="submit" name="open_topics">{% trans "Open" %}</button>
-			<button class="grey button" type="submit" name="close_topics">{% trans "Close" %}</button>
-		</p>
-		<div class="clearer"></div>
-	</div>
+    {% paginate %}
+    <ul>
+        <li><a href="{% url djangobb:index %}">{% trans "Root" %}</a></li>
+        <li>&raquo; {% link forum %}</li>
+        <li>&raquo; {% trans "Moderate Forum" %}</li>
+    </ul>
+</div>
+
+<div class="box">
+    <div class="box-head">
+        <h4>{% trans "Moderate Forum" %}</h4>
+    </div>
+    <div class="box-content">
+        <p>
+            <button class="grey button" type="submit" name="move_topics"><span>{% trans "Move" %}</span></button>
+            <button class="grey button" type="submit" name="delete_topics"><span>{% trans "Delete" %}</span></button>
+            <button class="grey button" type="submit" name="open_topics"><span>{% trans "Open" %}</span></button>
+            <button class="grey button" type="submit" name="close_topics"><span>{% trans "Close" %}</span></button>
+        </p>
+    </div>
 </div>
 </form>
 {% endblock %}

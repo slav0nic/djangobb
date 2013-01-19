@@ -5,34 +5,39 @@
 {% block content %}
 <div class="linkst">
 	<div class="inbox">
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link post.topic.forum %} </li><li>&raquo; {{ post.topic }}</li></ul>
+		<ul>
+			<li><a href="{% url djangobb:index %}">{% trans "Root" %}</a></li>
+			<li>&raquo; {% link post.topic.forum %} </li>
+			<li>&raquo; {% link post.topic %}</li>
+			<li>&raquo; {% trans "Edit Post" %}</li>
+		</ul>
 		<div class="clearer"></div>
 	</div>
 </div>
 
-<div class="blockform">
-	<h2>{% trans "Edit post" %}</h2>
-
-	<div class="box">
+<div class="box">
+	<div class="box-head">
+		<h4>{% trans "Edit post" %}</h4>
+	</div>
+	<div class="box-content">
 		<form method="post">
 			{% csrf_token %}
-			<div class="inform">
-				<fieldset>
-					<legend>{% trans "Edit the post and submit changes" %}</legend>
-					<div class="infldset txtarea">
-						{% if post.id == post.topic.head.id %}
-						<label>{% trans "Subject" %}<br />
-						{{ form.name }}<br /></label>
-						{% endif %}
-						<label>{% trans "Message" %}<br />
-                        {{ form.body.errors }}
-						{{ form.body }}
-						<br /></label>
-					</div>
-				</fieldset>
-			</div>
+			{% if post.id == post.topic.head.id %}
+				<label>
+					<strong>{% trans "Subject" %}</strong>
+					{{ form.name }}
+				</label>
+			{% endif %}
+			<label>
+				<strong>{% trans "Message" %}</strong>
+                {{ form.body.errors }}
+				{{ form.body }}
+			</label>
 
-			<p><button type="submit" class="grey button"><span>{% trans "Save" %}</span></button> <a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
+			<p class="form-submit">
+				<button type="submit" class="grey button"><span>{% trans "Save" %}</span></button>
+				<a href="javascript:history.go(-1)">{% trans "Go back" %}</a>
+			</p>
 		</form>
 	</div>
 </div>

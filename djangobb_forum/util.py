@@ -271,13 +271,13 @@ class UnapprovedImageError(Exception):
     def __str__(self):
         return repr(self.url)
 
-class InlineStyleTag(postmarkup.TagBase):
-    def __init__(self, name, style, **kwargs):
+class CSSClassTag(postmarkup.TagBase):
+    def __init__(self, name, className, **kwargs):
         postmarkup.TagBase.__init__(self, name, inline=True)
-        self.style = style
+        self.className = className
 
     def render_open(self, parser, node_index):
-        return u'<span style="%s">' % self.style
+        return u'<span class="%s">' % self.className
 
     def render_close(self, parser, node_index):
         return u'</span>'
@@ -409,7 +409,7 @@ def customize_postmarkup(allow_external_links):
 
     add_tag(postmarkup.SimpleTag, 'b', 'strong')
     add_tag(postmarkup.SimpleTag, 'i', 'em')
-    add_tag(postmarkup.SimpleTag, 'u', 'u')
+    add_tag(CSSClassTag, 'u', 'bb-underline')
     add_tag(postmarkup.SimpleTag, 's', 'strike')
 
     add_tag(FilteredLinkTag if allow_external_links else RestrictedLinkTag, 'url')
@@ -430,8 +430,8 @@ def customize_postmarkup(allow_external_links):
     add_tag(postmarkup.ListItemTag, u'*')
 
     # removed 'size' and replaced it with 'big' and 'small'
-    add_tag(InlineStyleTag, u'big', u'font-size: 15px')
-    add_tag(InlineStyleTag, u'small', u'font-size: 8px')
+    add_tag(CSSClassTag, u'big', u'bb-big')
+    add_tag(CSSClassTag, u'small', u'bb-small')
     add_tag(postmarkup.ColorTag, u"color")
     add_tag(postmarkup.CenterTag, u"center")
     add_tag(postmarkup.PygmentsCodeTag, u'code', None)

@@ -5,68 +5,69 @@
 
 {% block content %}
 {% autopaginate users forum_settings.USERS_PAGE_SIZE %}
-<div class="blockform">
-	<h2><span>{% trans "User search" %}</span></h2>
-	<div class="box">
-	<form method="get" id="userlist" action="">
-		<div class="inform">
-			<fieldset>
-				<legend>{% trans "Find and sort users" %}</legend>
-				<div class="infldset">
-					<label class="conl">{{ form.username.label }}<br />{{ form.username }}<br /></label>
+<div class="box">
+	<div class="box-head">
+		<h4>{% trans "User Search" %}</h4>
+	</div>
+	<div class="box-content">
+		<form method="get" id="userlist">
+			<label class="conl">
+				<strong>{{ form.username.label }}</strong>
+				{{ form.username }}
+			</label>
+			<label class="conl">
+				<strong>{{ form.sort_by.label }}</strong>
+				{{ form.sort_by }}
+			</label>
+			<label class="conl">
+				<strong>{{ form.sort_dir.label }}</strong>
+				{{ form.sort_dir }}
+			</label>
+			<p class="form-help">{% trans "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order." %}</p>
+			<p class="form-submit">
+	            <button type="submit" class="grey button"><span>{% trans "Search" %}</span></button>
+			</p>
+		</form>
+	</div>
+</div>
 
-					<label class="conl">{{ form.sort_by.label }}
-					<br />
-					{{ form.sort_by }}
-					<br /></label>
-					<label class="conl">{{ form.sort_dir.label }}
-					<br />
-					{{ form.sort_dir }}
-					<br />
-					</label>
-					<p class="clearb">{% trans "Enter a username to search for. The username field can be left blank. Sort users by name, date registered or number of posts and in ascending/descending order." %}</p>
-				</div>
-			</fieldset>
-            <button type="submit" class="grey button"><span>{% trans "Search" %}</span></button>
-		</div>
-	</form>
-	</div>
-</div>
-<div class="linkst">
-	<div class="inbox">
-		{% paginate %}
-	</div>
-</div>
-<div id="users1" class="blocktable">
-	<h2><span>{% trans "User list" %}</span></h2>
-	<div class="box">
+<div class="blocktable">
+	<div class="linkst">
 		<div class="inbox">
-		<table cellspacing="0">
-			<thead>
-			<tr>
-				<th class="tcl" scope="col">{% trans "Username" %}</th>
-				<th class="tc2" scope="col">{% trans "Title" %}</th>
-				<th class="tc3" scope="col">{% trans "Posts" %}</th>
-				<th class="tcr" scope="col">{% trans "Registered" %}</th>
-			</tr>
-			</thead>
-			<tbody>
-			{% for profile in users %}
+			{% paginate %}
+		</div>
+	</div>
+	<div id="users1" class="box">
+		<div class="box-head">
+			<h4>{% trans "User List" %}</h4>
+		</div>
+		<div class="box-content">
+			<table cellspacing="0">
+				<thead>
 				<tr>
-					<td class="tcl">{{ profile|profile_link }}</td>
-					<td class="tc2">{{ profile.forum_profile.status }}</td>
-					<td class="tc3">{{ profile.forum_profile.post_count }}</td>
-					<td class="tcr">{{ profile.date_joined|date:"d-m-Y" }}</td>
+					<th class="tcl" scope="col">{% trans "Username" %}</th>
+					<th class="tc2" scope="col">{% trans "Title" %}</th>
+					<th class="tc3" scope="col">{% trans "Posts" %}</th>
+					<th class="tcr" scope="col">{% trans "Registered" %}</th>
 				</tr>
-			{% endfor %}
-			</tbody>
+				</thead>
+				<tbody>
+				{% for profile in users %}
+					<tr>
+						<td class="tcl">{{ profile|profile_link }}</td>
+						<td class="tc2">{{ profile.forum_profile.status }}</td>
+						<td class="tc3">{{ profile.forum_profile.post_count }}</td>
+						<td class="tcr">{{ profile.date_joined|date:"d-m-Y" }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
 			</table>
 		</div>
 	</div>
-</div>
-<div class="linkst">
-	<div class="inbox">
-		{% paginate %}
+	<div class="linkst">
+		<div class="inbox">
+			{% paginate %}
+		</div>
 	</div>
 </div>
 {% endblock %}

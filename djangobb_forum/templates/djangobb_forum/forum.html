@@ -7,80 +7,75 @@
 {% block content %}
 {% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-		<ul>
-			<li><a href="{% url djangobb:index %}">{% trans "Root" %}</a></li>
-			<li>
-				&raquo; {{ forum.name }} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
-			</li>
-		</ul>
-		<div class="clearer"></div>
-	</div>
+	{% paginate %}
+	<ul>
+		<li><a href="{% url djangobb:index %}">{% trans "Root" %}</a></li>
+		<li>
+			&raquo; {{ forum.name }} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+		</li>
+	</ul>
 </div>
 <div id="vf" class="blocktable">
-  <div class = "box">
+  	<div class="box">
 	{% if user.is_authenticated %}
 		<a class="small button new_topic" href="{% url djangobb:add_topic forum.id %}" title="{% trans "Can't find an answer to your question? Click here to ask it in a new thread." %}"><span>{% trans "New topic" %}</span></a>
 	{% endif %}
-	<h2>
-		<span>{{ forum.name }}</span>
-	</h2>
-
-		<div class="inbox box-content">
+		<div class="box-head">
+			<h4>
+				<span>{{ forum.name }}</span>
+			</h4>
+		</div>
+		<div class="box-content">
 			<table cellspacing="0">
-			<thead>
-				<tr>
-					<th class="tcl" scope="col">{% trans "Topic" %}</th>
-					<th class="tc2" scope="col">{% trans "Replies" %}</th>
-					<th class="tc3" scope="col">{% trans "Views" %}</th>
-					<th class="tcr" scope="col">{% trans "Last Post" %}</th>
-				</tr>
-			</thead>
-			<tbody>
-			{% if topics %}
-				{% for topic in topics %}
+				<thead>
 					<tr>
-						<td class="tcl">
-							<div class="intd">
-							    <div class="nosize"><!-- --></div>
-							    </div>
-
-								<div {% if topic.sticky %}class="sticky{% if topic.closed %} closed{% endif %}"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
-								<div class="tclcon{% if topic.closed %} closed-topic{% endif %}">
-									{% if topic.sticky %}
-										{% trans "Sticky:" %}
-									{% endif %}
-									<h3 {% if not topic|has_unreads:user %}class="topic_isread"{% endif %}>{% link topic %}</h3>
-                  <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
-                                    {% if topic|has_unreads:user %}<a href="{{ topic|forum_unread_link:user }}">{% trans "(New Posts)" %}</a>{% endif %}
-								</div>
-							</div>
-						</td>
-						<td class="tc2">{{ topic.reply_count }}</td>
-						<td class="tc3">{{ topic.views }}</td>
-						<td class="tcr"><a href="{{ topic.last_post.get_absolute_url }}">{{ topic.updated|forum_time }}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+						<th class="tcl" scope="col">{% trans "Topic" %}</th>
+						<th class="tc2" scope="col">{% trans "Replies" %}</th>
+						<th class="tc3" scope="col">{% trans "Views" %}</th>
+						<th class="tcr" scope="col">{% trans "Last Post" %}</th>
 					</tr>
-				{% endfor %}
-			{% else %}
-				<tr><td class="djangobbcon1" colspan="4">{% trans "Forum is empty." %}</td></tr>
-			{% endif %}
-			</tbody>
+				</thead>
+				<tbody>
+				{% if topics %}
+					{% for topic in topics %}
+						<tr>
+							<td class="tcl">
+								<div class="intd">
+								    <div class="nosize"><!-- --></div>
+								    </div>
+
+									<div {% if topic.sticky %}class="sticky{% if topic.closed %} closed{% endif %}"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
+									<div class="tclcon{% if topic.closed %} closed-topic{% endif %}">
+										{% if topic.sticky %}
+											{% trans "Sticky:" %}
+										{% endif %}
+										<h3 {% if not topic|has_unreads:user %}class="topic_isread"{% endif %}>{% link topic %}</h3>
+	                  <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
+	                                    {% if topic|has_unreads:user %}<a href="{{ topic|forum_unread_link:user }}">{% trans "(New Posts)" %}</a>{% endif %}
+									</div>
+								</div>
+							</td>
+							<td class="tc2">{{ topic.reply_count }}</td>
+							<td class="tc3">{{ topic.views }}</td>
+							<td class="tcr"><a href="{{ topic.last_post.get_absolute_url }}">{{ topic.updated|forum_time }}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr><td class="djangobbcon1" colspan="4">{% trans "Forum is empty." %}</td></tr>
+				{% endif %}
+				</tbody>
 			</table>
 		</div>
 	</div>
 </div>
-<div class="linkst">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-		<ul>
-			<li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li>
-			<li>
-				&raquo; {{ forum.name }} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
-			</li>
-		</ul>
-		<div class="clearer"></div>
-	</div>
+<div class="linksb">
+	{% paginate %}
+	<ul>
+		<li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li>
+		<li>
+			&raquo; {{ forum.name }} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
+		</li>
+	</ul>
 </div>
 <!-- end forum code -->
 {% endblock %}

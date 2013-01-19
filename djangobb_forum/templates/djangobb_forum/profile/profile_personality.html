@@ -3,60 +3,36 @@
 {% load i18n %}
 
 {% block content %}
-{% if forum_settings.DISPLAY_PROFILE_MENU_OPTIONS %}
-<div id="profile" class="block2col">
-	{% include 'djangobb_forum/profile/profile_menu.html' %}
-{% else }
 <div id="profile">
-{% endif %}
-	<div class="blockform">
-		<h2><span>{{ profile.username }} - {% trans "Personality" %}</span></h2>
-		<div class="box">
-			<form id="profile4" method="post">
-				{% csrf_token %}
-			{% if forum_settings.DISPLAY_AVATAR_OPTIONS %}
-				<div class="inform">
-					<fieldset id="profileavatar">
-						<legend>{% trans "Set your avatar display options" %}</legend>
-						<div class="infldset">
-							{{ profile.forum_profile.avatar.errors }}
-							{% if profile.forum_profile.avatar %}
-								<img src="{{ profile.forum_profile.avatar.url }}" />
-							{% endif %}
-							<p>{% trans "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts." %}</p>
-							<div class="rbox">
-								{{ form.show_avatar.errors }}
-								<label>{{ form.show_avatar }}{% trans "Use avatar." %}<br></label>
-							</div>
-							<p class="clearb"><a href="{% url djangobb:forum_profile_upload_avatar profile.username %}">{% trans "Upload avatar" %}</a></p>
-						</div>
-					</fieldset>
-				</div>
-				{% endif %}
-				<div class="inform">
-					<fieldset>
-						<legend>{% trans "Compose your signature" %}</legend>
-						<div class="infldset">
-							{{ form.signature.errors }}
-							<p>{% trans "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature." %}</p>
-							<div class="txtarea">
-								<label><br>
-								{{ form.signature }}
-								<br></label>
-							</div>
-							{% if profile.forum_profile.signature_html %}
-								<div class="postsignature">{{ profile.forum_profile.signature_html|safe }}</div>
-							{% else %}
-								<p>{% trans "No signature currently stored in profile." %}</p>
-							{% endif %}
-						</div>
-					</fieldset>
-				</div>
-				<p><button name="update" class="grey button" type="submit"><span>{% trans "Submit" %}</span></button> {% trans "When you update your profile, you will be redirected back to this page." %}</p>
-			</form>
-		</div>
-	</div>
-	<div class="clearer"></div>
+    <div class="blockform">
+        <div class="box">
+            <div class="box-head">
+                <h4>{% trans "Settings" %}</h4>
+            </div>
+            <div class="box-content">
+                <form id="profile4" method="post">
+                    {% csrf_token %}
+                    {{ form.signature.errors }}
+                    <label>
+                        <strong>{% trans "Signature" %}</strong>
+                        {{ form.signature }}
+                    </label>
+                    <p class="form-help">{% trans "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature." %}</p>
+                    <blockquote>
+                        {% if profile.forum_profile.signature_html %}
+                            <div class="postsignature">{{ profile.forum_profile.signature_html|safe }}</div>
+                        {% else %}
+                            <p>{% trans "No signature currently stored in profile." %}</p>
+                        {% endif %}
+                    </blockquote>
+                    <p class="form-submit">
+                        <button name="update" class="grey button" type="submit"><span>{% trans "Submit" %}</span></button>
+                        {% trans "When you update your profile, you will be redirected back to this page." %}
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

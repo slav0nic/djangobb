@@ -11,69 +11,78 @@
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-				<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
-				<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" style="vertical-align:middle;" /></a>
-				</li></ul>
-		<div class="clearer"></div>
-	</div>
+    {% paginate %}
+    <ul>
+        <li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li>
+        <li>&raquo; {% link topic.forum %}</li>
+        <li>&raquo; {% link topic %}</li>
+        <li>&raquo; {% trans "Move Posts" %}</li>
+    </ul>
 </div>
 
 <form method="post">
 {% csrf_token %}
 {% for post in posts %}
 <div id="p{{ post.id }}" class="blockpost roweven firstpost">
-	<a name="post-{{ post.id }}"></a>
-	<div class="box">
-		<h2><span><span class="conr">#{{ forloop.counter }}</span><a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a></span></h2>
-		<div class="inbox box-content">
-			<div class="postleft">
-				<dl>
-					<dt><strong><a href="{% url profile_detail post.user.username %}">{{ post.user.username }}</a></strong></dt>
-					<dd class="usertitle"><strong>{{ post.user.forum_profile.status }}</strong></dd>
-				</dl>
-			</div>
-			<div class="postright">
-				<h3>{{ post.topic.name }}</h3>
-				<div class="postmsg">
-					<div class="post_body_html">{{ post.body_html|safe }}</div>
-					{% if post.updated %}
+    <a name="post-{{ post.id }}"></a>
+    <div class="box">
+        <div class="box-head">
+            <span class="conr">#{{ forloop.counter }}</span>
+            <a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a>
+        </div>
+        <div class="box-content">
+            <div class="postleft">
+                <dl>
+                    <dt><strong><a href="{% url profile_detail post.user.username %}">{{ post.user.username }}</a></strong></dt>
+                    <dd class="usertitle"><strong>{{ post.user.forum_profile.status }}</strong></dd>
+                </dl>
+            </div>
+            <div class="postright">
+                <h3>{{ post.topic.name }}</h3>
+                <div class="postmsg">
+                    <div class="post_body_html">{{ post.body_html|safe }}</div>
+                    {% if post.updated %}
                         <p class="postedit"><em class="posteditmessage">{% blocktrans with user=post.updated_by.username time=post.updated|forum_time %}Last edited by {{ user }} ({{ time }}){% endblocktrans %}</em></p>
                     {% endif %}
-				</div>
-				<p class="multidelete"><label>
-					<strong>{% trans "Select" %}</strong>
-					<input type="checkbox" name="post" value="{{ post.id }}" />
-				</label></p>
-			</div>
-			<div class="clearer"></div>
-		</div>
-	</div>
+                </div>
+                <p class="multidelete"><label>
+                    {% trans "Select" %}
+                    <input type="checkbox" name="post" value="{{ post.id }}" />
+                </label></p>
+            </div>
+            <div class="clearer"></div>
+        </div>
+    </div>
 </div>
 {% endfor %}
-<div class="postlinksb">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-	</div>
+
+<div class="linksb">
+    {% paginate %}
+    <ul>
+        <li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li>
+        <li>&raquo; {% link topic.forum %}</li>
+        <li>&raquo; {% link topic %}</li>
+        <li>&raquo; {% trans "Move Posts" %}</li>
+    </ul>
 </div>
 
-<div class="blockform">
-	<div class="box-content">
-		<div class="inform">
-			{% for topic_id in topic_ids %}
-				<input type="hidden" value="{{ topic_id }}" name="topic_id"/>
-			{% endfor %}
-			<fieldset>
-				<legend>{% trans "Move posts" %}</legend>
-				<div class="infldset">
-					<label>{% trans "Move to Topic id:" %}<input type="text" name="to_topic"></input></label>
-				</div>
-			</fieldset>
-		</div>
-		<p><button type="submit" class="grey button"><span>{% trans "Move" %}</span></button> <a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
-		<div class="clearer"></div>
-	</div>
+<div class="box">
+    <div class="box-head">
+        <h4>{% trans "Move Posts" %}</h4>
+    </div>
+    <div class="box-content">
+        {% for topic_id in topic_ids %}
+            <input type="hidden" value="{{ topic_id }}" name="topic_id"/>
+        {% endfor %}
+        <label>
+            <strong>{% trans "Topic ID or URL" %}</strong>
+            <input type="text" name="to_topic" />
+        </label>
+        <p class="form-submit">
+            <button type="submit" class="grey button"><span>{% trans "Move" %}</span></button>
+            <a href="javascript:history.go(-1)">{% trans "Go back" %}</a>
+        </p>
+    </div>
 </div>
 </form>
 {% endblock %}

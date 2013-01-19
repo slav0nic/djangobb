@@ -3,70 +3,82 @@
 {% load i18n %}
 
 {% block content %}
-<div class="box">
-<h2>New Reports</h2>
-<table>
-<tr>
-<th scope="col" class="sortable" style="width:20%">Reported By</th>
-<th scope="col" class="sortable" style="width:40%">Reason</th>
-<th scope="col" class="sortable" style="width:30%">Post</th>
-<th scope="col" class="sortable" style="width:10%">Zap</th>
-</tr>
-{% for report in new_reports %}
-<tr>
-<td>
-<a href="{% url profile_detail report.reported_by %}"> {{ report.reported_by }} </a>
-<br>
-{{ report.created }}
-</td><td>
-{{ report.reason }}
-</td><td>
-<a href="{{report.post.get_absolute_url}}"> {{ report.post }} </a>
-<br><br>
-Posted By:<a href="{% url profile_detail report.post.user.username %}"> {{ report.post.user }} </a>
-</td><td>
-<form method="post" action="?action=zap">
-{% csrf_token %}
-<input type="hidden" name="id" value="{{ report.id }}" />
-<button type="submit" class="grey button" name="zap_id[{{ report.id }}]" value="Zap"><span>Zap</span></button>
-</form>
-</td></tr>
-{% endfor %}
-</table>
+<div class="blocktable">
+    <div class="box">
+        <div class="box-head">
+            <h4>New Reports</h4>
+        </div>
+        <div class="box-content">
+            <table>
+                <tr>
+                    <th scope="col" class="tcl sortable" style="width:25%">Reported By</th>
+                    <th scope="col" class="sortable" style="width:30%">Reason</th>
+                    <th scope="col" class="sortable" style="width:35%">Post</th>
+                    <th scope="col" class="sortable" style="width:10%">Zap</th>
+                </tr>
+                {% for report in new_reports %}
+                <tr>
+                    <td class="tcl">
+                        <p><a href="{% url profile_detail report.reported_by %}"> {{ report.reported_by }} </a></p>
+                        <p>{{ report.created }}</p>
+                    </td>
+                    <td>{{ report.reason }}</td>
+                    <td>
+                        <p><a href="{{report.post.get_absolute_url}}"> {{ report.post }} </a></p>
+                        <p>Posted By: <a href="{% url profile_detail report.post.user.username %}">{{ report.post.user }} </a></p>
+                    </td>
+                    <td>
+                        <form method="post" action="?action=zap">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ report.id }}" />
+                            <button type="submit" class="grey button" name="zap_id[{{ report.id }}]" value="Zap"><span>Zap</span></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </div>
 
-<br><br>
-<div class ="box">
-<h2>Recently Zapped Reports</h2>
-<table>
-<tr>
-<th scope="col" class="sortable" style="width:20%">Reported By</th>
-<th scope="col" class="sortable" style="width:40%">Reason</th>
-<th scope="col" class="sortable" style="width:25%">Post</th>
-<th scope="col" class="sortable" style="width:15%">Zapped</th>
-</tr>
-{% for report in zapped_reports %}
-<tr>
-<td>
-<a href="{% url profile_detail report.reported_by %}"> {{ report.reported_by }} </a>
-<br>
-{{ report.created }}
-</td><td>
-{{ report.reason }}
-</td><td>
-<a href="{{report.post.get_absolute_url}}"> {{ report.post }} </a>
-<br><br>
-Posted By:<a href="{% url profile_detail report.post.user.username %}"> {{ report.post.user }} </a>
-</td><td>
-<form method="post" action="?action=unzap">
-{% csrf_token %}
-<input type="hidden" name="id" value="{{ report.id }}" />
-<button type="submit" class="grey button"><span>Unzap</span></button>
-</form>
-Zapped By: {{ report.zapped_by }}
-</td></tr>
-{% endfor %}
-</table>
+<div class="blocktable">
+    <div class="box">
+        <div class="box-head">
+            <h4>Recently Zapped Reports</h4>
+        </div>
+        <div class="box-content">
+            <table>
+            <tr>
+                <th scope="col" class="tcl sortable" style="width:25%">Reported By</th>
+                <th scope="col" class="sortable" style="width:30%">Reason</th>
+                <th scope="col" class="sortable" style="width:25%">Post</th>
+                <th scope="col" class="sortable" style="width:10%">Zapped By</th>
+                <th scope="col" class="sortable" style="width:10%">Unzap</th>
+            </tr>
+            {% for report in zapped_reports %}
+            <tr>
+                <td class="tcl">
+                    <p><a href="{% url profile_detail report.reported_by %}"> {{ report.reported_by }}</a></p>
+                    <p>{{ report.created }}</p>
+                </td>
+                <td>{{ report.reason }}</td>
+                <td>
+                    <p><a href="{{report.post.get_absolute_url}}"> {{ report.post }} </a></p>
+                    <p>Posted By: <a href="{% url profile_detail report.post.user.username %}">{{ report.post.user }}</a></p>
+                </td>
+                <td>{{ report.zapped_by }}</td>
+                <td>
+                    <form method="post" action="?action=unzap">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ report.id }}" />
+                        <button type="submit" class="grey button"><span>Unzap</span></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

@@ -1,204 +1,247 @@
-/****************************************************************/
-/* 1. INITIAL SETTINGS */
-/****************************************************************/
+/*
+ * Resets
+ */
 
-.djangobb TABLE, .djangobb FORM, .djangobb P, .djangobb H1, .djangobb H2, .djangobb H3,
-.djangobb H4, .djangobb PRE, .djangobb BLOCKQUOTE, .djangobb UL, .djangobb OL, .djangobb LI, .djangobb DL,
-.djangobb DT, .djangobb DD, .djangobb TH, .djangobb TD, .djangobb FIELDSET, .djangobb IMG {
-	MARGIN: 0px;
-	PADDING: 0px;
-	FONT-WEIGHT: normal;
-	LIST-STYLE: none;
+.djangobb table,
+.djangobb form,
+.djangobb pre,
+.djangobb blockquote,
+.djangobb ul,
+.djangobb dl,
+.djangobb dt,
+.djangobb dd,
+.djangobb th,
+.djangobb td,
+.djangobb img {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+	list-style: none;
+}
+p, li {
+	margin: 0;
+}
+.djangobb img {
+	border: 0;
+}
+.djangobb input,
+.djangobb select,
+.djangobb textarea,
+.djangobb optgroup {
+	margin: 0;
 }
 
-.djangobb IMG {BORDER: none}
+/*
+ * Structural
+ */
 
-.djangobb INPUT, .djangobb SELECT, .djangobb TEXTAREA, .djangobb OPTGROUP {MARGIN: 0}
-
-/****************************************************************/
-/* 2. STRUCTURAL SETTINGS - VERY IMPORTANT - DO NOT CHANGE */
-/****************************************************************/
-
-/* 2.1 Clearing floats and invisible items */
-.djangobb .clearer, .djangobb .nosize {
-	HEIGHT: 0;
-	WIDTH: 0;
-	LINE-HEIGHT: 0;
-	FONT-SIZE: 0;
-	OVERFLOW: hidden;
+.djangobb .clearer,
+.djangobb .nosize {
+	height: 0;
+	width: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+}
+.djangobb .clearer,
+.djangobb .clearb {
+	clear: both;
+}
+.djangobb .nosize {
+	position: absolute;
+	left: -10000px;
 }
 
-.djangobb .clearer, .djangobb .clearb {CLEAR: both}
-.djangobb .nosize {POSITION: absolute; LEFT: -10000px}
-
-/* 2.2 Overflow settings for posts */
-
-DIV.blockpost DIV.box, DIV.postleft, DIV.postsignature, DIV.postmsg {OVERFLOW: hidden}
-
-div.searchposts div.postmsg {
+.box,
+.blockpost .box,
+.postleft,
+.postsignature,
+.postmsg {
+	overflow: hidden;
+}
+.searchposts .postmsg {
     /* add scoll bars on small postmsg in search results */
-    overflow:auto;
+    overflow: auto;
 }
 
-div.postmsg ul li {
+.postmsg li {
+	margin: 0;
+}
+.postmsg ul li {
     /* make list bullets visible, see: http://djangobb.org/ticket/235 */
     list-style: disc;
     margin-left: 2em;
 }
 
-/****************************************************************/
-/* 3. BUG FIXES - VERY IMPORTANT - DO NOT CHANGE */
-/****************************************************************/
+/*
+ * Bug Fixes
+ */
 
-/* 3.1 This attempts to eliminate rounding errors in Gecko browsers. */
+/* This attempts to eliminate rounding errors in Gecko browsers. */
 
-DIV>DIV>DIV.postfootleft, DIV>DIV>DIV.postfootright {PADDING-TOP: 1px; MARGIN-TOP: -1px}
+div > div > div.postfootleft,
+div > div > div.postfootright {
+	padding-top: 1px;
+	margin-top: -1px;
+}
 
-/* 3.2 This is only visible to IE Windows and cures various bugs. Do not alter comments */
+/* This is only visible to IE Windows and cures various bugs. Do not alter comments */
 
 /* Begin IEWin Fix \*/
-* HTML .inbox, * HTML .inform, * HTML .djangobb, * HTML .intd, * HTML .tclcon {HEIGHT: 1px}
-* HTML .inbox DIV.postmsg {WIDTH: 98%}
+* html .inbox, * html .inform, * html .djangobb, * html .intd, * html .tclcon {
+	height: 1px;
+}
+* html .inbox div.postmsg {
+	width: 98%;
+}
 /* End of IEWin Fix */
 
-/****************************************************************/
-/* 4. HIDDEN ELEMENTS */
-/****************************************************************/
+/*
+ * Hidden
+ */
 
-/* These are hidden in normal display. Add comments to make them visible */
-
-#brdfooter H2, #brdstats H2, #brdstats .conl DT, #brdstats .conr DT,
-#modcontrols DT, #searchlinks DT, DIV.postright H3 {
-	POSITION: absolute;
-	DISPLAY: block;
-	OVERFLOW: hidden;
-	WIDTH: 1em;
-	LEFT: -999em
+#brdfooter h2,
+#brdstats h2,
+#brdstats .conl dt,
+#brdstats .conr dt,
+#modcontrols dt,
+#searchlinks dt,
+div.postright h3 {
+	position: absolute;
+	display: block;
+	overflow: hidden;
+	width: 1em;
+	left: -999em;
 }
 
-/****************************************************************/
-/* 5. BOX CONTAINERS AND FLOATS */
-/****************************************************************/
-
-/* 5.1. Setup all left and right content using floats. */  
+/*
+ * Floats
+ */
 
 .conr {
-	FLOAT: right;
-	TEXT-ALIGN: right;
-	CLEAR: right;
-	WIDTH: 40%
+	float: right;
+	text-align: right;
+	clear: right;
+	width: 40%;
 }
-
 .conl {
-	FLOAT: left;
-	WIDTH: 55%;
-	OVERFLOW: hidden;
-	WHITE-SPACE: nowrap
+	float: left;
+	width: 55%;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
-LABEL.conl {
-	WIDTH: auto;
-	OVERFLOW: visible;
-	MARGIN-RIGHT: 10px
+label.conl {
+	width: auto;
+	overflow: visible;
+	margin-right: 10px;
 }
 
-/* 5.2 Set up page numbering and posts links */
-
-DIV.linkst .conl, DIV.linksb .conl, DIV.postlinksb .conl { float:right; width: auto }
-
-DIV.linkst .conr, DIV.linksb .conr, DIV.postlinksb .conr {WIDTH:16em}
-
-FORM DIV.linksb .conr {WIDTH: 32em}
-
-/* 5.3 Keep breadcrumbs from shifting to the right when wrapping */
-
-/*.linkst UL, linksb UL, .postlinksb UL {MARGIN-LEFT: 18em}*/
-
-/* 5.4 Settings for Profile and Admin interface.*/
-
-DIV.block2col {PADDING-BOTTOM: 1px}
-
-DIV.block2col DIV.blockform, DIV.block2col DIV.block, #viewprofile DD {MARGIN-LEFT: 14em}
-
-DIV.blockmenu, #viewprofile DT {
-	FLOAT:left;
-	WIDTH: 13em
+.linkst .pagination,
+.linksb .pagination {
+	float: right;
+	width: auto;
 }
 
-#profileavatar IMG {
-	FLOAT: right;
-	MARGIN-LEFT: 1em
-}
-
-#viewprofile DL {FLOAT: left; WIDTH: 100%; OVERFLOW: hidden}
-
-/****************************************************************/
-/* 6. TABLE SETUP */
-/****************************************************************/
+/*
+ * Tables
+ */
 
 /* 6.1 Table Basic Setup */
 
-.djangobb TABLE {WIDTH: 100%}
+.djangobb table {
+	width: 100%;
+}
 
 /* 6.2 Fixed Table Setup */
 
-#djangobbindex TABLE, #vf TABLE {TABLE-LAYOUT: fixed}
-
-.tcl {TEXT-ALIGN: left; WIDTH: 50%}
-
-.tc2, .tc3, .tcmod {WIDTH: 9%; TEXT-ALIGN: center}
-
-.tcr {WIDTH: 32%; TEXT-ALIGN: left}
-
-#djangobbsearch #vf .tcl, #djangobbmoderate #vf .tcl {WIDTH: 41%}
-
-#djangobbsearch #vf .tc2 {WIDTH: 18%; TEXT-ALIGN: left}
-
-.tcl, .tcr {OVERFLOW: HIDDEN}
-
-/* 6.3 Other Table Setup */
-
-#users1 .tcl {WIDTH: 40%}
-
-#users1 .tcr {WIDTH: 25%}
-
-#users1 .tc2 {WIDTH: 25%; TEXT-ALIGN: left}
-
-#users1 .tc3 {WIDTH: 10%; TEXT-ALIGN: center}
-
-#debug .tcr {WIDTH: 85%; WHITE-SPACE: normal}
-
-#djangobbindex TD.tcr SPAN.byuser {DISPLAY: block}
-
-/****************************************************************/
-/* 7. VIEWTOPIC SETUP */
-/****************************************************************/
-
-/* 7.1 This is the basic structure. */
-
-DIV.postleft, DIV.postfootleft {
-	FLOAT:left;
-	WIDTH: 18em;
-	OVERFLOW: hidden
+#djangobbindex table,
+#vf table {
+	table-layout: fixed;
 }
-	
-DIV.postright, DIV.postfootright {
-	BORDER-LEFT-WIDTH: 18em;
-	BORDER-LEFT-STYLE: solid
+.tcl {
+	text-align: left;
+	width: 50%;
+}
+.tc2,
+.tc3,
+.tcmod {
+	width: 9%;
+	text-align: center;
+}
+.tcr {
+	width: 32%;
+	text-align: left;
+}
+#djangobbsearch #vf .tcl,
+#djangobbmoderate #vf .tcl {
+	width: 41%;
+}
+#djangobbsearch #vf .tc2 {
+	width: 18%;
+	text-align: left;
+}
+.tcl,
+.tcr {
+	overflow: hidden;
 }
 
-DIV.postfootright, P.multidelete {TEXT-ALIGN: right}
+/*
+ * User List
+ */
 
-DIV.blockpost>DIV>DIV.inbox {PADDING-BOTTOM: 1px}
+#users1 .tcl {
+	width: 40%;
+}
+#users1 .tcr {
+	width: 25%;
+}
+#users1 .tc2 {
+	width: 25%;
+	text-align: left;
+}
+#users1 .tc3 {
+	width: 10%;
+	text-align: center;
+}
 
-/* 7.3 This is the div which actually contains the post and is inside .postright */
+/*
+ * Posts
+ */
 
-DIV.postmsg {WIDTH:100%}
+.postleft,
+.postfootleft {
+	float: left;
+	width: 16em;
+	overflow: hidden;
+}	
+.postright,
+.postfootright {
+	border-left-width: 16em;
+	border-left-style: solid
+}
+.postfootright,
+.multidelete {
+	text-align: right;
+}
+div.blockpost > div > div.inbox {
+	padding-bottom: 1px;
+}
 
-/* 7.4 These items control overflow and scrolling within posts. */
+.postmsg {
+	width: 100%;
+}
 
-DIV.incqbox {WIDTH: 100%; OVERFLOW: hidden}
-DIV.scrollbox {WIDTH: 100%; OVERFLOW: auto}
+/* Overflow and Scrolling */
+
+.incqbox {
+	width: 100%;
+	overflow: hidden;
+}
+.scrollbox {
+	width: 100%;
+	overflow: auto;
+}
 .postmsg img {
     max-width: 100%;
 }
@@ -213,125 +256,94 @@ DIV.scrollbox {WIDTH: 100%; OVERFLOW: auto}
 	word-wrap: break-word;
 }
 
-/* 7.5 Turn off the poster information column for preview */
-
-#postpreview DIV.postright {BORDER-LEFT: none}
-
-/* 7.6 Create the horizontal line above signatures */
-
-DIV.postsignature HR {
-	MARGIN-LEFT: 0px;
-	WIDTH: 200px;
-	TEXT-ALIGN: left;
-	HEIGHT: 1px;
-	BORDER:none
+.postsignature hr {
+	margin-left: 0;
+	width: 200px;
+	text-align: left;
+	height: 1px;
+	border: 0;
+}
+.searchposts .postmsg {
+	height: 8em;
 }
 
-/* 7.7 Maximum height for search results as posts. Position go to post link */
-
-DIV.searchposts DIV.postmsg {HEIGHT: 8em}
-DIV.searchposts DD P {PADDING-TOP: 3em}
-
-/* 7.8 Class for bbcode [u] */
-
-SPAN.bbu {TEXT-DECORATION: underline}
-
-/****************************************************************/
-/* 8. LISTS SPECIAL SETTINGS */
-/****************************************************************/
-
-/* 8.1 Horizontal display of online list, main navigation menu and breadcrumbs */
-
-#onlinelist DD, #onlinelist DT, #brdmenu LI, DIV.linkst LI, DIV.linksb LI, DIV.postlinksb LI,
-DIV.postfootright LI, UL.bblinks LI {
-	DISPLAY: inline;
-	HEIGHT: 0
+/*
+ * BBCode
+ */
+.bb-underline {
+	text-decoration: underline;
+}
+.bb-big {
+	font-size: 17px;
+}
+.bb-small {
+	font-size: 10px;
 }
 
-/* 8.2 Turn on square icon for posterror list */
+/*
+ * Lists
+ */
 
-#posterror UL LI {LIST-STYLE: square inside}
-
-/* 8.3 Right alignment of descriptions in ordinary member view of other members profiles */
-
-#viewprofile DT {TEXT-ALIGN: right}
-
-/****************************************************************/
-/* 9. FORM SETTINGS */
-/****************************************************************/
-
-/* 9.1 Makes textareas and long text inputs shrink with page */
-
-DIV.txtarea {WIDTH: 75%}
-
-.djangobb LABEL {DISPLAY: block}
-
-#qjump SELECT {WIDTH: 50%}
-
-/****************************************************************/
-/* 10. HELP FILES AND MISC. */
-/****************************************************************/
-
-/* 10.1 Put some space between sections of the help file */
-
-#helpfile H2 {MARGIN-TOP: 12px}
-
-/* 10.2 Internal padding */
-
-#helpfile DIV.box {PADDING: 10px}
-
-/* 10.3 Other templates */
-
-#djangobbredirect DIV.block, #djangobbmaint DIV.block {MARGIN: 50px 20% 12px 20%}
-.lofi { text-align: center; }
-
-/****************************************************************/
-/* MOD QUICK QUOTE STYLE INDICATORS */
-/****************************************************************/
-
-a.quotehint {
-	outline: none;
-	position: relative;
+#onlinelist dd,
+#onlinelist dt,
+#brdmenu li,
+.linkst li,
+.linksb li,
+.postlinksb li,
+.postfootright li,
+.bblinks li {
+	display: inline;
+	height: 0;
 }
 
-a.quotehint:hover {
-	cursor: default;
+#posterror ul li {
+	list-style: square inside;
 }
 
-a.quotehint span {
-	display: none;
+/*
+ * Forms
+ */
+
+.djangobb label {
+	display: block;
 }
 
-a.quotehint:hover .infobox {
-	font-weight: normal; 
-	display: block; 
-	position: absolute; 
-	top: -7em;
-	left: -28em;
-	width: 27em; 
-	height: 5.5em;
-	text-align: left; 
-	font-size: 0.8em; 
-	padding: 0.5em; 
+/*
+ * Help
+ */
+
+#helpfile h2 {
+	margin-top: 12px;
 }
+#helpfile .box {
+	padding: 10px;
+}
+#djangobbredirect .block,
+#djangobbmaint .block {
+	margin: 50px 20% 12px 20%;
+}
+.lofi {
+	text-align: center;
+}
+
+/*
+ * Errors
+ */
 
 .djangobb input#id_captcha_1 {
-font-size:22px;
-margin-left:10px;
-width:88px;
+	font-size: 22px;
+	margin-left: 10px;
+	width: 88px;
 }
 
-.djangobb UL.errorlist {
-	MARGIN-BOTTOM: 12px;
-	PADDING: 9px 10px;
-	BORDER-STYLE: solid;
-	BORDER-WIDTH: 1px;
-	BACKGROUND-COLOR: #f5f5f5;
-	BORDER-COLOR: #FF0000;
+.djangobb ul.errorlist {
+	margin-bottom: 12px;
+	padding: 9px 10px;
+	border-style: solid;
+	border-width: 1px;
+	background-color: #f5f5f5;
+	border-color: #ff0000;
 	color: #FF0000;
-}
-
-.djangobb UL.errorlist LI {
 }
 
 .djangobb img.rss {
@@ -339,81 +351,15 @@ width:88px;
 }
 
 .djangobb img.breadcrumb_rss {
-	vertical-align: middle;
-}
-
-.djangobb #header-nav-login-forms {
-	float:right;
-	margin-top:-45px;
-}
-
-.djangobb #header-nav-login-forms form {
-	margin:0 0 0 10px !important;
-	padding:0px !important;
-}
-
-.djangobb fieldset {
-	margin:0;
-	padding:0;
-}
-
-.djangobb #header-nav-login-forms form input.login {
-	border:1px solid #CCCCCC;
-	color:#999999 !important;
-	font-size:0.9em !important;
-	height:16px;
-	padding-bottom:1px !important;
-	padding-top:1px !important;
-	width:75px;
-}
-
-.djangobb #header-nav-login-forms form input.openid {
-	border:1px solid #CCCCCC;
-	color:#999999 !important;
-	font-size:0.9em !important;
-	height:16px;
-	margin-top:3px;
-	padding-bottom:1px !important;
-	padding-top:1px !important;
-	width:136px;
-}
-
-.djangobb input.openid {
-	background:#FFFFFF url(../img/login-bg.gif) no-repeat scroll 1px center;
-	padding-left:20px;
+	vertical-align: top;
+	position: relative;
+	top: 1px;
 }
 
 .djangobb .left {
 	float: left;
 	background: #DDE7EF;
 }
-
-.djangobb .openid_login {
-	position: relative;
-}
-
-.djangobb img.openid-logo {
-	bottom:15px;
-	position:absolute;
-	right:20px;
-}
-.djangobb .highlight {
-	background-color: yellow;
-}
-
-#registration_form {
-	float: left;
-	width: 500px;
-}
-
-div.box {
-	overflow: hidden;
-}
-
-div.message {
-	padding:20px 20px 15px;
-}
-
-.djangobb-youtube .box-content {
-	padding: 20px;
+.message {
+	padding: 20px 20px 15px;
 }

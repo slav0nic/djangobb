@@ -3,69 +3,61 @@
 {% load i18n %}
 
 {% block content %}
-<div id="searchform" class="blockform">
-	<h2><span>{% trans "Search" %}</span></h2>
-	<div class="box">
+<div id="searchform" class="box">
+	<div class="box-head">
+		<h4>{% trans "Search" %}</h4>
+	</div>
+	<div class="box-content">
 		<form id="search" method="get" action="">
-			<div class="inform">
-                <input type="hidden" name="action" value="search" />
-				<fieldset>
-					<legend>{% trans "Enter your search criteria" %}</legend>
-					<div class="infldset">
-						<label class="conl">{{ form.keywords.label }}<br />{{ form.keywords }}<br /></label>
-						<label class="conl">{{ form.author.label }}<br />{{ form.author }}<br /></label>
-						<p class="clearb">{% trans "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for." %}</p>
-					</div>
-				</fieldset>
-			</div>
-			<div class="inform">
-				<fieldset>
-					<legend>{% trans "Select where to search" %}</legend>
-					<div class="infldset">
+			<input type="hidden" name="action" value="search" />
 
-						<label class="conl">{{ form.forum.label }}
-						<br />
-						<select id="forum" name="forum">
-							<option value="0">{% trans "All forums" %}</option>
-							{% for category in categories %}
-							<optgroup label="{{ category }}">
-								{% for forum in category.forums.all %}
-								<option value="{{ forum.id }}">{{ forum }}</option>
-								{% endfor %}
-							</optgroup>
-							{% endfor %}
-						</select>
-						<br /></label>
-						<label class="conl">{{ form.search_in.label }}
-						<br />
-						{{ form.search_in }}
-						<br /></label>
-						<p class="clearb">{% trans "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both." %}</p>
-					</div>
-				</fieldset>
-			</div>
-			<div class="inform">
-				<fieldset>
-					<legend>{% trans "Select how to view search results" %}</legend>
-					<div class="infldset">
-						<label class="conl">{{ form.sort_by.label }}
-						<br />
-						{{ form.sort_by }}
-						<br /></label>
-						<label class="conl">{{ form.sort_dir.label }}
-						<br />
-						{{ form.sort_dir }}
+			<label class="conl">
+				<strong>{{ form.keywords.label }}</strong>
+				{{ form.keywords }}
+			</label>
+			<label class="conl">
+				<strong>{{ form.author.label }}</strong>
+				{{ form.author }}
+			</label>
+			<p class="form-help">{% trans "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for." %}</p>
 
-						<br /></label>
-						<label class="conl">{{ form.show_as.label }}
-						<br />
-						{{ form.show_as }}
-						<br /></label>
-						<p class="clearb">{% trans "You can choose how you wish to sort and show your results." %}</p>
-					</div>
-				</fieldset>
-			</div>
-			<p><button type="submit" class="grey button" accesskey="s"><span>{% trans "Submit" %}</span></button></p>
+			<label class="conl">
+				<strong>{{ form.forum.label }}</strong>
+				<select id="forum" name="forum">
+					<option value="0">{% trans "All forums" %}</option>
+					{% for category in categories %}
+					<optgroup label="{{ category }}">
+						{% for forum in category.forums.all %}
+						<option value="{{ forum.id }}">{{ forum }}</option>
+						{% endfor %}
+					</optgroup>
+					{% endfor %}
+				</select>
+			</label>
+			<label class="conl">
+				<strong>{{ form.search_in.label }}</strong>
+				{{ form.search_in }}
+			</label>
+			<p class="form-help">{% trans "Choose in which forum you would like to search and if you want to search in topic subjects, message text or both." %}</p>
+
+			<label class="conl">
+				<strong>{{ form.sort_by.label }}</strong>
+				{{ form.sort_by }}
+			</label>
+			<label class="conl">
+				<strong>{{ form.sort_dir.label }}</strong>
+				{{ form.sort_dir }}
+			</label>
+			<label class="conl">
+				<strong>{{ form.show_as.label }}</strong>
+				{{ form.show_as }}
+			</label>
+			<p class="form-help">{% trans "You can choose how you wish to sort and show your results." %}</p>
+
+			<p class="form-submit">
+				<button type="submit" class="grey button" accesskey="s"><span>{% trans "Submit" %}</span></button>
+                <a href="javascript:history.go(-1)">{% trans "Go back" %}</a>
+			</p>
 		</form>
 	</div>
 </div>
