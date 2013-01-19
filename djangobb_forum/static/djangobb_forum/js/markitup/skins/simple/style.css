@@ -26,6 +26,8 @@
 .markItUpPreviewFrame	{
 	overflow:auto;
 	background-color:#FFF;
+	border:1px solid #ccc;
+	border-radius:3px;
 	width:99.9%;
 	height:300px;
 	margin:5px 0;
