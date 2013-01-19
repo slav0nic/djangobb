@@ -7,6 +7,7 @@ from django.core.cache import cache
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_unicode
 from django.db import settings
+from django.db.models import Q
 from django.utils.text import capfirst
 from django.utils.html import escape
 from django.utils.hashcompat import md5_constructor
@@ -134,10 +135,20 @@ def forum_unread_link(topic, user):
     """
     Returns a link to the first unread post in a topic.
     """
-    if not isinstance(user.posttracking.topics, dict):
-        return topic.get_absolute_url()
-    pk = user.posttracking.topics.get(str(topic.id), 0)
-    return Post.objects.filter(topic=topic).filter(pk__gt=pk).order_by('pk')[0].get_absolute_url()
+    if user.posttracking is not None:
+        topics = user.posttracking.topics;
+        if isinstance(topics, dict):
+            pk = topics.get(str(topic.id), 0)
+            return Post.objects.filter(topic=topic, pk__gt=pk).order_by('pk')[0].get_absolute_url()
+        last_read = user.posttracking.last_read
+        if last_read is not None:
+            posts = Post.objects.filter(Q(topic=topic) & (Q(created__gte=last_read) | Q(updated__gte=last_read))).order_by('pk')
+            try:
+                return posts[0].get_absolute_url()
+            except Post.DoesNotExist:
+                pass
+
+    return topic.posts.all()[0].get_absolute_url()
 
 @register.filter
 def forum_unreads(forum, user):
@@ -154,6 +165,11 @@ def forum_unreads(forum, user):
             for topic in topics:
                 if topic.last_post_id > user.posttracking.topics.get(str(topic.id), 0):
                     return True
+        elif user.posttracking.last_read:
+            if forum.topics.all().filter(updated__gte=user.posttracking.last_read).exists():
+                return True
+        else:
+            return True
         return False
 
 
