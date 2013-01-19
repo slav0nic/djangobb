@@ -15,6 +15,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse, Http404
+from django.core.urlresolvers import reverse
 from django.utils.functional import Promise
 from django.utils.translation import force_unicode, check_for_language
 from django.utils.simplejson import JSONEncoder
@@ -281,14 +282,14 @@ class InlineStyleTag(postmarkup.TagBase):
     def render_close(self, parser, node_index):
         return u'</span>'
 
-class RestrictedLinkTag(postmarkup.LinkTag):
+class RestrictedLinkTag(postmarkup.TagBase):
     _safe_chars = frozenset(u'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-=/&?:%&#')
 
     _re_domain = re.compile(r"//([a-z0-9-\.]+\.)?scratch\.mit\.edu", re.UNICODE)
 
     allowed = False
 
-    def __init__(self, name, annotate_links, **kwargs):
+    def __init__(self, name, **kwargs):
         super(RestrictedLinkTag, self).__init__(name, inline=True)
 
     def render_open(self, parser, node_index):
@@ -310,7 +311,7 @@ class RestrictedLinkTag(postmarkup.LinkTag):
 
         scheme, uri = url.split(u':', 1)
 
-        if scheme not in [u'http', u'https', u'data'] or self._re_domain.match(uri.lower()) is None:
+        if scheme not in [u'http', u'https'] or self._re_domain.match(uri.lower()) is None:
             return u'<span>' # Prevent smilies from the ":/" in "http://"
 
         def percent_encode(s):
@@ -339,6 +340,67 @@ class RestrictedLinkTag(postmarkup.LinkTag):
         else:
             return u'</span>'
 
+class FilteredLinkTag(postmarkup.TagBase):
+    _safe_chars = frozenset(u'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-=/&?:%&#')
+    _re_youtube = re.compile(r'//(?:www\.)?youtube\.com/(?:watch\?(?:.*&)?v=|v/)([\w-]+)', re.UNICODE)
+    allowed = False
+
+    def __init__(self, name, **kwargs):
+        super(FilteredLinkTag, self).__init__(name, inline=True)
+
+    def render_open(self, parser, node_index):
+
+        tag_data = parser.tag_data
+        nest_level = tag_data[u'link_nest_level'] = tag_data.setdefault(u'link_nest_level', 0) + 1
+
+        if nest_level > 1:
+            return u""
+
+        if self.params:
+            url = self.params.strip()
+        else:
+            url = self.get_contents_text(parser).strip()
+            url = postmarkup.PostMarkup.standard_unreplace(url)
+
+        if u':' not in url:
+            url = u'http://' + url
+
+        scheme, uri = url.split(u':', 1)
+
+        if scheme not in [u'http', u'https', u'data']:
+            return u'<span>'
+
+        def percent_encode(s):
+            safe_chars = self._safe_chars
+            def replace(c):
+                if c not in safe_chars:
+                    return u"%%%02X" % ord(c)
+                else:
+                    return c
+            return u"".join([replace(c) for c in s])
+
+        self.allowed = True
+        if scheme != 'data':
+            match = self._re_youtube.match(uri)
+            if match is not None:
+                return '<a href="%s">' % reverse('djangobb:show_youtube_video', args=(match.group(1),))
+
+        return u'<a href="%s">' % postmarkup.PostMarkup.standard_replace_no_break(percent_encode(url))
+
+
+    def render_close(self, parser, node_index):
+
+        tag_data = parser.tag_data
+        tag_data[u'link_nest_level'] -= 1
+
+        if tag_data[u'link_nest_level'] > 0:
+            return u''
+
+        if self.allowed:
+            return u'</a>'
+        else:
+            return u'</span>'
+
 # This allows us to control the bb tags
 def customize_postmarkup(allow_external_links):
     custom_postmarkup = postmarkup.PostMarkup()
@@ -350,7 +412,7 @@ def customize_postmarkup(allow_external_links):
     add_tag(postmarkup.SimpleTag, 'u', 'u')
     add_tag(postmarkup.SimpleTag, 's', 'strike')
 
-    add_tag(postmarkup.LinkTag if allow_external_links else RestrictedLinkTag, 'url', False)
+    add_tag(FilteredLinkTag if allow_external_links else RestrictedLinkTag, 'url')
 
     add_tag(postmarkup.QuoteTag, 'quote')
 

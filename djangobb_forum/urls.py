@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url('^moderate/(?P<forum_id>\d+)/$', forum_views.moderate, name='moderate'),
     url('^search/$', forum_views.search, name='search'),
     url('^misc/$', forum_views.misc, name='misc'),
+    url('^youtube/(?P<video_id>[\w-]+)/$', forum_views.show_youtube_video, name='show_youtube_video'),
     # User
     url('^user/(?P<username>.*)/settings/$', forum_views.user, {
         'section': 'personality',

@@ -2,6 +2,7 @@
 
 import math
 import re
+import urllib2
 from datetime import datetime, timedelta
 
 from django.contrib import messages
@@ -964,3 +965,24 @@ def post_preview(request):
     if forum_settings.SMILES_SUPPORT:
         data = smiles(data)
     return render(request, 'djangobb_forum/post_preview.html', {'data': data})
+
+def show_youtube_video(request, video_id):
+    try:
+        response = urllib2.urlopen('http://gdata.youtube.com/feeds/api/videos/%s?v=2' % video_id)
+    except urllib2.HTTPError:
+        title = None
+    else:
+        try:
+            start_tag = '<media:title type=\'plain\'>'
+            end_tag = '</media:title>'
+            atom = response.read()
+            start = atom.index(start_tag) + len(start_tag)
+            end = atom.index(end_tag)
+            title = atom[start:end]
+        except ValueError:
+            title = None
+
+    return render(request, 'djangobb_forum/youtube.html', {
+        'video_id': video_id,
+        'video_title': title,
+        })

@@ -1,0 +1,41 @@
+{% extends "djangobb_forum/base.html" %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block title %} / {% trans "YouTube Video" %}{% endblock %}
+
+{% block main-content %}
+<div class="cols clearfix djangobb-youtube">
+    <div class="col-10">
+        {% if video_title %}
+            <div class="box">
+                <div class="box-head">
+                    <h4>{{ video_title }}</h4>
+                </div>
+                <div class="box-content">
+                    <iframe class="youtube-player" type="text/html" width="538" height="324" src="http://www.youtube.com/embed/{{ video_id }}?fs=1&amp;rel=0&amp;autoplay=1&amp;showinfo=0" frameborder="0"></iframe>
+                </div>
+            </div>
+        {% else %}
+            <div class="box">
+                <div class="box-head">
+                    <h4>{% trans "Video Not Found" %}</h4>
+                </div>
+                <div class="box-content">
+                    <p>The link you followed might have been outdated or incorrect.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-6">
+        <div class="box">
+            <div class="box-head">
+                <h4>{% trans "Why do I see this page?" %}</h4>
+            </div>
+            <div class="box-content">
+                <p>{% trans "Links to YouTube videos on the forums are automatically converted to links to this page, to hide comments and other content." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
