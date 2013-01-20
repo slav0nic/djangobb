@@ -88,13 +88,6 @@
  * Miscellaneous
  */
 
-/* board stats icon */
-#djangobbindex #brdstats div.box div.inbox dl.conl,
-#djangobbforum #brdstats div.box div.inbox dl.conl {
-    background: transparent url(../img/stats.gif) no-repeat 0% 50%;
-    padding-left: 38px;
-}
-
 /* Category disclosure toggle */
 .djangobb .box-head a.toggle  {
     float: right;

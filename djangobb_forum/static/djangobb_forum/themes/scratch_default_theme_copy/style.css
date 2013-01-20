@@ -89,8 +89,7 @@
     padding: 0;
 }
 #brdwelcome,
-#brdfooter dl,
-#brdstats dl {
+#brdfooter dl {
     line-height: 1.4;
 }
 #brdmenu li,
@@ -210,6 +209,9 @@ td .tclcon {
 #brdwelcome {
     padding: 6px 20px;
 }
+#onlinelist {
+    padding-top: 6px;
+}
 #djangobbwrap {
     width: auto;
     text-align: left;
@@ -292,8 +294,7 @@ td .tclcon {
 .blockpost .box-content {
     padding: 0;
 }
-#brdfooter .box-content,
-#brdstats .box-content {
+#brdfooter .box-content {
     border-top: 0;
 }
 

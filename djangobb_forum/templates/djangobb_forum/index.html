@@ -65,33 +65,16 @@
 	</div>
 {% endfor %}
 </div>
+{% endblock %}
 
-<div id="brdstats" class="block">
-	<div class="box">
-		<div class="box-content">
-			<dl class="conr">
-				<dt><strong>{% trans "Board statistics" %}</strong></dt>
-				<dd>{% trans "Total number of registered users:" %} <strong>{{ users }}</strong></dd>
-				<dd>{% trans "Total number of topics:" %} <strong>{{ topics }}</strong></dd>
-				<dd>{% trans "Total number of posts:" %} <strong>{{ posts }}</strong></dd>
-			</dl>
-			<dl class="conl">
-				<dt><strong>{% trans "User information" %}</strong></dt>
-				<dd>{% trans "Newest registered user:" %} {{ last_user|profile_link }}</dd>
-				<dd>{% trans "Registered users online:" %} <strong>{{ online_count }}</strong></dd>
-				<dd>{% trans "Guests online:" %} <strong>{{ guest_count }}</strong></dd>
-			</dl>
-            {% if online_count %}
-                <dl id="onlinelist" class= "clearb">
-                    <dt><strong>{% trans "Online:" %} </strong></dt>
-                    {% for online in users_online %}
-                        <dd>{{ online|profile_link }}{% if not forloop.last %},{% endif %}</dd>
-                    {% endfor %}
-                </dl>
-            {% endif %}
-		</div>
-	</div>
-</div>
+{% block controls %}
+{{ block.super }}
+<dl id="onlinelist" class= "clearb">
+    <dt><strong>{% blocktrans with count=online_count %}Online ({{ count }}):{% endblocktrans %} </strong></dt>
+    {% for online in users_online %}
+        <dd>{{ online|profile_link }}{% if not forloop.last %},{% endif %}</dd>
+    {% endfor %}
+</dl>
 {% endblock %}
 
 {% block lofi %}
