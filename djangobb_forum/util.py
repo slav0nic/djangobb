@@ -416,8 +416,10 @@ def customize_postmarkup(allow_external_links):
 
     add_tag(postmarkup.QuoteTag, 'quote')
 
-    add_tag(postmarkup.SearchTag, u'wiki',
+    add_tag(postmarkup.SearchTag, u'wp',
             u"http://en.wikipedia.org/wiki/Special:Search?search=%s", u'wikipedia.com', None)
+    add_tag(postmarkup.SearchTag, u'wiki',
+            u"http://wiki.scratch.mit.edu/wiki/Special:Search?search=%s", u'wiki.scratch.mit.edu', None)
     add_tag(postmarkup.SearchTag, u'google',
             u"http://www.google.com/search?hl=en&q=%s&btnG=Google+Search", u'google.com', None)
     add_tag(postmarkup.SearchTag, u'dictionary',
