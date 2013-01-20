@@ -11,7 +11,7 @@
 	<div id="brdmenu" class="box-content">
 		<ul>
 		{% block menu %}
-			<li id="navindex"><a href="{% url djangobb:index %}">{% trans "Index" %}</a></li>
+			<li id="navindex"><a href="{% url djangobb:index %}">{% trans "Home" %}</a></li>
 			{% if moderator %}
 				<li id="navuserlist" class="moderator-only"><a href="{% url djangobb:forum_users %}">{% trans "User List" %}</a></li>
 			{% endif %}
