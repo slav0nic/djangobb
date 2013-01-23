@@ -19,13 +19,13 @@
                 {% for report in new_reports %}
                 <tr>
                     <td class="tcl">
-                        <p><a href="{% url profile_detail report.reported_by %}"> {{ report.reported_by }} </a></p>
+                        <p><a href="{% url profile_detail report.reported_by %}">{{ report.reported_by }}</a></p>
                         <p>{{ report.created }}</p>
                     </td>
                     <td>{{ report.reason }}</td>
                     <td>
-                        <p><a href="{{report.post.get_absolute_url}}"> {{ report.post }} </a></p>
-                        <p>Posted By: <a href="{% url profile_detail report.post.user.username %}">{{ report.post.user }} </a></p>
+                        <p><a href="{{report.post.get_absolute_url}}">{{ report.post }}</a></p>
+                        <p>Posted By: <a href="{% url profile_detail report.post.user.username %}">{{ report.post.user }}</a></p>
                     </td>
                     <td>
                         <form method="post" action="?action=zap">
@@ -63,7 +63,7 @@
                 </td>
                 <td>{{ report.reason }}</td>
                 <td>
-                    <p><a href="{{report.post.get_absolute_url}}"> {{ report.post }} </a></p>
+                    <p><a href="{{report.post.get_absolute_url}}">{{ report.post }}</a></p>
                     <p>Posted By: <a href="{% url profile_detail report.post.user.username %}">{{ report.post.user }}</a></p>
                 </td>
                 <td>{{ report.zapped_by }}</td>
