@@ -17,7 +17,7 @@
 </div>
 <div id="vf" class="blocktable">
   	<div class="box">
-	{% if can_create_topics %}
+	{% if user.is_authenticated %}
 		<a class="small button new_topic" href="{% url djangobb:add_topic forum.id %}" title="{% trans "Can't find an answer to your question? Click here to ask it in a new thread." %}"><span>{% trans "New topic" %}</span></a>
 	{% endif %}
 		<div class="box-head">
