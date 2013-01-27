@@ -97,6 +97,7 @@ class Category(models.Model):
 
 class Forum(models.Model):
     category = models.ForeignKey(Category, related_name='forums', verbose_name=_('Category'))
+    moderator_only = models.BooleanField(_('New topics by moderators only'), default=False)
     name = models.CharField(_('Name'), max_length=80)
     position = models.IntegerField(_('Position'), blank=True, default=0)
     description = models.TextField(_('Description'), blank=True, default='')
