@@ -7,6 +7,7 @@
 .djangobb pre,
 .djangobb blockquote,
 .djangobb ul,
+.djangobb ol,
 .djangobb dl,
 .djangobb dt,
 .djangobb dd,
@@ -62,15 +63,6 @@ p, li {
 .searchposts .postmsg {
     /* add scoll bars on small postmsg in search results */
     overflow: auto;
-}
-
-.postmsg li {
-	margin: 0;
-}
-.postmsg ul li {
-    /* make list bullets visible, see: http://djangobb.org/ticket/235 */
-    list-style: disc;
-    margin-left: 2em;
 }
 
 /*
@@ -269,11 +261,39 @@ div.blockpost > div > div.inbox {
 .bb-underline {
 	text-decoration: underline;
 }
+.bb-italic {
+	font-style: italic;
+}
+.bb-bold {
+	font-weight: bold;
+}
+.bb-strikethrough {
+	text-decoration: line-through;
+}
 .bb-big {
 	font-size: 17px;
 }
 .bb-small {
 	font-size: 10px;
+}
+
+.bb-quote-author {
+	font-weight: bold;
+	margin-bottom: 6px;
+}
+
+.postmsg li {
+	margin: 0 0 0 32px;
+}
+.postmsg ul,
+.postmsg ol {
+	margin: 12px 0;
+}
+.postmsg ul li {
+    list-style-type: disc;
+}
+.postmsg ol li {
+    list-style-type: decimal;
 }
 
 /*

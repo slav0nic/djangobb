@@ -401,20 +401,34 @@ class FilteredLinkTag(postmarkup.TagBase):
         else:
             return u'</span>'
 
+class QuoteTag(postmarkup.TagBase):
+
+    def __init__(self, name, **kwargs):
+        super(QuoteTag, self).__init__(name, strip_first_newline=True)
+
+    def render_open(self, parser, node_index):
+        if self.params:
+            return u'<blockquote><p class="bb-quote-author">%s wrote:</p>' % (postmarkup.PostMarkup.standard_replace(self.params))
+        else:
+            return u'<blockquote>'
+
+    def render_close(self, parser, node_index):
+        return u'</blockquote>'
+
 # This allows us to control the bb tags
 def customize_postmarkup(allow_external_links):
     custom_postmarkup = postmarkup.PostMarkup()
     add_tag = custom_postmarkup.tag_factory.add_tag
     custom_postmarkup.tag_factory.set_default_tag(postmarkup.DefaultTag)
 
-    add_tag(postmarkup.SimpleTag, 'b', 'strong')
-    add_tag(postmarkup.SimpleTag, 'i', 'em')
+    add_tag(CSSClassTag, 'b', 'bb-bold')
+    add_tag(CSSClassTag, 'i', 'bb-italic')
     add_tag(CSSClassTag, 'u', 'bb-underline')
-    add_tag(postmarkup.SimpleTag, 's', 'strike')
+    add_tag(CSSClassTag, 's', 'bb-strikethrough')
 
     add_tag(FilteredLinkTag if allow_external_links else RestrictedLinkTag, 'url')
 
-    add_tag(postmarkup.QuoteTag, 'quote')
+    add_tag(QuoteTag, 'quote')
 
     add_tag(postmarkup.SearchTag, u'wp',
             u"http://en.wikipedia.org/wiki/Special:Search?search=%s", u'wikipedia.com', None)
