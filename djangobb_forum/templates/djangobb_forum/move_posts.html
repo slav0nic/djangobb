@@ -2,6 +2,7 @@
 {% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
+{% load tz %}
 
 {% block js %}
 {{ block.super }}
@@ -28,7 +29,7 @@
     <div class="box">
         <div class="box-head">
             <span class="conr">#{{ forloop.counter }}</span>
-            <a href="{{ post.get_absolute_url }}">{{ post.created|forum_time }}</a>
+            <a href="{{ post.get_absolute_url }}">{{ post.created|localtime|forum_time }}</a>
         </div>
         <div class="box-content">
             <div class="postleft">
@@ -42,7 +43,7 @@
                 <div class="postmsg">
                     <div class="post_body_html">{{ post.body_html|safe }}</div>
                     {% if post.updated %}
-                        <p class="postedit"><em class="posteditmessage">{% blocktrans with user=post.updated_by.username time=post.updated|forum_time %}Last edited by {{ user }} ({{ time }}){% endblocktrans %}</em></p>
+                        <p class="postedit"><em class="posteditmessage">{% blocktrans with user=post.updated_by.username time=post.updated|localtime|forum_time %}Last edited by {{ user }} ({{ time }}){% endblocktrans %}</em></p>
                     {% endif %}
                 </div>
                 <p class="multidelete"><label>

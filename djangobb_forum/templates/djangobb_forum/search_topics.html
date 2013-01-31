@@ -2,6 +2,7 @@
 {% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
+{% load tz %}
 
 {% block content %}
 {% autopaginate topics forum_settings.SEARCH_PAGE_SIZE %}
@@ -39,7 +40,7 @@
 						</td>
 						<td class="tc2">{% link topic.forum %}</td>
 						<td class="tc3">{{ topic.reply_count }}</td>
-						<td class="tcr"><a href="{{ topic.get_absolute_url }}">{{ topic.updated|forum_time }}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+						<td class="tcr"><a href="{{ topic.get_absolute_url }}">{{ topic.updated|localtime|forum_time }}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
 					</tr>
 				{% empty %}
 				     <tr>

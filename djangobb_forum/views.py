@@ -3,7 +3,7 @@
 import math
 import re
 import urllib2
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -17,6 +17,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpRespons
 from django.shortcuts import get_object_or_404, render
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from haystack.query import SearchQuerySet, SQ
@@ -169,7 +170,7 @@ def search(request):
 
     action = request.GET['action']
     if action == 'show_24h':
-        date = datetime.now() - timedelta(days=1)
+        date = timezone.now() - timedelta(days=1)
         if show_as_posts:
             context["posts"] = posts.filter(Q(created__gte=date) | Q(updated__gte=date))
         else:
@@ -301,7 +302,7 @@ def misc(request):
         action = request.GET['action']
         if action == 'markread':
             user = request.user
-            PostTracking.objects.filter(user__id=user.id).update(last_read=datetime.now(), topics=None)
+            PostTracking.objects.filter(user__id=user.id).update(last_read=timezone.now(), topics=None)
             messages.info(request, _("Marked all topics as read."))
             return HttpResponseRedirect(reverse('djangobb:index'))
 
@@ -383,8 +384,8 @@ def show_topic(request, topic_id, full=True):
     if request.user.is_authenticated():
         topic.update_read(request.user)
     posts = topic.posts.all().select_related()
-    edit_start = datetime.now() - timedelta(minutes=1)
-    edit_end = datetime.now()
+    edit_start = timezone.now() - timedelta(minutes=1)
+    edit_end = timezone.now()
     editable = posts.filter(created__range=(edit_start, edit_end)).filter(user_id=request.user.id)
     can_edit = request.user.has_perm('djangobb_forum.change_post')
     first_post_number = int(forum_settings.TOPIC_PAGE_SIZE) * (int(request.GET.get('page') or 1) - 1)

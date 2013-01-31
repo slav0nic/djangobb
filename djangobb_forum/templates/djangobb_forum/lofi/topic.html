@@ -2,6 +2,7 @@
 {% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
+{% load tz %}
 
 {% block content %}
 <div id='largetext'>{% trans "Full Version:" %} {% link topic %}</div>
@@ -19,7 +20,7 @@
 		<div class='postwrapper'>
 			<div class='posttopbar'>
 			  <div class='postname'>{{ post.user.username }}</div>
-			  <div class='postdate'>{{ post.created|forum_time }}</div>
+			  <div class='postdate'>{{ post.created|localtime|forum_time }}</div>
 		 	</div>
 			<div class='postcontent'>
 				{{ post.body_html|safe }}

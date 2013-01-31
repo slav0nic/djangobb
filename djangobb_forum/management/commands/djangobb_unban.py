@@ -1,5 +1,5 @@
 from optparse import make_option
-from datetime import datetime
+from django.utils.timezone import now
 
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
@@ -23,7 +23,7 @@ class Command(BaseCommand):
             User.objects.filter(id__in=user_ids).update(is_active=True)
             bans.delete()
         elif options['by-time']:
-            bans = Ban.objects.filter(ban_end__lte=datetime.now())
+            bans = Ban.objects.filter(ban_end__lte=now())
             user_ids = bans.values_list('user', flat=True)
             User.objects.filter(id__in=user_ids).update(is_active=True)
             bans.delete()

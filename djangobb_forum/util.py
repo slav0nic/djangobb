@@ -5,7 +5,6 @@ from HTMLParser import HTMLParser, HTMLParseError
 import postmarkup
 from postmarkup.parser import strip_bbcode
 from urlparse import urlparse
-from datetime import datetime
 try:
     import markdown
 except ImportError:
@@ -20,6 +19,7 @@ from django.utils.functional import Promise
 from django.utils.translation import force_unicode, check_for_language
 from django.utils.simplejson import JSONEncoder
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.sites.models import Site
 
@@ -34,7 +34,7 @@ def absolute_url(path):
 
 
 def can_close_topic(user, topic):
-    return user == topic.user and user.has_perm('djangobb_forum.delayed_close') and (datetime.now() - topic.created).total_seconds() >= forum_settings.TOPIC_CLOSE_DELAY
+    return user == topic.user and user.has_perm('djangobb_forum.delayed_close') and (timezone.now() - topic.created).total_seconds() >= forum_settings.TOPIC_CLOSE_DELAY
 
 
 def paged(paged_list_name, per_page):

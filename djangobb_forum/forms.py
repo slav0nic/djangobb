@@ -1,13 +1,14 @@
 # coding: utf-8
 
 import os.path
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.expressions import F
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
@@ -99,7 +100,7 @@ class AddPostForm(forms.ModelForm):
 
             try:
                 recent_post = Post.objects.filter(user=self.user).latest()
-                lastpost_diff = datetime.now() - recent_post.created
+                lastpost_diff = now() - recent_post.created
             except Post.DoesNotExist:
                 lastpost_diff = timedelta(1) # one day if first post
             if forum_settings.POST_FLOOD and not self.user.has_perm('djangobb_forum.fast_post'):
@@ -187,7 +188,7 @@ class EditPostForm(forms.ModelForm):
 
     def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
-        post.updated = datetime.now()
+        post.updated = now()
         topic_name = self.cleaned_data['name']
         if topic_name:
             post.topic.name = topic_name
@@ -450,7 +451,7 @@ class ReportForm(forms.ModelForm):
 
     def save(self, commit=True):
         report = super(ReportForm, self).save(commit=False)
-        report.created = datetime.now()
+        report.created = now()
         report.reported_by = self.reported_by
         if commit:
             report.save()
@@ -528,7 +529,7 @@ class PollForm(forms.ModelForm):
         poll.topic = post.topic
         days = self.cleaned_data["days"]
         if days:
-            now = datetime.now()
+            now = now()
             poll.deactivate_date = now + timedelta(days=days)
         poll.save()
         answers = self.cleaned_data["answers"]

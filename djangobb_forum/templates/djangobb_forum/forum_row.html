@@ -1,6 +1,7 @@
 {% load forum_extras %}
 {% load cache %}
 {% load i18n %}
+{% load tz %}
 
 <tr>
 	<td class="tcl">
@@ -34,7 +35,7 @@
 	<td class="tcr">
 		{% if forum.updated %}
 			{% if forum.last_post.topic %}
-				<a href="{{ forum.last_post.get_absolute_url }}">{{ forum.last_post.created|forum_time }}</a>
+				<a href="{{ forum.last_post.get_absolute_url }}">{{ forum.last_post.created|localtime|forum_time }}</a>
 				<span class="byuser">{% trans "by" %} {{ forum.last_post.user.username }}</span>
 			{% endif %}
 		{% endif %}

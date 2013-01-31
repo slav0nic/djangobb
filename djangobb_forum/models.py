@@ -1,6 +1,5 @@
 # coding: utf-8
 
-from datetime import datetime
 from hashlib import sha1
 import os
 
@@ -11,6 +10,7 @@ from django.db.models import aggregates
 from django.db.models.signals import post_save
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import smiles, convert_text_to_html
@@ -195,7 +195,7 @@ class Topic(models.Model):
             #clear topics if len > 5Kb and set last_read to current time
             if len(tracking.topics) > 5120:
                 tracking.topics = None
-                tracking.last_read = datetime.now()
+                tracking.last_read = timezone.now()
                 tracking.save()
             #update topics if exist new post or does't exist in dict
             if self.last_post_id > tracking.topics.get(str(self.id), 0):
@@ -386,7 +386,7 @@ class Report(models.Model):
 
 class Ban(models.Model):
     user = models.OneToOneField(User, verbose_name=_('Banned user'), related_name='ban_users')
-    ban_start = models.DateTimeField(_('Ban start'), default=datetime.now)
+    ban_start = models.DateTimeField(_('Ban start'), default=timezone.now)
     ban_end = models.DateTimeField(_('Ban end'), blank=True, null=True)
     reason = models.TextField(_('Reason'))
 
@@ -454,7 +454,7 @@ class Poll(models.Model):
     )
     def auto_deactivate(self):
         if self.active and self.deactivate_date:
-            now = datetime.now()
+            now = timezone.now()
             if now > self.deactivate_date:
                 self.active = False
                 self.save()

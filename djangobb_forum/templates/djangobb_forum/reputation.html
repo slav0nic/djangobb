@@ -1,6 +1,7 @@
 {% extends 'djangobb_forum/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
+{% load tz %}
 
 {% block content %}
 <div class="linkst">
@@ -42,7 +43,7 @@
 							<img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_minus.gif" alt="+" border="0">
 						{% endif %}
 						</td>
-						<td>{{ reputation.time|forum_time }}</td>
+						<td>{{ reputation.time|localtime|forum_time }}</td>
 						{% if request.user.is_superuser %}
 							<td style="text-align: center;"><input type="checkbox" name="reputation_id" value="{{ reputation.id }}"></td>
 						{% endif %}
