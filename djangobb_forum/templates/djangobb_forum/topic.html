@@ -75,7 +75,7 @@
                             {% endif %}
                         {% endif %}
                         <dd class="postavatar">
-                            <a href="{% url profile_detail post.user.username %}"><img src="{{ user.profile.thumbnail.url }}" width="90" height = "90"></a>
+                            <a href="{% url profile_detail post.user.username %}"><img src="{{ post.user.profile.thumbnail.url }}" width="90" height = "90"></a>
                         </dd>
                         {% if moderator %}
                         {% if post.user.forum_profile.location %}
