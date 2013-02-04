@@ -876,6 +876,7 @@ def delete_post(request, post_id):
     last_post = post.topic.last_post
     topic = post.topic
     forum = post.topic.forum
+    is_head = topic.posts.order_by('created')[0].id == post.id
 
     if not (request.user.is_superuser or\
         request.user in post.topic.forum.moderators.all() or \
@@ -886,13 +887,9 @@ def delete_post(request, post_id):
     post.delete(**delete_kwargs)
     messages.success(request, _("Post deleted."))
 
-    try:
-        Topic.objects.get(pk=topic.id)
-    except Topic.DoesNotExist:
-        #removed latest post in topic
+    if is_head:
         return HttpResponseRedirect(forum.get_absolute_url())
-    else:
-        return HttpResponseRedirect(topic.get_absolute_url())
+    return HttpResponseRedirect(topic.get_absolute_url())
 
 
 @login_required

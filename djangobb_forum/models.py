@@ -247,21 +247,21 @@ class Post(models.Model):
         self.last_forum_post.clear()
 
         # If we actually delete the post, we lose any reports that my have come from it. Also, there is no recovery (but I don't care about that as much right now)
-        if forum_settings.SOFT_DELETE_POSTS and (self.topic != get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS) or kwargs.get('staff', False)):
-                self.topic = get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS)
-                self.save()
-        else:
-            super(Post, self).delete(*args, **kwargs)
-        #if post was last in topic - remove topic
-        if self_id == head_post_id and not (forum_settings.SOFT_DELETE_POSTS and self.topic == get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS)):
+        if self_id == head_post_id:
             topic.delete()
         else:
-            try:
-                topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
-            except Post.DoesNotExist:
-                topic.last_post = None
-            topic.post_count = Post.objects.filter(topic__id=topic.id).count()
-            topic.save()
+            if forum_settings.SOFT_DELETE_POSTS and (self.topic != get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS) or kwargs.get('staff', False)):
+                    self.topic = get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS)
+                    self.save()
+            else:
+                super(Post, self).delete(*args, **kwargs)
+                #if post was last in topic - remove topic
+                try:
+                    topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
+                except Post.DoesNotExist:
+                    topic.last_post = None
+                topic.post_count = Post.objects.filter(topic__id=topic.id).count()
+                topic.save()
         try:
             forum.last_post = Post.objects.filter(topic__forum__id=forum.id).latest()
         except Post.DoesNotExist:
