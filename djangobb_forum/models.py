@@ -256,12 +256,12 @@ class Post(models.Model):
             else:
                 super(Post, self).delete(*args, **kwargs)
                 #if post was last in topic - remove topic
-                try:
-                    topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
-                except Post.DoesNotExist:
-                    topic.last_post = None
-                topic.post_count = Post.objects.filter(topic__id=topic.id).count()
-                topic.save()
+            try:
+                topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
+            except Post.DoesNotExist:
+                topic.last_post = None
+            topic.post_count = Post.objects.filter(topic__id=topic.id).count()
+            topic.save()
         try:
             forum.last_post = Post.objects.filter(topic__forum__id=forum.id).latest()
         except Post.DoesNotExist:
