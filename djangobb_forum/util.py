@@ -1,11 +1,14 @@
+# coding: utf-8
+
 import re
-from HTMLParser import HTMLParser
+from HTMLParser import HTMLParser, HTMLParseError
 from postmarkup import render_bbcode
 try:
     import markdown
 except ImportError:
     pass
 
+from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse, Http404
@@ -134,7 +137,7 @@ class ExcludeTagsHTMLParser(HTMLParser):
             self.html.append(data)
 
         def handle_startendtag(self, tag, attrs):
-            self.html.append('<%s%s/>' % (tag, self.__html_attrs(attrs))) 
+            self.html.append('<%s%s/>' % (tag, self.__html_attrs(attrs)))
 
         def handle_endtag(self, tag):
             self.is_ignored = False
@@ -153,7 +156,7 @@ class ExcludeTagsHTMLParser(HTMLParser):
         def __html_attrs(self, attrs):
             _attrs = ''
             if attrs:
-                _attrs = ' %s' % (' '.join([('%s="%s"' % (k,v)) for k,v in attrs]))
+                _attrs = ' %s' % (' '.join([('%s="%s"' % (k, v)) for k, v in attrs]))
             return _attrs
 
         def feed(self, data):
@@ -161,17 +164,23 @@ class ExcludeTagsHTMLParser(HTMLParser):
             self.html = ''.join(self.html)
 
 
-def urlize(data):
+def urlize(html):
     """
     Urlize plain text links in the HTML contents.
    
     Do not urlize content of A and CODE tags.
     """
-
-    parser = ExcludeTagsHTMLParser(django_urlize)
-    parser.feed(data)
-    urlized_html = parser.html
-    parser.close()
+    try:
+        parser = ExcludeTagsHTMLParser(django_urlize)
+        parser.feed(html)
+        urlized_html = parser.html
+        parser.close()
+    except HTMLParseError:
+        # HTMLParser from Python <2.7.3 is not robust
+        # see: http://support.djangobb.org/topic/349/
+        if settings.DEBUG:
+            raise
+        return html
     return urlized_html
 
 def _smile_replacer(data):
@@ -179,15 +188,21 @@ def _smile_replacer(data):
         data = smile.sub(path, data)
     return data
 
-def smiles(data):
+def smiles(html):
     """
     Replace text smiles.
     """
-
-    parser = ExcludeTagsHTMLParser(_smile_replacer)
-    parser.feed(data)
-    smiled_html = parser.html
-    parser.close()
+    try:
+        parser = ExcludeTagsHTMLParser(_smile_replacer)
+        parser.feed(html)
+        smiled_html = parser.html
+        parser.close()
+    except HTMLParseError:
+        # HTMLParser from Python <2.7.3 is not robust
+        # see: http://support.djangobb.org/topic/349/
+        if settings.DEBUG:
+            raise
+        return html
     return smiled_html
 
 def paginate(items, request, per_page, total_count=None):
@@ -202,7 +217,7 @@ def paginate(items, request, per_page, total_count=None):
         paged_list_name = paginator.page(page_number).object_list
     except (InvalidPage, EmptyPage):
         raise Http404
-    return pages, paginator, paged_list_name 
+    return pages, paginator, paged_list_name
 
 def set_language(request, language):
     """
@@ -222,27 +237,3 @@ def convert_text_to_html(text, markup):
         raise Exception('Invalid markup property: %s' % markup)
     return urlize(text)
 
-
-class TopicFromPostResult(object):
-    """
-    Custom Result object to return topics from a post search.
-
-    This function uses a generator to return topic objects from
-    results given by haystack on a post query. This eliminates
-    loading a large array of topic objects into memory.
-    """
-
-    def __init__(self, posts):
-        self.posts = posts
-
-    def __len__(self):
-        return len(self.posts)
-
-    def __getitem__(self, key):
-        if isinstance(key, slice):
-            return (self.posts[i].object.topic
-                        for i in xrange(*key.indices(len(self))))
-        elif isinstance(key, int):
-            return self.posts[key].object.topic
-
-        raise TypeError('unknown type in key for __getitem__')
