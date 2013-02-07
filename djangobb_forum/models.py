@@ -1,13 +1,15 @@
-from datetime import datetime
-import os
-import os.path
-from hashlib import sha1
+# coding: utf-8
 
-from django.db import models
-from django.contrib.auth.models import User, Group
+from datetime import datetime
+from hashlib import sha1
+import os
+
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User, Group
+from django.db import models
+from django.db.models import aggregates
 from django.db.models.signals import post_save
+from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import smiles, convert_text_to_html
@@ -51,14 +53,14 @@ except ImportError:
 path = os.path.join(settings.STATIC_ROOT, 'djangobb_forum', 'themes')
 if os.path.exists(path):
     # fix for collectstatic
-    THEME_CHOICES = [(theme, theme) for theme in os.listdir(path) 
+    THEME_CHOICES = [(theme, theme) for theme in os.listdir(path)
                      if os.path.isdir(os.path.join(path, theme))]
 else:
     THEME_CHOICES = []
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
-    groups = models.ManyToManyField(Group,blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
+    groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
     position = models.IntegerField(_('Position'), blank=True, default=0)
 
     class Meta:
@@ -81,10 +83,12 @@ class Category(models.Model):
         return Post.objects.filter(topic__forum__category__id=self.id).select_related()
 
     def has_access(self, user):
+        if user.is_superuser:
+            return True
         if self.groups.exists():
-            if user.is_authenticated(): 
-                    if not self.groups.filter(user__pk=user.id).exists():
-                        return False
+            if user.is_authenticated():
+                if not self.groups.filter(user__pk=user.id).exists():
+                    return False
             else:
                 return False
         return True
@@ -213,7 +217,7 @@ class Post(models.Model):
         verbose_name_plural = _('Posts')
 
     def save(self, *args, **kwargs):
-        self.body_html = convert_text_to_html(self.body, self.markup) 
+        self.body_html = convert_text_to_html(self.body, self.markup)
         if forum_settings.SMILES_SUPPORT and self.user.forum_profile.show_smilies:
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)
@@ -310,6 +314,7 @@ class Profile(models.Model):
     show_signatures = models.BooleanField(_('Show signatures'), blank=True, default=True)
     show_smilies = models.BooleanField(_('Show smilies'), blank=True, default=True)
     privacy_permission = models.IntegerField(_('Privacy permission'), choices=PRIVACY_CHOICES, default=1)
+    auto_subscribe = models.BooleanField(_('Auto subscribe'), help_text=_("Auto subscribe all topics you have created or reply."), blank=True, default=False)
     markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
 
@@ -333,8 +338,8 @@ class PostTracking(models.Model):
     """
 
     user = AutoOneToOneField(User)
-    topics = JSONField(null=True)
-    last_read = models.DateTimeField(null=True)
+    topics = JSONField(null=True, blank=True)
+    last_read = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = _('Post tracking')
@@ -348,7 +353,7 @@ class Report(models.Model):
     reported_by = models.ForeignKey(User, related_name='reported_by', verbose_name=_('Reported by'))
     post = models.ForeignKey(Post, verbose_name=_('Post'))
     zapped = models.BooleanField(_('Zapped'), blank=True, default=False)
-    zapped_by = models.ForeignKey(User, related_name='zapped_by', blank=True, null=True,  verbose_name=_('Zapped by'))
+    zapped_by = models.ForeignKey(User, related_name='zapped_by', blank=True, null=True, verbose_name=_('Zapped by'))
     created = models.DateTimeField(_('Created'), blank=True)
     reason = models.TextField(_('Reason'), blank=True, default='', max_length='1000')
 
@@ -357,7 +362,7 @@ class Report(models.Model):
         verbose_name_plural = _('Reports')
 
     def __unicode__(self):
-        return u'%s %s' % (self.reported_by ,self.zapped)
+        return u'%s %s' % (self.reported_by , self.zapped)
 
 class Ban(models.Model):
     user = models.OneToOneField(User, verbose_name=_('Banned user'), related_name='ban_users')
@@ -407,6 +412,54 @@ class Attachment(models.Model):
     def get_absolute_path(self):
         return os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO,
                             self.path)
+
+
+#------------------------------------------------------------------------------
+
+
+class Poll(models.Model):
+    topic = models.ForeignKey(Topic)
+    question = models.CharField(max_length=200)
+    choice_count = models.PositiveSmallIntegerField(default=1,
+        help_text=_("How many choices are allowed simultaneously."),
+    )
+    active = models.BooleanField(default=True,
+        help_text=_("Can users vote to this poll or just see the result?"),
+    )
+    deactivate_date = models.DateTimeField(null=True, blank=True,
+        help_text=_("Point of time after this poll would be automatic deactivated"),
+    )
+    users = models.ManyToManyField(User, blank=True, null=True,
+        help_text=_("Users who has voted this poll."),
+    )
+    def auto_deactivate(self):
+        if self.active and self.deactivate_date:
+            now = datetime.now()
+            if now > self.deactivate_date:
+                self.active = False
+                self.save()
+
+    def __unicode__(self):
+        return self.question
+
+
+class PollChoice(models.Model):
+    poll = models.ForeignKey(Poll, related_name="choices")
+    choice = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0, editable=False)
+
+    def percent(self):
+        if not self.votes:
+            return 0.0
+        result = PollChoice.objects.filter(poll=self.poll).aggregate(aggregates.Sum("votes"))
+        votes_sum = result["votes__sum"]
+        return float(self.votes) / votes_sum * 100
+
+    def __unicode__(self):
+        return self.choice
+
+
+#------------------------------------------------------------------------------
 
 
 from .signals import post_saved, topic_saved

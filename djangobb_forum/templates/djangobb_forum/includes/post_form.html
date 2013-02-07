@@ -1,0 +1,61 @@
+{% load i18n %}
+<div class="blockform" id="reply">
+    <h2><span>{% if forum %}{% trans "New topic" %}{% else %}{% trans "New reply" %}{% endif %}</span></h2>
+    <div class="box">
+        <form id="post" action="{{ form_url|default_if_none:"." }}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if create_poll_form %}
+            <script>{# TODO: move to html head! #}
+                $(document).ready(function() {
+                    $('.poll .infldset').hide();
+                    $(".poll").click(function() {
+                        $('.poll .infldset').slideDown();
+                    });
+                });
+            </script>
+            <div class="inform poll">
+                <fieldset>
+                    <legend>{% trans "Create a poll" %}</legend>
+                    <div class="infldset">
+                        <div class="rbox">
+                            {{ create_poll_form }}
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            {% endif %}
+            
+            <div class="inform">
+                <fieldset>
+                    <legend>{% trans "Write your message and submit" %}</legend>
+                    <noscript><h1>Please enable JavaScript!</h1></noscript>
+                    <div class="infldset txtarea">
+                        {% if forum %}
+                            <label><strong>{% trans "Subject" %}</strong><br />{{ form.name.errors }}{{ form.name }}<br /></label>
+                        {% endif %}
+                        <label><strong>{% trans "Message" %}</strong><br />{{ form.body.errors }}{{ form.body }}</label>
+                        <p>
+                            Note: A list of all supported source code highlighter for [code <strong>XXX</strong>]...[/code] can be found here: <a href="http://pygments.org/docs/lexers/">pygments.org</a> (Use 'Short name')
+                        </p>
+                        <label>{{ form.subscribe }}<strong>{% trans "Subscribe this topic" %}</strong>{{ form.subscribe.errors }}<br /></label>
+                    </div>
+                </fieldset>
+            </div>
+            {% if forum_settings.ATTACHMENT_SUPPORT %}
+            <div class="inform">
+                <fieldset>
+                    <legend>{% trans "Attachment" %}</legend>
+                    <div class="infldset">
+                        {{ form.attachment.errors }}
+                        <div class="rbox">
+                            {{ form.attachment }}
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            {% endif %}
+            <p><input type="submit" name="{{ form.FORM_NAME }}" value="{% trans "Submit" %}" /><a href="{{ back_url|default_if_none:"javascript:history.go(-1)" }}">{% trans "Go back" %}</a></p>
+        </form>
+    </div>
+</div>

@@ -19,18 +19,26 @@
 		var STATIC_URL = "{{ STATIC_URL }}";
 		var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
 	</script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-	{% if post %}
-		{% set_markup_editor request.user post.markup %}
+	{% if DEBUG %}
+	   <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.js" onerror="JavaScript:alert('Error loading file [' + this.src + '] !');" ></script>
 	{% else %}
-		{% set_markup_editor request.user %}
+    	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.min.js" onerror="JavaScript:alert('Error loading file [' + this.src + '] !');" ></script>
 	{% endif %}
 	{% if user.is_authenticated %}
-		<script type="text/javascript" >
-		   $(document).ready(function() {
-			$(".markup").markItUp(mySettings);
-		   });
-		</script>
+    	{% if post %}
+            {% with markup=post.markup %}
+                {% include "djangobb_forum/includes/markup_editor.html" %}
+            {% endwith %}
+        {% else %}
+            {% with markup=user.forum_profile.markup %}
+                {% include "djangobb_forum/includes/markup_editor.html" %}
+            {% endwith %}
+        {% endif %}
+    	<script type="text/javascript">
+    	   $(document).ready(function() {
+    		$(".markup").markItUp(mySettings);
+    	   });
+    	</script>
 	{% endif %}
 
     <!-- Highlightjs goodies -->
@@ -46,18 +54,45 @@
 	{% block extra_meta %}{% endblock %}
 </head>
 <body>
-	{% include 'djangobb_forum/header.html' %}
+    {% include 'djangobb_forum/header.html' %}
+
+    {% block messages %}
+        {% if messages %}
+        <div id="messages" class="block">
+            <h2><span>{% trans "Notice" %}</span></h2>
+            <div class="box">
+                <div class="inbox">
+                    <ul class="messagelist">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endblock messages %}
+
 	{% block content %}{% endblock %}
 	<div id="brdfooter" class="block">
 	<h2><span>{% trans "Board footer" %}</span></h2>
         <div class="box">
             <div class="inbox">
                 {% block controls %}
-                {% endblock %}
+                    <dl id="searchlinks" class="conl">
+                        <dt><strong>{% trans "Search links" %}</strong></dt>
+                        <dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
+                        <dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
+                        {% if user.is_authenticated %}
+                        <dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
+                        <dd>{% trans "Show your" %} <a href="{% url djangobb:search %}?action=show_user&show_as=topics">{% trans "topics" %}</a>/<a href="{% url djangobb:search %}?action=show_user&show_as=posts">{% trans "posts" %}</a></dd>
+                        {% endif %}
+                    </dl>
+                {% endblock controls %}
                 <p class="conr">Powered by <a href="http://djangobb.org/">DjangoBB</a></p>
                 <div class="clearer"></div>
                 {% block lofi %}
-                {% endblock %}
+                {% endblock lofi%}
             </div>
         </div>
     </div>
