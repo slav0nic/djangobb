@@ -315,7 +315,10 @@ def misc(request):
                     form.save()
                     messages.info(request, _("Post reported."))
                     return HttpResponseRedirect(post.get_absolute_url())
-                return render(request, 'djangobb_forum/report.html', {'form':form})
+                return render(request, 'djangobb_forum/report.html', {
+                    'form': form,
+                    'post': post,
+                    })
 
     elif 'submit' in request.POST and 'mail_to' in request.GET:
         form = MailToForm(request.POST)

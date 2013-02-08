@@ -4,6 +4,8 @@
 {% load i18n %}
 {% load tz %}
 
+{% block page-name %}{% blocktrans with name=topic.name %}Move Posts - {{name}}{% endblocktrans %}{% endblock %}
+
 {% block js %}
 {{ block.super }}
 <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/js/move_posts.js"></script>

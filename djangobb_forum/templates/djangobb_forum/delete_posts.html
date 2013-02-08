@@ -4,6 +4,8 @@
 {% load i18n %}
 {% load tz %}
 
+{% block page-name %}{% blocktrans with name=topic.name %}Delete Posts - {{name}}{% endblocktrans %}{% endblock %}
+
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">

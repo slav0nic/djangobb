@@ -3,6 +3,8 @@
 {% load i18n %}
 {% load pagination_tags %}
 
+{% block page-name %}{% trans "Search Results" %}{% endblock %}
+
 {% block content %}
 {% autopaginate posts forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">

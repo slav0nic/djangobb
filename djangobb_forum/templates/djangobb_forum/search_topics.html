@@ -4,6 +4,8 @@
 {% load i18n %}
 {% load tz %}
 
+{% block page-name %}{% trans "Search Results" %}{% endblock %}
+
 {% block content %}
 {% autopaginate topics forum_settings.SEARCH_PAGE_SIZE %}
 <div class="linkst">

@@ -2,7 +2,16 @@
 {% load forum_extras %}
 {% load i18n %}
 
+{% block page-name %}{% trans "Move Topic" %}{% endblock %}
+
 {% block content %}
+<div class="linkst">
+    <ul>
+        <li><a href="{% url djangobb:index %}">{% trans "Forums Home" %}</a></li>
+        <li>&raquo; {% trans "Move Topic" %}</li>
+    </ul>
+</div>
+
 <div class="box">
     <div class="box-head">
         <h4>{% trans "Move Topic" %}</h4>

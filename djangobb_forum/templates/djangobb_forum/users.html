@@ -3,6 +3,8 @@
 {% load forum_extras %}
 {% load i18n %}
 
+{% block page-name %}{% trans "User List" %}{% endblock %}
+
 {% block content %}
 {% autopaginate users forum_settings.USERS_PAGE_SIZE %}
 <div class="box">

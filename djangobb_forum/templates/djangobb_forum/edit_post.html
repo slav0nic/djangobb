@@ -2,6 +2,8 @@
 {% load forum_extras %}
 {% load i18n %}
 
+{% block page-name %}{% blocktrans with name=topic.name %}Edit Post - {{name}}{% endblocktrans %}{% endblock %}
+
 {% block content %}
 <div class="linkst">
 	<div class="inbox">

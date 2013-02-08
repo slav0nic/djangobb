@@ -88,6 +88,10 @@ div > div > div.postfootright {
 }
 /* End of IEWin Fix */
 
+#brdmenu strong {
+	line-height: 0;
+}
+
 /*
  * Hidden
  */

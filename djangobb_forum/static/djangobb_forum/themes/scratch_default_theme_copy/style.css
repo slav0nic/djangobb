@@ -96,6 +96,9 @@
 .blockform p input {
     margin-right: 6px;
 }
+#brdmenu .conr li {
+    margin-right: 0;
+}
 
 /*
  * Tables

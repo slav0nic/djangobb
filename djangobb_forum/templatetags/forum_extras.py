@@ -35,10 +35,13 @@ def profile_link(user):
 def forum_time(time):
     return u'%s %s' % (capfirst(naturalday(time)), time.strftime('%H:%M:%S'))
 
+@register.filter
+def forum_can_view_reports(user):
+    return user.is_superuser or user.has_perm('djangobb_forum.change_report')
 
 @register.filter
 def forum_reports(user):
-    return Report.objects.filter(zapped=False).count() if user.is_superuser or user.has_perm('djangobb_forum.change_report') else 0
+    return Report.objects.filter(zapped=False).count()
 
 
 # TODO: this old code requires refactoring

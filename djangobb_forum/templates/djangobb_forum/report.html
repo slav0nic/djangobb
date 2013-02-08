@@ -2,7 +2,21 @@
 {% load forum_extras %}
 {% load i18n %}
 
+{% block page-name %}{% trans "Report Post" %}{% endblock %}
+
 {% block content %}
+<div class="linkst">
+	<div class="inbox">
+		<ul>
+			<li><a href="{% url djangobb:index %}">{% trans "Forums Home" %}</a></li>
+			<li>&raquo; {% link post.topic.forum %} </li>
+			<li>&raquo; {% link post.topic %}</li>
+			<li>&raquo; {% trans "Report Post" %}</li>
+		</ul>
+		<div class="clearer"></div>
+	</div>
+</div>
+
 <div class="box">
 	<div class="box-head">
 		<h4>{% trans "Report Post" %}</h4>

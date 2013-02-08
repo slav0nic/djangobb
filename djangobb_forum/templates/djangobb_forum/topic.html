@@ -4,7 +4,7 @@
 {% load i18n %}
 {% load tz %}
 
-{% block title %} / {{ topic.forum.name }} / {{ topic.name }}{% endblock %}
+{% block page-name %}{{ topic.name }}{% endblock %}
 
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
