@@ -388,7 +388,8 @@ form input[type=submit]:active {
     box-shadow: inset 0 2px 6px #bbb;
 }
 
-.errorlist {
+.errorlist,
+.messages {
     list-style-type: none;
     margin: 12px 0;
     padding: 0;
@@ -396,12 +397,22 @@ form input[type=submit]:active {
     background: #fee;
     border-radius: 6px;
 }
-.errorlist li {
+.errorlist li,
+.messages li {
     padding: 12px;
     border-top: 1px solid #daa;
 }
-.errorlist li:first-child {
+.errorlist li:first-child,
+.messages li:first-child {
     border-top: 0;
+}
+.messages {
+    background: #efe;
+    margin: 12px;
+}
+.messages,
+.messages li {
+    border-color: #ada;
 }
 
 .post-editor textarea {

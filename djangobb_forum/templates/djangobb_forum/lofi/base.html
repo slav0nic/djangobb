@@ -8,12 +8,13 @@
 <link rel=stylesheet href="{{ STATIC_URL }}djangobb_forum/css/lofi.css" />
 <body ontouchstart>{% block root %}
 <nav>
-    <h1>{% block title %}{% endblock %}</h1>
+    <h1>{% block title %}{% endblock %}</h1>{% if messages %}
+    <ul class=messages>{% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>{% endfor %}
+    </ul>{% endif %}
     {% lofi_pagination %}
 </nav>
-<div class=content>
-{% block content %}{% endblock %}
-</div>
+<div class=content>{% block content %}{% endblock %}</div>
 {% lofi_pagination %}
 <footer>
     <p class=right><a href="{% url djangobb:lofi_search %}">{% trans "Search" %}</a></p>
