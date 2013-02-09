@@ -271,15 +271,19 @@ BBCode
     box-shadow: inset 0 1px #fff;
     margin: 12px 0;
     padding: 12px;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
 }
 .bb-quote-author {
     font-weight: bold;
     margin: 0 0 6px;
 }
+.post-content .code {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
 .post-content pre {
     margin: 0;
+    white-space: pre;
+    word-wrap: normal;
 }
 
 .post-content li {
