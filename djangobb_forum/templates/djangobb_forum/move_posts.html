@@ -78,6 +78,10 @@
             <input type="hidden" value="{{ topic_id }}" name="topic_id"/>
         {% endfor %}
         <label>
+            <input type="checkbox" name="move_all" />
+            <strong>{% trans "All posts (original topic will be deleted)" %}</strong>
+        </label>
+        <label>
             <strong>{% trans "Topic ID or URL" %}</strong>
             <input type="text" name="to_topic" />
         </label>

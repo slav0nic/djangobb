@@ -324,6 +324,10 @@ label strong {
     display: block;
     margin-bottom: 5px;
 }
+label input[type=checkbox],
+label input[type=checkbox] + strong {
+    display: inline-block;
+}
 input.small {
     margin: 1em;
 }

@@ -752,26 +752,32 @@ def move_posts(request, topic_id):
                 except Topic.DoesNotExist:
                     messages.error(request, _("That thread doesn't exist."))
                 else:
-                    for post_id in post_list:
-                        if not moved:
-                            moved = True
-                        post = get_object_or_404(Post, pk=post_id)
-                        if post.topic != to_topic:
-                            last = (topic.last_post == post)
-                            if forum_moderated_by(to_topic, request.user):
-                                post.topic = to_topic
-                                post.save()
-                    if Post.objects.filter(topic__id=topic.id).count() == 0:
+                    if request.POST['move_all']:
+                        Post.objects.filter(topic=topic).update(topic=to_topic)
                         topic.delete()
+                        moved = True
                         deleted = True
                     else:
-                        deleted = False
-                        try:
-                            topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
-                        except Post.DoesNotExist:
-                            topic.last_post = None
-                        topic.post_count = Post.objects.filter(topic__id=topic.id).count()
-                        topic.save()
+                        for post_id in post_list:
+                            if not moved:
+                                moved = True
+                            post = get_object_or_404(Post, pk=post_id)
+                            if post.topic != to_topic:
+                                last = (topic.last_post == post)
+                                if forum_moderated_by(to_topic, request.user):
+                                    post.topic = to_topic
+                                    post.save()
+                        if Post.objects.filter(topic__id=topic.id).count() == 0:
+                            topic.delete()
+                            deleted = True
+                        else:
+                            deleted = False
+                            try:
+                                topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
+                            except Post.DoesNotExist:
+                                topic.last_post = None
+                            topic.post_count = Post.objects.filter(topic__id=topic.id).count()
+                            topic.save()
                     try:
                         from_forum.last_post = Post.objects.filter(topic__forum__id=from_forum.id).latest()
                     except Post.DoesNotExist:
