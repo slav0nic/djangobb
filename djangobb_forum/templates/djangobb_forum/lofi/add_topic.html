@@ -1,0 +1,15 @@
+{% extends 'djangobb_forum/lofi/base.html' %}
+{% load i18n %}
+{% load forum_extras %}
+
+{% block full-link %}{% url djangobb:add_topic forum.id %}{% endblock %}
+
+{% block title %}
+    <span><a href="{% url djangobb:lofi_index %}">{% trans "Scratch Forums" %}</a></span>
+    <span>{% lofi_link forum %}</span>
+    {% block page-name %}{% trans "New Topic" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+{% include 'djangobb_forum/lofi/includes/post_form.html' with forum=1 %}
+{% endblock %}

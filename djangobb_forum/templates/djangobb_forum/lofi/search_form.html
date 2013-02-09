@@ -1,0 +1,61 @@
+{% extends 'djangobb_forum/lofi/base.html' %}
+{% load i18n %}
+{% load pagination_tags %}
+{% load forum_extras %}
+
+{% block full-link %}{% url djangobb:search %}{% endblock %}
+
+{% block title %}
+    <span><a href="{% url djangobb:lofi_index %}">{% trans "Scratch Forums" %}</a></span>
+    {% block page-name %}{% trans "Search" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<form class=search method=get action="">
+    <input type=hidden name=action value=search>
+    <fieldset>
+        <label>
+            <strong>{{ form.keywords.label }}</strong>
+            <span>{{ form.keywords }}</span>
+        </label>
+        <label>
+            <strong>{{ form.author.label }}</strong>
+            <span>{{ form.author }}</span>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            <strong>{{ form.forum.label }}</strong>
+            <span><select name=forum>
+                <option value=0>{% trans "All forums" %}</option>
+                {% for category in categories %}
+                <optgroup label="{{ category }}">
+                    {% for forum in category.forums.all %}
+                    <option value={{ forum.id }}>{{ forum }}</option>
+                    {% endfor %}
+                </optgroup>
+                {% endfor %}
+            </select></span>
+        </label>
+        <label>
+            <strong>{{ form.search_in.label }}</strong>
+            <span>{{ form.search_in }}</span>
+        </label>
+    </fieldset>
+    <fieldset>
+        <label>
+            <strong>{{ form.sort_by.label }}</strong>
+            <span>{{ form.sort_by }}</span>
+        </label>
+        <label>
+            <strong>{{ form.sort_dir.label }}</strong>
+            <span>{{ form.sort_dir }}</span>
+        </label>
+        <label>
+            <strong>{{ form.show_as.label }}</strong>
+            <span>{{ form.show_as }}</span>
+        </label>
+    </fieldset>
+    <input type=submit value="{% trans "Submit" %}">
+</form>
+{% endblock %}

@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block page-name %}{% trans "Search" %}{% endblock %}
+{% block lofi %}{% url djangobb:lofi_search %}{% endblock %}
 
 {% block content %}
 <div id="searchform" class="box">

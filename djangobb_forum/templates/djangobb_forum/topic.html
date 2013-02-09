@@ -5,6 +5,7 @@
 {% load tz %}
 
 {% block page-name %}{{ topic.name }}{% endblock %}
+{% block lofi %}{{ topic.get_absolute_url }}lofi/{% endblock %}
 
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
@@ -208,12 +209,4 @@
     {% endif %}
     </dl>
 </div>
-{% endblock %}
-
-{% block lofi %}
-{% if forum_settings.LOFI_SUPPORT %}
-    <p class="lofi">
-        <a href="{{ topic.get_absolute_url }}lofi/">Lo-Fi Version</a>
-    </p>
-{% endif %}
 {% endblock %}

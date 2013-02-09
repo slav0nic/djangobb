@@ -66,7 +66,11 @@ urlpatterns = patterns('',
 if (forum_settings.LOFI_SUPPORT):
     urlpatterns += patterns('',
         url('^lofi/$', forum_views.index, {'full':False}, name='lofi_index'),
+        url('^lofi/signin/$', 'django.contrib.auth.views.login', {'template_name':'djangobb_forum/lofi/sign_in.html',}, name='lofi_sign_in'),
+        url('^search/lofi/$', forum_views.search, {'full':False}, name='lofi_search'),
         url('^(?P<forum_id>\d+)/lofi/$', forum_views.show_forum, {'full':False}, name='lofi_forum'),
+        url('^(?P<forum_id>\d+)/topic/add/lofi/$', forum_views.add_topic, {'full':False}, name='lofi_add_topic'),
+        url('^post/(?P<post_id>\d+)/lofi/$', forum_views.show_post, {'full':False}, name='lofi_post'),
         url('^topic/(?P<topic_id>\d+)/lofi/$', forum_views.show_topic, {'full':False}, name='lofi_topic'),
     )
 

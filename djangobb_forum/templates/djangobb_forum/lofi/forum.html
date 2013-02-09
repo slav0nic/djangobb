@@ -1,29 +1,18 @@
 {% extends 'djangobb_forum/lofi/base.html' %}
+{% load i18n %}
 {% load pagination_tags %}
 {% load forum_extras %}
-{% load i18n %}
 
-{% block content %}
-<div id='largetext'>{% trans "Full Version:" %} {% link forum %}</div>
-<div class='djangobbnav'>
-	<a href="{% url djangobb:lofi_index %}">{% trans "Forums Home" %}</a> &raquo; {% lofi_link forum %}
-</div>
+{% block full-link %}{{ forum.get_absolute_url }}{% endblock %}
 
-{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
-<div class="djangobbpagespan">
-	{% lofi_pagination %}
-</div>
-
-  <div id="djangobbcontent">
-  <div class="topicwrap">
-<ol>
-{% for topic in topics %}
-<li>{% if topic.sticky %}<span style="color: red;"><strong>{% trans "IMPORTANT:" %}</strong></span>{% endif %}{% lofi_link topic %} <span class="desc">({{ topic.reply_count }} {% trans "replies" %})</span></li>
-{% endfor %}
-</ol>
-</div>
-</div>
-<div class='smalltext'>This is a "lo-fi" version of our main content. To view the full version with more information, formatting and images, please <a href='{{ forum.get_absolute_url }}'>click here</a>.</div>
-</div>
+{% block title %}
+    <span><a href="{% url djangobb:lofi_index %}">{% trans "Scratch Forums" %}</a></span>
+    {% block page-name %}{{ forum.name }}{% endblock %}
 {% endblock %}
 
+{% block root %}{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}{{ block.super }}{% endblock %}
+
+{% block content %}
+{% if can_create_topics %}<p class=list-header><a href="{% url djangobb:lofi_add_topic forum.id %}">New Topic</a></p>{% endif %}
+{% include 'djangobb_forum/lofi/includes/topic_list.html' with topics=topics %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'djangobb_forum/lofi/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+{% load pagination_tags %}
+
+{% block root %}{% autopaginate posts forum_settings.FORUM_PAGE_SIZE %}{{ block.super }}{% endblock %}
+
+{% block title %}
+    <span><a href="{% url djangobb:lofi_index %}">{% trans "Scratch Forums" %}</a></span>
+    {% block page-name %}{% trans "Search Results" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<p class=list-header><a href="{{ as_topic_url }}">{% trans "Topics" %}</a> | <strong>{% trans "Posts" %}</strong></p>
+<ul class="post list">{% for post in posts %}
+{% if post.object %}
+    {% include "djangobb_forum/lofi/includes/search_post.html" with post=post.object %}
+{% else %}
+    {% include "djangobb_forum/lofi/includes/search_post.html" %}
+{% endif %}
+{% empty %}
+<li class=none>{% trans "No posts." %}</li>
+{% endfor %}</ul>
+{% endblock %}

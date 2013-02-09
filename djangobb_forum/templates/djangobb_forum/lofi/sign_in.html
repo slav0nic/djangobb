@@ -1,0 +1,27 @@
+{% extends 'djangobb_forum/lofi/base.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block title %}
+    <span><a href="{% url djangobb:lofi_index %}">{% trans "Scratch Forums" %}</a></span>
+    {% block page-name %}{% trans "Sign In" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<form method=post>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url djangobb:lofi_index %}" />
+    {{ form.non_field_errors }}
+    <fieldset>
+        <label>
+            <strong>{{ form.username.label }}</strong>
+            <span>{{ form.username }}</span>
+        </label>
+        <label>
+            <strong>{{ form.password.label }}</strong>
+            <span>{{ form.password }}</span>
+        </label>
+    </fieldset>
+    <input type=submit value="{% trans "Sign In" %}">
+</form>
+{% endblock %}

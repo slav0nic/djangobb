@@ -1,0 +1,7 @@
+{% load tz %}
+{% load forum_extras %}
+<li><a href="{{ post.get_absolute_url }}lofi/">
+    <strong>{{ post.body|truncatechars:40 }}</strong>
+    <span>{{ post.topic.forum.name }} » {{ post.topic.name }}</span>
+    <span>{{ post.user.username }}</span>
+</article>

@@ -1,0 +1,17 @@
+{% load i18n %}
+<form class=post-editor method=post>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% if forum %}
+        {{ form.name.errors }}
+        <fieldset>
+            <label>
+                <strong>{{ form.name.label }}</strong>
+                <span>{{ form.name }}</span>
+            </label>
+        </fieldset>
+    {% endif %}
+    {{ form.body.errors }}
+    {{ form.body }}
+    <input type=submit name="{{ form.FORM_NAME }}" value="{% trans "Submit" %}">
+</form>

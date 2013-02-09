@@ -1,18 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<meta name="robots" content="index,follow" />
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}djangobb_forum/css/lofi/lofiscreen.css"  media="screen" />
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}djangobb_forum/css/lofi/lofihandheld.css"  media="handheld" />
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}djangobb_forum/css/lofi/lofiprint.css"  media="print" />
-	<title>DjangoBB LoFi version</title>
-</head>
+{% load i18n %}
+{% load forum_extras %}
 
-<body>
-	{% include 'djangobb_forum/lofi/header.html' %}
-
-    {% block content %}	{% endblock %}
-
-{% include 'djangobb_forum/lofi/footer.html' %}
-</body>
-</html>
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>{% block page-name %}{% endblock %} - {% trans "Scratch Forums" %}</title>
+<meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<link rel=stylesheet href="{{ STATIC_URL }}djangobb_forum/css/lofi.css" />
+<body ontouchstart>{% block root %}
+<nav>
+    <h1>{% block title %}{% endblock %}</h1>
+    {% lofi_pagination %}
+</nav>
+<div class=content>
+{% block content %}{% endblock %}
+</div>
+{% lofi_pagination %}
+<footer>
+    <p class=right><a href="{% url djangobb:lofi_search %}">{% trans "Search" %}</a></p>
+    <p><a href="{% block full-link %}{% endblock %}">Standard</a> | <strong>Mobile</strong></p>
+    <p>{% if user.is_authenticated %}
+        {% blocktrans %}Signed in as <strong>{{ user }}</strong>{% endblocktrans %} | <a href="{% url django.contrib.auth.views.logout %}?next={% url djangobb:lofi_index %}">Sign Out</a>
+    {% else %}
+        Not signed in | <a href="{% url djangobb:lofi_sign_in %}">{% trans "Sign In" %}</a>
+    {% endif %}</p>
+</footer>{% endblock %}</body>

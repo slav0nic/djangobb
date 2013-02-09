@@ -1,4 +1,5 @@
 {% load i18n %}
-{% for page in pages %}
-	<a href="?{{ get_params }}page={{ page }}">{{ page }}</a> 
-{% endfor %}
+{% if is_paginated %}<ul class=pagination>
+    {% for p in pages %}
+    <li><a {% ifequal page_obj.number forloop.counter %}class=current{% else %}href="?{{ get_params }}page={{ p }}"{% endifequal %}><span>{{ p }}</span></a>{% endfor %}
+</ul>{% endif %}

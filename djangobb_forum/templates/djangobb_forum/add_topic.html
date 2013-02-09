@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block page-name %}{% trans "New Topic" %}{% endblock %}
+{% block lofi %}{% url djangobb:lofi_add_topic forum.id %}{% endblock %}
 
 {% block content %}
 <div class="linkst">

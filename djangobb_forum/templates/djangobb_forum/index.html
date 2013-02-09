@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block page-title %}{% trans "Scratch Forums" %}{% endblock %}
+{% block lofi %}{% url djangobb:lofi_index %}{% endblock %}
 
 {% block extra_meta %}
 <script type="text/javascript">
@@ -87,12 +88,4 @@
         <dd>{{ online|profile_link }}{% if not forloop.last %},{% endif %}</dd>
     {% endfor %}
 </dl>
-{% endblock %}
-
-{% block lofi %}
-{% if forum_settings.LOFI_SUPPORT %}
-    <p class="lofi">
-        <a href="{% url djangobb:lofi_index %}">Lo-Fi Version</a>
-    </p>
-{% endif %}
 {% endblock %}

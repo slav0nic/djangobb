@@ -91,9 +91,13 @@
     <div id="brdfooter" class="box">
         <div class="box-content">
             <p class="conr">Powered by <a href="http://djangobb.org/">DjangoBB</a></p>
+            {% if forum_settings.LOFI_SUPPORT %}
+                <p class="lofi">
+                    <strong>Standard</strong> | <a href="{% block lofi %}{% url djangobb:lofi_index %}{% endblock lofi%}">Mobile</a>
+                </p>
+            {% endif %}
             {% block controls %}{% endblock controls %}
             <div class="clearer"></div>
-            {% block lofi %}{% endblock lofi%}
         </div>
     </div>
 </div>

@@ -92,7 +92,12 @@ def pagination(context, adjacent_pages=1):
 
 @register.inclusion_tag('djangobb_forum/lofi/pagination.html', takes_context=True)
 def lofi_pagination(context):
-    return paginate(context)
+    get_params = context['request'].GET.copy()
+    if 'page' in get_params:
+        del get_params['page']
+    dict = paginate(context)
+    dict['get_params'] = urllib.urlencode(get_params) + '&' if get_params else ''
+    return dict
 
 @register.simple_tag
 def link(object, anchor=u''):

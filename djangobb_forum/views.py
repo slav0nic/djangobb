@@ -8,6 +8,7 @@ from datetime import timedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
@@ -133,11 +134,12 @@ def reports(request):
     else:
         raise Http404
 
-def search(request):
+def search(request, full=True):
     # TODO: used forms in every search type
+    template_dir = 'djangobb_forum/' if full else 'djangobb_forum/lofi/'
 
     def _render_search_form(form=None):
-        return render(request, 'djangobb_forum/search_form.html', {'categories': Category.objects.all(),
+        return render(request, template_dir + 'search_form.html', {'categories': Category.objects.all(),
                 'form': form,
                 })
 
@@ -146,10 +148,10 @@ def search(request):
 
     if request.GET.get("show_as") == "posts":
         show_as_posts = True
-        template_name = 'djangobb_forum/search_posts.html'
+        template_name = template_dir + 'search_posts.html'
     else:
         show_as_posts = False
-        template_name = 'djangobb_forum/search_topics.html'
+        template_name = template_dir + 'search_topics.html'
 
     context = {}
 
@@ -369,8 +371,6 @@ def show_topic(request, topic_id, full=True):
     * Display a topic
     * save a reply
     * save a poll vote
-    
-    TODO: Add reply in lofi mode
     """
     post_request = request.method == "POST"
     user_is_authenticated = request.user.is_authenticated()
@@ -415,7 +415,7 @@ def show_topic(request, topic_id, full=True):
             if reply_form.is_valid():
                 post = reply_form.save()
                 messages.success(request, _("Reply saved."))
-                return HttpResponseRedirect(post.get_absolute_url())
+                return HttpResponseRedirect(post.get_absolute_url() + ('' if full else 'lofi/'))
         else:
             reply_form = AddPostForm(
                 initial={
@@ -481,12 +481,13 @@ def show_topic(request, topic_id, full=True):
                 'posts': posts,
                 'poll': poll,
                 'poll_form': poll_form,
+                'reply_form': reply_form,
                 })
 
 
 @login_required
 @transaction.commit_on_success
-def add_topic(request, forum_id):
+def add_topic(request, forum_id, full=True):
     """
     create a new topic, with or without poll
     """
@@ -520,7 +521,7 @@ def add_topic(request, forum_id):
                 messages.success(request, _("Topic with poll saved."))
             else:
                 messages.success(request, _("Topic saved."))
-            return HttpResponseRedirect(post.get_absolute_url())
+            return HttpResponseRedirect(post.get_absolute_url() + ('' if full else 'lofi/'))
     else:
         form = AddPostForm(
             initial={
@@ -543,7 +544,7 @@ def add_topic(request, forum_id):
         'form_url': request.path,
         'back_url': forum.get_absolute_url(),
     }
-    return render(request, 'djangobb_forum/add_topic.html', context)
+    return render(request, 'djangobb_forum/add_topic.html' if full else 'djangobb_forum/lofi/add_topic.html', context)
 
 
 @transaction.commit_on_success
@@ -643,11 +644,11 @@ def reputation(request, username):
                })
 
 
-def show_post(request, post_id):
+def show_post(request, post_id, full=True):
     post = get_object_or_404(Post, pk=post_id)
     count = post.topic.posts.filter(created__lt=post.created).count() + 1
     page = math.ceil(count / float(forum_settings.TOPIC_PAGE_SIZE))
-    url = '%s?page=%d#post-%d' % (reverse('djangobb:topic', args=[post.topic.id]), page, post.id)
+    url = '%s%s?page=%d#post-%d' % (reverse('djangobb:topic', args=[post.topic.id]), '' if full else 'lofi/', page, post.id)
     return HttpResponseRedirect(url)
 
 @csrf_exempt

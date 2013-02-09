@@ -1,0 +1,9 @@
+{% load i18n %}
+{% load forum_extras %}
+<ol class="topic list">{% for topic in topics %}
+    <li class="{% if topic.sticky %}sticky {% endif %}{% if topic.closed %}closed {% endif %}{% if topic|has_unreads:user %}unread{% endif %}"><a href="{{ topic.get_absolute_url }}lofi/">
+        <strong>{{ topic.name }}</strong>
+        <span>{% blocktrans count topic.reply_count as replies %}{{ replies }} reply{% plural %}{{ replies }} replies{% endblocktrans %}</span>
+    </a></li>{% empty %}
+    <li class=none>{% trans "No topics." %}</li>{% endfor %}
+</ol>

@@ -2,28 +2,24 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div id='largetext'>{% trans "Full Version:" %} <a href="{% url djangobb:index %}">{% trans "Forums Home" %}</a></div>
-<div class='djangobbnav'>
-	<a href="{% url djangobb:lofi_index %}">{% trans "Forums Home" %}</a>
-</div>
+{% block title %}{% block page-name %}{% trans "Scratch Forums" %}{% endblock %}{% endblock %}
 
-<div id="djangobbcontent">
-  <div class="forumwrap">
-<ul>
+{% block content %}
+<ul class="category list">
 {% for iter in cats %}
-<li><strong>{{ iter.cat }}</strong></li>
-<ul>
-	{% for forum in iter.forums %}
-		<li>{% lofi_link forum %} <span class="desc">({{ forum.post_count }} {% trans "posts" %})</span></li>
-	{% endfor %}
-</ul>
+    <li>{{ iter.cat }}</li>
+    <ul class="forum list">
+    {% for forum in iter.forums %}
+        <li{% if forum|forum_unreads:user %} class="unread"{% endif %}><a href="{{ forum.get_absolute_url }}lofi/">
+            <strong>{{ forum.name }}</strong>
+            <span>{% blocktrans count forum.post_count as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}</span>
+        </a></li>
+    {% endfor %}
+    </ul>
 {% endfor %}
 </ul>
-</div>
-</div>
-<div class='smalltext'>This is a "lo-fi" version of our main content. To view the full version with more information, formatting and images, please <a href='{% url djangobb:index %}'>click here</a>.</div>
-</div>
 {% endblock %}
+
+{% block full-link %}{% url djangobb:index %}{% endblock %}
 
 

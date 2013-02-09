@@ -5,6 +5,7 @@
 {% load tz %}
 
 {% block page-name %}{{ forum.name }}{% endblock %}
+{% block lofi %}{{ forum.get_absolute_url }}lofi/{% endblock %}
 
 {% block content %}
 {% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
@@ -105,13 +106,4 @@
 		<p id="modcontrols"><a class="moderator-only" href="{% url djangobb:moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
 	{% endif %}
 </div>
-{% endblock %}
-
-
-{% block lofi %}
-{% if forum_settings.LOFI_SUPPORT %}
-    <p class="lofi">
-        <a href="{{ forum.get_absolute_url }}lofi/">Lo-Fi Version</a>
-    </p>
-{% endif %}
 {% endblock %}
