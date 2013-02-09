@@ -133,17 +133,19 @@ Lists
     margin: 0;
     padding: 0;
 }
+.list li {
+    position: relative;
+}
 .category > li {
     font-weight: bold;
 }
 .list a,
 .category > li {
     display: block;
-    padding: 12px 34px 12px 12px;
+    padding: 12px;
     border-bottom: 1px solid #ddd;
     text-decoration: none;
     color: #000;
-    position: relative;
     -webkit-tap-highlight-color: transparent;
 }
 .list .none {
@@ -171,7 +173,21 @@ Lists
     opacity: .5;
     display: block;
 }
-.list .unread a::after {
+.list .unread-topic .item {
+    margin-right: 36px;
+}
+.list .unread {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 36px;
+    padding: 0;
+    color: transparent !important;
+    overflow: hidden;
+}
+.list .unread::after,
+.list .unread-forum a::after {
     content: '';
     width: 12px;
     position: absolute;
@@ -183,7 +199,11 @@ Lists
     background: #555;
     border-radius: 6px;
 }
-.list .unread:active a::after {
+.list a:active + .unread {
+    margin-top: 1px;
+}
+.list .unread:active::after,
+.list .unread-forum a:active::after {
     background: rgba(255, 255, 255, .7);
 }
 .list .sticky strong:before {

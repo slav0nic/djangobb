@@ -159,6 +159,10 @@ def forum_unread_link(topic, user):
     return topic.posts.all()[0].get_absolute_url()
 
 @register.filter
+def lofi_unread_link(topic, user):
+    return forum_unread_link(topic, user) + 'lofi/';
+
+@register.filter
 def forum_unreads(forum, user):
     """
     Check if forum has topic which user didn't read.
