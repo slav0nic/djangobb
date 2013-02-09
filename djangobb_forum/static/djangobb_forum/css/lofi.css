@@ -95,6 +95,9 @@ Pagination
     color: #555;
     padding: 6px 3px;
 }
+.pagination .ellipsis {
+    padding: 10px 3px;
+}
 .pagination span {
     display: block;
     padding: 3px;
