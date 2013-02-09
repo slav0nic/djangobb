@@ -253,10 +253,10 @@ BBCode
     text-decoration: line-through;
 }
 .bb-big {
-    font-size: 17px;
+    font-size: 20px;
 }
 .bb-small {
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .post-content {
