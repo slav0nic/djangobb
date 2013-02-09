@@ -22,9 +22,7 @@
         <time datetime={{ post.created|date:"c" }}>{{ post.created|localtime|forum_time }}</time>
         <h1>{{ post.user.username }}</h1>
     </header>
-    <div class=post-content>
-        {{ post.body_html|safe }}
-    </div>
+    <div class=post-content>{{ post.body_html|safe }}</div>
 </article>{% endfor %}
 {% if reply_form %}{% include 'djangobb_forum/lofi/includes/post_form.html' with form=reply_form %}{% endif %}
 {% endblock %}
