@@ -72,16 +72,19 @@
 
 {% block controls %}
 {{ block.super }}
-<dl id="searchlinks" class="conl">
-    <dt><strong>{% trans "Search links" %}</strong></dt>
-    <dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
-    <dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
+<ul class="conl">
     {% if user.is_authenticated %}
-    <dd id="navprofile"><a href="{% url djangobb:forum_profile_personality request.user %}">{% trans "Change your signature" %}</a></dd>
-    <dd><a href="{% url djangobb:misc %}?action=markread">{% trans "Mark all topics as read" %}</a></dd>
-    <dd>{% trans "Show your" %} <a href="{% url djangobb:search %}?action=show_user&amp;show_as=topics">{% trans "topics" %}</a>/<a href="{% url djangobb:search %}?action=show_user&amp;show_as=posts">{% trans "posts" %}</a></dd>
+    <li>{% trans "Show your" %} <a href="{% url djangobb:search %}?action=show_user&amp;show_as=topics">{% trans "topics" %}</a>/<a href="{% url djangobb:search %}?action=show_user&amp;show_as=posts">{% trans "posts" %}</a></li>
+    <li id="navprofile"><a href="{% url djangobb:forum_profile_personality request.user %}">{% trans "Change your signature" %}</a></li>
     {% endif %}
-</dl>
+</ul>
+<ul class="conr">
+    <li><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></li>
+    <li><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url djangobb:misc %}?action=markread">{% trans "Mark all topics as read" %}</a></li>
+    {% endif %}
+</ul>
 <dl id="onlinelist" class= "clearb">
     <dt><strong>{% blocktrans with count=online_count %}Online ({{ count }}):{% endblocktrans %} </strong></dt>
     {% for online in users_online %}

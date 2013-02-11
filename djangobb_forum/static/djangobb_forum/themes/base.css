@@ -342,8 +342,8 @@ div.blockpost > div > div.inbox {
 #djangobbmaint .block {
 	margin: 50px 20% 12px 20%;
 }
-.lofi {
-	margin-bottom: 12px;
+#brdfooter .foot {
+	margin-top: 12px;
 }
 
 /*
