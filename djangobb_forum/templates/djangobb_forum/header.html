@@ -58,7 +58,7 @@
 		<h2><span>{% trans "Notice" %}</span></h2>
 		<div class="box">
 			<div class="inbox">
-				<div>{{ forum_settings.NOTICE }}</div>
+				<div>{{ forum_settings.NOTICE|safe }}</div>
 			</div>
 		</div>
 	</div>
