@@ -51,7 +51,7 @@
 					</td>
 					<td class="tc2">{% link topic.forum %}</td>
 					<td class="tc3">{{ topic.reply_count }}</td>
-					<td class="tcr"><a href="{{ topic.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+					<td class="tcr"><a href="{{ topic.last_post.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
 				</tr>
 			{% empty %}
 			     <tr>
