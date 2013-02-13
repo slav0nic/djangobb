@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.cache import cache
+from django.core.exceptions import SuspiciousOperation
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Q, F
@@ -182,14 +183,19 @@ def search(request):
         if not user.is_authenticated():
             raise Http404("Search 'show_user' not available for anonymous user.")
 
-        if user.is_staff:
-            user_id = request.GET.get("user_id", user.id)
+        user_id = request.GET.get("user_id", user.id)
+        try:
             user_id = int(user_id)
-            if user_id != user.id:
+        except ValueError:
+            raise SuspiciousOperation()
+
+        if user_id != user.id:
+            try:
                 search_user = User.objects.get(id=user_id)
-                messages.info(request, "Filter by user '%s'." % search_user.username)
-        else:
-            user_id = user.id
+            except User.DoesNotExist:
+                messages.error(request, _("Error: User unknown!"))
+                return HttpResponseRedirect(request.path)
+            messages.info(request, "Filter by user '%s'." % search_user.username)
 
         if show_as_posts:
             posts = posts.filter(user__id=user_id)
