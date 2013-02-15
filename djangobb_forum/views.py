@@ -361,7 +361,7 @@ def show_forum(request, forum_id, full=True):
                 'posts': forum.post_count,
                 'topics': topics,
                 'moderator': moderator,
-                'can_create_topics': not forum.moderator_only or request.user.is_superuser or request.user in forum.moderators.all(),
+                'can_create_topics': (not forum.moderator_only or request.user.is_superuser or request.user in forum.moderators.all()) and request.user.is_authenticated,
                 }
     if full:
         return render(request, 'djangobb_forum/forum.html', to_return)
