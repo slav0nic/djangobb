@@ -193,8 +193,8 @@ def search(request, full=True):
                 context["topics"] = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
             _generic_context = False
         else:
-            #searching more than forum_settings.SEARCH_PAGE_SIZE in this way - not good idea :]
-            topics = [topic for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, user)]
+            topic_ids = [topic.id for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, user)]
+            topics = Topic.objects.filter(id__in=topics_id)
     elif action == 'show_unanswered':
         topics = topics.filter(post_count=1)
     elif action == 'show_subscriptions':
