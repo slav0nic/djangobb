@@ -233,6 +233,9 @@ article header a {
 article time {
     float: right;
 }
+article img {
+    max-width: 100%;
+}
 
 /*
 
