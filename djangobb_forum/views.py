@@ -38,13 +38,10 @@ from djangobb_forum.util import build_form, paginate, set_language, smiles, conv
 
 def index(request, full=True):
     users_cached = cache.get('djangobb_users_online', {})
-    users_online = users_cached and User.objects.filter(id__in=users_cached.keys())[:forum_settings.MAX_ONLINE + 1] or []
+    users_online = users_cached and User.objects.filter(id__in=users_cached.keys()) or []
     guests_cached = cache.get('djangobb_guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
-    online_truncated = users_count > forum_settings.MAX_ONLINE
-    if online_truncated:
-        users_online = users_online[:-1]
 
     _forums = Forum.objects.all()
     user = request.user
@@ -71,7 +68,6 @@ def index(request, full=True):
                 'users': User.objects.count(),
                 'users_online': users_online,
                 'online_count': users_count,
-                'online_truncated': online_truncated,
                 'guest_count': guest_count,
                 'last_user': User.objects.latest('date_joined')
                 }
