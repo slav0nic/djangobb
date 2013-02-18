@@ -752,7 +752,7 @@ def move_posts(request, topic_id):
                 except Topic.DoesNotExist:
                     messages.error(request, _("That thread doesn't exist."))
                 else:
-                    if request.POST['move_all']:
+                    if 'move_all' in request.POST:
                         Post.objects.filter(topic=topic).update(topic=to_topic)
                         topic.delete()
                         moved = True
