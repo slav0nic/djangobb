@@ -219,16 +219,30 @@ article header {
 article h1 {
     font-size: 1em;
     margin: 0;
+    line-height: 18px;
 }
 article header p {
     margin: 6px 0 0;
 }
 article header a {
     display: block;
-    margin: -6px -12px;
-    padding: 6px 12px;
-    color: #fff !important;
+    padding: 6px 6px 6px 7px;
+    margin: -6px 12px -6px -12px;
     text-decoration: none;
+    float: left;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    color: transparent !important;
+    cursor: pointer;
+    background: url(../img/lofi_reply.png) center center no-repeat;
+    -webkit-tap-highlight-color: transparent;
+    border-right: 1px solid #555;
+    box-shadow: inset -1px 0 #aaa;
+}
+article header a:active {
+    background-color: #666;
+    box-shadow: inset 0 1px #888, inset -1px 0 #888;
 }
 article time {
     float: right;

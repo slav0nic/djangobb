@@ -1,5 +1,5 @@
 {% load i18n %}
-<form class=post-editor method=post>
+<form class=post-editor method=post id=reply>
     {% csrf_token %}
     {{ form.non_field_errors }}
     {% if forum %}

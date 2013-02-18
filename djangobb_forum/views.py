@@ -995,3 +995,29 @@ def show_youtube_video(request, video_id):
         'video_id': video_id,
         'video_title': title,
         })
+
+@login_required
+def lofi_reply(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    ip = request.META.get('REMOTE_ADDR', None)
+    post_form_kwargs = {"topic":post.topic, "user":request.user, "ip":ip}
+    if AddPostForm.FORM_NAME in request.POST:
+        reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
+        if reply_form.is_valid():
+            post = reply_form.save()
+            messages.success(request, _("Reply saved."))
+            return HttpResponseRedirect(post.get_absolute_url() + 'lofi/')
+    else:
+        reply_form = AddPostForm(
+            initial={
+                'markup': request.user.forum_profile.markup,
+                'subscribe': request.user.forum_profile.auto_subscribe,
+                'body':'[quote=' + post.user.username + ']' + post.body + '[/quote]\n',
+            },
+            **post_form_kwargs
+        )
+    return render(request, 'djangobb_forum/lofi/reply.html', {
+        'form': reply_form,
+        'post': post
+        })
+

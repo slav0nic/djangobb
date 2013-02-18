@@ -20,6 +20,7 @@
 <article id=post-{{ post.id }}>
     <header>
         <time datetime={{ post.created|date:"c" }}>{{ post.created|localtime|forum_time }}</time>
+        <a class=reply href="{% url djangobb:lofi_reply post.id %}">Reply</a>
         <h1>{{ post.user.username }}</h1>
     </header>
     <div class=post-content>{{ post.body_html|safe }}</div>

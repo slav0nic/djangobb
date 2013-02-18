@@ -71,6 +71,7 @@ if (forum_settings.LOFI_SUPPORT):
         url('^(?P<forum_id>\d+)/lofi/$', forum_views.show_forum, {'full':False}, name='lofi_forum'),
         url('^(?P<forum_id>\d+)/topic/add/lofi/$', forum_views.add_topic, {'full':False}, name='lofi_add_topic'),
         url('^post/(?P<post_id>\d+)/lofi/$', forum_views.show_post, {'full':False}, name='lofi_post'),
+        url('^post/(?P<post_id>\d+)/reply/lofi/$', forum_views.lofi_reply, name='lofi_reply'),
         url('^topic/(?P<topic_id>\d+)/lofi/$', forum_views.show_topic, {'full':False}, name='lofi_topic'),
     )
 
