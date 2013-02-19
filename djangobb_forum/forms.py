@@ -160,6 +160,7 @@ class AddPostForm(forms.ModelForm):
 class EditPostForm(forms.ModelForm):
     name = forms.CharField(required=False, label=_('Subject'),
                            widget=forms.TextInput(attrs={'size':'115'}))
+    silent_edit = forms.BooleanField(required=False, label=_('Silent edit?'))
 
     class Meta:
         model = Post
@@ -188,7 +189,6 @@ class EditPostForm(forms.ModelForm):
 
     def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
-        post.updated = now()
         topic_name = self.cleaned_data['name']
         if topic_name:
             post.topic.name = topic_name

@@ -667,22 +667,25 @@ def get_topic_title(request, topic_id):
 @transaction.commit_on_success
 def edit_post(request, post_id):
     from djangobb_forum.templatetags.forum_extras import forum_editable_by
-
     post = get_object_or_404(Post, pk=post_id)
     topic = post.topic
     if not forum_editable_by(post, request.user):
         messages.error(request, _("You don't have permission to edit this post."))
         return HttpResponseRedirect(post.get_absolute_url())
+    moderator = request.user.is_superuser or request.user in topic.forum.moderators.all()
     form = build_form(EditPostForm, request, topic=topic, instance=post)
     if form.is_valid():
         post = form.save(commit=False)
-        post.updated_by = request.user
+        if not form.cleaned_data['silent_edit']:
+            post.updated_by = request.user
+            post.updated = timezone.now()
         post.save()
         messages.success(request, _("Post updated."))
         return HttpResponseRedirect(post.get_absolute_url())
 
     return render(request, 'djangobb_forum/edit_post.html', {'form': form,
             'post': post,
+            'moderator': moderator,
             })
 
 
