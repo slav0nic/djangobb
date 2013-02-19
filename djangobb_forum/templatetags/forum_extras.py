@@ -1,5 +1,6 @@
 # -*- coding: utf-8
 import urllib
+from datetime import timedelta
 
 from django import template
 from django.core.urlresolvers import reverse
@@ -8,6 +9,7 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_unicode
 from django.db import settings
 from django.db.models import Q
+from django.utils import timezone
 from django.utils.text import capfirst
 from django.utils.html import escape
 from django.utils.hashcompat import md5_constructor
@@ -207,6 +209,12 @@ def forum_editable_by(post, user):
     if user in post.topic.forum.moderators.all():
         return True
     return False
+
+
+@register.filter
+def forum_can_delete(user, post):
+    threshold = forum_settings.POST_DELETE_DELAY
+    return user.is_superuser or user in post.topic.forum.moderators.all() or (user.has_perm('djangobb_forum.delayed_delete') and timezone.now() - post.created >= timedelta(seconds=threshold))
 
 
 @register.filter

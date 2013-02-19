@@ -143,7 +143,7 @@ class Topic(models.Model):
         verbose_name = _('Topic')
         verbose_name_plural = _('Topics')
         permissions = (
-            ('delayed_close', 'Can close topics after an amount of time has passed'),
+            ('delayed_close', 'Can close topics after a delay'),
             )
 
     def __unicode__(self):
@@ -228,6 +228,7 @@ class Post(models.Model):
             ('fast_post', 'Can add posts without a time limit'),
             ('med_post', 'Can add posts at medium speed'),
             ('post_external_links', 'Can post external links'),
+            ('delayed_delete', 'Can delete posts after a delay'),
             )
 
     def save(self, *args, **kwargs):
