@@ -1,0 +1,15 @@
+{% extends 'djangobb_forum/mobile/base.html' %}
+{% load i18n %}
+{% load forum_extras %}
+
+{% block full-link %}{% url djangobb:add_topic forum.id %}{% endblock %}
+
+{% block title %}
+    <span><a href="{% url djangobb:mobile_index %}">{% trans "Scratch Forums" %}</a></span>
+    <span>{{ forum|mobile_link }}</span>
+    {% block page-name %}{% trans "New Topic" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+{% include 'djangobb_forum/mobile/includes/post_form.html' with forum=1 %}
+{% endblock %}

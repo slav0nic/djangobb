@@ -5,23 +5,23 @@
 <meta charset=utf-8>
 <title>{% block page-name %}{% endblock %} - {% trans "Scratch Forums" %}</title>
 <meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<link rel=stylesheet href="{{ STATIC_URL }}djangobb_forum/css/lofi.css" />
+<link rel=stylesheet href="{{ STATIC_URL }}djangobb_forum/css/mobile.css" />
 <body ontouchstart>{% block root %}
 <nav>
     <h1>{% block title %}{% endblock %}</h1>{% if messages %}
     <ul class=messages>{% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>{% endfor %}
     </ul>{% endif %}
-    {% lofi_pagination %}
+    {% mobile_pagination %}
 </nav>
 <div class=content>{% block content %}{% endblock %}</div>
-{% lofi_pagination %}
+{% mobile_pagination %}
 <footer>
-    <p class=right><a href="{% url djangobb:lofi_search %}">{% trans "Search" %}</a></p>
+    <p class=right><a href="{% url djangobb:mobile_search %}">{% trans "Search" %}</a></p>
     <p><a href="{% block full-link %}{% endblock %}">Standard</a> | <strong>Mobile</strong></p>
     <p>{% if user.is_authenticated %}
-        {% blocktrans %}Signed in as <strong>{{ user }}</strong>{% endblocktrans %} | <a href="{% url django.contrib.auth.views.logout %}?next={% url djangobb:lofi_index %}">Sign Out</a>
+        {% blocktrans %}Signed in as <strong>{{ user }}</strong>{% endblocktrans %} | <a href="{% url django.contrib.auth.views.logout %}?next={% url djangobb:mobile_index %}">Sign Out</a>
     {% else %}
-        Not signed in | <a href="{% url djangobb:lofi_sign_in %}">{% trans "Sign In" %}</a>
+        Not signed in | <a href="{% url djangobb:mobile_sign_in %}">{% trans "Sign In" %}</a>
     {% endif %}</p>
 </footer>{% endblock %}</body>

@@ -5,7 +5,7 @@
 {% load tz %}
 
 {% block page-name %}{{ topic.name }}{% endblock %}
-{% block lofi %}{{ topic.get_absolute_url }}lofi/{% endblock %}
+{% block mobile %}{{ topic.get_mobile_url }}{% endblock %}
 
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}

@@ -1,4 +1,4 @@
-{% extends 'djangobb_forum/lofi/base.html' %}
+{% extends 'djangobb_forum/mobile/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
 
@@ -11,7 +11,7 @@
     <ul class="forum list">
     {% for forum in iter.forums %}
         <li{% if forum|forum_unreads:user %} class="unread"{% endif %}>
-            <a href="{{ forum.get_absolute_url }}lofi/">
+            <a href="{{ forum.get_mobile_url }}">
                 <strong>{{ forum.name }}</strong>
                 <span>{% blocktrans count forum.post_count as posts %}{{ posts }} post{% plural %}{{ posts }} posts{% endblocktrans %}</span>
             </a>

@@ -3,6 +3,7 @@
 from hashlib import sha1
 import os
 
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.db import models
@@ -119,6 +120,9 @@ class Forum(models.Model):
     def get_absolute_url(self):
         return ('djangobb:forum', [self.id])
 
+    def get_mobile_url(self):
+        return reverse('djangobb:mobile_forum', args=[self.id])
+
     @property
     def posts(self):
         return Post.objects.filter(topic__forum__id=self.id).select_related()
@@ -185,6 +189,9 @@ class Topic(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('djangobb:topic', [self.id])
+
+    def get_mobile_url(self):
+        return reverse('djangobb:mobile_topic', args=[self.id])
 
     def update_read(self, user):
         tracking = user.posttracking
@@ -277,6 +284,9 @@ class Post(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('djangobb:post', [self.id])
+
+    def get_mobile_url(self):
+        return reverse('djangobb:mobile_post', args=[self.id])
 
     def summary(self):
         LIMIT = 50

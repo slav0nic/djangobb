@@ -1,4 +1,4 @@
-{% extends 'djangobb_forum/lofi/base.html' %}
+{% extends 'djangobb_forum/mobile/base.html' %}
 {% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
@@ -7,8 +7,8 @@
 {% block full-link %}{{ topic.get_absolute_url }}{% endblock %}
 
 {% block title %}
-    <span><a href="{% url djangobb:lofi_index %}">{% trans "Scratch Forums" %}</a></span>
-    <span>{% lofi_link topic.forum %}</span>
+    <span><a href="{% url djangobb:mobile_index %}">{% trans "Scratch Forums" %}</a></span>
+    <span>{{ topic.forum|mobile_link }}</span>
     {% block page-name %}{{ topic.name }}{% endblock %}
 {% endblock %}
 
@@ -20,10 +20,10 @@
 <article id=post-{{ post.id }}>
     <header>
         <time datetime={{ post.created|date:"c" }}>{{ post.created|localtime|forum_time }}</time>
-        <a class=reply href="{% url djangobb:lofi_reply post.id %}">Reply</a>
+        <a class=reply href="{% url djangobb:mobile_reply post.id %}">Reply</a>
         <h1>{{ post.user.username }}</h1>
     </header>
     <div class=post-content>{{ post.body_html|safe }}</div>
 </article>{% endfor %}
-{% if reply_form %}{% include 'djangobb_forum/lofi/includes/post_form.html' with form=reply_form %}{% endif %}
+{% if reply_form %}{% include 'djangobb_forum/mobile/includes/post_form.html' with form=reply_form %}{% endif %}
 {% endblock %}

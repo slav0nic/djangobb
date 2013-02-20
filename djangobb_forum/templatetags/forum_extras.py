@@ -92,8 +92,8 @@ def pagination(context, adjacent_pages=1):
         }
 
 
-@register.inclusion_tag('djangobb_forum/lofi/pagination.html', takes_context=True)
-def lofi_pagination(context):
+@register.inclusion_tag('djangobb_forum/mobile/pagination.html', takes_context=True)
+def mobile_pagination(context):
     get_params = context['request'].GET.copy()
     if 'page' in get_params:
         del get_params['page']
@@ -111,17 +111,14 @@ def link(object, anchor=u''):
     anchor = anchor or smart_unicode(object)
     return mark_safe('<a href="%s">%s</a>' % (url, escape(anchor)))
 
-
-@register.simple_tag
-def lofi_link(object, anchor=u''):
+@register.filter
+def mobile_link(object):
     """
-    Return A tag with lofi_link to object.
+    Returns a tag with link to object.
     """
 
-    url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
-    anchor = anchor or smart_unicode(object)
-    return mark_safe('<a href="%slofi/">%s</a>' % (url, escape(anchor)))
-
+    url = hasattr(object, 'get_mobile_url') and object.get_mobile_url() or None
+    return mark_safe('<a href="%s">%s</a>' % (url, escape(smart_unicode(object))))
 
 @register.filter
 def has_unreads(topic, user):
@@ -140,29 +137,32 @@ def has_unreads(topic, user):
                 return False
         return True
 
-@register.filter
-def forum_unread_link(topic, user):
+def forum_unread_object(topic, user):
     """
-    Returns a link to the first unread post in a topic.
+    Returns the first unread post in a topic, or the topic if it post tracking does not exist for the given user.
     """
     if user.posttracking is not None:
         topics = user.posttracking.topics;
         if isinstance(topics, dict):
             pk = topics.get(str(topic.id), 0)
-            return Post.objects.filter(topic=topic, pk__gt=pk).order_by('pk')[0].get_absolute_url()
+            return Post.objects.filter(topic=topic, pk__gt=pk).order_by('pk')[0]
         last_read = user.posttracking.last_read
         if last_read is not None:
             posts = Post.objects.filter(Q(topic=topic) & (Q(created__gte=last_read) | Q(updated__gte=last_read))).order_by('pk')
             try:
-                return posts[0].get_absolute_url()
+                return posts[0]
             except Post.DoesNotExist:
                 pass
 
-    return topic.posts.all()[0].get_absolute_url()
+    return topic.posts.all()[0]
 
 @register.filter
-def lofi_unread_link(topic, user):
-    return forum_unread_link(topic, user) + 'lofi/';
+def forum_unread_link(topic, user):
+    return forum_unread_object(topic, user).get_absolute_url();
+
+@register.filter
+def mobile_unread_link(topic, user):
+    return forum_unread_object(topic, user).get_mobile_url();
 
 @register.filter
 def forum_unreads(forum, user):

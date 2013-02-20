@@ -1,4 +1,4 @@
-{% extends 'djangobb_forum/lofi/base.html' %}
+{% extends 'djangobb_forum/mobile/base.html' %}
 {% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
@@ -6,11 +6,11 @@
 {% block root %}{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}{{ block.super }}{% endblock %}
 
 {% block title %}
-    <span><a href="{% url djangobb:lofi_index %}">{% trans "Scratch Forums" %}</a></span>
+    <span><a href="{% url djangobb:mobile_index %}">{% trans "Scratch Forums" %}</a></span>
     {% block page-name %}{% trans "Search Results" %}{% endblock %}
 {% endblock %}
 
 {% block content %}
 <p class=list-header><strong>{% trans "Topics" %}</strong> | <a href="{{ as_post_url }}">{% trans "Posts" %}</a></p>
-{% include 'djangobb_forum/lofi/includes/topic_list.html' with topics=topics %}
+{% include 'djangobb_forum/mobile/includes/topic_list.html' with topics=topics %}
 {% endblock %}
