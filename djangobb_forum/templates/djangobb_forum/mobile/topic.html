@@ -20,7 +20,9 @@
 <article id=post-{{ post.id }}>
     <header>
         <time datetime={{ post.created|date:"c" }}>{{ post.created|localtime|forum_time }}</time>
-        <a class=reply href="{% url djangobb:mobile_reply post.id %}">Reply</a>
+        {% if reply_form %}
+            <a class=reply href="{% url djangobb:mobile_reply post.id %}">Reply</a>
+        {% endif %}
         <h1>{{ post.user.username }}</h1>
     </header>
     <div class=post-content>{{ post.body_html|safe }}</div>
