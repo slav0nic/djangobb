@@ -987,6 +987,8 @@ def show_youtube_video(request, video_id):
 @login_required
 def mobile_reply(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    if post.topic.closed and not (request.user.is_superuser or request.user in forum.moderators.all()):
+        raise Http404
     ip = request.META.get('REMOTE_ADDR', None)
     post_form_kwargs = {"topic":post.topic, "user":request.user, "ip":ip}
     if AddPostForm.FORM_NAME in request.POST:
