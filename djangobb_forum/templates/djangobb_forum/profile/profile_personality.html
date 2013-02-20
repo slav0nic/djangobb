@@ -9,10 +9,10 @@
     <div class="blockform">
         <div class="box">
             <div class="box-head">
-                <h4>{% trans "Settings" %}</h4>
+                <h4>{% blocktrans with name=profile.username %}Settings ({{ name }}){% endblocktrans %}</h4>
             </div>
             <div class="box-content">
-                <form id="profile4" method="post">
+                <form method="post">
                     {% csrf_token %}
                     {{ form.signature.errors }}
                     <label>

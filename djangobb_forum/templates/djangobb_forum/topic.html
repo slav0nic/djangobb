@@ -99,6 +99,9 @@
                             {% if post.user.forum_profile.signature_html %}
                             <div class="postsignature">
                                 <hr>
+                                {% if moderator %}
+                                    <a class="edit-signature" href="{% url djangobb:forum_settings post.user.username %}">{% trans "(Edit Signature)" %}</a>
+                                {% endif %}
                                 {{ post.user.forum_profile.signature_html|safe }}
                             </div>
                             {% endif %}

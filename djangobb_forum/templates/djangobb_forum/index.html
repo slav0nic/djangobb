@@ -75,7 +75,7 @@
 <ul class="conl">
     {% if user.is_authenticated %}
     <li>{% trans "Show your" %} <a href="{% url djangobb:search %}?action=show_user&amp;show_as=topics">{% trans "topics" %}</a>/<a href="{% url djangobb:search %}?action=show_user&amp;show_as=posts">{% trans "posts" %}</a></li>
-    <li id="navprofile"><a href="{% url djangobb:forum_profile_personality request.user %}">{% trans "Change your signature" %}</a></li>
+    <li id="navprofile"><a href="{% url djangobb:forum_settings request.user %}">{% trans "Change your signature" %}</a></li>
     {% endif %}
 </ul>
 <ul class="conr">

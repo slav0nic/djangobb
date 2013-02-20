@@ -555,7 +555,7 @@ def upload_avatar(request, username, template=None, form_class=None):
         if request.method == 'POST' and form.is_valid():
             form.save()
             messages.success(request, _("Avatar uploaded."))
-            return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[user.username]))
+            return HttpResponseRedirect(reverse('djangobb:forum_settings', args=[user.username]))
         return render(request, template, {'form': form,
                 'avatar_width': forum_settings.AVATAR_WIDTH,
                 'avatar_height': forum_settings.AVATAR_HEIGHT,
@@ -571,32 +571,17 @@ def upload_avatar(request, username, template=None, form_class=None):
 
 
 @transaction.commit_on_success
-def user(request, username, section='personality', action=None, template='djangobb_forum/profile/profile_personality.html', form_class=PersonalityProfileForm):
+def settings(request, username):
     user = get_object_or_404(User, username=username)
-    if request.user.is_authenticated(): 
-        # looking at your own, you see the options that you can change
-        if request.user == user:
-            profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
-            form = build_form(form_class, request, instance=user.forum_profile, extra_args={'request': request})
-            if request.method == 'POST' and form.is_valid():
-                form.save()
-                messages.success(request, _("Profile saved."))
-                return HttpResponseRedirect(profile_url)
-            return render(request, template, {'active_menu': section,
-                                              'profile': user,
-                                              'form': form,
-                                              })
-
-        # admin looking at someone's sees more details
-        elif request.user.is_staff:
-            template = 'djangobb_forum/user.html'
-            topic_count = Topic.objects.filter(user__id=user.id).count()
-            if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
-                messages.error(request, _("Please sign in."))
-                return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
-            return render(request, template, {'profile': user,
-                                              'topic_count': topic_count,
-                                              })
+    if request.user.is_authenticated() and (user == request.user or request.user.is_staff or request.user.has_perm('djangobb_forum.change_report')):
+        form = build_form(PersonalityProfileForm, request, instance=user.forum_profile, extra_args={'request': request})
+        if request.method == 'POST' and form.is_valid():
+            form.save()
+            messages.success(request, _("Profile saved."))
+        return render(request, 'djangobb_forum/profile/profile_personality.html', {
+            'profile': user,
+            'form': form,
+        })
     # anyone else
     raise Http404
 
@@ -941,7 +926,7 @@ def delete_subscription(request, topic_id):
     if 'from_topic' in request.GET:
         return HttpResponseRedirect(reverse('djangobb:topic', args=[topic.id]))
     else:
-        return HttpResponseRedirect(reverse('djangobb:forum_profile', args=[request.user.username]))
+        return HttpResponseRedirect(reverse('djangobb:forum_settings', args=[request.user.username]))
 
 
 @login_required

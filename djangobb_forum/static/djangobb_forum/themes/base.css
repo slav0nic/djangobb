@@ -248,6 +248,9 @@ div.blockpost > div > div.inbox {
 	word-wrap: break-word;
 }
 
+.postsignature .edit-signature {
+	float: right;
+}
 .postsignature hr {
 	margin-left: 0;
 	width: 200px;

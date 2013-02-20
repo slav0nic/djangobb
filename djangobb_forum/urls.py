@@ -19,13 +19,7 @@ urlpatterns = patterns('',
     url('^misc/$', forum_views.misc, name='misc'),
     url('^youtube/(?P<video_id>[\w-]+)/$', forum_views.show_youtube_video, name='show_youtube_video'),
     # User
-    url('^user/(?P<username>.*)/settings/$', forum_views.user, {
-        'section': 'personality',
-        'form_class': PersonalityProfileForm,
-        'template': 'djangobb_forum/profile/profile_personality.html'
-        }, name='forum_profile_personality'),
-    url('^user/(?P<username>.*)/$', forum_views.user, name='forum_profile'),
-    url('^users/$', forum_views.users, name='forum_users'),
+    url('^settings/(?P<username>.*)/$', forum_views.settings, name='forum_settings'),
 
     # Topic
     url('^topic/(?P<topic_id>\d+)/$', forum_views.show_topic, name='topic'),
