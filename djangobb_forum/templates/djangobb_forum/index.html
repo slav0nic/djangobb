@@ -90,5 +90,8 @@
     {% for online in users_online %}
         <dd>{{ online|profile_link }}{% if not forloop.last %},{% endif %}</dd>
     {% endfor %}
+    {% if online_truncated %}
+    	<dd>{% trans "…and more." %}</dd>
+    {% endif %}
 </dl>
 {% endblock %}
