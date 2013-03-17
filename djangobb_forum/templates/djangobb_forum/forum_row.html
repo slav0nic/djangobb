@@ -1,7 +1,6 @@
 {% load forum_extras %}
 {% load cache %}
 {% load i18n %}
-
 {% if forum.last_post.topic %}
 	<tr {% if forum|forum_unreads:user %}class="inew"{% endif %}>
 {% else %}
@@ -9,10 +8,17 @@
 {% endif %}
 	<td class="tcl">
 		<div class="intd">
-			<div class="icon">
+            {% if forum.forum_logo %}
+            <div class="icon">
+               <img src="{{ forum.forum_logo.url }}" />
+            </div>
+            {% else %}
+            <div class="icon">
 				<div class="nosize"><!-- --></div>
 			</div>
-			<div class="tclcon">
+            {% endif %}
+
+            <div class="tclcon">
 				<h3>{% link forum %} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a></h3>
 				{{ forum.description|safe }}
 				<p>

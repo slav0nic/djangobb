@@ -104,6 +104,10 @@ class Forum(models.Model):
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
     topic_count = models.IntegerField(_('Topic count'), blank=True, default=0)
     last_post = models.ForeignKey('Post', related_name='last_forum_post', blank=True, null=True)
+    forum_logo = ExtendedImageField(_('Forum Logo'), blank=True, default='',
+                                    upload_to=forum_settings.FORUM_LOGO_UPLOAD_TO,
+                                    width=forum_settings.FORUM_LOGO_WIDTH,
+                                    height=forum_settings.FORUM_LOGO_HEIGHT)
 
     class Meta:
         ordering = ['position']
