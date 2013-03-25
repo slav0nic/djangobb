@@ -1,4 +1,4 @@
-{% extends 'djangobb_forum/lofi/base.html' %}
+{% extends 'djangobb_forum/mobile/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
 
@@ -10,7 +10,7 @@
 {% block content %}
 <form method=post>
     {% csrf_token %}
-    <input type="hidden" name="next" value="{% url djangobb:lofi_index %}" />
+    <input type="hidden" name="next" value="{% url djangobb:mobile_index %}" />
     {{ form.non_field_errors }}
     <fieldset>
         <label>

@@ -42,6 +42,9 @@ def index(request, full=True):
     guests_cached = cache.get('djangobb_guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
+    online_truncated = users_count > forum_settings.MAX_ONLINE
+    if online_truncated:
+        users_online = users_online[:forum_settings.MAX_ONLINE]
 
     _forums = Forum.objects.all()
     user = request.user
@@ -68,13 +71,14 @@ def index(request, full=True):
                 'users': User.objects.count(),
                 'users_online': users_online,
                 'online_count': users_count,
+                'online_truncated': online_truncated,
                 'guest_count': guest_count,
                 'last_user': User.objects.latest('date_joined')
                 }
     if full:
         return render(request, 'djangobb_forum/index.html', to_return)
     else:
-        return render(request, 'djangobb_forum/lofi/index.html', to_return)
+        return render(request, 'djangobb_forum/mobile/index.html', to_return)
 
 
 @transaction.commit_on_success
@@ -136,7 +140,7 @@ def reports(request):
 
 def search(request, full=True):
     # TODO: used forms in every search type
-    template_dir = 'djangobb_forum/' if full else 'djangobb_forum/lofi/'
+    template_dir = 'djangobb_forum/' if full else 'djangobb_forum/mobile/'
 
     def _render_search_form(form=None):
         return render(request, template_dir + 'search_form.html', {'categories': Category.objects.all(),
@@ -362,7 +366,7 @@ def show_forum(request, forum_id, full=True):
     if full:
         return render(request, 'djangobb_forum/forum.html', to_return)
     else:
-        return render(request, 'djangobb_forum/lofi/forum.html', to_return)
+        return render(request, 'djangobb_forum/mobile/forum.html', to_return)
 
 
 @transaction.commit_on_success
@@ -415,7 +419,7 @@ def show_topic(request, topic_id, full=True):
             if reply_form.is_valid():
                 post = reply_form.save()
                 messages.success(request, _("Reply saved."))
-                return HttpResponseRedirect(post.get_absolute_url() + ('' if full else 'lofi/'))
+                return HttpResponseRedirect(post.get_absolute_url() if full else post.get_mobile_url())
         else:
             reply_form = AddPostForm(
                 initial={
@@ -476,7 +480,7 @@ def show_topic(request, topic_id, full=True):
                 'can_close': can_close
                 })
     else:
-        return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
+        return render(request, 'djangobb_forum/mobile/topic.html', {'categories': Category.objects.all(),
                 'topic': topic,
                 'posts': posts,
                 'poll': poll,
@@ -521,7 +525,7 @@ def add_topic(request, forum_id, full=True):
                 messages.success(request, _("Topic with poll saved."))
             else:
                 messages.success(request, _("Topic saved."))
-            return HttpResponseRedirect(post.get_absolute_url() + ('' if full else 'lofi/'))
+            return HttpResponseRedirect(post.get_absolute_url() if full else post.get_mobile_url())
     else:
         form = AddPostForm(
             initial={
@@ -544,7 +548,7 @@ def add_topic(request, forum_id, full=True):
         'form_url': request.path,
         'back_url': forum.get_absolute_url(),
     }
-    return render(request, 'djangobb_forum/add_topic.html' if full else 'djangobb_forum/lofi/add_topic.html', context)
+    return render(request, 'djangobb_forum/add_topic.html' if full else 'djangobb_forum/mobile/add_topic.html', context)
 
 
 @transaction.commit_on_success
@@ -633,7 +637,7 @@ def show_post(request, post_id, full=True):
     post = get_object_or_404(Post, pk=post_id)
     count = post.topic.posts.filter(created__lt=post.created).count() + 1
     page = math.ceil(count / float(forum_settings.TOPIC_PAGE_SIZE))
-    url = '%s%s?page=%d#post-%d' % (reverse('djangobb:topic', args=[post.topic.id]), '' if full else 'lofi/', page, post.id)
+    url = '%s?page=%d#post-%d' % (reverse('djangobb:topic' if full else 'djangobb:mobile_topic', args=[post.topic.id]), page, post.id)
     return HttpResponseRedirect(url)
 
 @csrf_exempt
@@ -985,8 +989,10 @@ def show_youtube_video(request, video_id):
         })
 
 @login_required
-def lofi_reply(request, post_id):
+def mobile_reply(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    if not request.user.is_authenticated or post.topic.closed and not (request.user.is_superuser or request.user in forum.moderators.all()):
+        raise Http404
     ip = request.META.get('REMOTE_ADDR', None)
     post_form_kwargs = {"topic":post.topic, "user":request.user, "ip":ip}
     if AddPostForm.FORM_NAME in request.POST:
@@ -994,7 +1000,7 @@ def lofi_reply(request, post_id):
         if reply_form.is_valid():
             post = reply_form.save()
             messages.success(request, _("Reply saved."))
-            return HttpResponseRedirect(post.get_absolute_url() + 'lofi/')
+            return HttpResponseRedirect(post.get_mobile_url())
     else:
         reply_form = AddPostForm(
             initial={
@@ -1004,7 +1010,7 @@ def lofi_reply(request, post_id):
             },
             **post_form_kwargs
         )
-    return render(request, 'djangobb_forum/lofi/reply.html', {
+    return render(request, 'djangobb_forum/mobile/reply.html', {
         'form': reply_form,
         'post': post
         })

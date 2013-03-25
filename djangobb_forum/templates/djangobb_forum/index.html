@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block page-title %}{% trans "Discuss Scratch" %}{% endblock %}
-{% block lofi %}{% url djangobb:lofi_index %}{% endblock %}
+{% block mobile %}{% url djangobb:mobile_index %}{% endblock %}
 
 {% block extra_meta %}
 <script type="text/javascript">
@@ -90,5 +90,8 @@
     {% for online in users_online %}
         <dd>{{ online|profile_link }}{% if not forloop.last %},{% endif %}</dd>
     {% endfor %}
+    {% if online_truncated %}
+    	<dd>{% trans "…and more." %}</dd>
+    {% endif %}
 </dl>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'djangobb_forum/mobile/base.html' %}
+{% load i18n %}
+{% load forum_extras %}
+
+{% block full-link %}{% url djangobb:topic post.topic.id %}{% endblock %}
+
+{% block title %}
+    <span><a href="{% url djangobb:mobile_index %}">{% trans "Discuss" %}</a></span>
+    <span>{{ post.topic.forum|mobile_link }}</span>
+    <span>{{ post.topic|mobile_link }}</span>
+    {% block page-name %}{% trans "Reply" %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+{% include 'djangobb_forum/mobile/includes/post_form.html' %}
+{% endblock %}

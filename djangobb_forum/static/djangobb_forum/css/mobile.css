@@ -235,7 +235,7 @@ article header a {
     overflow: hidden;
     color: transparent !important;
     cursor: pointer;
-    background: url(../img/lofi_reply.png) center center no-repeat;
+    background: url(../img/mobile/reply.png) center center no-repeat;
     -webkit-tap-highlight-color: transparent;
     border-right: 1px solid #555;
     box-shadow: inset -1px 0 #aaa;

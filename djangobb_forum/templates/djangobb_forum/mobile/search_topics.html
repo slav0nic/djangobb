@@ -1,4 +1,4 @@
-{% extends 'djangobb_forum/lofi/base.html' %}
+{% extends 'djangobb_forum/mobile/base.html' %}
 {% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
@@ -12,5 +12,5 @@
 
 {% block content %}
 <p class=list-header><strong>{% trans "Topics" %}</strong> | <a href="{{ as_post_url }}">{% trans "Posts" %}</a></p>
-{% include 'djangobb_forum/lofi/includes/topic_list.html' with topics=topics %}
+{% include 'djangobb_forum/mobile/includes/topic_list.html' with topics=topics %}
 {% endblock %}

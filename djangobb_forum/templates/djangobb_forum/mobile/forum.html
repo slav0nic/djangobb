@@ -1,4 +1,4 @@
-{% extends 'djangobb_forum/lofi/base.html' %}
+{% extends 'djangobb_forum/mobile/base.html' %}
 {% load i18n %}
 {% load pagination_tags %}
 {% load forum_extras %}
@@ -13,6 +13,6 @@
 {% block root %}{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}{{ block.super }}{% endblock %}
 
 {% block content %}
-{% if can_create_topics %}<p class=list-header><a href="{% url djangobb:lofi_add_topic forum.id %}">New Topic</a></p>{% endif %}
-{% include 'djangobb_forum/lofi/includes/topic_list.html' with topics=topics %}
+{% if can_create_topics %}<p class=list-header><a href="{% url djangobb:mobile_add_topic forum.id %}">New Topic</a></p>{% endif %}
+{% include 'djangobb_forum/mobile/includes/topic_list.html' with topics=topics %}
 {% endblock %}
