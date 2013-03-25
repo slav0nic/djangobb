@@ -292,6 +292,9 @@ td .tclcon {
 
 /* Boxes */
 
+.box .box-head h4 {
+    display: block;
+}
 .box-content {
     padding: 12px 20px;
 }
