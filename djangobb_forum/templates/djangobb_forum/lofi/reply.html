@@ -5,7 +5,7 @@
 {% block full-link %}{% url djangobb:topic post.topic.id %}{% endblock %}
 
 {% block title %}
-    <span><a href="{% url djangobb:lofi_index %}">{% trans "Scratch Forums" %}</a></span>
+    <span><a href="{% url djangobb:lofi_index %}">{% trans "Discuss" %}</a></span>
     <span>{% lofi_link post.topic.forum %}</span>
     <span>{% lofi_link post.topic %}</span>
     {% block page-name %}{% trans "Reply" %}{% endblock %}

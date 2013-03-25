@@ -1,8 +1,8 @@
 #DjangoBB Forum Settings
 # Described here: https://bitbucket.org/slav0nic/djangobb/src/a4c0272533a9/djangobb_forum/settings.py
-DJANGOBB_FORUM_BASE_TITLE = 'Scratch Forums'
+DJANGOBB_FORUM_BASE_TITLE = 'Discuss Scratch'
 DJANGOBB_PM_SUPPORT = False
-DJANGOBB_HEADER = 'Scratch Forums'
+DJANGOBB_HEADER = 'Discuss Scratch'
 DJANGOBB_TAGLINE = ''
 DJANGOBB_REPUTATION_SUPPORT = False
 DJANGOBB_ATTACHMENT_SUPPORT = False

@@ -7,7 +7,7 @@ $(document).ready(function () {
             alert('Invalid topic ID.');
             return;
         }
-        $.get('/forums/topic/' + id[0] + '/title/', function (title) {
+        $.get('/discuss/topic/' + id[0] + '/title/', function (title) {
             if (confirm('Do you really want to move these posts to "' + title + '"?')) {
                 t.submit();
             }

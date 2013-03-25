@@ -13,7 +13,7 @@ function log() {
 function copy_paste(id) {   
     var post = $('#' + id);
     var username = post.find(".username").text();
-    $.ajax('/forums/post/' + id.substr(1) + '/source/').done(function (data) {
+    $.ajax('/discuss/post/' + id.substr(1) + '/source/').done(function (data) {
         paste('[quote=' + username + ']' + data + '[/quote]\n');
     });
 }
