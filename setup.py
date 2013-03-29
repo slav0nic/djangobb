@@ -55,6 +55,7 @@ setup(name='djangobb_forum',
             'setuptools'
             ],
     keywords='django forum bb',
+    test_suite='runtests.runtests',
     cmdclass={'build': build, 'install_lib': install_lib,
         'compile_translations': compile_translations}
 )
