@@ -46,7 +46,7 @@ setup(name='djangobb_forum',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-            'django>=1.4.5',
+            'django==1.5.1',
             'pil>=1.1.7',
             'django-haystack==1.2.7',
             'django-pagination',

@@ -8,13 +8,13 @@ except ImportError:
     from StringIO import StringIO
 import random
 from hashlib import sha1
+import json
 
 from django.db.models import OneToOneField
-from django.db.models.fields.related import SingleRelatedObjectDescriptor 
+from django.db.models.fields.related import SingleRelatedObjectDescriptor
 from django.db import models
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils import simplejson as json
 from django.conf import settings
 
 

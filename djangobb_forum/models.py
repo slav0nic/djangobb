@@ -301,7 +301,7 @@ class ProfileManager(models.Manager):
 class Profile(models.Model):
     user = AutoOneToOneField(User, related_name='forum_profile', verbose_name=_('User'))
     status = models.CharField(_('Status'), max_length=30, blank=True)
-    site = models.URLField(_('Site'), verify_exists=False, blank=True)
+    site = models.URLField(_('Site'), blank=True)
     jabber = models.CharField(_('Jabber'), max_length=80, blank=True)
     icq = models.CharField(_('ICQ'), max_length=12, blank=True)
     msn = models.CharField(_('MSN'), max_length=80, blank=True)
