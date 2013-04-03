@@ -211,7 +211,7 @@ class Post(models.Model):
     markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
-    user_ip = models.IPAddressField(_('User IP'), blank=True, null=True)
+    user_ip = models.GenericIPAddressField(_('User IP'), blank=True, null=True)
 
 
     class Meta:
