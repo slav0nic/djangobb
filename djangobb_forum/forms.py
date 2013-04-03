@@ -430,6 +430,9 @@ class VotePollForm(forms.Form):
 
     def clean_choice(self):
         ids = self.cleaned_data["choice"]
+        if self.poll.choice_count == 1:
+            ids = [ids] # in a single choice scenario ChoiceField+RadioSelect are used, which return a value itself, not a list
+
         count = len(ids)
         if count > self.poll.choice_count:
             raise forms.ValidationError(
