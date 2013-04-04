@@ -436,12 +436,15 @@ class Poll(models.Model):
     users = models.ManyToManyField(User, blank=True, null=True,
         help_text=_("Users who has voted this poll."),
     )
-    def auto_deactivate(self):
+    def deactivate_if_expired(self):
         if self.active and self.deactivate_date:
             now = datetime.now()
             if now > self.deactivate_date:
                 self.active = False
                 self.save()
+
+    def single_choice(self):
+        return self.choice_count == 1
 
     def __unicode__(self):
         return self.question

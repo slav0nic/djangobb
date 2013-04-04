@@ -419,7 +419,7 @@ class VotePollForm(forms.Form):
         super(VotePollForm, self).__init__(*args, **kwargs)
 
         choices = self.poll.choices.all().values_list("id", "choice")
-        if self.poll.choice_count == 1:
+        if self.poll.single_choice():
             self.fields["choice"] = forms.ChoiceField(
                 choices=choices, widget=forms.RadioSelect
             )
@@ -430,8 +430,8 @@ class VotePollForm(forms.Form):
 
     def clean_choice(self):
         ids = self.cleaned_data["choice"]
-        if self.poll.choice_count == 1:
-            ids = [ids] # in a single choice scenario ChoiceField+RadioSelect are used, which return a value itself, not a list
+        if self.poll.single_choice(): # in a single choice scenario ChoiceField+RadioSelect are used (see above)
+            ids = [ids]               # which return a value itself, not a list
         count = len(ids)
         if count > self.poll.choice_count:
             raise forms.ValidationError(
@@ -447,11 +447,15 @@ class PollForm(forms.ModelForm):
     days = forms.IntegerField(required=False, min_value=1,
         help_text=_("Number of days for this poll to run. Leave empty for never ending poll.")
     )
+    choice_count = forms.IntegerField(required=True, initial=1, min_value=1,
+        error_messages={'min_value': _("Number of choices must be positive.")},
+    )
+
     class Meta:
         model = Poll
         fields = ['question', 'choice_count']
 
-    def create_poll(self):
+    def has_data(self):
         """
         return True if one field filled with data -> the user wants to create a poll
         """

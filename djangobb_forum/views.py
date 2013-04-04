@@ -409,7 +409,7 @@ def show_topic(request, topic_id, full=True):
     else:
         poll = polls[0]
         if user_is_authenticated: # Only logged in users can vote
-            poll.auto_deactivate()
+            poll.deactivate_if_expired()
             has_voted = request.user in poll.users.all()
             if not post_request or not VotePollForm.FORM_NAME in request.POST:
                 # It's not a POST request or: The reply form was send and not a poll vote
@@ -477,8 +477,7 @@ def add_topic(request, forum_id):
             all_valid = False
 
         poll_form = PollForm(request.POST)
-        create_poll = poll_form.create_poll()
-        if not create_poll:
+        if not poll_form.has_data():
             # All poll fields are empty: User didn't want to create a poll
             # Don't run validation and remove all form error messages
             poll_form = PollForm() # create clean form without form errors
@@ -487,7 +486,7 @@ def add_topic(request, forum_id):
 
         if all_valid:
             post = form.save()
-            if create_poll:
+            if poll_form.has_data():
                 poll_form.save(post)
                 messages.success(request, _("Topic with poll saved."))
             else:
