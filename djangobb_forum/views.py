@@ -143,9 +143,12 @@ def search(request, full=True):
     template_dir = 'djangobb_forum/' if full else 'djangobb_forum/mobile/'
 
     def _render_search_form(form=None):
-        return render(request, template_dir + 'search_form.html', {'categories': Category.objects.all(),
-                'form': form,
-                })
+        # TODO: remove 'in' clause from following query
+        categories_with_forums = Category.objects.prefetch_related('forums')
+        return render(request, template_dir + 'search_form.html', {
+            'categories': categories_with_forums,
+            'form': form,
+        })
 
     if not 'action' in request.GET:
         return _render_search_form(form=PostSearchForm())
