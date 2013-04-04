@@ -8,64 +8,64 @@
 {% block extra_meta %}
 <script type="text/javascript">
 
-	function set_collapser(cat_id) {
-		category_body_id = "category_body_" + cat_id;
-		if($.cookie(category_body_id)){
-			item_id = "#" + category_body_id;
-			head_id = item_id.replace("body", "head");
-			$(head_id).addClass("collapsed");
-			$(item_id).hide()
-		}
-	}
-	$(document).ready(function(){
-		$("a.toggle").click(function(){
-			header_id = $(this).parent().attr('id');
-			body_id = header_id.replace("head", "body");
-			item_id = '#' + body_id
-			if ($(this).parent().attr('class')==''){
-				$(this).parent().addClass("collapsed");
-				$.cookie(body_id, 'collapsed');
-			} else {
-				$(this).parent().removeClass("collapsed");
-				$.cookie(body_id, '');
-			}
-			$(item_id).slideToggle("slow");
-		});
-	{% for iter in cats %}
-		set_collapser({{ iter.id }})
-	{% endfor %}
-	});
+    function set_collapser(cat_id) {
+        category_body_id = "category_body_" + cat_id;
+        if($.cookie(category_body_id)){
+            item_id = "#" + category_body_id;
+            head_id = item_id.replace("body", "head");
+            $(head_id).addClass("collapsed");
+            $(item_id).hide()
+        }
+    }
+    $(document).ready(function(){
+        $("a.toggle").click(function(){
+            header_id = $(this).parent().attr('id');
+            body_id = header_id.replace("head", "body");
+            item_id = '#' + body_id
+            if ($(this).parent().attr('class')==''){
+                $(this).parent().addClass("collapsed");
+                $.cookie(body_id, 'collapsed');
+            } else {
+                $(this).parent().removeClass("collapsed");
+                $.cookie(body_id, '');
+            }
+            $(item_id).slideToggle("slow");
+        });
+    {% for iter in cats %}
+        set_collapser({{ iter.id }})
+    {% endfor %}
+    });
 </script>
 {% endblock %}
 
 {% block content %}
 <div id="idx1" class="blocktable">
 {% for iter in cats %}
-	<div class="box" id="category_body_{{ iter.id }}">
-		<div class="box-head">
-			<h4 id="category_head_{{ iter.id }}">
-				<a class="toggle" href="#">Toggle shoutbox</a>
-				{{ iter.cat }}
-			</h4>
-		</div>
-		<div class="box-content">
-			<table cellspacing="0">
-				<thead>
-					<tr>
-						<th class="tcl" scope="col">{% trans "Forum" %}</th>
-						<th class="tc2" scope="col">{% trans "Topics" %}</th>
-						<th class="tc3" scope="col">{% trans "Posts" %}</th>
-						<th class="tcr" scope="col">{% trans "Last Post" %}</th>
-					</tr>
-				</thead>
-				<tbody>
-				{% for forum in iter.forums %}
-					{% include 'djangobb_forum/forum_row.html' %}
-				{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <div class="box" id="category_body_{{ iter.id }}">
+        <div class="box-head">
+            <h4 id="category_head_{{ iter.id }}">
+                <a class="toggle" href="#">Toggle shoutbox</a>
+                {{ iter.cat }}
+            </h4>
+        </div>
+        <div class="box-content">
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="tcl" scope="col">{% trans "Forum" %}</th>
+                        <th class="tc2" scope="col">{% trans "Topics" %}</th>
+                        <th class="tc3" scope="col">{% trans "Posts" %}</th>
+                        <th class="tcr" scope="col">{% trans "Last Post" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for forum in iter.forums %}
+                    {% include 'djangobb_forum/forum_row.html' %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endfor %}
 </div>
 {% endblock %}
@@ -91,7 +91,7 @@
         <dd>{{ online|profile_link }}{% if not forloop.last %},{% endif %}</dd>
     {% endfor %}
     {% if online_truncated %}
-    	<dd>{% trans "…and more." %}</dd>
+        <dd>{% trans "…and more." %}</dd>
     {% endif %}
 </dl>
 {% endblock %}
