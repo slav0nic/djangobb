@@ -390,7 +390,9 @@ def show_topic(request, topic_id, full=True):
 
     if request.user.is_authenticated():
         topic.update_read(request.user)
-    posts = topic.posts.all().select_related()
+    # without specifying, this query wouldn't select related properly, instead
+    # it would query: forum_profile, userprofile, forum_topic, forum_attachment
+    posts = topic.posts.select_related('user__userprofile').all()
     edit_start = timezone.now() - timedelta(minutes=1)
     edit_end = timezone.now()
     editable = posts.filter(created__range=(edit_start, edit_end)).filter(user_id=request.user.id)
