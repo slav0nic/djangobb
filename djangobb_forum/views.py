@@ -134,7 +134,7 @@ def reports(request):
         new_reports = Report.objects.filter(zapped = False).order_by('-created')
         zapped_reports = Report.objects.filter(zapped = True).order_by('-created')[:10]
 
-        return render(request, 'djangobb_forum/reports.html', {'new_reports' : new_reports, 'zapped_reports' : zapped_reports})        
+        return render(request, 'djangobb_forum/reports.html', {'new_reports' : new_reports, 'zapped_reports' : zapped_reports})
     else:
         raise Http404
 
@@ -165,7 +165,7 @@ def search(request, full=True):
     posts = Post.objects.all().order_by('-created')
     user = request.user
     if not user.is_superuser:
-        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable 
+        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
         viewable_category = viewable_category.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
 
         topics = Topic.objects.filter(forum__category__in=viewable_category)
@@ -403,7 +403,7 @@ def show_topic(request, topic_id, full=True):
         subscribed = True
     else:
         subscribed = False
-        
+
     # reply form
     reply_form = None
     form_url = None
@@ -431,7 +431,7 @@ def show_topic(request, topic_id, full=True):
 
     # handle poll, if exists
     poll_form = None
-    polls = topic.poll_set.all()        
+    polls = topic.poll_set.all()
     if not polls:
         poll = None
     else:
@@ -534,10 +534,10 @@ def add_topic(request, forum_id, full=True):
             },
             **post_form_kwargs
         )
- 
+
     # if creating a new topic and allowed
-    create_poll_form = forum_id and forum_settings.ALLOW_POLLS 
-        
+    create_poll_form = forum_id and forum_settings.ALLOW_POLLS
+
     poll_form = PollForm()
 
     context = {
