@@ -390,9 +390,13 @@ def show_topic(request, topic_id, full=True):
 
     if request.user.is_authenticated():
         topic.update_read(request.user)
-    # without specifying, this query wouldn't select related properly, instead
-    # it would query: forum_profile, userprofile, forum_topic, forum_attachment
-    posts = topic.posts.select_related('user__userprofile').all()
+    # without specifying, following query wouldn't select related properly
+    posts = topic.posts.select_related('user__userprofile',
+        'user__forum_profile',
+        'updated_by').all()
+    # TODO: change the attachments query so it doesn't generate an 'in' clause
+    posts_with_attachments = {post.id:post.attachments for post in \
+        topic.posts.prefetch_related('attachments')}
     edit_start = timezone.now() - timedelta(minutes=1)
     edit_end = timezone.now()
     editable = posts.filter(created__range=(edit_start, edit_end)).filter(user_id=request.user.id)
@@ -473,6 +477,7 @@ def show_topic(request, topic_id, full=True):
                 'moderator': moderator,
                 'subscribed': subscribed,
                 'posts': posts,
+                'posts_with_attachments': posts_with_attachments,
                 'first_post_number': first_post_number,
                 'highlight_word': highlight_word,
                 'poll': poll,
