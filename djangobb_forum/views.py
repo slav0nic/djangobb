@@ -168,7 +168,7 @@ def search(request, full=True):
         viewable_category = viewable_category.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
 
         topics = Topic.objects.filter(forum__category__in=viewable_category) \
-            .select_related('last_post', 'last_post__user')
+            .select_related('last_post', 'last_post__user', 'user', 'forum')
         posts = Post.objects.filter(topic__forum__category__in=viewable_category)
 
     base_url = None
