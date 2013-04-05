@@ -66,9 +66,6 @@ def index(request, full=True):
     cats = sorted(cats.values(), cmpdef)
 
     to_return = {'cats': cats,
-                'posts': Post.objects.count(),
-                'topics': Topic.objects.count(),
-                'users': User.objects.count(),
                 'users_online': users_online,
                 'online_count': users_count,
                 'online_truncated': online_truncated,
