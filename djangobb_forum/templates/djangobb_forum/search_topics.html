@@ -9,53 +9,53 @@
 {% block content %}
 {% autopaginate topics forum_settings.SEARCH_PAGE_SIZE %}
 <div class="linkst">
-	{% paginate %}
-	<a href="{{ as_post_url }}">{% trans "Show results as post list." %}</a>
+    {% paginate %}
+    <a href="{{ as_post_url }}">{% trans "Show results as post list." %}</a>
 </div>
 
 <div id="vf" class="blocktable">
-	<div class="box">
-		<div class="box-head">
-			<h4>{% trans "Search Results" %}</h4>
-		</div>
-		<div class="box-content">
-			<table cellspacing="0">
-				<thead>
-					<tr>
-						<th class="tcl" scope="col">{% trans "Topic" %}</th>
-						<th class="tc2" scope="col">{% trans "Forum" %}</th>
-						<th class="tc3" scope="col">{% trans "Replies" %}</th>
-						<th class="tcr" scope="col">{% trans "Last Post" %}</th>
-					</tr>
-				</thead>
-				<tbody>
-				{% for topic in topics %}
-					<tr>
-						<td class="tcl">
-							<div class="intd">
-								<div {% if topic.sticky %}class="isticky{% if topic.closed %} iclosed{% endif %}"{% else %}{% if topic.closed %}class="iclosed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
-								<div class="tclcon">
-								  <h3 {% if not topic|has_unreads:user %}class="topic_isread"{% endif %}>{% link topic %}</h3>
-								  <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
-								</div>
-							</div>
-						</td>
-						<td class="tc2">{% link topic.forum %}</td>
-						<td class="tc3">{{ topic.reply_count }}</td>
-						<td class="tcr"><a href="{{ topic.get_absolute_url }}">{{ topic.updated|localtime|forum_time }}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
-					</tr>
-				{% empty %}
-				     <tr>
-				         <td colspan="4"><p>{% trans "Your search returned no hits." %}</p></td>
-				     </tr>
-				{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <div class="box">
+        <div class="box-head">
+            <h4>{% trans "Search Results" %}</h4>
+        </div>
+        <div class="box-content">
+            <table cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="tcl" scope="col">{% trans "Topic" %}</th>
+                        <th class="tc2" scope="col">{% trans "Forum" %}</th>
+                        <th class="tc3" scope="col">{% trans "Replies" %}</th>
+                        <th class="tcr" scope="col">{% trans "Last Post" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for topic in topics %}
+                    <tr>
+                        <td class="tcl">
+                            <div class="intd">
+                                <div {% if topic.sticky %}class="isticky{% if topic.closed %} iclosed{% endif %}"{% else %}{% if topic.closed %}class="iclosed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="forumicon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
+                                <div class="tclcon">
+                                  <h3 {% if not topic|has_unreads:user %}class="topic_isread"{% endif %}>{% link topic %}</h3>
+                                  <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="tc2">{% link topic.forum %}</td>
+                        <td class="tc3">{{ topic.reply_count }}</td>
+                        <td class="tcr"><a href="{{ topic.get_absolute_url }}">{{ topic.updated|localtime|forum_time }}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+                    </tr>
+                {% empty %}
+                     <tr>
+                         <td colspan="4"><p>{% trans "Your search returned no hits." %}</p></td>
+                     </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="linksb">
-	{% paginate %}
+    {% paginate %}
 </div>
 {% endblock %}
