@@ -4,40 +4,40 @@
 {% load tz %}
 
 <tr>
-	<td class="tcl">
-		<div class="intd">
-			<div class="{% if forum.last_post.topic and forum|forum_unreads:user %}inew{% else %}forumicon{% endif %}">
-				<div class="nosize"><!-- --></div>
-			</div>
-			<div class="tclcon">
-				<h3>{% link forum %}
-				  {% if forum_settings.RSS %} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
-				  {% endif %}
-				</h3>
-				{{ forum.description|safe }}
-				{% comment %} don't show mods for each forum %}
-				<p>
+    <td class="tcl">
+        <div class="intd">
+            <div class="{% if forum.last_post.topic and forum|forum_unreads:user %}inew{% else %}forumicon{% endif %}">
+                <div class="nosize"><!-- --></div>
+            </div>
+            <div class="tclcon">
+                <h3>{% link forum %}
+                  {% if forum_settings.RSS %} <a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
+                  {% endif %}
+                </h3>
+                {{ forum.description|safe }}
+                {% comment %} don't show mods for each forum %}
+                <p>
 
-				{% cache 6000 moderators forum.id %}
-					{% with forum.moderators.all as moderators %}
-						{% if moderators %}
-							{% include 'djangobb_forum/moderators.html' %}
-						{% endif %}
-					{% endwith %}
-				{% endcache %}
-				</p>
-				{% endcomment %}
-			</div>
-		</div>
-	</td>
-	<td class="tc2">{{ forum.topic_count }}</td>
-	<td class="tc3">{{ forum.post_count }}</td>
-	<td class="tcr">
-		{% if forum.updated %}
-			{% if forum.last_post.topic %}
-				<a href="{{ forum.last_post.get_absolute_url }}">{{ forum.last_post.created|localtime|forum_time }}</a>
-				<span class="byuser">{% trans "by" %} {{ forum.last_post.user.username }}</span>
-			{% endif %}
-		{% endif %}
-	</td>
+                {% cache 6000 moderators forum.id %}
+                    {% with forum.moderators.all as moderators %}
+                        {% if moderators %}
+                            {% include 'djangobb_forum/moderators.html' %}
+                        {% endif %}
+                    {% endwith %}
+                {% endcache %}
+                </p>
+                {% endcomment %}
+            </div>
+        </div>
+    </td>
+    <td class="tc2">{{ forum.topic_count }}</td>
+    <td class="tc3">{{ forum.post_count }}</td>
+    <td class="tcr">
+        {% if forum.updated %}
+            {% if forum.last_post.topic %}
+                <a href="{{ forum.last_post.get_absolute_url }}">{{ forum.last_post.created|localtime|forum_time }}</a>
+                <span class="byuser">{% trans "by" %} {{ forum.last_post.user.username }}</span>
+            {% endif %}
+        {% endif %}
+    </td>
 </tr>

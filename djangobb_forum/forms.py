@@ -107,7 +107,7 @@ class AddPostForm(forms.ModelForm):
                 if self.user.has_perm('djangobb_forum.med_post'):
                     if lastpost_diff.total_seconds() < forum_settings.POST_FLOOD_MED:
                         self._errors['body'] = self.error_class([_("Sorry, you have to wait %d seconds between posts." % forum_settings.POST_FLOOD_MED)])
-                        
+
                 else:
                     if lastpost_diff.total_seconds() < forum_settings.POST_FLOOD_SLOW:
                         self._errors['body'] = self.error_class([_("Sorry, you have to wait %d seconds between posts." % forum_settings.POST_FLOOD_SLOW)])

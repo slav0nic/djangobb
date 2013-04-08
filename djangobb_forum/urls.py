@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     # Topic
     url('^topic/(?P<topic_id>\d+)/$', forum_views.show_topic, name='topic'),
     url('^topic/(?P<topic_id>\d+)/title/$', forum_views.get_topic_title, name='topic_title'),
-    url('^(?P<forum_id>\d+)/topic/add/$', forum_views.add_topic, name='add_topic'),
+    url(r'^(?P<forum_id>\d+)/topic/add/$', forum_views.add_topic, name='add_topic'),
     url('^topic/(?P<topic_id>\d+)/delete_posts/$', forum_views.delete_posts, name='delete_posts'),
     url('^topic/move/$', forum_views.move_topic, name='move_topic'),
     url('^topic/(?P<topic_id>\d+)/move_posts/$', forum_views.move_posts, name='move_posts'),
