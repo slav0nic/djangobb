@@ -275,7 +275,8 @@ class Reputation(models.Model):
         unique_together = (('from_user', 'post'),)
 
     def __unicode__(self):
-        return u'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(self.time))
+        time = timezone.localtime(self.time)
+        return u'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(time))
 
 
 class ProfileManager(models.Manager):
