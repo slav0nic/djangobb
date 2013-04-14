@@ -1,9 +1,9 @@
 from datetime import timedelta
-from django.utils import timezone
 
 from django.core.cache import cache
-from django.utils import translation
+from django.utils import translation, timezone
 from django.conf import settings as global_settings
+import pytz
 
 from djangobb_forum import settings as forum_settings
 
@@ -50,3 +50,14 @@ class UsersOnline(object):
 
         cache.set('djangobb_users_online', users_online, 60*60*24)
         cache.set('djangobb_guests_online', guests_online, 60*60*24)
+
+
+class TimezoneMiddleware(object):
+    def process_request(self, request):
+        if request.user.is_authenticated():
+            profile = request.user.forum_profile
+            try:
+                timezone.activate(profile.time_zone)
+            except pytz.UnknownTimeZoneError:
+                profile.time_zone = global_settings.TIME_ZONE
+                profile.save()

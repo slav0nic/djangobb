@@ -2,12 +2,12 @@
 
 import os.path
 from datetime import timedelta
-from django.utils import timezone
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.expressions import F
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \

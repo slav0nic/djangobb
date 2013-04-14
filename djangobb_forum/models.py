@@ -1,6 +1,5 @@
 # coding: utf-8
 
-from django.utils import timezone
 from hashlib import sha1
 import os
 
@@ -9,7 +8,9 @@ from django.contrib.auth.models import User, Group
 from django.db import models
 from django.db.models import aggregates
 from django.db.models.signals import post_save
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+import pytz
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import smiles, convert_text_to_html
@@ -21,16 +22,7 @@ if 'south' in settings.INSTALLED_APPS:
                                  '^djangobb_forum\.fields\.JSONField',
                                  '^djangobb_forum\.fields\.ExtendedImageField'])
 
-TZ_CHOICES = [(float(x[0]), x[1]) for x in (
-    (-12, '-12'), (-11, '-11'), (-10, '-10'), (-9.5, '-09.5'), (-9, '-09'),
-    (-8.5, '-08.5'), (-8, '-08 PST'), (-7, '-07 MST'), (-6, '-06 CST'),
-    (-5, '-05 EST'), (-4, '-04 AST'), (-3.5, '-03.5'), (-3, '-03 ADT'),
-    (-2, '-02'), (-1, '-01'), (0, '00 GMT'), (1, '+01 CET'), (2, '+02'),
-    (3, '+03'), (3.5, '+03.5'), (4, '+04'), (4.5, '+04.5'), (5, '+05'),
-    (5.5, '+05.5'), (6, '+06'), (6.5, '+06.5'), (7, '+07'), (8, '+08'),
-    (9, '+09'), (9.5, '+09.5'), (10, '+10'), (10.5, '+10.5'), (11, '+11'),
-    (11.5, '+11.5'), (12, '+12'), (13, '+13'), (14, '+14'),
-)]
+TZ_CHOICES = [(tz_name, tz_name) for tz_name in pytz.common_timezones]
 
 SIGN_CHOICES = (
     (1, 'PLUS'),
@@ -310,7 +302,7 @@ class Profile(models.Model):
     location = models.CharField(_('Location'), max_length=30, blank=True)
     signature = models.TextField(_('Signature'), blank=True, default='', max_length=forum_settings.SIGNATURE_MAX_LENGTH)
     signature_html = models.TextField(_('Signature'), blank=True, default='', max_length=forum_settings.SIGNATURE_MAX_LENGTH)
-    time_zone = models.FloatField(_('Time zone'), choices=TZ_CHOICES, default=float(forum_settings.DEFAULT_TIME_ZONE))
+    time_zone = models.CharField(_('Time zone'),max_length=50, choices=TZ_CHOICES, default=settings.TIME_ZONE)
     language = models.CharField(_('Language'), max_length=5, default='', choices=settings.LANGUAGES)
     avatar = ExtendedImageField(_('Avatar'), blank=True, default='', upload_to=forum_settings.AVATARS_UPLOAD_TO, width=forum_settings.AVATAR_WIDTH, height=forum_settings.AVATAR_HEIGHT)
     theme = models.CharField(_('Theme'), choices=THEME_CHOICES, max_length=80, default='default')
