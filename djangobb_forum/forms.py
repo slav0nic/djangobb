@@ -1,7 +1,8 @@
 # coding: utf-8
 
 import os.path
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone
 
 from django import forms
 from django.conf import settings
@@ -150,7 +151,7 @@ class EditPostForm(forms.ModelForm):
 
     def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
-        post.updated = datetime.now()
+        post.updated = timezone.now()
         topic_name = self.cleaned_data['name']
         if topic_name:
             post.topic.name = topic_name
@@ -400,7 +401,7 @@ class ReportForm(forms.ModelForm):
 
     def save(self, commit=True):
         report = super(ReportForm, self).save(commit=False)
-        report.created = datetime.now()
+        report.created = timezone.now()
         report.reported_by = self.reported_by
         if commit:
             report.save()
@@ -484,8 +485,7 @@ class PollForm(forms.ModelForm):
         poll.topic = post.topic
         days = self.cleaned_data["days"]
         if days:
-            now = datetime.now()
-            poll.deactivate_date = now + timedelta(days=days)
+            poll.deactivate_date = timezone.now() + timedelta(days=days)
         poll.save()
         answers = self.cleaned_data["answers"]
         for answer in answers:

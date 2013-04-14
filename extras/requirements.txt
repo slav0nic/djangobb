@@ -5,3 +5,4 @@ south
 pygments
 postmarkup
 django-pagination
+pytz>=2013b

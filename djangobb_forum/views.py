@@ -1,7 +1,8 @@
 # coding: utf-8
 
 import math
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -149,7 +150,7 @@ def search(request):
 
     action = request.GET['action']
     if action == 'show_24h':
-        date = datetime.now() - timedelta(days=1)
+        date = timezone.now() - timedelta(days=1)
         if show_as_posts:
             context["posts"] = posts.filter(Q(created__gte=date) | Q(updated__gte=date))
         else:
@@ -288,7 +289,7 @@ def misc(request):
         action = request.GET['action']
         if action == 'markread':
             user = request.user
-            PostTracking.objects.filter(user__id=user.id).update(last_read=datetime.now(), topics=None)
+            PostTracking.objects.filter(user__id=user.id).update(last_read=timezone.now(), topics=None)
             messages.info(request, _("All topics marked as read."))
             return HttpResponseRedirect(reverse('djangobb:index'))
 
