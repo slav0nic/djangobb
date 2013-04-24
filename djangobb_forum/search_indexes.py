@@ -1,9 +1,11 @@
 from haystack.indexes import *
 from haystack import site
+from celery_haystack.indexes import CelerySearchIndex
+
 
 import djangobb_forum.models as models
 
-class PostIndex(RealTimeSearchIndex):
+class PostIndex(CelerySearchIndex):
     text = CharField(document=True, use_template=True)
     author = CharField(model_attr='user')
     created = DateTimeField(model_attr='created')
