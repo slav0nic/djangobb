@@ -126,7 +126,6 @@ LI.maintenancelink A:hover {COLOR: #B42000}
 .inew = new posts, .iredirect = redirect forums, .iclosed = closed topics and
 .isticky = sticky topics. The default is "icon". By default only .inew is different.*/
 
-DIV.forum_icon {background:url(../img/active_forum.gif)}
 DIV.icon {background:url(../img/inactive_topic.gif)}
 DIV.inew {background:url(../img/active_topic.gif)}
 DIV.sticky {background:url(../img/sticky_topic.gif)}

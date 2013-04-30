@@ -76,12 +76,10 @@ color : #006699;
 font-weight : bold; 
 } 
 .djangobb div.infldset TH.tcl , div.infldset TH.tc2 , div.infldset TH.tc3 , div.infldset TH.tcr {
-background-image : url(../img/pix.gif); 
 color : #006699; 
 } 
 .djangobb div.infldset th.hidehead {
 color : #006699; 
-background-image : url(../img/pix.gif); 
 } 
 .djangobb span.byuser {
 background-position : 0% 50%; 
@@ -383,7 +381,6 @@ right : 20px;
 
 a.quotehint:hover .infobox {
 	border: 1px solid #bec8ce; 
-	background: #ecf0f6 url(../img/QuickQuote/hint_bg_cornflower.gif) no-repeat right bottom;
 	color: #333; 
 }
 
