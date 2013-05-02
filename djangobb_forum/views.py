@@ -198,7 +198,7 @@ def search(request, full=True):
             _generic_context = False
         else:
             topic_ids = [topic.id for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, user)]
-            topics = Topic.objects.filter(id__in=topics_id)
+            topics = Topic.objects.filter(id__in=topic_ids)
     elif action == 'show_unanswered':
         topics = topics.filter(post_count=1)
     elif action == 'show_subscriptions':
