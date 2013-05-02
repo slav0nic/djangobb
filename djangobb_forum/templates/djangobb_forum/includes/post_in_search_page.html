@@ -10,7 +10,7 @@
         <div class="box-content">
             <div class="postleft">
                 <dl>
-                    <dt><strong><a href="{% url djangobb:forum_profile post.user %}">{{ post.user }}</a></strong></dt>
+                    <dt><strong><a href="{% url profile_detail post.user.username %}">{{ post.user }}</a></strong></dt>
                     <dd>{% trans "Replies:" %} {{ post.topic.post_count }}</dd>
                 </dl>
             </div>
