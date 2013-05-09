@@ -8,7 +8,7 @@
 <div class="linkst">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
+		<ul><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>

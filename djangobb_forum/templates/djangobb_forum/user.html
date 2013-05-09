@@ -39,7 +39,7 @@
 								<dd><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></dd>
 							{% else %}
 								{% if profile.forum_profile.privacy_permission == 1 %}
-									<dd><a href="{% url djangobb:misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></dd>
+									<dd><a href="{% url 'djangobb:misc' %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></dd>
 								{% else %}
 									<dd>{% trans "(Hidden)" %}</dd>
 								{% endif %}
@@ -117,7 +117,7 @@
 					<div class="infldset">
 						<dl>
 							<dt>{% trans "Posts:" %} </dt>
-							<dd>{{ profile.forum_profile.post_count }} - <a href="{% url djangobb:search %}?action=show_user&amp;user_id={{ profile.id }}">{% trans "Show all posts" %}</a></dd>
+							<dd>{{ profile.forum_profile.post_count }} - <a href="{% url 'djangobb:search' %}?action=show_user&amp;user_id={{ profile.id }}">{% trans "Show all posts" %}</a></dd>
 							<dt>{% trans "Last post:" %} </dt>
 							{% if profile.forum_profile.last_post %}
 								<dd>{{ profile.forum_profile.last_post }}</dd>

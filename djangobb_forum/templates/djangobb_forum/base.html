@@ -11,13 +11,13 @@
 	
 	{% set_theme_style request.user %}
 
-	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_posts_feed %}" title="{% trans "Latest posts on forum" %}" />
-	<link rel="alternate" type="application/atom+xml" href="{% url djangobb:forum_topics_feed %}" title="{% trans "Latest topics on forum" %}" />
+	<link rel="alternate" type="application/atom+xml" href="{% url 'djangobb:forum_posts_feed' %}" title="{% trans "Latest posts on forum" %}" />
+	<link rel="alternate" type="application/atom+xml" href="{% url 'djangobb:forum_topics_feed' %}" title="{% trans "Latest topics on forum" %}" />
 
 	<link rel="shortcut icon" href="{{ STATIC_URL }}djangobb_forum/favicon.png" type="image/png" />
 	<script type="text/javascript">
 		var STATIC_URL = "{{ STATIC_URL }}";
-		var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
+		var POST_PREVIEW_URL = "{% url 'djangobb:post_preview' %}";
 	</script>
 	{% if DEBUG %}
 	   <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.js" onerror="JavaScript:alert('Error loading file [' + this.src + '] !');" ></script>
@@ -81,11 +81,11 @@
                 {% block controls %}
                     <dl id="searchlinks" class="conl">
                         <dt><strong>{% trans "Search links" %}</strong></dt>
-                        <dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
-                        <dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
+                        <dd><a href="{% url 'djangobb:search' %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
+                        <dd><a href="{% url 'djangobb:search' %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
                         {% if user.is_authenticated %}
-                        <dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
-                        <dd>{% trans "Show your" %} <a href="{% url djangobb:search %}?action=show_user&show_as=topics">{% trans "topics" %}</a>/<a href="{% url djangobb:search %}?action=show_user&show_as=posts">{% trans "posts" %}</a></dd>
+                        <dd><a href="{% url 'djangobb:search' %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
+                        <dd>{% trans "Show your" %} <a href="{% url 'djangobb:search' %}?action=show_user&show_as=topics">{% trans "topics" %}</a>/<a href="{% url 'djangobb:search' %}?action=show_user&show_as=posts">{% trans "posts" %}</a></dd>
                         {% endif %}
                     </dl>
                 {% endblock controls %}

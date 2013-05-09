@@ -23,9 +23,9 @@
 							<br></label>
 							<p>
 							{% if request.user.is_superuser %}
-								<a href="{% url admin:user_change_password profile.id %}">{% trans "Change password" %}</a>
+								<a href="{% url 'admin:user_change_password' profile.id %}">{% trans "Change password" %}</a>
 							{% else %}
-								<a href="{% url auth_password_change %}">{% trans "Change password" %}</a>
+								<a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>
 							{% endif %}
 							</p>
 					</div>
@@ -39,7 +39,7 @@
 							<label><strong>{{ form.email.label }}</strong><br>
 							{{ form.email }}<br></label>
 							{% if request.user.is_superuser %}
-								<p><a href="{% url djangobb:misc %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
+								<p><a href="{% url 'djangobb:misc' %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
 							{% endif %}
 
 						</div>
@@ -81,7 +81,7 @@
 							<p>{% trans "Registered:" %} {{ profile.date_joined|date:"Y-m-d" }}</p>
 							<p>{% trans "Last post:" %} {{ profile.forum_profile.last_post }}</p>
 							<label>{% trans "Posts:" %} {{ profile.forum_profile.post_count }} - 
-							<a href="{% url djangobb:search %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></p>
+							<a href="{% url 'djangobb:search' %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></p>
 							</label>
 						</div>
 					</fieldset>

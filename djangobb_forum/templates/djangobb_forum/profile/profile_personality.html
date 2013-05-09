@@ -23,7 +23,7 @@
 								{{ form.show_avatar.errors }}
 								<label>{{ form.show_avatar }}{% trans "Use avatar." %}<br></label>
 							</div>
-							<p class="clearb"><a href="{% url djangobb:forum_profile_upload_avatar profile.username %}">{% trans "Upload avatar" %}</a></p>
+							<p class="clearb"><a href="{% url 'djangobb:forum_profile_upload_avatar' profile.username %}">{% trans "Upload avatar" %}</a></p>
 						</div>
 					</fieldset>
 				</div>

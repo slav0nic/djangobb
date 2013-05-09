@@ -6,7 +6,7 @@
 <div class="blockform">
 	<h2><span>{% trans "Move topic" %}</span></h2>
 	<div class="box">
-		<form method="POST" action="{% url djangobb:move_topic %}">
+		<form method="POST" action="{% url 'djangobb:move_topic' %}">
 			{% csrf_token %}
 			<div class="inform">
 				{% for topic_id in topic_ids %}

@@ -99,7 +99,7 @@
 {% block lofi %}
 {% if forum_settings.LOFI_SUPPORT %}
     <p class="lofi">
-        <a href="{% url djangobb:lofi_index %}">Lo-Fi Version</a>
+        <a href="{% url 'djangobb:lofi_index' %}">Lo-Fi Version</a>
     </p>
 {% endif %}
 {% endblock %}
