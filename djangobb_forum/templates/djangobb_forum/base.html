@@ -94,7 +94,7 @@
             <p class="foot conr">Powered by <a href="http://djangobb.org/">DjangoBB</a></p>
             {% if forum_settings.LOFI_SUPPORT %}
                 <p class="foot">
-                    <strong>Standard</strong> | <a href="{% block mobile %}{% url djangobb:mobile_index %}{% endblock mobile%}">Mobile</a>
+                <strong>Standard</strong> {#| <a href="{% block mobile %}{% url djangobb:mobile_index %}{% endblock mobile%}">Mobile</a>#}
                 </p>
             {% endif %}
             <div class="clearer"></div>
