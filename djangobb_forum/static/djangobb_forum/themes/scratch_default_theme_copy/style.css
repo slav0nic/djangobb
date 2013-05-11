@@ -140,6 +140,9 @@ dd.usercontacts, dd.postavatar {
 dd.postavatar {
     margin-bottom: 5px;
 }
+.djangobb .username {
+    font-weight: bold;
+}
 
 .postmsg .postedit {
     padding-top: 15px;

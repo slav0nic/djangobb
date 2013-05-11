@@ -60,7 +60,7 @@
             <div class="box-content">
                 <div class="postleft">
                     <dl>
-                        <dt><strong class="username">{{ post.user.username }}</strong></dt>
+                        <dt><a class="black username" href="{% url profile_detail post.user.username %}">{{ post.user.username }}</a></dt>
                         {% if forum_settings.DISPLAY_USERTITLE %}
                             <dd class="usertitle">
                                 {% if post.user.forum_profile.status %}
