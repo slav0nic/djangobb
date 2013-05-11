@@ -1,15 +1,3 @@
-// helper function for console logging
-function log() {
-    if (window.console && window.console.log) {
-        try {
-            window.console.log(Array.prototype.join.call(arguments,''));
-        } catch (e) {
-            log("Error:" + e);
-        }
-    }
-}
-//log("board.js loaded");
-
 function copy_paste(id) {
     var post = $('#' + id);
     var username = post.find(".username").text();
@@ -19,14 +7,12 @@ function copy_paste(id) {
 }
 
 function paste(txt) {
-    //textarea = $("#id_body");
-    textarea = document.forms['post']['body'];
+    var textarea = document.forms['post']['body'];
     insertAtCaret(textarea, txt);
     $("#id_body").focus();
 }
 
-function insertAtCaret (textObj, textFieldValue) {
-    // log("insertAtCaret(" + textObj + "," + textFieldValue + ")");
+function insertAtCaret(textObj, textFieldValue) {
 	if (document.all) {
 		if (textObj.createTextRange && textObj.caretPos && !window.opera) {
 			var caretPos = textObj.caretPos;
@@ -48,15 +34,14 @@ function insertAtCaret (textObj, textFieldValue) {
 	}
 }
 
-$(document).ready(function() {
-    window.onbeforeunload = function() {
+$(document).ready(function () {
+    window.onbeforeunload = function () {
         var obj = $("textarea#id_body");
         if (obj.length != 1) {
             // object not found in page -> do nothing
-            return
+            return;
         }
         var text = obj.val().trim();
-        //log("onbeforeunload text:" + text);
         if (text.length > 3) {
             // Firefox will not use the string. IE use it
             // TODO: Translate string
@@ -64,18 +49,15 @@ $(document).ready(function() {
         }
         // if nothing returned, browser leave the page without any message
     };
-    $("form [type=submit]").click(function() {
-        //log("unbind onbeforeunload");
+    $("form [type=submit]").click(function () {
         window.onbeforeunload = null;
     });
 
-    !function () {
-        var submitted = false;
-        $('#post').submit(function (e) {
-            if (submitted) {
-                e.preventDefault();
-            }
-            submitted = true;
-        });
-    }();
+    var submitted = false;
+    $('#post').submit(function (e) {
+        if (submitted) {
+            e.preventDefault();
+        }
+        submitted = true;
+    });
 });
