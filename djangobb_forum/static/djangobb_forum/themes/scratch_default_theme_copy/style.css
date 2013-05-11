@@ -140,9 +140,6 @@ dd.usercontacts, dd.postavatar {
 dd.postavatar {
     margin-bottom: 5px;
 }
-.username {
-    cursor: pointer;
-}
 
 .postmsg .postedit {
     padding-top: 15px;
@@ -320,18 +317,18 @@ td .tclcon {
     position: relative;
     top: -10px;
 }
-label {
+.djangobb label {
     margin-bottom: 20px;
 }
-label strong {
+.djangobb label strong {
     display: block;
     margin-bottom: 5px;
 }
-label input[type=checkbox],
-label input[type=checkbox] + strong {
+.djangobb label input[type=checkbox],
+.djangobb label input[type=checkbox] + strong {
     display: inline-block;
 }
-input.small {
+.djangobb input.small {
     margin: 1em;
 }
 
@@ -343,7 +340,7 @@ input.small {
     width: 100%;
 }
 
-textarea.markItUpEditor {
+.djangobb .markItUpEditor {
     width: 100%;
     vertical-align: top;
     -moz-box-sizing: border-box;
