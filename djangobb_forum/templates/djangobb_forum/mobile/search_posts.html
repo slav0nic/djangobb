@@ -6,7 +6,7 @@
 {% block root %}{% autopaginate posts forum_settings.FORUM_PAGE_SIZE %}{{ block.super }}{% endblock %}
 
 {% block title %}
-    <span><a href="{% url djangobb:lofi_index %}">{% trans "Discuss" %}</a></span>
+    <span><a href="{% url djangobb:mobile_index %}">{% trans "Discuss" %}</a></span>
     {% block page-name %}{% trans "Search Results" %}{% endblock %}
 {% endblock %}
 

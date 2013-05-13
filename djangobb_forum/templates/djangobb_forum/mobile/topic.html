@@ -7,7 +7,7 @@
 {% block full-link %}{{ topic.get_absolute_url }}{% endblock %}
 
 {% block title %}
-    <span><a href="{% url djangobb:lofi_index %}">{% trans "Discuss" %}</a></span>
+    <span><a href="{% url djangobb:mobile_index %}">{% trans "Discuss" %}</a></span>
     <span>{{ topic.forum|mobile_link }}</span>
     {% block page-name %}{{ topic.name }}{% endblock %}
 {% endblock %}
