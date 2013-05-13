@@ -23,6 +23,7 @@ urlpatterns = patterns('',
 
     # Topic
     url('^topic/(?P<topic_id>\d+)/$', forum_views.show_topic, name='topic'),
+    url('^topic/(?P<topic_id>\d+)/unread/$', forum_views.show_unread_posts, name='topic_unread'),
     url('^topic/(?P<topic_id>\d+)/title/$', forum_views.get_topic_title, name='topic_title'),
     url(r'^(?P<forum_id>\d+)/topic/add/$', forum_views.add_topic, name='add_topic'),
     url('^topic/(?P<topic_id>\d+)/delete_posts/$', forum_views.delete_posts, name='delete_posts'),
@@ -67,6 +68,7 @@ if (forum_settings.LOFI_SUPPORT):
         url('^m/post/(?P<post_id>\d+)/$', forum_views.show_post, {'full':False}, name='mobile_post'),
         url('^m/post/(?P<post_id>\d+)/reply/$', forum_views.mobile_reply, name='mobile_reply'),
         url('^m/topic/(?P<topic_id>\d+)/$', forum_views.show_topic, {'full':False}, name='mobile_topic'),
+        url('^m/topic/(?P<topic_id>\d+)/unread/$', forum_views.show_unread_posts, {'full':False}, name='mobile_topic_unread'),
     )
 
 # REPUTATION Extension

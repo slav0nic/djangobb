@@ -137,33 +137,6 @@ def has_unreads(topic, user):
                 return False
         return True
 
-def forum_unread_object(topic, user):
-    """
-    Returns the first unread post in a topic, or the topic if it post tracking does not exist for the given user.
-    """
-    if user.posttracking is not None:
-        topics = user.posttracking.topics;
-        if isinstance(topics, dict):
-            pk = topics.get(str(topic.id), 0)
-            return Post.objects.filter(topic=topic, pk__gt=pk).order_by('pk')[0]
-        last_read = user.posttracking.last_read
-        if last_read is not None:
-            posts = Post.objects.filter(Q(topic=topic) & (Q(created__gte=last_read) | Q(updated__gte=last_read))).order_by('pk')
-            try:
-                return posts[0]
-            except Post.DoesNotExist:
-                pass
-
-    return topic.posts.all()[0]
-
-@register.filter
-def forum_unread_link(topic, user):
-    return forum_unread_object(topic, user).get_absolute_url();
-
-@register.filter
-def mobile_unread_link(topic, user):
-    return forum_unread_object(topic, user).get_mobile_url();
-
 @register.filter
 def forum_unreads(forum, user):
     """

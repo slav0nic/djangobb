@@ -15,7 +15,7 @@ from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Q, F
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
 from django.utils import timezone
@@ -491,6 +491,30 @@ def show_topic(request, topic_id, full=True):
                 'reply_form': reply_form,
                 })
 
+def show_unread_posts(request, topic_id, full=True):
+    post = None
+    user = request.user
+    topic = get_object_or_404(Topic, pk=topic_id)
+    if user.posttracking is not None:
+        topics = user.posttracking.topics;
+        if isinstance(topics, dict):
+            pk = topics.get(str(topic_id), 0)
+            try:
+                post = Post.objects.filter(topic=topic, pk__gt=pk).order_by('pk')[0]
+            except IndexError:
+                pass
+        else:
+            last_read = user.posttracking.last_read
+            if last_read is not None:
+                posts = Post.objects.filter(Q(topic=topic) & (Q(created__gte=last_read) | Q(updated__gte=last_read))).order_by('pk')
+                try:
+                    post = posts[0]
+                except Post.DoesNotExist:
+                    pass
+    if post is None:
+        post = topic.last_post
+
+    return redirect(post.get_absolute_url() if full else post.get_mobile_url());
 
 @login_required
 @transaction.commit_on_success

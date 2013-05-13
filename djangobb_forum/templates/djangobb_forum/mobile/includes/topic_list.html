@@ -2,7 +2,7 @@
 {% load forum_extras %}
 <ol class="topic list">{% for topic in topics %}{% with unread=topic|has_unreads:user %}
     <li class="{% if topic.sticky %}sticky {% endif %}{% if topic.closed %}closed {% endif %}{% if unread %}unread{% endif %}">
-        <a class="item" href="{% if unread %}{{ topic|mobile_unread_link:user }}{% else %}{{ topic.get_mobile_url }}{% endif %}">
+        <a class="item" href="{% if unread %}{% url djangobb:mobile_topic_unread topic.id %}{% else %}{{ topic.get_mobile_url }}{% endif %}">
             <strong>{{ topic.name }}</strong>
             <span>{% blocktrans count topic.reply_count as replies %}{{ replies }} reply{% plural %}{{ replies }} replies{% endblocktrans %}</span>
         </a>
