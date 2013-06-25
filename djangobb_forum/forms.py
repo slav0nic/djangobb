@@ -15,6 +15,9 @@ from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import smiles, convert_text_to_html, filter_language, set_language, UnapprovedImageError
 
+# scratchr2
+from base_comments.models import BaseComment
+
 
 SORT_USER_BY_CHOICES = (
     ('username', _(u'Username')),
@@ -87,6 +90,8 @@ class AddPostForm(forms.ModelForm):
                 self._errors['name'] = self.error_class([errmsg])
                 del cleaned_data['name']
             cleaned_data['name'] = filter_language(subject)
+        if BaseComment.user_is_muted(self.user):
+            self._errors['body'] = self.error_class([_("Hmm, the filterbot is pretty sure your recent comments weren't ok for Scratch, so your account has been muted for the rest of the day. :/")])
         if body:
             if not body.strip():
                 self._errors['body'] = self.error_class([errmsg])
