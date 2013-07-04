@@ -1,6 +1,6 @@
 Django==1.5.1
 PIL>=1.1.7
-django-haystack==1.2.7
+django-haystack==2.0
 south
 pygments
 postmarkup
