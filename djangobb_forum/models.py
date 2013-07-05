@@ -162,7 +162,7 @@ class Topic(models.Model):
         else:
             last_post.last_forum_post.clear()
         forum = self.forum
-        if forum_settings.SOFT_DELETE_TOPICS and (self.forum != get_object_or_404(Forum, pk=forum_settings.SOFT_DELETE_TOPICS) or kwargs.get('staff', False)):
+        if forum_settings.SOFT_DELETE_TOPICS and (self.forum != get_object_or_404(Forum, pk=forum_settings.SOFT_DELETE_TOPICS) or not kwargs.get('staff', False)):
             self.forum = get_object_or_404(Forum, pk=forum_settings.SOFT_DELETE_TOPICS)
             self.save()
         else:
@@ -256,9 +256,9 @@ class Post(models.Model):
 
         # If we actually delete the post, we lose any reports that my have come from it. Also, there is no recovery (but I don't care about that as much right now)
         if self_id == head_post_id:
-            topic.delete()
+            topic.delete(**kwargs)
         else:
-            if forum_settings.SOFT_DELETE_POSTS and (self.topic != get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS) or kwargs.get('staff', False)):
+            if forum_settings.SOFT_DELETE_POSTS and (self.topic != get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS) or not kwargs.get('staff', False)):
                     self.topic = get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS)
                     self.save()
             else:
