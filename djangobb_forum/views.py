@@ -174,6 +174,8 @@ def search(request, full=True):
     base_url = None
     _generic_context = True
 
+    context["user"] = user
+
     action = request.GET['action']
     if action == 'show_24h':
         date = timezone.now() - timedelta(days=1)
@@ -669,13 +671,17 @@ def show_post(request, post_id, full=True):
 
 @csrf_exempt
 def get_post_source(request, post_id):
-    'Raw (plain text) post source for quoting'
+    """
+    Raw (plain text) post source for quoting
+    """
     post = get_object_or_404(Post, pk=post_id)
     return HttpResponse(post.body, mimetype='text/plain')
 
 @csrf_exempt
 def get_topic_title(request, topic_id):
-    'Raw (plain text) topic title for move posts confirmation'
+    """
+    Raw (plain text) topic title for move posts confirmation
+    """
     topic = get_object_or_404(Topic, pk=topic_id)
     return HttpResponse(topic.name, mimetype='text/plain')
 
@@ -912,7 +918,7 @@ def delete_post(request, post_id):
         (post.user == request.user and post == last_post)):
         messages.success(request, _("You don't have permission to delete this post."))
         return HttpResponseRedirect(post.get_absolute_url())
-    delete_kwargs = {'staff':request.user.is_staff}
+    delete_kwargs = {'staff':request.user.is_superuser}
     post.delete(**delete_kwargs)
     messages.success(request, _("Post deleted."))
 
@@ -1042,3 +1048,22 @@ def mobile_reply(request, post_id):
         'post': post
         })
 
+def get_user_post_count(request, username):
+    if not forum_extras.forum_can_view_reports(request.user):
+        raise Http404
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return HttpResponse('', mimetype='text/plain')
+    return HttpResponse(str(Post.objects.filter(~Q(topic__forum__id = forum_settings.SOFT_DELETE_TOPICS), user=user).count()), mimetype='text/plain')
+
+def delete_all_posts_by_user(request, username):
+    if not forum_extras.forum_can_view_reports(request.user):
+        raise Http404
+    try:
+        user = User.objects.get(username=username)
+        for p in Post.objects.filter(~Q(topic__forum__id = forum_settings.SOFT_DELETE_TOPICS), user=user)[:20]:
+            p.delete()
+    except User.DoesNotExist:
+        pass
+    return HttpResponse('')

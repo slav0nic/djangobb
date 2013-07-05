@@ -5,6 +5,13 @@
 {% block page-name %}{% trans "Search" %}{% endblock %}
 {% block mobile %}{% url djangobb:mobile_search %}{% endblock %}
 
+{% block js %}
+{{ block.super }}
+{% if user|forum_can_view_reports %}
+<script src="{{ STATIC_URL }}/djangobb_forum/js/search.js"></script>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <div id="searchform" class="box">
     <div class="box-head">
@@ -19,7 +26,12 @@
                 {{ form.keywords }}
             </label>
             <label class="conl">
-                <strong>{{ form.author.label }}</strong>
+                <strong>
+                    {{ form.author.label }}
+                    {% if user|forum_can_view_reports %}
+                        <a class="secondary" id="delete-all-posts">{% trans "(Dustbin all posts and topics)" %}</a>
+                    {% endif %}
+                </strong>
                 {{ form.author }}
             </label>
             <p class="form-help">{% trans "To search by keyword, enter a term or terms to search for. Separate terms with spaces. To search by author enter the username of the author whose posts you wish to search for." %}</p>

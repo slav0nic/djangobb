@@ -327,6 +327,9 @@ td .tclcon {
     display: block;
     margin-bottom: 5px;
 }
+.djangobb label strong .secondary {
+    font-weight: normal;
+}
 .djangobb label input[type=checkbox],
 .djangobb label input[type=checkbox] + strong {
     display: inline-block;

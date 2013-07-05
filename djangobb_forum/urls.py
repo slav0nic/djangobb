@@ -43,6 +43,10 @@ urlpatterns = patterns('',
     # Reports
     url(r'^reports/$', forum_views.reports, name='forum_reports'),
 
+    # Administration
+    url(r'^admin/ajax/delete-all-posts/(?P<username>[-\w]+)/$', forum_views.delete_all_posts_by_user),
+    url(r'^admin/ajax/post-count/(?P<username>[-\w]+)/$', forum_views.get_user_post_count),
+
     # Subscription
     url('^subscription/topic/(?P<topic_id>\d+)/delete/$', forum_views.delete_subscription, name='forum_delete_subscription'),
     url('^subscription/topic/(?P<topic_id>\d+)/add/$', forum_views.add_subscription, name='forum_add_subscription'),
