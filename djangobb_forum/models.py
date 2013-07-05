@@ -166,7 +166,7 @@ class Topic(models.Model):
             self.forum = get_object_or_404(Forum, pk=forum_settings.SOFT_DELETE_TOPICS)
             self.save()
         else:
-            super(Topic, self).delete(*args, **kwargs)
+            super(Topic, self).delete()
         try:
             forum.last_post = Topic.objects.filter(forum__id=forum.id).latest().last_post
         except Topic.DoesNotExist:
@@ -256,13 +256,13 @@ class Post(models.Model):
 
         # If we actually delete the post, we lose any reports that my have come from it. Also, there is no recovery (but I don't care about that as much right now)
         if self_id == head_post_id:
-            topic.delete(**kwargs)
+            topic.delete(*args, **kwargs)
         else:
             if forum_settings.SOFT_DELETE_POSTS and (self.topic != get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS) or not kwargs.get('staff', False)):
                     self.topic = get_object_or_404(Topic, pk=forum_settings.SOFT_DELETE_POSTS)
                     self.save()
             else:
-                super(Post, self).delete(*args, **kwargs)
+                super(Post, self).delete()
                 #if post was last in topic - remove topic
             try:
                 topic.last_post = Post.objects.filter(topic__id=topic.id).latest()
