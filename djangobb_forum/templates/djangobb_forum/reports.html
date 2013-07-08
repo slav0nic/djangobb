@@ -1,9 +1,9 @@
 {% extends 'djangobb_forum/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
+{% load tz %}
 
 {% block page-name %}{% trans "Reports" %}{% endblock %}
-
 {% block content %}
 <div class="blocktable">
     <div class="box">
@@ -22,7 +22,7 @@
                 <tr>
                     <td class="tcl">
                         <p><a href="{% url profile_detail report.reported_by %}">{{ report.reported_by }}</a></p>
-                        <p>{{ report.created }}</p>
+                        <p>{{ report.created|localtime }}</p>
                     </td>
                     <td>{{ report.reason }}</td>
                     <td>
@@ -61,7 +61,7 @@
             <tr>
                 <td class="tcl">
                     <p><a href="{% url profile_detail report.reported_by %}"> {{ report.reported_by }}</a></p>
-                    <p>{{ report.created }}</p>
+                    <p>{{ report.created|localtime }}</p>
                 </td>
                 <td>{{ report.reason }}</td>
                 <td>

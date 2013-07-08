@@ -79,6 +79,23 @@
                         <dd class="postavatar">
                             <a href="{% url profile_detail post.user.username %}"><img src="{% image_url post.user '90x90' %}" width="90" height="90"></a>
                         </dd>
+						
+						{{ group_titles|dict_lookup:post.user }}
+						
+						<br>
+						{% if post.user.forum_profile.post_count > 1000 %}
+							{% trans "1000+ posts" %}
+						{% elif post.user.forum_profile.post_count > 500 %}
+							{% trans "500+ posts" %}
+						{% elif post.user.forum_profile.post_count > 100 %}
+							{% trans "100+ posts" %}
+						{% elif post.user.forum_profile.post_count == 1 %}
+							{% trans "1 post" %} 
+						{% else %}
+							{{ post.user.forum_profile.post_count }} {% trans " posts" %}
+							
+						{% endif %}
+						
                         {% if moderator %}
                         {% if post.user.forum_profile.location %}
                             <dd class="moderator-only">{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
