@@ -35,7 +35,6 @@ from djangobb_forum.util import build_form, paginate, set_language, smiles, conv
 
 
 
-
 def index(request, full=True):
     users_cached = cache.get('djangobb_users_online', {})
     users_online = users_cached and User.objects.filter(id__in=users_cached.keys()) or []
@@ -393,7 +392,7 @@ def show_topic(request, topic_id, full=True):
     # without specifying, following query wouldn't select related properly
     posts = topic.posts.select_related('user__userprofile',
         'user__forum_profile',
-        'updated_by').all()
+        'updated_by', 'user__groups', 'user').all()
     edit_start = timezone.now() - timedelta(minutes=1)
     edit_end = timezone.now()
     editable = posts.filter(created__range=(edit_start, edit_end)).filter(user_id=request.user.id)
@@ -432,6 +431,24 @@ def show_topic(request, topic_id, full=True):
                 **post_form_kwargs
             )
 
+	group_titles = {}
+	for post in posts:
+		
+		if post.user.is_superuser:
+			group_titles[post.user] = "Scratch Team"
+			
+		else: 
+			temp_names = [x.name for x in post.user.groups.all()]
+			if "Forum Moderators" in temp_names:
+				group_titles[post.user] = "Forum Moderator"
+			elif "Scratchers" in temp_names:
+				group_titles[post.user] = "Scratcher"
+			elif "New Scratchers" in temp_names:
+				group_titles[post.user] = "New to Scratch"
+			else:
+				group_titles[post.user] = "Ungrouped"
+	
+		
     # handle poll, if exists
     poll_form = None
     polls = topic.poll_set.all()
@@ -480,7 +497,8 @@ def show_topic(request, topic_id, full=True):
                 'poll_form': poll_form,
                 'editable': editable,
                 'can_edit': can_edit,
-                'can_close': can_close
+                'can_close': can_close,
+				'group_titles': group_titles,
                 })
     else:
         return render(request, 'djangobb_forum/mobile/topic.html', {'categories': Category.objects.all(),
@@ -490,7 +508,11 @@ def show_topic(request, topic_id, full=True):
                 'poll_form': poll_form,
                 'reply_form': reply_form,
                 })
+				
+				
 
+				
+				
 def show_unread_posts(request, topic_id, full=True):
     post = None
     user = request.user

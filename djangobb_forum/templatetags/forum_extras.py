@@ -289,4 +289,8 @@ def set_theme_style(user):
         static_url=settings.STATIC_URL,
         theme=selected_theme
     )
+	
+@register.filter
+def dict_lookup(dictionary, key):
+    return dictionary.get(key)
 
