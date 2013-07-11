@@ -433,24 +433,24 @@ def show_topic(request, topic_id, full=True):
                 **post_form_kwargs
             )
 
-	group_titles = {}
-	for post in posts:
-		
-		if post.user.is_superuser:
-			group_titles[post.user] = "Scratch Team"
-			
-		else: 
-			temp_names = [x.name for x in post.user.groups.all()]
-			if "Forum Moderators" in temp_names:
-				group_titles[post.user] = "Forum Moderator"
-			elif "Scratchers" in temp_names:
-				group_titles[post.user] = "Scratcher"
-			elif "New Scratchers" in temp_names:
-				group_titles[post.user] = "New to Scratch"
-			else:
-				group_titles[post.user] = "Ungrouped"
-	
-		
+    group_titles = {}
+    for post in posts:
+        
+        if post.user.is_superuser:
+            group_titles[post.user] = "Scratch Team"
+            
+        else: 
+            temp_names = [x.name for x in post.user.groups.all()]
+            if "Forum Moderators" in temp_names:
+                group_titles[post.user] = "Forum Moderator"
+            elif "Scratchers" in temp_names:
+                group_titles[post.user] = "Scratcher"
+            elif "New Scratchers" in temp_names:
+                group_titles[post.user] = "New to Scratch"
+            else:
+                group_titles[post.user] = "Ungrouped"
+    
+        
     # handle poll, if exists
     poll_form = None
     polls = topic.poll_set.all()
@@ -500,7 +500,7 @@ def show_topic(request, topic_id, full=True):
                 'editable': editable,
                 'can_edit': can_edit,
                 'can_close': can_close,
-				'group_titles': group_titles,
+                'group_titles': group_titles,
                 })
     else:
         return render(request, 'djangobb_forum/mobile/topic.html', {'categories': Category.objects.all(),
@@ -510,11 +510,7 @@ def show_topic(request, topic_id, full=True):
                 'poll_form': poll_form,
                 'reply_form': reply_form,
                 })
-				
-				
 
-				
-				
 def show_unread_posts(request, topic_id, full=True):
     post = None
     user = request.user
