@@ -45,13 +45,11 @@ def index(request, full=True):
     if online_truncated:
         users_online = users_online[:forum_settings.MAX_ONLINE]
 
-    _forums = Forum.objects.all()
+    _forums = Forum.objects.select_related('last_post__topic', 'last_post__user', 'category')
     user = request.user
     if not user.is_superuser:
         user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
         _forums = _forums.filter(Q(category__groups__in=user_groups) | Q(category__groups__isnull=True))
-
-    _forums = _forums.select_related('last_post__topic', 'last_post__user', 'category')
 
     cats = {}
     forums = {}

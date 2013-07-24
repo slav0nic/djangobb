@@ -146,14 +146,14 @@ def forum_unreads(forum, user):
         return False
     else:
         if isinstance(user.posttracking.topics, dict):
-            topics = forum.topics.all().only('last_post')
+            topics = forum.topics.only('last_post')
             if user.posttracking.last_read:
                 topics = topics.filter(updated__gte=user.posttracking.last_read)
             for topic in topics:
                 if topic.last_post_id > user.posttracking.topics.get(str(topic.id), 0):
                     return True
         elif user.posttracking.last_read:
-            if forum.topics.all().filter(updated__gte=user.posttracking.last_read).exists():
+            if forum.topics.filter(updated__gte=user.posttracking.last_read).exists():
                 return True
         else:
             return True
