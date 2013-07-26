@@ -27,6 +27,10 @@
     font-size: .9em;
     font-family: Menlo, Monaco, Consolas, "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
 }
+.djangobb pre.blocks {
+    font: bold 10px/1 "Lucida Grande", Verdana, Arial, "DejaVu Sans", sans-serif;
+    margin: 0 0 3px;
+}
 
 .djangobb h3 {
     font-size: 1em;
