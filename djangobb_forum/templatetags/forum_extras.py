@@ -9,6 +9,7 @@ from django.utils.encoding import smart_unicode
 from django.db import settings
 from django.utils.html import escape
 from django.utils.hashcompat import md5_constructor
+from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
 
 from pagination.templatetags.pagination_tags import paginate
@@ -44,10 +45,10 @@ class ForumTimeNode(template.Node):
         self.time = template.Variable(time)
 
     def render(self, context):
-        time = self.time.resolve(context)
-        formated_time = u'%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
-        formated_time = mark_safe(formated_time)
-        return formated_time
+        time = timezone.localtime(self.time.resolve(context))
+        formatted_time = u'%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
+        formatted_time = mark_safe(formatted_time)
+        return formatted_time
 
 
 # TODO: this old code requires refactoring

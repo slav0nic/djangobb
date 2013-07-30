@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from django.db.models.signals import post_save
 
@@ -14,7 +14,7 @@ def post_saved(instance, **kwargs):
     if created:
         topic.last_post = post
         topic.post_count = topic.posts.count()
-        topic.updated = datetime.now()
+        topic.updated = timezone.now()
         profile = post.user.forum_profile
         profile.post_count = post.user.posts.count()
         profile.save(force_update=True)

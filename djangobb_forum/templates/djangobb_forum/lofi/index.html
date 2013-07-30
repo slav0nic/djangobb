@@ -3,9 +3,9 @@
 {% load i18n %}
 
 {% block content %}
-<div id='largetext'>{% trans "Full Version:" %} <a href="{% url djangobb:index %}">{% trans "Root" %}</a></div>
+<div id='largetext'>{% trans "Full Version:" %} <a href="{% url 'djangobb:index' %}">{% trans "Root" %}</a></div>
 <div class='djangobbnav'>
-	<a href="{% url djangobb:lofi_index %}">{% trans "Root" %}</a>
+	<a href="{% url 'djangobb:lofi_index' %}">{% trans "Root" %}</a>
 </div>
 
 <div id="djangobbcontent">
@@ -22,7 +22,7 @@
 </ul>
 </div>
 </div>
-<div class='smalltext'>This is a "lo-fi" version of our main content. To view the full version with more information, formatting and images, please <a href='{% url djangobb:index %}'>click here</a>.</div>
+<div class='smalltext'>This is a "lo-fi" version of our main content. To view the full version with more information, formatting and images, please <a href='{% url 'djangobb:index' %}'>click here</a>.</div>
 </div>
 {% endblock %}
 

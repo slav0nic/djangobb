@@ -1,13 +1,15 @@
 # coding: utf-8
 
 import math
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.cache import cache
+from django.core.exceptions import SuspiciousOperation
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Q, F
@@ -148,7 +150,7 @@ def search(request):
 
     action = request.GET['action']
     if action == 'show_24h':
-        date = datetime.now() - timedelta(days=1)
+        date = timezone.now() - timedelta(days=1)
         if show_as_posts:
             context["posts"] = posts.filter(Q(created__gte=date) | Q(updated__gte=date))
         else:
@@ -182,14 +184,19 @@ def search(request):
         if not user.is_authenticated():
             raise Http404("Search 'show_user' not available for anonymous user.")
 
-        if user.is_staff:
-            user_id = request.GET.get("user_id", user.id)
+        user_id = request.GET.get("user_id", user.id)
+        try:
             user_id = int(user_id)
-            if user_id != user.id:
+        except ValueError:
+            raise SuspiciousOperation()
+
+        if user_id != user.id:
+            try:
                 search_user = User.objects.get(id=user_id)
-                messages.info(request, "Filter by user '%s'." % search_user.username)
-        else:
-            user_id = user.id
+            except User.DoesNotExist:
+                messages.error(request, _("Error: User unknown!"))
+                return HttpResponseRedirect(request.path)
+            messages.info(request, "Filter by user '%s'." % search_user.username)
 
         if show_as_posts:
             posts = posts.filter(user__id=user_id)
@@ -282,7 +289,7 @@ def misc(request):
         action = request.GET['action']
         if action == 'markread':
             user = request.user
-            PostTracking.objects.filter(user__id=user.id).update(last_read=datetime.now(), topics=None)
+            PostTracking.objects.filter(user__id=user.id).update(last_read=timezone.now(), topics=None)
             messages.info(request, _("All topics marked as read."))
             return HttpResponseRedirect(reverse('djangobb:index'))
 
@@ -403,7 +410,7 @@ def show_topic(request, topic_id, full=True):
     else:
         poll = polls[0]
         if user_is_authenticated: # Only logged in users can vote
-            poll.auto_deactivate()
+            poll.deactivate_if_expired()
             has_voted = request.user in poll.users.all()
             if not post_request or not VotePollForm.FORM_NAME in request.POST:
                 # It's not a POST request or: The reply form was send and not a poll vote
@@ -471,8 +478,7 @@ def add_topic(request, forum_id):
             all_valid = False
 
         poll_form = PollForm(request.POST)
-        create_poll = poll_form.create_poll()
-        if not create_poll:
+        if not poll_form.has_data():
             # All poll fields are empty: User didn't want to create a poll
             # Don't run validation and remove all form error messages
             poll_form = PollForm() # create clean form without form errors
@@ -481,7 +487,7 @@ def add_topic(request, forum_id):
 
         if all_valid:
             post = form.save()
-            if create_poll:
+            if poll_form.has_data():
                 poll_form.save(post)
                 messages.success(request, _("Topic with poll saved."))
             else:

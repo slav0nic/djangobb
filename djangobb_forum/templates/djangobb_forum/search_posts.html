@@ -53,11 +53,11 @@
 {% block controls %}
 <dl id="searchlinks" class="conl">
 	<dt><strong>{% trans "Search links" %}</strong></dt>
-	<dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
-	<dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
+	<dd><a href="{% url 'djangobb:search' %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
+	<dd><a href="{% url 'djangobb:search' %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
 	{% if user.is_authenticated %}
-	<dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
-	<dd><a href="{% url djangobb:search %}?action=show_user">{% trans "Show your topics" %}</a></dd>
+	<dd><a href="{% url 'djangobb:search' %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
+	<dd><a href="{% url 'djangobb:search' %}?action=show_user">{% trans "Show your topics" %}</a></dd>
 	{% endif %}
 </dl>
 {% endblock %}

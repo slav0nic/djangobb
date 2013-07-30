@@ -1,12 +1,13 @@
 # coding: utf-8
 
 import os.path
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.expressions import F
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
@@ -150,7 +151,7 @@ class EditPostForm(forms.ModelForm):
 
     def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
-        post.updated = datetime.now()
+        post.updated = timezone.now()
         topic_name = self.cleaned_data['name']
         if topic_name:
             post.topic.name = topic_name
@@ -400,7 +401,7 @@ class ReportForm(forms.ModelForm):
 
     def save(self, commit=True):
         report = super(ReportForm, self).save(commit=False)
-        report.created = datetime.now()
+        report.created = timezone.now()
         report.reported_by = self.reported_by
         if commit:
             report.save()
@@ -419,7 +420,7 @@ class VotePollForm(forms.Form):
         super(VotePollForm, self).__init__(*args, **kwargs)
 
         choices = self.poll.choices.all().values_list("id", "choice")
-        if self.poll.choice_count == 1:
+        if self.poll.single_choice():
             self.fields["choice"] = forms.ChoiceField(
                 choices=choices, widget=forms.RadioSelect
             )
@@ -430,6 +431,8 @@ class VotePollForm(forms.Form):
 
     def clean_choice(self):
         ids = self.cleaned_data["choice"]
+        if self.poll.single_choice(): # in a single choice scenario ChoiceField+RadioSelect are used (see above)
+            ids = [ids]               # which return a value itself, not a list
         count = len(ids)
         if count > self.poll.choice_count:
             raise forms.ValidationError(
@@ -445,11 +448,15 @@ class PollForm(forms.ModelForm):
     days = forms.IntegerField(required=False, min_value=1,
         help_text=_("Number of days for this poll to run. Leave empty for never ending poll.")
     )
+    choice_count = forms.IntegerField(required=True, initial=1, min_value=1,
+        error_messages={'min_value': _("Number of choices must be positive.")},
+    )
+
     class Meta:
         model = Poll
         fields = ['question', 'choice_count']
 
-    def create_poll(self):
+    def has_data(self):
         """
         return True if one field filled with data -> the user wants to create a poll
         """
@@ -478,8 +485,7 @@ class PollForm(forms.ModelForm):
         poll.topic = post.topic
         days = self.cleaned_data["days"]
         if days:
-            now = datetime.now()
-            poll.deactivate_date = now + timedelta(days=days)
+            poll.deactivate_date = timezone.now() + timedelta(days=days)
         poll.save()
         answers = self.cleaned_data["answers"]
         for answer in answers:

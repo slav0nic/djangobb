@@ -5,7 +5,7 @@
 {% block content %}
 <div class="linkst">
 	<div class="inbox">
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {% link post.topic.forum %}</li><li>&raquo; {{ post.topic }}</li></ul>
+		<ul><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %}</a> </li><li>&raquo; {% link post.topic.forum %}</li><li>&raquo; {{ post.topic }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>

@@ -10,15 +10,15 @@
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
 		{% if user.is_authenticated %}
-			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
+			<p class="postlink conr"><a href="{% url 'djangobb:add_topic' forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
+		<ul><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
 <div id="vf" class="blocktable">
 	<h2>
-		<a href="{% url djangobb:forum_forum_feed forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
+		<a href="{% url 'djangobb:forum_forum_feed' forum.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png"  alt="[RSS Feed]" title="[RSS Feed]" class="rss" /></a>
 		<b><span>{{ forum.name }}</span></b>
 	</h2>
 	<div class="box">
@@ -68,9 +68,9 @@
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
 		{% if user.is_authenticated %}
-			<p class="postlink conr"><a href="{% url djangobb:add_topic forum.id %}">{% trans "New topic" %}</a></p>
+			<p class="postlink conr"><a href="{% url 'djangobb:add_topic' forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
-		<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
+		<ul><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %}</a> </li><li>&raquo; {{ forum.name }}</li></ul>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -80,7 +80,7 @@
 	<form id="qjump" method="get" action="forum">
 		<div><label>{% trans "Jump to" %}
 		<br />
-		<select name="id" id="forum_id" onchange="window.location=('{% url djangobb:index %}'+this.options[this.selectedIndex].value)">
+		<select name="id" id="forum_id" onchange="window.location=('{% url 'djangobb:index' %}'+this.options[this.selectedIndex].value)">
 			{% for category in categories %}
 				<optgroup label="{{ category }}">
 					{% for forum in category.forums.all %}
@@ -89,11 +89,11 @@
 				</optgroup>
 			{% endfor %}
 		</select>
-		<input type="button" onclick="window.location=('{% url djangobb:index %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
+		<input type="button" onclick="window.location=('{% url 'djangobb:index' %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
 		</label></div>
 	</form>
 	{% if moderator %}
-		<p id="modcontrols"><a href="{% url djangobb:moderate forum.id %}">{% trans "Moderate forum" %}</a></p>
+		<p id="modcontrols"><a href="{% url 'djangobb:moderate' forum.id %}">{% trans "Moderate forum" %}</a></p>
 	{% endif %}
 </div>
 {% endblock %}

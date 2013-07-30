@@ -6,6 +6,7 @@ syntax: glob
 .pydevproject
 .project
 *.db
+*.mo
 *.json
 *.log
 *~
@@ -15,5 +16,6 @@ syntax: glob
 .coverage
 local_settings.py
 .env
+.venv
 build/
 dist/

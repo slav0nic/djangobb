@@ -1,8 +1,8 @@
-Django>=1.2
+Django==1.5.1
 PIL>=1.1.7
-django-haystack>=1.2.5
+django-haystack==2.0
 south
 pygments
 postmarkup
 django-pagination
-https://github.com/arneb/django-messages/tarball/master#egg=django-messages
+pytz>=2013b

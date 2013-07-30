@@ -8,7 +8,7 @@
         <div class="inbox">
             <div class="postleft">
                 <dl>
-                    <dt><strong><a href="{% url djangobb:forum_profile post.user %}">{{ post.user }}</a></strong></dt>
+                    <dt><strong><a href="{% url 'djangobb:forum_profile' post.user %}">{{ post.user }}</a></strong></dt>
                     <dd>{% trans "Replies:" %} {{ post.topic.post_count }}</dd>
                     <dd><div class="icon"><div class="nosize"><!-- --></div></div></dd>
                     <dd><p class="clearb"><a href="{{ post.get_absolute_url }}">{% trans "Go to post" %}</a></p></dd>

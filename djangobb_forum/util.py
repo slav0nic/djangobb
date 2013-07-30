@@ -3,6 +3,7 @@
 import re
 from HTMLParser import HTMLParser, HTMLParseError
 from postmarkup import render_bbcode
+from json import JSONEncoder
 try:
     import markdown
 except ImportError:
@@ -13,8 +14,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse, Http404
 from django.utils.functional import Promise
-from django.utils.translation import force_unicode, check_for_language
-from django.utils.simplejson import JSONEncoder
+from django.utils.translation import check_for_language
+from django.utils.encoding import force_unicode
 from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.sites.models import Site
@@ -167,7 +168,7 @@ class ExcludeTagsHTMLParser(HTMLParser):
 def urlize(html):
     """
     Urlize plain text links in the HTML contents.
-   
+
     Do not urlize content of A and CODE tags.
     """
     try:

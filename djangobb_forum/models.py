@@ -1,6 +1,5 @@
 # coding: utf-8
 
-from datetime import datetime
 from hashlib import sha1
 import os
 
@@ -9,7 +8,9 @@ from django.contrib.auth.models import User, Group
 from django.db import models
 from django.db.models import aggregates
 from django.db.models.signals import post_save
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+import pytz
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import smiles, convert_text_to_html
@@ -21,16 +22,7 @@ if 'south' in settings.INSTALLED_APPS:
                                  '^djangobb_forum\.fields\.JSONField',
                                  '^djangobb_forum\.fields\.ExtendedImageField'])
 
-TZ_CHOICES = [(float(x[0]), x[1]) for x in (
-    (-12, '-12'), (-11, '-11'), (-10, '-10'), (-9.5, '-09.5'), (-9, '-09'),
-    (-8.5, '-08.5'), (-8, '-08 PST'), (-7, '-07 MST'), (-6, '-06 CST'),
-    (-5, '-05 EST'), (-4, '-04 AST'), (-3.5, '-03.5'), (-3, '-03 ADT'),
-    (-2, '-02'), (-1, '-01'), (0, '00 GMT'), (1, '+01 CET'), (2, '+02'),
-    (3, '+03'), (3.5, '+03.5'), (4, '+04'), (4.5, '+04.5'), (5, '+05'),
-    (5.5, '+05.5'), (6, '+06'), (6.5, '+06.5'), (7, '+07'), (8, '+08'),
-    (9, '+09'), (9.5, '+09.5'), (10, '+10'), (10.5, '+10.5'), (11, '+11'),
-    (11.5, '+11.5'), (12, '+12'), (13, '+13'), (14, '+14'),
-)]
+TZ_CHOICES = [(tz_name, tz_name) for tz_name in pytz.common_timezones]
 
 SIGN_CHOICES = (
     (1, 'PLUS'),
@@ -104,6 +96,10 @@ class Forum(models.Model):
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
     topic_count = models.IntegerField(_('Topic count'), blank=True, default=0)
     last_post = models.ForeignKey('Post', related_name='last_forum_post', blank=True, null=True)
+    forum_logo = ExtendedImageField(_('Forum Logo'), blank=True, default='',
+                                    upload_to=forum_settings.FORUM_LOGO_UPLOAD_TO,
+                                    width=forum_settings.FORUM_LOGO_WIDTH,
+                                    height=forum_settings.FORUM_LOGO_HEIGHT)
 
     class Meta:
         ordering = ['position']
@@ -186,7 +182,7 @@ class Topic(models.Model):
             #clear topics if len > 5Kb and set last_read to current time
             if len(tracking.topics) > 5120:
                 tracking.topics = None
-                tracking.last_read = datetime.now()
+                tracking.last_read = timezone.now()
                 tracking.save()
             #update topics if exist new post or does't exist in dict
             if self.last_post_id > tracking.topics.get(str(self.id), 0):
@@ -207,7 +203,7 @@ class Post(models.Model):
     markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
-    user_ip = models.IPAddressField(_('User IP'), blank=True, null=True)
+    user_ip = models.GenericIPAddressField(_('User IP'), blank=True, null=True)
 
 
     class Meta:
@@ -279,7 +275,8 @@ class Reputation(models.Model):
         unique_together = (('from_user', 'post'),)
 
     def __unicode__(self):
-        return u'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(self.time))
+        time = timezone.localtime(self.time)
+        return u'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(time))
 
 
 class ProfileManager(models.Manager):
@@ -297,7 +294,7 @@ class ProfileManager(models.Manager):
 class Profile(models.Model):
     user = AutoOneToOneField(User, related_name='forum_profile', verbose_name=_('User'))
     status = models.CharField(_('Status'), max_length=30, blank=True)
-    site = models.URLField(_('Site'), verify_exists=False, blank=True)
+    site = models.URLField(_('Site'), blank=True)
     jabber = models.CharField(_('Jabber'), max_length=80, blank=True)
     icq = models.CharField(_('ICQ'), max_length=12, blank=True)
     msn = models.CharField(_('MSN'), max_length=80, blank=True)
@@ -306,7 +303,7 @@ class Profile(models.Model):
     location = models.CharField(_('Location'), max_length=30, blank=True)
     signature = models.TextField(_('Signature'), blank=True, default='', max_length=forum_settings.SIGNATURE_MAX_LENGTH)
     signature_html = models.TextField(_('Signature'), blank=True, default='', max_length=forum_settings.SIGNATURE_MAX_LENGTH)
-    time_zone = models.FloatField(_('Time zone'), choices=TZ_CHOICES, default=float(forum_settings.DEFAULT_TIME_ZONE))
+    time_zone = models.CharField(_('Time zone'),max_length=50, choices=TZ_CHOICES, default=settings.TIME_ZONE)
     language = models.CharField(_('Language'), max_length=5, default='', choices=settings.LANGUAGES)
     avatar = ExtendedImageField(_('Avatar'), blank=True, default='', upload_to=forum_settings.AVATARS_UPLOAD_TO, width=forum_settings.AVATAR_WIDTH, height=forum_settings.AVATAR_HEIGHT)
     theme = models.CharField(_('Theme'), choices=THEME_CHOICES, max_length=80, default='default')
@@ -366,7 +363,7 @@ class Report(models.Model):
 
 class Ban(models.Model):
     user = models.OneToOneField(User, verbose_name=_('Banned user'), related_name='ban_users')
-    ban_start = models.DateTimeField(_('Ban start'), default=datetime.now)
+    ban_start = models.DateTimeField(_('Ban start'), default=timezone.now)
     ban_end = models.DateTimeField(_('Ban end'), blank=True, null=True)
     reason = models.TextField(_('Reason'))
 
@@ -432,12 +429,15 @@ class Poll(models.Model):
     users = models.ManyToManyField(User, blank=True, null=True,
         help_text=_("Users who has voted this poll."),
     )
-    def auto_deactivate(self):
+    def deactivate_if_expired(self):
         if self.active and self.deactivate_date:
-            now = datetime.now()
+            now = timezone.now()
             if now > self.deactivate_date:
                 self.active = False
                 self.save()
+
+    def single_choice(self):
+        return self.choice_count == 1
 
     def __unicode__(self):
         return self.question
