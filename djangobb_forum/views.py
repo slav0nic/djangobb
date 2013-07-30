@@ -334,7 +334,13 @@ def show_forum(request, forum_id, full=True):
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
     moderator = request.user.is_superuser or\
         request.user in forum.moderators.all()
-    to_return = {'categories': Category.objects.all(),
+
+    categories = []
+    for category in Category.objects.all():
+        if category.has_access(request.user):
+            categories.append(category)
+
+    to_return = {'categories': categories,
                 'forum': forum,
                 'posts': forum.post_count,
                 'topics': topics,
