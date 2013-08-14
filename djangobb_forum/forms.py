@@ -65,6 +65,7 @@ class AddPostForm(forms.ModelForm):
         self.topic = kwargs.pop('topic', None)
         self.forum = kwargs.pop('forum', None)
         self.ip = kwargs.pop('ip', None)
+        self.is_ip_banned = kwargs.pop('is_ip_banned')
         super(AddPostForm, self).__init__(*args, **kwargs)
 
         if self.topic:
@@ -92,6 +93,14 @@ class AddPostForm(forms.ModelForm):
             cleaned_data['name'] = filter_language(subject)
         if BaseComment.user_is_muted(self.user):
             self._errors['body'] = self.error_class([_("Hmm, the filterbot is pretty sure your recent comments weren't ok for Scratch, so your account has been muted for the rest of the day. :/")])
+        if self.is_ip_banned:
+            error = """Sorry, the Scratch Team had to prevent your network from
+            sharing comments or projects because it was used to break our
+            community guidelines too many times. You can still share comments
+            and projects from another network. If you'd like to appeal this
+            block, you can contact {appeal_email}.
+            """.format(appeal_email=settings.BAN_APPEAL_EMAIL)
+            self._errors['body'] = self.error_class([_(error)])
         if body:
             if not body.strip():
                 self._errors['body'] = self.error_class([errmsg])

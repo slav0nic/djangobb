@@ -33,6 +33,8 @@ from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html, UnapprovedImageError, can_close_topic
 
+from lib.utils import get_client_ip
+
 
 
 def index(request, full=True):
@@ -413,8 +415,13 @@ def show_topic(request, topic_id, full=True):
     if user_is_authenticated and (not topic.closed or moderator):
         form_url = request.path + '?' + request.META['QUERY_STRING'] + '#reply' # if form validation failed: browser should scroll down to reply form ;)
         back_url = request.path
-        ip = request.META.get('REMOTE_ADDR', None)
-        post_form_kwargs = {"topic":topic, "user":request.user, "ip":ip}
+        ip = get_client_ip(request)
+        post_form_kwargs = {
+            "topic":topic,
+            "user":request.user,
+            "ip":ip,
+            'is_ip_banned': request.is_ip_banned,
+        }
         if post_request and AddPostForm.FORM_NAME in request.POST:
 
             reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
@@ -544,8 +551,13 @@ def add_topic(request, forum_id, full=True):
     if not forum.category.has_access(request.user) or (forum.moderator_only and not (request.user.is_superuser or request.user in forum.moderators.all())):
         return HttpResponseForbidden()
 
-    ip = request.META.get('REMOTE_ADDR', None)
-    post_form_kwargs = {"forum":forum, "user":request.user, "ip":ip, }
+    ip = get_client_ip(request)
+    post_form_kwargs = {
+        "forum": forum,
+        "user": request.user,
+        "ip": ip,
+        "is_ip_banned": request.is_ip_banned,
+    }
 
     if request.method == 'POST':
         form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
@@ -754,7 +766,7 @@ def delete_posts(request, topic_id):
     initial = {}
     if request.user.is_authenticated():
         initial = {'markup': request.user.forum_profile.markup}
-    form = AddPostForm(topic=topic, initial=initial)
+    form = AddPostForm(topic=topic, initial=initial, is_ip_banned=request.is_ip_banned)
 
     moderator = request.user.is_superuser or\
         request.user in topic.forum.moderators.all()
@@ -848,7 +860,7 @@ def move_posts(request, topic_id):
     initial = {}
     if request.user.is_authenticated():
         initial = {'markup': request.user.forum_profile.markup}
-    form = AddPostForm(topic=topic, initial=initial)
+    form = AddPostForm(topic=topic, initial=initial, is_ip_banned=request.is_ip_banned)
 
     moderator = request.user.is_superuser or\
         request.user in topic.forum.moderators.all()
@@ -1042,8 +1054,13 @@ def mobile_reply(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if not request.user.is_authenticated or post.topic.closed and not (request.user.is_superuser or request.user in forum.moderators.all()):
         raise Http404
-    ip = request.META.get('REMOTE_ADDR', None)
-    post_form_kwargs = {"topic":post.topic, "user":request.user, "ip":ip}
+    ip = get_client_ip(request)
+    post_form_kwargs = {
+        "topic":post.topic,
+        "user":request.user,
+        "ip":ip,
+        'is_ip_banned': request.is_ip_banned,
+    }
     if AddPostForm.FORM_NAME in request.POST:
         reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
         if reply_form.is_valid():
