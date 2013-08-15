@@ -33,5 +33,14 @@
         set_collapser(1);
         set_collapser(2);
     });
+
+    // IP mute ban dialog when trying to post
+    $('#post').on('submit', function(evt) {
+        if (Scratch.INIT_DATA.IS_IP_BANNED) {
+            evt.preventDefault();
+            $('#ip-mute-ban').modal();
+            return;
+        }
+    });
   
 })(jQuery);
