@@ -296,17 +296,6 @@ class Post(models.Model):
     __unicode__ = summary
 
 
-class TopicFollow(models.Model):
-    """
-    Non-Djangobb model for letting users follow new posts for a topic.
-    """
-    user = models.ForeignKey(User, related_name='topic_follows')
-    topic = models.ForeignKey(Topic, related_name='follows')
-
-    class Meta:
-        unique_together = ('user', 'topic')
-
-
 class Reputation(models.Model):
     from_user = models.ForeignKey(User, related_name='reputations_from', verbose_name=_('From'))
     to_user = models.ForeignKey(User, related_name='reputations_to', verbose_name=_('To'))
