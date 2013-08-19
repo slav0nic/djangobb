@@ -2,9 +2,13 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.html import strip_tags
+from celery.decorators import task
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import absolute_url
+from djangobb_forum.models import Post
+
+from notifications import SocialAction, SocialActionReceipt, SocialActionType
 
 if "mailer" in settings.INSTALLED_APPS:
     from mailer import send_mail
@@ -38,18 +42,40 @@ Unsubscribe %(unsubscribe_url)s""")
 
 
 def notify_topic_subscribers(post):
+    # notify users asynchronously
+    notify_topic_subscribers_task.delay(post.id)
+
+def email_topic_subscribers(post):
+    """
+    This is the built-in djangobb_forum method of notifying for subscriptions.
+    """
     topic = post.topic
     post_body_text = strip_tags(post.body_html)
     if post != topic.head:
-        for user in topic.subscribers.all():
-            if user != post.user:
-                subject = u'RE: %s' % topic.name
-                to_email = user.email
-                text_content = TOPIC_SUBSCRIPTION_TEXT_TEMPLATE % {
-                        'username': post.user.username,
-                        'message': post_body_text,
-                        'post_url': absolute_url(post.get_absolute_url()),
-                        'unsubscribe_url': absolute_url(reverse('djangobb:forum_delete_subscription', args=[post.topic.id])),
-                    }
-                #html_content = html_version(post)
-                send_mail(subject, text_content, settings.DEFAULT_FROM_EMAIL, [to_email])
+        subject = u'RE: %s' % topic.name
+        to_email = user.email
+        text_content = TOPIC_SUBSCRIPTION_TEXT_TEMPLATE % {
+                'username': post.user.username,
+                'message': post_body_text,
+                'post_url': absolute_url(post.get_absolute_url()),
+                'unsubscribe_url': absolute_url(reverse('djangobb:forum_delete_subscription', args=[post.topic.id])),
+            }
+        #html_content = html_version(post)
+        send_mail(subject, text_content, settings.DEFAULT_FROM_EMAIL, [to_email])
+
+
+@task 
+def scratch_notify_topic_subscribers(post_id):
+    """
+    Scratch task for notifying subscribers to a topic that someone has made a
+    new post.
+    """
+    post = Post.objects.select_related('topic').get(pk=post_id)
+    topic = post.topic
+    if post != topic.head:
+        social_action = SocialAction(
+            actor = post.user,
+            object = topic,
+        )
+        social_action.save()
+        # save() adds recipients and sends out notifications
