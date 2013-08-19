@@ -8,7 +8,6 @@ from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import absolute_url
 from djangobb_forum.models import Post
 
-# from notifications import SocialAction
 
 
 if "mailer" in settings.INSTALLED_APPS:
@@ -45,6 +44,8 @@ Unsubscribe %(unsubscribe_url)s""")
 def notify_topic_subscribers(post):
     # notify users asynchronously
     scratch_notify_topic_subscribers.delay(post.id)
+    # debug version:
+    # scratch_notify_topic_subscribers(post.id)
 
 def email_topic_subscribers(post):
     """
@@ -71,6 +72,7 @@ def scratch_notify_topic_subscribers(post_id):
     Scratch task for notifying subscribers to a topic that someone has made a
     new post.
     """
+    from notifications import SocialAction
     post = Post.objects.select_related('topic').get(pk=post_id)
     topic = post.topic
     if post != topic.head:
