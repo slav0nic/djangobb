@@ -8,7 +8,8 @@ from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import absolute_url
 from djangobb_forum.models import Post
 
-from notifications import SocialAction, SocialActionReceipt, SocialActionType
+from notifications import SocialAction
+
 
 if "mailer" in settings.INSTALLED_APPS:
     from mailer import send_mail
@@ -43,7 +44,7 @@ Unsubscribe %(unsubscribe_url)s""")
 
 def notify_topic_subscribers(post):
     # notify users asynchronously
-    notify_topic_subscribers_task.delay(post.id)
+    scratch_notify_topic_subscribers.delay(post.id)
 
 def email_topic_subscribers(post):
     """
