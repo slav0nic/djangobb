@@ -8,7 +8,7 @@ from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import absolute_url
 from djangobb_forum.models import Post
 
-from notifications import SocialAction
+# from notifications import SocialAction
 
 
 if "mailer" in settings.INSTALLED_APPS:
