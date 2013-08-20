@@ -349,6 +349,18 @@ td .tclcon {
 .djangobb #subscribe {
     margin: -10px 0;
 }
+.djangobb #subscribe .success {
+    color: green;   
+    height: 30px;
+    background: url('../../../images/icons_sm.png') no-repeat top;
+    background-position: -15px -644px;
+    padding: 8px 0 8px 27px;
+    vertical-align: middle;
+}
+.djangobb #subscribe .error {
+    color: #FF0000;
+    padding: 3px 0;
+}
 
 .djangobb .markItUpEditor {
     width: 100%;

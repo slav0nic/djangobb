@@ -44,12 +44,14 @@
 
             <label id="subscribe">
                 {% if subscribed %}
-                    {% trans "You are receiving notifications for updates to this topic." %}
-                    <a href="{% url djangobb:forum_delete_subscription topic.id %}">{% trans 'Unsubscribe?' %}</a>
-                    <div class="success" style="display: none">
-                        {% trans "Unsubscribed! You will no longer receive notifications for updates to this topic." %}
+                    <div class="unsubscribe">
+                        {% trans "You are receiving notifications for updates to this topic." %}
+                        <a href="{% url djangobb:forum_delete_subscription topic.id %}">{% trans 'Unsubscribe?' %}</a>
                     </div>
-                    <div class="error" style="dispaly: none">
+                    <div class="success" style="display: none">
+                        {% trans "Unsubscribed! You won't receive notifications for this topic anymore." %}
+                    </div>
+                    <div class="error" style="display: none">
                         {% trans "Hmm, something went wrong. Please try again." %}
                     </div>
                 {% else %}
