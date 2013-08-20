@@ -360,6 +360,9 @@ td .tclcon {
     color: #FF0000;
     padding: 3px 0;
 }
+.djangobb #subscribe .loading {
+    display: none;
+}
 
 .djangobb .markItUpEditor {
     width: 100%;

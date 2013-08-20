@@ -48,22 +48,30 @@
     $subscribe.find('.unsubscribe a').on('click', function(evt) {
         evt.preventDefault();
         var $a = $(evt.target);
+        var $loading = $subscribe.find('.unsubscribe .loading');
+        $loading.show();
         $.get($a.attr('href')).success(function(data) {
             $subscribe.find('.unsubscribe').hide();
             $subscribe.find('.success').show();
         }).error(function() {
             $subscribe.find('.error').show();
+        }).always(function() {
+            $loading.hide();
         });
     });
     // Undo unsubscribe from topic
     $subscribe.find('.success a').on('click', function(evt) {
         evt.preventDefault();
         var $a = $(evt.target);
+        var $loading = $subscribe.find('.success .loading');
+        $loading.show();
         $.get($a.attr('href')).success(function(data) {
             $subscribe.find('.unsubscribe').show();
             $subscribe.find('.success').hide();
         }).error(function() {
             $subscribe.find('.error').show();
+        }).always(function() {
+            $loading.hide();
         });
     });
   

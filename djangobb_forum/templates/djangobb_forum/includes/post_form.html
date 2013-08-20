@@ -47,10 +47,12 @@
                     <div class="unsubscribe">
                         {% trans "You are receiving notifications for updates to this topic." %}
                         <a href="{% url djangobb:forum_delete_subscription topic.id %}">{% trans 'Unsubscribe?' %}</a>
+                        <img src="{{ STATIC_URL }}/images/ajax-loader.gif" class="loading" alt="loading..." />
                     </div>
                     <div class="success" style="display: none">
                         {% trans "Unsubscribed! You won't receive notifications for this topic anymore." %}
                         <a href="{% url djangobb:forum_add_subscription topic.id %}">{% trans 'Undo?' %}</a>
+                        <img src="{{ STATIC_URL }}/images/ajax-loader.gif" class="loading" alt="loading..." />
                     </div>
                     <div class="error" style="display: none">
                         {% trans "Hmm, something went wrong. Please try again." %}
