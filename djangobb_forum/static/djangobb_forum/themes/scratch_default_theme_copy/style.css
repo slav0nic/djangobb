@@ -351,7 +351,6 @@ td .tclcon {
 }
 .djangobb #subscribe .success {
     color: green;   
-    height: 30px;
     background: url('../../../images/icons_sm.png') no-repeat top;
     background-position: -15px -644px;
     padding: 8px 0 8px 27px;

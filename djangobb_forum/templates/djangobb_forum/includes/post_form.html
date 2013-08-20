@@ -50,14 +50,13 @@
                     </div>
                     <div class="success" style="display: none">
                         {% trans "Unsubscribed! You won't receive notifications for this topic anymore." %}
+                        <a href="{% url djangobb:forum_add_subscription topic.id %}">{% trans 'Undo?' %}</a>
                     </div>
                     <div class="error" style="display: none">
                         {% trans "Hmm, something went wrong. Please try again." %}
                     </div>
                 {% else %}
-                    <div {% if subscribed %}style="display: none"{% endif %}>
-                        {{ form.subscribe }} {% trans "Notify me of updates to this topic" %}{{ form.subscribe.errors }}<br />
-                    </div>
+                    {{ form.subscribe }} {% trans "Notify me of updates to this topic" %}{{ form.subscribe.errors }}<br />
                 {% endif %}
             </label>
             {% if forum_settings.ATTACHMENT_SUPPORT %}

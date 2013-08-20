@@ -42,5 +42,29 @@
             return;
         }
     });
+
+    var $subscribe = $('#subscribe');
+    // Unsubscribe from topic button
+    $subscribe.find('.unsubscribe a').on('click', function(evt) {
+        evt.preventDefault();
+        var $a = $(evt.target);
+        $.get($a.attr('href')).success(function(data) {
+            $subscribe.find('.unsubscribe').hide();
+            $subscribe.find('.success').show();
+        }).error(function() {
+            $subscribe.find('.error').show();
+        });
+    });
+    // Undo unsubscribe from topic
+    $subscribe.find('.success a').on('click', function(evt) {
+        evt.preventDefault();
+        var $a = $(evt.target);
+        $.get($a.attr('href')).success(function(data) {
+            $subscribe.find('.unsubscribe').show();
+            $subscribe.find('.success').hide();
+        }).error(function() {
+            $subscribe.find('.error').show();
+        });
+    });
   
 })(jQuery);
