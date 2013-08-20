@@ -346,6 +346,10 @@ td .tclcon {
     width: 100%;
 }
 
+.djangobb #subscribe {
+    margin: -10px 0;
+}
+
 .djangobb .markItUpEditor {
     width: 100%;
     vertical-align: top;

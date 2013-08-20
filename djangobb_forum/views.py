@@ -433,7 +433,7 @@ def show_topic(request, topic_id, full=True):
             reply_form = AddPostForm(
                 initial={
                     'markup': request.user.forum_profile.markup,
-                    'subscribe': request.user.forum_profile.auto_subscribe,
+                    'subscribe': True,
                 },
                 **post_form_kwargs
             )
@@ -587,7 +587,7 @@ def add_topic(request, forum_id, full=True):
         form = AddPostForm(
             initial={
                 'markup': request.user.forum_profile.markup,
-                'subscribe': request.user.forum_profile.auto_subscribe,
+                'subscribe': True,
             },
             **post_form_kwargs
         )

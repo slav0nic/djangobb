@@ -41,18 +41,35 @@
                 {{ form.body.errors }}
                 {{ form.body }}
             </label>
-            {% if forum_settings.ATTACHMENT_SUPPORT %}
-            <div class="inform">
-                <fieldset>
-                    <legend>{% trans "Attachment" %}</legend>
-                    <div class="infldset">
-                        {{ form.attachment.errors }}
-                        <div class="rbox">
-                            {{ form.attachment }}
-                        </div>
+
+            <label id="subscribe">
+                {% if subscribed %}
+                    {% trans "You are receiving notifications for updates to this topic." %}
+                    <a href="{% url djangobb:forum_delete_subscription topic.id %}">{% trans 'Unsubscribe?' %}</a>
+                    <div class="success" style="display: none">
+                        {% trans "Unsubscribed! You will no longer receive notifications for updates to this topic." %}
                     </div>
-                </fieldset>
-            </div>
+                    <div class="error" style="dispaly: none">
+                        {% trans "Hmm, something went wrong. Please try again." %}
+                    </div>
+                {% else %}
+                    <div {% if subscribed %}style="display: none"{% endif %}>
+                        {{ form.subscribe }} {% trans "Notify me of updates to this topic" %}{{ form.subscribe.errors }}<br />
+                    </div>
+                {% endif %}
+            </label>
+            {% if forum_settings.ATTACHMENT_SUPPORT %}
+                <div class="inform">
+                    <fieldset>
+                        <legend>{% trans "Attachment" %}</legend>
+                        <div class="infldset">
+                            {{ form.attachment.errors }}
+                            <div class="rbox">
+                                {{ form.attachment }}
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
             {% endif %}
             <div class="form-submit">
                 <button type="submit" class="grey button" name="{{ form.FORM_NAME }}"><span>{% trans "Submit" %}</span></button>

@@ -54,7 +54,7 @@ class AddPostForm(forms.ModelForm):
     name = forms.CharField(label=_('Subject'), max_length=155,
                            widget=forms.TextInput(attrs={'size':'115'}))
     attachment = forms.FileField(label=_('Attachment'), required=False)
-    subscribe = forms.BooleanField(label=_('Subscribe'), help_text=_("Subscribe this topic."), required=False)
+    subscribe = forms.BooleanField(label=_('Subscribe'), help_text=_("Subscribe to this topic."), required=False)
 
     class Meta:
         model = Post
