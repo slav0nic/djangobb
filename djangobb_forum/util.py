@@ -227,7 +227,7 @@ def convert_text_to_html(text, profile):
     markup = profile.markup
     if markup == 'bbcode':
         renderbb = customize_postmarkup(profile.user.has_perm('djangobb_forum.post_external_links'))
-        
+
         text =  renderbb(text)
     elif markup == 'markdown':
         text = markdown.markdown(text, safe_mode='escape')
@@ -415,6 +415,16 @@ class QuoteTag(postmarkup.TagBase):
     def render_close(self, parser, node_index):
         return u'</blockquote>'
 
+class ScratchblocksTag(postmarkup.TagBase):
+
+    def __init__(self, name, **kwargs):
+        super(ScratchblocksTag, self).__init__(name, enclosed=True, strip_first_newline=True)
+
+    def render_open(self, parser, node_index):
+        contents = self.get_contents(parser).strip(u'\n')
+        self.skip_contents(parser)
+        return u'<pre class=blocks>%s</pre>' % postmarkup.PostMarkup.standard_replace(contents)
+
 # This allows us to control the bb tags
 def customize_postmarkup(allow_external_links):
     custom_postmarkup = postmarkup.PostMarkup()
@@ -425,6 +435,8 @@ def customize_postmarkup(allow_external_links):
     add_tag(CSSClassTag, 'i', 'bb-italic')
     add_tag(CSSClassTag, 'u', 'bb-underline')
     add_tag(CSSClassTag, 's', 'bb-strikethrough')
+
+    add_tag(ScratchblocksTag, 'scratchblocks')
 
     add_tag(FilteredLinkTag if allow_external_links else RestrictedLinkTag, 'url')
 
