@@ -3,7 +3,7 @@ from django.test import TestCase, RequestFactory
 from django.conf import settings
 
 from djangobb_forum.models import Post
-from djangobb_forum.util import urlize, smiles, convert_text_to_html, paginate
+from djangobb_forum.util import smiles, convert_text_to_html, paginate
 
 
 class TestParsers(TestCase):
@@ -12,10 +12,6 @@ class TestParsers(TestCase):
         self.data_smiles = "Lorem ipsum dolor :| sit amet :) <a href=\"http://djangobb.org/\">http://djangobb.org/</a>"
         self.markdown = ""
         self.bbcode = "[b]Lorem[/b] [code]ipsum :)[/code] =)"
-
-    def test_urlize(self):
-        urlized_data = urlize(self.data_url)
-        self.assertEqual(urlized_data, u"Lorem ipsum dolor sit amet, consectetur <a href=\"http://djangobb.org/\" rel=\"nofollow\">http://djangobb.org/</a> adipiscing elit.")
 
     def test_smiles(self):
         smiled_data = smiles(self.data_smiles)

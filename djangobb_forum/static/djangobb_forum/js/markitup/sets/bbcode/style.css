@@ -84,3 +84,27 @@
 .markItUp .preview a {
 	background-image:url(images/preview.png);
 }
+
+/* scratchblocks */
+.markItUp .markItUpButton13 > a {
+    background-image: url(../../../../img/block.png);
+}
+.markItUp .markItUpButton13 ul a {
+    padding: 2px 5px;
+    height: auto;
+    background: #fff;
+}
+.markItUp .markItUpButton13 ul ul {
+    width: 240px;
+}
+.markItUp .markItUpButton13 ul ul a {
+    width: 230px;
+    color: #fff;
+}
+.markItUpButton13 a:hover .scratchblocks2-container .stack:before,
+.markItUpButton13 a:hover .scratchblocks2-container .cap:before {
+    background-color: #3C769D;
+}
+.markItUpHeader ul ul ul {
+    left: 100%;
+}
