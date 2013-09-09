@@ -43,36 +43,38 @@
         }
     });
 
-    var $subscribe = $('#subscribe');
-    // Unsubscribe from topic button
-    $subscribe.find('.unsubscribe a').on('click', function(evt) {
+    // Follow/unfollow topic logic
+    var $follow = $('.follow-topic');
+    var followclick = function(evt) {
         evt.preventDefault();
-        var $a = $(evt.target);
-        var $loading = $subscribe.find('.unsubscribe .loading');
+        var $button = $(evt.target);
+        var $loading = $follow.find('.loading');
+        var $error = $follow.find('.error');
         $loading.show();
-        $.get($a.attr('href')).success(function(data) {
-            $subscribe.find('.unsubscribe').hide();
-            $subscribe.find('.success').show();
-        }).error(function() {
-            $subscribe.find('.error').show();
+        $error.hide();
+        $.get($button.attr('href')).done(function(data) {
+            if ($button.hasClass('follow-button')) {
+                // now following, show unfollow
+                $follow.find('.follow-button').hide();
+                $follow.find('.unfollow-button').show();
+            } else {
+                // want to unfollow topic
+                $follow.find('.follow-button').show();
+                $follow.find('.unfollow-button').hide();
+            }
+        }).fail(function() {
+            $error.show();
         }).always(function() {
             $loading.hide();
         });
-    });
-    // Undo unsubscribe from topic
-    $subscribe.find('.success a').on('click', function(evt) {
-        evt.preventDefault();
-        var $a = $(evt.target);
-        var $loading = $subscribe.find('.success .loading');
-        $loading.show();
-        $.get($a.attr('href')).success(function(data) {
-            $subscribe.find('.unsubscribe').show();
-            $subscribe.find('.success').hide();
-        }).error(function() {
-            $subscribe.find('.error').show();
-        }).always(function() {
-            $loading.hide();
-        });
-    });
+    };
+    $follow.find('.follow-button').on('click', followclick);
+    $follow.find('.unfollow-button').on('click', followclick);
+
+    // dynamic styling based on if pagination is there
+    if ($('.pagination').length === 0) {
+        $('.follow-topic.top').css({top: '-14px'});
+        $('.follow-topic.bottom').css({top: '6px'});
+    }
   
 })(jQuery);

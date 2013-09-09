@@ -72,6 +72,10 @@
 .linkst,
 .linksb {
     padding: 6px;
+    position: relative;
+}
+.linkst {
+    margin-top: 40px;
 }
 .linksb {
     margin-top: -20px;
@@ -254,7 +258,7 @@ td .tclcon {
 }
 .blockpost + .linksb {
     margin-top: -10px;
-    margin-bottom: 20px;
+    margin-bottom: 38px;
 }
 
 .blockpost div.box {
@@ -374,3 +378,28 @@ td .tclcon {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.linkst .follow-topic {
+    top: -35px;
+}
+.follow-topic {
+    text-align: right;
+    position: absolute;
+    right: 0;
+}
+.follow-topic .loading {
+    vertical-align: middle;
+}
+.follow-topic .error {
+    color: red;
+    font-size: smaller;
+}
+.follow-topic .button {
+    line-height: 1;
+    height: inherit;
+    padding: 9px 10px;
+}
+.follow-topic .follow-button:hover {
+    color: white;
+}
+

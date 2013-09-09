@@ -11,7 +11,15 @@
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">
+    <div class="follow-topic top">
+        <img src="{{ STATIC_URL  }}/images/ajax-loader.gif" class="loading" style="display: none;" alt="loading..." />
+        <p class="error" style="display: none;">{% trans "There was an error :( Try again?" %}</p>
+        <a {% if subscribed %}style="display: none;"{% endif %} class="follow-button button blue" href="{% url djangobb:forum_add_subscription topic.id %}">{% trans 'Follow' %}</a>
+        <a {% if not subscribed %}style="display: none;"{% endif %} class="unfollow-button button grey" href="{% url djangobb:forum_delete_subscription topic.id %}">{% trans 'Unfollow' %}</a>
+    </div>
+
     {% paginate %}
+
     <ul>
         <li>
         <a href="{% url djangobb:index %}">{% trans "Discussion Forums" %}</a> </li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
@@ -159,7 +167,9 @@
     </div>
 {% endfor %}
 <div class="linksb">
+
     {% paginate %}
+
     <ul>
         <li><a href="{% url djangobb:index %}">{% trans "Discussion Forums" %}</a></li>
         <li>&raquo; {% link topic.forum %} </li>
@@ -167,6 +177,14 @@
             &raquo; {{ topic }} <a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}/djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
         </li>
     </ul>
+
+    <div class="follow-topic bottom">
+        <img src="{{ STATIC_URL  }}/images/ajax-loader.gif" class="loading" style="display: none;" alt="loading..." />
+        <p class="error" style="display: none;">{% trans "There was an error :( Try again?" %}</p>
+        <a {% if subscribed %}style="display: none;"{% endif %} class="follow-button button blue" href="{% url djangobb:forum_add_subscription topic.id %}">{% trans 'Follow' %}</a>
+        <a {% if not subscribed %}style="display: none;"{% endif %} class="unfollow-button button grey" href="{% url djangobb:forum_delete_subscription topic.id %}">{% trans 'Unfollow' %}</a>
+    </div>
+
     <div class="clearer"></div>
 </div>
 
