@@ -433,7 +433,7 @@ def show_topic(request, topic_id, full=True):
             reply_form = AddPostForm(
                 initial={
                     'markup': request.user.forum_profile.markup,
-                    'subscribe': True,
+                    'subscribe': False,
                 },
                 **post_form_kwargs
             )
@@ -1071,7 +1071,7 @@ def mobile_reply(request, post_id):
         reply_form = AddPostForm(
             initial={
                 'markup': request.user.forum_profile.markup,
-                'subscribe': request.user.forum_profile.auto_subscribe,
+                'subscribe': False,
                 'body':'[quote=' + post.user.username + ']' + post.body + '[/quote]\n',
             },
             **post_form_kwargs
