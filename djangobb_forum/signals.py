@@ -17,8 +17,9 @@ def post_saved(instance, **kwargs):
         profile = post.user.forum_profile
         profile.post_count = post.user.posts.count()
         profile.save(force_update=True)
-        notify_topic_subscribers(post)
     topic.save(force_update=True)
+    if created:
+        notify_topic_subscribers(post)
 
 
 def topic_saved(instance, **kwargs):
