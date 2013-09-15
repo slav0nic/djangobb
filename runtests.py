@@ -44,8 +44,11 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
         ROOT_URLCONF='djangobb_forum.tests.urls',
         DEBUG=False,
         SITE_ID=1,
-        HAYSTACK_SITECONF='djangobb_forum.tests.search_sites',
-        HAYSTACK_SEARCH_ENGINE='dummy',
+        HAYSTACK_CONNECTIONS = {
+            'default': {
+                'ENGINE': 'haystack.backends.simple_backend.SimpleEngine'
+            }
+        }
     )
 
 from django.test.simple import DjangoTestSuiteRunner
