@@ -10,7 +10,7 @@
 					<li {%if active_menu == "personality" %}class="isactive"{% endif %}><a href="{% url 'djangobb:forum_profile_personality' profile %}">{% trans "Personality" %}</a></li>
 					<li {%if active_menu == "display" %}class="isactive"{% endif %}><a href="{% url 'djangobb:forum_profile_display' profile %}">{% trans "Display" %}</a></li>
 					<li {%if active_menu == "privacy" %}class="isactive"{% endif %}><a href="{% url 'djangobb:forum_profile_privacy' profile %}">{% trans "Privacy" %}</a></li>
-					{# if request.user.is_superuser #}
+					{# if user.is_superuser #}
 					<!--li {% if active_menu == "admin" %}class="isactive"{% endif %}><a href="{% url 'djangobb:forum_profile' profile %}?section=admin">{% trans "Administration" %}</a></li-->
 					{# endif #}
 

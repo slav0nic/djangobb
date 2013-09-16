@@ -17,12 +17,12 @@
 							{{ form.username.errors }}
 							<label><strong>{{ form.username.label }}</strong><br>
 							{{ form.username }}
-							{% if not request.user.is_superuser %}
+							{% if not user.is_superuser %}
 								{{ form.fields.username.initial }}
 							{% endif %}
 							<br></label>
 							<p>
-							{% if request.user.is_superuser %}
+							{% if user.is_superuser %}
 								<a href="{% url 'admin:user_change_password' profile.id %}">{% trans "Change password" %}</a>
 							{% else %}
 								<a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>
@@ -38,7 +38,7 @@
 							{{ form.email.errors }}
 							<label><strong>{{ form.email.label }}</strong><br>
 							{{ form.email }}<br></label>
-							{% if request.user.is_superuser %}
+							{% if user.is_superuser %}
 								<p><a href="{% url 'djangobb:misc' %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
 							{% endif %}
 

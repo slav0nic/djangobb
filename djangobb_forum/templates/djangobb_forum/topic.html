@@ -89,7 +89,7 @@
 						{% endif %}
 						{% if forum_settings.REPUTATION_SUPPORT %}
 								<dd><a href="{% url 'djangobb:reputation' post.user.username %}">{% trans "Reputation" %}</a>:
-								{% if request.user != post.user %} {# TODO: and user.is_authenticated #}
+								{% if user != post.user %} {# TODO: and user.is_authenticated #}
 									<a href="{% url 'djangobb:reputation' post.user.username %}?action=plus&amp;post_id={{ post.id }}"><img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_add.gif" alt="+" /></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total|default_if_none:"0" }}&nbsp;&nbsp;</strong><a href="{% url 'djangobb:reputation' post.user.username %}?action=minus&amp;post_id={{ post.id }}"><img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_minus.gif" alt="-" /></a>
 								{% else %}
 									<strong>{{ post.user.forum_profile.reply_total|default_if_none:"0" }}</strong>
