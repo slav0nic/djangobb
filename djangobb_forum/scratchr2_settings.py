@@ -27,5 +27,5 @@ DJANGOBB_SIGNATURE_MAX_LINES = 10
 DJANGOBB_SIGNATURE_MAX_LENGTH = 2000
 DJANGOBB_AUTHORITY_SUPPORT = False
 DJANGOBB_DEFAULT_TIME_ZONE = 0
-DJANGOBB_IMAGE_HOST_WHITELIST = r'(?:(?:tinypic|photobucket)\.com|imageshack\.us|modshare\.tk|(?:scratchr|wikipedia|wikimedia|modshare)\.org|\.edu)$'
+DJANGOBB_IMAGE_HOST_WHITELIST = r'(?:(?:tinypic|photobucket)\.com|imageshack\.us|modshare\.tk|(?:scratchr|wikipedia|wikimedia|modshare)\.org|\.edu|scratch-dach\.info)$'
 DJANGOBB_LANGUAGE_FILTER = r'(?i)\b(fugly|(\w*?)fuck(\w*?)|f(u|v|\*)?c?k(ing?)?|(\w*?)sh(i|1|l)t(\w*?)|cr(a|@|\*)p(per|ped|y)?|(bad|dumb|jack)?(a|@)ss(h(o|0)le|wipe)?|(bad|dumb|jack)?(a|@)rse(h(o|0)le|wipe)?|bastard|b(i|1|l|\*)?t?ch(e?s)?|cunt|cum|(god?)?dam(n|m)(it)?|douche(\w*?)|(new)?fag(got|gat)?|frig(gen|gin|ging)?|omfg|piss(\w*?)|porn|rape|retard|sex|s e x|shat|slut|tit|wh(o|0)re(\w*?)|wt(f|fh|h))(s|ed)?\b'
