@@ -34,6 +34,9 @@
                 var MEDIA_URL = "{{ MEDIA_URL }}";
                 var POST_PREVIEW_URL = "{% url djangobb:post_preview %}";
     </script>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/scratchblocks2.js"></script>
+
     {% if user.is_authenticated %}
         {% if post %}
             {% with markup=post.markup %}
@@ -47,6 +50,7 @@
         <script type="text/javascript">
            $(document).ready(function() {
             $(".markup").markItUp(mySettings);
+            scratchblocks2.parse('.markItUpButton13 ul a', {inline: true})
            });
         </script>
     {% endif %}
@@ -64,7 +68,6 @@
 
   <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/js/jquery.cookie.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/js/forums.js"></script>
-  <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/scratchblocks2.js"></script>
 {% endblock js %}
 
 {% block main-content %}
