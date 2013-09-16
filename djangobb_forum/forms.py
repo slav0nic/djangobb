@@ -5,8 +5,6 @@ from datetime import timedelta
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth.models import User
-from django.db.models.expressions import F
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -14,6 +12,7 @@ from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import convert_text_to_html, set_language
+from djangobb_forum.user import User
 
 
 SORT_USER_BY_CHOICES = (
@@ -329,7 +328,6 @@ class PostSearchForm(forms.Form):
     show_as = forms.ChoiceField(choices=SHOW_AS_CHOICES, label=_('Show results as'))
 
 
-
 class ReputationForm(forms.ModelForm):
 
     class Meta:
@@ -377,6 +375,7 @@ class ReputationForm(forms.ModelForm):
         if commit:
             reputation.save()
         return reputation
+
 
 class MailToForm(forms.Form):
     subject = forms.CharField(label=_('Subject'),

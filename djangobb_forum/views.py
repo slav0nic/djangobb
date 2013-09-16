@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.core.exceptions import SuspiciousOperation
@@ -21,6 +21,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from haystack.query import SearchQuerySet, SQ
 
+from djangobb_forum.user import User
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
