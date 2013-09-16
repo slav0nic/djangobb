@@ -73,7 +73,7 @@ def scratch_notify_topic_subscribers(post_id):
     new post.
     """
     from notifications.models import SocialAction
-    post = Post.objects.select_related('topic').get(pk=post_id)
+    post = Post.objects.select_related('topic').get(id=post_id)
     topic = post.topic
     if post != topic.head:
         social_action = SocialAction(
