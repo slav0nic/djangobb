@@ -71,10 +71,4 @@
     $follow.find('.follow-button').on('click', followclick);
     $follow.find('.unfollow-button').on('click', followclick);
 
-    // dynamic styling based on if pagination is there
-    if ($('.pagination').length === 0) {
-        $('.follow-topic.top').css({top: '-14px'});
-        $('.follow-topic.bottom').css({top: '6px'});
-    }
-  
 })(jQuery);
