@@ -9,6 +9,13 @@
 // ----------------------------------------------------------------------------
 // Feel free to add more tags
 // ----------------------------------------------------------------------------
+var _simple_http_agent = $('#simple-user-agent').text()
+if (swfobject.hasFlashPlayerVersion('1')) {
+    var version = swfobject.getFlashPlayerVersion();
+    _simple_http_agent += ', Flash '+ version.major +'.'+ version.minor +' (release '+ version.release +')';
+} else {
+    _simple_http_agent += ', No Flash version detected'
+}
 mySettings = {
 	previewParserPath:	POST_PREVIEW_URL, // path to your BBCode parser
 	markupSet: [
@@ -45,7 +52,10 @@ mySettings = {
             {name:'Roll', openWith:':rolleyes:'}, 
             {name:'Cool', openWith:':cool:'}
         ]},
-	{separator:'---------------' },
+        {separator:'---------------' },
+		{name:'Paste browser / operating system versions', openWith: _simple_http_agent, replaceWith: '', closeWith:'', className:'browser-os-button'},
+		// PUT SCRATCH BLOCKS HERE
+        {separator:'---------------' },
 		{name:'Clean', className:"clean", replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
 		{name:'Preview', className:"preview", call:'preview' }
 	]

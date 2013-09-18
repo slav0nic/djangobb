@@ -3,6 +3,7 @@
 import math
 import re
 import urllib2
+import httpagentparser
 from datetime import timedelta
 
 from django.contrib import messages
@@ -36,6 +37,12 @@ from djangobb_forum.util import build_form, paginate, set_language, smiles, conv
 from lib.utils import get_client_ip
 
 
+def simple_user_agent(request):
+    """
+    Utility function to show the user agent in a human-readable form. Uses
+    simple parser from httpagentparser and removes the punctuation from that.
+    """
+    return ', '.join(httpagentparser.simple_detect(request.META['HTTP_USER_AGENT']))
 
 def index(request, full=True):
     users_cached = cache.get('djangobb_users_online', {})
@@ -506,6 +513,7 @@ def show_topic(request, topic_id, full=True):
                 'can_edit': can_edit,
                 'can_close': can_close,
                 'group_titles': group_titles,
+                'simple_user_agent': simple_user_agent(request),
                 })
     else:
         return render(request, 'djangobb_forum/mobile/topic.html', {'categories': Category.objects.all(),
@@ -604,6 +612,7 @@ def add_topic(request, forum_id, full=True):
         'form': form,
         'form_url': request.path,
         'back_url': forum.get_absolute_url(),
+        'simple_user_agent': simple_user_agent(request),
     }
     return render(request, 'djangobb_forum/add_topic.html' if full else 'djangobb_forum/mobile/add_topic.html', context)
 

@@ -6,6 +6,7 @@
     <div class="box-content">
         <form id="post" action="{{ form_url|default_if_none:"." }}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            <div style="display: none" id="simple-user-agent">My browser / operating system: {{ simple_user_agent|default:'NOT PROVIDED' }}</div>
             
             {% if create_poll_form %}
             <script>{# TODO: move to html head! #}
