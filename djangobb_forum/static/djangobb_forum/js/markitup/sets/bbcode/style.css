@@ -80,6 +80,7 @@
 }
 .markItUp .browser-os-button a	{
 	background-image:url(../../../../img/browser-os.png);
+    background-position: top center;
 }
 .markItUp .clean a {
 	background-image:url(images/clean.png);
