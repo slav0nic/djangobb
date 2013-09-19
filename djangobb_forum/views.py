@@ -13,7 +13,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.db import transaction
+from django.db import transaction, connection
 from django.db.models import Q, F
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
@@ -445,14 +445,41 @@ def show_topic(request, topic_id, full=True):
                 **post_form_kwargs
             )
 
+    def get_user_groups(user_ids):
+        """
+        """
+        cursor = connection.cursor()
+        cursor.execute("""
+            select
+                user_id,
+                group_concat(auth_group.name)
+            from
+                auth_user_groups
+            join auth_group on 
+                auth_user_groups.group_id=auth_group.id
+            where 
+                user_id in %s
+            group by
+                user_id;
+        """, [user_ids])
+        rows = cursor.fetchall()
+        lookup = {}
+        for user_id, groups in rows:
+            lookup[user_id] = groups.split(',')
+        return lookup
+
+    user_ids = [post.user.id for post in posts]
+    user_groups = get_user_groups(user_ids)
+
     group_titles = {}
+    
     for post in posts:
         
         if post.user.is_superuser:
             group_titles[post.user] = "Scratch Team"
             
         else: 
-            temp_names = [x.name for x in post.user.groups.all()]
+            temp_names = user_groups[post.user.id]
             if "Forum Moderators" in temp_names:
                 group_titles[post.user] = "Forum Moderator"
             elif "Scratchers" in temp_names:
