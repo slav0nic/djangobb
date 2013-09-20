@@ -11,12 +11,14 @@
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">
-    <div class="follow-topic top">
-        <img src="{{ STATIC_URL  }}/images/ajax-loader.gif" class="loading" style="display: none;" alt="{% trans 'loading...' %}" />
-        <p class="error" style="display: none;">{% trans "There was an error :( Try again?" %}</p>
-        <a {% if subscribed %}style="display: none;"{% endif %} class="follow-button button blue" href="{% url djangobb:forum_add_subscription topic.id %}" title="{% trans "Follow this discussion to get a message when there's a new post" %}">{% trans 'Follow Discussion' %}</a>
-        <a {% if not subscribed %}style="display: none;"{% endif %} class="unfollow-button button grey" href="{% url djangobb:forum_delete_subscription topic.id %}" title="{% trans 'Stop getting messages about new posts to this discussion' %}">{% trans 'Unfollow Discussion' %}</a>
-    </div>
+    {% if not topic.closed %}
+        <div class="follow-topic top">
+            <img src="{{ STATIC_URL  }}/images/ajax-loader.gif" class="loading" style="display: none;" alt="{% trans 'loading...' %}" />
+            <p class="error" style="display: none;">{% trans "There was an error :( Try again?" %}</p>
+            <a {% if subscribed %}style="display: none;"{% endif %} class="follow-button button blue" href="{% url djangobb:forum_add_subscription topic.id %}" title="{% trans "Follow this discussion to get a message when there's a new post" %}">{% trans 'Follow Discussion' %}</a>
+            <a {% if not subscribed %}style="display: none;"{% endif %} class="unfollow-button button grey" href="{% url djangobb:forum_delete_subscription topic.id %}" title="{% trans 'Stop getting messages about new posts to this discussion' %}">{% trans 'Unfollow Discussion' %}</a>
+        </div>
+    {% endif %}
 
     {% paginate %}
 
@@ -178,12 +180,14 @@
         </li>
     </ul>
 
-    <div class="follow-topic bottom">
-        <img src="{{ STATIC_URL  }}/images/ajax-loader.gif" class="loading" style="display: none;" alt="{% trans 'loading...' %}" />
-        <p class="error" style="display: none;">{% trans "There was an error :( Try again?" %}</p>
-        <a {% if subscribed %}style="display: none;"{% endif %} class="follow-button button blue" href="{% url djangobb:forum_add_subscription topic.id %}" title="{% trans "Follow this discussion to get a message when there's a new post" %}">{% trans 'Follow Discussion' %}</a>
-        <a {% if not subscribed %}style="display: none;"{% endif %} class="unfollow-button button grey" href="{% url djangobb:forum_delete_subscription topic.id %}" title="{% trans 'Stop getting messages about new posts to this discussion' %}">{% trans 'Unfollow Discussion' %}</a>
-    </div>
+    {% if not topic.closed %}
+        <div class="follow-topic bottom">
+            <img src="{{ STATIC_URL  }}/images/ajax-loader.gif" class="loading" style="display: none;" alt="{% trans 'loading...' %}" />
+            <p class="error" style="display: none;">{% trans "There was an error :( Try again?" %}</p>
+            <a {% if subscribed %}style="display: none;"{% endif %} class="follow-button button blue" href="{% url djangobb:forum_add_subscription topic.id %}" title="{% trans "Follow this discussion to get a message when there's a new post" %}">{% trans 'Follow Discussion' %}</a>
+            <a {% if not subscribed %}style="display: none;"{% endif %} class="unfollow-button button grey" href="{% url djangobb:forum_delete_subscription topic.id %}" title="{% trans 'Stop getting messages about new posts to this discussion' %}">{% trans 'Unfollow Discussion' %}</a>
+        </div>
+    {% endif %}
 
     <div class="clearer"></div>
 </div>
