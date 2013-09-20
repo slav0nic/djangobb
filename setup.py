@@ -52,7 +52,8 @@ setup(name='djangobb_forum',
             'django-pagination',
             'south',
             'postmarkup',
-            'setuptools'
+            'setuptools',
+            'pytz>=2013b'
             ],
     keywords='django forum bb',
     test_suite='runtests.runtests',
