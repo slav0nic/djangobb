@@ -18,6 +18,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from haystack.query import SearchQuerySet, SQ
 
@@ -532,7 +533,7 @@ def upload_avatar(request, username, template=None, form_class=None):
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             messages.error(request, _("Please sign in."))
-            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
+            return HttpResponseRedirect(settings.LOGIN_URL + '?next=%s' % request.path)
         return render(request, template, {'profile': user,
                 'topic_count': topic_count,
                })
@@ -557,7 +558,7 @@ def user(request, username, section='essentials', action=None, template='djangob
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             messages.error(request, _("Please sign in."))
-            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
+            return HttpResponseRedirect(settings.LOGIN_URL + '?next=%s' % request.path)
         return render(request, template, {'profile': user,
                 'topic_count': topic_count,
                })
