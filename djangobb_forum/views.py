@@ -406,7 +406,11 @@ def show_topic(request, topic_id, full=True):
     edit_end = timezone.now()
     editable = posts.filter(created__range=(edit_start, edit_end)).filter(user_id=request.user.id)
     can_edit = request.user.has_perm('djangobb_forum.change_post')
-    first_post_number = int(forum_settings.TOPIC_PAGE_SIZE) * (int(request.GET.get('page') or 1) - 1)
+    try:
+        page_url_parameter = int(request.GET.get('page') or 1)
+    except:
+        page_url_parameter = 1
+    first_post_number = int(forum_settings.TOPIC_PAGE_SIZE) * (page_url_parameter - 1)
     can_close = can_close_topic(request.user, topic)
 
     moderator = request.user.is_superuser or request.user in topic.forum.moderators.all()
