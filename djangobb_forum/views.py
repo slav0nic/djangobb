@@ -42,7 +42,7 @@ def simple_user_agent(request):
     Utility function to show the user agent in a human-readable form. Uses
     simple parser from httpagentparser and removes the punctuation from that.
     """
-    return ', '.join(httpagentparser.simple_detect(request.META.get('HTTP_USER_AGENT', tuple()))
+    return ', '.join(httpagentparser.simple_detect(request.META.get('HTTP_USER_AGENT', tuple())))
 
 def index(request, full=True):
     users_cached = cache.get('djangobb_users_online', {})
