@@ -236,7 +236,9 @@
         {% endif %}
     {% elif can_close %}
         {% if topic.closed %}
-            <dd><a href="{% url djangobb:open_close_topic topic.id 'o' %}">{% trans "Open topic" %}</a></dd>
+       	    {% if moderator %}
+                <dd><a href="{% url djangobb:open_close_topic topic.id 'o' %}">{% trans "Open topic" %}</a></dd>
+            {% endif %}
         {% else %}
             <dd><a href="{% url djangobb:open_close_topic topic.id 'c' %}">{% trans "Close topic" %}</a></dd>
         {% endif %}
