@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.cache import cache
-from django.core.exceptions import SuspiciousOperation
+from django.core.exceptions import SuspiciousOperation, PermissionDenied
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Q, F
@@ -330,7 +330,7 @@ def misc(request):
 def show_forum(request, forum_id, full=True):
     forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
     moderator = request.user.is_superuser or\
         request.user in forum.moderators.all()
@@ -359,11 +359,11 @@ def show_topic(request, topic_id, full=True):
     user_is_authenticated = request.user.is_authenticated()
     if post_request and not user_is_authenticated:
         # Info: only user that are logged in should get forms in the page.
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
     Topic.objects.filter(pk=topic.id).update(views=F('views') + 1)
 
     last_post = topic.last_post
@@ -465,7 +465,7 @@ def add_topic(request, forum_id):
     """
     forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
     ip = request.META.get('REMOTE_ADDR', None)
     post_form_kwargs = {"forum":forum, "user":request.user, "ip":ip, }
