@@ -60,6 +60,9 @@ p, li {
 .postmsg {
 	overflow: hidden;
 }
+#reply {
+	overflow: visible;
+}
 .searchposts .postmsg {
     /* add scoll bars on small postmsg in search results */
     overflow: auto;

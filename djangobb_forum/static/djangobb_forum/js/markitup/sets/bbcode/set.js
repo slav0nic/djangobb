@@ -53,13 +53,14 @@ mySettings = {
             {name:'Cool', openWith:':cool:'}
         ]},
         {separator:'---------------' },
-		{name:'Paste browser / operating system versions', openWith: _simple_http_agent, replaceWith: '', closeWith:'', className:'browser-os-button'},
-        {name:'Scratchblocks', openWith:'', closeWith:'', dropMenu:[
+	{name:'Paste browser / operating system versions', openWith: _simple_http_agent, replaceWith: '', closeWith:'', className:'browser-os-button'},
+	{separator:'---------------' },
+        {name:'Scratchblocks', openWith:'', closeWith:'', className:'scratchblocks-button', dropMenu:[
 
             {name:'Motion // category=motion', dropMenu:[
                 {name:'move (...) steps', openWith:'move (', closeWith:') steps'},
                 {name:'turn right (...) degrees', openWith:'turn right (', closeWith:') degrees'},
-                {name:'turn left (...) degrees', openWith:'turn left (', closeWith:') degrees'},
+		{name:'turn left (...) degrees', openWith:'turn left (', closeWith:') degrees'},
                 // ---
                 {name:'point in direction (...)', openWith:'point in direction (', closeWith:' v)'},
                 {name:'point towards [... v]', openWith:'point towards [', closeWith:' v]'},

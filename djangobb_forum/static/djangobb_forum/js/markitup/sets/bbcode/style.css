@@ -80,7 +80,7 @@
 }
 .markItUp .browser-os-button a	{
 	background-image:url(../../../../img/browser-os.png);
-    background-position: top center;
+	background-position: top center;
 }
 .markItUp .clean a {
 	background-image:url(images/clean.png);
@@ -90,24 +90,29 @@
 }
 
 /* scratchblocks */
-.markItUp .markItUpButton13 > a {
+.markItUp .scratchblocks-button > a {
     background-image: url(../../../../img/block.png);
 }
-.markItUp .markItUpButton13 ul a {
+.markItUp .scratchblocks-button ul li {
+    background-color: transparent;
+    position: static;
+}
+.markItUp .scratchblocks-button ul a {
     padding: 2px 5px;
     height: auto;
-    background: #fff;
 }
-.markItUp .markItUpButton13 ul ul {
+.markItUp .scratchblocks-button ul ul {
     width: 240px;
+    z-index: 100;
+    margin-left: -4px;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: auto;
 }
-.markItUp .markItUpButton13 ul ul a {
-    width: 230px;
+.markItUp .scratchblocks-button ul ul a {
+    width: 228px;
     color: #fff;
-}
-.markItUpButton13 a:hover .scratchblocks2-container .stack:before,
-.markItUpButton13 a:hover .scratchblocks2-container .cap:before {
-    background-color: #3C769D;
 }
 .markItUpHeader ul ul ul {
     left: 100%;
