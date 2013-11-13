@@ -1,14 +1,14 @@
 # -*- coding: utf-8
 import urllib
+import hashlib
 
 from django import template
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_unicode
-from django.db import settings
+from django.conf import settings
 from django.utils.html import escape
-from django.utils.hashcompat import md5_constructor
 from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
 
@@ -263,7 +263,7 @@ def gravatar(context, email):
         size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
         url = 'https://secure.gravatar.com/avatar/%s?' if is_secure \
             else 'http://www.gravatar.com/avatar/%s?'
-        url = url % md5_constructor(email.lower()).hexdigest()
+        url = url % hashlib.md5(email.lower()).hexdigest()
         url += urllib.urlencode({
             'size': size,
             'default': forum_settings.GRAVATAR_DEFAULT,
