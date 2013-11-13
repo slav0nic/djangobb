@@ -4,7 +4,7 @@ from setuptools.command.install_lib import install_lib as _install_lib
 from distutils.command.build import build as _build
 from distutils.cmd import Command
 from djangobb_forum import get_version
-
+import django
 
 class compile_translations(Command):
     description = 'compile message catalogs to MO files via django compilemessages'
@@ -23,7 +23,10 @@ class compile_translations(Command):
             compile_messages
         curdir = os.getcwd()
         os.chdir(os.path.realpath('djangobb_forum'))
-        compile_messages(stderr=sys.stderr)
+        if django.VERSION[:2] == (1, 6):
+            compile_messages(stdout=sys.stdout)
+        else:
+            compile_messages(stderr=sys.stderr)
         os.chdir(curdir)
 
 
@@ -46,7 +49,7 @@ setup(name='djangobb_forum',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-            'django==1.5.4',
+            'django==1.6.0',
             'pillow>=2.1.0',
             'django-haystack==2.1',
             'django-pagination',
