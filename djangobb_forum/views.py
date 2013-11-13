@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.sites.models import Site
 from django.core.cache import cache
-from django.core.exceptions import SuspiciousOperation
+from django.core.exceptions import SuspiciousOperation, PermissionDenied
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Q, F
@@ -20,6 +20,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from haystack.query import SearchQuerySet, SQ
 
@@ -359,16 +360,22 @@ def misc(request):
 def show_forum(request, forum_id, full=True):
     forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
-    moderator = request.user.is_superuser or \
-                request.user in forum.moderators.all()
-    to_return = {'categories': Category.objects.all(),
-                 'forum': forum,
-                 'posts': forum.post_count,
-                 'topics': topics,
-                 'moderator': moderator,
-    }
+    moderator = request.user.is_superuser or\
+        request.user in forum.moderators.all()
+
+    categories = []
+    for category in Category.objects.all():
+        if category.has_access(request.user):
+            categories.append(category)
+
+    to_return = {'categories': categories,
+                'forum': forum,
+                'posts': forum.post_count,
+                'topics': topics,
+                'moderator': moderator,
+                }
     if full:
         return render_to_response('djangobb_forum/forum.html', to_return,
                                   context_instance=RequestContext(request))
@@ -390,11 +397,11 @@ def show_topic(request, topic_id, full=True):
     user_is_authenticated = request.user.is_authenticated()
     if post_request and not user_is_authenticated:
         # Info: only user that are logged in should get forms in the page.
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
     Topic.objects.filter(pk=topic.id).update(views=F('views') + 1)
 
     last_post = topic.last_post
@@ -502,7 +509,7 @@ def add_topic(request, forum_id):
     """
     forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
     ip = request.META.get('REMOTE_ADDR', None)
     post_form_kwargs = {"forum": forum, "user": request.user, "ip": ip, }
@@ -570,11 +577,10 @@ def upload_avatar(request, username, template=None, form_class=None):
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             messages.error(request, _("Please sign in."))
-            return HttpResponseRedirect(
-                reverse('user_signin') + '?next=%s' % request.path)
-        return render_to_response(template, {'profile': user,
-                                             'topic_count': topic_count,
-        }, context_instance=RequestContext(request))
+            return HttpResponseRedirect(settings.LOGIN_URL + '?next=%s' % request.path)
+        return render(request, template, {'profile': user,
+                'topic_count': topic_count,
+               })
 
 
 @transaction.commit_on_success
@@ -600,11 +606,10 @@ def user(request, username, section='essentials', action=None,
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             messages.error(request, _("Please sign in."))
-            return HttpResponseRedirect(
-                reverse('user_signin') + '?next=%s' % request.path)
-        return render_to_response(template, {'profile': user,
-                                             'topic_count': topic_count,
-        }, context_instance=RequestContext(request))
+            return HttpResponseRedirect(settings.LOGIN_URL + '?next=%s' % request.path)
+        return render(request, template, {'profile': user,
+                'topic_count': topic_count,
+               })
 
 
 @login_required
