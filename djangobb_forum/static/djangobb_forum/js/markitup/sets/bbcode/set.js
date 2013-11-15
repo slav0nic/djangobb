@@ -301,7 +301,8 @@ mySettings = {
                 'Size', 'Big', 'Small', 'Bulleted list', 'Numeric list',
                 'List item', 'Quotes', 'Smiles', 'Smile', 'Neutral', 'Sad',
                 'Big smile', 'Yikes', 'Wink', 'Hmm', 'Tongue', 'Lol', 'Mad',
-                'Roll', 'Cool', 'Clean', 'Preview']) > -1) {
+                'Roll', 'Cool', 'Clean', 'Preview',
+                'Paste browser / operating system versions']) > -1) {
             return;
         }
 
