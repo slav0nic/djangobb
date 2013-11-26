@@ -420,11 +420,11 @@ class VotePollForm(forms.Form):
 
         choices = self.poll.choices.all().values_list("id", "choice")
         if self.poll.single_choice():
-            self.fields["choice"] = forms.ChoiceField(
+            self.fields["choice"] = forms.ChoiceField(label=_("Choice"),
                 choices=choices, widget=forms.RadioSelect
             )
         else:
-            self.fields["choice"] = forms.MultipleChoiceField(
+            self.fields["choice"] = forms.MultipleChoiceField(label=_("Choice"),
                 choices=choices, widget=forms.CheckboxSelectMultiple
             )
 
@@ -441,13 +441,14 @@ class VotePollForm(forms.Form):
 
 
 class PollForm(forms.ModelForm):
-    answers = forms.CharField(min_length=2, widget=forms.Textarea,
+    question = forms.CharField(label=_("Question"))
+    answers = forms.CharField(label=_("Answers"), min_length=2, widget=forms.Textarea,
         help_text=_("Write each answer on a new line.")
     )
-    days = forms.IntegerField(required=False, min_value=1,
+    days = forms.IntegerField(label=_("Days"), required=False, min_value=1,
         help_text=_("Number of days for this poll to run. Leave empty for never ending poll.")
     )
-    choice_count = forms.IntegerField(required=True, initial=1, min_value=1,
+    choice_count = forms.IntegerField(label=_("Choice count"), required=True, initial=1, min_value=1,
         error_messages={'min_value': _("Number of choices must be positive.")},
     )
 
