@@ -754,7 +754,7 @@ def delete_post(request, post_id):
 
     if not (request.user.is_superuser or\
         request.user in post.topic.forum.moderators.all() or \
-        (post.user == request.user and post == last_post)):
+        (post.user == request.user)):
         messages.success(request, _("You haven't the permission to delete this post."))
         return HttpResponseRedirect(post.get_absolute_url())
 
