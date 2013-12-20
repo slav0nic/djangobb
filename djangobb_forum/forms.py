@@ -172,7 +172,7 @@ class AddPostForm(forms.ModelForm):
 
 
 class EditPostForm(forms.ModelForm):
-    name = forms.CharField(required=False, label=_('Subject'),
+    name = forms.CharField(required=False, label=_('Subject'), max_length=155,
                            widget=forms.TextInput(attrs={'size':'115'}))
     silent_edit = forms.BooleanField(required=False, label=_('Silent edit?'))
 
