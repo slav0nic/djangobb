@@ -4,5 +4,5 @@ django-haystack==2.1
 south
 pygments
 postmarkup
-django-pagination
+linaro-django-pagination
 pytz>=2013b

@@ -26,13 +26,13 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
             'django.contrib.humanize',
 
             'haystack',
-            'pagination',
+            'linaro_django_pagination',
 
             'djangobb_forum',
         ),
         MIDDLEWARE_CLASSES=global_settings.MIDDLEWARE_CLASSES + (
                 'django.middleware.locale.LocaleMiddleware',
-                'pagination.middleware.PaginationMiddleware',
+                'linaro_django_pagination.middleware.PaginationMiddleware',
                 'django.middleware.transaction.TransactionMiddleware',
                 'djangobb_forum.middleware.LastLoginMiddleware',
                 'djangobb_forum.middleware.UsersOnline',
