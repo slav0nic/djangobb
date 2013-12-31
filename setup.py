@@ -49,7 +49,7 @@ setup(name='djangobb_forum',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-            'django==1.6.0',
+            'django>=1.5.5',
             'pillow>=2.1.0',
             'django-haystack==2.1',
             'linaro-django-pagination',

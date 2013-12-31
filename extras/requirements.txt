@@ -1,4 +1,4 @@
-Django==1.5.4
+Django>=1.5.5
 Pillow>=2.1.0
 django-haystack==2.1
 south
