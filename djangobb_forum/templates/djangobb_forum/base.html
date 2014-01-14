@@ -36,6 +36,9 @@
     </script>
 
     <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/scratchblocks2.js"></script>
+    <script type="text/javascript">
+    scratchblocks2.parse('pre.blocks');
+    </script>
 
     {% if user.is_authenticated %}
         {% if post %}
