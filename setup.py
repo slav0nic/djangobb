@@ -21,12 +21,18 @@ class compile_translations(Command):
         import django
         from django.core.management.commands.compilemessages import \
             compile_messages
+        from django.core.management.base import CommandError
+
         curdir = os.getcwd()
         os.chdir(os.path.realpath('djangobb_forum'))
-        if django.VERSION[:2] == (1, 6):
-            compile_messages(stdout=sys.stdout)
-        else:
-            compile_messages(stderr=sys.stderr)
+        try:
+            if django.VERSION[:2] == (1, 6):
+                compile_messages(stdout=sys.stdout)
+            else:
+                compile_messages(stderr=sys.stderr)
+        except CommandError:
+            # raised if gettext pkg not installed
+            pass
         os.chdir(curdir)
 
 
@@ -48,6 +54,7 @@ setup(name='djangobb_forum',
     author_email='Maranchuk Sergey <slav0nic0@gmail.com>',
     packages=find_packages(),
     include_package_data=True,
+    setup_requires=['django>=1.5.5'],
     install_requires=[
             'django>=1.5.5',
             'pillow>=2.1.0',
