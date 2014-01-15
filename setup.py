@@ -4,7 +4,6 @@ from setuptools.command.install_lib import install_lib as _install_lib
 from distutils.command.build import build as _build
 from distutils.cmd import Command
 from djangobb_forum import get_version
-import django
 
 class compile_translations(Command):
     description = 'compile message catalogs to MO files via django compilemessages'
@@ -19,6 +18,7 @@ class compile_translations(Command):
     def run(self):
         import os
         import sys
+        import django
         from django.core.management.commands.compilemessages import \
             compile_messages
         curdir = os.getcwd()
