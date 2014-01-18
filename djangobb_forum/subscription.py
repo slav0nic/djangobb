@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -16,17 +14,10 @@ else:
         """
         Shortcut for sending email.
         """
-    
+
         msg = EmailMultiAlternatives(subject, text, from_email, rec_list)
         if html:
             msg.attach_alternative(html, "text/html")
-        if forum_settings.EMAIL_DEBUG:
-            print('---begin---')
-            print('To:', rec_list)
-            print('Subject:', subject)
-            print('Body:', text)
-            print('---end---')
-        else:
             msg.send(fail_silently=True)
 
 
