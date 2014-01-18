@@ -1,7 +1,9 @@
 # coding: utf-8
 
 import re
-from HTMLParser import HTMLParser, HTMLParseError
+from django.utils.six.moves import html_parser
+HTMLParser = html_parser.HTMLParser
+HTMLParseError = html_parser.HTMLParseError
 from postmarkup import render_bbcode
 from json import JSONEncoder
 try:
@@ -15,7 +17,7 @@ from django.template import RequestContext
 from django.http import HttpResponse, Http404
 from django.utils.functional import Promise
 from django.utils.translation import check_for_language
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
 from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.sites.models import Site
@@ -85,7 +87,7 @@ class LazyJSONEncoder(JSONEncoder):
 
     def default(self, o):
         if isinstance(o, Promise):
-            return force_unicode(o)
+            return force_text(o)
         else:
             return super(LazyJSONEncoder, self).default(o)
 

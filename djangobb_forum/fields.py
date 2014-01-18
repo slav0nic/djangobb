@@ -2,10 +2,11 @@
 Details about AutoOneToOneField:
     http://softwaremaniacs.org/blog/2007/03/07/auto-one-to-one-field/
 """
+from django.utils import six
 try:
     from cStringIO import StringIO
 except ImportError:
-    from StringIO import StringIO
+    StringIO = six.StringIO
 import random
 from hashlib import sha1
 import json
@@ -82,7 +83,7 @@ class ExtendedImageField(models.ImageField):
         return string.getvalue()
 
 
-class JSONField(models.TextField):
+class JSONField(six.with_metaclass(models.SubfieldBase, models.TextField)):
     """
     JSONField is a generic textfield that neatly serializes/unserializes
     JSON objects seamlessly.
@@ -96,7 +97,7 @@ class JSONField(models.TextField):
             return None
 
         try:
-            if isinstance(value, basestring):
+            if isinstance(value, six.string_types):
                 return json.loads(value)
         except ValueError:
             pass

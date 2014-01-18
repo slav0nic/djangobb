@@ -1,16 +1,16 @@
 # -*- coding: utf-8
-import urllib
 import hashlib
 
 from django import template
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 from django.conf import settings
 from django.utils.html import escape
 from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
+from django.utils.six.moves.urllib.parse import urlencode
 
 from linaro_django_pagination.templatetags.pagination_tags import paginate
 
@@ -108,7 +108,7 @@ def link(object, anchor=u''):
     """
 
     url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
-    anchor = anchor or smart_unicode(object)
+    anchor = anchor or smart_text(object)
     return mark_safe('<a href="%s">%s</a>' % (url, escape(anchor)))
 
 
@@ -119,7 +119,7 @@ def lofi_link(object, anchor=u''):
     """
 
     url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
-    anchor = anchor or smart_unicode(object)
+    anchor = anchor or smart_text(object)
     return mark_safe('<a href="%slofi/">%s</a>' % (url, escape(anchor)))
 
 
@@ -263,8 +263,8 @@ def gravatar(context, email):
         size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
         url = 'https://secure.gravatar.com/avatar/%s?' if is_secure \
             else 'http://www.gravatar.com/avatar/%s?'
-        url = url % hashlib.md5(email.lower()).hexdigest()
-        url += urllib.urlencode({
+        url = url % hashlib.md5(email.lower().encode('ascii')).hexdigest()
+        url += urlencode({
             'size': size,
             'default': forum_settings.GRAVATAR_DEFAULT,
         })

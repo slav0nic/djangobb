@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -19,11 +21,11 @@ else:
         if html:
             msg.attach_alternative(html, "text/html")
         if forum_settings.EMAIL_DEBUG:
-            print '---begin---'
-            print 'To:', rec_list
-            print 'Subject:', subject
-            print 'Body:', text
-            print '---end---'
+            print('---begin---')
+            print('To:', rec_list)
+            print('Subject:', subject)
+            print('Body:', text)
+            print('---end---')
         else:
             msg.send(fail_silently=True)
 

@@ -59,8 +59,8 @@ def index(request, full=True):
         cat['forums'].append(forum)
         forums[forum.id] = forum
 
-    cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
-    cats = sorted(cats.values(), cmpdef)
+    cmpkey = lambda x: x['cat'].position
+    cats = sorted(cats.values(), key=cmpkey)
 
     to_return = {'cats': cats,
                 'posts': Post.objects.count(),
