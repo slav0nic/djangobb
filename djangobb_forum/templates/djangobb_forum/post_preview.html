@@ -27,8 +27,37 @@ a:hover, a:active {
 <div class="post_body_html">{{ data|safe }}</div>
 </div>
 <script type="text/javascript" src="{{ STATIC_URL }}/js/jquery.min.js"></script> 
+
 <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/scratchblocks2.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/translations.js" charset="utf-8"></script>
 <script type="text/javascript">
+(function ($) {
+    var forum_langs = {13: "de", 14: "es", 15: "fr", 16: "zh_CN", 17: "pl",
+        18: "ja", 19: "nl", 20: "pt", 21: "it", 22: "he", 23: "ko", 24: "nb",
+        25: "tr", 26: "el", 27: "ru", 33: "ca", 36: "id"};
+
+    function match_path(path) {
+        return new RegExp("^/discuss/([0-9]+)/").exec(path);
+    }
+
+    var match = match_path(window.location.pathname);
+    if (!match) {
+        var links = $(".linkst ul a");
+        for (var i=0; i<links.length; i++) {
+            match = match_path($(links[i]).attr("href"));
+            if (match) break;
+        }
+    }
+    if (!match) return;
+    var forum_id = parseInt(match[1]);
+    var code = forum_langs[forum_id];
+
+    if (code in scratchblocks2._translations) {
+        scratchblocks2.load_language(scratchblocks2._translations[code]);
+    }
+})(jQuery);
+
 scratchblocks2.parse('pre.blocks');
 </script>
+
 </body>
