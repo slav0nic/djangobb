@@ -59,10 +59,14 @@
         var forum_id = parseInt(match[1]);
         var code = forum_langs[forum_id];
 
-        scratchblocks2.load_language(scratchblocks2._translations[code]);
+        if (code in scratchblocks2._translations) {
+            scratchblocks2.load_language(scratchblocks2._translations[code]);
+        }
     })(jQuery);
 
-    scratchblocks2.parse('pre.blocks');
+    $(document).ready(function() {
+        scratchblocks2.parse('pre.blocks');
+    });
     </script>
 
     {% if user.is_authenticated %}
