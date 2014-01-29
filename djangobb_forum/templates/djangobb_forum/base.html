@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load forum_extras %}
 {% load i18n %}
+{% load gargoyle_tags %}
 
 {% block page-category %}{% trans "Discuss Scratch" %}{% endblock page-category %}
 
@@ -101,6 +102,13 @@
   <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/js/jquery.cookie.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/js/forums.js"></script>
 {% endblock js %}
+
+{% block search_form_hidden_inputs %}
+{{ block.super }}
+{% ifswitch google_searches %}
+<input type="hidden" name="refinement" value="Forums" />
+{% endifswitch %}
+{% endblock %}
 
 {% block main-content %}
     {% include 'djangobb_forum/header.html' %}
