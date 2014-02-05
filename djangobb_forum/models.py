@@ -205,7 +205,7 @@ class Topic(models.Model):
                 tracking.last_read = timezone.now()
                 tracking.save()
             #update topics if exist new post or does't exist in dict
-            if self.last_post_id > tracking.topics.get(str(self.id), 0):
+            elif self.last_post_id > tracking.topics.get(str(self.id), 0):
                 tracking.topics[str(self.id)] = self.last_post_id
                 tracking.save()
         else:
