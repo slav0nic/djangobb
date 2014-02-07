@@ -15,6 +15,7 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
                 'ENGINE': 'django.db.backends.sqlite3',
             }
         },
+        STATIC_ROOT='static/',
         INSTALLED_APPS=(
             'django.contrib.auth',
             'django.contrib.contenttypes',
