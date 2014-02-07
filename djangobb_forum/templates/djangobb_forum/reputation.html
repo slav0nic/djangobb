@@ -24,7 +24,7 @@
 				<th class="tc3" style="width: 35%;">{% trans "Reason" %}</th>
 				<th class="tc3" style="width: 10%; text-align: center;">{% trans "Estimation" %}</th>
 				<th class="tc3" style="width: 15%;">{% trans "Date" %}</th>
-				{% if request.user.is_superuser %}
+				{% if user.is_superuser %}
 					<th class="tc3" style="width: 10%;">{% trans "Delete" %}</th>
 				{% endif %}
 				</tr>
@@ -43,7 +43,7 @@
 						{% endif %}
 						</td>
 						<td>{% forum_time reputation.time %}</td>
-						{% if request.user.is_superuser %}
+						{% if user.is_superuser %}
 							<td style="text-align: center;"><input type="checkbox" name="reputation_id" value="{{ reputation.id }}"></td>
 						{% endif %}
 					</tr>
@@ -59,7 +59,7 @@
 	<div class="inbox">
 		<p class="pagelink conl">{# pagination #}</p>
 		<p class="postlink conr">
-			{% if request.user.is_superuser %}
+			{% if user.is_superuser %}
 				<input name="del_reputation" value="Delete" onclick="return confirm('{% trans "Are you sure" %}?')" type="submit">
 			{% endif %}
 			<a href="javascript:history.go(-1)">{% trans "Go back" %}</a>

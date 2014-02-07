@@ -19,7 +19,7 @@
 					<li id="navadmin"><a href="{% url 'admin:index' %}">{% trans "Administration" %}</a></li>
 				{% endif %}
 				{% if user.is_authenticated %}
-					<li id="navprofile"><a href="{% url 'djangobb:forum_profile' request.user %}">{% trans "Profile" %}</a></li>
+					<li id="navprofile"><a href="{% url 'djangobb:forum_profile' user.username %}">{% trans "Profile" %}</a></li>
 					{% if forum_settings.PM_SUPPORT %}
 						<li id="navpm"><a href="{% url 'messages_inbox' %}">{% trans "PM" %}</a></li> 
 					{% endif %}

@@ -5,7 +5,6 @@ from distutils.command.build import build as _build
 from distutils.cmd import Command
 from djangobb_forum import get_version
 
-
 class compile_translations(Command):
     description = 'compile message catalogs to MO files via django compilemessages'
     user_options = []
@@ -19,11 +18,21 @@ class compile_translations(Command):
     def run(self):
         import os
         import sys
+        import django
         from django.core.management.commands.compilemessages import \
             compile_messages
+        from django.core.management.base import CommandError
+
         curdir = os.getcwd()
         os.chdir(os.path.realpath('djangobb_forum'))
-        compile_messages(stderr=sys.stderr)
+        try:
+            if django.VERSION[:2] == (1, 6):
+                compile_messages(stdout=sys.stdout)
+            else:
+                compile_messages(stderr=sys.stderr)
+        except CommandError:
+            # raised if gettext pkg not installed
+            pass
         os.chdir(curdir)
 
 
@@ -45,14 +54,16 @@ setup(name='djangobb_forum',
     author_email='Maranchuk Sergey <slav0nic0@gmail.com>',
     packages=find_packages(),
     include_package_data=True,
+    setup_requires=['django>=1.5.5'],
     install_requires=[
-            'django==1.5.1',
-            'pil>=1.1.7',
-            'django-haystack==2.0',
-            'django-pagination',
+            'django>=1.5.5',
+            'pillow>=2.1.0',
+            'django-haystack==2.1',
+            'linaro-django-pagination',
             'south',
             'postmarkup',
-            'setuptools'
+            'setuptools',
+            'pytz>=2013b'
             ],
     keywords='django forum bb',
     test_suite='runtests.runtests',

@@ -2,6 +2,7 @@ syntax: glob
 *.pyc
 *.pyo
 *.orig
+*.egg
 *.egg-info
 .pydevproject
 .project
@@ -19,3 +20,4 @@ local_settings.py
 .venv
 build/
 dist/
+.idea

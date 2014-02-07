@@ -5,8 +5,6 @@ from datetime import timedelta
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth.models import User
-from django.db.models.expressions import F
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -14,6 +12,7 @@ from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import convert_text_to_html, set_language
+from djangobb_forum.user import User
 
 
 SORT_USER_BY_CHOICES = (
@@ -329,7 +328,6 @@ class PostSearchForm(forms.Form):
     show_as = forms.ChoiceField(choices=SHOW_AS_CHOICES, label=_('Show results as'))
 
 
-
 class ReputationForm(forms.ModelForm):
 
     class Meta:
@@ -378,6 +376,7 @@ class ReputationForm(forms.ModelForm):
             reputation.save()
         return reputation
 
+
 class MailToForm(forms.Form):
     subject = forms.CharField(label=_('Subject'),
                               widget=forms.TextInput(attrs={'size':'75', 'maxlength':'70', 'class':'longinput'}))
@@ -421,11 +420,11 @@ class VotePollForm(forms.Form):
 
         choices = self.poll.choices.all().values_list("id", "choice")
         if self.poll.single_choice():
-            self.fields["choice"] = forms.ChoiceField(
+            self.fields["choice"] = forms.ChoiceField(label=_("Choice"),
                 choices=choices, widget=forms.RadioSelect
             )
         else:
-            self.fields["choice"] = forms.MultipleChoiceField(
+            self.fields["choice"] = forms.MultipleChoiceField(label=_("Choice"),
                 choices=choices, widget=forms.CheckboxSelectMultiple
             )
 
@@ -442,13 +441,14 @@ class VotePollForm(forms.Form):
 
 
 class PollForm(forms.ModelForm):
-    answers = forms.CharField(min_length=2, widget=forms.Textarea,
+    question = forms.CharField(label=_("Question"))
+    answers = forms.CharField(label=_("Answers"), min_length=2, widget=forms.Textarea,
         help_text=_("Write each answer on a new line.")
     )
-    days = forms.IntegerField(required=False, min_value=1,
+    days = forms.IntegerField(label=_("Days"), required=False, min_value=1,
         help_text=_("Number of days for this poll to run. Leave empty for never ending poll.")
     )
-    choice_count = forms.IntegerField(required=True, initial=1, min_value=1,
+    choice_count = forms.IntegerField(label=_("Choice count"), required=True, initial=1, min_value=1,
         error_messages={'min_value': _("Number of choices must be positive.")},
     )
 

@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum import views as forum_views
