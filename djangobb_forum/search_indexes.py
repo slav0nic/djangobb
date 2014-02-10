@@ -1,11 +1,18 @@
 from haystack.indexes import *
 from haystack import site
-from celery_haystack.indexes import CelerySearchIndex
+
+from gargoyle import gargoyle
+try:
+    if gargoyle.is_active('solr_indexing_enabled'):
+        from celery_haystack.indexes import CelerySearchIndex as SearchIndex
+except:
+    # Allow migrations to run
+    from celery_haystack.indexes import CelerySearchIndex as SearchIndex
 
 
 import djangobb_forum.models as models
 
-class PostIndex(CelerySearchIndex):
+class PostIndex(SearchIndex):
     text = CharField(document=True, use_template=True)
     author = CharField(model_attr='user')
     created = DateTimeField(model_attr='created')
