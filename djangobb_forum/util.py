@@ -425,6 +425,31 @@ class ScratchblocksTag(postmarkup.TagBase):
         self.skip_contents(parser)
         return u'<pre class=blocks>%s</pre>' % postmarkup.PostMarkup.standard_replace(contents)
 
+
+class AkismetSpamError(Exception):
+    def user_error(self):
+        return _('Sorry, your post looks like spam!')
+
+def filter_akismet(text):
+    is_spam = False
+    try:
+        from akismet import Akismet
+        api = Akismet(
+            key=forum_settings.AKISMET_API_KEY,
+            blog_url=forum_settings.AKISMET_BLOG_URL,
+            agent=forum_settings.AKISMET_AGENT,
+            api_timeout=forum_settings.AKISMET_TIMEOUT)
+        if api.verify_key():
+            is_spam = api.comment_check(text)
+        else:
+            logger.error("Invalid Aksimet API key.", extra={'key': api.key, 'blog': api.blog_url, 'user_agent': api.user_agent})
+    except Exception as e:
+        logger.error("Error while checking Akismet", extra={'exception': e})
+    if is_spam:
+        raise AkismetSpamError()
+    return text
+
+
 # This allows us to control the bb tags
 def customize_postmarkup(allow_external_links):
     custom_postmarkup = postmarkup.PostMarkup()
