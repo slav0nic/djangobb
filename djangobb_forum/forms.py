@@ -112,11 +112,12 @@ class AddPostForm(forms.ModelForm):
                 self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
             
-            try:
-                cleaned_data['body'] = filter_akismet(body)
-            except AkismetSpamError as e:
-                self._errors['body'] = self.error_class([e.user_error()])
-                del cleaned_data['body']
+            if self.user.groups.filter(name="New Scratchers"):
+                try:
+                    cleaned_data['body'] = filter_akismet(body)
+                except AkismetSpamError as e:
+                    self._errors['body'] = self.error_class([e.user_error()])
+                    del cleaned_data['body']
 
             cleaned_data['body'] = filter_language(body)
 
