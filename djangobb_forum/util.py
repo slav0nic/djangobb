@@ -25,6 +25,9 @@ from django.contrib.sites.models import Site
 
 from djangobb_forum import settings as forum_settings
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
