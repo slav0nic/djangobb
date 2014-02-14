@@ -448,7 +448,7 @@ def filter_akismet(text, user, ip, request_data):
                 'user_agent': request_data.get("HTTP_USER_AGENT", ""),
                 'comment_author': user.username,
             }
-            is_spam = api.comment_check(text)
+            is_spam = api.comment_check(text, data)
         else:
             logger.error("Invalid Aksimet API key.", extra={'key': api.key, 'blog': api.blog_url, 'user_agent': api.user_agent})
     except Exception as e:
