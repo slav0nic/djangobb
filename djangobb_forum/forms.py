@@ -66,6 +66,7 @@ class AddPostForm(forms.ModelForm):
         self.topic = kwargs.pop('topic', None)
         self.forum = kwargs.pop('forum', None)
         self.ip = kwargs.pop('ip', None)
+        self.request_data = kwargs.pop('request_data', {})
         self.is_ip_banned = kwargs.pop('is_ip_banned')
         super(AddPostForm, self).__init__(*args, **kwargs)
 
@@ -114,7 +115,7 @@ class AddPostForm(forms.ModelForm):
             
             if self.user.groups.filter(name="New Scratchers"):
                 try:
-                    cleaned_data['body'] = filter_akismet(body)
+                    cleaned_data['body'] = filter_akismet(body, self.user, self.ip, self.request_data)
                 except AkismetSpamError as e:
                     self._errors['body'] = self.error_class([e.user_error()])
                     del cleaned_data['body']

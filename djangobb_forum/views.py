@@ -430,6 +430,7 @@ def show_topic(request, topic_id, full=True):
         post_form_kwargs = {
             "topic":topic,
             "user":request.user,
+            "request_data":request.META,
             "ip":ip,
             'is_ip_banned': request.is_ip_banned,
         }
@@ -568,6 +569,7 @@ def add_topic(request, forum_id, full=True):
     post_form_kwargs = {
         "forum": forum,
         "user": request.user,
+        "request_data":request.META,
         "ip": ip,
         "is_ip_banned": request.is_ip_banned,
     }
@@ -1072,6 +1074,7 @@ def mobile_reply(request, post_id):
     post_form_kwargs = {
         "topic":post.topic,
         "user":request.user,
+        "request_data":request.META,
         "ip":ip,
         'is_ip_banned': request.is_ip_banned,
     }
