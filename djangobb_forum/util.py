@@ -433,7 +433,7 @@ class AkismetSpamError(Exception):
     def user_error(self):
         return _('Sorry, your post looks like spam!')
 
-def filter_akismet(text, user, ip, request_data):
+def filter_akismet(text, user, ip, request_data, url=None):
     is_spam = False
     try:
         from akismet import Akismet
@@ -445,9 +445,14 @@ def filter_akismet(text, user, ip, request_data):
         if api.verify_key():
             data = {
                 'user_ip': ip,
-                'user_agent': request_data.get("HTTP_USER_AGENT", ""),
+                'user_agent': request_data.get("HTTP_USER_AGENT", None),
                 'comment_author': user.username,
+                'referrer': request_data.get("HTTP_REFERER", None),
+                'comment_author_email': user.email,
+                'comment_type': 'comment',
             }
+            if url is not None:
+                data['permalink'] = url
             is_spam = api.comment_check(text, data)
         else:
             logger.error("Invalid Aksimet API key.", extra={'key': api.key, 'blog': api.blog_url, 'user_agent': api.user_agent})

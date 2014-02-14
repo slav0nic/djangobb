@@ -430,9 +430,10 @@ def show_topic(request, topic_id, full=True):
         post_form_kwargs = {
             "topic":topic,
             "user":request.user,
-            "request_data":request.META,
             "ip":ip,
             'is_ip_banned': request.is_ip_banned,
+            "request_data":request.META,
+            "url": "http://scratch.mit.edu%s" % back_url,
         }
         if post_request and AddPostForm.FORM_NAME in request.POST:
 
@@ -569,9 +570,9 @@ def add_topic(request, forum_id, full=True):
     post_form_kwargs = {
         "forum": forum,
         "user": request.user,
-        "request_data":request.META,
         "ip": ip,
         "is_ip_banned": request.is_ip_banned,
+        "request_data":request.META
     }
 
     if request.method == 'POST':
@@ -1074,9 +1075,10 @@ def mobile_reply(request, post_id):
     post_form_kwargs = {
         "topic":post.topic,
         "user":request.user,
-        "request_data":request.META,
         "ip":ip,
         'is_ip_banned': request.is_ip_banned,
+        "request_data":request.META,
+        "url": "http://scratch.mit.edu%s" % post.get_absolute_url(),
     }
     if AddPostForm.FORM_NAME in request.POST:
         reply_form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
