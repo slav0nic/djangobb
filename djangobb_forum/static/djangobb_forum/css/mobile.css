@@ -101,7 +101,7 @@ Pagination
 .pagination span {
     display: block;
     padding: 3px;
-    width: 14px;
+    min-width: 14px;
     text-align: center;
     background: #eee;
     border: 1px solid #aaa;
