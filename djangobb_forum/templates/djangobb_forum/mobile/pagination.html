@@ -1,5 +1,5 @@
 {% load i18n %}
 {% if is_paginated %}<ul class=pagination>
     {% for p in pages %}
-    {% if p %}<li><a {% ifequal page_obj.number forloop.counter %}class=current{% else %}href="?{{ get_params }}page={{ p }}"{% endifequal %}><span>{{ p }}</span></a>{% else %}<li class=ellipsis>…{% endif %}{% endfor %}
+    {% if p %}<li><a {% ifequal page_obj.number p %}class=current{% else %}href="?{{ get_params }}page={{ p }}"{% endifequal %}><span>{{ p }}</span></a>{% else %}<li class=ellipsis>…{% endif %}{% endfor %}
 </ul>{% endif %}
