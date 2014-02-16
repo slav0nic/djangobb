@@ -531,6 +531,7 @@ def show_topic(request, topic_id, full=True):
                 'reply_form': reply_form,
                 })
 
+@login_required
 def show_unread_posts(request, topic_id, full=True):
     post = None
     user = request.user
