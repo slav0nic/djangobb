@@ -3,6 +3,8 @@
 import os.path
 from datetime import timedelta
 
+from gargoyle import gargoyle
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -117,7 +119,7 @@ class AddPostForm(forms.ModelForm):
                 self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
             
-            if self.user.groups.filter(name="New Scratchers"):
+            if gargoyle.is_active('akismet_filter') and self.user.groups.filter(name="New Scratchers"):
                 try:
                     cleaned_data['body'] = filter_akismet(body, self.user, self.ip, self.request_data, self.url)
                 except AkismetSpamError as e:
