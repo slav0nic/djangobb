@@ -18,7 +18,7 @@ else:
         msg = EmailMultiAlternatives(subject, text, from_email, rec_list)
         if html:
             msg.attach_alternative(html, "text/html")
-            msg.send(fail_silently=True)
+        msg.send(fail_silently=True)
 
 
 # TODO: move to txt template
