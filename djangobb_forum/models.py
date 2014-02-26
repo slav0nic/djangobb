@@ -13,6 +13,8 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
+from django_fsm.db.fields import FSMField, transition
+
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import smiles, convert_text_to_html
 from djangobb_forum import settings as forum_settings
@@ -59,6 +61,21 @@ if os.path.exists(path):
                      if os.path.isdir(os.path.join(path, theme))]
 else:
     THEME_CHOICES = []
+
+
+import logging
+logger = logging.getLogger(__name__)
+
+akismet_api = None
+try:
+    from akismet import Akismet
+    akismet_api = Akismet(key=forum_settings.AKISMET_API_KEY, blog_url=forum_settings.AKISMET_BLOG_URL, agent=forum_settings.AKISMET_AGENT)
+    if not akismet_api.verify_key():
+        logger.error("Invalid Aksimet API key.", extra={'key': akismet_api.key, 'blog': akismet_api.blog_url, 'user_agent': akismet_api.user_agent})
+        akismet_api = None
+except Exception as e:
+    logger.error("Error while initializing Akismet", extra={'exception': e})
+
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
@@ -490,6 +507,127 @@ class PollChoice(models.Model):
 
 
 #------------------------------------------------------------------------------
+
+
+class PostStatus(models.Model):
+    """
+    Keeps track of the status of posts for moderation purposes.
+    """
+    UNREVIEWED = 'unreviewed'
+    FILTERED_SPAM = 'filtered_spam'
+    FILTERED_HAM = 'filtered_ham'
+    MARKED_SPAM = 'marked_spam'
+    MARKED_HAM = 'marked_ham'
+
+    post = models.ForeignKey(Post)
+    state = FSMField(default=UNREVIEWED)
+    topic = models.ForeignKey(Topic)
+    user_agent = models.CharField(max_length=200, blank=True, null=True)
+    referrer = models.CharField(max_length=200, blank=True, null=True)
+    permalink = models.CharField(max_length=200, blank=True, null=True)
+
+    def to_akismet_data(self):
+        post = self.post
+        topic = self.topic
+        user = post.user
+        user_ip = post.user_ip
+        comment_author = user.username
+        user_agent = self.user_agent
+        referrer = self.referrer
+        permalink = self.permalink
+        comment_date_gmt = post.created.isoformat(' ')
+        comment_post_modified_gmt = topic.created.isoformat(' ')
+
+        return {
+            'user_ip': user_ip,
+            'user_agent': user_agent,
+            'comment_author': comment_author,
+            'referrer': referrer,
+            'permalink': permalink,
+            'comment_type': 'comment',
+            'comment_date_gmt': comment_date_gmt,
+            'comment_post_modified_gmt': comment_post_modified_gmt
+        }
+
+    def comment_check(self):
+        """
+        Pass the associated post through Akismet if it's available. If it's not
+        available return None. Otherwise return True or False.
+        """
+        if akismet_api is None:
+            logger.warning("Skipping akismet check. No api.")
+            return None
+
+        data = self.to_akismet_data()
+        content = self.post.body
+        is_spam = None
+
+        try:
+            is_spam = akismet_api.comment_check(body, data)
+        except Exception as e:
+            logger.error("Error while checking Akismet", extra={"exception": e})
+            is_spam = None
+
+        return is_spam
+
+    def is_spam(self):
+        """
+        Condition used by the FSM. Return True if the Akismet API is available
+        and returns a positive. Otherwise return False or None.
+        """
+        is_spam = self.comment_check()
+        if is_spam is None:
+            return False
+        else:
+            return is_spam
+
+    def is_ham(self):
+        """
+        Inverse of is_spam.
+        """
+        is_spam = self.comment_check()
+        if is_spam is None:
+            return False
+        else:
+            return not is_spam
+
+    @transition(
+        field=state, source=UNREVIEWED, target=FILTERED_SPAM,
+        save=True, conditions=[is_spam])
+    def filter_spam(self):
+        """
+        Akismet detects this post is spam, move it to the dustbin and report it.
+        """
+        pass
+
+    @transition(
+        field=state, source=UNREVIEWED, target=FILTERED_HAM,
+        save=True, conditions=[is_ham])
+    def filter_ham(self):
+        """
+        Akismet detected this post as ham. Don't do anything.
+        """
+        pass
+
+    @transition(
+        field=state, source=[FILTERED_SPAM, MARKED_SPAM], target=MARKED_HAM,
+        save=True)
+    def mark_ham(self):
+        """
+        Either Akismet returned a false positive, or a moderator accidentally
+        marked this as spam. Tell Akismet that this is ham.
+        """
+        pass
+
+    @transition(
+        field=state, source=[FILTERED_HAM, MARKED_HAM], target=MARKED_SPAM,
+        save=True)
+    def mark_spam(self):
+        """
+        Akismet missed this, or a moderator accidentally marked it as ham. Tell
+        Akismet that this is spam.
+        """
+        pass
 
 
 from .signals import post_saved, topic_saved

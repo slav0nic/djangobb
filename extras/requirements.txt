@@ -1,5 +1,6 @@
 Django>=1.2
 PIL>=1.1.7
+django-fsm==1.5.1
 django-haystack>=1.2.5
 south
 pygments
