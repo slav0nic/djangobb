@@ -28,16 +28,6 @@ from djangobb_forum import settings as forum_settings
 import logging
 logger = logging.getLogger(__name__)
 
-akismet_api = None
-try:
-    from akismet import Akismet
-    akismet_api = Akismet(key=forum_settings.AKISMET_API_KEY, blog_url=forum_settings.AKISMET_BLOG_URL, agent=forum_settings.AKISMET_AGENT)
-    if not akismet_api.verify_key():
-        logger.error("Invalid Aksimet API key.", extra={'key': akismet_api.key, 'blog': akismet_api.blog_url, 'user_agent': akismet_api.user_agent})
-        akismet_api = None
-except Exception as e:
-    logger.error("Error while initializing Akismet", extra={'exception': e})
-
 
 #compile smiles regexp
 _SMILES = [(re.compile(smile_re), path) for smile_re, path in forum_settings.SMILES]
@@ -437,34 +427,6 @@ class ScratchblocksTag(postmarkup.TagBase):
         contents = self.get_contents(parser).strip(u'\n')
         self.skip_contents(parser)
         return u'<pre class=blocks>%s</pre>' % postmarkup.PostMarkup.standard_replace(contents)
-
-
-class AkismetSpamError(Exception):
-    def user_error(self):
-        return _('Sorry, your post looks like spam!')
-
-def filter_akismet(text, user, ip, request_data, url=None):
-    is_spam = False
-    if akismet_api is not None:
-        data = {
-            'user_ip': ip,
-            'user_agent': request_data.get("HTTP_USER_AGENT", None),
-            'comment_author': user.username,
-            'referrer': request_data.get("HTTP_REFERER", None),
-            'comment_author_email': user.email,
-            'comment_type': 'comment',
-        }
-        if url is not None:
-            data['permalink'] = url
-        try:
-            is_spam = akismet_api.comment_check(text, data)
-        except Exception as e:
-            logger.error("Error while checking Akismet", extra={"exception": e})
-        if is_spam:
-            raise AkismetSpamError()
-    else:
-        logger.warn("Skipping akismet check. No api.")
-    return text
 
 
 # This allows us to control the bb tags
