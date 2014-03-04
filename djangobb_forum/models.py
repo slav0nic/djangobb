@@ -144,6 +144,16 @@ class Forum(models.Model):
     def posts(self):
         return Post.objects.filter(topic__forum__id=self.id).select_related()
 
+    def set_last_post(self):
+        try:
+            self.last_post = Topic.objects.filter(forum=self).latest().last_post
+        except Topic.DoesNotExist:
+            self.last_post = None
+
+    def set_counts(self):
+        self.topic_count = Topic.objects.filter(forum=self).count()
+        self.post_count = Post.objects.filter(topic__forum=self).count()
+
 
 class Topic(models.Model):
     forum = models.ForeignKey(Forum, related_name='topics', verbose_name=_('Forum'))
@@ -184,12 +194,9 @@ class Topic(models.Model):
             self.save()
         else:
             super(Topic, self).delete()
-        try:
-            forum.last_post = Topic.objects.filter(forum__id=forum.id).latest().last_post
-        except Topic.DoesNotExist:
-            forum.last_post = None
-        forum.topic_count = Topic.objects.filter(forum__id=forum.id).count()
-        forum.post_count = Post.objects.filter(topic__forum__id=forum.id).count()
+
+        forum.set_last_post()
+        forum.set_counts()
         forum.save()
 
     @property
@@ -287,15 +294,20 @@ class Post(models.Model):
                 topic.last_post = None
             topic.post_count = Post.objects.filter(topic__id=topic.id).count()
             topic.save()
-        try:
-            forum.last_post = Post.objects.filter(topic__forum__id=forum.id).latest()
-        except Post.DoesNotExist:
-            forum.last_post = None
-        #TODO: for speedup - save/update only changed fields
-        forum.post_count = Post.objects.filter(topic__forum__id=forum.id).count()
-        forum.topic_count = Topic.objects.filter(forum__id=forum.id).count()
+        forum.set_last_post()
         forum.save()
-        profile.post_count = Post.objects.filter(user__id=self.user_id).count()
+        self.set_counts()
+
+    def set_counts(self):
+        """
+        Recounts this post's forum and and topic post counts.
+        """
+        forum = self.topic.forum
+        profile = self.user.forum_profile
+        #TODO: for speedup - save/update only changed fields
+        forum.set_counts()
+        forum.save()
+        profile.set_counts()
         profile.save()
 
     @models.permalink
@@ -378,6 +390,10 @@ class Profile(models.Model):
             return posts[0].created
         else:
             return  None
+
+    def set_counts(self):
+        self.post_count = Post.objects.filter(user=self.user).count()
+
 
 class PostTracking(models.Model):
     """
