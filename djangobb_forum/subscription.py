@@ -30,7 +30,7 @@ See topic: %(post_url)s
 Unsubscribe %(unsubscribe_url)s""")
 
 
-def notify_topic_subscribers(post):
+def email_topic_subscribers(post):
     topic = post.topic
     post_body_text = strip_tags(post.body_html)
     if post != topic.head:
@@ -46,3 +46,14 @@ def notify_topic_subscribers(post):
                     }
                 #html_content = html_version(post)
                 send_mail(subject, text_content, settings.DEFAULT_FROM_EMAIL, [to_email])
+
+def notify_topic_subscribers(post):
+    path = forum_settings.NOTIFICATION_HANDLER.split('.')
+    module = '.'.join(path[:-1])
+    func = path[-1]
+    
+    module = __import__(module, globals(), locals(), [func], -1)
+    handler = getattr(module, func)
+    
+    handler(post)
+        
