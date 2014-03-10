@@ -180,14 +180,20 @@ class Topic(models.Model):
     def __unicode__(self):
         return self.name
 
+    def move_to(self, new_forum):
+        """
+        Move a topic to a new forum.
+        """
+        self.clear_last_forum_post()
+        old_forum = self.forum
+        self.forum = new_forum
+        self.save()
+        old_forum.set_last_post()
+        old_forum.set_counts()
+        old_forum.save()
+
     def delete(self, *args, **kwargs):
-        try:
-            last_post = self.posts.latest()
-            last_post.last_forum_post.clear()
-        except Post.DoesNotExist:
-            pass
-        else:
-            last_post.last_forum_post.clear()
+        self.clear_last_forum_post()
         forum = self.forum
         if forum_settings.SOFT_DELETE_TOPICS and (self.forum != get_object_or_404(Forum, pk=forum_settings.SOFT_DELETE_TOPICS) or not kwargs.get('staff', False)):
             self.forum = get_object_or_404(Forum, pk=forum_settings.SOFT_DELETE_TOPICS)
@@ -237,6 +243,18 @@ class Topic(models.Model):
             tracking.topics = {self.id: self.last_post_id}
             tracking.save()
 
+    def clear_last_forum_post(self):
+        """
+        Prep for moving/deleting. Update the forum the topic belongs to.
+        """
+        try:
+            last_post = self.posts.latest()
+            last_post.last_forum_post.clear()
+        except Post.DoesNotExist:
+            pass
+        else:
+            last_post.last_forum_post.clear()
+
 
 class Post(models.Model):
     topic = models.ForeignKey(Topic, related_name='posts', verbose_name=_('Topic'))
@@ -268,6 +286,18 @@ class Post(models.Model):
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)
 
+    def move_to(self, to_topic):
+        delete_topic = (self.topic.posts.count() == 1)
+        prev_topic = self.topic
+        self.topic = to_topic
+        self.save()
+        self.set_counts()
+
+        if delete_topic:
+            prev_topic.delete()
+        prev_topic.forum.set_last_post()
+        prev_topic.forum.set_counts()
+        prev_topic.forum.save()
 
     def delete(self, *args, **kwargs):
         self_id = self.id
@@ -525,6 +555,16 @@ class PollChoice(models.Model):
 #------------------------------------------------------------------------------
 
 
+class PostStatusManager(models.Manager):
+    def create_for_post(self, post, **kwargs):
+        user_agent = kwargs.get("HTTP_USER_AGENT", None)
+        referrer = kwargs.get("HTTP_REFERER", None)
+        permalink = kwargs.get("permalink", None)
+        return self.create(
+            post=post, topic=post.topic, forum=post.topic.forum,
+            user_agent=user_agent, referrer=referrer, permalink=permalink)
+
+
 class PostStatus(models.Model):
     """
     Keeps track of the status of posts for moderation purposes.
@@ -537,10 +577,63 @@ class PostStatus(models.Model):
 
     post = models.ForeignKey(Post)
     state = FSMField(default=UNREVIEWED)
-    topic = models.ForeignKey(Topic)
+    topic = models.ForeignKey(Topic) # Original topic
+    forum = models.ForeignKey(Forum) # Original forum
     user_agent = models.CharField(max_length=200, blank=True, null=True)
     referrer = models.CharField(max_length=200, blank=True, null=True)
     permalink = models.CharField(max_length=200, blank=True, null=True)
+
+    objects = PostStatusManager()
+
+    spam_category = None
+    spam_forum = None
+    spam_topic = None
+
+    def _get_spam_dustbin(self):
+        if self.spam_category is None:
+            self.spam_category, _ = Category.objects.get_or_create(
+                name=settings.SPAM_CATEGORY_NAME)
+
+        if self.spam_forum is None:
+            self.spam_forum, _ = Forum.objects.get_or_create(
+                category=self.spam_category,
+                name=settings.SPAM_FORUM_NAME)
+
+        if self.spam_topic is None:
+            filterbot = User.objects.get_by_natural_key("filterbot")
+            self.spam_topic, _ = Topic.objects.get_or_create(
+                forum=self.spam_forum, name=settings.SPAM_TOPIC_NAME,
+                user=filterbot)
+
+        return (self.spam_topic, self.spam_forum)
+
+    def _undelete_post(self):
+        """
+        If the post is in the spam dustbin, move it back to its original location.
+        """
+        spam_topic, spam_forum = self._get_spam_dustbin()
+        post = self.post
+        topic = self.topic
+        head = post.topic.head
+
+        if post == head:
+            topic.move_to(self.forum)
+        else:
+            post.move_to(self.topic)
+
+    def _delete_post(self):
+        """
+        Move the post to the spam dustbin.
+        """
+        spam_topic, spam_forum = self._get_spam_dustbin()
+        post = self.post
+        topic = self.topic
+        head = topic.head
+
+        if post == head:
+            topic.move_to(spam_forum)
+        else:
+            post.move_to(spam_topic)
 
     def to_akismet_data(self):
         post = self.post
@@ -565,7 +658,7 @@ class PostStatus(models.Model):
             'comment_post_modified_gmt': comment_post_modified_gmt
         }
 
-    def comment_check(self):
+    def _comment_check(self):
         """
         Pass the associated post through Akismet if it's available. If it's not
         available return None. Otherwise return True or False.
@@ -586,12 +679,44 @@ class PostStatus(models.Model):
 
         return is_spam
 
+    def _submit_comment(self, report_type):
+        """
+        Report this post to Akismet as spam or ham. Raises an exception if it
+        fails. report_type is 'spam' or 'ham'. Used by report_spam/report_ham.
+        """
+        if akismet_api is None:
+            raise AkismetError("Can't submit to Akismet. No API.")
+
+        data = self.to_akismet_data()
+        content = self.post.body
+
+        if report_type == "spam":
+            akismet_api.submit_spam(content, data)
+
+        elif report_type == "ham":
+            akismet_api.submit_ham(content, data)
+        else:
+            raise NotImplementedError(
+                "You're trying to report an unsupported comment type.")
+
+    def _submit_spam(self):
+        """
+        Report this post to Akismet as spam.
+        """
+        self._submit_comment("spam")
+
+    def _submit_ham(self):
+        """
+        Report this post to Akismet as ham.
+        """
+        self._submit_comment("ham")
+
     def is_spam(self):
         """
         Condition used by the FSM. Return True if the Akismet API is available
         and returns a positive. Otherwise return False or None.
         """
-        is_spam = self.comment_check()
+        is_spam = self._comment_check()
         if is_spam is None:
             return False
         else:
@@ -601,7 +726,7 @@ class PostStatus(models.Model):
         """
         Inverse of is_spam.
         """
-        is_spam = self.comment_check()
+        is_spam = self._comment_check()
         if is_spam is None:
             return False
         else:
@@ -612,16 +737,17 @@ class PostStatus(models.Model):
         save=True, conditions=[is_spam])
     def filter_spam(self):
         """
-        Akismet detects this post is spam, move it to the dustbin and report it.
+        Akismet detected this post is spam, move it to the dustbin and report it.
         """
-        pass
+        Report.objects.create_spam_report_for(self.post)
+        self.post.move_to()
 
     @transition(
         field=state, source=UNREVIEWED, target=FILTERED_HAM,
         save=True, conditions=[is_ham])
     def filter_ham(self):
         """
-        Akismet detected this post as ham. Don't do anything.
+        Akismet detected this post as ham. Don't do anything (except change state).
         """
         pass
 
@@ -631,9 +757,10 @@ class PostStatus(models.Model):
     def mark_ham(self):
         """
         Either Akismet returned a false positive, or a moderator accidentally
-        marked this as spam. Tell Akismet that this is ham.
+        marked this as spam. Tell Akismet that this is ham, undelete it.
         """
-        pass
+        self._submit_ham()
+        self._undelete_post()
 
     @transition(
         field=state, source=[FILTERED_HAM, MARKED_HAM], target=MARKED_SPAM,
@@ -643,7 +770,8 @@ class PostStatus(models.Model):
         Akismet missed this, or a moderator accidentally marked it as ham. Tell
         Akismet that this is spam.
         """
-        pass
+        self._submit_spam()
+        self.post.delete()
 
 
 from .signals import post_saved, topic_saved
