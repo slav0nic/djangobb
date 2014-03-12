@@ -2,7 +2,6 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.html import strip_tags
-from celery.decorators import task
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import absolute_url

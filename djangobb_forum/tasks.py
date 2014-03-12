@@ -1,3 +1,5 @@
+from celery.decorators import task
+
 @task 
 def scratch_notify_topic_subscribers(post_id):
     """
