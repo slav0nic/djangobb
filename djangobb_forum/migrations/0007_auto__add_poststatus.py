@@ -11,9 +11,10 @@ class Migration(SchemaMigration):
         # Adding model 'PostStatus'
         db.create_table('djangobb_forum_poststatus', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('post', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['djangobb_forum.Post'])),
+            ('post', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['djangobb_forum.Post'], unique=True)),
             ('state', self.gf('django_fsm.db.fields.fsmfield.FSMField')(default='unreviewed', max_length=50)),
             ('topic', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['djangobb_forum.Topic'])),
+            ('forum', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['djangobb_forum.Forum'])),
             ('user_agent', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
             ('referrer', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
             ('permalink', self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True)),
@@ -134,9 +135,10 @@ class Migration(SchemaMigration):
         },
         'djangobb_forum.poststatus': {
             'Meta': {'object_name': 'PostStatus'},
+            'forum': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['djangobb_forum.Forum']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'permalink': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'post': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['djangobb_forum.Post']"}),
+            'post': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['djangobb_forum.Post']", 'unique': 'True'}),
             'referrer': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'state': ('django_fsm.db.fields.fsmfield.FSMField', [], {'default': "'unreviewed'", 'max_length': '50'}),
             'topic': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['djangobb_forum.Topic']"}),

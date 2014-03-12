@@ -575,7 +575,7 @@ class PostStatus(models.Model):
     MARKED_SPAM = 'marked_spam'
     MARKED_HAM = 'marked_ham'
 
-    post = models.ForeignKey(Post)
+    post = models.OneToOneField(Post, db_index=True)
     state = FSMField(default=UNREVIEWED)
     topic = models.ForeignKey(Topic) # Original topic
     forum = models.ForeignKey(Forum) # Original forum
@@ -592,17 +592,17 @@ class PostStatus(models.Model):
     def _get_spam_dustbin(self):
         if self.spam_category is None:
             self.spam_category, _ = Category.objects.get_or_create(
-                name=settings.SPAM_CATEGORY_NAME)
+                name=forum_settings.SPAM_CATEGORY_NAME)
 
         if self.spam_forum is None:
             self.spam_forum, _ = Forum.objects.get_or_create(
                 category=self.spam_category,
-                name=settings.SPAM_FORUM_NAME)
+                name=forum_settings.SPAM_FORUM_NAME)
 
         if self.spam_topic is None:
             filterbot = User.objects.get_by_natural_key("filterbot")
             self.spam_topic, _ = Topic.objects.get_or_create(
-                forum=self.spam_forum, name=settings.SPAM_TOPIC_NAME,
+                forum=self.spam_forum, name=forum_settings.SPAM_TOPIC_NAME,
                 user=filterbot)
 
         return (self.spam_topic, self.spam_forum)
@@ -739,8 +739,7 @@ class PostStatus(models.Model):
         """
         Akismet detected this post is spam, move it to the dustbin and report it.
         """
-        Report.objects.create_spam_report_for(self.post)
-        self.post.move_to()
+        self._delete_post()
 
     @transition(
         field=state, source=UNREVIEWED, target=FILTERED_HAM,
@@ -771,7 +770,7 @@ class PostStatus(models.Model):
         Akismet that this is spam.
         """
         self._submit_spam()
-        self.post.delete()
+        self._delete_post()
 
 
 from .signals import post_saved, topic_saved

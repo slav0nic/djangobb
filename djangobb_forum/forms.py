@@ -13,7 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
-    Attachment, Poll, PollChoice
+    Attachment, Poll, PollChoice, PostStatus
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import smiles, convert_text_to_html, filter_language, \
     set_language, UnapprovedImageError
@@ -163,6 +163,10 @@ class AddPostForm(forms.ModelForm):
                     body=self.cleaned_data['body'])
 
         post.save()
+        if self.user.groups.filter(name="New Scratchers").exists():
+            tracking_data = dict(**self.request_data)
+            tracking_data['permalink'] = self.url
+            status = PostStatus.objects.create_for_post(post, **tracking_data)
         if forum_settings.ATTACHMENT_SUPPORT:
             self.save_attachment(post, self.cleaned_data['attachment'])
         return post
