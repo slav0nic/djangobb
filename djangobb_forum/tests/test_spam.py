@@ -150,6 +150,18 @@ class ForumSpamTests(TestCase):
             1, PostStatus.objects.filter(state=PostStatus.FILTERED_SPAM).count())
 
 
+    # Template tags
+    def test_can_proceed_tag(self):
+        self.post_status = PostStatus.objects.create_for_post(self.test_post)
+        self.post_status.state = PostStatus.FILTERED_HAM
+        self.post_status.save()
+        t = Template("{% load forum_extras %}{% if post_status|can_proceed:'mark_spam' %}Success{% else %}Failure{% endif %}")
+        c = Context({'post_status': self.post_status})
+        self.assertEqual("Success", t.render(c))
+        t = Template("{% load forum_extras %}{% if post_status|can_proceed:'filter_spam' %}Failure{% else %}Success{% endif %}")
+        self.assertEqual("Success", t.render(c))
+
+
     # Integration
     def test_status_created_topic(self):
         """
@@ -221,6 +233,7 @@ class ForumSpamTests(TestCase):
         self.client.logout()
 
     def test_mod_can_see_spam_link_on_ham(self):
+        """ Mods can see the "Mark as spam" link """
         self.client.login(
             username=self.moderator.username, password=self.password)
         ps = PostStatus.objects.create_for_post(self.test_post)
@@ -232,6 +245,7 @@ class ForumSpamTests(TestCase):
         self.client.logout()
 
     def test_mod_can_see_ham_link_on_spam(self):
+        """ Mods can see the "Un-mark as spam" link """
         self.client.login(
             username=self.moderator.username, password=self.password)
         ps = PostStatus.objects.create_for_post(self.test_post)
@@ -243,6 +257,7 @@ class ForumSpamTests(TestCase):
         self.client.logout()
 
     def test_user_cannot_see_mark_links(self):
+        """ Normal users can't see the "(Un-)Mark as spam" link """
         self.client.login(
             username=self.user.username, password=self.password)
         ps = PostStatus.objects.create_for_post(self.test_post)
@@ -261,6 +276,7 @@ class ForumSpamTests(TestCase):
         self.client.logout()
 
     def test_mod_can_mark_spam(self):
+        """ Mods can mark posts as spam and it changes the state of the post """
         self.client.login(
             username=self.moderator.username, password=self.password)
         ps = PostStatus.objects.create_for_post(self.test_post)
@@ -272,6 +288,7 @@ class ForumSpamTests(TestCase):
         self.client.logout()
 
     def test_mod_can_mark_ham(self):
+        """ Mods can mark posts as ham and it changes the state of the post """
         self.client.login(
             username=self.moderator.username, password=self.password)
         ps = PostStatus.objects.create_for_post(self.test_post)
@@ -283,6 +300,10 @@ class ForumSpamTests(TestCase):
         self.client.logout()
 
     def test_normal_user_cannot_mark(self):
+        """
+        Normal users are forbidden from marking as spam/ham and it does not
+        affect the state of the post.
+        """
         self.client.login(
             username=self.user.username, password=self.password)
         ps = PostStatus.objects.create_for_post(self.test_post)
@@ -307,14 +328,3 @@ class ForumSpamTests(TestCase):
         self.assertEqual(PostStatus.objects.get(post=self.test_post).state, PostStatus.FILTERED_SPAM)
         self.assertEqual(response.status_code, 403)
         self.client.logout()
-
-    # Template tags
-    def test_can_proceed_tag(self):
-        self.post_status = PostStatus.objects.create_for_post(self.test_post)
-        self.post_status.state = PostStatus.FILTERED_HAM
-        self.post_status.save()
-        t = Template("{% load forum_extras %}{% if post_status|can_proceed:'mark_spam' %}Success{% else %}Failure{% endif %}")
-        c = Context({'post_status': self.post_status})
-        self.assertEqual("Success", t.render(c))
-        t = Template("{% load forum_extras %}{% if post_status|can_proceed:'filter_spam' %}Failure{% else %}Success{% endif %}")
-        self.assertEqual("Success", t.render(c))
