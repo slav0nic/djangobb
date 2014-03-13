@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
-from django_fsm.db.fields import FSMField, transition
+from django_fsm.db.fields import FSMField, transition, can_proceed
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
 from djangobb_forum.util import smiles, convert_text_to_html
@@ -563,6 +563,18 @@ class PostStatusManager(models.Manager):
         return self.create(
             post=post, topic=post.topic, forum=post.topic.forum,
             user_agent=user_agent, referrer=referrer, permalink=permalink)
+
+    def review_new_posts(self):
+        unreviewed = self.filter(state=PostStatus.UNREVIEWED)
+        failed = []
+        for post_status in unreviewed:
+            if can_proceed(post_status.filter_spam):
+                post_status.filter_spam()
+            elif can_proceed(post_status.filter_ham):
+                post_status.filter_ham()
+            else:
+                logger.warn("Couldn't filter post.", extra={'poststatus': post_status})
+        return unreviewed
 
 
 class PostStatus(models.Model):

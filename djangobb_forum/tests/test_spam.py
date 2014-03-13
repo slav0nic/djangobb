@@ -109,6 +109,44 @@ class TestPostStatusUnit(BaseTestCase):
         self.assertEqual(
             self.post_status.post.topic.forum.name, forum_settings.SPAM_FORUM_NAME)
 
+    def test_review_new_posts(self):
+        ham_post = Post.objects.create(
+            topic=self.test_topic, user=self.user, body="Test ham content",
+            body_html="<p>Test ham content</p>")
+        ham_post_status = PostStatus.objects.create_for_post(ham_post)
+        ham_post_status._comment_check = lambda: False
+        ham_post_status.is_ham = lambda: True
+        ham_post_status.is_spam = lambda: False
+
+        spam_post = Post.objects.create(
+            topic=self.test_topic, user=self.user, body="Test spam content",
+            body_html="<p>Test spam content</p>")
+        spam_post_status = PostStatus.objects.create_for_post(spam_post)
+        spam_post_status._comment_check = lambda: True
+        spam_post_status.is_ham = lambda: False
+        spam_post_status.is_spam = lambda: True
+
+        unreviewed_post = Post.objects.create(
+            topic=self.test_topic, user=self.user, body="Test unreviewed content",
+            body_html="<p>Test unreviewed content</p>")
+        unreviewed_post_status = PostStatus.objects.create_for_post(unreviewed_post)
+        unreviewed_post_status._comment_check = lambda: None
+        unreviewed_post_status.is_ham = lambda: False
+        unreviewed_post_status.is_spam = lambda: False
+
+        statuses = [ham_post_status, spam_post_status, unreviewed_post_status]
+
+        oldfilter = PostStatus.objects.filter
+        PostStatus.objects.filter = lambda state: statuses
+        PostStatus.objects.review_new_posts()
+        PostStatus.objects.filter = oldfilter
+        self.assertEqual(
+            1, PostStatus.objects.filter(state=PostStatus.UNREVIEWED).count())
+        self.assertEqual(
+            1, PostStatus.objects.filter(state=PostStatus.FILTERED_HAM).count())
+        self.assertEqual(
+            1, PostStatus.objects.filter(state=PostStatus.FILTERED_SPAM).count())
+
 
 class TestPostStatusIntegration(BaseTestCase):        
     def test_status_created_topic(self):
