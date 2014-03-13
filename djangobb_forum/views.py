@@ -37,6 +37,9 @@ from djangobb_forum.util import build_form, paginate, set_language, smiles, conv
 
 from lib.utils import get_client_ip
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 def simple_user_agent(request):
     """
