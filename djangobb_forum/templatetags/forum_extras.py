@@ -15,13 +15,15 @@ from django.utils.html import escape
 from django.utils.hashcompat import md5_constructor
 from django.contrib.humanize.templatetags.humanize import naturalday
 
-from django_fsm.db.fields import can_proceed
+from django_fsm.db.fields import can_proceed as fsm_can_proceed
 
 from pagination.templatetags.pagination_tags import paginate
 
 from djangobb_forum.models import Report, Post
 from djangobb_forum import settings as forum_settings
 
+import logging
+logger = logging.getLogger(__name__)
 
 register = template.Library()
 
@@ -238,8 +240,27 @@ def forum_authority(user):
 
 
 @register.filter
-def can_proceed(method):
-    return fsm_can_proceed(method)
+def can_proceed(instance, transition_name):
+    """
+    Template tag for django-fsm's can_proceed method. Usage:
+        {% if instance|can_proceed:"transition_name" %}
+        Something
+        {% endif %}
+    
+    Equivalent to:
+        if can_proceed(instance.transition_name):
+            do_something()
+    """
+    try:
+        transition = getattr(instance, transition_name)
+    except AttributeError:
+        try:
+            logger.warn("Can't process can_proceed. %s has no method %s." % (str(obj), method))
+        except:
+            # Don't die from logging
+            pass
+        return False
+    return fsm_can_proceed(transition)
 
 
 @register.filter

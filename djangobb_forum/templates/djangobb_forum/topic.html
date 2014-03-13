@@ -150,11 +150,11 @@
                     <ul>
                         {% if user.is_authenticated %}
                             <li class="postreport"><a href="{% url djangobb:misc %}?action=report&amp;post_id={{ post.id }}">{% trans "Report" %}</a> </li>
-                            {% if moderator and post.poststatus and can_proceed|post.poststatus.mark_spam %}
+                            {% if moderator and post.poststatus and post.poststatus|can_proceed:"mark_spam" %}
                             <li class="postmarkspam">| <a onclick="return confirm('{% trans "Are you sure you want to mark this as spam?" %}')" href="{% url djangobb:mark_post_spam post.id %}">{% trans "Mark as Spam" %}</a> </li>
                             {% endif %}
-                            {% if moderator and post.poststatus and can_proceed|post.poststatus.mark_ham %}
-                            <li class="postmarkspam">| <a onclick="return confirm('{% trans "Are you sure you want to unmark this as spam?" %}')" href="{% url djangobb:mark_post_ham post.id %}">{% trans "Un-mark as Spam" %}</a> </li>
+                            {% if moderator and post.poststatus and post.poststatus|can_proceed:"mark_ham" %}
+                            <li class="postmarkham">| <a onclick="return confirm('{% trans "Are you sure you want to unmark this as spam?" %}')" href="{% url djangobb:mark_post_ham post.id %}">{% trans "Un-mark as Spam" %}</a> </li>
                             {% endif %}
                             {% if reply_form %}
                                 {% if moderator or user|forum_can_delete:post %}

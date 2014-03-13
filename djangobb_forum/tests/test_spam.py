@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.template import Template, Context
 from django.test import TestCase
 
 from django_fsm.db.fields import can_proceed
@@ -13,7 +14,7 @@ from djangobb_forum.models import Category, Forum, Topic, Post, PostStatus
 profile_app, profile_model = settings.AUTH_PROFILE_MODULE.split('.')
 UserProfileModel = models.get_model(profile_app, profile_model)
 
-class BaseTestCase(TestCase):
+class ForumSpamTests(TestCase):
     def setUp(self):
         Category.objects.create(name=forum_settings.SPAM_CATEGORY_NAME)
         self.password = "password"
@@ -23,8 +24,13 @@ class BaseTestCase(TestCase):
         new_scratchers = Group.objects.create(name="New Scratchers")
         self.user.groups.add(new_scratchers)
         self.veteran_user = User.objects.create_user(
-            username="veteranuser", password=self.password)
+            username="veteran_user", password=self.password)
         UserProfileModel.objects.create(user=self.veteran_user)
+        self.moderator = User.objects.create_user(
+            username="moderator", password=self.password)
+        self.moderator.is_superuser = True
+        self.moderator.save()
+        UserProfileModel.objects.create(user=self.moderator)
         self.test_category = Category.objects.create(name="Test Category")
         self.test_forum = Forum.objects.create(
             name="Test Forum", category=self.test_category)
@@ -36,11 +42,7 @@ class BaseTestCase(TestCase):
         User.objects.create_user(username="filterbot", password="password")
         User.objects.create_user(username="systemuser", password="password")
 
-
-class TestPostStatusUnit(BaseTestCase):
-    def setUp(self):
-        super(TestPostStatusUnit, self).setUp()
-
+    # Model methods
     def test_get_spam_dustbin(self):
         """
         Ensure the dustbin forum and topic are created and available.
@@ -148,7 +150,7 @@ class TestPostStatusUnit(BaseTestCase):
             1, PostStatus.objects.filter(state=PostStatus.FILTERED_SPAM).count())
 
 
-class TestPostStatusIntegration(BaseTestCase):        
+    # Integration
     def test_status_created_topic(self):
         """
         Ensure a new scratcher's new topic generates an associated PostStatus.
@@ -217,3 +219,54 @@ class TestPostStatusIntegration(BaseTestCase):
         with self.assertRaises(PostStatus.DoesNotExist):
             status = post.poststatus
         self.client.logout()
+
+    def test_mod_can_see_spam_link_on_ham(self):
+        self.client.login(
+            username=self.moderator.username, password=self.password)
+        ps = PostStatus.objects.create_for_post(self.test_post)
+        ps.state = PostStatus.FILTERED_HAM
+        ps.save()
+        response = self.client.get(
+            reverse("djangobb:topic", args=[self.test_post.topic.id,]))
+        self.assertContains(response, "postmarkspam")
+        self.client.logout()
+
+    def test_mod_can_see_ham_link_on_spam(self):
+        self.client.login(
+            username=self.moderator.username, password=self.password)
+        ps = PostStatus.objects.create_for_post(self.test_post)
+        ps.state = PostStatus.FILTERED_SPAM
+        ps.save()
+        response = self.client.get(
+            reverse("djangobb:topic", args=[self.test_post.topic.id,]))
+        self.assertContains(response, "postmarkham")
+        self.client.logout()
+
+    def test_user_cannot_see_mark_links(self):
+        self.client.login(
+            username=self.user.username, password=self.password)
+        ps = PostStatus.objects.create_for_post(self.test_post)
+        ps.state = PostStatus.FILTERED_SPAM
+        ps.save()
+        response = self.client.get(
+            reverse("djangobb:topic", args=[self.test_post.topic.id,]))
+        self.assertNotContains(response, "postmarkham")
+        self.assertNotContains(response, "postmarkspam")
+        ps.state = PostStatus.FILTERED_HAM
+        ps.save()
+        response = self.client.get(
+            reverse("djangobb:topic", args=[self.test_post.topic.id,]))
+        self.assertNotContains(response, "postmarkham")
+        self.assertNotContains(response, "postmarkspam")
+        self.client.logout()
+
+    # Template tags
+    def test_can_proceed_tag(self):
+        self.post_status = PostStatus.objects.create_for_post(self.test_post)
+        self.post_status.state = PostStatus.FILTERED_HAM
+        self.post_status.save()
+        t = Template("{% load forum_extras %}{% if post_status|can_proceed:'mark_spam' %}Success{% else %}Failure{% endif %}")
+        c = Context({'post_status': self.post_status})
+        self.assertEqual("Success", t.render(c))
+        t = Template("{% load forum_extras %}{% if post_status|can_proceed:'filter_spam' %}Failure{% else %}Success{% endif %}")
+        self.assertEqual("Success", t.render(c))
