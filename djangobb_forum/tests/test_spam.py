@@ -260,6 +260,54 @@ class ForumSpamTests(TestCase):
         self.assertNotContains(response, "postmarkspam")
         self.client.logout()
 
+    def test_mod_can_mark_spam(self):
+        self.client.login(
+            username=self.moderator.username, password=self.password)
+        ps = PostStatus.objects.create_for_post(self.test_post)
+        ps.state = PostStatus.FILTERED_HAM
+        ps.save()
+        response = self.client.get(
+            reverse("djangobb:mark_post_spam", args=[self.test_post.id,]))
+        self.assertEqual(self.test_post.poststatus.state, PostStatus.MARKED_SPAM)
+        self.client.logout()
+
+    def test_mod_can_mark_ham(self):
+        self.client.login(
+            username=self.moderator.username, password=self.password)
+        ps = PostStatus.objects.create_for_post(self.test_post)
+        ps.state = PostStatus.FILTERED_SPAM
+        ps.save()
+        response = self.client.get(
+            reverse("djangobb:mark_post_ham", args=[self.test_post.id,]))
+        self.assertEqual(self.test_post.poststatus.state, PostStatus.MARKED_HAM)
+        self.client.logout()
+
+    def test_normal_user_cannot_mark(self):
+        self.client.login(
+            username=self.user.username, password=self.password)
+        ps = PostStatus.objects.create_for_post(self.test_post)
+        ps.state = PostStatus.FILTERED_HAM
+        ps.save()
+        response = self.client.get(
+            reverse("djangobb:mark_post_spam", args=[self.test_post.id,]))
+        self.assertEqual(self.test_post.poststatus.state, PostStatus.FILTERED_HAM)
+        self.assertEqual(response.status_code, 403)
+        response = self.client.get(
+            reverse("djangobb:mark_post_ham", args=[self.test_post.id,]))
+        self.assertEqual(PostStatus.objects.get(post=self.test_post).state, PostStatus.FILTERED_HAM)
+        self.assertEqual(response.status_code, 403)
+        ps.state = PostStatus.FILTERED_SPAM
+        ps.save()
+        response = self.client.get(
+            reverse("djangobb:mark_post_spam", args=[self.test_post.id,]))
+        self.assertEqual(PostStatus.objects.get(post=self.test_post).state, PostStatus.FILTERED_SPAM)
+        self.assertEqual(response.status_code, 403)
+        response = self.client.get(
+            reverse("djangobb:mark_post_ham", args=[self.test_post.id,]))
+        self.assertEqual(PostStatus.objects.get(post=self.test_post).state, PostStatus.FILTERED_SPAM)
+        self.assertEqual(response.status_code, 403)
+        self.client.logout()
+
     # Template tags
     def test_can_proceed_tag(self):
         self.post_status = PostStatus.objects.create_for_post(self.test_post)

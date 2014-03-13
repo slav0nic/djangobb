@@ -22,6 +22,7 @@ from django.utils.translation import ugettext as _
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
+from django_fsm.db.fields import can_proceed
 from haystack.query import SearchQuerySet, SQ
 
 from djangobb_forum import settings as forum_settings
@@ -990,7 +991,7 @@ def mark_spam(request, post_id):
             request.user.is_superuser or
             request.user in post.topic.forum.moderators.all()):
         messages.success(request, _("You don't have permission to mark this post."))
-        return HttpResponseRedirect(post.get_absolute_url())
+        return HttpResponseForbidden(post.get_absolute_url())
 
     if post_status is None:
         messages.success(request, _("There was not enough data collected to mark this post."))
@@ -1022,7 +1023,7 @@ def mark_ham(request, post_id):
             request.user.is_superuser or
             request.user in post.topic.forum.moderators.all()):
         messages.success(request, _("You don't have permission to mark this post."))
-        return HttpResponseRedirect(post.get_absolute_url())
+        return HttpResponseForbidden(post.get_absolute_url())
 
     if post_status is None:
         messages.success(request, _("There was not enough data collected to mark this post."))
