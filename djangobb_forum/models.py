@@ -564,16 +564,18 @@ class PostStatusManager(models.Manager):
             post=post, topic=post.topic, forum=post.topic.forum,
             user_agent=user_agent, referrer=referrer, permalink=permalink)
 
+    def review_posts(self, posts, certainly_spam=False):
+        for post in posts:
+            try:
+                post_status = post.poststatus
+            except PostStatus.DoesNotExist:
+                post_status = self.create_for_post(post)
+            post_status.review(certainly_spam=certainly_spam)
+
     def review_new_posts(self):
         unreviewed = self.filter(state=PostStatus.UNREVIEWED)
-        failed = []
         for post_status in unreviewed:
-            if can_proceed(post_status.filter_spam):
-                post_status.filter_spam()
-            elif can_proceed(post_status.filter_ham):
-                post_status.filter_ham()
-            else:
-                logger.warn("Couldn't filter post.", extra={'poststatus': post_status})
+            post_status.review()
         return unreviewed
 
 
@@ -783,6 +785,23 @@ class PostStatus(models.Model):
         """
         self._submit_spam()
         self._delete_post()
+
+    def review(self, certainly_spam=False):
+        """
+        Process this post, used by the manager and the spam-hammer. The
+        ``certainly_spam`` argument is used to force mark as spam/delete the
+        post, no matter what status Akismet returns.
+        """
+        if can_proceed(self.filter_spam):
+            self.filter_spam()
+        elif can_proceed(self.filter_ham):
+            self.filter_ham()
+            if certainly_spam:
+                post_status.mark_spam()
+        else:
+            if certainly_spam:
+                self._delete_post()
+            logger.warn("Couldn't filter post.", extra={'poststatus': self})
 
 
 from .signals import post_saved, topic_saved
