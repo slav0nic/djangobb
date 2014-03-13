@@ -15,6 +15,8 @@ from django.utils.html import escape
 from django.utils.hashcompat import md5_constructor
 from django.contrib.humanize.templatetags.humanize import naturalday
 
+from django_fsm.db.fields import can_proceed
+
 from pagination.templatetags.pagination_tags import paginate
 
 from djangobb_forum.models import Report, Post
@@ -233,6 +235,11 @@ def forum_authority(user):
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote1.gif" alt="" />' % (settings.STATIC_URL))
     else:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote0.gif" alt="" />' % (settings.STATIC_URL))
+
+
+@register.filter
+def can_proceed(method):
+    return fsm_can_proceed(method)
 
 
 @register.filter

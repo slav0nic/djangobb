@@ -27,7 +27,7 @@ from haystack.query import SearchQuerySet, SQ
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, PersonalityProfileForm, \
-    VotePollForm, ReportForm, VotePollForm, PollForm
+    VotePollForm, ReportForm, VotePollForm, PollForm, PostStatus
 from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Report, Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
@@ -401,7 +401,7 @@ def show_topic(request, topic_id, full=True):
     # without specifying, following query wouldn't select related properly
     posts = topic.posts.select_related('user__userprofile',
         'user__forum_profile',
-        'updated_by', 'user').prefetch_related('user__groups').all()
+        'updated_by', 'user', 'poststatus').prefetch_related('user__groups').all()
     edit_start = timezone.now() - timedelta(minutes=1)
     edit_end = timezone.now()
     editable = posts.filter(created__range=(edit_start, edit_end)).filter(user_id=request.user.id)
@@ -971,6 +971,71 @@ def delete_post(request, post_id):
     if is_head:
         return HttpResponseRedirect(forum.get_absolute_url())
     return HttpResponseRedirect(topic.get_absolute_url())
+
+
+@login_required
+@transaction.commit_on_success
+def mark_spam(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    topic = post.topic
+    forum = post.topic.forum
+    is_head = topic.head == post
+
+    try:
+        post_status = post.poststatus
+    except PostStatus.DoesNotExist:
+        post_status = None
+
+    if not (
+            request.user.is_superuser or
+            request.user in post.topic.forum.moderators.all()):
+        messages.success(request, _("You don't have permission to mark this post."))
+        return HttpResponseRedirect(post.get_absolute_url())
+
+    if post_status is None:
+        messages.success(request, _("There was not enough data collected to mark this post."))
+        return HttpResponseRedirect(post.get_absolute_url())
+
+    if can_proceed(post_status.mark_spam):
+        post_status.mark_spam()
+        messages.success(request, _("Post marked as spam."))
+    else:
+        messages.success(request, _("This post is not in the right state to be marked as spam."))
+        return HttpResponseRedirect(post.get_absolute_url())
+
+    if is_head:
+        return HttpResponseRedirect(forum.get_absolute_url())
+    return HttpResponseRedirect(topic.get_absolute_url())
+
+
+@login_required
+@transaction.commit_on_success
+def mark_ham(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+
+    try:
+        post_status = post.poststatus
+    except PostStatus.DoesNotExist:
+        post_status = None
+
+    if not (
+            request.user.is_superuser or
+            request.user in post.topic.forum.moderators.all()):
+        messages.success(request, _("You don't have permission to mark this post."))
+        return HttpResponseRedirect(post.get_absolute_url())
+
+    if post_status is None:
+        messages.success(request, _("There was not enough data collected to mark this post."))
+        return HttpResponseRedirect(post.get_absolute_url())
+
+    if can_proceed(post_status.mark_ham):
+        post_status.mark_ham()
+        messages.success(request, _("Post un-marked as spam."))
+    else:
+        messages.success(request, _("This post is not in the right state to be un-marked as spam."))
+        return HttpResponseRedirect(post.get_absolute_url())
+    
+    return HttpResponseRedirect(post_status.post.get_absolute_url())
 
 
 @login_required
