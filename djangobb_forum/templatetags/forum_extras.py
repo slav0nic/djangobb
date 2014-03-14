@@ -264,6 +264,15 @@ def can_proceed(instance, transition_name):
 
 
 @register.filter
+def in_group(user, group_name):
+    """ Return if a user is in a group called group_name """
+    try:
+        return user.groups.filter(name=group_name).exists()
+    except:
+        return False
+
+
+@register.filter
 def online(user):
     return cache.get('djangobb_user%d' % user.id)
 

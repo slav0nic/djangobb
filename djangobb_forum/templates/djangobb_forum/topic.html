@@ -115,6 +115,10 @@
                             <dd class="moderator-only">{% trans "IP:" %} {{ post.user_ip }}</dd>
                         {% endif %}
                     </dl>
+                    <p>{{ post.user.groups.all }}</p>
+                    {% if moderator and post.user|in_group:"New Scratchers" %}
+                    <p><a onclick="return confirm('{% trans "Really delete all posts, and ban user? This is hard to reverse." %}')" href="{% url ban_forum_spammer post.user.username %}">Ban User &amp; Delete All Posts</a></p>
+                    {% endif %}
                 </div>
                 <div class="postright">
                     <h3>{{ topic.name }}</h3>

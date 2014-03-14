@@ -161,6 +161,14 @@ class ForumSpamTests(TestCase):
         t = Template("{% load forum_extras %}{% if post_status|can_proceed:'filter_spam' %}Failure{% else %}Success{% endif %}")
         self.assertEqual("Success", t.render(c))
 
+    def test_in_group_tag(self):
+        t = Template("{% load forum_extras %}{% if user|in_group:'New Scratchers' %}Success{% else %}Failure{% endif %}")
+        c = Context({'user': self.user})
+        self.assertEqual("Success", t.render(c))
+        t = Template("{% load forum_extras %}{% if user|in_group:'New Scratchers' %}Failure{% else %}Success{% endif %}")
+        c = Context({'user': self.moderator})
+        self.assertEqual("Success", t.render(c))
+
 
     # Integration
     def test_status_created_topic(self):
@@ -273,6 +281,44 @@ class ForumSpamTests(TestCase):
             reverse("djangobb:topic", args=[self.test_post.topic.id,]))
         self.assertNotContains(response, "postmarkham")
         self.assertNotContains(response, "postmarkspam")
+        self.client.logout()
+
+    def test_mod_can_see_ban_link_new_scratcher(self):
+        """ Mods can see the "Ban User" link on posts by New Scratchers """
+        self.client.login(
+            username=self.moderator.username, password=self.password)
+        response = self.client.get(
+            reverse("djangobb:topic", args=[self.test_post.topic.id]))
+        link = reverse("ban_forum_spammer", args=[self.test_post.user.username])
+        self.assertContains(response, link)
+        self.client.logout()
+
+    def test_mod_cannot_see_ban_link_normal_user(self):
+        """ Mods don't see the "Ban User" link on posts by normal users """
+        self.client.login(
+            username=self.moderator.username, password=self.password)
+        self.test_post.user = self.veteran_user
+        self.test_post.save()
+        response = self.client.get(
+            reverse("djangobb:topic", args=[self.test_post.topic.id]))
+        link = reverse("ban_forum_spammer", args=[self.test_post.user.username])
+        self.assertNotContains(response, link)
+        self.client.logout()
+
+    def test_normal_user_can_never_see_ban_link(self):
+        """ Normal users don't see the "Ban User" link on any posts """
+        self.client.login(
+            username=self.user.username, password=self.password)
+        response = self.client.get(
+            reverse("djangobb:topic", args=[self.test_post.topic.id]))
+        link = reverse("ban_forum_spammer", args=[self.test_post.user.username])
+        self.assertNotContains(response, link)
+        self.test_post.user = self.veteran_user
+        self.test_post.save()
+        response = self.client.get(
+            reverse("djangobb:topic", args=[self.test_post.topic.id]))
+        link = reverse("ban_forum_spammer", args=[self.test_post.user.username])
+        self.assertNotContains(response, link)
         self.client.logout()
 
     def test_mod_can_mark_spam(self):
