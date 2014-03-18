@@ -39,7 +39,10 @@ def profile_link(user):
 
 @register.filter
 def forum_time(time):
-    return u'%s %s' % (capfirst(naturalday(time)), time.strftime('%H:%M:%S'))
+    try:
+        return u'%s %s' % (capfirst(naturalday(time)), time.strftime('%H:%M:%S'))
+    except AttributeError:
+        return u''
 
 @register.filter
 def forum_can_view_reports(user):
