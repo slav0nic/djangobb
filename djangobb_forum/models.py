@@ -286,8 +286,8 @@ class Post(models.Model):
             self.body_html = smiles(self.body_html)
         super(Post, self).save(*args, **kwargs)
 
-    def move_to(self, to_topic):
-        delete_topic = (self.topic.posts.count() == 1)
+    def move_to(self, to_topic, delete_topic=True):
+        delete_topic = (self.topic.posts.count() == 1 && delete_topic)
         prev_topic = self.topic
         self.topic = to_topic
         self.save()
@@ -631,9 +631,14 @@ class PostStatus(models.Model):
         head = post.topic.head
 
         if post == head:
+            # Move the original topic back to the original forum (either from
+            # the dustbin, or from the spam dustbin)
             topic.move_to(self.forum)
-        else:
-            post.move_to(self.topic)
+        
+        if topic != post.topic:
+            # If the post was moved from its original topic, put it back now that
+            # the topic is in place.
+            post.move_to(topic, delete_topic=False)
 
     def _delete_post(self):
         """
