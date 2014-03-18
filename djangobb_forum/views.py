@@ -307,6 +307,9 @@ def misc(request):
                 return render(request, 'djangobb_forum/report.html', {'form':form})
 
     elif 'submit' in request.POST and 'mail_to' in request.GET:
+        if not forum_settings.USER_TO_USER_EMAIL and not request.user.is_superuser:
+            raise PermissionDenied
+
         form = MailToForm(request.POST)
         if form.is_valid():
             user = get_object_or_404(User, username=request.GET['mail_to'])
@@ -322,6 +325,9 @@ def misc(request):
             return HttpResponseRedirect(reverse('djangobb:index'))
 
     elif 'mail_to' in request.GET:
+        if not forum_settings.USER_TO_USER_EMAIL and not request.user.is_superuser:
+            raise PermissionDenied
+        
         mailto = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
         return render(request, 'djangobb_forum/mail_to.html', {'form':form,
