@@ -287,7 +287,7 @@ class Post(models.Model):
         super(Post, self).save(*args, **kwargs)
 
     def move_to(self, to_topic, delete_topic=True):
-        delete_topic = (self.topic.posts.count() == 1 && delete_topic)
+        delete_topic = (self.topic.posts.count() == 1) and delete_topic
         prev_topic = self.topic
         self.topic = to_topic
         self.save()
