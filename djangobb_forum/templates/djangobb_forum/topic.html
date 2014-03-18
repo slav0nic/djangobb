@@ -97,13 +97,16 @@
 								</dd>
 						{% endif %}
 						<dd class="usercontacts"><a href="{% url 'djangobb:forum_profile' post.user.username %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
-						{% if post.user.forum_profile.privacy_permission == 0 %}
-							<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
-						{% else %}
-							{% if post.user.forum_profile.privacy_permission == 1 %}
-								<a href="{% url 'djangobb:misc' %}?mail_to={{ post.user.username }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
+						{% if forum_settings.USER_TO_USER_EMAIL %}
+							{% if post.user.forum_profile.privacy_permission == 0 %}
+								<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
+							{% else %}
+								{% if post.user.forum_profile.privacy_permission == 1 %}
+									<a href="{% url 'djangobb:misc' %}?mail_to={{ post.user.username }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
+								{% endif %}
 							{% endif %}
 						{% endif %}
+						
 						{% if forum_settings.PM_SUPPORT %}
 							{% if user.is_authenticated %}
 								<a href="{% url 'messages_compose_to' post.user.username %}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
