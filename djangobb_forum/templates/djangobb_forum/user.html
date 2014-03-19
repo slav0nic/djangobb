@@ -34,14 +34,17 @@
 							{% else %}
 								<dd>{% trans "(Unknown)" %}</dd>
 							{% endif %}
-							<dt>{% trans "E-mail:" %} </dt>
-							{% if profile.forum_profile.privacy_permission == 0 %}
-								<dd><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></dd>
-							{% else %}
-								{% if profile.forum_profile.privacy_permission == 1 %}
-									<dd><a href="{% url 'djangobb:misc' %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></dd>
+							
+							{% if forum_settings.USER_TO_USER_EMAIL %}
+								<dt>{% trans "E-mail:" %} </dt>
+								{% if profile.forum_profile.privacy_permission == 0 %}
+									<dd><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></dd>
 								{% else %}
-									<dd>{% trans "(Hidden)" %}</dd>
+									{% if profile.forum_profile.privacy_permission == 1 %}
+										<dd><a href="{% url 'djangobb:misc' %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></dd>
+									{% else %}
+										<dd>{% trans "(Hidden)" %}</dd>
+									{% endif %}
 								{% endif %}
 							{% endif %}
 						</dl>
