@@ -13,10 +13,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
-    Attachment, Poll, PollChoice
+    Attachment, Poll, PollChoice, PostStatus
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import smiles, convert_text_to_html, filter_language, \
-    set_language, UnapprovedImageError, filter_akismet, AkismetSpamError
+    set_language, UnapprovedImageError
 
 # scratchr2
 from base_comments.models import BaseComment
@@ -118,14 +118,6 @@ class AddPostForm(forms.ModelForm):
             except UnapprovedImageError as e:
                 self._errors['body'] = self.error_class([e.user_error()])
                 del cleaned_data['body']
-            
-            if gargoyle.is_active('akismet_filter') and self.user.groups.filter(name="New Scratchers"):
-                try:
-                    cleaned_data['body'] = filter_akismet(body, self.user, self.ip, self.request_data, self.url)
-                except AkismetSpamError as e:
-                    self._errors['body'] = self.error_class([e.user_error()])
-                    logger.info("Spam forum post detected.", extra={"body": body})
-                    del cleaned_data['body']
 
             cleaned_data['body'] = filter_language(body)
 
@@ -171,6 +163,10 @@ class AddPostForm(forms.ModelForm):
                     body=self.cleaned_data['body'])
 
         post.save()
+        if self.user.groups.filter(name="New Scratchers").exists():
+            tracking_data = dict(**self.request_data)
+            tracking_data['permalink'] = self.url
+            status = PostStatus.objects.create_for_post(post, **tracking_data)
         if forum_settings.ATTACHMENT_SUPPORT:
             self.save_attachment(post, self.cleaned_data['attachment'])
         return post

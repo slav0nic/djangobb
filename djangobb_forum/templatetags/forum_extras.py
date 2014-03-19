@@ -15,11 +15,15 @@ from django.utils.html import escape
 from django.utils.hashcompat import md5_constructor
 from django.contrib.humanize.templatetags.humanize import naturalday
 
+from django_fsm.db.fields import can_proceed as fsm_can_proceed
+
 from pagination.templatetags.pagination_tags import paginate
 
 from djangobb_forum.models import Report, Post
 from djangobb_forum import settings as forum_settings
 
+import logging
+logger = logging.getLogger(__name__)
 
 register = template.Library()
 
@@ -35,7 +39,10 @@ def profile_link(user):
 
 @register.filter
 def forum_time(time):
-    return u'%s %s' % (capfirst(naturalday(time)), time.strftime('%H:%M:%S'))
+    try:
+        return u'%s %s' % (capfirst(naturalday(time)), time.strftime('%H:%M:%S'))
+    except AttributeError:
+        return u''
 
 @register.filter
 def forum_can_view_reports(user):
@@ -233,6 +240,39 @@ def forum_authority(user):
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote1.gif" alt="" />' % (settings.STATIC_URL))
     else:
         return mark_safe('<img src="%sdjangobb_forum/img/authority/vote0.gif" alt="" />' % (settings.STATIC_URL))
+
+
+@register.filter
+def can_proceed(instance, transition_name):
+    """
+    Template tag for django-fsm's can_proceed method. Usage:
+        {% if instance|can_proceed:"transition_name" %}
+        Something
+        {% endif %}
+    
+    Equivalent to:
+        if can_proceed(instance.transition_name):
+            do_something()
+    """
+    try:
+        transition = getattr(instance, transition_name)
+    except AttributeError:
+        try:
+            logger.warn("Can't process can_proceed. %s has no method %s." % (str(obj), method))
+        except:
+            # Don't die from logging
+            pass
+        return False
+    return fsm_can_proceed(transition)
+
+
+@register.filter
+def in_group(user, group_name):
+    """ Return if a user is in a group called group_name """
+    try:
+        return user.groups.filter(name=group_name).exists()
+    except:
+        return False
 
 
 @register.filter
