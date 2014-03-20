@@ -802,7 +802,7 @@ class PostStatus(models.Model):
         elif can_proceed(self.filter_ham):
             self.filter_ham()
             if certainly_spam:
-                post_status.mark_spam()
+                self.mark_spam()
         else:
             if certainly_spam:
                 self._delete_post()
