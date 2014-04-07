@@ -70,6 +70,8 @@
     });
     </script>
 
+    <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/menu.js"></script>
+
     {% if user.is_authenticated %}
         {% if post %}
             {% with markup=post.markup %}
