@@ -69,10 +69,11 @@ logger = logging.getLogger(__name__)
 akismet_api = None
 try:
     from akismet import Akismet
-    akismet_api = Akismet(key=forum_settings.AKISMET_API_KEY, blog_url=forum_settings.AKISMET_BLOG_URL, agent=forum_settings.AKISMET_AGENT)
-    if not akismet_api.verify_key():
-        logger.error("Invalid Aksimet API key.", extra={'key': akismet_api.key, 'blog': akismet_api.blog_url, 'user_agent': akismet_api.user_agent})
-        akismet_api = None
+    if getattr(settings, 'ENVIRONMENT', 'production') not in ['test', 'development']:
+        akismet_api = Akismet(key=forum_settings.AKISMET_API_KEY, blog_url=forum_settings.AKISMET_BLOG_URL, agent=forum_settings.AKISMET_AGENT)
+        if not akismet_api.verify_key():
+            logger.error("Invalid Aksimet API key.", extra={'key': akismet_api.key, 'blog': akismet_api.blog_url, 'user_agent': akismet_api.user_agent})
+            akismet_api = None
 except Exception as e:
     logger.error("Error while initializing Akismet", extra={'exception': e})
 
