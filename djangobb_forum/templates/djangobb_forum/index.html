@@ -2,104 +2,75 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block extra_meta %}
-<script type="text/javascript" src="{{ STATIC_URL }}djangobb_forum/js/jquery.cookie.js"></script>
-<script type="text/javascript">
+{% block forum_content %}
 
-	function set_collapser(cat_id) {
-		category_body_id = "category_body_" + cat_id;
-		if($.cookie(category_body_id)){
-			item_id = "#" + category_body_id;
-			head_id = item_id.replace("body", "head");
-			$(head_id).addClass("collapsed");
-			$(item_id).hide()
-		}
-	}
-	$(document).ready(function(){
-		$("a.toggle").click(function(){
-			header_id = $(this).parent().attr('id');
-			body_id = header_id.replace("head", "body");
-			item_id = '#' + body_id
-			if ($(this).parent().attr('class')==''){
-				$(this).parent().addClass("collapsed");
-				$.cookie(body_id, 'collapsed');
-			}else {
-				$(this).parent().removeClass("collapsed");
-				$.cookie(body_id, '');
-			}
-			$(item_id).slideToggle("slow");
-		});
+
+
+	<div class="forum_main">
 	{% for iter in cats %}
-		set_collapser({{ iter.id }})
-	{% endfor %}
-	});
-</script>
-{% endblock %}
-
-{% block content %}
-<div id="idx1" class="blocktable">
-{% for iter in cats %}
-	<h2 id="category_head_{{ iter.id }}">
-		<a class="toggle" href="#">Toggle shoutbox</a>
-		<span>
-			{{ iter.cat }}
-		</span>
-	</h2>
-	<div class="box" id="category_body_{{ iter.id }}">
-		<div class="inbox">
-			<table cellspacing="0">
-				<thead>
-					<tr>
-						<th class="tcl" scope="col">{% trans "Forum" %}</th>
-						<th class="tc2" scope="col">{% trans "Topics" %}</th>
-						<th class="tc3" scope="col">{% trans "Posts" %}</th>
-						<th class="tcr" scope="col">{% trans "Last post" %}</th>
-					</tr>
-				</thead>
-				<tbody>
+		{% if iter.id == 2 and not user.is_authenticated %}
+			<!-- NOT -->
+		{% else %}
+			<div class="forum_cat">
+				
+				<div class="forum_cat_head">{{ iter.cat }}</div>
+				<div class="cat_id_{{ iter.id }} forum_box">
 				{% for forum in iter.forums %}
-					{% include 'djangobb_forum/forum_row.html' %}
+					<div id="forum_id_{{ forum.id }}" class="forum {% if forum|forum_unreads:user %}forum_new{% endif %}">
+						<a href="{{ forum.get_absolute_url }}">
+							<div class="forum_icon"></div>
+							<article>
+								<div class="cat_title">{{ forum }}</div>
+								<div class="cat_subtitle">{{ forum.description|safe }}</div>
+								<div class="forum_statistic">{{ forum.topic_count }} тем<br> {{ forum.post_count }} сообщений</div>
+							</article>
+						</a>
+					</div>
 				{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
-{% endfor %}
-</div>
+				</div>
+				<div class="clear forum_catdown"></div>
+			</div>
 
-<div id="brdstats" class="block">
-	<h2><span>{% trans "Board information" %}</span></h2>
-	<div class="box">
-		<div class="inbox">
-			<dl class="conr">
-				<dt><strong>{% trans "Board statistics" %}</strong></dt>
-				<dd>{% trans "Total number of registered users:" %} <strong>{{ users }}</strong></dd>
-				<dd>{% trans "Total number of topics:" %} <strong>{{ topics }}</strong></dd>
-				<dd>{% trans "Total number of posts:" %} <strong>{{ posts }}</strong></dd>
-			</dl>
-			<dl class="conl">
-				<dt><strong>{% trans "User information" %}</strong></dt>
-				<dd>{% trans "Newest registered user:" %} {{ last_user|profile_link }}</dd>
-				<dd>{% trans "Registered users online:" %} <strong>{{ online_count }}</strong></dd>
-				<dd>{% trans "Guests online:" %} <strong>{{ guest_count }}</strong></dd>
-			</dl>
-            {% if online_count %}
-                <dl id="onlinelist" class= "clearb">
-                    <dt><strong>{% trans "Online:" %} </strong></dt>
-                    {% for online in users_online %}
-                        <dd>{{ online|profile_link }}</dd>
-                    {% endfor %}
-                </dl>
-            {% endif %}
-		</div>
+		{% endif %}
+	{% endfor %}
 	</div>
-</div>
-{% endblock %}
 
-{% block lofi %}
-{% if forum_settings.LOFI_SUPPORT %}
-    <p class="lofi">
-        <a href="{% url 'djangobb:lofi_index' %}">Lo-Fi Version</a>
-    </p>
-{% endif %}
+	<div id="stats">
+		<div class="stats_head">Активность на форуме</div>
+		{% for lastpost in last_posts %}
+			<div class="stats_item">
+				<div><span>{{ lastpost.user }}</span> написал в теме</div>
+				<a href="{{ lastpost.get_absolute_url }}">{{ lastpost.topic }}</a>
+			</div>
+		{% endfor %}
+		<table class="stats right">
+			<tr>
+				<td class="left">Сообщений</td>
+				<td>{{ posts }}</td>
+			</tr>
+			<tr>
+				<td class="left">Тем</td>
+				<td>{{ topics }}</td>
+			</tr>
+			<tr>
+				<td class="left">Участников</td>
+				<td>{{ users }}</td>
+			</tr>
+		</table>
+		<div class="stats_item right">
+			<div class="stats_item_new left">Новый участник:</div>
+			{{ last_user|profile_link }}
+		</div>
+		{% if online_count %}
+		<div class="stats_item right">
+				<div class="left">Сейчас на форуме:</div>
+				<div id="onlinelist">
+					{% for online in users_online %}
+						{{ online|profile_link }}
+					{% endfor %}
+				</div>
+		</div>
+		{% endif %}
+	</div>
+
 {% endblock %}

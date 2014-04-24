@@ -1,98 +1,47 @@
-{% extends 'djangobb_forum/base.html' %}
+{% extends 'djangobb_forum/profile/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div id="profile" class="block2col">
-	{% include 'djangobb_forum/profile/profile_menu.html' %}
-	<div class="blockform">
-		<h2><span>{{ profile.username }} - {% trans "Essentials" %}</span></h2>
-		<div class="box">
-			<form id="profile1" method="post">
-				{% csrf_token %}
-				<div class="inform">
-					<fieldset>
-						<legend>{% trans "Enter your username and password" %}</legend>
-						<div class="infldset">
-							{{ form.username.errors }}
-							<label><strong>{{ form.username.label }}</strong><br>
-							{{ form.username }}
-							{% if not user.is_superuser %}
-								{{ form.fields.username.initial }}
-							{% endif %}
-							<br></label>
-							<p>
-							{% if user.is_superuser %}
-								<a href="{% url 'admin:user_change_password' profile.id %}">{% trans "Change password" %}</a>
-							{% else %}
-								<a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>
-							{% endif %}
-							</p>
-					</div>
-					</fieldset>
-				</div>
-				<div class="inform">
-					<fieldset>
-						<legend>{% trans "Enter a valid e-mail address" %}</legend>
-						<div class="infldset">
-							{{ form.email.errors }}
-							<label><strong>{{ form.email.label }}</strong><br>
-							{{ form.email }}<br></label>
-							{% if user.is_superuser %}
-								<p><a href="{% url 'djangobb:misc' %}?mail_to={{ profile }}">{% trans "Send e-mail" %}</a></p>
-							{% endif %}
+{% block profile_content %}
 
-						</div>
-					</fieldset>
-				</div>
-                <div class="inform">
-                    <fieldset>
-                        <legend>{{ form.auto_subscribe.label }}</legend>
-                        <div class="infldset">
-                            {{ form.auto_subscribe.errors }}
-                            {{ form.auto_subscribe }} <label for="id_auto_subscribe">{{ form.auto_subscribe.help_text }}</label>
-                        </div>
-                    </fieldset>
-                </div>
-				<div class="inform">
-					<fieldset>
-						<legend>{% trans "Set your localisation options" %}</legend>
-						<div class="infldset">
-							{{ form.time_zone.errors }}
-							<label>
-								{% trans "Timezone: For the forum to display times correctly you must select your local timezone." %}<br>
-							<br>
-							{{ form.time_zone }}
-							</label>
-							{{ form.language.errors }}
-							<label>
-								{% trans "Language: You can choose which language you wish to use to view the forum" %}
-							<br>
-							{{ form.language }}
-							<br></label>
-						</div>
-					</fieldset>
-				</div>
-				<div class="inform">
+<form id="profile1" method="post">
+	{% csrf_token %}
+		<fieldset>
+			<legend>Учетные данные</legend>
+				{{ form.username.errors }}
+				<label>
+					<strong>{{ form.username.label }}</strong>
+					{{ form.username }}
+					{% if not request.user.is_superuser %}
+						<span class="profile_input_simulate">{{ form.fields.username.initial }}</span>
+					{% endif %}
+				</label>
+				<a href="{% url 'account_change_password' %}">Изменить пароль</a>
+				
+		</fieldset>
+		<fieldset>
+				{{ form.email.errors }}
+				<label>
+					<strong>{{ form.email.label }}</strong>
+					{{ form.email }}
+				</label>
+				{% if request.user.is_superuser %}
+					<a href="{% url 'djangobb:misc' %}?mail_to={{ profile }}">отправить письмо</a>
+				{% endif %}
+		</fieldset>
+		<fieldset>
+			<legend>Активность</legend>
+				<label>Зарегистрирован: {{ profile.date_joined|date:"Y-m-d" }}</label>
+				<label>Последнее сообщение: {{ profile.forum_profile.last_post }}</label>
+				<label>Всего сообщений: {{ profile.forum_profile.post_count }} - 
+				<a href="{% url 'djangobb:search' %}?action=show_user&user_id={{ profile.id }}">показать все</a></p>
+				</label>
+		</fieldset>
+	<input name="update" value="Сохранить" type="submit">
+</form>
+		<!--
+-->
 
-					<fieldset>
-						<legend>{% trans "User activity" %}</legend>
-						<div class="infldset">
-							<p>{% trans "Registered:" %} {{ profile.date_joined|date:"Y-m-d" }}</p>
-							<p>{% trans "Last post:" %} {{ profile.forum_profile.last_post }}</p>
-							<label>{% trans "Posts:" %} {{ profile.forum_profile.post_count }} - 
-							<a href="{% url 'djangobb:search' %}?action=show_user&user_id={{ profile.id }}">{% trans "Show all posts" %}</a></p>
-							</label>
-						</div>
-					</fieldset>
-				</div>
-				<p><input name="update" value="{% trans "Submit" %}" type="submit">{% trans "When you update your profile, you will be redirected back to this page." %}</p>
-			</form>
-		</div>
-
-	</div>
-	<div class="clearer"></div>
-</div>
 {% endblock %}
 
 {% block controls %}

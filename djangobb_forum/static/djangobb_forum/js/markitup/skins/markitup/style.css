@@ -12,23 +12,20 @@
 	text-decoration:none;
 }
 .markItUp  {
-	width:700px;
-	margin:5px 0 5px 0;
-	border:5px solid #F5F5F5;	
+	width:100%;
 }
+/*
 .markItUpContainer  {
-	border:1px solid #3C769D;	
 	background:#FFF url(images/bg-container.png) repeat-x top left;
-	padding:5px 5px 2px 5px;
-	font:11px Verdana, Arial, Helvetica, sans-serif;
+	 font:11px Verdana, Arial, Helvetica, sans-serif; 
 }
+*/
 .markItUpEditor {
-	font:12px 'Courier New', Courier, monospace;
-	padding:5px 5px 5px 35px;
-	border:3px solid #3C769D;
-	width:643px;
-	height:320px;
-	background:#FFF url(images/bg-editor.png) no-repeat;
+	padding:5px 5px 5px 5px;
+	border:1px solid #eee;
+	width: 98%%;
+	height:180px;
+	background-color: #fff;
 	clear:both;
 	line-height:18px;
 	overflow:auto;
@@ -59,7 +56,9 @@
 	list-style:none;
 	float:left;
 	position:relative;
+	opacity: .5;
 }
+.markItUpHeader ul li:hover {opacity: 1;}
 .markItUpHeader ul li ul{
 	display:none;
 }
@@ -70,13 +69,16 @@
 	background:transparent url(images/menu.png) no-repeat 115% 50%;
 	margin-right:5px;
 }
+.markItUpHeader ul .markItUpDropMenu ul {
+	z-index: 40;
+}
 .markItUpHeader ul .markItUpDropMenu li {
 	margin-right:0px;
 }
 .markItUpHeader ul .markItUpSeparator {
 	margin:0 10px;
 	width:1px;
-	height:16px;
+	height:26px;
 	overflow:hidden;
 	background-color:#CCC;
 }
@@ -88,14 +90,16 @@
 .markItUpHeader ul ul {
 	display:none;
 	position:absolute;
-	top:18px; left:0px;	
+	top:28px; left:0px;	
 	background:#F5F5F5;
-	border:1px solid #3C769D;
+	border:1px solid #999;
 	height:inherit;
 }
 .markItUpHeader ul ul li {
 	float:none;
-	border-bottom:1px solid #3C769D;
+	/*
+	border-bottom:1px solid #999;
+	*/
 }
 .markItUpHeader ul ul .markItUpDropMenu {
 	background:#F5F5F5 url(images/submenu.png) no-repeat 100% 50%;
@@ -110,10 +114,10 @@
 }
 .markItUpHeader ul a {
 	display:block;
-	width:16px; height:16px;
+	width:26px; height:26px;
 	text-indent:-10000px;
 	background-repeat:no-repeat;
-	padding:3px;
+	padding:5px;
 	margin:0px;
 }
 .markItUpHeader ul ul a {
@@ -121,12 +125,12 @@
 	padding-left:0px;
 	text-indent:0;
 	width:120px; 
-	padding:5px 5px 5px 25px;
+	padding:5px 5px 5px 35px;
 	background-position:2px 50%;
 }
 .markItUpHeader ul ul a:hover  {
 	color:#FFF;
-	background-color:#3C769D;
+	background-color:#555;
 }
 /***************************************************************************************/
 .html .markItUpEditor {

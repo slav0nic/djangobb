@@ -1,6 +1,6 @@
 {% load forum_extras %}
 {% load i18n %}
-<em>({% trans "Moderated by" %}</em> 
+<em>(Модераторы</em> 
 	{% for moderator in moderators %}
 		{% if forloop.last %}
 			{{ moderator|profile_link }})

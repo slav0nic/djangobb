@@ -1,0 +1,81 @@
+{% load i18n %}
+{% if user.is_authenticated %}
+    {% if post %}
+        {% with markup=post.markup %}
+            {% include "djangobb_forum/includes/markup_editor.html" %}
+        {% endwith %}
+    {% else %}
+        {% with markup=user.forum_profile.markup %}
+            {% include "djangobb_forum/includes/markup_editor.html" %}
+        {% endwith %}
+    {% endif %}
+    <script type="text/javascript">
+       $(document).ready(function() {
+        $(".markup").markItUp(mySettings);
+        
+       });
+    </script>
+{% endif %}
+<div class="post_form" id="reply">
+    <form id="post_add" name="post_com" action="{{ form_url|default_if_none:"." }}" method="post" enctype="multipart/form-data" onkeydown="SendComment(event)">
+        {% csrf_token %}
+
+<!--        <label>-->
+        <input id="id_name" maxlength="255" name="name" size="115" type="text" placeholder="Название темы">
+<!--        </label>-->
+        {% if create_poll_form %}
+            <script>{# TODO: move to html head! #}
+                $(document).ready(function() {
+                    $('.poll .poll_form').hide();
+                    $(".poll").click(function() {
+                        $('.poll .poll_form').slideDown();
+                        $('.poll .poll_create_button').hide();
+                    });
+                });
+            </script>
+            <div class="poll_box poll">
+                    <legend class="poll_create_button">Создать опрос</legend>
+                    <div class="poll_form">
+                            <input id="id_question" name="question" type="text" placeholder="Вопрос">
+                            <input id="id_choice_count" min="1" name="choice_count" type="number" value="1" placeholder="Ответов">
+                            <input id="id_days" min="1" name="days" type="number" placeholder="Дней">
+                            <textarea cols="40" id="id_answers" name="answers" rows="10" placeholder="Маленькая помощь:
+                                                    Одна строчка - один вариант ответа.
+                                                    Если количество ответов для выбора по-умолчанию 1.
+                                                    Если не указать количество дней, то опрос будет длиться бесконечно.
+                                                    "></textarea>
+                    </div>
+            </div>
+        {% endif %}
+
+
+
+<!--            <div class="inform">-->
+            <fieldset>
+                <noscript><h1>Please enable JavaScript!</h1></noscript>
+                <div class="infldset txtarea">
+                    <label>
+                        <textarea class="markup" id="id_body" name="body" placeholder="Есть что написать?"></textarea>
+                        <!--{{ form.body }}-->
+                        {{ form.body.errors }}
+                    </label>
+                    <label class='postsendbutton'><input type="submit" id="post_button" name="{{ form.FORM_NAME }}" value="Отправить" /></label>
+                    <label class="postsubscribe">
+                            {{ form.subscribe }} {{ form.subscribe.errors }}
+                        <span class="postsubscribe">Подписаться на тему</span>
+                    </label>
+                </div>
+            </fieldset>
+<!--            </div>-->
+        {% if forum_settings.ATTACHMENT_SUPPORT %}
+            <fieldset class="topic_add_attach">
+                <div class="infldset">
+                    {{ form.attachment.errors }}
+                    <div class="rbox">
+                        {{ form.attachment }}
+                    </div>
+                </div>
+            </fieldset>
+        {% endif %}
+    </form>
+</div>

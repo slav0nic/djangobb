@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% load forum_extras %}
+{% load i18n %}
+
+{% block extra_css %}
+	{% set_theme_style request.user %}
+	<script type="text/javascript" src="{{ STATIC_URL }}djangobb_forum/js/jquery.cookie.js"></script>
+{% endblock %}
+
+{% block main_content %}
+
+<div id="profile" class="content block2col maincolor">
+	{% include 'djangobb_forum/profile/profile_menu.html' %}
+	
+	<div class="profile_cont">
+		{% block profile_content %}
+		{% endblock %}
+	</div>
+<div class="clearer"></div>
+</div>
+
+{% endblock %}
+

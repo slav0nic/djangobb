@@ -4,234 +4,150 @@
 {% load i18n %}
 
 {% block title %} / {{ topic.forum.name }} / {{ topic.name }}{% endblock %}
-{% block content %}
+{% block forum_content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
-<div class="linkst">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-		<ul>
-			<li>
-			<a href="{% url 'djangobb:index' %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
-			<a href="{% url 'djangobb:forum_topic_feed' topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
-			</li>
-		</ul>
-		<div class="clearer"></div>
+{% if "[h]" in topic.name and not user.is_authenticated %}
+	{% include '404b.html' %}
+{% else %}
+<div id="breadcrumbs">
+		{% if topic.name %}
+			<a href="{% url 'djangobb:index' %}">Форум IceBorn</a>
+			&#8594; {% link topic.forum %}
+			&#8594; <strong>{{ topic.name }}</strong>
+			{% if user.is_authenticated %}  
+				{% if subscribed %}
+					<a class="subscribelink clearb" href="{% url 'djangobb:forum_delete_subscription' topic.id %}?from_topic">Отписаться от темы</a>
+	            {% else %}
+					<a class="subscribelink clearb" href="{% url 'djangobb:forum_add_subscription' topic.id %}">Подписаться на тему</a>
+	            {% endif %}
+            {% endif %}
+		{% endif %}
 	</div>
-</div>
+
+{% if poll_form %}       
+	<div id="poll maincolor">
+	<p><strong>{{ poll.question }}</strong></p>
+		<form action="." method="post">{% csrf_token %}
+			{{ poll_form }}
+    		{% if poll.choice_count > 1 %}
+	    		<p>
+        			{% blocktrans with count=poll.choice_count %}({{ count }} answers allows.){% endblocktrans %}
+				</p>
+			{% endif %}
+			<input class="poll_button" type="submit" name="{{ poll_form.FORM_NAME }}" value="Голосовать" />
+		</form>
+	</div> 
+{% else %}
+	{% if poll.question %}
+		<div id="poll">
+			<p><strong>{{ poll.question }}</strong></p>
+			<ul>               
+				{% for choice in poll.choices.all %}
+					<li>
+						<div class="bar" style="width:{{ choice.percent|floatformat:0 }}%;" title="{{ choice.choice }}">&nbsp;</div>
+						<div class="onbar"> {{ choice.percent|floatformat:1 }}%({{ choice.votes }}) {{ choice.choice }}</div>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+{% endif %}
+<div class='content cont_topic maincolor'>
 
 {% if poll %}
-<div id="poll" class="block">
-    <h2><span>{% trans "Poll" %}</span></h2>
-    <div class="box">
-        <div class="inbox"><p><strong>{{ poll.question }}</strong></p>
-        {% if poll_form %}       
-            <form action="." method="post">{% csrf_token %}
-            {{ poll_form }}
-            {% if poll.choice_count > 1 %}
-            <p>
-                {% blocktrans with count=poll.choice_count %}({{ count }} answers allows.){% endblocktrans %}
-            </p>
-            {% endif %}
-            <input type="submit" name="{{ poll_form.FORM_NAME }}" value="{% trans "Vote" %}" />
-            </form>
-        {% else %}
-            <ul>               
-            {% for choice in poll.choices.all %}
-                <li>
-                    <div class="bar" style="width:{{ choice.percent|floatformat:0 }}%;" title="{{ choice.choice }}">&nbsp;</div>
-                    {{ choice.votes }} vote{{ choice.votes|pluralize }} ({{ choice.percent|floatformat:1 }}%) for: {{ choice.choice }}
-                </li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-        </div>
-    </div>
-</div>
 {% endif %}
-
-{% for post in posts %}
-	<div id="p{{ post.id }}" class="blockpost roweven firstpost">
-		<a name="post-{{ post.id }}"></a>
-		<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
-		<div class="box">
-			<div class="inbox">
-				<div class="postleft">
-					<dl>
-						<dt><strong class="username">{{ post.user.username }}</strong></dt>
-						<dd class="usertitle">
-							{% if post.user.forum_profile.status %}
-								<strong>{{ post.user.forum_profile.status }}</strong>
-							{% else %}
-								<strong>{{ post.user.forum_profile.group }}</strong>
-							{% endif %}
-						</dd>
-						{% if forum_settings.AUTHORITY_SUPPORT %}
-							<dd class="usertitle">
-								{{ post.user|forum_authority }}
-							</dd>
-						{% endif %}
-						<dd class="postavatar">
-							{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
-								<img src="{{ post.user.forum_profile.avatar.url }}" />
-							{% else %}
-								{% if forum_settings.GRAVATAR_SUPPORT %}
-									<img src="{% gravatar post.user.email %}" />
-								{% endif %}
-							{% endif %}
-						</dd>
-						{% if post.user.forum_profile.location %}
-							<dd>{% trans "From:" %} {{ post.user.forum_profile.location }}</dd>
-						{% endif %}
-						<dd>{% trans "Registered:" %} {{ post.user.date_joined|date:"Y-m-d" }}</dd>
-						<dd>{% trans "Posts:" %} {{ post.user.forum_profile.post_count }}</dd>
-						{% if moderator %}
-							<dd>{% trans "IP:" %} {{ post.user_ip }}</dd>
-						{% endif %}
-						{% if forum_settings.REPUTATION_SUPPORT %}
-								<dd><a href="{% url 'djangobb:reputation' post.user.username %}">{% trans "Reputation" %}</a>:
-								{% if user != post.user %} {# TODO: and user.is_authenticated #}
-									<a href="{% url 'djangobb:reputation' post.user.username %}?action=plus&amp;post_id={{ post.id }}"><img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_add.gif" alt="+" /></a>&nbsp;&nbsp;<strong>{{ post.user.forum_profile.reply_total|default_if_none:"0" }}&nbsp;&nbsp;</strong><a href="{% url 'djangobb:reputation' post.user.username %}?action=minus&amp;post_id={{ post.id }}"><img src="{{ STATIC_URL }}djangobb_forum/img/reputation/warn_minus.gif" alt="-" /></a>
-								{% else %}
-									<strong>{{ post.user.forum_profile.reply_total|default_if_none:"0" }}</strong>
-								{% endif %}
-								</dd>
-						{% endif %}
-						<dd class="usercontacts"><a href="{% url 'djangobb:forum_profile' post.user.username %}">{% trans "Profile" %}</a>&nbsp;&nbsp;
-						{% if post.user.forum_profile.privacy_permission == 0 %}
-							<a href="mailto:{{ post.user.email }}">{% trans "E-mail" %}</a>&nbsp;&nbsp;
+	{% for post in posts %}
+		<div id="p{{ post.id }}" class="post"><a name="post-{{ post.id }}"></a>
+			<div class='postleft center'>
+				<div class='postavatar'>
+					<a href="{% url 'djangobb:forum_profile' post.user.username %}" title='Профиль'>
+						{% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
+							<img src="{{ post.user.forum_profile.avatar.url }}" />
 						{% else %}
-							{% if post.user.forum_profile.privacy_permission == 1 %}
-								<a href="{% url 'djangobb:misc' %}?mail_to={{ post.user.username }}">{% trans "Send e-mail" %}</a>&nbsp;&nbsp;
+							{% if forum_settings.GRAVATAR_SUPPORT %}
+								<img src="{% gravatar post.user.email %}" />
 							{% endif %}
 						{% endif %}
-						{% if forum_settings.PM_SUPPORT %}
-							{% if user.is_authenticated %}
-								<a href="{% url 'messages_compose_to' post.user.username %}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
-							{% endif %}
-						{% endif %}
-				</dl>
+					</a>
+				</div>
+				<div class="post_act">
+					<!--{% if user.is_authenticated %}
+						<a href="{% url 'messages_compose_to' post.user.username %}" title='Отправить ПМ'>
+							<div class='postpm'></div>
+						</a>&nbsp;&nbsp;</dd>
+					{% endif %}-->
+					<div>
+						<img src="http://static.iceborn.ru/img/regdate_16.png" alt="Дата регистрации"> {{ post.user.date_joined|date:"d.m.y" }}
+						<br><img src="http://static.iceborn.ru/img/comment-count.png" alt="Всего сообщений"> {{ post.user.forum_profile.post_count }}
+					</div>
+				</div>
 			</div>
-			<div class="postright">
-				<h3>{{ post.topic.name }}</h3>
-				<div class="postmsg">
-					<p class="post_body_html">{{ post.body_html|safe }}</p>
-					{% if not user.is_authenticated or user.forum_profile.show_signatures %}
-						{% if post.user.forum_profile.signature_html %}
-						<div class="postsignature">
-							<br /><br/ >
-							{{ post.user.forum_profile.signature_html|safe }}
-						</div>
-						{% endif %}
+			<div class='postcontent'>
+				<div class='posthead right {% if post.user|online %}online{% else %}offline{% endif %}'>
+					<div class='postusername'>{{ post.user.username }}</div>
+					{% if user.is_authenticated %}
+						<a href="{% url 'messages_compose_to' post.user.username %}" title='Отправить ПМ'><div class='postpm'></div></a>&nbsp;&nbsp;</dd>
 					{% endif %}
-					{% if post.updated %}
-						<p class="postedit"><em>{% trans "Edited" %} {{ post.updated_by.username }} ({% forum_time post.updated %})</em></p>
+					{% if post.user|online %}
+							 (online)
+						{% else %}
+							 (offline)
 					{% endif %}
+					<a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a>
+				</div>
+				<div class='posttext'>
+					{{ post.body_html|safe }}
+				</div>
+				<div class='attachments'>
 					{% with post.attachments.all as attachments %}
 						{% if attachments %}
 							{% for attach in attachments %}
-								<p class="postedit"><em>{% trans "Attachments:" %} <br />{{ attach|attachment_link }}</em></p>
+								<p class="postedit"><em>Вложения: <br />{{ attach|attachment_link }}</em></p>
 							{% endfor %}
 						{% endif %}
 					{% endwith %}
 				</div>
-			</div>
-			<div class="clearer"></div>
-			<div class="postfootleft">
-				{% if post.user|online %}
-					<p><strong>{% trans "Online" %}</strong></p>
-				{% else %}
-					<p>{% trans "Offline" %}</p>
+				{% if not user.is_authenticated or user.forum_profile.show_signatures %}
+					{% if post.user.forum_profile.signature_html %}
+						<div class='post_signature'>
+							<span class='postsignature'> 
+								{{ post.user.forum_profile.signature_html|safe }}
+							</span>
+						</div>
+					{% endif %}
 				{% endif %}
-			</div>
-			<div class="postfootright">
-				<ul>
-					<li class="postreport"><a href="{% url 'djangobb:misc' %}?action=report&amp;post_id={{ post.id }}">{% trans "Report" %}</a> </li>
-					{% if moderator or post|forum_equal_to:last_post %}
-						{% if moderator or post.user|forum_equal_to:user %}
-							<li class="postdelete">| <a onclick="return confirm('{% trans "Are you sure you want to delete this post?" %}')" href="{% url 'djangobb:delete_post' post.id %}">{% trans "Delete" %}</a> </li>
-						{% endif %}
-					{% endif %}
-					{% if moderator or post|forum_posted_by:user %}
-						<li class="postedit">| <a href="{% url 'djangobb:edit_post' post.id %}">{% trans "Edit" %}</a> </li>
-					{% endif %}
-					{% if user.is_authenticated %}
-						<li class="postquote">| <a onclick="return copy_paste('p{{ post.id }}');" href="#reply" title="{% trans "Full quote or quote selected text form this post." %}">{% trans "Quote" %}</a></li>
-					{% endif %}
-				</ul>
+					<div class='post_button'>
+						<div>
+							{% if moderator %}
+								<a onclick="return confirm('Задействовать баннхаммер?')" href="banhammer"><div class='button_post button_post_banhammer'></div></a>
+							{% endif %}
+							{% if moderator or post.user|forum_equal_to:user %}
+								<a onclick="return confirm('Вы действительно хотите удалить это сообщение?')" href="{% url 'djangobb:delete_post' post.id %}"><div class='button_post button_post_delete'></div></a>
+							{% endif %}
+							{% if moderator or post|forum_posted_by:user %}
+								<a href="{% url 'djangobb:edit_post' post.id %}"><div class='button_post button_post_edit'></div></a>
+							{% endif %}
+
+							{% if user.is_authenticated %}
+								<a onclick="return copy_paste('p{{ post.id }}');" href="#reply" title="Цитировать пост полностью или только выделенную часть."><div class='button_post button_post_quote'></div></a>
+							{% endif %}
+						</div>
+					</div>
 			</div>
 		</div>
-	</div>
+	{% endfor %}
 </div>
-{% endfor %}
-<div class="postlinksb">
-	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-			<ul>
-			    <li><a href="{% url 'djangobb:index' %}">{% trans "Root" %} </a></li>
-			    <li>&raquo; {% link topic.forum %} </li>
-			    <li>
-			        &raquo; {{ topic }}<a href="{% url 'djangobb:forum_topic_feed' topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" class="breadcrumb_rss" /></a>
-			    </li>
-            </ul>
-		{% if user.is_authenticated %}
-			{% if subscribed %}
-				<a class="subscribelink clearb" href="{% url 'djangobb:forum_delete_subscription' topic.id %}?from_topic">{% trans "Unsubscribe" %}</a>
-			{% else %}
-				<a class="subscribelink clearb" href="{% url 'djangobb:forum_add_subscription' topic.id %}">{% trans "Subscribe" %}</a>
-			{% endif %}
-		{% endif %}
-		<div class="clearer"></div>
-	</div>
+<div class="paginator_down_topic">
+	{% paginate %}
 </div>
-
+<div class="postsend_cont">
 {% if reply_form %}
     {% with form=reply_form %}
         {% include "djangobb_forum/includes/post_form.html" %}
     {% endwith %}
 {% endif %}
-
-{% endblock content%}
-
-{% block controls %}
-<div class="conl">
-	<form id="qjump" method="get" action="forum">
-		<div><label>{% trans "Jump to " %}
-		<br />
-		<select name="id" id="forum_id" onchange="window.location=('{% url 'djangobb:index' %}'+this.options[this.selectedIndex].value)">
-			{% for category in categories %}
-				<optgroup label="{{ category }}">
-					{% for forum in category.forums.all %}
-						<option value="{{ forum.id }}">{{ forum }}</option>
-					{% endfor %}
-				</optgroup>
-			{% endfor %}
-		</select>
-		<input type="button" onclick="window.location=('{% url 'djangobb:index' %}'+getElementById('forum_id').value)" value=" {% trans "Go" %} " accesskey="g" />
-		</label></div>
-	</form>
-	<dl id="modcontrols"><dt><strong>{% trans "Moderator control" %}</strong></dt>
-	{% if moderator %}
-		<dd><a href="{% url 'djangobb:delete_posts' topic.id %}">{% trans "Delete multiple posts" %}</a></dd>
-		<dd><a href="{% url 'djangobb:move_topic' %}?topic_id={{ topic.id }}">{% trans "Move topic" %}</a></dd>
-		{% if topic.closed %}
-			<dd><a href="{% url 'djangobb:open_close_topic' topic.id 'o' %}">{% trans "Open topic" %}</a></dd>
-		{% else %}
-			<dd><a href="{% url 'djangobb:open_close_topic' topic.id 'c' %}">{% trans "Close topic" %}</a></dd>
-		{% endif %}
-		{% if topic.sticky %}
-			<dd><a href="{% url 'djangobb:stick_unstick_topic' topic.id 'u' %}">{% trans "Unstick topic" %}</a></dd></dl>
-		{% else %}
-			<dd><a href="{% url 'djangobb:stick_unstick_topic' topic.id 's' %}">{% trans "Stick topic" %}</a></dd></dl>
-		{% endif %}
-	{% endif %}
-    </dl>
 </div>
-{% endblock %}
 
-{% block lofi %}
-{% if forum_settings.LOFI_SUPPORT %}
-    <p class="lofi">
-        <a href="{{ topic.get_absolute_url }}lofi/">Lo-Fi Version</a>
-    </p>
 {% endif %}
 {% endblock %}
+

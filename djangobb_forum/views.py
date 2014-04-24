@@ -53,6 +53,7 @@ def index(request, full=True):
 
     cats = {}
     forums = {}
+    last_posts = {}
     for forum in _forums:
         cat = cats.setdefault(forum.category.id,
             {'id': forum.category.id, 'cat': forum.category, 'forums': []})
@@ -62,6 +63,7 @@ def index(request, full=True):
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
 
+
     to_return = {'cats': cats,
                 'posts': Post.objects.count(),
                 'topics': Topic.objects.count(),
@@ -70,11 +72,11 @@ def index(request, full=True):
                 'online_count': users_count,
                 'guest_count': guest_count,
                 'last_user': User.objects.latest('date_joined'),
+                'last_post': Post.objects.latest('id'),
+                'last_posts': Post.objects.reverse()[:5],
                 }
-    if full:
-        return render(request, 'djangobb_forum/index.html', to_return)
-    else:
-        return render(request, 'djangobb_forum/lofi/index.html', to_return)
+    return render(request, 'djangobb_forum/index.html', to_return)
+    
 
 
 @transaction.commit_on_success

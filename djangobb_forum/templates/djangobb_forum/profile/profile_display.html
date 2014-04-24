@@ -1,53 +1,33 @@
-{% extends 'djangobb_forum/base.html' %}
+{% extends 'djangobb_forum/profile/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div id="profile" class="block2col">
-	{% include 'djangobb_forum/profile/profile_menu.html' %}
-	<div class="blockform">
-		<h2><span>{{ profile.username }} - {% trans "Display" %}</span></h2>
-		<div class="box">
-			<form id="profile5" method="post">
-				{% csrf_token %}
-				<div class="inform">
-					<fieldset>
-						<legend>{% trans "Select your preferred style" %}</legend>
-						<div class="infldset">
-							{{ form.theme.errors }}
-							<label>{% trans "If you like you can use a different visual style for this forum." %}<br>
-							{{ form.theme }}
-							<br></label>
-						</div>
-					</fieldset>
-					<br/>
-					<fieldset>
-						<legend>{% trans "Markup" %}</legend>
-						<div class="infldset">
-							<div class="rbox">
-							{{ form.markup.errors }}
-							<label>{{ form.markup }}<br></label>
-							</div>
-						</div>
-					</fieldset>
-					<br/>
-					<fieldset>
-						<legend>{% trans "Post display legend" %}</legend>
-						<div class="infldset">
-							<p>{% trans "Post display info" %}</p>
-							<div class="rbox">
-							{{ form.show_smilies.errors }}
-							<label>{{ form.show_smilies }}{% trans "Show smilies" %}<br></label>
-							</div>
-						</div>
-					</fieldset>
-				</div>
-				<p><input name="update" value="{% trans "Submit" %}" type="submit">{% trans "When you update your profile, you will be redirected back to this page." %}</p>
-			</form>
-		</div>
-	</div>
-	<div class="clearer"></div>
-</div>
+{% block profile_content %}
+<form id="profile5" method="post">
+	{% csrf_token %}
+		<fieldset>
+				{{ form.theme.errors }}
+				<label>
+					Тема внешнего вида форума
+					{{ form.theme }}
+				</label>
+		</fieldset>
+		<fieldset>
+				{{ form.markup.errors }}
+				<label>
+					Редактор комментариев
+					{{ form.markup }}
+				</label>
+		</fieldset>
+		<fieldset>
+				{{ form.show_smilies.errors }}
+				<label>
+					{{ form.show_smilies }}
+					Отображать смайлы
+				</label>
+		</fieldset>
+	<input name="update" value="Применить" type="submit">
+</form>
 {% endblock %}
 
 {% block controls %}

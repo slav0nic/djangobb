@@ -2,25 +2,25 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
+{% block forum_content %}
 <div class="blockform">
-	<h2><span>{% trans "Send e-mail to" %} {{ mailto }}</span></h2>
+	<h2><span>Отправить e-mail {{ mailto }}</span></h2>
 	<div class="box">
 		<form id="email" method="post">
 			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
-					<legend>{% trans "Write and submit your e-mail message" %}</legend>
+					<legend>Напишите и отправьте ваше сообщение</legend>
 					<div class="infldset txtarea">
 						<label><strong>{{ form.subject.label }}</strong><br />
 						{{ form.subject }}<br /></label>
 						<label><strong>{{ form.body.label }}</strong><br />
 						{{ form.body }}<br /></label>
-						<p>{% trans "Please note that by using this form, your e-mail address will be disclosed to the recipient." %}</p>
+						<p>Пожалуйста, обратите внимание, что при использовании этой формы, ваш электронный адрес станет известен получателю.</p>
 					</div>
 				</fieldset>
 			</div>
-			<p><input type="submit" name="submit" value="{% trans "Submit" %}" tabindex="3" accesskey="s" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
+			<p><input type="submit" name="submit" value="Отправить" tabindex="3" accesskey="s" /><a href="javascript:history.go(-1)">Назад</a></p>
 		</form>
 	</div>
 </div>

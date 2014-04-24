@@ -1,57 +1,44 @@
-{% extends 'djangobb_forum/base.html' %}
+{% extends 'djangobb_forum/profile/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div id="profile" class="block2col">
-	{% include 'djangobb_forum/profile/profile_menu.html' %}
-	<div class="blockform">
-		<h2><span>{{ profile.username }} - {% trans "Personality" %}</span></h2>
-		<div class="box">
-			<form id="profile4" method="post">
-				{% csrf_token %}
-				<div class="inform">
-					<fieldset id="profileavatar">
-						<legend>{% trans "Set your avatar display options" %}</legend>
-						<div class="infldset">
-							{{ profile.forum_profile.avatar.errors }}
-							{% if profile.forum_profile.avatar %}
-								<img src="{{ profile.forum_profile.avatar.url }}" />
-							{% endif %}
-							<p>{% trans "An avatar is a small image that will be displayed with all your posts. You can upload an avatar by clicking the link below. The checkbox 'Use avatar' below must be checked in order for the avatar to be visible in your posts." %}</p>
-							<div class="rbox">
-								{{ form.show_avatar.errors }}
-								<label>{{ form.show_avatar }}{% trans "Use avatar." %}<br></label>
-							</div>
-							<p class="clearb"><a href="{% url 'djangobb:forum_profile_upload_avatar' profile.username %}">{% trans "Upload avatar" %}</a></p>
-						</div>
-					</fieldset>
-				</div>
-				<div class="inform">
-					<fieldset>
-						<legend>{% trans "Compose your signature" %}</legend>
-						<div class="infldset">
-							{{ form.signature.errors }}
-							<p>{% trans "A signature is a small piece of text that is attached to your posts. In it, you can enter just about anything you like. Perhaps you would like to enter your favourite quote or your star sign. It's up to you! In your signature you can use BBCode if it is allowed in this particular forum. You can see the features that are allowed/enabled listed below whenever you edit your signature." %}</p>
-							<div class="txtarea">
-								<label><br>
-								{{ form.signature }}
-								<br></label>
-							</div>
-							{% if profile.forum_profile.signature_html %}
-								<p>{{ profile.forum_profile.signature_html|safe }}</p>
-							{% else %}
-								<p>{% trans "No signature currently stored in profile." %}</p>
-							{% endif %}
-						</div>
-					</fieldset>
-				</div>
-				<p><input name="update" value="{% trans "Submit" %}" type="submit">{% trans "When you update your profile, you will be redirected back to this page." %}</p>
-			</form>
+{% block profile_content %}
+<form id="profile4" method="post">
+	{% csrf_token %}
+	<div class="profile_personal">
+		<script>
+            $(document).ready(function() {
+                $('.profile_change_signature_form').hide();
+                $(".profile_change_signature").click(function() {
+                    $('.profile_change_signature_form').slideDown();
+                    $('.profile_change_signature').hide();
+                });
+            });
+        </script>
+
+		<div class="profile_avatar">
+			{{ profile.forum_profile.avatar.errors }}
+			{{ form.show_avatar.errors }}
+			{% if profile.forum_profile.avatar %}
+				<img src="{{ profile.forum_profile.avatar.url }}"></img>
+			{% else %}
+				<img src="{% gravatar profile.forum_profile.email %}"></img>
+			{% endif %}
+			<a href="{% url 'djangobb:forum_profile_upload_avatar' profile.username %}">Сменить аватар</a>
+		</div>
+		{{ form.signature.errors }}
+		{% if profile.forum_profile.signature_html %}
+			{{ profile.forum_profile.signature_html|safe }}
+		{% else %}
+			Пока нет подписи
+		{% endif %}
+		<span class="profile_change_signature">Сменить</span>
+		<div class="profile_change_signature_form">
+			<textarea class="markup" cols="30" id="id_signature" name="signature" rows="10"></textarea>
 		</div>
 	</div>
-	<div class="clearer"></div>
-</div>
+	<input name="update" value="Сохранить" type="submit">
+</form>
 {% endblock %}
 
 {% block controls %}

@@ -235,16 +235,24 @@ def online(user):
 def attachment_link(attach):
     from django.template.defaultfilters import filesizeformat
     if attach.content_type in ['image/png', 'image/gif', 'image/jpeg']:
-        img = '<img src="%sdjangobb_forum/img/attachment/image.png" alt="attachment" />' % (settings.STATIC_URL)
+        # old construction
+        #img = '<img src="%sdjangobb_forum/img/attachment/image.png" alt="attachment" />' % (settings.STATIC_URL)
+        #attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size)) 
+        #attachment = '<a href="%s"><img src="%s" class="attachmentimg" /></a>' % (attach.get_absolute_url(), attach.get_absolute_url())
+        img = ' '
+        attachment = '<a rel="simplebox" href="%s"><img src="%s" class="attachmentimg"></a>' % (attach.get_absolute_url(), attach.get_absolute_url())
     elif attach.content_type in ['application/x-tar', 'application/zip']:
         img = '<img src="%sdjangobb_forum/img/attachment/compress.png" alt="attachment" />' % (settings.STATIC_URL)
+        attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     elif attach.content_type in ['text/plain']:
         img = '<img src="%sdjangobb_forum/img/attachment/text.png" alt="attachment" />' % (settings.STATIC_URL)
+        attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     elif attach.content_type in ['application/msword']:
         img = '<img src="%sdjangobb_forum/img/attachment/doc.png" alt="attachment" />' % (settings.STATIC_URL)
+        attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     else:
         img = '<img src="%sdjangobb_forum/img/attachment/unknown.png" alt="attachment" />' % (settings.STATIC_URL)
-    attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
+        attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     return mark_safe(attachment)
 
 

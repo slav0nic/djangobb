@@ -2,16 +2,16 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div class="linkst">
-	<div class="inbox">
-		{% if forum %}
-		<ul class="start"><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %}</a> </li><li>&raquo; {% link forum %}</li></ul>
-		{% else %}
-			<ul><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %}</a> </li><li>&raquo; {% link topic.forum %}</li><li>&raquo; {{ topic }}</li></ul>
-		{% endif %}
-		<div class="clearer"></div>
-	</div>
+{% block forum_content %}
+<div id="breadcrumbs">
+	<a href="{% url 'djangobb:index' %}">Форум IceBorn</a>
+	{% if forum %}
+		&#8594; {% link forum %}
+	{% else %}
+		&#8594; {% link topic.forum %}
+	{% endif %}
+	&#8594; Создание новой темы
 </div>
-{% include "djangobb_forum/includes/post_form.html" %}
+
+{% include "djangobb_forum/includes/new_post_form.html" %}
 {% endblock %}

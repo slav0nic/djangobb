@@ -2,37 +2,59 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div class="linkst">
-	<div class="inbox">
-		<ul><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %}</a> </li><li>&raquo; {% link post.topic.forum %}</li><li>&raquo; {{ post.topic }}</li></ul>
-		<div class="clearer"></div>
+{% block forum_content %}
+<div id="breadcrumbs">
+		{% if topic.name %}
+			<a href="{% url 'djangobb:index' %}">Форум IceBorn</a>
+			&#8594; {% link topic.forum %}
+			&#8594; <strong style="color: #333;">{{ topic.name }}</strong>
+		{% endif %}
 	</div>
+{% if user.is_authenticated %}
+    {% if post %}
+        {% with markup=post.markup %}
+            {% include "djangobb_forum/includes/markup_editor.html" %}
+        {% endwith %}
+    {% else %}
+        {% with markup=user.forum_profile.markup %}
+            {% include "djangobb_forum/includes/markup_editor.html" %}
+        {% endwith %}
+    {% endif %}
+    <script type="text/javascript">
+       $(document).ready(function() {
+        $(".markup").markItUp(mySettings);
+        
+       });
+    </script>
+{% endif %}
+<div class="post_form" id="reply">
+	<form class="topic_add maincolor" id="post_topic" name="post_com" action="{{ form_url|default_if_none:"." }}" method="post" enctype="multipart/form-data" onkeydown="SendComment(event)">
+		<div class="button_back"><a href="javascript:history.go(-1)">&times;</a></div>
+        {% csrf_token %}
+
+<!--            <div class="inform">-->
+            <fieldset>
+                <noscript><h1>Пожалуйста, включите JavaScript!</h1></noscript>
+                <div class="infldset txtarea">
+					<label>{{ form.body.errors }}{{ form.body }}</label>
+					<label class='postsendbutton'><input type="submit" id="post_button" name="{{ form.FORM_NAME }}" value="Отправить" />{% if forum %}{% endif %}</label>
+					<label class="postsubscribe"><span class="postsubscribe">{{ form.subscribe }}Подписаться на тему{{ form.subscribe.errors }}</span></label>
+                    </label>
+                </div>
+            </fieldset>
+<!--            </div>-->
+        {% if forum_settings.ATTACHMENT_SUPPORT %}
+            <fieldset class="topic_add_attach">
+                <div class="infldset">
+                    {{ form.attachment.errors }}
+                    <div class="rbox">
+                        {{ form.attachment }}
+                    </div>
+                </div>
+            </fieldset>
+        {% endif %}
+    </form>
 </div>
 
-<div class="blockform">
-	<h2>{% trans "Edit post" %}</h2>
 
-	<div class="box">
-		<form method="post">
-			{% csrf_token %}
-			<div class="inform">
-				<fieldset>
-					<legend>{% trans "Edit the post and submit changes" %}</legend>
-					<div class="infldset txtarea">
-						{% if post.id == post.topic.head.id %}
-						<label>{% trans "Subject" %}<br />
-						{{ form.name }}<br /></label>
-						{% endif %}
-						<label>{% trans "Message" %}<br />
-						{{ form.body }}
-						<br /></label>
-					</div>
-				</fieldset>
-			</div>
-
-			<p><input type="submit" value="{% trans "Save" %}" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
-		</form>
-	</div>
-</div>
 {% endblock %}

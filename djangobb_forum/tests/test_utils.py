@@ -49,4 +49,4 @@ class TestVersion(TestCase):
         djangobb_forum.version_info = (0, 2, 1, 'f', 0)
         self.assertEqual(djangobb_forum.get_version(), '0.2.1')
         djangobb_forum.version_info = (2, 3, 1, 'a', 5)
-        self.assertIn('2.3.1a5.dev', djangobb_forum.get_version())
+        self.assertIn('2.3.1a5', djangobb_forum.get_version())
