@@ -17,6 +17,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.utils import simplejson as json
 from django.conf import settings
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
     def __get__(self, instance, instance_type=None):
@@ -24,7 +27,15 @@ class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
             return super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type)
         except self.related.model.DoesNotExist:
             obj = self.related.model(**{self.related.field.name: instance})
-            obj.save()
+            try:
+                obj.save()
+            except IntegrityError:
+                # Sometimes this happens, try again
+                try:
+                    return super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type)
+                except self.related.model.DoesNotExist:
+                    # Doesn't exist but already exists, what the heck.
+                    logger.warn("Integrity error encountered after DoesNotExist?", extra={'stack': True})
             return obj
 
 
