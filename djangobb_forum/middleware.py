@@ -40,11 +40,11 @@ class UsersOnline(object):
             guest_sid = request.COOKIES.get(global_settings.SESSION_COOKIE_NAME, '')
             guests_online[guest_sid] = now
 
-        for user_id in users_online.keys():
+        for user_id in list(users_online.keys()):
             if users_online[user_id] < delta:
                 del users_online[user_id]
 
-        for guest_id in guests_online.keys():
+        for guest_id in list(guests_online.keys()):
             if guests_online[guest_id] < delta:
                 del guests_online[guest_id]
 
