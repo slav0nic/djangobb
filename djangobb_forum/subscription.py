@@ -52,7 +52,7 @@ def notify_topic_subscribers(post):
     module = '.'.join(path[:-1])
     func = path[-1]
     
-    module = __import__(module, globals(), locals(), [func], -1)
+    module = __import__(module, globals(), locals(), [func])
     handler = getattr(module, func)
     
     handler(post)
