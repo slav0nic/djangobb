@@ -226,6 +226,47 @@ def smiles(html):
         return html
     return smiled_html
 
+
+class AddAttributesHTMLFilter(HTMLFilter):
+    """
+    Class for html parsing that adds given attributes to tags.
+    """
+
+    def __init__(self, add_attr_map):
+        HTMLFilter.__init__(self)
+        self.add_attr_map = dict(add_attr_map)
+
+    def handle_starttag(self, tag, attrs):
+        attrs = list(attrs)
+        for add_attr in self.add_attr_map.get(tag, []):
+            if add_attr not in attrs:
+                attrs.append(add_attr)
+
+        HTMLFilter.handle_starttag(self, tag, attrs)
+
+
+def add_rel_nofollow(html):
+    """
+    Add rel="nofollow" to <a> tags so that search engines don't give them weight.
+
+    Untrusted links should have rel="nofollow" to dissuade spammers from
+    posting for SEO purposes.  For more information, see
+    https://en.wikipedia.org/wiki/Nofollow.
+    """
+    try:
+        parser = AddAttributesHTMLFilter({'a': [('rel', 'nofollow')]})
+        parser.feed(html)
+        output_html = parser.html
+        parser.close()
+    except HTMLParseError:
+        # HTMLParser from Python <2.7.3 is not robust
+        # see: http://support.djangobb.org/topic/349/
+        if settings.DEBUG:
+            raise
+        return html
+    return output_html
+
+
 def paginate(items, request, per_page, total_count=None):
     try:
         page_number = int(request.GET.get('page', 1))
@@ -256,5 +297,8 @@ def convert_text_to_html(text, markup):
         text = markdown.markdown(text, safe_mode='escape')
     else:
         raise Exception('Invalid markup property: %s' % markup)
-    return urlize(text)
+    text = urlize(text)
+    if forum_settings.NOFOLLOW_LINKS:
+        text = add_rel_nofollow(text)
+    return text
 
