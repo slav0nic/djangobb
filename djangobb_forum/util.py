@@ -117,34 +117,26 @@ def build_form(Form, _request, GET=False, *args, **kwargs):
     return form
 
 
-class ExcludeTagsHTMLParser(HTMLParser):
+class HTMLFilter(HTMLParser):
         """
-        Class for html parsing with excluding specified tags.
+        Base class for html parsers that produce filtered output.
         """
 
-        def __init__(self, func, tags=('a', 'pre', 'span')):
+        def __init__(self):
             HTMLParser.__init__(self)
-            self.func = func
-            self.is_ignored = False
-            self.tags = tags
             self.html = []
 
         def handle_starttag(self, tag, attrs):
             self.html.append('<%s%s>' % (tag, self.__html_attrs(attrs)))
-            if tag in self.tags:
-                self.is_ignored = True
 
         def handle_data(self, data):
-            if not self.is_ignored:
-                data = self.func(data)
             self.html.append(data)
 
         def handle_startendtag(self, tag, attrs):
             self.html.append('<%s%s/>' % (tag, self.__html_attrs(attrs)))
 
         def handle_endtag(self, tag):
-            self.is_ignored = False
-            self.html.append('</%s>' % (tag))
+            self.html.append('</%s>' % tag)
 
         def handle_entityref(self, name):
             self.html.append('&%s;' % name)
@@ -167,6 +159,32 @@ class ExcludeTagsHTMLParser(HTMLParser):
             self.html = ''.join(self.html)
 
 
+class ExcludeTagsHTMLFilter(HTMLFilter):
+        """
+        Class for html parsing with excluding specified tags.
+        """
+
+        def __init__(self, func, tags=('a', 'pre', 'span')):
+            HTMLFilter.__init__(self)
+            self.func = func
+            self.is_ignored = False
+            self.tags = tags
+
+        def handle_starttag(self, tag, attrs):
+            if tag in self.tags:
+                self.is_ignored = True
+            HTMLFilter.handle_starttag(self, tag, attrs)
+
+        def handle_data(self, data):
+            if not self.is_ignored:
+                data = self.func(data)
+            HTMLFilter.handle_data(self, data)
+
+        def handle_endtag(self, tag):
+            self.is_ignored = False
+            HTMLFilter.handle_endtag(self, tag)
+
+
 def urlize(html):
     """
     Urlize plain text links in the HTML contents.
@@ -174,7 +192,7 @@ def urlize(html):
     Do not urlize content of A and CODE tags.
     """
     try:
-        parser = ExcludeTagsHTMLParser(django_urlize)
+        parser = ExcludeTagsHTMLFilter(django_urlize)
         parser.feed(html)
         urlized_html = parser.html
         parser.close()
@@ -196,7 +214,7 @@ def smiles(html):
     Replace text smiles.
     """
     try:
-        parser = ExcludeTagsHTMLParser(_smile_replacer)
+        parser = ExcludeTagsHTMLFilter(_smile_replacer)
         parser.feed(html)
         smiled_html = parser.html
         parser.close()
