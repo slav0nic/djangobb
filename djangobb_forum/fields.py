@@ -11,7 +11,7 @@ from hashlib import sha1
 
 from django.db.models import OneToOneField
 from django.db.models.fields.related import SingleRelatedObjectDescriptor 
-from django.db import models
+from django.db import models, IntegrityError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils import simplejson as json
