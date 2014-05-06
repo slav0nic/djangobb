@@ -20,7 +20,7 @@
     <p class=right><a href="{% url djangobb:mobile_search %}">{% trans "Search" %}</a></p>
     <p><a href="{% block full-link %}{% endblock %}">Standard</a> | <strong>Mobile</strong></p>
     <p>{% if user.is_authenticated %}
-        {% blocktrans %}Signed in as <strong>{{ user }}</strong>{% endblocktrans %} | <a href="{% url django.contrib.auth.views.logout %}?next={% url djangobb:mobile_index %}">Sign Out</a>
+        {% blocktrans %}Signed in as <strong>{{ user }}</strong>{% endblocktrans %} | <a href="{% url logout %}?next={% url djangobb:mobile_index %}">Sign Out</a>
     {% else %}
         Not signed in | <a href="{% url djangobb:mobile_sign_in %}">{% trans "Sign In" %}</a>
     {% endif %}</p>
