@@ -21,3 +21,4 @@ local_settings.py
 build/
 dist/
 .idea
+.tox/
