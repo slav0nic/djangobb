@@ -300,7 +300,6 @@ class ProfileManager(models.Manager):
         return qs
 
 
-@python_2_unicode_compatible
 class Profile(models.Model):
     user = AutoOneToOneField(settings.AUTH_USER_MODEL, related_name='forum_profile', verbose_name=_('User'))
     status = models.CharField(_('Status'), max_length=30, blank=True)
