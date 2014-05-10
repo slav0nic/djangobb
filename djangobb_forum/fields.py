@@ -90,8 +90,6 @@ class JSONField(six.with_metaclass(models.SubfieldBase, models.TextField)):
     Django snippet #1478
     """
 
-    __metaclass__ = models.SubfieldBase
-
     def to_python(self, value):
         if value == "":
             return None

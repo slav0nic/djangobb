@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import unicode_literals
 
 import os.path
 from datetime import timedelta
@@ -16,32 +17,32 @@ from djangobb_forum.user import User
 
 
 SORT_USER_BY_CHOICES = (
-    ('username', _(u'Username')),
-    ('registered', _(u'Registered')),
-    ('num_posts', _(u'No. of posts')),
+    ('username', _('Username')),
+    ('registered', _('Registered')),
+    ('num_posts', _('No. of posts')),
 )
 
 SORT_POST_BY_CHOICES = (
-    ('0', _(u'Post time')),
-    ('1', _(u'Author')),
-    ('2', _(u'Subject')),
-    ('3', _(u'Forum')),
+    ('0', _('Post time')),
+    ('1', _('Author')),
+    ('2', _('Subject')),
+    ('3', _('Forum')),
 )
 
 SORT_DIR_CHOICES = (
-    ('ASC', _(u'Ascending')),
-    ('DESC', _(u'Descending')),
+    ('ASC', _('Ascending')),
+    ('DESC', _('Descending')),
 )
 
 SHOW_AS_CHOICES = (
-    ('topics', _(u'Topics')),
-    ('posts', _(u'Posts')),
+    ('topics', _('Topics')),
+    ('posts', _('Posts')),
 )
 
 SEARCH_IN_CHOICES = (
-    ('all', _(u'Message text and topic subject')),
-    ('message', _(u'Message text only')),
-    ('topic', _(u'Topic subject only')),
+    ('all', _('Message text and topic subject')),
+    ('message', _('Message text only')),
+    ('topic', _('Topic subject only')),
 )
 
 
@@ -435,7 +436,7 @@ class VotePollForm(forms.Form):
         count = len(ids)
         if count > self.poll.choice_count:
             raise forms.ValidationError(
-                _(u'You have selected too many choices! (Only %i allowed.)') % self.poll.choice_count
+                _('You have selected too many choices! (Only %i allowed.)') % self.poll.choice_count
             )
         return ids
 
@@ -467,13 +468,13 @@ class PollForm(forms.ModelForm):
         raw_answers = self.cleaned_data["answers"]
         answers = [answer.strip() for answer in raw_answers.splitlines() if answer.strip()]
         if len(answers) == 0:
-            raise forms.ValidationError(_(u"There is no valid answer!"))
+            raise forms.ValidationError(_("There is no valid answer!"))
 
         # validate length of all answers
         is_max_length = max([len(answer) for answer in answers])
         should_max_length = PollChoice._meta.get_field("choice").max_length
         if is_max_length > should_max_length:
-            raise forms.ValidationError(_(u"One of this answers are too long!"))
+            raise forms.ValidationError(_("One of this answers are too long!"))
 
         return answers
 

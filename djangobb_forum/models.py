@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import unicode_literals
 
 from hashlib import sha1
 import os
@@ -9,7 +10,9 @@ from django.db import models
 from django.db.models import aggregates
 from django.db.models.signals import post_save
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+
 import pytz
 
 from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONField
@@ -30,9 +33,9 @@ SIGN_CHOICES = (
 )
 
 PRIVACY_CHOICES = (
-    (0, _(u'Display your e-mail address.')),
-    (1, _(u'Hide your e-mail address but allow form e-mail.')),
-    (2, _(u'Hide your e-mail address and disallow form e-mail.')),
+    (0, _('Display your e-mail address.')),
+    (1, _('Hide your e-mail address but allow form e-mail.')),
+    (2, _('Hide your e-mail address and disallow form e-mail.')),
 )
 
 MARKUP_CHOICES = [('bbcode', 'bbcode')]
@@ -50,6 +53,7 @@ if os.path.exists(path):
 else:
     THEME_CHOICES = []
 
+@python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
     groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
@@ -60,7 +64,7 @@ class Category(models.Model):
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def forum_count(self):
@@ -86,6 +90,7 @@ class Category(models.Model):
         return True
 
 
+@python_2_unicode_compatible
 class Forum(models.Model):
     category = models.ForeignKey(Category, related_name='forums', verbose_name=_('Category'))
     name = models.CharField(_('Name'), max_length=80)
@@ -106,7 +111,7 @@ class Forum(models.Model):
         verbose_name = _('Forum')
         verbose_name_plural = _('Forums')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -118,6 +123,7 @@ class Forum(models.Model):
         return Post.objects.filter(topic__forum__id=self.id).select_related()
 
 
+@python_2_unicode_compatible
 class Topic(models.Model):
     forum = models.ForeignKey(Forum, related_name='topics', verbose_name=_('Forum'))
     name = models.CharField(_('Subject'), max_length=255)
@@ -137,7 +143,7 @@ class Topic(models.Model):
         verbose_name = _('Topic')
         verbose_name_plural = _('Topics')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def delete(self, *args, **kwargs):
@@ -194,6 +200,7 @@ class Topic(models.Model):
             tracking.save()
 
 
+@python_2_unicode_compatible
 class Post(models.Model):
     topic = models.ForeignKey(Topic, related_name='posts', verbose_name=_('Topic'))
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', verbose_name=_('User'))
@@ -258,9 +265,10 @@ class Post(models.Model):
         tail = len(self.body) > LIMIT and '...' or ''
         return self.body[:LIMIT] + tail
 
-    __unicode__ = summary
+    __str__ = summary
 
 
+@python_2_unicode_compatible
 class Reputation(models.Model):
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reputations_from', verbose_name=_('From'))
     to_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reputations_to', verbose_name=_('To'))
@@ -274,9 +282,9 @@ class Reputation(models.Model):
         verbose_name_plural = _('Reputations')
         unique_together = (('from_user', 'post'),)
 
-    def __unicode__(self):
+    def __str__(self):
         time = timezone.localtime(self.time)
-        return u'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(time))
+        return 'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(time))
 
 
 class ProfileManager(models.Manager):
@@ -291,6 +299,8 @@ class ProfileManager(models.Manager):
                 })
         return qs
 
+
+@python_2_unicode_compatible
 class Profile(models.Model):
     user = AutoOneToOneField(settings.AUTH_USER_MODEL, related_name='forum_profile', verbose_name=_('User'))
     status = models.CharField(_('Status'), max_length=30, blank=True)
@@ -329,6 +339,7 @@ class Profile(models.Model):
             return None
 
 
+@python_2_unicode_compatible
 class PostTracking(models.Model):
     """
     Model for tracking read/unread posts.
@@ -343,10 +354,11 @@ class PostTracking(models.Model):
         verbose_name = _('Post tracking')
         verbose_name_plural = _('Post tracking')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.username
 
 
+@python_2_unicode_compatible
 class Report(models.Model):
     reported_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reported_by', verbose_name=_('Reported by'))
     post = models.ForeignKey(Post, verbose_name=_('Post'))
@@ -359,9 +371,11 @@ class Report(models.Model):
         verbose_name = _('Report')
         verbose_name_plural = _('Reports')
 
-    def __unicode__(self):
-        return u'%s %s' % (self.reported_by , self.zapped)
+    def __str__(self):
+        return '%s %s' % (self.reported_by , self.zapped)
 
+
+@python_2_unicode_compatible
 class Ban(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('Banned user'), related_name='ban_users')
     ban_start = models.DateTimeField(_('Ban start'), default=timezone.now)
@@ -372,7 +386,7 @@ class Ban(models.Model):
         verbose_name = _('Ban')
         verbose_name_plural = _('Bans')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.username
 
     def save(self, *args, **kwargs):
@@ -386,6 +400,7 @@ class Ban(models.Model):
         super(Ban, self).delete(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class Attachment(models.Model):
     post = models.ForeignKey(Post, verbose_name=_('Post'), related_name='attachments')
     size = models.IntegerField(_('Size'))
@@ -394,7 +409,7 @@ class Attachment(models.Model):
     name = models.TextField(_('Name'))
     hash = models.CharField(_('Hash'), max_length=40, blank=True, default='', db_index=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
@@ -412,9 +427,7 @@ class Attachment(models.Model):
                             self.path)
 
 
-#------------------------------------------------------------------------------
-
-
+@python_2_unicode_compatible
 class Poll(models.Model):
     topic = models.ForeignKey(Topic)
     question = models.CharField(max_length=200)
@@ -440,10 +453,11 @@ class Poll(models.Model):
     def single_choice(self):
         return self.choice_count == 1
 
-    def __unicode__(self):
+    def __str__(self):
         return self.question
 
 
+@python_2_unicode_compatible
 class PollChoice(models.Model):
     poll = models.ForeignKey(Poll, related_name="choices")
     choice = models.CharField(max_length=200)
@@ -456,11 +470,9 @@ class PollChoice(models.Model):
         votes_sum = result["votes__sum"]
         return float(self.votes) / votes_sum * 100
 
-    def __unicode__(self):
+    def __str__(self):
         return self.choice
 
-
-#------------------------------------------------------------------------------
 
 
 from .signals import post_saved, topic_saved

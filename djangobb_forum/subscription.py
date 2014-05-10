@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -22,7 +24,7 @@ else:
 
 
 # TODO: move to txt template
-TOPIC_SUBSCRIPTION_TEXT_TEMPLATE = (u"""New reply from %(username)s to topic that you have subscribed on.
+TOPIC_SUBSCRIPTION_TEXT_TEMPLATE = ("""New reply from %(username)s to topic that you have subscribed on.
 ---
 %(message)s
 ---
@@ -36,7 +38,7 @@ def email_topic_subscribers(post):
     if post != topic.head:
         for user in topic.subscribers.all():
             if user != post.user:
-                subject = u'RE: %s' % topic.name
+                subject = 'RE: %s' % topic.name
                 to_email = user.email
                 text_content = TOPIC_SUBSCRIPTION_TEXT_TEMPLATE % {
                         'username': post.user.username,
@@ -51,9 +53,8 @@ def notify_topic_subscribers(post):
     path = forum_settings.NOTIFICATION_HANDLER.split('.')
     module = '.'.join(path[:-1])
     func = path[-1]
-    
+
     module = __import__(module, globals(), locals(), [func])
     handler = getattr(module, func)
-    
+
     handler(post)
-        

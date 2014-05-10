@@ -1,4 +1,6 @@
 # -*- coding: utf-8
+from __future__ import unicode_literals
+
 import hashlib
 
 from django import template
@@ -25,7 +27,7 @@ register = template.Library()
 
 @register.filter
 def profile_link(user):
-    data = u'<a href="%s">%s</a>' % (\
+    data = '<a href="%s">%s</a>' % (\
         reverse('djangobb:forum_profile', args=[user.username]), user.username)
     return mark_safe(data)
 
@@ -46,7 +48,7 @@ class ForumTimeNode(template.Node):
 
     def render(self, context):
         time = timezone.localtime(self.time.resolve(context))
-        formatted_time = u'%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
+        formatted_time = '%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
         formatted_time = mark_safe(formatted_time)
         return formatted_time
 
@@ -102,7 +104,7 @@ def lofi_pagination(context):
     return paginate(context)
 
 @register.simple_tag
-def link(object, anchor=u''):
+def link(object, anchor=''):
     """
     Return A tag with link to object.
     """
@@ -113,7 +115,7 @@ def link(object, anchor=u''):
 
 
 @register.simple_tag
-def lofi_link(object, anchor=u''):
+def lofi_link(object, anchor=''):
     """
     Return A tag with lofi_link to object.
     """

@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import unicode_literals
 
 import math
 from datetime import timedelta
@@ -32,7 +33,6 @@ from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
-
 
 
 
@@ -141,7 +141,7 @@ def search(request):
     posts = Post.objects.all().order_by('-created')
     user = request.user
     if not user.is_superuser:
-        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable 
+        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
         viewable_category = viewable_category.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
 
         topics = Topic.objects.filter(forum__category__in=viewable_category)
@@ -224,7 +224,7 @@ def search(request):
         if author:
             query = query.filter(author__username=author)
 
-        if forum != u'0':
+        if forum != '0':
             query = query.filter(forum__id=forum)
 
         if keywords:
@@ -314,7 +314,7 @@ def misc(request):
         if form.is_valid():
             user = get_object_or_404(User, username=request.GET['mail_to'])
             subject = form.cleaned_data['subject']
-            body = form.cleaned_data['body'] + u'\n %s %s [%s]' % (Site.objects.get_current().domain,
+            body = form.cleaned_data['body'] + '\n %s %s [%s]' % (Site.objects.get_current().domain,
                                                                   request.user.username,
                                                                   request.user.email)
             try:
@@ -327,7 +327,7 @@ def misc(request):
     elif 'mail_to' in request.GET:
         if not forum_settings.USER_TO_USER_EMAIL and not request.user.is_superuser:
             raise PermissionDenied
-        
+
         mailto = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
         return render(request, 'djangobb_forum/mail_to.html', {'form':form,
@@ -366,7 +366,7 @@ def show_topic(request, topic_id, full=True):
     * Display a topic
     * save a reply
     * save a poll vote
-    
+
     TODO: Add reply in lofi mode
     """
     post_request = request.method == "POST"
@@ -584,7 +584,7 @@ def reputation(request, username):
 
     if 'action' in request.GET:
         if request.user == user:
-            return HttpResponseForbidden(u'You can not change the reputation of yourself')
+            return HttpResponseForbidden('You can not change the reputation of yourself')
 
         if 'post_id' in request.GET:
             post_id = request.GET['post_id']

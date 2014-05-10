@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.test import TestCase, RequestFactory
 from django.conf import settings
 
@@ -16,11 +18,11 @@ class TestParsers(TestCase):
 
     def test_urlize(self):
         urlized_data = urlize(self.data_url)
-        self.assertEqual(urlized_data, u"Lorem ipsum dolor sit amet, consectetur <a href=\"http://djangobb.org/\" rel=\"nofollow\">http://djangobb.org/</a> adipiscing elit.")
+        self.assertEqual(urlized_data, "Lorem ipsum dolor sit amet, consectetur <a href=\"http://djangobb.org/\" rel=\"nofollow\">http://djangobb.org/</a> adipiscing elit.")
 
     def test_smiles(self):
         smiled_data = smiles(self.data_smiles)
-        self.assertEqual(smiled_data, u"Lorem ipsum dolor <img src=\"{0}djangobb_forum/img/smilies/neutral.png\" /> sit amet <img src=\"{0}djangobb_forum/img/smilies/smile.png\" /> <a href=\"http://djangobb.org/\">http://djangobb.org/</a>".format(settings.STATIC_URL))
+        self.assertEqual(smiled_data, "Lorem ipsum dolor <img src=\"{0}djangobb_forum/img/smilies/neutral.png\" /> sit amet <img src=\"{0}djangobb_forum/img/smilies/smile.png\" /> <a href=\"http://djangobb.org/\">http://djangobb.org/</a>".format(settings.STATIC_URL))
 
     def test_nofollow(self):
         nofollow_data = add_rel_nofollow(self.data_nofollow)
