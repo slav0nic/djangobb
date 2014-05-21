@@ -15,6 +15,8 @@ profile_app, profile_model = settings.AUTH_PROFILE_MODULE.split('.')
 UserProfileModel = models.get_model(profile_app, profile_model)
 
 class ForumSpamTests(TestCase):
+    multi_db = True
+    
     def setUp(self):
         Category.objects.create(name=forum_settings.SPAM_CATEGORY_NAME)
         self.password = "password"
