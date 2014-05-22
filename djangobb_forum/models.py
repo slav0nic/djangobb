@@ -78,6 +78,8 @@ except Exception as e:
     logger.error("Error while initializing Akismet", extra={'exception': e})
 
 
+class AkismetError(Exception): pass
+
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
     groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
