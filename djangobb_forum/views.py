@@ -23,7 +23,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from django_fsm.db.fields import can_proceed
-from haystack.query import SearchQuerySet, SQ
+#from haystack.query import SearchQuerySet, SQ
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
@@ -144,172 +144,172 @@ def reports(request):
     else:
         raise Http404
 
-def search(request, full=True):
-    # TODO: used forms in every search type
-    template_dir = 'djangobb_forum/' if full else 'djangobb_forum/mobile/'
+# def search(request, full=True):
+#     # TODO: used forms in every search type
+#     template_dir = 'djangobb_forum/' if full else 'djangobb_forum/mobile/'
 
-    def _render_search_form(form=None):
-        # TODO: remove 'in' clause from following query
-        categories_with_forums = Category.objects.prefetch_related('forums')
-        return render(request, template_dir + 'search_form.html', {
-            'categories': categories_with_forums,
-            'form': form,
-        })
+#     def _render_search_form(form=None):
+#         # TODO: remove 'in' clause from following query
+#         categories_with_forums = Category.objects.prefetch_related('forums')
+#         return render(request, template_dir + 'search_form.html', {
+#             'categories': categories_with_forums,
+#             'form': form,
+#         })
 
-    if not 'action' in request.GET:
-        return _render_search_form(form=PostSearchForm())
+#     if not 'action' in request.GET:
+#         return _render_search_form(form=PostSearchForm())
 
-    if request.GET.get("show_as") == "posts":
-        show_as_posts = True
-        template_name = template_dir + 'search_posts.html'
-    else:
-        show_as_posts = False
-        template_name = template_dir + 'search_topics.html'
+#     if request.GET.get("show_as") == "posts":
+#         show_as_posts = True
+#         template_name = template_dir + 'search_posts.html'
+#     else:
+#         show_as_posts = False
+#         template_name = template_dir + 'search_topics.html'
 
-    context = {}
+#     context = {}
 
-    # Create 'user viewable' pre-filtered topics/posts querysets
-    viewable_category = Category.objects.all()
-    topics = Topic.objects.all().order_by("-last_post__created")
-    posts = Post.objects.all().order_by('-created')
-    user = request.user
-    if not user.is_superuser:
-        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
-        viewable_category = viewable_category.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
+#     # Create 'user viewable' pre-filtered topics/posts querysets
+#     viewable_category = Category.objects.all()
+#     topics = Topic.objects.all().order_by("-last_post__created")
+#     posts = Post.objects.all().order_by('-created')
+#     user = request.user
+#     if not user.is_superuser:
+#         user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
+#         viewable_category = viewable_category.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
 
-        topics = Topic.objects.filter(forum__category__in=viewable_category) \
-            .select_related('last_post', 'last_post__user', 'user', 'forum')
-        posts = Post.objects.filter(topic__forum__category__in=viewable_category)
+#         topics = Topic.objects.filter(forum__category__in=viewable_category) \
+#             .select_related('last_post', 'last_post__user', 'user', 'forum')
+#         posts = Post.objects.filter(topic__forum__category__in=viewable_category)
 
-    base_url = None
-    _generic_context = True
+#     base_url = None
+#     _generic_context = True
 
-    context["user"] = user
+#     context["user"] = user
 
-    action = request.GET['action']
-    if action == 'show_24h':
-        date = timezone.now() - timedelta(days=1)
-        if show_as_posts:
-            context["posts"] = posts.filter(Q(created__gte=date) | Q(updated__gte=date))
-        else:
-            context["topics"] = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
-        _generic_context = False
-    elif action == 'show_new':
-        if not user.is_authenticated():
-            raise Http404("Search 'show_new' not available for anonymous user.")
-        try:
-            last_read = PostTracking.objects.get(user=user).last_read
-        except PostTracking.DoesNotExist:
-            last_read = None
+#     action = request.GET['action']
+#     if action == 'show_24h':
+#         date = timezone.now() - timedelta(days=1)
+#         if show_as_posts:
+#             context["posts"] = posts.filter(Q(created__gte=date) | Q(updated__gte=date))
+#         else:
+#             context["topics"] = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
+#         _generic_context = False
+#     elif action == 'show_new':
+#         if not user.is_authenticated():
+#             raise Http404("Search 'show_new' not available for anonymous user.")
+#         try:
+#             last_read = PostTracking.objects.get(user=user).last_read
+#         except PostTracking.DoesNotExist:
+#             last_read = None
 
-        if last_read:
-            if show_as_posts:
-                context["posts"] = posts.filter(Q(created__gte=last_read) | Q(updated__gte=last_read))
-            else:
-                context["topics"] = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
-            _generic_context = False
-        else:
-            topic_ids = [topic.id for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, user)]
-            topics = Topic.objects.filter(id__in=topic_ids)
-    elif action == 'show_unanswered':
-        topics = topics.filter(post_count=1)
-    elif action == 'show_subscriptions':
-        topics = topics.filter(subscribers__id=user.id)
-    elif action == 'show_user':
-        # Show all posts from user or topics started by user
-        if not user.is_authenticated():
-            raise Http404("Search 'show_user' not available for anonymous user.")
+#         if last_read:
+#             if show_as_posts:
+#                 context["posts"] = posts.filter(Q(created__gte=last_read) | Q(updated__gte=last_read))
+#             else:
+#                 context["topics"] = topics.filter(Q(last_post__created__gte=last_read) | Q(last_post__updated__gte=last_read))
+#             _generic_context = False
+#         else:
+#             topic_ids = [topic.id for topic in topics[:forum_settings.SEARCH_PAGE_SIZE] if forum_extras.has_unreads(topic, user)]
+#             topics = Topic.objects.filter(id__in=topic_ids)
+#     elif action == 'show_unanswered':
+#         topics = topics.filter(post_count=1)
+#     elif action == 'show_subscriptions':
+#         topics = topics.filter(subscribers__id=user.id)
+#     elif action == 'show_user':
+#         # Show all posts from user or topics started by user
+#         if not user.is_authenticated():
+#             raise Http404("Search 'show_user' not available for anonymous user.")
 
-        if user.is_staff:
-            user_id = request.GET.get("user_id", user.id)
-            user_id = int(user_id)
-            if user_id != user.id:
-                search_user = User.objects.get(id=user_id)
-                messages.info(request, "Filter by user '%s'." % search_user.username)
-        else:
-            user_id = user.id
+#         if user.is_staff:
+#             user_id = request.GET.get("user_id", user.id)
+#             user_id = int(user_id)
+#             if user_id != user.id:
+#                 search_user = User.objects.get(id=user_id)
+#                 messages.info(request, "Filter by user '%s'." % search_user.username)
+#         else:
+#             user_id = user.id
 
-        if show_as_posts:
-            posts = posts.filter(user__id=user_id)
-        else:
-            # show as topic
-            topics = topics.filter(posts__user__id=user_id).order_by("-last_post__created").distinct()
+#         if show_as_posts:
+#             posts = posts.filter(user__id=user_id)
+#         else:
+#             # show as topic
+#             topics = topics.filter(posts__user__id=user_id).order_by("-last_post__created").distinct()
 
-        base_url = "?action=show_user&user_id=%s&show_as=" % user_id
-    elif action == 'search':
-        form = PostSearchForm(request.GET)
-        if not form.is_valid():
-            return _render_search_form(form)
+#         base_url = "?action=show_user&user_id=%s&show_as=" % user_id
+#     elif action == 'search':
+#         form = PostSearchForm(request.GET)
+#         if not form.is_valid():
+#             return _render_search_form(form)
 
-        keywords = form.cleaned_data['keywords']
-        author = form.cleaned_data['author']
-        forum = form.cleaned_data['forum']
-        search_in = form.cleaned_data['search_in']
-        sort_by = form.cleaned_data['sort_by']
-        sort_dir = form.cleaned_data['sort_dir']
+#         keywords = form.cleaned_data['keywords']
+#         author = form.cleaned_data['author']
+#         forum = form.cleaned_data['forum']
+#         search_in = form.cleaned_data['search_in']
+#         sort_by = form.cleaned_data['sort_by']
+#         sort_dir = form.cleaned_data['sort_dir']
 
-        query = SearchQuerySet().models(Post)
+#         query = SearchQuerySet().models(Post)
 
-        if author:
-            query = query.filter(author__username=author)
+#         if author:
+#             query = query.filter(author__username=author)
 
-        if forum != u'0':
-            query = query.filter(forum__id=forum)
+#         if forum != u'0':
+#             query = query.filter(forum__id=forum)
 
-        if keywords:
-            if search_in == 'all':
-                query = query.filter(SQ(topic=keywords) | SQ(text=keywords))
-            elif search_in == 'message':
-                query = query.filter(text=keywords)
-            elif search_in == 'topic':
-                query = query.filter(topic=keywords)
+#         if keywords:
+#             if search_in == 'all':
+#                 query = query.filter(SQ(topic=keywords) | SQ(text=keywords))
+#             elif search_in == 'message':
+#                 query = query.filter(text=keywords)
+#             elif search_in == 'topic':
+#                 query = query.filter(topic=keywords)
 
-        order = {'0': 'created',
-                 '1': 'author',
-                 '2': 'topic',
-                 '3': 'forum'}.get(sort_by, 'created')
-        if sort_dir == 'DESC':
-            order = '-' + order
+#         order = {'0': 'created',
+#                  '1': 'author',
+#                  '2': 'topic',
+#                  '3': 'forum'}.get(sort_by, 'created')
+#         if sort_dir == 'DESC':
+#             order = '-' + order
 
-        posts = query.order_by(order)
+#         posts = query.order_by(order)
 
-        if not show_as_posts:
-            # TODO: We have here a problem to get a list of topics without double entries.
-            # Maybe we must add a search index over topics?
+#         if not show_as_posts:
+#             # TODO: We have here a problem to get a list of topics without double entries.
+#             # Maybe we must add a search index over topics?
 
-            # Info: If whoosh backend used, setup HAYSTACK_ITERATOR_LOAD_PER_QUERY
-            #    to a higher number to speed up
-            post_pks = posts.values_list("pk", flat=True)
-            context["topics"] = topics.filter(posts__in=post_pks).distinct()
-        else:
-            # FIXME: How to use the pre-filtered query from above?
-            posts = posts.filter(topic__forum__category__in=viewable_category)
-            context["posts"] = posts
+#             # Info: If whoosh backend used, setup HAYSTACK_ITERATOR_LOAD_PER_QUERY
+#             #    to a higher number to speed up
+#             post_pks = posts.values_list("pk", flat=True)
+#             context["topics"] = topics.filter(posts__in=post_pks).distinct()
+#         else:
+#             # FIXME: How to use the pre-filtered query from above?
+#             posts = posts.filter(topic__forum__category__in=viewable_category)
+#             context["posts"] = posts
 
-        get_query_dict = request.GET.copy()
-        get_query_dict.pop("show_as")
-        base_url = "?%s&show_as=" % get_query_dict.urlencode()
-        _generic_context = False
+#         get_query_dict = request.GET.copy()
+#         get_query_dict.pop("show_as")
+#         base_url = "?%s&show_as=" % get_query_dict.urlencode()
+#         _generic_context = False
 
-    if _generic_context:
-        if show_as_posts:
-            context["posts"] = posts.filter(topic__in=topics).order_by('-created')
-        else:
-            context["topics"] = topics
+#     if _generic_context:
+#         if show_as_posts:
+#             context["posts"] = posts.filter(topic__in=topics).order_by('-created')
+#         else:
+#             context["topics"] = topics
 
-    if base_url is None:
-        base_url = "?action=%s&show_as=" % action
+#     if base_url is None:
+#         base_url = "?action=%s&show_as=" % action
 
-    if show_as_posts:
-        context["as_topic_url"] = base_url + "topics"
-        post_count = context["posts"].count()
-        messages.success(request, _("Found %i posts.") % post_count)
-    else:
-        context["as_post_url"] = base_url + "posts"
-        topic_count = context["topics"].count()
-        messages.success(request, _("Found %i topics.") % topic_count)
+#     if show_as_posts:
+#         context["as_topic_url"] = base_url + "topics"
+#         post_count = context["posts"].count()
+#         messages.success(request, _("Found %i posts.") % post_count)
+#     else:
+#         context["as_post_url"] = base_url + "posts"
+#         topic_count = context["topics"].count()
+#         messages.success(request, _("Found %i topics.") % topic_count)
 
-    return render(request, template_name, context)
+#     return render(request, template_name, context)
 
 
 
