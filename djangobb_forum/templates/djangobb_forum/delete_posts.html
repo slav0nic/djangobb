@@ -3,13 +3,13 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
+{% block forum_content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-				<ul><li><a href="{% url djangobb:index %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
-				<a href="{% url djangobb:forum_topic_feed topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" style="vertical-align:middle;" /></a>
+				<ul><li><a href="{% url 'djangobb:index' %}">Главная </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
+				<a href="{% url 'djangobb:forum_topic_feed' topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" style="vertical-align:middle;" /></a>
 				</li></ul>
 		<div class="clearer"></div>
 	</div>
@@ -25,7 +25,7 @@
 		<div class="inbox">
 			<div class="postleft">
 				<dl>
-					<dt><strong><a href="{% url djangobb:forum_profile post.user.username %}">{{ post.user.username }}</a></strong></dt>
+					<dt><strong><a href="{% url 'djangobb:forum_profile' post.user.username %}">{{ post.user.username }}</a></strong></dt>
 					<dd class="usertitle"><strong>{{ post.user.forum_profile.status }}</strong></dd>
 				</dl>
 			</div>
@@ -34,11 +34,11 @@
 				<div class="postmsg">
 					{{ post.body_html|safe }}
 			{% if post.updated %}
-				<p class="postedit"><em>{% trans "Edited" %} {{ post.user.username }} ({% forum_time post.updated %})</em></p>
+				<p class="postedit"><em>Изменено {{ post.user.username }} ({% forum_time post.updated %})</em></p>
 			{% endif %}
 				</div>
 				{% if not forloop.first %} 
-				<p class="multidelete"><label><strong>{% trans "Select" %}</strong>&nbsp;&nbsp;<input type="checkbox" name="post" value="{{ post.id }}" /></label></p>
+				<p class="multidelete"><label><strong>Выбор</strong>&nbsp;&nbsp;<input type="checkbox" name="post" value="{{ post.id }}" /></label></p>
 				{% endif %}
 			</div>
 			<div class="clearer"></div>
@@ -50,7 +50,7 @@
 <div class="postlinksb">
 	<div class="inbox">
 		<div class="pagelink conl">{% paginate %}</div>
-		<p class="conr"><input type="submit" value="{% trans "Delete" %}" /></p>
+		<p class="conr"><input type="submit" value="Удалить" /></p>
 		<div class="clearer"></div>
 	</div>
 </div>

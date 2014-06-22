@@ -12,42 +12,47 @@
 mySettings = {
 	previewParserPath:	POST_PREVIEW_URL, // path to your BBCode parser
 	markupSet: [
-		{name:'Bold', key:'B', openWith:'[b]', closeWith:'[/b]'},
-		{name:'Italic', key:'I', openWith:'[i]', closeWith:'[/i]'},
-		{name:'Underline', key:'U', openWith:'[u]', closeWith:'[/u]'},
-		{name:'Stroke', key:'S', openWith:'[s]', closeWith:'[/s]' },
+		{name:'Жирный', key:'B', openWith:'[b]', closeWith:'[/b]'},
+		{name:'Курсив', key:'I', openWith:'[i]', closeWith:'[/i]'},
+		{name:'Подчеркнутый', key:'U', openWith:'[u]', closeWith:'[/u]'},
+		{name:'Зачеркнутый', key:'S', openWith:'[s]', closeWith:'[/s]' },
+		{name:'Споилер', openWith:'[spoiler]', closeWith:'[/spoiler]'},
+		{name:'Споилерблок', openWith:'[spoilerblock]', closeWith:'[/spoilerblock]'},
 		{separator:'---------------' },
-		{name:'Picture', key:'P', replaceWith:'[img][![Url]!][/img]'},
-		{name:'Link', key:'L', openWith:'[url=[![Url]!]]', closeWith:'[/url]', placeHolder:'Your text to link here...'},
-		{separator:'---------------' },
-		{name:'Size', key:'S', openWith:'', closeWith:'',
+		{name:'Размер шрифта', key:'S', openWith:'', closeWith:'',
 		dropMenu :[
-			{name:'Big', openWith:'[size 32]', closeWith:'[/size]' },
-			{name:'Small', openWith:'[size 10]', closeWith:'[/size]' }
+			{name:'Большой', openWith:'[size 32]', closeWith:'[/size]' },
+			{name:'Маленький', openWith:'[size 10]', closeWith:'[/size]' }
 		]},
 		{separator:'---------------' },
-		{name:'Bulleted list', openWith:'[list]\n', closeWith:'\n[/list]'},
-		{name:'Numeric list', openWith:'[list=[![Starting number]!]]\n', closeWith:'\n[/list]'}, 
-		{name:'List item', openWith:'[*] '},
+		{name:'Список', openWith:'', closeWith:'', dropMenu:[
+			{name:'Простой', openWith:'[list]\n', closeWith:'\n[/list]'},
+			{name:'Нумерованный', openWith:'[list=[![Starting number]!]]\n', closeWith:'\n[/list]'}, 
+			{name:'Элемент', openWith:'[*] '},
+		]},
 		{separator:'---------------' },
-		{name:'Quotes', openWith:'[quote]', closeWith:'[/quote]'},
-		{name:'Code', openWith:'[code]', closeWith:'[/code]', dropMenu:[
+		{name:'Вставить ссылку', key:'L', openWith:'[url=[![Url]!]]', closeWith:'[/url]', placeHolder:'Введите свой текст здесь'},
+		{name:'Вставить изображение', key:'P', replaceWith:'[img][![Url]!][/img]'},
+		{name:'Вставить ссылку с YouToBe', key:'Y', replaceWith:'[youtobe][![Url]!][/youtobe]'},
+		{separator:'---------------' },
+		{name:'Цитата', openWith:'[quote]', closeWith:'[/quote]'},
+		//{name:'Code', openWith:'[code]', closeWith:'[/code]', dropMenu:[
 		    // here we can list all languages which pygments support
 		    // see 'short name' here: http://pygments.org/docs/lexers/
-            {name:'Python', openWith:'[code python]', closeWith:'[/code]'}, 
-            {name:'html', openWith:'[code html]', closeWith:'[/code]'}, 
-            {name:'html+django', openWith:'[code html+django]', closeWith:'[/code]'}, 
-            {name:'JavaScript', openWith:'[code javascript]', closeWith:'[/code]'}, 
-            {name:'css', openWith:'[code css]', closeWith:'[/code]'}, 
-            {name:'Bash', openWith:'[code bash]', closeWith:'[/code]'}, 
-            {name:'MySQL', openWith:'[code mysql]', closeWith:'[/code]'}, 
-            {name:'PostgreSQL', openWith:'[code postgres]', closeWith:'[/code]'}, 
-            {name:'Apache config', openWith:'[code apacheconf]', closeWith:'[/code]'}, 
-            {name:'INI files', openWith:'[code ini]', closeWith:'[/code]'}, 
-        ]}, 
-        {name:'Smiles', openWith:'', closeWith:'', dropMenu:[
+            //{name:'Python', openWith:'[code python]', closeWith:'[/code]'}, 
+            //{name:'html', openWith:'[code html]', closeWith:'[/code]'}, 
+            //{name:'html+django', openWith:'[code html+django]', closeWith:'[/code]'}, 
+            //{name:'JavaScript', openWith:'[code javascript]', closeWith:'[/code]'}, 
+            //{name:'css', openWith:'[code css]', closeWith:'[/code]'}, 
+            //{name:'Bash', openWith:'[code bash]', closeWith:'[/code]'}, 
+            //{name:'MySQL', openWith:'[code mysql]', closeWith:'[/code]'}, 
+            //{name:'PostgreSQL', openWith:'[code postgres]', closeWith:'[/code]'}, 
+            //{name:'Apache config', openWith:'[code apacheconf]', closeWith:'[/code]'}, 
+            //{name:'INI files', openWith:'[code ini]', closeWith:'[/code]'}, 
+        //]}, 
+        {name:'Смайлы', openWith:'', closeWith:'', dropMenu:[
             {name:'Smile', openWith:':)'}, 
-            {name:'Neutral', openWith:':|'}, 
+            {name:'Poker Face', openWith:':|'}, 
             {name:'Sad', openWith:':('}, 
             {name:'Big smile', openWith:':D'}, 
             {name:'Yikes', openWith:':o'}, 
@@ -59,8 +64,8 @@ mySettings = {
             {name:'Roll', openWith:':rolleyes:'}, 
             {name:'Cool', openWith:':cool:'},
         ]},
-	{separator:'---------------' },
-		{name:'Clean', className:"clean", replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
-		{name:'Preview', className:"preview", call:'preview' }
+	//{separator:'---------------' },
+		//{name:'Очистить', className:"clean", replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
+		//{name:'Предпросмотр', className:"preview", call:'preview' }
 	]
 }

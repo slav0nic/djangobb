@@ -2,25 +2,25 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div class="blockform">
-	<h2><span>{% trans "Upload avatar" %}</span></h2>
+{% block forum_content %}
+<div class="content blockform">
+	<h2><span>Загрузить аватар</span></h2>
 	<div class="box">
 		<form id="upload_avatar" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="inform">
 				<fieldset>
-					<legend>{% trans "Enter an avatar file to upload" %}</legend>
+					<legend>Выбирите файл для загрузки</legend>
 					<div class="infldset">
 						{{ form.avatar.errors }}
 						<label><strong>{{ form.avatar.label }}</strong><br />
 						{{ form.avatar }}
 						<br /></label>
-						<p>{% blocktrans %}An avatar is a small image that will be displayed under your username in your posts. It must not be any bigger than {{ avatar_width }} x {{ avatar_height }} pixels {% endblocktrans %}</p>
+						<p>{% blocktrans %}Может быть не больше {{ avatar_width }} x {{ avatar_height }} пикселей{% endblocktrans %}</p>
 					</div>
 				</fieldset>
 			</div>
-			<p><input type="submit" name="upload" value="{% trans "Upload" %}" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
+			<p><input type="submit" name="upload" value="{% trans "Загрузить" %}" /><a href="javascript:history.go(-1)">{% trans "Назад" %}</a></p>
 		</form>
 	</div>
 </div>

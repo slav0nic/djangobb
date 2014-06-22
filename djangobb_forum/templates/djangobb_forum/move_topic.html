@@ -2,20 +2,20 @@
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
+{% block forum_content %}
 <div class="blockform">
-	<h2><span>{% trans "Move topic" %}</span></h2>
+	<h2><span>Перенос темы</span></h2>
 	<div class="box">
-		<form method="POST" action="{% url djangobb:move_topic %}">
+		<form method="POST" action="{% url 'djangobb:move_topic' %}">
 			{% csrf_token %}
 			<div class="inform">
 				{% for topic_id in topic_ids %}
 					<input type="hidden" value="{{ topic_id }}" name="topic_id"/>
 				{% endfor %}
 				<fieldset>
-					<legend>{% trans "Select destination of move" %}</legend>
+					<legend>Форум назначения</legend>
 					<div class="infldset">
-						<label>{% trans "Move to" %}<br />
+						<label>Перенести в<br />
 						<select name="to_forum">
 						{% for category in categories %}
 							<optgroup label="{{ category }}">
@@ -31,7 +31,7 @@
 					</div>
 				</fieldset>
 			</div>
-			<p><input type="submit" value="{% trans "Move" %}" /><a href="javascript:history.go(-1)">{% trans "Go back" %}</a></p>
+			<p><input type="submit" value="Перенести" /><a href="javascript:history.go(-1)">Назад</a></p>
 		</form>
 	</div>
 </div>

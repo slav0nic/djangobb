@@ -1,14 +1,15 @@
 # -*- coding: utf-8
 import urllib
+import hashlib
 
 from django import template
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_unicode
-from django.db import settings
+from django.conf import settings
 from django.utils.html import escape
-from django.utils.hashcompat import md5_constructor
+from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
 
 from pagination.templatetags.pagination_tags import paginate
@@ -44,10 +45,10 @@ class ForumTimeNode(template.Node):
         self.time = template.Variable(time)
 
     def render(self, context):
-        time = self.time.resolve(context)
-        formated_time = u'%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
-        formated_time = mark_safe(formated_time)
-        return formated_time
+        time = timezone.localtime(self.time.resolve(context))
+        formatted_time = u'%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
+        formatted_time = mark_safe(formatted_time)
+        return formatted_time
 
 
 # TODO: this old code requires refactoring
@@ -234,16 +235,24 @@ def online(user):
 def attachment_link(attach):
     from django.template.defaultfilters import filesizeformat
     if attach.content_type in ['image/png', 'image/gif', 'image/jpeg']:
-        img = '<img src="%sdjangobb_forum/img/attachment/image.png" alt="attachment" />' % (settings.STATIC_URL)
+        # old construction
+        #img = '<img src="%sdjangobb_forum/img/attachment/image.png" alt="attachment" />' % (settings.STATIC_URL)
+        #attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size)) 
+        #attachment = '<a href="%s"><img src="%s" class="attachmentimg" /></a>' % (attach.get_absolute_url(), attach.get_absolute_url())
+        img = ' '
+        attachment = '<a rel="simplebox" href="%s"><img src="%s" class="attachmentimg"></a>' % (attach.get_absolute_url(), attach.get_absolute_url())
     elif attach.content_type in ['application/x-tar', 'application/zip']:
         img = '<img src="%sdjangobb_forum/img/attachment/compress.png" alt="attachment" />' % (settings.STATIC_URL)
+        attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     elif attach.content_type in ['text/plain']:
         img = '<img src="%sdjangobb_forum/img/attachment/text.png" alt="attachment" />' % (settings.STATIC_URL)
+        attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     elif attach.content_type in ['application/msword']:
         img = '<img src="%sdjangobb_forum/img/attachment/doc.png" alt="attachment" />' % (settings.STATIC_URL)
+        attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     else:
         img = '<img src="%sdjangobb_forum/img/attachment/unknown.png" alt="attachment" />' % (settings.STATIC_URL)
-    attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
+        attachment = '%s <a href="%s">%s</a> (%s)' % (img, attach.get_absolute_url(), attach.name, filesizeformat(attach.size))
     return mark_safe(attachment)
 
 
@@ -262,7 +271,7 @@ def gravatar(context, email):
         size = max(forum_settings.AVATAR_WIDTH, forum_settings.AVATAR_HEIGHT)
         url = 'https://secure.gravatar.com/avatar/%s?' if is_secure \
             else 'http://www.gravatar.com/avatar/%s?'
-        url = url % md5_constructor(email.lower()).hexdigest()
+        url = url % hashlib.md5(email.lower()).hexdigest()
         url += urllib.urlencode({
             'size': size,
             'default': forum_settings.GRAVATAR_DEFAULT,

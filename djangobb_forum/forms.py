@@ -1,18 +1,18 @@
 # coding: utf-8
 
 import os.path
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from django import forms
 from django.conf import settings
-from django.contrib.auth.models import User
-from django.db.models.expressions import F
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import convert_text_to_html, set_language
+from djangobb_forum.user import User
 
 
 SORT_USER_BY_CHOICES = (
@@ -150,7 +150,7 @@ class EditPostForm(forms.ModelForm):
 
     def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
-        post.updated = datetime.now()
+        post.updated = timezone.now()
         topic_name = self.cleaned_data['name']
         if topic_name:
             post.topic.name = topic_name
@@ -328,7 +328,6 @@ class PostSearchForm(forms.Form):
     show_as = forms.ChoiceField(choices=SHOW_AS_CHOICES, label=_('Show results as'))
 
 
-
 class ReputationForm(forms.ModelForm):
 
     class Meta:
@@ -377,6 +376,7 @@ class ReputationForm(forms.ModelForm):
             reputation.save()
         return reputation
 
+
 class MailToForm(forms.Form):
     subject = forms.CharField(label=_('Subject'),
                               widget=forms.TextInput(attrs={'size':'75', 'maxlength':'70', 'class':'longinput'}))
@@ -400,7 +400,7 @@ class ReportForm(forms.ModelForm):
 
     def save(self, commit=True):
         report = super(ReportForm, self).save(commit=False)
-        report.created = datetime.now()
+        report.created = timezone.now()
         report.reported_by = self.reported_by
         if commit:
             report.save()
@@ -419,17 +419,19 @@ class VotePollForm(forms.Form):
         super(VotePollForm, self).__init__(*args, **kwargs)
 
         choices = self.poll.choices.all().values_list("id", "choice")
-        if self.poll.choice_count == 1:
-            self.fields["choice"] = forms.ChoiceField(
+        if self.poll.single_choice():
+            self.fields["choice"] = forms.ChoiceField(label=_("Choice"),
                 choices=choices, widget=forms.RadioSelect
             )
         else:
-            self.fields["choice"] = forms.MultipleChoiceField(
+            self.fields["choice"] = forms.MultipleChoiceField(label=_("Choice"),
                 choices=choices, widget=forms.CheckboxSelectMultiple
             )
 
     def clean_choice(self):
         ids = self.cleaned_data["choice"]
+        if self.poll.single_choice(): # in a single choice scenario ChoiceField+RadioSelect are used (see above)
+            ids = [ids]               # which return a value itself, not a list
         count = len(ids)
         if count > self.poll.choice_count:
             raise forms.ValidationError(
@@ -439,17 +441,22 @@ class VotePollForm(forms.Form):
 
 
 class PollForm(forms.ModelForm):
-    answers = forms.CharField(min_length=2, widget=forms.Textarea,
+    question = forms.CharField(label=_("Question"))
+    answers = forms.CharField(label=_("Answers"), min_length=2, widget=forms.Textarea,
         help_text=_("Write each answer on a new line.")
     )
-    days = forms.IntegerField(required=False, min_value=1,
+    days = forms.IntegerField(label=_("Days"), required=False, min_value=1,
         help_text=_("Number of days for this poll to run. Leave empty for never ending poll.")
     )
+    choice_count = forms.IntegerField(label=_("Choice count"), required=True, initial=1, min_value=1,
+        error_messages={'min_value': _("Number of choices must be positive.")},
+    )
+
     class Meta:
         model = Poll
         fields = ['question', 'choice_count']
 
-    def create_poll(self):
+    def has_data(self):
         """
         return True if one field filled with data -> the user wants to create a poll
         """
@@ -478,8 +485,7 @@ class PollForm(forms.ModelForm):
         poll.topic = post.topic
         days = self.cleaned_data["days"]
         if days:
-            now = datetime.now()
-            poll.deactivate_date = now + timedelta(days=days)
+            poll.deactivate_date = timezone.now() + timedelta(days=days)
         poll.save()
         answers = self.cleaned_data["answers"]
         for answer in answers:

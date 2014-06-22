@@ -1,38 +1,24 @@
-{% extends 'djangobb_forum/base.html' %}
+{% extends 'djangobb_forum/profile/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
 
-{% block content %}
-<div id="profile" class="block2col">
-	{% include 'djangobb_forum/profile/profile_menu.html' %}
-	<div class="blockform">
-		<h2><span>{{ profile.username }} - {% trans "Personal" %}</span></h2>
-		<div class="box">
-			<form id="profile2" method="post">
-				{% csrf_token %}
-				<div class="inform">
-					<fieldset>
-						<legend>{% trans "Enter your personal details" %}</legend>
-						<div class="infldset">
-							{{ form.name.errors }}
-							<label>{{ form.name.label }}<br>{{ form.name }}<br></label>
-							{% if request.user.is_superuser %}
-								{{ form.status.errors }}
-								<label>{{ form.status.label }}&nbsp;&nbsp;(<em>{% trans "Leave blank to use forum default." %}</em>)<br>{{ form.status }}<br></label>
-							{% endif %}
-							{{ form.location.errors }}
-							<label>{{ form.location.label }}<br>{{ form.location }}<br></label>
-							{{ form.site.errors }}
-							<label>{{ form.site.label }}<br>{{ form.site }}<br></label>
-						</div>
-					</fieldset>
-				</div>
-				<p><input name="update" value="{% trans "Submit" %}" type="submit">{% trans "When you update your profile, you will be redirected back to this page." %}</p>
-			</form>
-		</div>
-	</div>
-	<div class="clearer"></div>
-</div>
+{% block profile_content %}
+<form id="profile2" method="post">
+	{% csrf_token %}
+		<fieldset>
+				{{ form.name.errors }}
+				<label>Имя{{ form.name }}</label>
+				{% if request.user.is_superuser %}
+					{{ form.status.errors }}
+					<label>Статус{{ form.status }}</label>
+				{% endif %}
+				{{ form.location.errors }}
+				<label>Расположение/адрес{{ form.location }}</label>
+				{{ form.site.errors }}
+				<label>Сайт{{ form.site }}</label>
+		</fieldset>
+	<input name="update" value="Применить" type="submit">
+</form>
 {% endblock %}
 
 {% block controls %}

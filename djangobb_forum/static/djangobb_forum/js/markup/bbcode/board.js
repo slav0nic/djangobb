@@ -23,13 +23,13 @@ function get_selection() {
 
 function copy_paste(post_id) {   
     post_div = $("div#"+post_id);
-    nick = post_div.find(".username").text();
+    nick = post_div.find(".postusername").text();
     
     txt = get_selection(); // quote selection
     if (txt == '') {
         // quote the complete post content
         // FIXME: We should get the markup here (Ajax view?)
-        txt = post_div.find("p.post_body_html").text();
+        txt = post_div.find(".posttext").text();
         txt = $.trim(txt);
     }
     txt = '[quote=' + nick + ']' + txt + '[/quote]\n';
@@ -39,41 +39,50 @@ function copy_paste(post_id) {
 
 function paste(txt) {
     //textarea = $("#id_body");
-    textarea = document.forms['post']['body'];
+    textarea = document.forms['post_add']['body'];
     insertAtCaret(textarea, txt);
     $("#id_body").focus();
 }
 
 function insertAtCaret (textObj, textFieldValue) {
     // log("insertAtCaret(" + textObj + "," + textFieldValue + ")");
-	if (document.all) { 
-		if (textObj.createTextRange && textObj.caretPos && !window.opera) { 
-			var caretPos = textObj.caretPos; 
-			caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ?textFieldValue + ' ' : textFieldValue; 
-		} else { 
-			textObj.value += textFieldValue; 
-		} 
-	} else { 
-		if (textObj.selectionStart) { 
-			var rangeStart = textObj.selectionStart; 
-			var rangeEnd = textObj.selectionEnd; 
-			var tempStr1 = textObj.value.substring(0, rangeStart); 
-			var tempStr2 = textObj.value.substring(rangeEnd, textObj.value.length); 
-			textObj.value = tempStr1 + textFieldValue + tempStr2; 
-			textObj.selectionStart = textObj.selectionEnd = rangeStart + textFieldValue.length;
-		} else { 
-			textObj.value += textFieldValue; 
-		} 
-	} 
+    if (document.all) { 
+        if (textObj.createTextRange && textObj.caretPos && !window.opera) { 
+            var caretPos = textObj.caretPos; 
+            caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ?textFieldValue + ' ' : textFieldValue; 
+        } else { 
+            textObj.value += textFieldValue; 
+        } 
+    } else { 
+        if (textObj.selectionStart) { 
+            var rangeStart = textObj.selectionStart; 
+            var rangeEnd = textObj.selectionEnd; 
+            var tempStr1 = textObj.value.substring(0, rangeStart); 
+            var tempStr2 = textObj.value.substring(rangeEnd, textObj.value.length); 
+            textObj.value = tempStr1 + textFieldValue + tempStr2; 
+            textObj.selectionStart = textObj.selectionEnd = rangeStart + textFieldValue.length;
+        } else { 
+            textObj.value += textFieldValue; 
+        } 
+    } 
 }
 
 $(document).ready(function() {
-    $(".username").click(function() {
+    $(".postusername").click(function() {
         var nick = $(this).text();
-        paste("[b]"+nick+"[/b]\n");
+        paste("[b]"+nick+"[/b],\n");
     });
-    $(".username").attr('title', 'Click to paste nick name in reply form.');
+    $(".postusername").attr('title', 'Клик для вставки ника в ответ.');
     
+
+    document.getElementById("id_body").onkeypress = function() {
+        var obj =  document.getElementById("id_body").value;
+        if (obj.length > 3) {
+            $("#post_button").css("color","#333");
+        return
+        }
+    }
+
     window.onbeforeunload = function() {
         var obj = $("textarea#id_body");
         if (obj.length != 1) {
@@ -85,7 +94,7 @@ $(document).ready(function() {
         if (text.length > 3) {
             // Firefox will not use the string. IE use it
             // TODO: Translate string
-            return "Leave page with unsaved content?";
+            return "Покинуть страницу с несохраненным содержимым?";
         }
         // if nothing returned, browser leave the page without any message
     };

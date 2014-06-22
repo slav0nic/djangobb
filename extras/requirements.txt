@@ -1,7 +1,8 @@
-Django==1.5.1
-PIL>=1.1.7
-django-haystack==1.2.7
+Django==1.5.4
+Pillow>=2.1.0
+django-haystack==2.1
 south
 pygments
 postmarkup
 django-pagination
+pytz>=2013b

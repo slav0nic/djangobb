@@ -1,14 +1,15 @@
 # coding: utf-8
 
 import math
-from datetime import datetime, timedelta
+from datetime import timedelta
+from django.utils import timezone
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+
 from django.contrib.sites.models import Site
 from django.core.cache import cache
-from django.core.exceptions import SuspiciousOperation
+from django.core.exceptions import SuspiciousOperation, PermissionDenied
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Q, F
@@ -17,9 +18,11 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from haystack.query import SearchQuerySet, SQ
 
+from djangobb_forum.user import User
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
@@ -50,6 +53,7 @@ def index(request, full=True):
 
     cats = {}
     forums = {}
+    last_posts = {}
     for forum in _forums:
         cat = cats.setdefault(forum.category.id,
             {'id': forum.category.id, 'cat': forum.category, 'forums': []})
@@ -59,6 +63,7 @@ def index(request, full=True):
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
 
+
     to_return = {'cats': cats,
                 'posts': Post.objects.count(),
                 'topics': Topic.objects.count(),
@@ -67,11 +72,11 @@ def index(request, full=True):
                 'online_count': users_count,
                 'guest_count': guest_count,
                 'last_user': User.objects.latest('date_joined'),
+                'last_post': Post.objects.latest('id'),
+                'last_posts': Post.objects.reverse()[:5],
                 }
-    if full:
-        return render(request, 'djangobb_forum/index.html', to_return)
-    else:
-        return render(request, 'djangobb_forum/lofi/index.html', to_return)
+    return render(request, 'djangobb_forum/index.html', to_return)
+    
 
 
 @transaction.commit_on_success
@@ -149,7 +154,7 @@ def search(request):
 
     action = request.GET['action']
     if action == 'show_24h':
-        date = datetime.now() - timedelta(days=1)
+        date = timezone.now() - timedelta(days=1)
         if show_as_posts:
             context["posts"] = posts.filter(Q(created__gte=date) | Q(updated__gte=date))
         else:
@@ -288,7 +293,7 @@ def misc(request):
         action = request.GET['action']
         if action == 'markread':
             user = request.user
-            PostTracking.objects.filter(user__id=user.id).update(last_read=datetime.now(), topics=None)
+            PostTracking.objects.filter(user__id=user.id).update(last_read=timezone.now(), topics=None)
             messages.info(request, _("All topics marked as read."))
             return HttpResponseRedirect(reverse('djangobb:index'))
 
@@ -329,11 +334,17 @@ def misc(request):
 def show_forum(request, forum_id, full=True):
     forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
     moderator = request.user.is_superuser or\
         request.user in forum.moderators.all()
-    to_return = {'categories': Category.objects.all(),
+
+    categories = []
+    for category in Category.objects.all():
+        if category.has_access(request.user):
+            categories.append(category)
+
+    to_return = {'categories': categories,
                 'forum': forum,
                 'posts': forum.post_count,
                 'topics': topics,
@@ -358,11 +369,11 @@ def show_topic(request, topic_id, full=True):
     user_is_authenticated = request.user.is_authenticated()
     if post_request and not user_is_authenticated:
         # Info: only user that are logged in should get forms in the page.
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
     Topic.objects.filter(pk=topic.id).update(views=F('views') + 1)
 
     last_post = topic.last_post
@@ -409,7 +420,7 @@ def show_topic(request, topic_id, full=True):
     else:
         poll = polls[0]
         if user_is_authenticated: # Only logged in users can vote
-            poll.auto_deactivate()
+            poll.deactivate_if_expired()
             has_voted = request.user in poll.users.all()
             if not post_request or not VotePollForm.FORM_NAME in request.POST:
                 # It's not a POST request or: The reply form was send and not a poll vote
@@ -464,7 +475,7 @@ def add_topic(request, forum_id):
     """
     forum = get_object_or_404(Forum, pk=forum_id)
     if not forum.category.has_access(request.user):
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
     ip = request.META.get('REMOTE_ADDR', None)
     post_form_kwargs = {"forum":forum, "user":request.user, "ip":ip, }
@@ -477,8 +488,7 @@ def add_topic(request, forum_id):
             all_valid = False
 
         poll_form = PollForm(request.POST)
-        create_poll = poll_form.create_poll()
-        if not create_poll:
+        if not poll_form.has_data():
             # All poll fields are empty: User didn't want to create a poll
             # Don't run validation and remove all form error messages
             poll_form = PollForm() # create clean form without form errors
@@ -487,7 +497,7 @@ def add_topic(request, forum_id):
 
         if all_valid:
             post = form.save()
-            if create_poll:
+            if poll_form.has_data():
                 poll_form.save(post)
                 messages.success(request, _("Topic with poll saved."))
             else:
@@ -531,7 +541,7 @@ def upload_avatar(request, username, template=None, form_class=None):
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             messages.error(request, _("Please sign in."))
-            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
+            return HttpResponseRedirect(settings.LOGIN_URL + '?next=%s' % request.path)
         return render(request, template, {'profile': user,
                 'topic_count': topic_count,
                })
@@ -556,7 +566,7 @@ def user(request, username, section='essentials', action=None, template='djangob
         topic_count = Topic.objects.filter(user__id=user.id).count()
         if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
             messages.error(request, _("Please sign in."))
-            return HttpResponseRedirect(reverse('user_signin') + '?next=%s' % request.path)
+            return HttpResponseRedirect(settings.LOGIN_URL + '?next=%s' % request.path)
         return render(request, template, {'profile': user,
                 'topic_count': topic_count,
                })

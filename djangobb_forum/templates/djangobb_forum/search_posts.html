@@ -3,61 +3,43 @@
 {% load i18n %}
 {% load pagination_tags %}
 
-{% block content %}
+{% block forum_content %}
 {% autopaginate posts forum_settings.FORUM_PAGE_SIZE %}
-<div class="linkst">
-	<div class="inbox">
-		<p class="pagelink">{% paginate %}</p>
-		<div class="clearer"></div>
-	</div>
-</div>
-
-<div id="messages" class="block">
-    <h2><span>{% trans "Search type" %}</span></h2>
-    <div class="box">
-        <div class="inbox">
-            <a href="{{ as_topic_url }}">{% trans "Show results as topic list." %}</a>
-        </div>
+<div class="breadcrumbs">
+	<div class="crumb">
+            <a href="{{ as_topic_url }}">Показать в виде тем</a>
     </div>
 </div>
 
-{% for post in posts %}
-{% if post.object %}
-    {% with post=post.object %}
-        {% include "djangobb_forum/includes/post_in_search_page.html" %}
-    {% endwith %}
-{% else %}
-    {% include "djangobb_forum/includes/post_in_search_page.html" %}
-{% endif %}
-{% empty %}
-<div id="msg" class="block">
-	<h2><span>{% trans "Info" %}</span></h2>
-	<div class="box">
-		<div class="inbox">
-		<p>{% trans "Your search returned no hits." %}</p>
-		<p><a href="javascript: history.go(-1)">{% trans "Go back" %}</a></p>
+<div class='content maincolor'>
+
+	<div class="paginator_up">
+		{% paginate %}
+	</div>
+
+	{% for post in posts %}
+		{% if post.object %}
+		    {% with post=post.object %}
+		        {% include "djangobb_forum/includes/post_in_search_page.html" %}
+		    {% endwith %}
+		{% else %}
+		    {% include "djangobb_forum/includes/post_in_search_page.html" %}
+		{% endif %}
+		{% empty %}
+		<div id="msg" class="block">
+			<h2><span>Просто информация</span></h2>
+			<div class="box">
+				<div class="inbox">
+				<p>Эмм... Ничего нет...</p>
+				<p><a href="javascript: history.go(-1)">Вернуться</a></p>
+				</div>
+			</div>
 		</div>
-	</div>
+	{% endfor %}
+
 </div>
-{% endfor %}
 
-
-<div class="postlinksb">
-	<div class="inbox">
-		<p class="pagelink">{% paginate %}</p>
-		<div class="clearer"></div>
-	</div>
+<div class="paginator_down_topic">
+		{% paginate %}
 </div>
-{% endblock %}
-
-{% block controls %}
-<dl id="searchlinks" class="conl">
-	<dt><strong>{% trans "Search links" %}</strong></dt>
-	<dd><a href="{% url djangobb:search %}?action=show_24h">{% trans "Show recent posts" %}</a></dd>
-	<dd><a href="{% url djangobb:search %}?action=show_unanswered">{% trans "Show unanswered posts" %}</a></dd>
-	{% if user.is_authenticated %}
-	<dd><a href="{% url djangobb:search %}?action=show_subscriptions">{% trans "Show your subscribed topics" %}</a></dd>
-	<dd><a href="{% url djangobb:search %}?action=show_user">{% trans "Show your topics" %}</a></dd>
-	{% endif %}
-</dl>
 {% endblock %}

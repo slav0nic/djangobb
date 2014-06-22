@@ -1,25 +1,26 @@
 {% load forum_extras %}
 {% load i18n %}
-
-<div class="blockpost searchposts roweven">
-    <h2>{% link post.topic.forum %}&nbsp;&raquo;&nbsp;{% link post.topic %}&nbsp;&raquo;&nbsp;<a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></h2>
-
-    <div class="box">
-        <div class="inbox">
-            <div class="postleft">
-                <dl>
-                    <dt><strong><a href="{% url djangobb:forum_profile post.user %}">{{ post.user }}</a></strong></dt>
-                    <dd>{% trans "Replies:" %} {{ post.topic.post_count }}</dd>
-                    <dd><div class="icon"><div class="nosize"><!-- --></div></div></dd>
-                    <dd><p class="clearb"><a href="{{ post.get_absolute_url }}">{% trans "Go to post" %}</a></p></dd>
-                </dl>
-            </div>
-            <div class="postright">
-                <div class="postmsg">
-                    {{ post.body_html|safe }}
-                </div>
-            </div>
-            <div class="clearer"></div>
+<div class="post"><a name="post-{{ post.id }}"></a>
+    <div class='postleft center'>
+        <div class='postavatars'>
+            <a href="{% url 'djangobb:forum_profile' post.user.username %}" title='Профиль'>
+                {% if post.user.forum_profile.avatar and post.user.forum_profile.show_avatar %}
+                    <img src="{{ post.user.forum_profile.avatar.url }}" />
+                {% else %}
+                    {% if forum_settings.GRAVATAR_SUPPORT %}
+                        <img src="{% gravatar post.user.email %}" />
+                    {% endif %}
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <div class='postcontent'>
+        <div class='posthead right'>
+            <div class='postusernames'>{{ post.user.username }}</div>
+            {% link post.topic.forum %}&nbsp;&#8594; &nbsp;{% link post.topic %}&nbsp;&#8594; &nbsp;<a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a>
+        </div>
+        <div class='posttext'>
+            {{ post.body_html|safe }}
         </div>
     </div>
 </div>
