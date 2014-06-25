@@ -8,7 +8,7 @@ class TestProfile(TestCase):
     fixtures = ['test_forum.json']
     
     def setUp(self):
-        self.profile = Profile.objects.get(pk=1)
+        self.profile = Profile.objects.all()[0]
         self.signature = 'Test Signature'
         self.jabber = 'Test Jabber'
         self.icq = 'Test ICQ'

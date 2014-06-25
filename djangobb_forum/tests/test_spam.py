@@ -200,8 +200,9 @@ class ForumSpamTests(TestCase):
             {
                 AddPostForm.FORM_NAME: True,
                 'body': "Test test_status_created_post"})
-        self.assertEqual(self.test_topic.posts.count(), 2)
-        post = self.test_topic.posts.all()[1]
+        posts = Post.objects.filter(topic=self.test_topic)
+        self.assertEqual(posts.count(), 2)
+        post = posts[1]
         self.assertTrue(post.poststatus is not None)
         self.client.logout()
 
