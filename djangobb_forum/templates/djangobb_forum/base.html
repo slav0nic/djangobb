@@ -26,7 +26,7 @@
     <link href="{{ STATIC_URL }}/djangobb_forum/themes/scratch_default_theme_copy/style.css" rel="stylesheet">
     <!-- Highlightjs goodies -->
     <link href="{{ STATIC_URL }}/djangobb_forum/css/pygments.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/scratchblocks2.css" />
+    <link href="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/scratchblocks2.css" rel="stylesheet" />
 {% endblock css %}
 
 {% block js %}
@@ -67,14 +67,8 @@
             scratchblocks2.load_language(scratchblocks2._translations[code]);
         }
     })(jQuery);
-
-    $(document).ready(function() {
-        scratchblocks2.parse('pre.blocks');
-    });
     </script>
-
-    <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/menu.js"></script>
-
+    
     {% if user.is_authenticated %}
         {% if post %}
             {% with markup=post.markup %}
@@ -85,6 +79,9 @@
                 {% include "djangobb_forum/includes/markup_editor.html" %}
             {% endwith %}
         {% endif %}
+
+        <script type="text/javascript" src="{{ STATIC_URL }}/djangobb_forum/scratchblocks2/menu.js"></script>
+
         <script type="text/javascript">
            $(document).ready(function() {
             $(".markup").markItUp(mySettings);
@@ -92,6 +89,12 @@
            });
         </script>
     {% endif %}
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        scratchblocks2.parse('pre.blocks');
+    });
+    </script>
 
     <!-- Highlightjs goodies -->
 
