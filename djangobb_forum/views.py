@@ -49,8 +49,11 @@ def simple_user_agent(request):
     return ', '.join(httpagentparser.simple_detect(request.META.get('HTTP_USER_AGENT', tuple())))
 
 def index(request, full=True):
-    users_cached = cache.get('djangobb_users_online', {})
-    users_online = users_cached and User.objects.filter(id__in=users_cached.keys()) or []
+    users_online = cache.get('djangobb_users_online_qs')
+    if users_online is None:
+        users_cached = cache.get('djangobb_users_online', {})
+        users_online = User.objects.filter(id__in=users_cached.keys())
+        cache.set('djangobb_users_online_qs', users_online, 60*5)
     guests_cached = cache.get('djangobb_guests_online', {})
     guest_count = len(guests_cached)
     users_count = len(users_online)
