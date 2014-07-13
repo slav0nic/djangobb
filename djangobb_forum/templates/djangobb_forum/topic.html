@@ -39,7 +39,7 @@
             {% for choice in poll.choices.all %}
                 <li>
                     <div class="bar" style="width:{{ choice.percent|floatformat:0 }}%;" title="{{ choice.choice }}">&nbsp;</div>
-                    {{ choice.votes }} vote{{ choice.votes|pluralize }} ({{ choice.percent|floatformat:1 }}%) for: {{ choice.choice }}
+                    {% blocktrans with percent=choice.percent|floatformat:1 choice_text=choice.choice count count=choice.votes %}{{ count }} vote ({{ percent }}%) for: {{ choice_text }}{% plural %}{{ count }} votes ({{ percent }}%) for: {{ choice_text }}{% endblocktrans %}
                 </li>
             {% endfor %}
             </ul>
