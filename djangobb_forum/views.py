@@ -198,7 +198,7 @@ def search(request):
             except User.DoesNotExist:
                 messages.error(request, _("Error: User unknown!"))
                 return HttpResponseRedirect(request.path)
-            messages.info(request, "Filter by user '%s'." % search_user.username)
+            messages.info(request, _("Filter by user '%(username)s'.") % {'username': search_user.username})
 
         if show_as_posts:
             posts = posts.filter(user__id=user_id)
