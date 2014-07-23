@@ -18,8 +18,15 @@ class TestParsers(TestCase):
         self.assertEqual(smiled_data, u"Lorem ipsum dolor <img src=\"{0}djangobb_forum/img/smilies/neutral.png\" /> sit amet <img src=\"{0}djangobb_forum/img/smilies/smile.png\" /> <a href=\"http://djangobb.org/\">http://djangobb.org/</a>".format(settings.STATIC_URL))
 
     def test_convert_text_to_html(self):
-        bb_data = convert_text_to_html(self.bbcode, 'bbcode')
-        self.assertEqual(bb_data, "<strong>Lorem</strong> <div class=\"code\"><pre>ipsum :)</pre></div>=)")
+        class User(object):
+            has_perm = lambda s, p: True
+
+        class Profile(object):
+            markup = 'bbcode'
+            user = User()
+
+        bb_data = convert_text_to_html(self.bbcode, Profile())
+        self.assertEqual(bb_data, '<span class="bb-bold">Lorem</span> <div class="code"><pre>ipsum :)</pre></div>=)')
 
 class TestPaginators(TestCase):
     fixtures = ['test_forum.json']
@@ -36,13 +43,3 @@ class TestPaginators(TestCase):
         request = self.factory.get('/?page=1')
         _, _, paged_list_name = paginate(self.posts, request, 3)
         self.assertEqual(paged_list_name.count(), 3)
-
-
-class TestVersion(TestCase):
-    def test_get_version(self):
-        import djangobb_forum
-
-        djangobb_forum.version_info = (0, 2, 1, 'f', 0)
-        self.assertEqual(djangobb_forum.get_version(), '0.2.1')
-        djangobb_forum.version_info = (2, 3, 1, 'a', 5)
-        self.assertIn('2.3.1a5.dev', djangobb_forum.get_version())
