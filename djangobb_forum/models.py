@@ -7,6 +7,7 @@ import os
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
+from django.db.models import Q
 from django.db.models import aggregates
 from django.db.models.signals import post_save
 from django.utils import timezone
@@ -53,11 +54,25 @@ if os.path.exists(path):
 else:
     THEME_CHOICES = []
 
+
+class CategoryManager(models.Manager):
+    def viewable(self, user):
+        """
+        Returns a QuerySet of all categories viewable for an user
+        """
+        if user.is_superuser:
+            return self.all()
+        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
+        return self.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
+
+
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
     groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
     position = models.IntegerField(_('Position'), blank=True, default=0)
+
+    objects = CategoryManager()
 
     class Meta:
         ordering = ['position']

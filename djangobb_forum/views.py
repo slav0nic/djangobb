@@ -85,7 +85,7 @@ def moderate(request, forum_id):
         topic_ids = request.POST.getlist('topic_id')
         if 'move_topics' in request.POST:
             return render(request, 'djangobb_forum/move_topic.html', {
-                'categories': Category.objects.all(),
+                'categories': Category.objects.viewable(request.user),
                 'topic_ids': topic_ids,
                 'exclude_forum': forum,
             })
@@ -118,8 +118,10 @@ def moderate(request, forum_id):
 def search(request):
     # TODO: used forms in every search type
 
+    categories = Category.objects.viewable(request.user)
+
     def _render_search_form(form=None):
-        return render(request, 'djangobb_forum/search_form.html', {'categories': Category.objects.all(),
+        return render(request, 'djangobb_forum/search_form.html', {'categories': categories,
                 'form': form,
                 })
 
@@ -136,16 +138,10 @@ def search(request):
     context = {}
 
     # Create 'user viewable' pre-filtered topics/posts querysets
-    viewable_category = Category.objects.all()
-    topics = Topic.objects.all().order_by("-last_post__created")
-    posts = Post.objects.all().order_by('-created')
     user = request.user
-    if not user.is_superuser:
-        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
-        viewable_category = viewable_category.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
-
-        topics = Topic.objects.filter(forum__category__in=viewable_category)
-        posts = Post.objects.filter(topic__forum__category__in=viewable_category)
+    viewable_category = Category.objects.viewable(user)
+    topics = Topic.objects.filter(forum__category__in=viewable_category).order_by("-last_post__created")
+    posts = Post.objects.filter(topic__forum__category__in=viewable_category).order_by('-created')
 
     base_url = None
     _generic_context = True
@@ -343,12 +339,7 @@ def show_forum(request, forum_id, full=True):
     moderator = request.user.is_superuser or\
         request.user in forum.moderators.all()
 
-    categories = []
-    for category in Category.objects.all():
-        if category.has_access(request.user):
-            categories.append(category)
-
-    to_return = {'categories': categories,
+    to_return = {'categories': Category.objects.viewable(request.user),
                 'forum': forum,
                 'posts': forum.post_count,
                 'topics': topics,
@@ -448,8 +439,9 @@ def show_topic(request, topic_id, full=True):
                     return HttpResponseRedirect(topic.get_absolute_url())
 
     highlight_word = request.GET.get('hl', '')
+    categories = Category.objects.viewable(request.user)
     if full:
-        return render(request, 'djangobb_forum/topic.html', {'categories': Category.objects.all(),
+        return render(request, 'djangobb_forum/topic.html', {'categories': categories,
                 'topic': topic,
                 'last_post': last_post,
                 'form_url': form_url,
@@ -463,7 +455,7 @@ def show_topic(request, topic_id, full=True):
                 'poll_form': poll_form,
                 })
     else:
-        return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
+        return render(request, 'djangobb_forum/lofi/topic.html', {'categories': categories,
                 'topic': topic,
                 'posts': posts,
                 'poll': poll,
@@ -729,7 +721,7 @@ def move_topic(request):
         messages.success(request, _("Topic moved."))
         return HttpResponseRedirect(to_forum.get_absolute_url())
 
-    return render(request, 'djangobb_forum/move_topic.html', {'categories': Category.objects.all(),
+    return render(request, 'djangobb_forum/move_topic.html', {'categories': Category.objects.viewable(request.user),
             'topic_ids': topic_ids,
             'exclude_forum': from_forum,
             })
