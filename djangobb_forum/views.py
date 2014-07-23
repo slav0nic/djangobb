@@ -189,7 +189,7 @@ def search(request, full=True):
 
     context["user"] = user
 
-    action = request.GET['action']
+    action = request.GET.get('action', '')
     if action == 'show_24h':
         date = timezone.now() - timedelta(days=1)
         if show_as_posts:
@@ -239,6 +239,9 @@ def search(request, full=True):
             topics = topics.filter(posts__user__id=user_id).order_by("-last_post__created").distinct()
 
         base_url = "?action=show_user&user_id=%s&show_as=" % user_id
+    else:
+        posts = Post.objects.none()
+        topics = Topic.objects.none()
     # elif action == 'search':
     #     form = PostSearchForm(request.GET)
     #     if not form.is_valid():
