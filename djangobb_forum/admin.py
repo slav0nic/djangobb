@@ -51,8 +51,14 @@ class ReputationAdmin(BaseModelAdmin):
     raw_id_fields = ['from_user', 'to_user', 'post']
 
 class ReportAdmin(BaseModelAdmin):
-    list_display = ['reported_by', 'post', 'zapped', 'zapped_by', 'created', 'reason']
-    raw_id_fields = ['reported_by', 'post']
+    list_display = ['reported_by', 'post', 'zapped', 'zapped_by', 'created', 'reason', 'link_to_post']
+    raw_id_fields = ['reported_by', 'post', 'zapped_by']
+    list_filter = ('zapped', 'created')
+
+    def link_to_post(self, instance):
+        return '<a href="%(link)s">#%(pk)s</a>' % {'link': instance.post.get_absolute_url(), 'pk': instance.post.pk}
+    link_to_post.short_description = _("Link to post")
+    link_to_post.allow_tags = True
 
 class BanAdmin(BaseModelAdmin):
     list_display = ['user', 'ban_start', 'ban_end', 'reason']
