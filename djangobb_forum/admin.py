@@ -60,6 +60,11 @@ class ReportAdmin(BaseModelAdmin):
     link_to_post.short_description = _("Link to post")
     link_to_post.allow_tags = True
 
+    def save_model(self, request, obj, form, change):
+        if change and obj.zapped:
+            obj.zapped_by = request.user
+            obj.save()
+
 class BanAdmin(BaseModelAdmin):
     list_display = ['user', 'ban_start', 'ban_end', 'reason']
     raw_id_fields = ['user']
