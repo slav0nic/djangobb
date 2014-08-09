@@ -130,7 +130,7 @@ class AddPostForm(forms.ModelForm):
             dir = os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO)
             fname = '%d.0' % post.id
             path = os.path.join(dir, fname)
-            file(path, 'wb').write(memfile.read())
+            open(path, 'wb').write(memfile.read())
             obj.path = fname
             obj.save()
 

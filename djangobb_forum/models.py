@@ -414,7 +414,7 @@ class Attachment(models.Model):
     def save(self, *args, **kwargs):
         super(Attachment, self).save(*args, **kwargs)
         if not self.hash:
-            self.hash = sha1(str(self.id) + settings.SECRET_KEY).hexdigest()
+            self.hash = sha1((str(self.id) + settings.SECRET_KEY).encode('ascii')).hexdigest()
         super(Attachment, self).save(*args, **kwargs)
 
     @models.permalink
