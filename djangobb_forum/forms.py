@@ -1,19 +1,21 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-import os.path
 from datetime import timedelta
+import os.path
 
 from django import forms
 from django.conf import settings
+from django.template.defaultfilters import filesizeformat
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+
+from djangobb_forum import settings as forum_settings
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
-from djangobb_forum import settings as forum_settings
-from djangobb_forum.util import convert_text_to_html, set_language
 from djangobb_forum.user import User
+from djangobb_forum.util import convert_text_to_html, set_language
 
 
 SORT_USER_BY_CHOICES = (
@@ -46,12 +48,37 @@ SEARCH_IN_CHOICES = (
 )
 
 
-class AddPostForm(forms.ModelForm):
+class BasePostForm(forms.ModelForm):
+    attachment = forms.FileField(label=_('Attachment'), required=False, widget=forms.FileInput(attrs={'multiple':'multiple'}))
+
+    def clean_attachment(self):
+        if not self.files:
+            return self.cleaned_data['attachment']
+        attachments = self.files.getlist('attachment')
+        for memfile in attachments:
+            if memfile.size > forum_settings.ATTACHMENT_SIZE_LIMIT:
+                msg = _('Attachment is too big')
+                msg += ' (max. %s)' % (filesizeformat(forum_settings.ATTACHMENT_SIZE_LIMIT))
+                raise forms.ValidationError(msg)
+        return attachments
+
+    def save_attachment(self, post, memfile):
+        if memfile:
+            obj = Attachment(size=memfile.size, content_type=memfile.content_type,
+                             name=memfile.name, post=post)
+            dir = os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO)
+            fname = '%d.0' % post.id
+            path = os.path.join(dir, fname)
+            open(path, 'wb').write(memfile.read())
+            obj.path = fname
+            obj.save()
+
+
+class AddPostForm(BasePostForm):
     FORM_NAME = "AddPostForm" # used in view and template submit button
 
     name = forms.CharField(label=_('Subject'), max_length=255,
                            widget=forms.TextInput(attrs={'size':'115'}))
-    attachment = forms.FileField(label=_('Attachment'), required=False)
     subscribe = forms.BooleanField(label=_('Subscribe'), help_text=_("Subscribe this topic."), required=False)
 
     class Meta:
@@ -93,13 +120,6 @@ class AddPostForm(forms.ModelForm):
                 del cleaned_data['body']
         return cleaned_data
 
-    def clean_attachment(self):
-        if self.cleaned_data['attachment']:
-            memfile = self.cleaned_data['attachment']
-            if memfile.size > forum_settings.ATTACHMENT_SIZE_LIMIT:
-                raise forms.ValidationError(_('Attachment is too big'))
-            return self.cleaned_data['attachment']
-
     def save(self):
         if self.forum:
             topic = Topic(forum=self.forum,
@@ -118,26 +138,16 @@ class AddPostForm(forms.ModelForm):
                     body=self.cleaned_data['body'])
 
         post.save()
-        if forum_settings.ATTACHMENT_SUPPORT:
-            self.save_attachment(post, self.cleaned_data['attachment'])
+        if forum_settings.ATTACHMENT_SUPPORT and self.files:
+            for attachment in self.files.getlist('attachment'):
+                self.save_attachment(post, attachment)
         return post
 
 
-    def save_attachment(self, post, memfile):
-        if memfile:
-            obj = Attachment(size=memfile.size, content_type=memfile.content_type,
-                             name=memfile.name, post=post)
-            dir = os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO)
-            fname = '%d.0' % post.id
-            path = os.path.join(dir, fname)
-            open(path, 'wb').write(memfile.read())
-            obj.path = fname
-            obj.save()
-
-
-class EditPostForm(forms.ModelForm):
+class EditPostForm(BasePostForm):
     name = forms.CharField(required=False, label=_('Subject'),
                            widget=forms.TextInput(attrs={'size':'115'}))
+    delete_attachments = forms.ModelMultipleChoiceField(None, required=False, widget=forms.CheckboxSelectMultiple())
 
     class Meta:
         model = Post
@@ -148,6 +158,8 @@ class EditPostForm(forms.ModelForm):
         super(EditPostForm, self).__init__(*args, **kwargs)
         self.fields['name'].initial = self.topic
         self.fields['body'].widget = forms.Textarea(attrs={'class':'markup'})
+        # initial selection of attachments
+        self.fields['delete_attachments'].queryset = Attachment.objects.filter(post=self.instance)
 
     def save(self, commit=True):
         post = super(EditPostForm, self).save(commit=False)
@@ -158,6 +170,15 @@ class EditPostForm(forms.ModelForm):
         if commit:
             post.topic.save()
             post.save()
+        if forum_settings.ATTACHMENT_SUPPORT:
+            # add new attachments
+            if self.files:
+                for attachment in self.files.getlist('attachment'):
+                    self.save_attachment(post, attachment)
+            # delete existing attachments
+            delete_attachments = self.cleaned_data['delete_attachments']
+            for attachment in delete_attachments:
+                attachment.delete()
         return post
 
 

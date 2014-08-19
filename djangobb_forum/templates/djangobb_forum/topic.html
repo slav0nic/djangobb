@@ -131,9 +131,7 @@
 					{% endif %}
 					{% with post.attachments.all as attachments %}
 						{% if attachments %}
-							{% for attach in attachments %}
-								<p class="postedit"><em>{% trans "Attachments:" %} <br />{{ attach|attachment_link }}</em></p>
-							{% endfor %}
+                            <p class="postedit"><em>{% trans "Attachments:" %} {% for attach in attachments %}<br />{{ attach|attachment_link }}{% endfor %}</em></p>
 						{% endif %}
 					{% endwith %}
 				</div>
