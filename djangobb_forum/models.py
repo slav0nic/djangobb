@@ -699,6 +699,9 @@ class PostStatus(models.Model):
             except Exception as e:
                 logger.error("Error while checking Akismet", extra={"exception": e})
                 is_spam = None
+        except Exception as e:
+            logger.error("Error while checking Akismet", extra={"exception": e})
+            is_spam = None
 
         return is_spam
 
