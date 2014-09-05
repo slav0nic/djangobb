@@ -692,9 +692,13 @@ class PostStatus(models.Model):
 
         try:
             is_spam = akismet_api.comment_check(content, data)
-        except Exception as e:
-            logger.error("Error while checking Akismet", extra={"exception": e})
-            is_spam = None
+        except AkismetError as e:
+            try:
+                # try again, in case of timeout
+                is_spam = akismet_api.comment_check(content, data)
+            except Exception as e:
+                logger.error("Error while checking Akismet", extra={"exception": e})
+                is_spam = None
 
         return is_spam
 
