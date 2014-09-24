@@ -26,7 +26,7 @@ class compile_translations(Command):
         curdir = os.getcwd()
         os.chdir(os.path.realpath('djangobb_forum'))
         try:
-            if django.VERSION[:2] == (1, 6):
+            if django.VERSION[:2] >= (1, 6):
                 compile_messages(stdout=sys.stdout)
             else:
                 compile_messages(stderr=sys.stderr)
@@ -54,11 +54,11 @@ setup(name='djangobb_forum',
     author_email='Maranchuk Sergey <slav0nic0@gmail.com>',
     packages=find_packages(),
     include_package_data=True,
-    setup_requires=['django>=1.5.5'],
+    setup_requires=['django>=1.6,<1.7'],
     install_requires=[
-            'django>=1.5.5',
+            'django>=1.6,<1.7',
             'pillow>=2.1.0',
-            'django-haystack==2.1',
+            'django-haystack>=2.1.0,<2.4',
             'linaro-django-pagination',
             'south',
             'postmarkup',
