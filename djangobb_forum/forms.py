@@ -9,7 +9,7 @@ from django.conf import settings
 from django.template.defaultfilters import filesizeformat
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-
+from django.utils.text import get_valid_filename
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
@@ -67,7 +67,7 @@ class BasePostForm(forms.ModelForm):
             obj = Attachment(size=memfile.size, content_type=memfile.content_type,
                              name=memfile.name, post=post)
             dir = os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO)
-            fname = '%d.0' % post.id
+            fname = '%d.%s' % (post.id, get_valid_filename(memfile.name[:240]))
             path = os.path.join(dir, fname)
             open(path, 'wb').write(memfile.read())
             obj.path = fname
