@@ -590,7 +590,7 @@ class PostStatus(models.Model):
     MARKED_HAM = 'marked_ham'
 
     post = models.OneToOneField(Post, db_index=True)
-    state = FSMField(default=UNREVIEWED)
+    state = FSMField(default=UNREVIEWED, db_index=True)
     topic = models.ForeignKey(Topic) # Original topic
     forum = models.ForeignKey(Forum) # Original forum
     user_agent = models.CharField(max_length=200, blank=True, null=True)
