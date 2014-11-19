@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load forum_extras %}
 {% load i18n %}
-{% load gargoyle_tags %}
 
 {% block page-category %}{% trans "Discuss Scratch" %}{% endblock page-category %}
 
@@ -113,9 +112,7 @@
 
 {% block search_form_hidden_inputs %}
 {{ block.super }}
-{% ifswitch google_searches %}
 <input type="hidden" name="refinement" value="Forums" />
-{% endifswitch %}
 {% endblock %}
 
 {% block main-content %}

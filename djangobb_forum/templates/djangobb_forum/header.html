@@ -1,7 +1,6 @@
 {% load forum_extras %}
 {% load i18n %}
 {% load tz %}
-{% load gargoyle_tags %}
 
 <div id="djangobbwrap">
 <div id="djangobbindex" class="djangobb">
@@ -19,9 +18,7 @@
 		<ul>
 		{% block menu %}
 			<li id="navindex"><a href="{% url djangobb:index %}">{% trans "Discussion Home" %}</a></li>
-			{% ifswitch google_searches %}{% else %}
 			<li id="navsearch"><a href="{% url djangobb:search %}">{% trans "Search" %}</a></li>
-			{% endifswitch %}
 			{% if user|forum_can_view_reports %}
 				<li class="moderator-only"><a href="{% url djangobb:forum_reports %}">
 					{% with user|forum_reports as report_count %}

@@ -3,8 +3,6 @@
 import os.path
 from datetime import timedelta
 
-from gargoyle import gargoyle
-
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
