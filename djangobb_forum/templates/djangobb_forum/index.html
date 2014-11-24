@@ -85,13 +85,4 @@
     <li><a href="{% url djangobb:misc %}?action=markread">{% trans "Mark all topics as read" %}</a></li>
     {% endif %}
 </ul>
-<dl id="onlinelist" class= "clearb">
-    <dt><strong>{% blocktrans with count=online_count %}Online ({{ count }}):{% endblocktrans %} </strong></dt>
-    {% for online in users_online %}
-        <dd>{{ online|profile_link }}{% if not forloop.last %},{% endif %}</dd>
-    {% endfor %}
-    {% if online_truncated %}
-        <dd>{% trans "…and more." %}</dd>
-    {% endif %}
-</dl>
 {% endblock %}

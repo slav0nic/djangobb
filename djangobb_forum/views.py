@@ -49,17 +49,6 @@ def simple_user_agent(request):
     return ', '.join(httpagentparser.simple_detect(request.META.get('HTTP_USER_AGENT', tuple())))
 
 def index(request, full=True):
-    users_online = cache.get('djangobb_users_online_qs')
-    if users_online is None:
-        users_cached = cache.get('djangobb_users_online', {})
-        users_online = User.objects.filter(id__in=users_cached.keys())
-        cache.set('djangobb_users_online_qs', users_online, 60*5)
-    guests_cached = cache.get('djangobb_guests_online', {})
-    guest_count = len(guests_cached)
-    users_count = len(users_online)
-    online_truncated = users_count > forum_settings.MAX_ONLINE
-    if online_truncated:
-        users_online = users_online[:forum_settings.MAX_ONLINE]
 
     _forums = Forum.objects.select_related('last_post__topic', 'last_post__user', 'category')
     user = request.user
@@ -78,12 +67,7 @@ def index(request, full=True):
     cmpdef = lambda a, b: cmp(a['cat'].position, b['cat'].position)
     cats = sorted(cats.values(), cmpdef)
 
-    to_return = {'cats': cats,
-                'users_online': users_online,
-                'online_count': users_count,
-                'online_truncated': online_truncated,
-                'guest_count': guest_count,
-                }
+    to_return = {'cats': cats,}
     if full:
         return render(request, 'djangobb_forum/index.html', to_return)
     else:
