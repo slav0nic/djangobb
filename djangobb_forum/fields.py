@@ -35,7 +35,8 @@ class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
                     return super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type)
                 except self.related.model.DoesNotExist:
                     # Doesn't exist but already exists, what the heck.
-                    logger.warn("Integrity error encountered after DoesNotExist?", extra={'stack': True})
+                    # logger.warn("Integrity error encountered after DoesNotExist?", extra={'stack': True})
+                    pass
             return obj
 
 
