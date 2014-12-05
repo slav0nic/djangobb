@@ -1,4 +1,8 @@
+from django.contrib.auth.models import User
+
 from celery.decorators import task
+
+from djangobb_forum.models import Topic
 
 @task 
 def scratch_notify_topic_subscribers(post_id):
@@ -19,3 +23,22 @@ def scratch_notify_topic_subscribers(post_id):
             object = topic,
         )
         social_action.save()
+
+@task
+def update_topic_on_view(user_id, topic_id, is_authenticated):
+    """
+    Update the views and reads for a topic - part of show_topic.
+    Turned into async task to reduce page load times and increase
+    scalability.
+    """
+    try:
+        topic = Topic.objects.get(pk=topic_id)
+        Topic.objects.filter(pk=topic_id).update(views=F('views') + 1)
+        if is_authenticated:
+            try:
+                user = User.objects.get(pk=user_id)              
+                topic.update_read(request.user)
+            except User.DoesNotExist:
+                pass
+    except Topic.DoesNotExist:
+        pass

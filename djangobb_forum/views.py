@@ -31,6 +31,7 @@ from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     VotePollForm, ReportForm, VotePollForm, PollForm, PostStatus
 from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Report, Attachment, PostTracking
+from djangobb_forum.tasks import update_topic_on_view
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html, UnapprovedImageError, can_close_topic
@@ -387,11 +388,10 @@ def show_topic(request, topic_id, full=True):
     topic = get_object_or_404(Topic.objects.select_related(), pk=topic_id)
     if not topic.forum.category.has_access(request.user):
         return HttpResponseForbidden()
-    Topic.objects.filter(pk=topic.id).update(views=F('views') + 1)
     last_post = topic.last_post
 
-    if request.user.is_authenticated():
-        topic.update_read(request.user)
+    update_topic_on_view.delay(user_id=request.user.id, topic_id=topic.id, is_authenticated=user_is_authenticated)
+
     # without specifying, following query wouldn't select related properly
     posts = topic.posts.select_related('user__userprofile',
         'user__forum_profile',
