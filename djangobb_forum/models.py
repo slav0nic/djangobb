@@ -278,7 +278,7 @@ class Post(models.Model):
             ('med_post', 'Can add posts at medium speed'),
             ('post_external_links', 'Can post external links'),
             ('delayed_delete', 'Can delete posts after a delay'),
-            )
+        )
 
     def save(self, *args, **kwargs):
         self.body_html = convert_text_to_html(self.body, self.user.forum_profile)
