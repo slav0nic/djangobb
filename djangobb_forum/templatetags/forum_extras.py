@@ -184,7 +184,7 @@ def forum_editable_by(post, user):
 
     if user.is_superuser:
         return True
-    if not user.has_perm('djangobb_forum.change_post'):
+    if not user.has_perm('userprofiles.is_social'):
         return False
     if post.user == user:
         return True

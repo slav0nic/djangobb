@@ -382,7 +382,7 @@ def show_topic(request, topic_id, full=True):
     user_is_authenticated = request.user.is_authenticated()
     if post_request and (
             not user_is_authenticated or 
-            not request.user.has_perm('djangobb_forum.add_post')):
+            not request.user.has_perm('userprofiles.is_social')):
         # Info: only user that are logged in should get forms in the page.
         return HttpResponseForbidden()
 
@@ -554,7 +554,7 @@ def show_unread_posts(request, topic_id, full=True):
     return redirect(post.get_absolute_url() if full else post.get_mobile_url());
 
 @login_required
-@permission_required('djangobb_forum.add_topic', raise_exception=True)
+@permission_required('userprofiles.is_social', raise_exception=True)
 @transaction.commit_on_success
 def add_topic(request, forum_id, full=True):
     """
@@ -729,7 +729,7 @@ def get_topic_title(request, topic_id):
     return HttpResponse(topic.name, mimetype='text/plain')
 
 @login_required
-@permission_required('djangobb_forum.change_post', raise_exception=True)
+@permission_required('userprofiles.is_social', raise_exception=True)
 @transaction.commit_on_success
 def edit_post(request, post_id):
     from djangobb_forum.templatetags.forum_extras import forum_editable_by
@@ -756,7 +756,7 @@ def edit_post(request, post_id):
 
 
 @login_required
-@permission_required('djangobb_forum.delete_post', raise_exception=True)
+@permission_required('userprofiles.is_social', raise_exception=True)
 @transaction.commit_on_success
 def delete_posts(request, topic_id):
 
@@ -802,7 +802,7 @@ def delete_posts(request, topic_id):
 
 
 @login_required
-@permission_required('djangobb_forum.change_post', raise_exception=True)
+@permission_required('userprofiles.is_social', raise_exception=True)
 @transaction.commit_on_success
 def move_posts(request, topic_id):
 
@@ -897,7 +897,7 @@ def move_posts(request, topic_id):
             })
 
 @login_required
-@permission_required('djangobb_forum.change_topic', raise_exception=True)
+@permission_required('userprofiles.is_social', raise_exception=True)
 @transaction.commit_on_success
 def move_topic(request):
     if 'topic_id' in request.GET:
@@ -1040,7 +1040,7 @@ def mark_ham(request, post_id):
 
 
 @login_required
-@permission_required('djangobb_forum.change_topic', raise_exception=True)
+@permission_required('userprofiles.is_social', raise_exception=True)
 @transaction.commit_on_success
 def open_close_topic(request, topic_id, action):
     topic = get_object_or_404(Topic, pk=topic_id)
