@@ -22,17 +22,17 @@ class ForumSpamTests(TestCase):
         self.password = "password"
         self.user = User.objects.create_user(
             username="testuser", password=self.password)
-        UserProfileModel.objects.create(user=self.user)
+        UserProfileModel.objects.create(user=self.user, confirmed_email=True)
         new_scratchers = Group.objects.create(name="New Scratchers")
         self.user.groups.add(new_scratchers)
         self.veteran_user = User.objects.create_user(
             username="veteran_user", password=self.password)
-        UserProfileModel.objects.create(user=self.veteran_user)
+        UserProfileModel.objects.create(user=self.veteran_user, confirmed_email=True)
         self.moderator = User.objects.create_user(
             username="moderator", password=self.password)
         self.moderator.is_superuser = True
         self.moderator.save()
-        UserProfileModel.objects.create(user=self.moderator)
+        UserProfileModel.objects.create(user=self.moderator, confirmed_email=True)
         self.test_category = Category.objects.create(name="Test Category")
         self.test_forum = Forum.objects.create(
             name="Test Forum", category=self.test_category)

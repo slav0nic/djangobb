@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 
 from djangobb_forum.models import Category, Forum, Topic, Post
 
@@ -14,6 +14,7 @@ class TestForum(TestCase):
         self.topic = Topic.objects.get(pk=1)
         self.post = Post.objects.get(pk=1)
         self.user = User.objects.get(pk=1)
+        self.user.user_permissions.add(Permission.objects.get(codename='is_social'))
         self.client = Client()
         self.ip = '127.0.0.1'
         
