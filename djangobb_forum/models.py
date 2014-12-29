@@ -676,7 +676,7 @@ class PostStatus(models.Model):
             'comment_post_modified_gmt': comment_post_modified_gmt
         }
 
-    def to_akismet_content():
+    def to_akismet_content(self):
         """
         Truncate the post body to the largest allowed string size. Use size, not
         length, since the Akismet server checks size, not length.
