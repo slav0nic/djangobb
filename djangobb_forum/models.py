@@ -588,6 +588,8 @@ class PostStatus(models.Model):
     MARKED_SPAM = 'marked_spam'
     MARKED_HAM = 'marked_ham'
 
+    AKISMET_MAX_SIZE = 1024*500
+
     post = models.OneToOneField(Post, db_index=True)
     state = FSMField(default=UNREVIEWED, db_index=True)
     topic = models.ForeignKey(Topic) # Original topic
@@ -681,7 +683,7 @@ class PostStatus(models.Model):
         Truncate the post body to the largest allowed string size. Use size, not
         length, since the Akismet server checks size, not length.
         """
-        return self.post.body.encode('utf-8')[:1024*500].decode('utf-8', 'ignore')
+        return self.post.body.encode('utf-8')[:self.AKISMET_MAX_SIZE].decode('utf-8', 'ignore')
 
     def _comment_check(self):
         """
