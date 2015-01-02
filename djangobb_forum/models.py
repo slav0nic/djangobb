@@ -67,15 +67,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 akismet_api = None
+from akismet import Akismet, AkismetError
+
 try:
-    from akismet import Akismet
     if getattr(settings, 'AKISMET_ENABLED', True):
         akismet_api = Akismet(key=forum_settings.AKISMET_API_KEY, blog_url=forum_settings.AKISMET_BLOG_URL, agent=forum_settings.AKISMET_AGENT)
 except Exception as e:
     logger.error("Error while initializing Akismet", extra={'exception': e})
 
-
-class AkismetError(Exception): pass
 
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
@@ -589,6 +588,8 @@ class PostStatus(models.Model):
     MARKED_SPAM = 'marked_spam'
     MARKED_HAM = 'marked_ham'
 
+    AKISMET_MAX_SIZE = 1024*500
+
     post = models.OneToOneField(Post, db_index=True)
     state = FSMField(default=UNREVIEWED, db_index=True)
     topic = models.ForeignKey(Topic) # Original topic
@@ -677,6 +678,13 @@ class PostStatus(models.Model):
             'comment_post_modified_gmt': comment_post_modified_gmt
         }
 
+    def to_akismet_content(self):
+        """
+        Truncate the post body to the largest allowed string size. Use size, not
+        length, since the Akismet server checks size, not length.
+        """
+        return self.post.body.encode('utf-8')[:self.AKISMET_MAX_SIZE].decode('utf-8', 'ignore')
+
     def _comment_check(self):
         """
         Pass the associated post through Akismet if it's available. If it's not
@@ -687,7 +695,7 @@ class PostStatus(models.Model):
             return None
 
         data = self.to_akismet_data()
-        content = self.post.body
+        content = self.to_akismet_content()
         is_spam = None
 
         try:
@@ -714,7 +722,7 @@ class PostStatus(models.Model):
             raise AkismetError("Can't submit to Akismet. No API.")
 
         data = self.to_akismet_data()
-        content = self.post.body
+        content = self.to_akismet_content()
 
         if report_type == "spam":
             akismet_api.submit_spam(content, data)

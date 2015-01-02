@@ -151,6 +151,31 @@ class ForumSpamTests(TestCase):
         self.assertEqual(
             1, PostStatus.objects.filter(state=PostStatus.FILTERED_SPAM).count())
 
+    def test_content_truncated(self):
+        """
+        Content larger than 0.5MB shouldn't be sent up to Akismet, which rejects
+        anything too big.  For the test, we reduce the cap, since the test
+        database seems to have issues tearing down when that much data is present.
+        """
+        huge_content = ":lol:"*1024
+        huge_post = Post.objects.create(
+            topic=self.test_topic, user=self.user, body=huge_content,
+            body_html="<p>%s</p>"%huge_content)
+        huge_post_status = PostStatus.objects.create_for_post(huge_post)
+        huge_post_status.AKISMET_MAX_SIZE = 512
+        self.assertGreater(len(huge_content), len(huge_post_status.to_akismet_content()))
+
+    def test_content_untruncated(self):
+        """
+        Content smaller than 0.5MB should still be sent up to Akismet as-is.
+        """
+        content = ":lol:"
+        post = Post.objects.create(
+            topic=self.test_topic, user=self.user, body=content,
+            body_html="<p>%s</p>"%content)
+        post_status = PostStatus.objects.create_for_post(post)
+        self.assertEqual(len(content), len(post_status.to_akismet_content()))
+        self.assertEqual(content, post_status.to_akismet_content())
 
     # Template tags
     def test_can_proceed_tag(self):
