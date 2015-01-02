@@ -719,7 +719,8 @@ class PostStatus(models.Model):
         fails. report_type is 'spam' or 'ham'. Used by report_spam/report_ham.
         """
         if akismet_api is None:
-            raise AkismetError("Can't submit to Akismet. No API.")
+            logger.error("Can't submit to Akismet. No API.")
+            return None
 
         data = self.to_akismet_data()
         content = self.to_akismet_content()
