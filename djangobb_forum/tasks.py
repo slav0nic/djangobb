@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import F
 
 from celery.decorators import task
 
@@ -37,7 +38,7 @@ def update_topic_on_view(user_id, topic_id, is_authenticated):
         if is_authenticated:
             try:
                 user = User.objects.get(pk=user_id)              
-                topic.update_read(request.user)
+                topic.update_read(user)
             except User.DoesNotExist:
                 pass
     except Topic.DoesNotExist:
