@@ -43,6 +43,13 @@
         }
     });
 
+    if (!Scratch.INIT_DATA.IS_SOCIAL) {
+        $('#post textarea').limit('0');
+        $('#post textarea').focus(function() {
+            openResendDialogue(); //see account-nav.js for function definition
+        });
+    }
+
     // Follow/unfollow topic logic
     var $follow = $('.follow-topic');
     var followclick = function(evt) {
