@@ -3,9 +3,10 @@
 from hashlib import sha1
 import os
 
-from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.models import User, Group
+from django.core.urlresolvers import reverse
+from django.core.validators import MaxLengthValidator
 from django.db import models
 from django.db.models import aggregates
 from django.db.models.signals import post_save
@@ -262,7 +263,7 @@ class Post(models.Model):
     updated = models.DateTimeField(_('Updated'), blank=True, null=True)
     updated_by = models.ForeignKey(User, verbose_name=_('Updated by'), blank=True, null=True)
     markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
-    body = models.TextField(_('Message'))
+    body = models.TextField(_('Message'), validators=[MaxLengthValidator(forum_settings.POST_MAX_LENGTH)])
     body_html = models.TextField(_('HTML version'))
     user_ip = models.IPAddressField(_('User IP'), blank=True, null=True)
 
