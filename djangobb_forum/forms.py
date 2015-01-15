@@ -315,6 +315,7 @@ class PersonalityProfileForm(forms.ModelForm):
             except UnapprovedImageError as e:
                 self._errors['signature'] = self.error_class([e.user_error()])
                 del cleaned_data['signature']
+            cleaned_data['signature'] = filter_language(signature)
         return cleaned_data
 
     def save(self, commit=True):
