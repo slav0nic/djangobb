@@ -184,6 +184,8 @@ def forum_editable_by(post, user):
 
     if user.is_superuser:
         return True
+    if not user.has_perm('userprofiles.is_social'):
+        return False
     if post.user == user:
         return True
     if user in post.topic.forum.moderators.all():
