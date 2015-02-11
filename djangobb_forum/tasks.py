@@ -16,14 +16,16 @@ def scratch_notify_topic_subscribers(post_id):
     try:
         post = Post.objects.select_related('topic').get(id=post_id)
     except Post.DoesNotExist:
-        return
+        return -1
     topic = post.topic
     if post != topic.head:
         social_action = SocialAction(
             actor = post.user,
-            object = topic,
-        )
+            object = topic)
         social_action.save()
+        return 1
+    else:
+        return 0
 
 @task
 def update_topic_on_view(user_id, topic_id, is_authenticated):
