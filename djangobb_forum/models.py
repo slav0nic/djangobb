@@ -706,10 +706,16 @@ class PostStatus(models.Model):
                 # try again, in case of timeout
                 is_spam = akismet_api.comment_check(content, data)
             except Exception as e:
-                logger.error("Error while checking Akismet", extra={"exception": e})
+                logger.error(
+                    "Error while checking Akismet", exc_info=True, extra={
+                        "post", self.post, "post_id": self.post.id,
+                        "content_length": len(content)})
                 is_spam = None
         except Exception as e:
-            logger.error("Error while checking Akismet", extra={"exception": e})
+            logger.error(
+                "Error while checking Akismet", exc_info=True, extra={
+                    "post", self.post, "post_id": self.post.id,
+                    "content_length": len(content)})
             is_spam = None
 
         return is_spam
@@ -823,7 +829,9 @@ class PostStatus(models.Model):
         else:
             if certainly_spam:
                 self._delete_post()
-            logger.warn("Couldn't filter post.", extra={'poststatus': self})
+            logger.warn(
+                "Couldn't filter post.", exc_info=True, extra={
+                    'post_id': self.post.id, 'content_length': len(self.post.body)})
 
 
 from .signals import post_saved, topic_saved
