@@ -589,7 +589,7 @@ class PostStatus(models.Model):
     MARKED_SPAM = 'marked_spam'
     MARKED_HAM = 'marked_ham'
 
-    AKISMET_MAX_SIZE = 1024*500
+    AKISMET_MAX_SIZE = 1024*250
 
     post = models.OneToOneField(Post, db_index=True)
     state = FSMField(default=UNREVIEWED, db_index=True)
