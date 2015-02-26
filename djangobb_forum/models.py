@@ -572,6 +572,22 @@ class PostStatusManager(models.Manager):
                 post_status = self.create_for_post(post)
             post_status.review(certainly_spam=certainly_spam)
 
+    def delete_user_posts(self, posts):
+        for post in posts:
+            try:
+                post_status = post.poststatus
+            except PostStatus.DoesNotExist:
+                post_status = self.create_for_post(post)
+            post_status.filter_user_deleted()
+
+    def undelete_user_posts(self, posts):
+        for post in posts:
+            try:
+                post_status = post.poststatus
+            except PostStatus.DoesNotExist:
+                post_status = self.create_for_post(post)
+            post_status.filter_user_undeleted()        
+
     def review_new_posts(self):
         unreviewed = self.filter(state=PostStatus.UNREVIEWED)
         for post_status in unreviewed:
@@ -584,6 +600,7 @@ class PostStatus(models.Model):
     Keeps track of the status of posts for moderation purposes.
     """
     UNREVIEWED = 'unreviewed'
+    USER_DELETED = 'user_deleted'
     FILTERED_SPAM = 'filtered_spam'
     FILTERED_HAM = 'filtered_ham'
     MARKED_SPAM = 'marked_spam'
@@ -793,6 +810,16 @@ class PostStatus(models.Model):
         pass
 
     @transition(
+        field=state, source=UNREVIEWED, target=USER_DELETED,
+        save=True)
+    def filter_user_deleted(self):
+        """
+        Post is not marked spam by akismet, but user has been globally deleted,
+        putting this into the spam dusbin.
+        """
+        self._delete_post()
+
+    @transition(
         field=state, source=[FILTERED_SPAM, MARKED_SPAM], target=MARKED_HAM,
         save=True)
     def mark_ham(self):
@@ -813,6 +840,16 @@ class PostStatus(models.Model):
         """
         self._submit_spam()
         self._delete_post()
+
+    @transition(
+        field=state, source=USER_DELETED, target=UNREVIEWED,
+        save=True)
+    def filter_user_undeleted(self):
+        """
+        Post is not marked spam by akismet, but user has been globally deleted,
+        putting this into the spam dusbin.
+        """
+        self._undelete_post()
 
     def review(self, certainly_spam=False):
         """
