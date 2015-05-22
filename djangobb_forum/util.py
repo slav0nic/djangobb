@@ -60,7 +60,6 @@ def paged(paged_list_name, per_page):
                     #if value > 0:
                         #real_per_page = value
 
-            from django.core.paginator import Paginator
             paginator = Paginator(result['paged_qs'], real_per_page)
             try:
                 page_obj = paginator.page(page)
