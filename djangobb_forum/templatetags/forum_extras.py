@@ -15,7 +15,7 @@ from django.contrib.humanize.templatetags.humanize import naturalday
 from django.utils.six.moves.urllib.parse import urlencode
 from django.utils.six.moves import range
 
-from linaro_django_pagination.templatetags.pagination_tags import paginate
+from pagination.templatetags.pagination_tags import paginate
 
 from djangobb_forum.models import Report
 from djangobb_forum import settings as forum_settings

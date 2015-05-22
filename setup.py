@@ -55,7 +55,7 @@ setup(name='djangobb_forum',
             'django>=1.6,<1.9',
             'pillow>=2.1.0,<2.9',
             'django-haystack>=2.3.1,<2.4',
-            'linaro-django-pagination',
+            'django-pagination-py3==1.1.1',
             'postmarkup',
             'setuptools',
             'pytz>=2015.4'
