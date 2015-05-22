@@ -1,2 +1,5 @@
--e git://github.com/jtauber/django-mailer.git#egg=django-mailer
-https://github.com/arneb/django-messages/tarball/master#egg=django-messages
+django-allauth
+django-messages
+
+# for django < 1.7, you'll want south
+# south

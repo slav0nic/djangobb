@@ -1,6 +1,7 @@
 *.py[co]
 *.egg-info
 *.egg
+.idea/
 .pydevproject
 .project
 .settings
@@ -12,3 +13,5 @@ local_settings.py
 .env
 build/
 dist/
+.tox/
+venv/
