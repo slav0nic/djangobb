@@ -3,6 +3,7 @@ syntax: glob
 *.pyo
 *.orig
 *.egg
+.eggs
 *.egg-info
 .pydevproject
 .project

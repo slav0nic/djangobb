@@ -5,6 +5,7 @@ from distutils.command.build import build as _build
 from distutils.cmd import Command
 from djangobb_forum import get_version
 
+
 class compile_translations(Command):
     description = 'compile message catalogs to MO files via django compilemessages'
     user_options = []
@@ -17,25 +18,17 @@ class compile_translations(Command):
 
     def run(self):
         import os
-        import sys
-        import django
-        from django.core.management.commands import compilemessages
-        from django.core.management.base import CommandError
+        from django.core.management import execute_from_command_line, CommandError
 
         curdir = os.getcwd()
-        os.chdir(os.path.realpath('djangobb_forum'))
+        forum_dir = os.path.realpath('djangobb_forum')
+        os.chdir(forum_dir)
         try:
-            if django.VERSION[:2] >= (1, 7):
-                command_object = compilemessages.Command()
-                command_object.compile_messages(stdout=sys.stdout)
-            elif django.VERSION[:2] == (1, 6):
-                compilemessages.compile_messages(stdout=sys.stdout)
-            else:
-                compilemessages.compile_messages(stderr=sys.stderr)
+            execute_from_command_line(['django-admin', 'compilemessages'])
         except CommandError:
-            # raised if gettext pkg not installed
             pass
-        os.chdir(curdir)
+        finally:
+            os.chdir(curdir)
 
 
 class build(_build):
@@ -46,6 +39,7 @@ class install_lib(_install_lib):
     def run(self):
         self.run_command('compile_translations')
         _install_lib.run(self)
+
 
 setup(name='djangobb_forum',
     version=get_version(),
