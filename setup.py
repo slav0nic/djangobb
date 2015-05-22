@@ -56,11 +56,10 @@ setup(name='djangobb_forum',
     include_package_data=True,
     setup_requires=['django>=1.6,<1.7'],
     install_requires=[
-            'django>=1.6,<1.7',
+            'django>=1.6',
             'pillow>=2.1.0',
             'django-haystack>=2.1.0,<2.4',
             'linaro-django-pagination',
-            'south',
             'postmarkup',
             'setuptools',
             'pytz>=2013b'
