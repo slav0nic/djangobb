@@ -290,7 +290,7 @@ class Reputation(models.Model):
 class ProfileManager(models.Manager):
     use_for_related_fields = True
     def get_queryset(self):
-        qs = super(self).get_queryset()
+        qs = super(ProfileManager, self).get_queryset()
         if forum_settings.REPUTATION_SUPPORT:
             qs = qs.extra(select={
                 'reply_total': 'SELECT SUM(sign) FROM djangobb_forum_reputation WHERE to_user_id = djangobb_forum_profile.user_id GROUP BY to_user_id',
