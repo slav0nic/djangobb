@@ -1,9 +1,9 @@
-Django>=1.6
+Django>=1.6,<1.9
 django-haystack>=2.1.0,<2.4
-Pillow>=2.1.0
+Pillow>=2.1.0,<2.9
 postmarkup
 pygments
-pytz>=2013b
+pytz>=2015.4
 # As soon as a release after v2.0.2 is made, we can revert to a normal PyPI requirement
 # Python 3 support is brand new in this package
 -e git://github.com/zyga/django-pagination.git#egg=linaro-django-pagination
