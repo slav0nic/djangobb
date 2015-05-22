@@ -4,6 +4,7 @@ import os
 from os.path import dirname, abspath
 from optparse import OptionParser
 
+import django
 from django.conf import settings, global_settings
 
 # For convenience configure settings if they are not pre-configured or if we
@@ -51,11 +52,13 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
             }
         }
     )
+    if django.VERSION[:2] >= (1, 7):
+        django.setup()
 
-from django.test.simple import DjangoTestSuiteRunner
-
+from django.test.runner import DiscoverRunner
 
 def runtests(*test_args, **kwargs):
+    # TODO: remove after drop django 1.6 support
     if 'south' in settings.INSTALLED_APPS:
         from south.management.commands import patch_for_test_db_setup
         patch_for_test_db_setup()
@@ -64,7 +67,7 @@ def runtests(*test_args, **kwargs):
         test_args = ['djangobb_forum']
     parent = dirname(abspath(__file__))
     sys.path.insert(0, parent)
-    test_runner = DjangoTestSuiteRunner(verbosity=kwargs.get('verbosity', 1), interactive=kwargs.get('interactive', False), failfast=kwargs.get('failfast'))
+    test_runner = DiscoverRunner(verbosity=kwargs.get('verbosity', 1), interactive=kwargs.get('interactive', False), failfast=kwargs.get('failfast'))
     failures = test_runner.run_tests(test_args)
     sys.exit(failures)
 
