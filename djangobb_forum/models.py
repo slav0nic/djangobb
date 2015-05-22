@@ -284,7 +284,7 @@ class Reputation(models.Model):
 
     def __str__(self):
         time = timezone.localtime(self.time)
-        return 'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, unicode(time))
+        return 'T[%d], FU[%d], TU[%d]: %s' % (self.post.id, self.from_user.id, self.to_user.id, str(time))
 
 
 class ProfileManager(models.Manager):

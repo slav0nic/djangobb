@@ -13,6 +13,7 @@ from django.utils.html import escape
 from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
 from django.utils.six.moves.urllib.parse import urlencode
+from django.utils.six.moves import range
 
 from linaro_django_pagination.templatetags.pagination_tags import paginate
 
@@ -59,9 +60,9 @@ def pagination(context, adjacent_pages=1):
     """
     Return the list of A tags with links to pages.
     """
-    page_range = range(
+    page_range = list(range(
         max(1, context['page'] - adjacent_pages),
-        min(context['pages'], context['page'] + adjacent_pages) + 1)
+        min(context['pages'], context['page'] + adjacent_pages) + 1))
     previous = None
     next = None
 
@@ -81,7 +82,7 @@ def pagination(context, adjacent_pages=1):
             page_range.append('.')
         page_range.append(context['pages'])
     get_params = '&'.join(['%s=%s' % (x[0], x[1]) for x in
-        context['request'].GET.iteritems() if (x[0] != 'page' and x[0] != 'per_page')])
+        context['request'].GET.items() if (x[0] != 'page' and x[0] != 'per_page')])
     if get_params:
         get_params = '?%s&' % get_params
     else:
