@@ -21,12 +21,15 @@ from django.conf import settings
 
 class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
     def __get__(self, instance, instance_type=None):
+        # TODO: Rewrite after drop django 1.6 support
+        model = getattr(self.related, 'related_model', self.related.model)
+
         try:
             return super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type)
-        except self.related.model.DoesNotExist:
-            obj = self.related.model(**{self.related.field.name: instance})
+        except model.DoesNotExist:
+            obj = model(**{self.related.field.name: instance})
             obj.save()
-            return obj
+            return (super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type))
 
 
 class AutoOneToOneField(OneToOneField):
@@ -37,8 +40,6 @@ class AutoOneToOneField(OneToOneField):
 
     def contribute_to_related_class(self, cls, related):
         setattr(cls, related.get_accessor_name(), AutoSingleRelatedObjectDescriptor(related))
-        #if not cls._meta.one_to_one_field:
-        #    cls._meta.one_to_one_field = self
 
 
 class ExtendedImageField(models.ImageField):
