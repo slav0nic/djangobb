@@ -1,12 +1,11 @@
 # coding: utf-8
 
 from django.contrib import admin
-from django.contrib.auth import admin as auth_admin
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
     Report, Ban, Attachment, Poll, PollChoice, PostTracking
-from djangobb_forum.user import User
+
 
 class BaseModelAdmin(admin.ModelAdmin):
     def get_actions(self, request):
@@ -69,15 +68,6 @@ class BanAdmin(BaseModelAdmin):
     list_display = ['user', 'ban_start', 'ban_end', 'reason']
     raw_id_fields = ['user']
 
-class UserAdmin(auth_admin.UserAdmin):
-    list_display = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active']
-
-    def get_urls(self):
-        from django.conf.urls import patterns, url
-        return patterns('',
-                        url(r'^(\d+)/password/$', self.admin_site.admin_view(self.user_change_password), name='user_change_password'),
-                        ) + super(auth_admin.UserAdmin, self).get_urls()
-
 class AttachmentAdmin(BaseModelAdmin):
     list_display = ['id', 'name', 'size', 'path', 'hash', ]
     search_fields = ['name']
@@ -96,10 +86,6 @@ class PollAdmin(admin.ModelAdmin):
     list_filter = ("active",)
     inlines = [PollChoiceInline]
 
-
-if settings.AUTH_USER_MODEL == 'auth.User':
-    admin.site.unregister(User)
-    admin.site.register(User, UserAdmin)
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Forum, ForumAdmin)
