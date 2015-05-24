@@ -20,13 +20,25 @@ from django.conf import settings
 
 
 class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
+    """
+    The descriptor that handles the object creation for an AutoOneToOneField.
+    """
     def __get__(self, instance, instance_type=None):
+        model = getattr(self.related, 'related_model', self.related.model)
+
         try:
-            return super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type)
-        except self.related.model.DoesNotExist:
-            obj = self.related.model(**{self.related.field.name: instance})
+            return (super(AutoSingleRelatedObjectDescriptor, self)
+                    .__get__(instance, instance_type))
+        except model.DoesNotExist:
+            obj = model(**{self.related.field.name: instance})
+
             obj.save()
-            return obj
+
+            # Don't return obj directly, otherwise it won't be added
+            # to Django's cache, and the first 2 calls to obj.relobj
+            # will return 2 different in-memory objects
+            return (super(AutoSingleRelatedObjectDescriptor, self)
+                    .__get__(instance, instance_type))
 
 
 class AutoOneToOneField(OneToOneField):
