@@ -56,7 +56,7 @@ else:
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField(_('Name'), max_length=80)
-    groups = models.ManyToManyField(Group, blank=True, null=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
+    groups = models.ManyToManyField(Group, blank=True, verbose_name=_('Groups'), help_text=_('Only users from these groups can see this category'))
     position = models.IntegerField(_('Position'), blank=True, default=0)
 
     class Meta:
@@ -96,7 +96,7 @@ class Forum(models.Model):
     name = models.CharField(_('Name'), max_length=80)
     position = models.IntegerField(_('Position'), blank=True, default=0)
     description = models.TextField(_('Description'), blank=True, default='')
-    moderators = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True, verbose_name=_('Moderators'))
+    moderators = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, verbose_name=_('Moderators'))
     updated = models.DateTimeField(_('Updated'), auto_now=True)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
     topic_count = models.IntegerField(_('Topic count'), blank=True, default=0)
@@ -439,7 +439,7 @@ class Poll(models.Model):
     deactivate_date = models.DateTimeField(null=True, blank=True,
         help_text=_("Point of time after this poll would be automatic deactivated"),
     )
-    users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True,
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True,
         help_text=_("Users who has voted this poll."),
     )
     def deactivate_if_expired(self):
