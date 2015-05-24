@@ -3,7 +3,7 @@
 {% load pagination_tags %}
 {% load i18n %}
 
-{% block title %} / {{ topic.forum.name }} / {{ topic.name }}{% endblock %}
+{% block title %}{{ topic.forum.name }} / {{ topic.name }} / {% endblock %}
 {% block content %}
 {% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">
@@ -24,7 +24,7 @@
     <h2><span>{% trans "Poll" %}</span></h2>
     <div class="box">
         <div class="inbox"><p><strong>{{ poll.question }}</strong></p>
-        {% if poll_form %}       
+        {% if poll_form %}
             <form action="." method="post">{% csrf_token %}
             {{ poll_form }}
             {% if poll.choice_count > 1 %}
@@ -35,7 +35,7 @@
             <input type="submit" name="{{ poll_form.FORM_NAME }}" value="{% trans "Vote" %}" />
             </form>
         {% else %}
-            <ul>               
+            <ul>
             {% for choice in poll.choices.all %}
                 <li>
                     <div class="bar" style="width:{{ choice.percent|floatformat:0 }}%;" title="{{ choice.choice }}">&nbsp;</div>
@@ -106,7 +106,7 @@
 								{% endif %}
 							{% endif %}
 						{% endif %}
-						
+
 						{% if forum_settings.PM_SUPPORT %}
 							{% if user.is_authenticated %}
 								<a href="{% url 'messages_compose_to' post.user.username %}">{% trans "PM" %}</a>&nbsp;&nbsp;</dd>
