@@ -79,29 +79,6 @@ def paged(paged_list_name, per_page):
     return decorator
 
 
-class LazyJSONEncoder(JSONEncoder):
-    """
-    This fing need to save django from crashing.
-    """
-
-    def default(self, o):
-        if isinstance(o, Promise):
-            return force_text(o)
-        else:
-            return super(LazyJSONEncoder, self).default(o)
-
-
-class JsonResponse(HttpResponse):
-    """
-    HttpResponse subclass that serialize data into JSON format.
-    """
-
-    def __init__(self, data, mimetype='application/json'):
-        json_data = LazyJSONEncoder().encode(data)
-        super(JsonResponse, self).__init__(
-            content=json_data, mimetype=mimetype)
-
-
 def build_form(Form, _request, GET=False, *args, **kwargs):
     """
     Shorcut for building the form instance of given form class
