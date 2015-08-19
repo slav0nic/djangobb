@@ -484,6 +484,7 @@ def add_topic(request, forum_id):
     ip = request.META.get('REMOTE_ADDR', None)
     post_form_kwargs = {"forum":forum, "user":request.user, "ip":ip, }
 
+    poll_form = None
     if request.method == 'POST':
         form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
         if form.is_valid():
@@ -491,17 +492,18 @@ def add_topic(request, forum_id):
         else:
             all_valid = False
 
-        poll_form = PollForm(request.POST)
-        if not poll_form.has_data():
-            # All poll fields are empty: User didn't want to create a poll
-            # Don't run validation and remove all form error messages
-            poll_form = PollForm() # create clean form without form errors
-        elif not poll_form.is_valid():
-            all_valid = False
+        if forum_settings.ENABLE_POLLS:
+            poll_form = PollForm(request.POST)
+            if not poll_form.has_data():
+                # All poll fields are empty: User didn't want to create a poll
+                # Don't run validation and remove all form error messages
+                poll_form = PollForm() # create clean form without form errors
+            elif not poll_form.is_valid():
+                all_valid = False
 
         if all_valid:
             post = form.save()
-            if poll_form.has_data():
+            if poll_form and poll_form.has_data():
                 poll_form.save(post)
                 messages.success(request, _("Topic with poll saved."))
             else:
@@ -515,7 +517,7 @@ def add_topic(request, forum_id):
             },
             **post_form_kwargs
         )
-        if forum_id: # Create a new topic
+        if forum_settings.ENABLE_POLLS and forum_id: # Create a new topic
             poll_form = PollForm()
 
     context = {
