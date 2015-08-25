@@ -1,0 +1,5 @@
+django-allauth
+django-messages
+
+# for django < 1.7, you'll want south
+# south

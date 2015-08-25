@@ -4,10 +4,6 @@ $DJANGOBB_PROJECT = '<path to djangobb project>'
 #for expired sessions (is't needed if you use cache backend for sessions)
 * * * * */2 (cd $DJANGOBB_PROJECT; ./manage.py clearsessions)
 
-#for django-authopenid
-* * * * */2 (cd $DJANGOBB_PROJECT; ./manage.py cleanupnonces)
-* * * * */2 (cd $DJANGOBB_PROJECT; ./manage.py cleanupassociations)
-
 #for registration
 * * * * 6 (cd $DJANGOBB_PROJECT; ./manage.py cleanupregistration)
 

@@ -1,4 +1,6 @@
 # -*- coding: utf-8
+from __future__ import unicode_literals
+
 import hashlib
 
 from django import template
@@ -11,8 +13,9 @@ from django.utils.html import escape
 from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
 from django.utils.six.moves.urllib.parse import urlencode
+from django.utils.six.moves import range
 
-from linaro_django_pagination.templatetags.pagination_tags import paginate
+from pagination.templatetags.pagination_tags import paginate
 
 from djangobb_forum.models import Report
 from djangobb_forum import settings as forum_settings
@@ -25,7 +28,7 @@ register = template.Library()
 
 @register.filter
 def profile_link(user):
-    data = u'<a href="%s">%s</a>' % (\
+    data = '<a href="%s">%s</a>' % (\
         reverse('djangobb:forum_profile', args=[user.username]), user.username)
     return mark_safe(data)
 
@@ -46,7 +49,7 @@ class ForumTimeNode(template.Node):
 
     def render(self, context):
         time = timezone.localtime(self.time.resolve(context))
-        formatted_time = u'%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
+        formatted_time = '%s %s' % (naturalday(time), time.strftime('%H:%M:%S'))
         formatted_time = mark_safe(formatted_time)
         return formatted_time
 
@@ -57,9 +60,9 @@ def pagination(context, adjacent_pages=1):
     """
     Return the list of A tags with links to pages.
     """
-    page_range = range(
+    page_range = list(range(
         max(1, context['page'] - adjacent_pages),
-        min(context['pages'], context['page'] + adjacent_pages) + 1)
+        min(context['pages'], context['page'] + adjacent_pages) + 1))
     previous = None
     next = None
 
@@ -79,7 +82,7 @@ def pagination(context, adjacent_pages=1):
             page_range.append('.')
         page_range.append(context['pages'])
     get_params = '&'.join(['%s=%s' % (x[0], x[1]) for x in
-        context['request'].GET.iteritems() if (x[0] != 'page' and x[0] != 'per_page')])
+        context['request'].GET.items() if (x[0] != 'page' and x[0] != 'per_page')])
     if get_params:
         get_params = '?%s&' % get_params
     else:
@@ -102,7 +105,7 @@ def lofi_pagination(context):
     return paginate(context)
 
 @register.simple_tag
-def link(object, anchor=u''):
+def link(object, anchor=''):
     """
     Return A tag with link to object.
     """
@@ -113,7 +116,7 @@ def link(object, anchor=u''):
 
 
 @register.simple_tag
-def lofi_link(object, anchor=u''):
+def lofi_link(object, anchor=''):
     """
     Return A tag with lofi_link to object.
     """

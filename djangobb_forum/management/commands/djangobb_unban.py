@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from optparse import make_option
 from datetime import datetime
 
@@ -9,12 +11,12 @@ from djangobb_forum.models import Ban
 class Command(BaseCommand):
 
     option_list = BaseCommand.option_list + (
-        make_option('--all', action='store_true', dest='all', default=False, 
-                    help=u'Unban all users'),
-        make_option('--by-time', action='store_true', dest='by-time', default=False, 
-                    help=u'Unban users by time'),
+        make_option('--all', action='store_true', dest='all', default=False,
+                    help='Unban all users'),
+        make_option('--by-time', action='store_true', dest='by-time', default=False,
+                    help='Unban users by time'),
     )
-    help = u'Unban users'
+    help = 'Unban users'
 
     def handle(self, *args, **options):
         if options['all']:

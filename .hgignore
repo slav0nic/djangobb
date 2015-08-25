@@ -3,6 +3,7 @@ syntax: glob
 *.pyo
 *.orig
 *.egg
+.eggs
 *.egg-info
 .pydevproject
 .project
@@ -21,3 +22,4 @@ local_settings.py
 build/
 dist/
 .idea
+.tox/

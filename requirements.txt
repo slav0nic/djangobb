@@ -1,0 +1,7 @@
+Django>=1.6,<1.9
+django-haystack>=2.1.0,<2.4
+Pillow>=2.1.0
+postmarkup
+pygments
+pytz>=2015.4
+django-pagination-py3==1.1.1

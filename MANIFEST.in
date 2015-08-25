@@ -1,2 +1,3 @@
 recursive-include djangobb_forum *
 global-exclude *.pyc
+include requirements.txt

@@ -91,7 +91,7 @@ DIV>DIV>DIV.postfootleft, DIV>DIV>DIV.postfootright {PADDING-TOP: 1px; MARGIN-TO
 
 .conl {
 	FLOAT: left;
-	WIDTH: 55%;
+	MARGIN-RIGHT: 10px;
 	OVERFLOW: hidden;
 	WHITE-SPACE: nowrap
 }
@@ -99,20 +99,13 @@ DIV>DIV>DIV.postfootleft, DIV>DIV>DIV.postfootright {PADDING-TOP: 1px; MARGIN-TO
 LABEL.conl {
 	WIDTH: auto;
 	OVERFLOW: visible;
-	MARGIN-RIGHT: 10px
 }
 
 /* 5.2 Set up page numbering and posts links */
 
-DIV.linkst .conl, DIV.linksb .conl, DIV.postlinksb .conl {WIDTH:18em}
-
 DIV.linkst .conr, DIV.linksb .conr, DIV.postlinksb .conr {WIDTH:16em}
 
 FORM DIV.linksb .conr {WIDTH: 32em}
-
-/* 5.3 Keep breadcrumbs from shifting to the right when wrapping */
-
-.linkst UL, linksb UL, .postlinksb UL {MARGIN-LEFT: 18em}
 
 /* 5.4 Settings for Profile and Admin interface.*/
 

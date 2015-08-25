@@ -1,12 +1,11 @@
 # coding: utf-8
 
 from django.contrib import admin
-from django.contrib.auth import admin as auth_admin
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
     Report, Ban, Attachment, Poll, PollChoice, PostTracking
-from djangobb_forum.user import User
+
 
 class BaseModelAdmin(admin.ModelAdmin):
     def get_actions(self, request):
@@ -51,21 +50,23 @@ class ReputationAdmin(BaseModelAdmin):
     raw_id_fields = ['from_user', 'to_user', 'post']
 
 class ReportAdmin(BaseModelAdmin):
-    list_display = ['reported_by', 'post', 'zapped', 'zapped_by', 'created', 'reason']
-    raw_id_fields = ['reported_by', 'post']
+    list_display = ['reported_by', 'post', 'zapped', 'zapped_by', 'created', 'reason', 'link_to_post']
+    raw_id_fields = ['reported_by', 'post', 'zapped_by']
+    list_filter = ('zapped', 'created')
+
+    def link_to_post(self, instance):
+        return '<a href="%(link)s">#%(pk)s</a>' % {'link': instance.post.get_absolute_url(), 'pk': instance.post.pk}
+    link_to_post.short_description = _("Link to post")
+    link_to_post.allow_tags = True
+
+    def save_model(self, request, obj, form, change):
+        if change and obj.zapped:
+            obj.zapped_by = request.user
+            obj.save()
 
 class BanAdmin(BaseModelAdmin):
     list_display = ['user', 'ban_start', 'ban_end', 'reason']
     raw_id_fields = ['user']
-
-class UserAdmin(auth_admin.UserAdmin):
-    list_display = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active']
-
-    def get_urls(self):
-        from django.conf.urls import patterns, url
-        return patterns('',
-                        url(r'^(\d+)/password/$', self.admin_site.admin_view(self.user_change_password), name='user_change_password'),
-                        ) + super(auth_admin.UserAdmin, self).get_urls()
 
 class AttachmentAdmin(BaseModelAdmin):
     list_display = ['id', 'name', 'size', 'path', 'hash', ]
@@ -85,10 +86,6 @@ class PollAdmin(admin.ModelAdmin):
     list_filter = ("active",)
     inlines = [PollChoiceInline]
 
-
-if settings.AUTH_USER_MODEL == 'auth.User':
-    admin.site.unregister(User)
-    admin.site.register(User, UserAdmin)
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Forum, ForumAdmin)

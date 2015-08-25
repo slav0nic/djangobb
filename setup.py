@@ -5,6 +5,7 @@ from distutils.command.build import build as _build
 from distutils.cmd import Command
 from djangobb_forum import get_version
 
+
 class compile_translations(Command):
     description = 'compile message catalogs to MO files via django compilemessages'
     user_options = []
@@ -17,23 +18,17 @@ class compile_translations(Command):
 
     def run(self):
         import os
-        import sys
-        import django
-        from django.core.management.commands.compilemessages import \
-            compile_messages
-        from django.core.management.base import CommandError
+        from django.core.management import execute_from_command_line, CommandError
 
         curdir = os.getcwd()
-        os.chdir(os.path.realpath('djangobb_forum'))
+        forum_dir = os.path.realpath('djangobb_forum')
+        os.chdir(forum_dir)
         try:
-            if django.VERSION[:2] == (1, 6):
-                compile_messages(stdout=sys.stdout)
-            else:
-                compile_messages(stderr=sys.stderr)
+            execute_from_command_line(['django-admin', 'compilemessages'])
         except CommandError:
-            # raised if gettext pkg not installed
             pass
-        os.chdir(curdir)
+        finally:
+            os.chdir(curdir)
 
 
 class build(_build):
@@ -45,6 +40,7 @@ class install_lib(_install_lib):
         self.run_command('compile_translations')
         _install_lib.run(self)
 
+
 setup(name='djangobb_forum',
     version=get_version(),
     description='DjangoBB is a quick and simple forum which uses the Django Framework.',
@@ -54,17 +50,8 @@ setup(name='djangobb_forum',
     author_email='Maranchuk Sergey <slav0nic0@gmail.com>',
     packages=find_packages(),
     include_package_data=True,
-    setup_requires=['django>=1.5.5'],
-    install_requires=[
-            'django>=1.5.5',
-            'pillow>=2.1.0',
-            'django-haystack==2.1',
-            'linaro-django-pagination',
-            'south',
-            'postmarkup',
-            'setuptools',
-            'pytz>=2013b'
-            ],
+    setup_requires=['django>=1.6,<1.9'],
+    install_requires=open('requirements.txt').readlines(),
     keywords='django forum bb',
     test_suite='runtests.runtests',
     cmdclass={'build': build, 'install_lib': install_lib,

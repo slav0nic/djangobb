@@ -1,4 +1,5 @@
 # coding: utf-8
+from __future__ import unicode_literals
 
 import math
 from datetime import timedelta
@@ -6,7 +7,7 @@ from django.utils import timezone
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from django.core.exceptions import SuspiciousOperation, PermissionDenied
@@ -22,7 +23,6 @@ from django.conf import settings
 
 from haystack.query import SearchQuerySet, SQ
 
-from djangobb_forum.user import User
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
@@ -34,7 +34,7 @@ from djangobb_forum.templatetags.forum_extras import forum_moderated_by
 from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
 
 
-
+User = get_user_model()
 
 def index(request, full=True):
     users_cached = cache.get('djangobb_users_online', {})
@@ -77,7 +77,7 @@ def index(request, full=True):
         return render(request, 'djangobb_forum/lofi/index.html', to_return)
 
 
-@transaction.commit_on_success
+@transaction.atomic
 def moderate(request, forum_id):
     forum = get_object_or_404(Forum, pk=forum_id)
     topics = forum.topics.order_by('-sticky', '-updated').select_related()
@@ -141,7 +141,7 @@ def search(request):
     posts = Post.objects.all().order_by('-created')
     user = request.user
     if not user.is_superuser:
-        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable 
+        user_groups = user.groups.all() or [] # need 'or []' for anonymous user otherwise: 'EmptyManager' object is not iterable
         viewable_category = viewable_category.filter(Q(groups__in=user_groups) | Q(groups__isnull=True))
 
         topics = Topic.objects.filter(forum__category__in=viewable_category)
@@ -198,7 +198,7 @@ def search(request):
             except User.DoesNotExist:
                 messages.error(request, _("Error: User unknown!"))
                 return HttpResponseRedirect(request.path)
-            messages.info(request, "Filter by user '%s'." % search_user.username)
+            messages.info(request, _("Filter by user '%(username)s'.") % {'username': search_user.username})
 
         if show_as_posts:
             posts = posts.filter(user__id=user_id)
@@ -224,7 +224,7 @@ def search(request):
         if author:
             query = query.filter(author__username=author)
 
-        if forum != u'0':
+        if forum != '0':
             query = query.filter(forum__id=forum)
 
         if keywords:
@@ -307,11 +307,14 @@ def misc(request):
                 return render(request, 'djangobb_forum/report.html', {'form':form})
 
     elif 'submit' in request.POST and 'mail_to' in request.GET:
+        if not forum_settings.USER_TO_USER_EMAIL and not request.user.is_superuser:
+            raise PermissionDenied
+
         form = MailToForm(request.POST)
         if form.is_valid():
             user = get_object_or_404(User, username=request.GET['mail_to'])
             subject = form.cleaned_data['subject']
-            body = form.cleaned_data['body'] + u'\n %s %s [%s]' % (Site.objects.get_current().domain,
+            body = form.cleaned_data['body'] + '\n %s %s [%s]' % (Site.objects.get_current().domain,
                                                                   request.user.username,
                                                                   request.user.email)
             try:
@@ -322,6 +325,9 @@ def misc(request):
             return HttpResponseRedirect(reverse('djangobb:index'))
 
     elif 'mail_to' in request.GET:
+        if not forum_settings.USER_TO_USER_EMAIL and not request.user.is_superuser:
+            raise PermissionDenied
+
         mailto = get_object_or_404(User, username=request.GET['mail_to'])
         form = MailToForm()
         return render(request, 'djangobb_forum/mail_to.html', {'form':form,
@@ -354,13 +360,13 @@ def show_forum(request, forum_id, full=True):
         return render(request, 'djangobb_forum/lofi/forum.html', to_return)
 
 
-@transaction.commit_on_success
+@transaction.atomic
 def show_topic(request, topic_id, full=True):
     """
     * Display a topic
     * save a reply
     * save a poll vote
-    
+
     TODO: Add reply in lofi mode
     """
     post_request = request.method == "POST"
@@ -466,7 +472,7 @@ def show_topic(request, topic_id, full=True):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def add_topic(request, forum_id):
     """
     create a new topic, with or without poll
@@ -478,6 +484,7 @@ def add_topic(request, forum_id):
     ip = request.META.get('REMOTE_ADDR', None)
     post_form_kwargs = {"forum":forum, "user":request.user, "ip":ip, }
 
+    poll_form = None
     if request.method == 'POST':
         form = AddPostForm(request.POST, request.FILES, **post_form_kwargs)
         if form.is_valid():
@@ -485,17 +492,18 @@ def add_topic(request, forum_id):
         else:
             all_valid = False
 
-        poll_form = PollForm(request.POST)
-        if not poll_form.has_data():
-            # All poll fields are empty: User didn't want to create a poll
-            # Don't run validation and remove all form error messages
-            poll_form = PollForm() # create clean form without form errors
-        elif not poll_form.is_valid():
-            all_valid = False
+        if forum_settings.ENABLE_POLLS:
+            poll_form = PollForm(request.POST)
+            if not poll_form.has_data():
+                # All poll fields are empty: User didn't want to create a poll
+                # Don't run validation and remove all form error messages
+                poll_form = PollForm() # create clean form without form errors
+            elif not poll_form.is_valid():
+                all_valid = False
 
         if all_valid:
             post = form.save()
-            if poll_form.has_data():
+            if poll_form and poll_form.has_data():
                 poll_form.save(post)
                 messages.success(request, _("Topic with poll saved."))
             else:
@@ -509,7 +517,7 @@ def add_topic(request, forum_id):
             },
             **post_form_kwargs
         )
-        if forum_id: # Create a new topic
+        if forum_settings.ENABLE_POLLS and forum_id: # Create a new topic
             poll_form = PollForm()
 
     context = {
@@ -522,7 +530,7 @@ def add_topic(request, forum_id):
     return render(request, 'djangobb_forum/add_topic.html', context)
 
 
-@transaction.commit_on_success
+@transaction.atomic
 def upload_avatar(request, username, template=None, form_class=None):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
@@ -545,7 +553,7 @@ def upload_avatar(request, username, template=None, form_class=None):
                })
 
 
-@transaction.commit_on_success
+@transaction.atomic
 def user(request, username, section='essentials', action=None, template='djangobb_forum/profile/profile_essentials.html', form_class=EssentialsProfileForm):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
@@ -571,14 +579,14 @@ def user(request, username, section='essentials', action=None, template='djangob
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def reputation(request, username):
     user = get_object_or_404(User, username=username)
     form = build_form(ReputationForm, request, from_user=request.user, to_user=user)
 
     if 'action' in request.GET:
         if request.user == user:
-            return HttpResponseForbidden(u'You can not change the reputation of yourself')
+            return HttpResponseForbidden('You can not change the reputation of yourself')
 
         if 'post_id' in request.GET:
             post_id = request.GET['post_id']
@@ -623,7 +631,7 @@ def show_post(request, post_id):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def edit_post(request, post_id):
     from djangobb_forum.templatetags.forum_extras import forum_editable_by
 
@@ -646,7 +654,7 @@ def edit_post(request, post_id):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def delete_posts(request, topic_id):
 
     topic = Topic.objects.select_related().get(pk=topic_id)
@@ -691,7 +699,7 @@ def delete_posts(request, topic_id):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def move_topic(request):
     if 'topic_id' in request.GET:
         #if move only 1 topic
@@ -730,7 +738,7 @@ def move_topic(request):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def stick_unstick_topic(request, topic_id, action):
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -745,7 +753,7 @@ def stick_unstick_topic(request, topic_id, action):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def delete_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     last_post = post.topic.last_post
@@ -771,7 +779,7 @@ def delete_post(request, post_id):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def open_close_topic(request, topic_id, action):
     topic = get_object_or_404(Topic, pk=topic_id)
     if forum_moderated_by(topic, request.user):
@@ -795,7 +803,7 @@ def users(request):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def delete_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.remove(request.user)
@@ -807,7 +815,7 @@ def delete_subscription(request, topic_id):
 
 
 @login_required
-@transaction.commit_on_success
+@transaction.atomic
 def add_subscription(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     topic.subscribers.add(request.user)
@@ -818,9 +826,9 @@ def add_subscription(request, topic_id):
 @login_required
 def show_attachment(request, hash):
     attachment = get_object_or_404(Attachment, hash=hash)
-    file_data = file(attachment.get_absolute_path(), 'rb').read()
-    response = HttpResponse(file_data, mimetype=attachment.content_type)
-    response['Content-Disposition'] = 'attachment; filename="%s"' % smart_str(attachment.name)
+    file_data = open(attachment.get_absolute_path(), 'rb').read()
+    response = HttpResponse(file_data, content_type=attachment.content_type)
+    response['Content-Disposition'] = smart_str('attachment; filename="%s"' % attachment.name)
     return response
 
 

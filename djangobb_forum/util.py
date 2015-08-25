@@ -60,7 +60,6 @@ def paged(paged_list_name, per_page):
                     #if value > 0:
                         #real_per_page = value
 
-            from django.core.paginator import Paginator
             paginator = Paginator(result['paged_qs'], real_per_page)
             try:
                 page_obj = paginator.page(page)
@@ -80,29 +79,6 @@ def paged(paged_list_name, per_page):
     return decorator
 
 
-class LazyJSONEncoder(JSONEncoder):
-    """
-    This fing need to save django from crashing.
-    """
-
-    def default(self, o):
-        if isinstance(o, Promise):
-            return force_text(o)
-        else:
-            return super(LazyJSONEncoder, self).default(o)
-
-
-class JsonResponse(HttpResponse):
-    """
-    HttpResponse subclass that serialize data into JSON format.
-    """
-
-    def __init__(self, data, mimetype='application/json'):
-        json_data = LazyJSONEncoder().encode(data)
-        super(JsonResponse, self).__init__(
-            content=json_data, mimetype=mimetype)
-
-
 def build_form(Form, _request, GET=False, *args, **kwargs):
     """
     Shorcut for building the form instance of given form class
@@ -117,34 +93,26 @@ def build_form(Form, _request, GET=False, *args, **kwargs):
     return form
 
 
-class ExcludeTagsHTMLParser(HTMLParser):
+class HTMLFilter(HTMLParser):
         """
-        Class for html parsing with excluding specified tags.
+        Base class for html parsers that produce filtered output.
         """
 
-        def __init__(self, func, tags=('a', 'pre', 'span')):
+        def __init__(self):
             HTMLParser.__init__(self)
-            self.func = func
-            self.is_ignored = False
-            self.tags = tags
             self.html = []
 
         def handle_starttag(self, tag, attrs):
             self.html.append('<%s%s>' % (tag, self.__html_attrs(attrs)))
-            if tag in self.tags:
-                self.is_ignored = True
 
         def handle_data(self, data):
-            if not self.is_ignored:
-                data = self.func(data)
             self.html.append(data)
 
         def handle_startendtag(self, tag, attrs):
             self.html.append('<%s%s/>' % (tag, self.__html_attrs(attrs)))
 
         def handle_endtag(self, tag):
-            self.is_ignored = False
-            self.html.append('</%s>' % (tag))
+            self.html.append('</%s>' % tag)
 
         def handle_entityref(self, name):
             self.html.append('&%s;' % name)
@@ -167,6 +135,32 @@ class ExcludeTagsHTMLParser(HTMLParser):
             self.html = ''.join(self.html)
 
 
+class ExcludeTagsHTMLFilter(HTMLFilter):
+        """
+        Class for html parsing with excluding specified tags.
+        """
+
+        def __init__(self, func, tags=('a', 'pre', 'span')):
+            HTMLFilter.__init__(self)
+            self.func = func
+            self.is_ignored = False
+            self.tags = tags
+
+        def handle_starttag(self, tag, attrs):
+            if tag in self.tags:
+                self.is_ignored = True
+            HTMLFilter.handle_starttag(self, tag, attrs)
+
+        def handle_data(self, data):
+            if not self.is_ignored:
+                data = self.func(data)
+            HTMLFilter.handle_data(self, data)
+
+        def handle_endtag(self, tag):
+            self.is_ignored = False
+            HTMLFilter.handle_endtag(self, tag)
+
+
 def urlize(html):
     """
     Urlize plain text links in the HTML contents.
@@ -174,7 +168,7 @@ def urlize(html):
     Do not urlize content of A and CODE tags.
     """
     try:
-        parser = ExcludeTagsHTMLParser(django_urlize)
+        parser = ExcludeTagsHTMLFilter(django_urlize)
         parser.feed(html)
         urlized_html = parser.html
         parser.close()
@@ -196,7 +190,7 @@ def smiles(html):
     Replace text smiles.
     """
     try:
-        parser = ExcludeTagsHTMLParser(_smile_replacer)
+        parser = ExcludeTagsHTMLFilter(_smile_replacer)
         parser.feed(html)
         smiled_html = parser.html
         parser.close()
@@ -207,6 +201,47 @@ def smiles(html):
             raise
         return html
     return smiled_html
+
+
+class AddAttributesHTMLFilter(HTMLFilter):
+    """
+    Class for html parsing that adds given attributes to tags.
+    """
+
+    def __init__(self, add_attr_map):
+        HTMLFilter.__init__(self)
+        self.add_attr_map = dict(add_attr_map)
+
+    def handle_starttag(self, tag, attrs):
+        attrs = list(attrs)
+        for add_attr in self.add_attr_map.get(tag, []):
+            if add_attr not in attrs:
+                attrs.append(add_attr)
+
+        HTMLFilter.handle_starttag(self, tag, attrs)
+
+
+def add_rel_nofollow(html):
+    """
+    Add rel="nofollow" to <a> tags so that search engines don't give them weight.
+
+    Untrusted links should have rel="nofollow" to dissuade spammers from
+    posting for SEO purposes.  For more information, see
+    https://en.wikipedia.org/wiki/Nofollow.
+    """
+    try:
+        parser = AddAttributesHTMLFilter({'a': [('rel', 'nofollow')]})
+        parser.feed(html)
+        output_html = parser.html
+        parser.close()
+    except HTMLParseError:
+        # HTMLParser from Python <2.7.3 is not robust
+        # see: http://support.djangobb.org/topic/349/
+        if settings.DEBUG:
+            raise
+        return html
+    return output_html
+
 
 def paginate(items, request, per_page, total_count=None):
     try:
@@ -238,5 +273,8 @@ def convert_text_to_html(text, markup):
         text = markdown.markdown(text, safe_mode='escape')
     else:
         raise Exception('Invalid markup property: %s' % markup)
-    return urlize(text)
+    text = urlize(text)
+    if forum_settings.NOFOLLOW_LINKS:
+        text = add_rel_nofollow(text)
+    return text
 
