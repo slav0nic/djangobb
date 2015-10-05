@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from datetime import timedelta
+import string
 import os.path
 
 from django import forms
@@ -47,6 +48,23 @@ SEARCH_IN_CHOICES = (
     ('topic', _('Topic subject only')),
 )
 
+def format_filename(s):
+    """Take a string and return a valid filename constructed from the string.
+    Uses a whitelist approach: any characters not present in valid_chars are
+    removed. Also spaces are replaced with underscores.
+
+    Note: this method may produce invalid filenames such as ``, `.` or `..`
+    When I use this method I prepend a date string like '2009_01_15_19_46_32_'
+    and append a file extension like '.txt', so I avoid the potential of using
+    an invalid filename.
+
+    see: https://gist.github.com/seanh/93666
+    """
+    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+    filename = ''.join(c for c in s if c in valid_chars)
+    filename = filename.replace(' ','_') # I don't like spaces in filenames.
+    return filename
+
 
 class BasePostForm(forms.ModelForm):
     attachment = forms.FileField(label=_('Attachment'), required=False, widget=forms.FileInput(attrs={'multiple':'multiple'}))
@@ -67,7 +85,7 @@ class BasePostForm(forms.ModelForm):
             obj = Attachment(size=memfile.size, content_type=memfile.content_type,
                              name=memfile.name, post=post)
             dir = os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO)
-            fname = '%d.%s' % (post.id, get_valid_filename(memfile.name[:240]))
+            fname = '%d.%s' % (post.id, get_valid_filename(format_filename(memfile.name[:240])))
             path = os.path.join(dir, fname)
             open(path, 'wb').write(memfile.read())
             obj.path = fname
