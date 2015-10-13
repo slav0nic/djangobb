@@ -3,7 +3,13 @@
 import re
 from django.utils.six.moves import html_parser
 HTMLParser = html_parser.HTMLParser
-HTMLParseError = html_parser.HTMLParseError
+try:
+    HTMLParseError = html_parser.HTMLParseError
+except AttributeError:
+    # create a dummy class for Python 3.5+ where it's been removed
+    class HTMLParseError(Exception):
+        pass
+
 from postmarkup import render_bbcode
 from json import JSONEncoder
 try:
