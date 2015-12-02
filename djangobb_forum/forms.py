@@ -1,19 +1,21 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-import os.path
-from datetime import timedelta
+import os.path, errno
+from datetime import timedelta, datetime
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import slugify
 
 from djangobb_forum.models import Topic, Post, Profile, Reputation, Report, \
     Attachment, Poll, PollChoice
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.util import convert_text_to_html, set_language
+from multiupload.fields import MultiFileField
 
 
 User = get_user_model()
@@ -54,7 +56,7 @@ class AddPostForm(forms.ModelForm):
 
     name = forms.CharField(label=_('Subject'), max_length=255,
                            widget=forms.TextInput(attrs={'size':'115'}))
-    attachment = forms.FileField(label=_('Attachment'), required=False)
+    attachment = MultiFileField(label=_('Attachment'), required=False, max_num = settings.DJANGOBB_ATTACHMENT_MAX, max_file_size=forum_settings.ATTACHMENT_SIZE_LIMIT)
     subscribe = forms.BooleanField(label=_('Subscribe'), help_text=_("Subscribe this topic."), required=False)
 
     class Meta:
@@ -98,9 +100,10 @@ class AddPostForm(forms.ModelForm):
 
     def clean_attachment(self):
         if self.cleaned_data['attachment']:
-            memfile = self.cleaned_data['attachment']
-            if memfile.size > forum_settings.ATTACHMENT_SIZE_LIMIT:
-                raise forms.ValidationError(_('Attachment is too big'))
+            for attach in self.cleaned_data['attachment']:
+                memfile = attach
+                if memfile.size > forum_settings.ATTACHMENT_SIZE_LIMIT:
+                    raise forms.ValidationError(_('Attachment is too big'))
             return self.cleaned_data['attachment']
 
     def save(self):
@@ -122,7 +125,8 @@ class AddPostForm(forms.ModelForm):
 
         post.save()
         if forum_settings.ATTACHMENT_SUPPORT:
-            self.save_attachment(post, self.cleaned_data['attachment'])
+            for attach in self.cleaned_data['attachment']:
+                self.save_attachment(post, attach)
         return post
 
 
@@ -130,11 +134,25 @@ class AddPostForm(forms.ModelForm):
         if memfile:
             obj = Attachment(size=memfile.size, content_type=memfile.content_type,
                              name=memfile.name, post=post)
-            dir = os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO)
-            fname = '%d.0' % post.id
-            path = os.path.join(dir, fname)
+            dir = os.path.join(
+                settings.MEDIA_ROOT, 
+                forum_settings.ATTACHMENT_UPLOAD_TO,
+                '%d_%s' % (post.topic.forum.id, slugify(post.topic.forum.name)), 
+                '%d_%s' % (post.topic.id, slugify(post.topic.name))
+                )
+
+            try:
+                os.makedirs(dir)
+            except OSError as exc: # Python >2.5
+                if exc.errno == errno.EEXIST and os.path.isdir(dir):
+                    pass
+                else: raise
+
+            fname, ext = os.path.splitext(memfile.name)
+            date = datetime.now().strftime('%Y%m%d%H%M%S%f')
+            path = os.path.join(dir, '%s_%s%s' % (fname, date, ext))
             open(path, 'wb').write(memfile.read())
-            obj.path = fname
+            obj.path = path
             obj.save()
 
 
