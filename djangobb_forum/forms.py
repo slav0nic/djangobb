@@ -56,7 +56,9 @@ class AddPostForm(forms.ModelForm):
 
     name = forms.CharField(label=_('Subject'), max_length=255,
                            widget=forms.TextInput(attrs={'size':'115'}))
-    attachment = MultiFileField(label=_('Attachment'), required=False, max_num = settings.DJANGOBB_ATTACHMENT_MAX, max_file_size=forum_settings.ATTACHMENT_SIZE_LIMIT)
+    attachment = MultiFileField(label=_('Attachment'), required=False, 
+                                max_num = forum_settings.ATTACHMENT_MAX, 
+                                max_file_size=forum_settings.ATTACHMENT_SIZE_LIMIT)
     subscribe = forms.BooleanField(label=_('Subscribe'), help_text=_("Subscribe this topic."), required=False)
 
     class Meta:
