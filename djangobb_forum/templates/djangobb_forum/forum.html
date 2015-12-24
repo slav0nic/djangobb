@@ -1,14 +1,12 @@
 {% extends 'djangobb_forum/base.html' %}
 {% load forum_extras %}
-{% load pagination_tags %}
 {% load i18n %}
 
 {% block title %}{{ forum.name }} / {% endblock %}
 {% block content %}
-{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
+		<div class="pagelink conl">{% include 'djangobb_forum/paginator.html' with page=topics_page request=request only %}</div>
 		{% if user.is_authenticated %}
 			<p class="postlink conr"><a href="{% url 'djangobb:add_topic' forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}
@@ -33,32 +31,30 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% if topics %}
-				{% for topic in topics %}
-					<tr>
-						<td class="tcl">
-							<div class="intd">
-								<div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
-								<div class="tclcon">
-									{% if topic.sticky %}
-										{% trans "Sticky:" %}
-									{% endif %}
-									{% if topic|has_unreads:user %}
-										<strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span></strong>
-									{% else %}
-										{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
-									{% endif %}
-								</div>
-							</div>
-						</td>
-						<td class="tc2">{{ topic.reply_count }}</td>
-						<td class="tc3">{{ topic.views }}</td>
-						<td class="tcr"><a href="{{ topic.last_post.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
-					</tr>
-				{% endfor %}
-			{% else %}
+            {% for topic in topics_page %}
+                <tr>
+                    <td class="tcl">
+                        <div class="intd">
+                            <div {% if topic.sticky %}class="sticky"{% else %}{% if topic.closed %}class="closed"{% else %}{% if topic|has_unreads:user %}class="inew"{% else %}class="icon"{% endif %}{% endif %}{% endif %}><div class="nosize"><!-- --></div></div>
+                            <div class="tclcon">
+                                {% if topic.sticky %}
+                                    {% trans "Sticky:" %}
+                                {% endif %}
+                                {% if topic|has_unreads:user %}
+                                    <strong>{% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span></strong>
+                                {% else %}
+                                    {% link topic %} <span class="byuser">{% trans "by" %} {{ topic.user.username }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="tc2">{{ topic.reply_count }}</td>
+                    <td class="tc3">{{ topic.views }}</td>
+                    <td class="tcr"><a href="{{ topic.last_post.get_absolute_url }}">{% forum_time topic.updated %}</a> <span class="byuser">{% trans "by" %} {{ topic.last_post.user.username }}</span></td>
+                </tr>
+            {% empty %}
 				<tr><td class="djangobbcon1" colspan="4">{% trans "Forum is empty." %}</td></tr>
-			{% endif %}
+            {% endfor %}
 			</tbody>
 			</table>
 		</div>
@@ -66,7 +62,7 @@
 </div>
 <div class="linkst">
 	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
+        <div class="pagelink conl">{% include 'djangobb_forum/paginator.html' with page=topics_page request=request only %}</div>
 		{% if user.is_authenticated %}
 			<p class="postlink conr"><a href="{% url 'djangobb:add_topic' forum.id %}">{% trans "New topic" %}</a></p>
 		{% endif %}

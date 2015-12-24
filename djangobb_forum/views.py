@@ -26,12 +26,12 @@ from haystack.query import SearchQuerySet, SQ
 from djangobb_forum import settings as forum_settings
 from djangobb_forum.forms import AddPostForm, EditPostForm, UserSearchForm, \
     PostSearchForm, ReputationForm, MailToForm, EssentialsProfileForm, \
-    VotePollForm, ReportForm, VotePollForm, PollForm
+    ReportForm, VotePollForm, PollForm
 from djangobb_forum.models import Category, Forum, Topic, Post, Reputation, \
     Attachment, PostTracking
 from djangobb_forum.templatetags import forum_extras
 from djangobb_forum.templatetags.forum_extras import forum_moderated_by
-from djangobb_forum.util import build_form, paginate, set_language, smiles, convert_text_to_html
+from djangobb_forum.util import build_form, smiles, convert_text_to_html, get_page
 
 
 User = get_user_model()
@@ -106,11 +106,11 @@ def moderate(request, forum_id):
             messages.success(request, _("Topics closed"))
             return HttpResponseRedirect(reverse('djangobb:index'))
 
-        return render(request, 'djangobb_forum/moderate.html', {'forum': forum,
-                'topics': topics,
-                #'sticky_topics': forum.topics.filter(sticky=True),
+        return render(request, 'djangobb_forum/moderate.html', {
+                'forum': forum,
+                'topics_page': get_page(topics, request, forum_settings.FORUM_PAGE_SIZE),
                 'posts': forum.posts.count(),
-                })
+        })
     else:
         raise Http404
 
@@ -242,7 +242,7 @@ def search(request):
         if sort_dir == 'DESC':
             order = '-' + order
 
-        posts = query.order_by(order)
+        post_pks = query.values_list("pk", flat=True)
 
         if not show_as_posts:
             # TODO: We have here a problem to get a list of topics without double entries.
@@ -250,11 +250,10 @@ def search(request):
 
             # Info: If whoosh backend used, setup HAYSTACK_ITERATOR_LOAD_PER_QUERY
             #    to a higher number to speed up
-            post_pks = posts.values_list("pk", flat=True)
             context["topics"] = topics.filter(posts__in=post_pks).distinct()
         else:
             # FIXME: How to use the pre-filtered query from above?
-            posts = posts.filter(topic__forum__category__in=viewable_category)
+            posts = posts.filter(pk__in=post_pks).order_by(order)
             context["posts"] = posts
 
         get_query_dict = request.GET.copy()
@@ -272,17 +271,17 @@ def search(request):
         base_url = "?action=%s&show_as=" % action
 
     if show_as_posts:
+        context['posts_page'] = get_page(context['posts'], request, forum_settings.SEARCH_PAGE_SIZE)
         context["as_topic_url"] = base_url + "topics"
         post_count = context["posts"].count()
         messages.success(request, _("Found %i posts.") % post_count)
     else:
+        context['topics_page'] = get_page(context['topics'], request, forum_settings.SEARCH_PAGE_SIZE)
         context["as_post_url"] = base_url + "posts"
         topic_count = context["topics"].count()
         messages.success(request, _("Found %i topics.") % topic_count)
 
     return render(request, template_name, context)
-
-
 
 
 @login_required
@@ -348,12 +347,13 @@ def show_forum(request, forum_id, full=True):
         if category.has_access(request.user):
             categories.append(category)
 
-    to_return = {'categories': categories,
-                'forum': forum,
-                'posts': forum.post_count,
-                'topics': topics,
-                'moderator': moderator,
-                }
+    to_return = {
+        'categories': categories,
+        'forum': forum,
+        'posts': forum.post_count,
+        'topics_page': get_page(topics, request, forum_settings.FORUM_PAGE_SIZE),
+        'moderator': moderator,
+    }
     if full:
         return render(request, 'djangobb_forum/forum.html', to_return)
     else:
@@ -448,27 +448,26 @@ def show_topic(request, topic_id, full=True):
                     return HttpResponseRedirect(topic.get_absolute_url())
 
     highlight_word = request.GET.get('hl', '')
+    view_data = {
+        'categories': Category.objects.all(),
+        'topic': topic,
+        'posts_page': get_page(posts, request, forum_settings.TOPIC_PAGE_SIZE),
+        'poll': poll,
+        'poll_form': poll_form,
+    }
     if full:
-        return render(request, 'djangobb_forum/topic.html', {'categories': Category.objects.all(),
-                'topic': topic,
-                'last_post': last_post,
-                'form_url': form_url,
-                'reply_form': reply_form,
-                'back_url': back_url,
-                'moderator': moderator,
-                'subscribed': subscribed,
-                'posts': posts,
-                'highlight_word': highlight_word,
-                'poll': poll,
-                'poll_form': poll_form,
-                })
+        view_data.update({
+            'last_post': last_post,
+            'form_url': form_url,
+            'reply_form': reply_form,
+            'back_url': back_url,
+            'moderator': moderator,
+            'subscribed': subscribed,
+            'highlight_word': highlight_word,
+        })
+        return render(request, 'djangobb_forum/topic.html', view_data)
     else:
-        return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
-                'topic': topic,
-                'posts': posts,
-                'poll': poll,
-                'poll_form': poll_form,
-                })
+        return render(request, 'djangobb_forum/lofi/topic.html', view_data)
 
 
 @login_required
@@ -689,13 +688,13 @@ def delete_posts(request, topic_id):
     else:
         subscribed = False
     return render(request, 'djangobb_forum/delete_posts.html', {
-            'topic': topic,
-            'last_post': last_post,
-            'form': form,
-            'moderator': moderator,
-            'subscribed': subscribed,
-            'posts': posts,
-            })
+        'topic': topic,
+        'last_post': last_post,
+        'form': form,
+        'moderator': moderator,
+        'subscribed': subscribed,
+        'posts_page': get_page(posts, request, forum_settings.TOPIC_PAGE_SIZE),
+    })
 
 
 @login_required
@@ -797,9 +796,10 @@ def users(request):
     users = User.objects.filter(forum_profile__post_count__gte=forum_settings.POST_USER_SEARCH).order_by('username')
     form = UserSearchForm(request.GET)
     users = form.filter(users)
-    return render(request, 'djangobb_forum/users.html', {'users': users,
-            'form': form,
-            })
+    return render(request, 'djangobb_forum/users.html', {
+        'users_page': get_page(users, request, forum_settings.USERS_PAGE_SIZE),
+        'form': form,
+    })
 
 
 @login_required

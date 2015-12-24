@@ -4,4 +4,3 @@ Pillow>=2.1.0
 postmarkup
 pygments
 pytz>=2015.4
-django-pagination-py3==1.1.1
