@@ -57,7 +57,7 @@ class AddPostForm(forms.ModelForm):
     name = forms.CharField(label=_('Subject'), max_length=255,
                            widget=forms.TextInput(attrs={'size':'115'}))
     attachment = MultiFileField(label=_('Attachment'), required=False, 
-                                max_num = forum_settings.ATTACHMENT_MAX, 
+                                max_num=forum_settings.ATTACHMENT_MAX, 
                                 max_file_size=forum_settings.ATTACHMENT_SIZE_LIMIT)
     subscribe = forms.BooleanField(label=_('Subscribe'), help_text=_("Subscribe this topic."), required=False)
 
@@ -126,7 +126,7 @@ class AddPostForm(forms.ModelForm):
                     body=self.cleaned_data['body'])
 
         post.save()
-        if forum_settings.ATTACHMENT_SUPPORT:
+        if forum_settings.ATTACHMENT_SUPPORT and self.cleaned_data['attachment']:
             for attach in self.cleaned_data['attachment']:
                 self.save_attachment(post, attach)
         return post
