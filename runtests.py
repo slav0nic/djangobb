@@ -29,6 +29,7 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
 
             'haystack',
             'pagination',
+            'multiupload',
 
             'djangobb_forum',
         ),
