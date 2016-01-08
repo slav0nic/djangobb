@@ -12,24 +12,24 @@ from hashlib import sha1
 import json
 
 from django.db.models import OneToOneField
-from django.db.models.fields.related import SingleRelatedObjectDescriptor
+from django.db.models.fields.related import ReverseOneToOneDescriptor
 from django.db import models
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.conf import settings
 
 
-class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
+class AutoReverseOneToOneDescriptor(ReverseOneToOneDescriptor):
     def __get__(self, instance, instance_type=None):
         # TODO: Rewrite after drop django 1.6 support
         model = getattr(self.related, 'related_model', self.related.model)
 
         try:
-            return super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type)
+            return super(AutoReverseOneToOneDescriptor, self).__get__(instance, instance_type)
         except model.DoesNotExist:
             obj = model(**{self.related.field.name: instance})
             obj.save()
-            return (super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type))
+            return (super(AutoReverseOneToOneDescriptor, self).__get__(instance, instance_type))
 
 
 class AutoOneToOneField(OneToOneField):
@@ -39,7 +39,7 @@ class AutoOneToOneField(OneToOneField):
     """
 
     def contribute_to_related_class(self, cls, related):
-        setattr(cls, related.get_accessor_name(), AutoSingleRelatedObjectDescriptor(related))
+        setattr(cls, related.get_accessor_name(), AutoReverseOneToOneDescriptor(related))
 
 
 class ExtendedImageField(models.ImageField):
