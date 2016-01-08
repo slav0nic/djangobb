@@ -3,10 +3,7 @@ Details about AutoOneToOneField:
     http://softwaremaniacs.org/blog/2007/03/07/auto-one-to-one-field/
 """
 from django.utils import six
-try:
-    from cStringIO import StringIO
-except ImportError:
-    StringIO = six.StringIO
+from io import BytesIO
 import random
 from hashlib import sha1
 import json
@@ -55,8 +52,8 @@ class ExtendedImageField(models.ImageField):
     def save_form_data(self, instance, data):
         if data and self.width and self.height:
             content = self.resize_image(data.read(), width=self.width, height=self.height)
-            salt = sha1(str(random.random())).hexdigest()[:5]
-            fname =  sha1(salt + settings.SECRET_KEY).hexdigest() + '.png'
+            salt = sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
+            fname =  sha1(salt.encode('utf-8') + settings.SECRET_KEY.encode('utf-8')).hexdigest() + '.png'
             data = SimpleUploadedFile(fname, content, content_type='image/png')
         super(ExtendedImageField, self).save_form_data(instance, data)
 
@@ -68,7 +65,7 @@ class ExtendedImageField(models.ImageField):
             import Image
         except ImportError:
             from PIL import Image
-        image = Image.open(StringIO(rawdata))
+        image = Image.open(BytesIO(rawdata))
         oldw, oldh = image.size
         if oldw >= oldh:
             x = int(round((oldw - oldh) / 2.0))
@@ -79,7 +76,7 @@ class ExtendedImageField(models.ImageField):
         image = image.resize((width, height), resample=Image.ANTIALIAS)
 
 
-        string = StringIO()
+        string = BytesIO()
         image.save(string, format='PNG')
         return string.getvalue()
 
