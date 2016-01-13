@@ -1,14 +1,12 @@
 {% extends 'djangobb_forum/base.html' %}
-{% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
 
 {% block content %}
-{% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
-				<ul><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }} 
+        <div class="pagelink conl">{% include 'djangobb_forum/paginator.html' with page=posts_page request=request only %}</div>
+				<ul><li><a href="{% url 'djangobb:index' %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic }}
 				<a href="{% url 'djangobb:forum_topic_feed' topic.id %}"><img src="{{ STATIC_URL }}djangobb_forum/img/feed-icon-small.png" alt="[RSS Feed]" title="[RSS Feed]" style="vertical-align:middle;" /></a>
 				</li></ul>
 		<div class="clearer"></div>
@@ -17,7 +15,7 @@
 
 <form method="post">
 {% csrf_token %}
-{% for post in posts %}
+{% for post in posts_page %}
 <div id="p{{ post.id }}" class="blockpost roweven firstpost">
 	<a name="post-{{ post.id }}"></a>
 	<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
@@ -37,7 +35,7 @@
 				<p class="postedit"><em>{% trans "Edited" %} {{ post.user.username }} ({% forum_time post.updated %})</em></p>
 			{% endif %}
 				</div>
-				{% if not forloop.first %} 
+				{% if not forloop.first %}
 				<p class="multidelete"><label><strong>{% trans "Select" %}</strong>&nbsp;&nbsp;<input type="checkbox" name="post" value="{{ post.id }}" /></label></p>
 				{% endif %}
 			</div>
@@ -49,7 +47,7 @@
 
 <div class="postlinksb">
 	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
+        <div class="pagelink conl">{% include 'djangobb_forum/paginator.html' with page=posts_page request=request only %}</div>
 		<p class="conr"><input type="submit" value="{% trans "Delete" %}" /></p>
 		<div class="clearer"></div>
 	</div>

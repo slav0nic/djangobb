@@ -18,12 +18,8 @@ except ImportError:
     pass
 
 from django.conf import settings
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.http import HttpResponse, Http404
-from django.utils.functional import Promise
+from django.http import Http404
 from django.utils.translation import check_for_language
-from django.utils.encoding import force_text
 from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.sites.models import Site
@@ -39,50 +35,11 @@ def absolute_url(path):
     return 'http://%s%s' % (Site.objects.get_current().domain, path)
 
 
-def paged(paged_list_name, per_page):
-    """
-    Parse page from GET data and pass it to view. Split the
-    query set returned from view.
-    """
-
-    def decorator(func):
-        def wrapper(request, *args, **kwargs):
-            result = func(request, *args, **kwargs)
-            if not isinstance(result, dict) or 'paged_qs' not in result:
-                return result
-            try:
-                page = int(request.GET.get('page', 1))
-            except ValueError:
-                page = 1
-
-            real_per_page = per_page
-
-            #if per_page_var:
-                #try:
-                    #value = int(request.GET[per_page_var])
-                #except (ValueError, KeyError):
-                    #pass
-                #else:
-                    #if value > 0:
-                        #real_per_page = value
-
-            paginator = Paginator(result['paged_qs'], real_per_page)
-            try:
-                page_obj = paginator.page(page)
-            except (InvalidPage, EmptyPage):
-                raise Http404
-            result[paged_list_name] = page_obj.object_list
-            result['is_paginated'] = page_obj.has_other_pages(),
-            result['page_obj'] = page_obj,
-            result['page'] = page
-            result['page_range'] = paginator.page_range,
-            result['pages'] = paginator.num_pages
-            result['results_per_page'] = paginator.per_page,
-            result['request'] = request
-            return result
-        return wrapper
-
-    return decorator
+def get_page(objects, request, size):
+    try:
+        return Paginator(objects, size).page(request.GET.get('page', 1))
+    except InvalidPage:
+        return None
 
 
 def build_form(Form, _request, GET=False, *args, **kwargs):
@@ -248,20 +205,6 @@ def add_rel_nofollow(html):
         return html
     return output_html
 
-
-def paginate(items, request, per_page, total_count=None):
-    try:
-        page_number = int(request.GET.get('page', 1))
-    except ValueError:
-        page_number = 1
-
-    paginator = Paginator(items, per_page)
-    pages = paginator.num_pages
-    try:
-        paged_list_name = paginator.page(page_number).object_list
-    except (InvalidPage, EmptyPage):
-        raise Http404
-    return pages, paginator, paged_list_name
 
 def set_language(request, language):
     """

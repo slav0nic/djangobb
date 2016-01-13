@@ -1,13 +1,11 @@
 {% extends 'djangobb_forum/base.html' %}
 {% load forum_extras %}
 {% load i18n %}
-{% load pagination_tags %}
 
 {% block content %}
-{% autopaginate posts forum_settings.FORUM_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
-		<p class="pagelink">{% paginate %}</p>
+        <p class="pagelink">{% include 'djangobb_forum/paginator.html' with page=posts_page request=request only %}</p>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -21,7 +19,7 @@
     </div>
 </div>
 
-{% for post in posts %}
+{% for post in posts_page %}
 {% if post.object %}
     {% with post=post.object %}
         {% include "djangobb_forum/includes/post_in_search_page.html" %}
@@ -44,7 +42,7 @@
 
 <div class="postlinksb">
 	<div class="inbox">
-		<p class="pagelink">{% paginate %}</p>
+        <p class="pagelink">{% include 'djangobb_forum/paginator.html' with page=posts_page request=request only %}</p>
 		<div class="clearer"></div>
 	</div>
 </div>
