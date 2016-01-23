@@ -19,11 +19,6 @@ from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONFie
 from djangobb_forum.util import smiles, convert_text_to_html
 from djangobb_forum import settings as forum_settings
 
-if 'south' in settings.INSTALLED_APPS:
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ['^djangobb_forum\.fields\.AutoOneToOneField',
-                                 '^djangobb_forum\.fields\.JSONField',
-                                 '^djangobb_forum\.fields\.ExtendedImageField'])
 
 TZ_CHOICES = [(tz_name, tz_name) for tz_name in pytz.common_timezones]
 

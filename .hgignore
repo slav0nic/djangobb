@@ -19,6 +19,7 @@ syntax: glob
 local_settings.py
 .env
 .venv
+.git
 build/
 dist/
 .idea

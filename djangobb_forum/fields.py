@@ -1,8 +1,3 @@
-"""
-Details about AutoOneToOneField:
-    http://softwaremaniacs.org/blog/2007/03/07/auto-one-to-one-field/
-"""
-from django.utils import six
 from io import BytesIO
 import random
 from hashlib import sha1
@@ -17,12 +12,14 @@ from django.db import models
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.conf import settings
+from django.forms.utils import ValidationError
+from django.utils import six
+from django.utils.translation import ugettext_lazy as _
 
 
 class AutoReverseOneToOneDescriptor(ReverseOneToOneDescriptor):
     def __get__(self, instance, instance_type=None):
-        # TODO: Rewrite after drop django 1.6 support
-        model = getattr(self.related, 'related_model', self.related.model)
+        model = self.related.related_model
 
         try:
             return super(AutoReverseOneToOneDescriptor, self).__get__(instance, instance_type)
@@ -84,14 +81,14 @@ class ExtendedImageField(models.ImageField):
         return string.getvalue()
 
 
-class JSONField(six.with_metaclass(models.SubfieldBase, models.TextField)):
+class JSONField(models.TextField):
     """
     JSONField is a generic textfield that neatly serializes/unserializes
     JSON objects seamlessly.
     Django snippet #1478
     """
 
-    def to_python(self, value):
+    def from_db_value(self, value, *args):
         if value == "":
             return None
 
@@ -99,13 +96,11 @@ class JSONField(six.with_metaclass(models.SubfieldBase, models.TextField)):
             if isinstance(value, six.string_types):
                 return json.loads(value)
         except ValueError:
-            pass
-        return value
+            raise ValidationError(_("Invalid JSON"))
 
     def get_prep_value(self, value):
         if value == "":
             return None
         if isinstance(value, dict):
             value = json.dumps(value, cls=DjangoJSONEncoder)
-        return super(JSONField, self).get_prep_value(value)
-
+            return value

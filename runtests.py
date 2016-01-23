@@ -31,15 +31,18 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
 
             'djangobb_forum',
         ),
-        MIDDLEWARE_CLASSES=global_settings.MIDDLEWARE_CLASSES + (
+        MIDDLEWARE_CLASSES=global_settings.MIDDLEWARE_CLASSES +[
                 'django.middleware.locale.LocaleMiddleware',
                 'django.middleware.transaction.TransactionMiddleware',
                 'djangobb_forum.middleware.LastLoginMiddleware',
                 'djangobb_forum.middleware.UsersOnline',
-        ),
-        TEMPLATE_CONTEXT_PROCESSORS=global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-            'djangobb_forum.context_processors.forum_settings',
-        ),
+        ],
+        TEMPLATES={'OPTIONS':
+                   {'context_processors':
+                    global_settings.TEMPLATE_CONTEXT_PROCESSORS + [
+                        'djangobb_forum.context_processors.forum_settings'],
+                    }
+                   },
         PASSWORD_HASHERS=('django.contrib.auth.hashers.SHA1PasswordHasher',),
         ROOT_URLCONF='djangobb_forum.tests.urls',
         DEBUG=False,
@@ -50,17 +53,11 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
             }
         }
     )
-    if django.VERSION[:2] >= (1, 7):
-        django.setup()
+    django.setup()
 
 from django.test.runner import DiscoverRunner
 
 def runtests(*test_args, **kwargs):
-    # TODO: remove after drop django 1.6 support
-    if 'south' in settings.INSTALLED_APPS:
-        from south.management.commands import patch_for_test_db_setup
-        patch_for_test_db_setup()
-
     if not test_args:
         test_args = ['djangobb_forum']
     parent = dirname(abspath(__file__))

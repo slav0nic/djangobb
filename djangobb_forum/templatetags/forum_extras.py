@@ -232,10 +232,10 @@ def set_theme_style(user):
     else:
         theme_style = '<link rel="stylesheet" type="text/css" href="%(static_url)sdjangobb_forum/themes/default/style.css" />'
 
-    return theme_style % dict(
+    return mark_safe(theme_style % dict(
         static_url=settings.STATIC_URL,
         theme=selected_theme
-    )
+    ))
 
 # http://stackoverflow.com/a/16609498
 @register.simple_tag
