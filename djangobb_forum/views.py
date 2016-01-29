@@ -556,10 +556,10 @@ def upload_avatar(request, username, template=None, form_class=None):
 def user(request, username, section='essentials', action=None, template='djangobb_forum/profile/profile_essentials.html', form_class=EssentialsProfileForm):
     user = get_object_or_404(User, username=username)
     if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
-        profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
         form = build_form(form_class, request, instance=user.forum_profile, extra_args={'request': request})
         if request.method == 'POST' and form.is_valid():
             form.save()
+            profile_url = reverse('djangobb:forum_profile_%s' % section, args=[user.username])
             messages.success(request, _("User profile saved."))
             return HttpResponseRedirect(profile_url)
         return render(request, template, {'active_menu': section,
