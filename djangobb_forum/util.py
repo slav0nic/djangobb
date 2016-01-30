@@ -62,7 +62,8 @@ class HTMLFilter(HTMLParser):
         """
 
         def __init__(self):
-            HTMLParser.__init__(self, convert_charrefs=False)
+            HTMLParser.__init__(self)
+            self.convert_charrefs = False  # for py3.5
             self.html = []
 
         def handle_starttag(self, tag, attrs):
