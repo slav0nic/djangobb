@@ -31,7 +31,7 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
 
             'djangobb_forum',
         ),
-        MIDDLEWARE_CLASSES=global_settings.MIDDLEWARE_CLASSES +[
+        MIDDLEWARE_CLASSES=list(global_settings.MIDDLEWARE_CLASSES) + [
                 'django.middleware.locale.LocaleMiddleware',
                 'django.middleware.transaction.TransactionMiddleware',
                 'djangobb_forum.middleware.LastLoginMiddleware',
@@ -39,7 +39,7 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
         ],
         TEMPLATES={'OPTIONS':
                    {'context_processors':
-                    global_settings.TEMPLATE_CONTEXT_PROCESSORS + [
+                    list(global_settings.TEMPLATE_CONTEXT_PROCESSORS) + [
                         'djangobb_forum.context_processors.forum_settings'],
                     }
                    },
