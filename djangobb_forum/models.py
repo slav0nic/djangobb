@@ -464,10 +464,3 @@ class PollChoice(models.Model):
 
     def __str__(self):
         return self.choice
-
-
-
-from .signals import post_saved, topic_saved
-
-post_save.connect(post_saved, sender=Post, dispatch_uid='djangobb_post_save')
-post_save.connect(topic_saved, sender=Topic, dispatch_uid='djangobb_topic_save')
