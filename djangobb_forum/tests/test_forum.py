@@ -43,8 +43,8 @@ class TestForum(TestCase):
         post_url = reverse('djangobb:post',
                             kwargs={'post_id': topic.last_post.pk})
 
-        self.assertEqual(response.url, post_url)
+        self.assertRedirects(response, post_url, target_status_code=302)
 
         response = self.client.get(post_url)
         topic_url = reverse('djangobb:topic', kwargs={'topic_id': topic.pk})
-        self.assertTrue(response.url.startswith(topic_url))
+        self.assertIn(topic_url, response.url)
