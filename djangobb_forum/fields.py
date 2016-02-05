@@ -96,7 +96,8 @@ class JSONField(models.TextField):
             if isinstance(value, six.string_types):
                 return json.loads(value)
         except ValueError:
-            raise ValidationError(_("Invalid JSON"))
+            pass
+        return None
 
     def get_prep_value(self, value):
         if value == "":
