@@ -1,13 +1,11 @@
 {% extends 'djangobb_forum/base.html' %}
-{% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
 
 {% block content %}
-{% autopaginate topics forum_settings.SEARCH_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
-		<p class="pagelink">{% paginate %}</p>
+        <p class="pagelink">{% include 'djangobb_forum/paginator.html' with page=topics_page request=request only %}</p>
 		<div class="clearer"></div>
 	</div>
 </div>
@@ -35,7 +33,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% for topic in topics %}
+			{% for topic in topics_page %}
 				<tr {% if topic|has_unreads:user %}class="inew"{% endif %} {% if topic.closed %}class="iclosed"{% endif %}>
 					<td class="tcl">
 						<div class="intd">
@@ -66,7 +64,7 @@
 
 <div class="linksb">
 	<div class="inbox">
-		<p class="pagelink">{% paginate %}</p>
+        <p class="pagelink">{% include 'djangobb_forum/paginator.html' with page=topics_page request=request only %}</p>
 		<div class="clearer"></div>
 	</div>
 </div>

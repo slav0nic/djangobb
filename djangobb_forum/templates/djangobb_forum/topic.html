@@ -1,14 +1,12 @@
 {% extends 'djangobb_forum/base.html' %}
 {% load forum_extras %}
-{% load pagination_tags %}
 {% load i18n %}
 
 {% block title %}{{ topic.forum.name }} / {{ topic.name }} / {% endblock %}
 {% block content %}
-{% autopaginate posts forum_settings.TOPIC_PAGE_SIZE %}
 <div class="linkst">
 	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
+		<div class="pagelink conl">{% include 'djangobb_forum/paginator.html' with page=posts_page request=request only %}</div>
 		<ul>
 			<li>
 			<a href="{% url 'djangobb:index' %}">{% trans "Root" %} </a></li><li>&raquo; {% link topic.forum %} </li><li>&raquo; {{ topic.name }}
@@ -49,7 +47,7 @@
 </div>
 {% endif %}
 
-{% for post in posts %}
+{% for post in posts_page %}
 	<div id="p{{ post.id }}" class="blockpost roweven firstpost">
 		<a name="post-{{ post.id }}"></a>
 		<h2><span><span class="conr">#{{ forloop.counter }}&nbsp;</span><a href="{{ post.get_absolute_url }}">{% forum_time post.created %}</a></span></h2>
@@ -166,7 +164,7 @@
 {% endfor %}
 <div class="postlinksb">
 	<div class="inbox">
-		<div class="pagelink conl">{% paginate %}</div>
+		<div class="pagelink conl">{% include 'djangobb_forum/paginator.html' with page=posts_page request=request only %}</div>
 			<ul>
 			    <li><a href="{% url 'djangobb:index' %}">{% trans "Root" %} </a></li>
 			    <li>&raquo; {% link topic.forum %} </li>

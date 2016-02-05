@@ -28,41 +28,48 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
             'django.contrib.humanize',
 
             'haystack',
-            'pagination',
 
             'djangobb_forum',
         ),
-        MIDDLEWARE_CLASSES=global_settings.MIDDLEWARE_CLASSES + (
+        MIDDLEWARE_CLASSES=[
+                'django.middleware.common.CommonMiddleware',
+                'django.contrib.sessions.middleware.SessionMiddleware',
+                'django.middleware.csrf.CsrfViewMiddleware',
+                'django.contrib.auth.middleware.AuthenticationMiddleware',
+                'django.contrib.messages.middleware.MessageMiddleware',
                 'django.middleware.locale.LocaleMiddleware',
-                'pagination.middleware.PaginationMiddleware',
-                'django.middleware.transaction.TransactionMiddleware',
+                'django.middleware.locale.LocaleMiddleware',
+
                 'djangobb_forum.middleware.LastLoginMiddleware',
                 'djangobb_forum.middleware.UsersOnline',
-        ),
-        TEMPLATE_CONTEXT_PROCESSORS=global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-            'djangobb_forum.context_processors.forum_settings',
-        ),
+                'djangobb_forum.middleware.TimezoneMiddleware',
+        ],
+        TEMPLATES=[{'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                  'DIRS': [],
+                  'APP_DIRS': True,
+                  'OPTIONS':
+                   {'context_processors':
+                    list(global_settings.TEMPLATE_CONTEXT_PROCESSORS) + [
+                        'djangobb_forum.context_processors.forum_settings'],
+                    }
+                   }],
+        TIME_ZONE = 'Europe/Kiev',
+        USE_TZ = True,
         PASSWORD_HASHERS=('django.contrib.auth.hashers.SHA1PasswordHasher',),
         ROOT_URLCONF='djangobb_forum.tests.urls',
         DEBUG=False,
         SITE_ID=1,
-        HAYSTACK_CONNECTIONS = {
+        HAYSTACK_CONNECTIONS={
             'default': {
                 'ENGINE': 'haystack.backends.simple_backend.SimpleEngine'
             }
-        }
+        },
     )
-    if django.VERSION[:2] >= (1, 7):
-        django.setup()
+    django.setup()
 
 from django.test.runner import DiscoverRunner
 
 def runtests(*test_args, **kwargs):
-    # TODO: remove after drop django 1.6 support
-    if 'south' in settings.INSTALLED_APPS:
-        from south.management.commands import patch_for_test_db_setup
-        patch_for_test_db_setup()
-
     if not test_args:
         test_args = ['djangobb_forum']
     parent = dirname(abspath(__file__))

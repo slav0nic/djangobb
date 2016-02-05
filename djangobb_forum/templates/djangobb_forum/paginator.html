@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load forum_extras %}
+{% if page.has_other_pages %}
+	{% trans "Pages" %}:
+	{% if page.has_previous %}
+        <a href="?{% url_replace request 'page' page.previous_page_number %}">&laquo;</a>
+	{% endif %}
+	{% for number in page.paginator.page_range %}
+        {% if number == page.number %}
+            <strong>{{ number }}</strong>
+        {% else %}
+            <a href="?{% url_replace request 'page' number %}">{{ number }}</a>
+        {% endif %}
+	{% endfor %}
+	{% if page.has_next %}
+		<a href="?{% url_replace request 'page' page.next_page_number %}">&raquo;</a>
+	{% endif %}
+{% endif %}
+

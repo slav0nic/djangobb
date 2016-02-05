@@ -1,5 +1,7 @@
 __all__ = ['__version__', 'get_version']
 
+default_app_config = 'djangobb_forum.apps.ForumConfig'
+
 version_info = (0, 0, 1, 'a', 0)
 # format: ('major', 'minor', 'micro', 'releaselevel', 'serial')
 # __version__ format compatible with distutils2.version.NormalizedVersion

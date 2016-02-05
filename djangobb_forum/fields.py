@@ -1,35 +1,32 @@
-"""
-Details about AutoOneToOneField:
-    http://softwaremaniacs.org/blog/2007/03/07/auto-one-to-one-field/
-"""
-from django.utils import six
-try:
-    from cStringIO import StringIO
-except ImportError:
-    StringIO = six.StringIO
+from io import BytesIO
 import random
 from hashlib import sha1
 import json
 
 from django.db.models import OneToOneField
-from django.db.models.fields.related import SingleRelatedObjectDescriptor
+try:
+    from django.db.models.fields.related_descriptors import ReverseOneToOneDescriptor
+except ImportError:
+    from django.db.models.fields.related import SingleRelatedObjectDescriptor as ReverseOneToOneDescriptor
 from django.db import models
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.conf import settings
+from django.forms.utils import ValidationError
+from django.utils import six
+from django.utils.translation import ugettext_lazy as _
 
 
-class AutoSingleRelatedObjectDescriptor(SingleRelatedObjectDescriptor):
+class AutoReverseOneToOneDescriptor(ReverseOneToOneDescriptor):
     def __get__(self, instance, instance_type=None):
-        # TODO: Rewrite after drop django 1.6 support
-        model = getattr(self.related, 'related_model', self.related.model)
+        model = self.related.related_model
 
         try:
-            return super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type)
+            return super(AutoReverseOneToOneDescriptor, self).__get__(instance, instance_type)
         except model.DoesNotExist:
             obj = model(**{self.related.field.name: instance})
             obj.save()
-            return (super(AutoSingleRelatedObjectDescriptor, self).__get__(instance, instance_type))
+            return (super(AutoReverseOneToOneDescriptor, self).__get__(instance, instance_type))
 
 
 class AutoOneToOneField(OneToOneField):
@@ -39,7 +36,7 @@ class AutoOneToOneField(OneToOneField):
     """
 
     def contribute_to_related_class(self, cls, related):
-        setattr(cls, related.get_accessor_name(), AutoSingleRelatedObjectDescriptor(related))
+        setattr(cls, related.get_accessor_name(), AutoReverseOneToOneDescriptor(related))
 
 
 class ExtendedImageField(models.ImageField):
@@ -55,8 +52,8 @@ class ExtendedImageField(models.ImageField):
     def save_form_data(self, instance, data):
         if data and self.width and self.height:
             content = self.resize_image(data.read(), width=self.width, height=self.height)
-            salt = sha1(str(random.random())).hexdigest()[:5]
-            fname =  sha1(salt + settings.SECRET_KEY).hexdigest() + '.png'
+            salt = sha1(str(random.random()).encode('utf-8')).hexdigest()[:5]
+            fname =  sha1(salt.encode('utf-8') + settings.SECRET_KEY.encode('utf-8')).hexdigest() + '.png'
             data = SimpleUploadedFile(fname, content, content_type='image/png')
         super(ExtendedImageField, self).save_form_data(instance, data)
 
@@ -68,7 +65,7 @@ class ExtendedImageField(models.ImageField):
             import Image
         except ImportError:
             from PIL import Image
-        image = Image.open(StringIO(rawdata))
+        image = Image.open(BytesIO(rawdata))
         oldw, oldh = image.size
         if oldw >= oldh:
             x = int(round((oldw - oldh) / 2.0))
@@ -79,19 +76,19 @@ class ExtendedImageField(models.ImageField):
         image = image.resize((width, height), resample=Image.ANTIALIAS)
 
 
-        string = StringIO()
+        string = BytesIO()
         image.save(string, format='PNG')
         return string.getvalue()
 
 
-class JSONField(six.with_metaclass(models.SubfieldBase, models.TextField)):
+class JSONField(models.TextField):
     """
     JSONField is a generic textfield that neatly serializes/unserializes
     JSON objects seamlessly.
     Django snippet #1478
     """
 
-    def to_python(self, value):
+    def from_db_value(self, value, *args):
         if value == "":
             return None
 
@@ -100,11 +97,11 @@ class JSONField(six.with_metaclass(models.SubfieldBase, models.TextField)):
                 return json.loads(value)
         except ValueError:
             pass
-        return value
+        return None
 
     def get_prep_value(self, value):
         if value == "":
             return None
         if isinstance(value, dict):
             value = json.dumps(value, cls=DjangoJSONEncoder)
-        return super(JSONField, self).get_prep_value(value)
+            return value

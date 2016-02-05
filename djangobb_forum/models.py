@@ -4,14 +4,15 @@ from __future__ import unicode_literals
 from hashlib import sha1
 import os
 
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import aggregates
-from django.db.models.signals import post_save
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+
 
 import pytz
 
@@ -19,11 +20,6 @@ from djangobb_forum.fields import AutoOneToOneField, ExtendedImageField, JSONFie
 from djangobb_forum.util import smiles, convert_text_to_html
 from djangobb_forum import settings as forum_settings
 
-if 'south' in settings.INSTALLED_APPS:
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ['^djangobb_forum\.fields\.AutoOneToOneField',
-                                 '^djangobb_forum\.fields\.JSONField',
-                                 '^djangobb_forum\.fields\.ExtendedImageField'])
 
 TZ_CHOICES = [(tz_name, tz_name) for tz_name in pytz.common_timezones]
 
@@ -114,9 +110,8 @@ class Forum(models.Model):
     def __str__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('djangobb:forum', [self.id])
+        return reverse('djangobb:forum', args=[self.id])
 
     @property
     def posts(self):
@@ -175,9 +170,8 @@ class Topic(models.Model):
     def reply_count(self):
         return self.post_count - 1
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('djangobb:topic', [self.id])
+        return reverse('djangobb:topic', args=[self.id])
 
     def update_read(self, user):
         tracking = user.posttracking
@@ -256,9 +250,8 @@ class Post(models.Model):
         profile.post_count = Post.objects.filter(user__id=self.user_id).count()
         profile.save()
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('djangobb:post', [self.id])
+        return reverse('djangobb:post', args=[self.id])
 
     def summary(self):
         LIMIT = 50
@@ -417,9 +410,8 @@ class Attachment(models.Model):
             self.hash = sha1((str(self.id) + settings.SECRET_KEY).encode('ascii')).hexdigest()
         super(Attachment, self).save(*args, **kwargs)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('djangobb:forum_attachment', [self.hash])
+        return reverse('djangobb:forum_attachment', args=[self.hash])
 
     def get_absolute_path(self):
         return os.path.join(settings.MEDIA_ROOT, forum_settings.ATTACHMENT_UPLOAD_TO,
@@ -471,10 +463,3 @@ class PollChoice(models.Model):
 
     def __str__(self):
         return self.choice
-
-
-
-from .signals import post_saved, topic_saved
-
-post_save.connect(post_saved, sender=Post, dispatch_uid='djangobb_post_save')
-post_save.connect(topic_saved, sender=Topic, dispatch_uid='djangobb_topic_save')

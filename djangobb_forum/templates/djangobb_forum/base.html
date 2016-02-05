@@ -20,9 +20,9 @@
 		var POST_PREVIEW_URL = "{% url 'djangobb:post_preview' %}";
 	</script>
 	{% if DEBUG %}
-	   <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.js" onerror="JavaScript:alert('Error loading file [' + this.src + '] !');" ></script>
+	   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
 	{% else %}
-    	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.min.js" onerror="JavaScript:alert('Error loading file [' + this.src + '] !');" ></script>
+    	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js" ></script>
 	{% endif %}
 	{% if user.is_authenticated %}
     	{% if post %}

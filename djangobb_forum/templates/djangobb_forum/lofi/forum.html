@@ -1,5 +1,4 @@
 {% extends 'djangobb_forum/lofi/base.html' %}
-{% load pagination_tags %}
 {% load forum_extras %}
 {% load i18n %}
 
@@ -9,15 +8,14 @@
 	<a href="{% url 'djangobb:lofi_index' %}">{% trans "Root" %}</a> &raquo; {% lofi_link forum %}
 </div>
 
-{% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
 <div class="djangobbpagespan">
-	{% lofi_pagination %}
+    {% include 'djangobb_forum/paginator.html' with page=topics_page request=request only %}
 </div>
 
   <div id="djangobbcontent">
   <div class="topicwrap">
 <ol>
-{% for topic in topics %}
+{% for topic in topics_page %}
 <li>{% if topic.sticky %}<span style="color: red;"><strong>{% trans "IMPORTANT:" %}</strong></span>{% endif %}{% lofi_link topic %} <span class="desc">({{ topic.reply_count }} {% trans "replies" %})</span></li>
 {% endfor %}
 </ol>

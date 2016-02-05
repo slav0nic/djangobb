@@ -470,7 +470,7 @@ class PollForm(forms.ModelForm):
         # validate if there is more than whitespaces ;)
         raw_answers = self.cleaned_data["answers"]
         answers = [answer.strip() for answer in raw_answers.splitlines() if answer.strip()]
-        if len(answers) == 0:
+        if answers:
             raise forms.ValidationError(_("There is no valid answer!"))
 
         # validate length of all answers
@@ -494,4 +494,3 @@ class PollForm(forms.ModelForm):
         answers = self.cleaned_data["answers"]
         for answer in answers:
             PollChoice.objects.create(poll=poll, choice=answer)
-

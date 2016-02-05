@@ -1,4 +1,4 @@
-from django.conf.urls import *
+from django.conf.urls import url
 
 from djangobb_forum import settings as forum_settings
 from djangobb_forum import views as forum_views
@@ -9,7 +9,7 @@ from djangobb_forum.forms import EssentialsProfileForm, \
     DisplayProfileForm, PrivacyProfileForm, UploadAvatarForm
 
 
-urlpatterns = patterns('',
+urlpatterns = [
 
     # Forum
     url('^$', forum_views.index, name='index'),
@@ -77,26 +77,26 @@ urlpatterns = patterns('',
     url(r'^feeds/topic/(?P<topic_id>\d+)/$', LastPostsOnTopic(), name='forum_topic_feed'),
     url(r'^feeds/forum/(?P<forum_id>\d+)/$', LastPostsOnForum(), name='forum_forum_feed'),
     url(r'^feeds/category/(?P<category_id>\d+)/$', LastPostsOnCategory(), name='forum_category_feed'),
-)
+]
 
 ### EXTENSIONS ###
 
 # LOFI Extension
 if (forum_settings.LOFI_SUPPORT):
-    urlpatterns += patterns('',
+    urlpatterns += [
         url('^lofi/$', forum_views.index, {'full':False}, name='lofi_index'),
         url('^(?P<forum_id>\d+)/lofi/$', forum_views.show_forum, {'full':False}, name='lofi_forum'),
         url('^topic/(?P<topic_id>\d+)/lofi/$', forum_views.show_topic, {'full':False}, name='lofi_topic'),
-    )
+    ]
 
 # REPUTATION Extension
 if (forum_settings.REPUTATION_SUPPORT):
-    urlpatterns += patterns('',
+    urlpatterns += [
         url('^reputation/(?P<username>.*)/$', forum_views.reputation, name='reputation'),
-    )
+    ]
 
 # ATTACHMENT Extension
 if (forum_settings.ATTACHMENT_SUPPORT):
-    urlpatterns += patterns('',
+    urlpatterns += [
         url('^attachment/(?P<hash>\w+)/$', forum_views.show_attachment, name='forum_attachment'),
-    )
+    ]
