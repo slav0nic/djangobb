@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase, Client
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 from djangobb_forum.models import Category, Forum, Topic, Post
@@ -7,7 +8,7 @@ from djangobb_forum.models import Category, Forum, Topic, Post
 
 class TestForum(TestCase):
     fixtures = ['test_forum.json']
-    
+
     def setUp(self):
         self.category = Category.objects.get(pk=1)
         self.forum = Forum.objects.get(pk=1)
@@ -15,27 +16,35 @@ class TestForum(TestCase):
         self.post = Post.objects.get(pk=1)
         self.user = User.objects.get(pk=1)
         self.client = Client()
-        self.ip = '127.0.0.1'
-        
-    def test_login(self):
-        self.assertTrue(self.client.login(username='djangobb', password='djangobb'))
-    
+        self.client.login(username='djangobb', password='djangobb')
+
+    def test_index_authericated_view(self):
+        response = self.client.get(reverse('djangobb:index'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_forum_view(self):
+        response = self.client.get(reverse('djangobb:forum', kwargs={'forum_id':
+                                                            self.forum.pk}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_topic_view(self):
+        response = self.client.get(reverse('djangobb:topic', kwargs={'topic_id':
+                                                            self.topic.pk}))
+        self.assertEqual(response.status_code, 200)
+
     def test_create_topic(self):
-        topic = Topic.objects.create(forum=self.forum, user=self.user, name="Test Title")
-        self.assert_(topic)
-        post = Post.objects.create(
-            topic=topic, user=self.user, user_ip=self.ip,
-            markup='bbcode', body='Test Body'
-        )
-        self.assert_(post)
-        
-    def test_create_post(self):
-        post = Post.objects.create(
-            topic=self.topic, user=self.user, user_ip=self.ip,
-            markup='bbcode', body='Test Body'
-        )
-        self.assert_(post)
-        
-    def test_edit_post(self):
-        self.post.body = 'Test Edit Body'
-        self.assertEqual(self.post.body, 'Test Edit Body')
+        response = self.client.post(reverse('djangobb:add_topic', kwargs={'forum_id':
+                                                            self.forum.pk}),
+                                                            {'name': 'title',
+                                                            'body': 'topic body'
+                                                            }
+                                    )
+        topic = Topic.objects.filter(forum=self.forum).latest()
+        post_url = reverse('djangobb:post',
+                            kwargs={'post_id': topic.last_post.pk})
+
+        self.assertEqual(response.url, post_url)
+
+        response = self.client.get(post_url)
+        topic_url = reverse('djangobb:topic', kwargs={'topic_id': topic.pk})
+        self.assertTrue(response.url.startswith(topic_url))

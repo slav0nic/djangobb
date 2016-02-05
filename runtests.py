@@ -31,27 +31,39 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
 
             'djangobb_forum',
         ),
-        MIDDLEWARE_CLASSES=list(global_settings.MIDDLEWARE_CLASSES) + [
+        MIDDLEWARE_CLASSES=[
+                'django.middleware.common.CommonMiddleware',
+                'django.contrib.sessions.middleware.SessionMiddleware',
+                'django.middleware.csrf.CsrfViewMiddleware',
+                'django.contrib.auth.middleware.AuthenticationMiddleware',
+                'django.contrib.messages.middleware.MessageMiddleware',
                 'django.middleware.locale.LocaleMiddleware',
-                'django.middleware.transaction.TransactionMiddleware',
+                'django.middleware.locale.LocaleMiddleware',
+
                 'djangobb_forum.middleware.LastLoginMiddleware',
                 'djangobb_forum.middleware.UsersOnline',
+                'djangobb_forum.middleware.TimezoneMiddleware',
         ],
-        TEMPLATES={'OPTIONS':
+        TEMPLATES=[{'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                  'DIRS': [],
+                  'APP_DIRS': True,
+                  'OPTIONS':
                    {'context_processors':
                     list(global_settings.TEMPLATE_CONTEXT_PROCESSORS) + [
                         'djangobb_forum.context_processors.forum_settings'],
                     }
-                   },
+                   }],
+        TIME_ZONE = 'Europe/Kiev',
+        USE_TZ = True,
         PASSWORD_HASHERS=('django.contrib.auth.hashers.SHA1PasswordHasher',),
         ROOT_URLCONF='djangobb_forum.tests.urls',
         DEBUG=False,
         SITE_ID=1,
-        HAYSTACK_CONNECTIONS = {
+        HAYSTACK_CONNECTIONS={
             'default': {
                 'ENGINE': 'haystack.backends.simple_backend.SimpleEngine'
             }
-        }
+        },
     )
     django.setup()
 

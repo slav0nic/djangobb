@@ -481,7 +481,7 @@ def add_topic(request, forum_id):
         raise PermissionDenied
 
     ip = request.META.get('REMOTE_ADDR', None)
-    post_form_kwargs = {"forum":forum, "user":request.user, "ip":ip, }
+    post_form_kwargs = {"forum": forum, "user": request.user, "ip": ip, }
 
     poll_form = None
     if request.method == 'POST':
