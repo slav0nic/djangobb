@@ -20,12 +20,12 @@
 			header_id = $(this).parent().attr('id');
 			body_id = header_id.replace("head", "body");
 			item_id = '#' + body_id
-			if ($(this).parent().attr('class')==''){
-				$(this).parent().addClass("collapsed");
-				$.cookie(body_id, 'collapsed');
-			}else {
+			if ($(this).parent().hasClass("collapsed")){
 				$(this).parent().removeClass("collapsed");
 				$.cookie(body_id, '');
+			} else {
+				$(this).parent().addClass("collapsed");
+				$.cookie(body_id, 'collapsed');
 			}
 			$(item_id).slideToggle("slow");
 		});
