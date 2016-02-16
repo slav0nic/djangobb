@@ -785,10 +785,10 @@ def delete_post(request, post_id):
 @login_required
 @transaction.atomic
 def archive_post(request, post_id):
-	"""
-	Moderator can Archive posts.
-	This post will be visible to user who added it and also to other moderators.
-	"""
+    """
+    Moderator can Archive posts.
+    This post will be visible to user who added it and also to other moderators.
+    """
     post = get_object_or_404(Post, pk=post_id)
     topic = post.topic
     forum = post.topic.forum
