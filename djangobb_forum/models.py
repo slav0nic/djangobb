@@ -205,13 +205,16 @@ class Post(models.Model):
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
     user_ip = models.GenericIPAddressField(_('User IP'), blank=True, null=True)
-
+    archived = models.BooleanField(_('Archived'), blank=True, default=False)
 
     class Meta:
         ordering = ['created']
         get_latest_by = 'created'
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
+        permissions = (
+            ("can_archive_post", "Can archive Post"),
+        )
 
     def save(self, *args, **kwargs):
         self.body_html = convert_text_to_html(self.body, self.markup)
