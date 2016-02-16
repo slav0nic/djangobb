@@ -450,26 +450,27 @@ def show_topic(request, topic_id, full=True):
                     return HttpResponseRedirect(topic.get_absolute_url())
 
     highlight_word = request.GET.get('hl', '')
-    view_data = {
-        'categories': Category.objects.all(),
-        'topic': topic,
-        'posts_page': get_page(posts, request, forum_settings.TOPIC_PAGE_SIZE),
-        'poll': poll,
-        'poll_form': poll_form,
-    }
     if full:
-        view_data.update({
-            'last_post': last_post,
-            'form_url': form_url,
-            'reply_form': reply_form,
-            'back_url': back_url,
-            'moderator': moderator,
-            'subscribed': subscribed,
-            'highlight_word': highlight_word,
-        })
-        return render(request, 'djangobb_forum/topic.html', view_data)
+        return render(request, 'djangobb_forum/topic.html', {'categories': Category.objects.all(),
+                'topic': topic,
+                'last_post': last_post,
+                'form_url': form_url,
+                'reply_form': reply_form,
+                'back_url': back_url,
+                'moderator': moderator,
+                'subscribed': subscribed,
+                'posts': posts,
+                'highlight_word': highlight_word,
+                'poll': poll,
+                'poll_form': poll_form,
+                })
     else:
-        return render(request, 'djangobb_forum/lofi/topic.html', view_data)
+        return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
+                'topic': topic,
+                'posts': posts,
+                'poll': poll,
+                'poll_form': poll_form,
+                })
 
 
 @login_required
@@ -761,7 +762,7 @@ def delete_post(request, post_id):
     topic = post.topic
     forum = post.topic.forum
 
-    # only superuser can delete post | moderator can archive only 
+    # only superuser can delete post | moderator can archive only
     # This is custom requirement. You can enable this by uncommnet below.
     if not (request.user.is_superuser or\
         # request.user in post.topic.forum.moderators.all() or \
