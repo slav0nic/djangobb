@@ -19,11 +19,7 @@
 		var STATIC_URL = "{{ STATIC_URL }}";
 		var POST_PREVIEW_URL = "{% url 'djangobb:post_preview' %}";
 	</script>
-	{% if DEBUG %}
-	   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
-	{% else %}
-    	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js" ></script>
-	{% endif %}
+    <script type="text/javascript" src="{{ forum_settings.JQUERY_URL }}" ></script>
 	{% if user.is_authenticated %}
     	{% if post %}
             {% with markup=post.markup %}
