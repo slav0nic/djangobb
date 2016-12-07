@@ -1,6 +1,7 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
+import logging
 import math
 from datetime import timedelta
 from django.utils import timezone
@@ -35,6 +36,7 @@ from djangobb_forum.util import build_form, smiles, convert_text_to_html, get_pa
 
 
 User = get_user_model()
+LOG = logging.getLogger(__name__)
 
 def index(request, full=True):
     users_cached = cache.get('djangobb_users_online', {})
@@ -448,26 +450,27 @@ def show_topic(request, topic_id, full=True):
                     return HttpResponseRedirect(topic.get_absolute_url())
 
     highlight_word = request.GET.get('hl', '')
-    view_data = {
-        'categories': Category.objects.all(),
-        'topic': topic,
-        'posts_page': get_page(posts, request, forum_settings.TOPIC_PAGE_SIZE),
-        'poll': poll,
-        'poll_form': poll_form,
-    }
     if full:
-        view_data.update({
-            'last_post': last_post,
-            'form_url': form_url,
-            'reply_form': reply_form,
-            'back_url': back_url,
-            'moderator': moderator,
-            'subscribed': subscribed,
-            'highlight_word': highlight_word,
-        })
-        return render(request, 'djangobb_forum/topic.html', view_data)
+        return render(request, 'djangobb_forum/topic.html', {'categories': Category.objects.all(),
+                'topic': topic,
+                'last_post': last_post,
+                'form_url': form_url,
+                'reply_form': reply_form,
+                'back_url': back_url,
+                'moderator': moderator,
+                'subscribed': subscribed,
+                'posts': posts,
+                'highlight_word': highlight_word,
+                'poll': poll,
+                'poll_form': poll_form,
+                })
     else:
-        return render(request, 'djangobb_forum/lofi/topic.html', view_data)
+        return render(request, 'djangobb_forum/lofi/topic.html', {'categories': Category.objects.all(),
+                'topic': topic,
+                'posts': posts,
+                'poll': poll,
+                'poll_form': poll_form,
+                })
 
 
 @login_required
@@ -759,15 +762,59 @@ def delete_post(request, post_id):
     topic = post.topic
     forum = post.topic.forum
 
+    # only superuser can delete post | moderator can archive only
+    # This is custom requirement. You can enable this by uncommnet below.
     if not (request.user.is_superuser or\
-        request.user in post.topic.forum.moderators.all() or \
+        # request.user in post.topic.forum.moderators.all() or \
         (post.user == request.user)):
         messages.success(request, _("You haven't the permission to delete this post."))
         return HttpResponseRedirect(post.get_absolute_url())
 
     post.delete()
     messages.success(request, _("Post deleted."))
+    LOG.info("{0} deleted the Post '{1}' from '{2}:{3}'".format(request.user.username, post.body, forum.name, topic.name))
 
+    try:
+        Topic.objects.get(pk=topic.id)
+    except Topic.DoesNotExist:
+        #removed latest post in topic
+        return HttpResponseRedirect(forum.get_absolute_url())
+    else:
+        return HttpResponseRedirect(topic.get_absolute_url())
+
+
+@login_required
+@transaction.atomic
+def archive_post(request, post_id):
+    """
+    Moderator can Archive posts.
+    This post will be visible to user who added it and also to other moderators.
+    """
+    post = get_object_or_404(Post, pk=post_id)
+    topic = post.topic
+    forum = post.topic.forum
+    if post.archived:
+        if not (request.user.is_superuser or\
+            request.user in post.topic.forum.moderators.all() or \
+            (post.user == request.user) or request.user.has_perm('djangobb_forum.can_archive_post')):
+            messages.success(request, _("You haven't the permission to unarchive this post."))
+            return HttpResponseRedirect(post.get_absolute_url())
+
+        post.archived = False
+        post.save()
+        messages.success(request, _("Post unarchived."))
+        LOG.info("{0} unarchived the Post '{1}' from '{2}:{3}'".format(request.user.username, post.body, forum.name, topic.name))
+    else:
+        if not (request.user.is_superuser or\
+            request.user in post.topic.forum.moderators.all() or \
+            (post.user == request.user) or request.user.has_perm('djangobb_forum.can_archive_post')):
+            messages.success(request, _("You haven't the permission to archive this post."))
+            return HttpResponseRedirect(post.get_absolute_url())
+
+        post.archived = True
+        post.save()
+        messages.success(request, _("Post archived."))
+        LOG.info("{0} archived the Post '{1}' from '{2}:{3}'".format(request.user.username, post.body, forum.name, topic.name))
     try:
         Topic.objects.get(pk=topic.id)
     except Topic.DoesNotExist:

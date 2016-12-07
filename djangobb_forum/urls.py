@@ -63,6 +63,8 @@ urlpatterns = [
     # Post
     url('^post/(?P<post_id>\d+)/$', forum_views.show_post, name='post'),
     url('^post/(?P<post_id>\d+)/edit/$', forum_views.edit_post, name='edit_post'),
+    # Archive post url added
+    url('^post/(?P<post_id>\d+)/archive/$', forum_views.archive_post, name='archive_post'),
     url('^post/(?P<post_id>\d+)/delete/$', forum_views.delete_post, name='delete_post'),
     # Post preview
     url(r'^preview/$', forum_views.post_preview, name='post_preview'),
