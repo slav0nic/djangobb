@@ -39,7 +39,7 @@ DjangoBB consists of 2 parts:
 
 #### Compatibility
   * Python **2.7/3.3+**
-  * Django >= **1.7**
+  * Django >= **1.8**
 
 Fore more info pls check ''requirements.txt'' and ''optional-requirements.txt'' files
 
