@@ -357,7 +357,7 @@ class Report(models.Model):
     zapped = models.BooleanField(_('Zapped'), blank=True, default=False)
     zapped_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='zapped_by', blank=True, null=True, verbose_name=_('Zapped by'))
     created = models.DateTimeField(_('Created'), blank=True)
-    reason = models.TextField(_('Reason'), blank=True, default='', max_length='1000')
+    reason = models.TextField(_('Reason'), blank=True, default='', max_length=1000)
 
     class Meta:
         verbose_name = _('Report')
