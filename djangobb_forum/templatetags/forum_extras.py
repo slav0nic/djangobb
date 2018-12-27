@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 import hashlib
 
 from django import template
-from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
 from django.utils.encoding import smart_text
@@ -13,6 +12,10 @@ from django.utils.html import escape
 from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
 from django.utils.six.moves.urllib.parse import urlencode
+try:
+    from django.core.urlresolvers import reverse
+except ImportError:
+    from django.urls import reverse
 
 from djangobb_forum.models import Report
 from djangobb_forum import settings as forum_settings

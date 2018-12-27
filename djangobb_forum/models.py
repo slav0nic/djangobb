@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from hashlib import sha1
 import os
 
-from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
@@ -12,7 +11,10 @@ from django.db.models import aggregates
 from django.utils import timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-
+try:
+    from django.core.urlresolvers import reverse
+except ImportError:
+    from django.urls import reverse
 
 import pytz
 
@@ -88,7 +90,7 @@ class Category(models.Model):
 
 @python_2_unicode_compatible
 class Forum(models.Model):
-    category = models.ForeignKey(Category, related_name='forums', verbose_name=_('Category'))
+    category = models.ForeignKey(Category, related_name='forums', verbose_name=_('Category'), on_delete=models.CASCADE)
     name = models.CharField(_('Name'), max_length=80)
     position = models.IntegerField(_('Position'), blank=True, default=0)
     description = models.TextField(_('Description'), blank=True, default='')
@@ -96,7 +98,7 @@ class Forum(models.Model):
     updated = models.DateTimeField(_('Updated'), auto_now=True)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
     topic_count = models.IntegerField(_('Topic count'), blank=True, default=0)
-    last_post = models.ForeignKey('Post', related_name='last_forum_post', blank=True, null=True)
+    last_post = models.ForeignKey('Post', related_name='last_forum_post', blank=True, null=True, on_delete=models.SET_NULL)
     forum_logo = ExtendedImageField(_('Forum Logo'), blank=True, default='',
                                     upload_to=forum_settings.FORUM_LOGO_UPLOAD_TO,
                                     width=forum_settings.FORUM_LOGO_WIDTH,
@@ -120,17 +122,17 @@ class Forum(models.Model):
 
 @python_2_unicode_compatible
 class Topic(models.Model):
-    forum = models.ForeignKey(Forum, related_name='topics', verbose_name=_('Forum'))
+    forum = models.ForeignKey(Forum, related_name='topics', verbose_name=_('Forum'), on_delete=models.CASCADE)
     name = models.CharField(_('Subject'), max_length=255)
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(_('Updated'), null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.CASCADE)
     views = models.IntegerField(_('Views count'), blank=True, default=0)
     sticky = models.BooleanField(_('Sticky'), blank=True, default=False)
     closed = models.BooleanField(_('Closed'), blank=True, default=False)
     subscribers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='subscriptions', verbose_name=_('Subscribers'), blank=True)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
-    last_post = models.ForeignKey('Post', related_name='last_topic_post', blank=True, null=True)
+    last_post = models.ForeignKey('Post', related_name='last_topic_post', blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['-updated']
@@ -196,11 +198,12 @@ class Topic(models.Model):
 
 @python_2_unicode_compatible
 class Post(models.Model):
-    topic = models.ForeignKey(Topic, related_name='posts', verbose_name=_('Topic'))
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', verbose_name=_('User'))
+    topic = models.ForeignKey(Topic, related_name='posts', verbose_name=_('Topic'), on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', verbose_name=_('User'), on_delete=models.CASCADE)
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     updated = models.DateTimeField(_('Updated'), blank=True, null=True)
-    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Updated by'), blank=True, null=True)
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('Updated by'), blank=True, null=True, 
+                                   on_delete=models.SET_NULL)
     markup = models.CharField(_('Markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
     body = models.TextField(_('Message'))
     body_html = models.TextField(_('HTML version'))
@@ -263,9 +266,9 @@ class Post(models.Model):
 
 @python_2_unicode_compatible
 class Reputation(models.Model):
-    from_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reputations_from', verbose_name=_('From'))
-    to_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reputations_to', verbose_name=_('To'))
-    post = models.ForeignKey(Post, related_name='post', verbose_name=_('Post'))
+    from_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reputations_from', verbose_name=_('From'), on_delete=models.CASCADE)
+    to_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reputations_to', verbose_name=_('To'), on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='post', verbose_name=_('Post'), on_delete=models.CASCADE)
     time = models.DateTimeField(_('Time'), auto_now_add=True)
     sign = models.IntegerField(_('Sign'), choices=SIGN_CHOICES, default=0)
     reason = models.TextField(_('Reason'), max_length=1000)
@@ -294,7 +297,7 @@ class ProfileManager(models.Manager):
 
 
 class Profile(models.Model):
-    user = AutoOneToOneField(settings.AUTH_USER_MODEL, related_name='forum_profile', verbose_name=_('User'))
+    user = AutoOneToOneField(settings.AUTH_USER_MODEL, related_name='forum_profile', verbose_name=_('User'), on_delete=models.CASCADE)
     status = models.CharField(_('Status'), max_length=30, blank=True)
     site = models.URLField(_('Site'), blank=True)
     jabber = models.CharField(_('Jabber'), max_length=80, blank=True)
@@ -338,7 +341,7 @@ class PostTracking(models.Model):
     In topics stored ids of topics and last_posts as dict.
     """
 
-    user = AutoOneToOneField(settings.AUTH_USER_MODEL)
+    user = AutoOneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     topics = JSONField(null=True, blank=True)
     last_read = models.DateTimeField(null=True, blank=True)
 
@@ -352,10 +355,11 @@ class PostTracking(models.Model):
 
 @python_2_unicode_compatible
 class Report(models.Model):
-    reported_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reported_by', verbose_name=_('Reported by'))
-    post = models.ForeignKey(Post, verbose_name=_('Post'))
+    reported_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reported_by', verbose_name=_('Reported by'), on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, verbose_name=_('Post'), on_delete=models.CASCADE)
     zapped = models.BooleanField(_('Zapped'), blank=True, default=False)
-    zapped_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='zapped_by', blank=True, null=True, verbose_name=_('Zapped by'))
+    zapped_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='zapped_by', blank=True, null=True,
+                                  verbose_name=_('Zapped by'), on_delete=models.SET_NULL)
     created = models.DateTimeField(_('Created'), blank=True)
     reason = models.TextField(_('Reason'), blank=True, default='', max_length='1000')
 
@@ -369,7 +373,7 @@ class Report(models.Model):
 
 @python_2_unicode_compatible
 class Ban(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('Banned user'), related_name='ban_users')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('Banned user'), related_name='ban_users', on_delete=models.CASCADE)
     ban_start = models.DateTimeField(_('Ban start'), default=timezone.now)
     ban_end = models.DateTimeField(_('Ban end'), blank=True, null=True)
     reason = models.TextField(_('Reason'))
@@ -394,7 +398,7 @@ class Ban(models.Model):
 
 @python_2_unicode_compatible
 class Attachment(models.Model):
-    post = models.ForeignKey(Post, verbose_name=_('Post'), related_name='attachments')
+    post = models.ForeignKey(Post, verbose_name=_('Post'), related_name='attachments', on_delete=models.CASCADE)
     size = models.IntegerField(_('Size'))
     content_type = models.CharField(_('Content type'), max_length=255)
     path = models.CharField(_('Path'), max_length=255)
@@ -420,7 +424,7 @@ class Attachment(models.Model):
 
 @python_2_unicode_compatible
 class Poll(models.Model):
-    topic = models.ForeignKey(Topic)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     question = models.CharField(max_length=200)
     choice_count = models.PositiveSmallIntegerField(default=1,
         help_text=_("How many choices are allowed simultaneously."),
@@ -450,7 +454,7 @@ class Poll(models.Model):
 
 @python_2_unicode_compatible
 class PollChoice(models.Model):
-    poll = models.ForeignKey(Poll, related_name="choices")
+    poll = models.ForeignKey(Poll, related_name="choices", on_delete=models.CASCADE)
     choice = models.CharField(max_length=200)
     votes = models.IntegerField(default=0, editable=False)
 
