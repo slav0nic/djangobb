@@ -1,4 +1,4 @@
-Django>=1.8,<2.0
+Django>=1.8
 django-haystack>=2.4,<3.0
 Pillow>=2.1.0
 postmarkup
