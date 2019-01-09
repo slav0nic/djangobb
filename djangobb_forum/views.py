@@ -162,7 +162,7 @@ def search(request):
             context["topics"] = topics.filter(Q(last_post__created__gte=date) | Q(last_post__updated__gte=date))
         _generic_context = False
     elif action == 'show_new':
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             raise Http404("Search 'show_new' not available for anonymous user.")
         try:
             last_read = PostTracking.objects.get(user=user).last_read
@@ -186,7 +186,7 @@ def search(request):
         topics = topics.filter(subscribers__id=user.id)
     elif action == 'show_user':
         # Show all posts from user or topics started by user
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             raise Http404("Search 'show_user' not available for anonymous user.")
 
         user_id = request.GET.get("user_id", user.id)
@@ -373,7 +373,7 @@ def show_topic(request, topic_id, full=True):
     TODO: Add reply in lofi mode
     """
     post_request = request.method == "POST"
-    user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
     if post_request and not user_is_authenticated:
         # Info: only user that are logged in should get forms in the page.
         raise PermissionDenied
@@ -385,7 +385,7 @@ def show_topic(request, topic_id, full=True):
 
     last_post = topic.last_post
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         topic.update_read(request.user)
     posts = topic.posts.all().select_related()
 
@@ -535,7 +535,7 @@ def add_topic(request, forum_id):
 @transaction.atomic
 def upload_avatar(request, username, template=None, form_class=None):
     user = get_object_or_404(User, username=username)
-    if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
+    if request.user.is_authenticated and user == request.user or request.user.is_superuser:
         form = build_form(form_class, request, instance=user.forum_profile)
         if request.method == 'POST' and form.is_valid():
             form.save()
@@ -547,7 +547,7 @@ def upload_avatar(request, username, template=None, form_class=None):
                })
     else:
         topic_count = Topic.objects.filter(user__id=user.id).count()
-        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
+        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated:
             messages.error(request, _("Please sign in."))
             return HttpResponseRedirect(settings.LOGIN_URL + '?next=%s' % request.path)
         return render(request, template, {'profile': user,
@@ -558,7 +558,7 @@ def upload_avatar(request, username, template=None, form_class=None):
 @transaction.atomic
 def user(request, username, section='essentials', action=None, template='djangobb_forum/profile/profile_essentials.html', form_class=EssentialsProfileForm):
     user = get_object_or_404(User, username=username)
-    if request.user.is_authenticated() and user == request.user or request.user.is_superuser:
+    if request.user.is_authenticated and user == request.user or request.user.is_superuser:
         form = build_form(form_class, request, instance=user.forum_profile, extra_args={'request': request})
         if request.method == 'POST' and form.is_valid():
             form.save()
@@ -572,7 +572,7 @@ def user(request, username, section='essentials', action=None, template='djangob
     else:
         template = 'djangobb_forum/user.html'
         topic_count = Topic.objects.filter(user__id=user.id).count()
-        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated():
+        if user.forum_profile.post_count < forum_settings.POST_USER_SEARCH and not request.user.is_authenticated:
             messages.error(request, _("Please sign in."))
             return HttpResponseRedirect(settings.LOGIN_URL + '?next=%s' % request.path)
         return render(request, template, {'profile': user,
@@ -674,19 +674,19 @@ def delete_posts(request, topic_id):
 
     last_post = topic.posts.latest()
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         topic.update_read(request.user)
 
     posts = topic.posts.all().select_related()
 
     initial = {}
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         initial = {'markup': request.user.forum_profile.markup}
     form = AddPostForm(topic=topic, initial=initial)
 
     moderator = request.user.is_superuser or\
         request.user in topic.forum.moderators.all()
-    if request.user.is_authenticated() and request.user in topic.subscribers.all():
+    if request.user.is_authenticated and request.user in topic.subscribers.all():
         subscribed = True
     else:
         subscribed = False

@@ -80,7 +80,7 @@ class Category(models.Model):
         if user.is_superuser:
             return True
         if self.groups.exists():
-            if user.is_authenticated():
+            if user.is_authenticated:
                 if not self.groups.filter(user__pk=user.id).exists():
                     return False
             else:

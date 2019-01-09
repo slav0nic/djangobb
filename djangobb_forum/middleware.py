@@ -10,13 +10,13 @@ from djangobb_forum import settings as forum_settings
 
 class LastLoginMiddleware(object):
     def process_request(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             cache.set('djangobb_user%d' % request.user.id, True, forum_settings.USER_ONLINE_TIMEOUT)
 
 
 class ForumMiddleware(object):
     def process_request(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             profile = request.user.forum_profile
             language = translation.get_language_from_request(request)
 
@@ -37,7 +37,7 @@ class UsersOnline(object):
         users_online = cache.get('djangobb_users_online', {})
         guests_online = cache.get('djangobb_guests_online', {})
 
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             users_online[request.user.id] = now
         else:
             guest_sid = request.COOKIES.get(global_settings.SESSION_COOKIE_NAME, '')
@@ -57,7 +57,7 @@ class UsersOnline(object):
 
 class TimezoneMiddleware(object):
     def process_request(self, request):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             profile = request.user.forum_profile
             try:
                 timezone.activate(profile.time_zone)

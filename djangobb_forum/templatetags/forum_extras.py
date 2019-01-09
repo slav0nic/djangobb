@@ -81,7 +81,7 @@ def has_unreads(topic, user):
     """
     Check if topic has messages which user didn't read.
     """
-    if not user.is_authenticated() or\
+    if not user.is_authenticated or\
         (user.posttracking.last_read is not None and\
          user.posttracking.last_read > topic.updated):
             return False
@@ -98,7 +98,7 @@ def forum_unreads(forum, user):
     """
     Check if forum has topic which user didn't read.
     """
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         return False
     else:
         if isinstance(user.posttracking.topics, dict):
@@ -229,7 +229,7 @@ def gravatar(context, email):
 def set_theme_style(user):
     theme_style = ''
     selected_theme = ''
-    if user.is_authenticated():
+    if user.is_authenticated:
         selected_theme = user.forum_profile.theme
         theme_style = '<link rel="stylesheet" type="text/css" href="%(static_url)sdjangobb_forum/themes/%(theme)s/style.css" />'
     else:
