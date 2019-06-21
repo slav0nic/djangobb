@@ -5,7 +5,7 @@ from django.test import TestCase, RequestFactory
 from django.conf import settings
 
 from djangobb_forum.models import Post
-from djangobb_forum.util import urlize, smiles, add_rel_nofollow, convert_text_to_html, get_page
+from djangobb_forum.util import urlize, smiles, add_rel_nofollow, convert_text_to_html, paginate
 
 
 class TestParsers(TestCase):
@@ -40,16 +40,14 @@ class TestPaginators(TestCase):
         self.posts = Post.objects.all()[:5]
         self.factory = RequestFactory()
 
-    def test_get_page(self):
+    def test_paginate(self):
         request = self.factory.get('/?page=2')
-        page = get_page(self.posts, request, 3)
-        self.assertEqual(page.number, 2)
-        self.assertEqual(page.paginator.num_pages, 2)
+        pages, paginator, _ = paginate(self.posts, request, 3)
+        self.assertEqual(pages, 2)
 
         request = self.factory.get('/?page=1')
-        page = get_page(self.posts, request, 3)
-        self.assertEqual(page.number, 1)
-        self.assertEqual(page.paginator.num_pages, 2)
+        _, _, paged_list_name = paginate(self.posts, request, 3)
+        self.assertEqual(paged_list_name.count(), 3)
 
 
 class TestVersion(TestCase):

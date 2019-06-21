@@ -1,0 +1,4 @@
+{% load i18n %}
+{% for page in pages %}
+	<a href="?{{ get_params }}page={{ page }}">{{ page }}</a> 
+{% endfor %}
