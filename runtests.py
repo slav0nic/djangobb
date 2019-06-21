@@ -28,7 +28,7 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
             'django.contrib.humanize',
 
             'haystack',
-            'pagination',
+            'dj_pagination',
 
             'djangobb_forum',
         ),
@@ -39,7 +39,7 @@ if not settings.configured and not os.environ.get('DJANGO_SETTINGS_MODULE'):
                 'django.contrib.auth.middleware.AuthenticationMiddleware',
                 'django.contrib.messages.middleware.MessageMiddleware',
                 'django.middleware.locale.LocaleMiddleware',
-                'pagination.middleware.PaginationMiddleware',
+                'dj_pagination.middleware.PaginationMiddleware',
 
                 'djangobb_forum.middleware.LastLoginMiddleware',
                 'djangobb_forum.middleware.UsersOnline',
