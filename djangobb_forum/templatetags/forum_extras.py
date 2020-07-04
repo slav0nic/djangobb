@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import hashlib
+from six.moves.urllib.parse import urlencode
 
 from django import template
 from django.core.cache import cache
@@ -11,7 +12,6 @@ from django.conf import settings
 from django.utils.html import escape
 from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
-from django.utils.six.moves.urllib.parse import urlencode
 try:
     from django.core.urlresolvers import reverse
 except ImportError:

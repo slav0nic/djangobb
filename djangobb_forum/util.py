@@ -1,7 +1,7 @@
 # coding: utf-8
 
 import re
-from django.utils.six.moves import html_parser
+from six.moves import html_parser
 HTMLParser = html_parser.HTMLParser
 try:
     HTMLParseError = html_parser.HTMLParseError
