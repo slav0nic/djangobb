@@ -7,7 +7,7 @@ from six.moves.urllib.parse import urlencode
 from django import template
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.conf import settings
 from django.utils.html import escape
 from django.utils import timezone
@@ -61,7 +61,7 @@ def link(object, anchor=''):
     """
 
     url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
-    anchor = anchor or smart_text(object)
+    anchor = anchor or smart_str(object)
     return mark_safe('<a href="%s">%s</a>' % (url, escape(anchor)))
 
 
@@ -72,7 +72,7 @@ def lofi_link(object, anchor=''):
     """
 
     url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
-    anchor = anchor or smart_text(object)
+    anchor = anchor or smart_str(object)
     return mark_safe('<a href="%slofi/">%s</a>' % (url, escape(anchor)))
 
 

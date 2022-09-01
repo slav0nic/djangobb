@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from djangobb_forum.models import Category, Forum, Topic, Post, Profile, Reputation, \
     Report, Ban, Attachment, Poll, PollChoice, PostTracking
