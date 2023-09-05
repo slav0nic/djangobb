@@ -1,6 +1,6 @@
 Django>=1.8
 django-haystack>=2.4
 Pillow>=2.1.0
-postmarkup
+bbcode
 pygments
 pytz>=2015.4
