@@ -2,17 +2,20 @@
 from __future__ import unicode_literals
 
 import hashlib
+from six.moves.urllib.parse import urlencode
 
 from django import template
-from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.conf import settings
 from django.utils.html import escape
 from django.utils import timezone
 from django.contrib.humanize.templatetags.humanize import naturalday
-from django.utils.six.moves.urllib.parse import urlencode
+try:
+    from django.core.urlresolvers import reverse
+except ImportError:
+    from django.urls import reverse
 
 from djangobb_forum.models import Report
 from djangobb_forum import settings as forum_settings
@@ -58,7 +61,7 @@ def link(object, anchor=''):
     """
 
     url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
-    anchor = anchor or smart_text(object)
+    anchor = anchor or smart_str(object)
     return mark_safe('<a href="%s">%s</a>' % (url, escape(anchor)))
 
 
@@ -69,7 +72,7 @@ def lofi_link(object, anchor=''):
     """
 
     url = hasattr(object, 'get_absolute_url') and object.get_absolute_url() or None
-    anchor = anchor or smart_text(object)
+    anchor = anchor or smart_str(object)
     return mark_safe('<a href="%slofi/">%s</a>' % (url, escape(anchor)))
 
 
@@ -78,7 +81,7 @@ def has_unreads(topic, user):
     """
     Check if topic has messages which user didn't read.
     """
-    if not user.is_authenticated() or\
+    if not user.is_authenticated or\
         (user.posttracking.last_read is not None and\
          user.posttracking.last_read > topic.updated):
             return False
@@ -95,7 +98,7 @@ def forum_unreads(forum, user):
     """
     Check if forum has topic which user didn't read.
     """
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         return False
     else:
         if isinstance(user.posttracking.topics, dict):
@@ -226,7 +229,7 @@ def gravatar(context, email):
 def set_theme_style(user):
     theme_style = ''
     selected_theme = ''
-    if user.is_authenticated():
+    if user.is_authenticated:
         selected_theme = user.forum_profile.theme
         theme_style = '<link rel="stylesheet" type="text/css" href="%(static_url)sdjangobb_forum/themes/%(theme)s/style.css" />'
     else:

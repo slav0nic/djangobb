@@ -2,6 +2,7 @@ from io import BytesIO
 import random
 from hashlib import sha1
 import json
+import six
 
 from django.db.models import OneToOneField
 try:
@@ -13,8 +14,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.serializers.json import DjangoJSONEncoder
 from django.conf import settings
 from django.forms.utils import ValidationError
-from django.utils import six
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 class AutoReverseOneToOneDescriptor(ReverseOneToOneDescriptor):

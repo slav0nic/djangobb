@@ -1,7 +1,7 @@
 # coding: utf-8
 
 import re
-from django.utils.six.moves import html_parser
+from six.moves import html_parser
 HTMLParser = html_parser.HTMLParser
 try:
     HTMLParseError = html_parser.HTMLParseError
@@ -10,7 +10,6 @@ except AttributeError:
     class HTMLParseError(Exception):
         pass
 
-from postmarkup import render_bbcode
 from json import JSONEncoder
 try:
     import markdown
@@ -217,8 +216,9 @@ def set_language(request, language):
 
 
 def convert_text_to_html(text, markup):
+    import bbcode
     if markup == 'bbcode':
-        text = render_bbcode(text)
+        text = bbcode.render_html(text)
     elif markup == 'markdown':
         text = markdown.markdown(text, safe_mode='escape')
     else:
